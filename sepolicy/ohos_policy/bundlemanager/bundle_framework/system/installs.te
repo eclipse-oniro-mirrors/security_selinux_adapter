@@ -22,6 +22,7 @@ allow installs data_service_el1_file:dir { remove_name search rmdir };
 allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write ioctl map };
 allow installs data_service_el2_file:dir { add_name create open read search setattr write getattr rmdir remove_name };
 allow installs data_service_el2_hmdfs:dir { getattr rmdir remove_name };
+allow installs data_service_el2_hmdfs:file { unlink };
 allow installs data_service_file:dir { search };
 allow installs dev_unix_socket:dir { search };
 allow installs normal_hap_data_file_attr:dir { getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
