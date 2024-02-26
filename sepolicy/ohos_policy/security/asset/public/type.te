@@ -13,4 +13,4 @@
 
 type sa_asset_service, sa_service_attr;
 type asset_service, sadomain, domain;
-type data_service_el1_public_assetService_file, file_attr, data_file_attr, data_service_el1_file_relabelto;
+type data_service_el1_public_assetService_file, file_attr, data_file_attr;
