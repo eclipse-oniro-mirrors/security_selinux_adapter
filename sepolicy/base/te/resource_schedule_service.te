@@ -26,6 +26,7 @@ debug_only(`
     allow resource_schedule_service debug_param:file { map open read };
 ')
 allow resource_schedule_service default_param:file { map open read };
+allow resource_schedule_service dev_file:lnk_file { read };
 allow resource_schedule_service distributedsche_param:file { map open read };
 allow resource_schedule_service hilog_param:file { map open read };
 allow resource_schedule_service hw_sc_build_os_param:file { map open read };
@@ -46,7 +47,7 @@ allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get }
 allow resource_schedule_service sa_foundation_tel_state_registry:samgr_class { get };
 allow resource_schedule_service sa_foundation_wms:samgr_class { get };
 allow resource_schedule_service sa_param_watcher:samgr_class { get };
-allow resource_schedule_service sa_resource_schedule:samgr_class { add };
+allow resource_schedule_service sa_resource_schedule:samgr_class { add get };
 allow resource_schedule_service sa_resource_schedule_socperf_server:samgr_class { add get };
 allow resource_schedule_service sa_sys_event_service:samgr_class { get };
 allow resource_schedule_service security_param:file { map open read };
