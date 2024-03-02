@@ -55,3 +55,5 @@ allow memmgrservice tracefs_trace_marker_file:file { open write };
 allow memmgrservice media_service:binder { call };
 allow memmgrservice render_service:binder { call };
 allow memmgrservice sh:binder { call };
+allow memmgrservice sa_resource_schedule:samgr_class { get };
+allow memmgrservice resource_schedule_service:binder { call };
