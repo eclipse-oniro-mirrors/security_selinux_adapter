@@ -23,6 +23,7 @@ allow foundation sa_foundation_tel_call_manager:samgr_class { add get };
 allow foundation sa_foundation_tel_state_registry:samgr_class { add get };
 allow foundation sa_pulseaudio_audio_service:samgr_class get;
 allow foundation sa_telephony_tel_cellular_call:samgr_class get;
+allow foundation sa_telephony_tel_cellular_data:samgr_class get;
 allow foundation sa_telephony_tel_core_service:samgr_class get;
 allow foundation sa_telephony_tel_sms_mms:samgr_class get;
 allow foundation telephony_sa:dir search;
