@@ -1,0 +1,36 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow asset_service sa_asset_service:samgr_class { get add };
+
+allow asset_service data_service_el1_public_assetService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow asset_service data_service_el1_public_assetService_file:file { create getattr open read setattr unlink write lock ioctl };
+allowxperm asset_service data_service_el1_public_assetService_file:file ioctl { 0xf501 0xf502 0xf50c };
+
+allow asset_service data_service_el1_file:dir { search };
+allow asset_service data_service_file:dir { search };
+allow asset_service data_file:dir { search };
+allow asset_service dev_unix_socket:dir { search };
+allow asset_service tracefs:dir { search };
+allow asset_service hilog_param:file { read map open };
+allow asset_service debug_param:file { read map open };
+
+allow asset_service huks_service:binder { call };
+allow asset_service sa_huks_service:samgr_class { get };
+
+allow asset_service accesstoken_service:binder { call };
+allow asset_service sa_accesstoken_manager_service:samgr_class { get };
+
+allow asset_service foundation:binder { call transfer };
+allow asset_service sa_foundation_cesfwk_service:samgr_class { get };
+allow asset_service sa_foundation_bms:samgr_class { get };
