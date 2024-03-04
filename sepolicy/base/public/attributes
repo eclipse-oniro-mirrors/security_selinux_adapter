@@ -256,3 +256,6 @@ attribute hdf_service_violators;
 attribute binder_call_hdfdomain_violators;
 
 attribute hiview_host;
+debug_only(`
+    attribute process_dyntransition_su_violators;
+')
