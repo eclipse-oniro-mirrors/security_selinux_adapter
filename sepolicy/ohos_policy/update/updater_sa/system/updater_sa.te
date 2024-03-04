@@ -68,4 +68,3 @@ allow updater_sa sa_time_service:samgr_class { get };
 #avc: denied  { call } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:time_service:s0 tclass=binder permissive=0
 #avc: denied  { transfer } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:time_service:s0 tclass=binder permissive=0
 allow updater_sa time_service:binder { call transfer };
-

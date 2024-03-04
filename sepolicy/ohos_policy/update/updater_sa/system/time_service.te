@@ -13,4 +13,3 @@
 
 #avc:  denied  { call } for  pid=472 comm="timer_loop" scontext=u:r:time_service:s0 tcontext=u:r:updater_sa:s0 tclass=binder permissive=0
 allow time_service updater_sa:binder { call };
-
