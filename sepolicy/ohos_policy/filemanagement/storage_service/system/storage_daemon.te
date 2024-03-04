@@ -321,3 +321,5 @@ allow storage_daemon foundation:binder { call transfer };
 allow storage_daemon foundation:fd { use };
 allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
+allow storage_daemon data_app_el2_file:file { unlink };
+allow storage_daemon data_chipset_el2_file:file { unlink };
