@@ -63,3 +63,9 @@ allow updater_sa dev_block_file:dir { search };
 # avc:  denied  { open } for  pid=485 comm="updater_sa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:updater_sa:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=1578 comm="updater_sa" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:updater_sa:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
 allow updater_sa arkcompiler_param:file { map open read };
+#avc:  denied  { get } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=0
+allow updater_sa sa_time_service:samgr_class { get };
+#avc: denied  { call } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:time_service:s0 tclass=binder permissive=0
+#avc: denied  { transfer } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:time_service:s0 tclass=binder permissive=0
+allow updater_sa time_service:binder { call transfer };
+
