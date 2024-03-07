@@ -104,3 +104,6 @@ allow softbus_server hiview:binder { transfer };
 
 #avc:  denied  { use } for  pid=516 comm="IPC_5_2079" path="/dev/ashmem" dev="tmpfs" ino=677 scontext=u:r:softbus_server:s0 tcontext=u:r:hiview:s0 tclass=fd permissive=0
 allow softbus_server hiview:fd { use };
+
+#avc:  denied  { transfer } for pid=1421 comm="SaInit0" scontext=u:r:softbus_server:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
+allow softbus_server distributeddata:binder { transfer };
