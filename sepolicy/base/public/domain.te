@@ -185,7 +185,7 @@ neverallow limit_domain *:file *;
 neverallow domain limit_domain:binder *;
 
 # every file should have a label. The unlabeled file shouldn't be accessed.
-neverallow { domain -init -kernel updater_only(`-updater') } unlabeled:dir_file_class_set *;
+neverallow { domain -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators } unlabeled:dir_file_class_set *;
 
 # keep selinuxfs safe.
 neverallow * kernel:security { load_policy setenforce setbool };
