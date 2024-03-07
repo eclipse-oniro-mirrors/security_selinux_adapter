@@ -255,12 +255,3 @@ allowxperm sh sh:rawip_socket ioctl { 0x8933 };
 allowxperm sh sh:udp_socket ioctl { 0x8913 };
 allowxperm sh sh:unix_dgram_socket ioctl { 0x8933 };
 allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 };
-debug_only(`
-    allow sh kernel:system { module_request };
-    allow sh dev_rfkill:chr_file { open read };
-    allow sh kernel:unix_stream_socket { connectto };
-    allow sh dev_file:dir { getattr };
-    allow sh kernel:process { getattr };
-    allow sh memmgrservice:binder { call transfer };
-    allow sh sa_memory_manager_service:samgr_class { get };
-')
