@@ -82,6 +82,8 @@ allow domain { fs_attr -unlabeled }:dir getattr;
 
 allow domain etc_file:lnk_file { read };
 
+allow { domain -hap_domain -sh } kernel:fd use;
+
 allow { domain -hap_domain } kernel:fd use;
 
 allow domain init:unix_dgram_socket { sendto };
