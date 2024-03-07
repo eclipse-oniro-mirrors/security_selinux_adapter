@@ -156,8 +156,10 @@ allow sh media_service:file { open read };
 allow sh mmi_uinput_service:dir { getattr search };
 allow sh mmi_uinput_service:file { open read };
 allow sh mmi_uinput_service:process { getattr };
-allow sh msdp_sa:dir { getattr search };
-allow sh msdp_sa:file { open read };
+debug_only(`
+    allow sh msdp_sa:dir { getattr search };
+    allow sh msdp_sa:file { open read };
+')
 allow sh native_socket:sock_file { write };
 allow sh netmanager:dir { getattr search };
 allow sh netmanager:file { open read };
