@@ -30,20 +30,15 @@ if (special_build_selinux_gni_exist) {
 }
 
 config("selinux_core_config") {
-  include_dirs = [
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-  ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
 }
 
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
   sources = [ "interfaces/policycoreutils/src/load_policy.cpp" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [
-    ":libselinux_klog_static",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
-  ]
+  deps = [ ":libselinux_klog_static" ]
+  external_deps = [ "selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -67,11 +62,11 @@ ohos_shared_library("librestorecon") {
   output_name = "librestorecon"
   sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
-  deps = [
-    ":libselinux_hilog_static",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
+  deps = [ ":libselinux_hilog_static" ]
+  external_deps = [
+    "hilog:libhilog",
+    "selinux:libselinux",
   ]
-  external_deps = [ "hilog:libhilog" ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -100,9 +95,10 @@ ohos_shared_library("libhap_restorecon") {
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
   external_deps = [ "hilog:libhilog" ]
+
+  public_external_deps = [ "selinux:libselinux" ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -177,7 +173,7 @@ if (!startup_init_with_param_base) {
   ]
 }
 
-source_set("libselinux_parameter_static") {
+static_library("libselinux_parameter_static") {
   output_name = "libselinux_parameter_static"
   sources = [
     "interfaces/policycoreutils/src/contexts_trie.c",
@@ -185,6 +181,7 @@ source_set("libselinux_parameter_static") {
     "interfaces/policycoreutils/src/selinux_parameter.c",
     "interfaces/policycoreutils/src/selinux_share_mem.c",
   ]
+  public_configs = [ ":selinux_core_config" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -205,11 +202,10 @@ ohos_shared_library("libparaperm_checker") {
   deps = [
     ":libselinux_klog_static",
     "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
-  if (startup_init_with_param_base) {
-    deps += [ ":libselinux_parameter_static" ]
-  }
+
+  deps += [ ":libselinux_parameter_static" ]
+  external_deps = [ "selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -231,9 +227,11 @@ ohos_shared_library("libservice_checker") {
     ":libselinux_error_static",
     ":libselinux_hilog_static",
     "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
-  external_deps = [ "hilog:libhilog" ]
+  external_deps = [
+    "hilog:libhilog",
+    "selinux:libselinux",
+  ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -267,9 +265,10 @@ ohos_executable("restorecon") {
   install_enable = true
   sources = [ "interfaces/tools/restorecon/restorecon.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [
-    ":librestorecon",
-    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
+  deps = [ ":librestorecon" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "selinux:libselinux",
   ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -298,6 +297,7 @@ ohos_executable("hap_restorecon") {
     "-Wall",
     "-Werror",
   ]
+  external_deps = [ "selinux:libselinux" ]
   license_file = "LICENSE"
   part_name = "selinux_adapter"
   subsystem_name = "security"
