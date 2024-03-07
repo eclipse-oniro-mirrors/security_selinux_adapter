@@ -485,6 +485,8 @@ allow init appspawn:file { read open write };
 allow init render_service:file { read open write };
 allow init foundation:file { read open write };
 allow init sysfs_hungtask_userlist:file { read open write };
+allow init data_service_el1_public_huksService_file:file { getattr };
+allow init share_public_file:dir { getattr };
 
 # for chip ckm
 # avc:  denied  { getattr } for  pid=1 comm="init" path="/chip_ckm" dev="mmcblk0p7" ino=13 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0

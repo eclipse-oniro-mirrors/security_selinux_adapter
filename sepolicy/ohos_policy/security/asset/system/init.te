@@ -13,3 +13,5 @@
 
 allow init data_service_el1_public_asset_service_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init asset_service:process { rlimitinh siginh transition };
+
+init_relabel(data_service_el1_public_asset_service_file);
