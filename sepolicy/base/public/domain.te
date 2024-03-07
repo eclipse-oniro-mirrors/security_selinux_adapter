@@ -287,7 +287,7 @@ neverallow { domain -processdump -hap_domain developer_only(`-lldb_server') } do
 # means that only init can have the caps of chown.
 # TODO:debug/release
 neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown updater_only(`-updater') -distributedfiledaemon } self:{ capability cap_userns } chown;
-neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice -ark_aot_compiler
+neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice -ark_aot_compiler -resource_schedule_service
              -installs updater_only(`debug_only(`-updater')')
              -storage_daemon -usb_host -cap_violator_dacoverride } self:{ capability cap_userns } dac_override;
 neverallow { domain -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd') -distributedfiledaemon } self:{ capability cap_userns } dac_read_search;
