@@ -18,6 +18,7 @@ allow init dlp_permission_service:process { rlimitinh siginh transition };
 
 # avc:  denied  { relabelto } for  pid=1 comm="init" name="dlp_permission_service" dev="sdd78" ino=3362 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=dir permissive=0
 allow init dlp_permission_data_file:dir { relabelto };
+allow init dlp_permission_data_file:file { getattr };
 
 # avc:  denied  { relabelto } for  pid=1 comm="init" name="retention_sandbox_info.json" dev="sdd78" ino=6121 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=file permissive=0
 allow init dlp_permission_data_file:file { relabelto };
