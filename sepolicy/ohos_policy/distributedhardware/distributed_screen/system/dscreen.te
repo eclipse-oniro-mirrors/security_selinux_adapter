@@ -232,3 +232,18 @@ allow dscreen sa_foundation_bms:samgr_class { get };
 allow dscreen sa_accesstoken_manager_service:samgr_class { get };
 
 allow dscreen accesstoken_service:binder { call };
+
+allow dscreen arkcompiler_param:file { map open read };
+allow dscreen av_codec_service:binder { call transfer };
+allow dscreen av_codec_service:fd { use };
+allow dscreen chip_prod_file:dir { search };
+allow dscreen codec_host:fd { use };
+allow dscreen dev_dri_file:chr_file { open read write };
+allowxperm dscreen dev_dri_file:chr_file ioctl { 0x641f };
+allow dscreen dev_dri_file:dir { search };
+allow dscreen dev_kmsg_file:chr_file { write };
+allow dscreen dev_kmsg_file:file { read };
+allow dscreen sa_av_codec_service:samgr_class { get };
+allow dscreen sys_prod_file:dir { search };
+allow dscreen sysfs_devices_system_cpu:file { read getattr };
+allow dscreen tty_device:chr_file { read write };
