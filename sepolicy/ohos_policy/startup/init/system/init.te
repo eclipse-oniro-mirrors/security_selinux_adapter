@@ -508,3 +508,7 @@ init_relabel(av_session_data_file);
 init_relabel(cert_manager_service_file);
 init_relabel(dlp_permission_data_file);
 
+allow ark_writeable_param tmpfs:filesystem associate;
+allow init ark_writeable_param:file { map open read relabelto relabelfrom };
+allow init ark_writeable_param:parameter_service { set };
+

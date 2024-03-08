@@ -15,6 +15,7 @@
 # avc:  denied  { open } for  pid=246 comm="appspawn" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:appspawn:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=246 comm="appspawn" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:appspawn:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
 allow appspawn arkcompiler_param:file { map open read };
+allow appspawn ark_writeable_param:file { map open read };
 
 # avc:  denied  { map } for  pid=246 comm="appspawn" path="/dev/__parameters__/u:object_r:arkui_param:s0" dev="tmpfs" ino=83 scontext=u:r:appspawn:s0 tcontext=u:object_r:arkui_param:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=246 comm="appspawn" path="/dev/__parameters__/u:object_r:arkui_param:s0" dev="tmpfs" ino=83 scontext=u:r:appspawn:s0 tcontext=u:object_r:arkui_param:s0 tclass=file permissive=1

@@ -139,6 +139,8 @@ allow daudio persist_sys_param:file { read open map };
 
 allow daudio arkcompiler_param:file { read open map };
 
+allow daudio ark_writeable_param:file { read open map };
+
 allow daudio system_lib_file:dir { read open };
 
 allow daudio persist_param:file { read open map };

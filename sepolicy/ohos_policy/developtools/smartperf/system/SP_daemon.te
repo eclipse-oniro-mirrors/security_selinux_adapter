@@ -78,6 +78,7 @@ allow SP_daemon bootevent_wms_param:file { map open read };
 allow SP_daemon ffrt_param:file {  map open read };
 allow SP_daemon print_param:file { map open read };
 allow SP_daemon arkcompiler_param:file { map open read };
+allow SP_daemon ark_writeable_param:file { map open read };
 allow SP_daemon arkui_param:file { map open read };
 allow SP_daemon hiviewdfx_profiler_param:file { map open read };
 allow SP_daemon bms_param:file { map read open};
