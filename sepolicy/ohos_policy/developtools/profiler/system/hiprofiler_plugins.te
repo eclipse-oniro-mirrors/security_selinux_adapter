@@ -287,6 +287,7 @@ allow samgr hiprofiler_plugins:file { read open };
 allow samgr hiprofiler_plugins:process { getattr };
 allow samgr hiprofiler_plugins:binder { call transfer };
 allow hiprofiler_plugins arkcompiler_param:file { read open map };
+allow hiprofiler_plugins ark_writeable_param:file { read open map };
 allow hiprofiler_plugins accountmgr:binder { call };
 allow hiprofiler_plugins foundation:binder { call };
 allow accountmgr hiprofiler_plugins:binder { transfer };

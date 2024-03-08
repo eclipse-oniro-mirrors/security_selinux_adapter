@@ -110,6 +110,7 @@ developer_only(`
     allow snapshot_display tty_device:chr_file { read write };
     # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
     allow snapshot_display arkcompiler_param:file { map read open read };
+    allow snapshot_display ark_writeable_param:file { map read open read };
     # avc:  denied  { write search } for  pid=1475 comm="snapshot_displa" name="tmp" dev="mmcblk0p15" ino=115 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
     allow snapshot_display data_local_tmp:dir { add_name search search write search };
     # avc:  denied  { write open } for  pid=1475 comm="snapshot_displa" path="/data/local/tmp/snapshot_2017-08-05_17-07-00.jpeg" dev="mmcblk0p15" ino=1924 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1

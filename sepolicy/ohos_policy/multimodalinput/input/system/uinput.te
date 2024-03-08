@@ -27,6 +27,7 @@ allow uinput multimodalinput:binder { call };
 # avc:  denied  { open } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
 # avc:  denied  { read } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
 allow uinput arkcompiler_param:file { map open read };
+allow uinput ark_writeable_param:file { map open read };
 
 # avc:  denied  { map } scontext=u:r:uinput:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc:  denied  { open } scontext=u:r:uinput:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
