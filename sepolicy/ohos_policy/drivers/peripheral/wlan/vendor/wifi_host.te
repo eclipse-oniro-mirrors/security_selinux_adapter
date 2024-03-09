@@ -43,7 +43,7 @@ allow wifi_host ohos_param:file { map read read open };
 allow wifi_host persist_param:file { map open read };
 allow wifi_host persist_sys_param:file { map open read };
 allow wifi_host sa_device_service_manager:samgr_class { get };
-allow wifi_host samgr:binder { call };
+allow wifi_host samgr:binder { call transfer };
 allow wifi_host security_param:file { map open read };
 allow wifi_host startup_param:file { map open read };
 allow wifi_host sys_param:file { map open read };
