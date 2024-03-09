@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type camera_hap, system_core_hap_attr, hap_domain, domain;
+type camera_hap, system_core_hap_attr, domain;
 
 type camera_hap_data_file, normal_hap_data_file_attr, system_basic_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 
