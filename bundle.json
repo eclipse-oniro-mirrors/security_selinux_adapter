@@ -21,7 +21,8 @@
       "components": [
         "hilog",
         "bounds_checking_function",
-        "selinux"
+        "selinux",
+        "pcre2"
       ],
       "third_party": [
         "pcre2",

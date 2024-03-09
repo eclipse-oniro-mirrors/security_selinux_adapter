@@ -12,9 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//base/startup/init/begetd.gni")
 import("//build/ohos.gni")
 import("selinux.gni")
+
+startup_init_with_param_base = false
+if (!use_musl) {
+  startup_init_with_param_base = true
+}
 
 special_build_selinux_gni_exist =
     special_build_selinux_gni_path != "" &&
@@ -127,7 +131,7 @@ ohos_static_library("libselinux_klog_static") {
   output_name = "libselinux_klog_static"
   sources = [ "interfaces/policycoreutils/src/selinux_klog.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
+  external_deps = [ "bounds_checking_function:libsec_shared" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -141,8 +145,10 @@ ohos_static_library("libselinux_hilog_static") {
   output_name = "libselinux_hilog_static"
   sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
-  external_deps = [ "hilog:libhilog" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "hilog:libhilog",
+  ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -199,13 +205,13 @@ ohos_shared_library("libparaperm_checker") {
   output_name = "libparaperm_checker"
   sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
   public_configs = [ ":selinux_core_config" ]
-  deps = [
-    ":libselinux_klog_static",
-    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
-  ]
+  deps = [ ":libselinux_klog_static" ]
 
   deps += [ ":libselinux_parameter_static" ]
-  external_deps = [ "selinux:libselinux" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "selinux:libselinux",
+  ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -226,9 +232,9 @@ ohos_shared_library("libservice_checker") {
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
-    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
   ]
   external_deps = [
+    "bounds_checking_function:libsec_shared",
     "hilog:libhilog",
     "selinux:libselinux",
   ]
@@ -311,8 +317,10 @@ ohos_executable("param_check") {
     ":libparaperm_checker",
     ":libselinux_error_static",
     ":libselinux_parameter_static",
-    "$THIRD_PARTY_DIR/pcre2:libpcre2",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
+  ]
+  external_deps = [
+    "pcre2:libpcre2",
+    "selinux:libselinux",
   ]
   if (startup_init_with_param_base) {
     deps += [ ":libselinux_parameter_static" ]
