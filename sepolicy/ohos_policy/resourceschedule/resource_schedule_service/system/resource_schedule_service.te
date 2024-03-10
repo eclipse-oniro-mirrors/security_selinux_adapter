@@ -139,7 +139,6 @@ allow system_core_hap_attr sa_device_standby:samgr_class { get };
 allow resource_schedule_service multimodalinput:binder { call };
 allow resource_schedule_service multimodalinput:fd { use };
 allow resource_schedule_service multimodalinput:unix_stream_socket { write };
-allow resource_schedule_service memmgrservice:binder { call };
 debug_only(`
     allow resource_schedule_service sh:dir { search };
     allow resource_schedule_service sh:file { open };
