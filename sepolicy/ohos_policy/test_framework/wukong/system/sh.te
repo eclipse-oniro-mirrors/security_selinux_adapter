@@ -67,8 +67,10 @@ allow sh distributedfiledaemon:file { open read };
 allow sh distributedsche:dir { getattr search };
 allow sh distributedsche:file { open read };
 allow sh distributedsche_param:file { map open read };
-allow sh download_server:dir { getattr search };
-allow sh download_server:file { open read };
+debug_only(`
+    allow sh download_server:dir { getattr search };
+    allow sh download_server:file { open read };
+')
 allow sh dslm_service:dir { getattr search };
 allow sh dslm_service:file { open read };
 allow sh edm_sa:dir { getattr search };
@@ -96,8 +98,10 @@ allow sh huks_service:file { open read };
 allow sh init:dir { getattr search };
 allow sh init:file { open read };
 allow sh init:unix_stream_socket { connectto };
-allow sh inputmethod_service:dir { getattr search };
-allow sh inputmethod_service:file { open read };
+debug_only(`
+    allow sh inputmethod_service:dir { getattr search };
+    allow sh inputmethod_service:file { open read };
+')
 allow sh installs:dir { getattr search };
 allow sh installs:file { open read };
 allow sh kernel:dir { getattr search };
@@ -146,8 +150,10 @@ allow sh sa_multimodalinput_service:samgr_class { get };
 allow sh sa_sys_event_service:samgr_class { get };
 allow sh samgr:dir { getattr search };
 allow sh samgr:file { open read open read };
-allow sh screenlock_server:dir { getattr search };
-allow sh screenlock_server:file { open read };
+debug_only(`
+    allow sh screenlock_server:dir { getattr search };
+    allow sh screenlock_server:file { open read };
+')
 allow sh security:security { setenforce };
 allow sh selinuxfs:dir { search };
 allow sh selinuxfs:file { open read write read };
@@ -170,8 +176,10 @@ allow sh system_usr_file:dir { search };
 allow sh system_usr_file:file { getattr map open read };
 allow sh telephony_sa:dir { getattr search };
 allow sh telephony_sa:file { open read };
-allow sh time_service:dir { getattr search };
-allow sh time_service:file { open read };
+debug_only(`
+    allow sh time_service:dir { getattr search };
+    allow sh time_service:file { open read };
+')
 allow sh udevd:dir { getattr search };
 allow sh udevd:file { open read };
 allow sh ueventd:dir { search };
@@ -190,8 +198,10 @@ allow sh useriam:dir { getattr search };
 allow sh useriam:file { open read };
 allow sh vibrator_host:dir { getattr search };
 allow sh vibrator_host:file { open read };
-allow sh wallpaper_service:dir { getattr search };
-allow sh wallpaper_service:file { open read };
+debug_only(`
+    allow sh wallpaper_service:dir { getattr search };
+    allow sh wallpaper_service:file { open read };
+')
 allow sh watchdog_service:dir { getattr search };
 allow sh watchdog_service:file { open read };
 allow sh wifi_hal_service:dir { getattr search };

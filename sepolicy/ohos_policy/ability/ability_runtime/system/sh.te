@@ -29,7 +29,9 @@ debug_only(`
     allow sh dev_unix_socket:sock_file { write };
     allow sh deviceauth_service:dir { getattr search };
     allow sh deviceauth_service:file { read };
-    allow sh download_server:file { read };
+    debug_only(`
+        allow sh download_server:file { read };
+    ')
     allow sh print_service:file { read };
     allow sh edm_sa:dir { getattr search };
     allow sh edm_sa:file { open read };
@@ -84,8 +86,12 @@ debug_only(`
     allow sh storage_manager:file { open read };
     allow sh system_file:dir { remove_name write };
     allow sh system_file:file { unlink };
-    allow sh time_service:dir { getattr search };
-    allow sh time_service:file { read };
+    debug_only(`
+        allow sh time_service:dir { getattr search };
+        allow sh time_service:file { read };
+        allow sh time_service:binder { call };
+        allow sh time_service:binder { transfer };
+    ')
     allow sh tmpfs:dir { add_name create open read write };
     allow sh tmpfs:file { create create getattr open write };
     allow sh udevd:dir { getattr search };
@@ -93,13 +99,13 @@ debug_only(`
     allow sh ueventd:file { read };
     allow sh user_auth_host:file { read };
     allow sh vibrator_host:file { read };
-    allow sh wallpaper_service:file { read };
+    debug_only(`
+        allow sh wallpaper_service:file { read };
+    ')
     allow sh watchdog_service:dir { getattr search };
     allow sh watchdog_service:file { open read };
     allow sh sa_quick_fix_mgr_service:samgr_class { get };
     allow sh quick_fix:dir { getattr search };
     allow sh quick_fix:file { open read};
     allow sh quick_fix:binder { call };
-    allow sh time_service:binder { call };
-    allow sh time_service:binder { transfer };
 ')
