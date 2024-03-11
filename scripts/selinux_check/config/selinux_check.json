@@ -19,6 +19,16 @@
             "script": "base/security/selinux_adapter/scripts/selinux_check/check_baseline.py",
             "args": "--cil_file",
             "extra_args": "--config config/baseline.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_ioctl_xperm.py",
+            "args": "--cil_file",
+            "extra_args": ""
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_permissive.py",
+            "args": "--cil_file",
+            "extra_args": ""
         }
     ]
 }
