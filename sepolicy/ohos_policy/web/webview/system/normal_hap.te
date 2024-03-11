@@ -203,9 +203,6 @@ allow normal_hap_attr sysfs_devices_system_cpu:file { read open };
 #avc:  denied  { mounton } for  pid=4914 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/config" dev="configfs" ino=14342 scontext=u:r:normal_hap:s0 tcontext=u:object_r:configfs:s0 tclass=dir permissive=1
 allow normal_hap_attr configfs:dir { mounton };
 
-#avc:  denied  { mounton } for  pid=4914 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/dev" dev="tmpfs" ino=1 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
-allow normal_hap_attr dev_file:dir { mounton };
-
 #avc:  denied  { search } for  pid=8454 comm="com.example.web" name="dri" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=dir permissive=1
 allow normal_hap_attr dev_dri_file:dir { search };
 
