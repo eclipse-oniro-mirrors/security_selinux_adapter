@@ -124,4 +124,5 @@ allow SP_daemon hiprofiler_plugins:unix_stream_socket { read write };
 allow SP_daemon hiprofilerd:fd { use };
 allowxperm SP_daemon hiprofiler_plugins:fifo_file ioctl { 0x5413 };
 allow SP_daemon uinput_exec:file { execute execute_no_trans getattr open read };
+allow SP_daemon aa_exec:file { execute execute_no_trans getattr open read };
 ')
