@@ -293,3 +293,6 @@ allow audio_server intell_voice_service:binder { call transfer };
 
 allow audio_server sa_foundation_dms:samgr_class { get };
 
+#denied  { get } for service=200 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow audio_server sa_accountmgr:samgr_class { get };
+allow audio_server accountmgr:binder { call transfer };
