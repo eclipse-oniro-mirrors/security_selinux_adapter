@@ -110,8 +110,10 @@ debug_only(`
 ')
 allow sh distributedfiledaemon:dir { getattr search };
 allow sh distributedfiledaemon:file { open read };
-allow sh download_server:dir { getattr search };
-allow sh download_server:file { open read };
+debug_only(`
+    allow sh download_server:dir { getattr search };
+    allow sh download_server:file { open read };
+')
 allow sh dslm_service:dir { getattr search };
 allow sh dslm_service:file { open read };
 allow sh etc_file:lnk_file { getattr };
@@ -135,8 +137,10 @@ allow sh hw_sc_param:file { map open read };
 allow sh init_param:file { map open read };
 allow sh init:process { getattr };
 allow sh init_svc_param:file { map open read };
-allow sh inputmethod_service:dir { getattr search };
-allow sh inputmethod_service:file { open read };
+debug_only(`
+    allow sh inputmethod_service:dir { getattr search };
+    allow sh inputmethod_service:file { open read };
+')
 allow sh input_pointer_device_param:file { map open read };
 allow sh installs:dir { getattr search };
 allow sh installs:file { open read };
@@ -192,8 +196,10 @@ allow sh rootfs:dir { open read };
 allow sh sa_foundation_bms:samgr_class { get };
 allow sh sa_foundation_dms:samgr_class { get };
 allow sh sa_param_watcher:samgr_class { get };
-allow sh screenlock_server:dir { getattr search };
-allow sh screenlock_server:file { open read };
+debug_only(`
+    allow sh screenlock_server:dir { getattr search };
+    allow sh screenlock_server:file { open read };
+')
 allow sh security_param:file { map open read };
 dontaudit sh sh:capability { chown dac_override net_admin net_raw sys_admin sys_module sys_ptrace };
 allow sh sh:netlink_generic_socket { bind create getattr read setopt write };
@@ -226,8 +232,10 @@ allow sh system_etc_file:dir { add_name remove_name write };
 allow sh system_etc_file:file { create rename setattr unlink write };
 allow sh system_file:dir { getattr };
 allow sh sys_usb_param:file { map open read };
-allow sh time_service:dir { getattr search };
-allow sh time_service:file { open read };
+debug_only(`
+    allow sh time_service:dir { getattr search };
+    allow sh time_service:file { open read };
+')
 allow sh tracefs:dir { search };
 allow sh tracefs_trace_marker_file:file { open write };
 allow sh tty_device:chr_file { getattr ioctl open read write };
@@ -240,8 +248,10 @@ allow sh updater_file:dir { getattr };
 allow sh vendor_etc_file:dir { search };
 allow sh vendor_etc_file:file { open read };
 allow sh vendor_file:dir { getattr };
-allow sh wallpaper_service:dir { getattr search };
-allow sh wallpaper_service:file { open read };
+debug_only(`
+    allow sh wallpaper_service:dir { getattr search };
+    allow sh wallpaper_service:file { open read };
+')
 allow sh watchdog_service:dir { getattr search };
 allow sh watchdog_service:file { open };
 allow sh watchdog_service:process { getattr };
