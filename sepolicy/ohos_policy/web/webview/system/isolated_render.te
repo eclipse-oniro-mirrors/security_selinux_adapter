@@ -144,6 +144,9 @@ allow isolated_render isolated_render:jit_memory { exec_mem_ctrl };
 
 allow isolated_render sa_resource_schedule:samgr_class { get };
 
+# avc_audit_slow:260] avc: denied { ptrace } for pid=15, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+allow isolated_render isolated_render:process { ptrace };
+
 debug_only(`
     allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem_debug };
 ')
