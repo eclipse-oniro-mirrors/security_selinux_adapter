@@ -13,6 +13,6 @@
 
 type camera_hap, system_core_hap_attr, domain;
 
-type camera_hap_data_file, normal_hap_data_file_attr, system_basic_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+type camera_hap_data_file, system_core_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 
 allow camera_hap normal_hap_attr:file { open read write getattr };
