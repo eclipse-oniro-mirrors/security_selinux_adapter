@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Copyright (c) 2023 Huawei Device Co., Ltd.
+Copyright (c) 2024 Huawei Device Co., Ltd.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -88,7 +88,7 @@ def check(args, with_developer):
     policy_db = generate_database(args, with_developer)
     contexts_list = get_whitelist(args, with_developer)
     notallow = policy_db.allow_set - policy_db.allowx_set - set(contexts_list)
-    print('{} notallow xperm'.format("developer" if with_developer else "user"))
+    print('{} notallow xperm (scontext tcontext tclass) \n please add ioclt "allowxperm" to the above allow list '.format("developer" if with_developer else "user"))
     for diff in notallow:
             print('\t{}'.format(diff))
     return len(notallow) > 0
@@ -106,9 +106,10 @@ def parse_args():
 if __name__ == '__main__':
     input_args = parse_args()
     print("check xperm input_args: {}".format(input_args))
-    result = False
-    result |= check(input_args, False)
-    result |= check(input_args, True)
+    result = check(input_args, False)
+    if result:
+        raise Exception(-1)
+    result = check(input_args, True)
     if result:
         raise Exception(-1)
 

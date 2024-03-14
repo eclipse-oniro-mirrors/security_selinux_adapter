@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Copyright (c) 2023 Huawei Device Co., Ltd.
+Copyright (c) 2024 Huawei Device Co., Ltd.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -91,9 +91,10 @@ def parse_args():
 if __name__ == '__main__':
     input_args = parse_args()
     print("check permissive input_args: {}".format(input_args))
-    result = False
-    result |= check(input_args, False)
-    result |= check(input_args, True)
+    result = check(input_args, False)
+    if result:
+        raise Exception(-1)
+    result = check(input_args, True)
     if result:
         raise Exception(-1)
 
