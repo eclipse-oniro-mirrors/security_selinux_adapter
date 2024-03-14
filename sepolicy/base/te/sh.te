@@ -73,7 +73,9 @@ allow sh data_preloads:dir { getattr };
 allow sh data_resourcecache:dir { getattr };
 allow sh data_service_el1_file:dir { open read remove_name rmdir write };
 allow sh data_service_el1_file:file { read write };
-allow sh data_service_el1_public_deviceauthService_file:dir { getattr open read remove_name rmdir search write };
+debug_only(`
+    allow sh data_service_el1_public_deviceauthService_file:dir { getattr open read remove_name rmdir search write };
+')
 allow sh data_service_el1_public_huksService_file:dir { getattr open read remove_name rmdir search write };
 allow sh data_service_el1_public_huksService_file:file { getattr unlink };
 allow sh data_service_el2_public_huksService_file:dir { getattr open read remove_name rmdir search write };
@@ -99,8 +101,10 @@ allow sh dev_block_file:lnk_file { read };
 allow sh dev_block_volfile:dir { search };
 allow sh dev_console_file:chr_file { getattr };
 allow sh dev_file:sock_file { write };
-allow sh deviceauth_service:dir { getattr search };
-allow sh deviceauth_service:file { open read };
+debug_only(`
+    allow sh deviceauth_service:dir { getattr search };
+    allow sh deviceauth_service:file { open read };
+')
 allow sh devpts:chr_file { getattr ioctl read };
 allow sh dev_pts_file:dir { getattr };
 allow sh dev_usb_ffs:dir { search };
