@@ -1004,20 +1004,22 @@ if (support_developer_mode) {
   }
 }
 
-ohos_copy("libselinux_toolchain") {
-  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux($host_toolchain)" ]
-  sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
-  outputs = [ "$root_build_dir/clang_x64/security/selinux/libselinux.so" ]
-  part_name = "selinux_adapter"
-  subsystem_name = "security"
-}
+if (build_selinux) {
+  ohos_copy("libselinux_toolchain") {
+    deps = [ "$THIRD_PARTY_DIR/selinux:libselinux($host_toolchain)" ]
+    sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
+    outputs = [ "$root_build_dir/clang_x64/security/selinux/libselinux.so" ]
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+  }
 
-ohos_copy("libpcre2_toolchain") {
-  deps = [ "$THIRD_PARTY_DIR/pcre2:libpcre2($host_toolchain)" ]
-  sources = [ "$root_build_dir/clang_x64/thirdparty/pcre2/libpcre2.so" ]
-  outputs = [ "$root_build_dir/clang_x64/security/selinux/libpcre2.so" ]
-  part_name = "selinux_adapter"
-  subsystem_name = "security"
+  ohos_copy("libpcre2_toolchain") {
+    deps = [ "$THIRD_PARTY_DIR/pcre2:libpcre2($host_toolchain)" ]
+    sources = [ "$root_build_dir/clang_x64/thirdparty/pcre2/libpcre2.so" ]
+    outputs = [ "$root_build_dir/clang_x64/security/selinux/libpcre2.so" ]
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+  }
 }
 
 ohos_copy("filecontexts_toolchain") {
