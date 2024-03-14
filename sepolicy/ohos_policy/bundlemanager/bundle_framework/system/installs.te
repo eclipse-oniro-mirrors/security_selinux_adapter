@@ -59,12 +59,15 @@ allow appspawn data_local:dir { add_name create mounton search write read open g
 allow normal_hap_attr data_local:file { getattr open read map create write };
 allow normal_hap_attr data_local:dir { getattr search write add_name };
 allow normal_hap_attr arkcompiler_param:file { getattr open read map };
+allow normal_hap_attr ark_writeable_param:file { getattr open read map };
 allow system_basic_hap_attr data_local:file { getattr open read map create write };
 allow system_basic_hap_attr data_local:dir { getattr search write add_name };
 allow system_basic_hap_attr arkcompiler_param:file { getattr open read map };
+allow system_basic_hap_attr ark_writeable_param:file { getattr open read map };
 allow system_core_hap_attr data_local:file { getattr open read map create write };
 allow system_core_hap_attr data_local:dir { getattr search write add_name };
 allow system_core_hap_attr arkcompiler_param:file { getattr open read map };
+allow system_core_hap_attr ark_writeable_param:file { getattr open read map };
 allowxperm installs data_app_el1_file:file ioctl { 0x5413 };
 allowxperm installs data_service_el1_file:file ioctl 0x5413;
 allow installs sa_storage_manager_service:samgr_class { get };

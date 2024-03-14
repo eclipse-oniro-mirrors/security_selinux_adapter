@@ -100,6 +100,8 @@ allow dinput persist_sys_param:file { read open map };
 
 allow dinput arkcompiler_param:file { read open map };
 
+allow dinput ark_writeable_param:file { read open map };
+
 allow dinput sys_prod_file:dir { search };
 
 allow dinput chip_prod_file:dir { search };

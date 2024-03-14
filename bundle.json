@@ -19,7 +19,10 @@
     "ram": "3072KB",
     "deps": {
       "components": [
-        "hilog"
+        "hilog",
+        "bounds_checking_function",
+        "selinux",
+        "pcre2"
       ],
       "third_party": [
         "pcre2",
@@ -74,6 +77,18 @@
             "header_files": [
               "service_checker.h",
               "hdf_service_checker.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:libselinux_parameter_static",
+          "header": {
+            "header_files": [
+              "contexts_trie.h",
+              "selinux_map.h",
+              "selinux_parameter.h",
+              "selinux_share_mem.h"
             ],
             "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
           }

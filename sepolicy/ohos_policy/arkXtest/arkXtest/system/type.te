@@ -69,6 +69,7 @@ developer_only(`
     allow uitest system_basic_hap_attr:binder { call };
     allow uitest sa_foundation_wms:samgr_class { get };
     allow uitest arkcompiler_param:file { open read map };
+    allow uitest ark_writeable_param:file { open read map };
     allow uitest devpts:chr_file { read write };
     allow uitest system_basic_hap_attr:fd { use };
     allow uitest system_basic_hap_data_file_attr:file { read write getattr write };

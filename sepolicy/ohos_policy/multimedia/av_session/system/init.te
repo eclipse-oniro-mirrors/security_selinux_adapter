@@ -13,3 +13,4 @@
 
 allow init av_session:process { rlimitinh siginh transition };
 allow init av_session_data_file:dir { open read write add_name create getattr relabelto search setattr };
+allow init av_session_data_file:file { getattr };

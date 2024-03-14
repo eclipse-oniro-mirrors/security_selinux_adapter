@@ -451,7 +451,7 @@ allowxperm init devpts:chr_file ioctl { 0x5413 };
 # for hyperhold
 allow init zram_device:blk_file { read open write ioctl getattr };
 allow init hyperhold_sys:dir { search relabelto write add_name getattr setattr remove_name };
-allow init hyperhold_sys:file { getattr open read write create rename unlink };
+allow init hyperhold_sys:file { setattr getattr open read write create relabelto rename unlink };
 allowxperm init zram_device:blk_file ioctl { 0x126e };
 
 # avc:  denied  { getattr } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
@@ -485,6 +485,8 @@ allow init appspawn:file { read open write };
 allow init render_service:file { read open write };
 allow init foundation:file { read open write };
 allow init sysfs_hungtask_userlist:file { read open write };
+allow init data_service_el1_public_huksService_file:file { getattr };
+allow init share_public_file:dir { getattr };
 
 # for chip ckm
 # avc:  denied  { getattr } for  pid=1 comm="init" path="/chip_ckm" dev="mmcblk0p7" ino=13 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0
@@ -505,4 +507,8 @@ init_relabel(msdp_data_file);
 init_relabel(av_session_data_file);
 init_relabel(cert_manager_service_file);
 init_relabel(dlp_permission_data_file);
+
+allow ark_writeable_param tmpfs:filesystem associate;
+allow init ark_writeable_param:file { map open read relabelto relabelfrom };
+allow init ark_writeable_param:parameter_service { set };
 

@@ -56,6 +56,7 @@ allow camera_host hidumper_file:dir { add_name search write };
 allow camera_host hidumper_file:file { append open create getattr ioctl };
 allow camera_host hilog_param:file { map open read };
 allow camera_host hiview:binder { call };
+allow camera_host hiview:unix_dgram_socket { sendto };
 allow camera_host hw_sc_build_os_param:file { map open read };
 allow camera_host hw_sc_build_param:file { map open read };
 allow camera_host hw_sc_param:file { map open read };

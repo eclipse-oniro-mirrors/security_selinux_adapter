@@ -136,4 +136,10 @@ allow media_service av_codec_service:fd { use };
 
 allow media_service sa_foundation_powermgr_service:samgr_class { get };
 
+# avc:  denied  { get } for service=180 pid=1526 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow media_service sa_foundation_abilityms:samgr_class { get };
+
+# avc:  denied  { get } for service=3203 pid=1526 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=1
+allow media_service sa_foundation_ans:samgr_class { get };
+
 allow media_service foundation:fd { use };

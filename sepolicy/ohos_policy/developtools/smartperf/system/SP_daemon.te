@@ -78,6 +78,7 @@ allow SP_daemon bootevent_wms_param:file { map open read };
 allow SP_daemon ffrt_param:file {  map open read };
 allow SP_daemon print_param:file { map open read };
 allow SP_daemon arkcompiler_param:file { map open read };
+allow SP_daemon ark_writeable_param:file { map open read };
 allow SP_daemon arkui_param:file { map open read };
 allow SP_daemon hiviewdfx_profiler_param:file { map open read };
 allow SP_daemon bms_param:file { map read open};
@@ -123,4 +124,5 @@ allow SP_daemon hiprofiler_plugins:unix_stream_socket { read write };
 allow SP_daemon hiprofilerd:fd { use };
 allowxperm SP_daemon hiprofiler_plugins:fifo_file ioctl { 0x5413 };
 allow SP_daemon uinput_exec:file { execute execute_no_trans getattr open read };
+allow SP_daemon aa_exec:file { execute execute_no_trans getattr open read };
 ')

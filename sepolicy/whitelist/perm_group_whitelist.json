@@ -89,7 +89,8 @@
                 "lldb_server lldb_server_file",
                 "SP_daemon SP_daemon_exec",
                 "sh data_local_tmp",
-                "SP_daemon uinput_exec"
+                "SP_daemon uinput_exec",
+                "SP_daemon aa_exec"
             ]
         }
     ]

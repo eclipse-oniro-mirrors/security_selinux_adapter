@@ -36,6 +36,7 @@ processdump_cmd({
     data_app_el1_file # remove later
     vendor_bin_file
     arkcompiler_param
+    ark_writeable_param
     chip_prod_file
 })
 
