@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apl=system_core name=com.ohos.camera domain=camera_hap type=camera_hap_data_file
+apl=system_core name=com.ohos.camera domain=camera_hap type=camera_hap_data_file;
