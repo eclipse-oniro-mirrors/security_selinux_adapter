@@ -24,8 +24,6 @@ typeattribute security_collector normal_hap_data_file_attr_violator_dir;
 typeattribute security_collector normal_hap_data_file_attr_violator_file_open;
 typeattribute security_collector accesstoken_data_file_violator_dir;
 typeattribute security_collector accesstoken_data_file_violator_file;
-typeattribute security_collector module_update_file_violator_file_dir;
-typeattribute security_collector module_update_binary_file_violator_file_dir;
 typeattribute security_collector filesystem_violator;
 
 # avc:  denied  { call } for  pid=1696 comm="IPC_1_1707" scontext=u:r:sceneboard_hap:s0 tcontext=u:r:security_collector:s0 tclass=binder permissive=1
