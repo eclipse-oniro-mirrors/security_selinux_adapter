@@ -135,3 +135,5 @@ allow media_service av_codec_service:binder { call transfer };
 allow media_service av_codec_service:fd { use };
 
 allow media_service sa_foundation_powermgr_service:samgr_class { get };
+
+allow media_service foundation:fd { use };
