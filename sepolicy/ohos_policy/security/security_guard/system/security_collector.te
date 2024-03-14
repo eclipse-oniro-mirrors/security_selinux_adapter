@@ -37,18 +37,6 @@ allow security_collector hap_domain:binder { transfer call };
 # avc:  denied  { call } for  pid=2872 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow security_collector accesstoken_service:binder { call };
 
-# avc:  denied  { read } for  pid=2872 comm="IPC_2_4085" scontext=u:r:security_collector:s0 tcontext=u:r:hiview:s0 tclass=file permissive=1
-# avc:  denied  { open } for  pid=2872 comm="IPC_2_4085" path="/proc/436/status" dev="proc" ino=33710 scontext=u:r:security_collector:s0 tcontext=u:r:hiview:s0 tclass=file permissive=1
-allow security_collector domain:file { read map open getattr };
-
-# avc:  denied  { search } for  pid=2872 comm="IPC_2_4085" name="436" dev="proc" ino=16648 scontext=u:r:security_collector:s0 tcontext=u:r:hiview:s0 tclass=dir permissive=1
-# avc:  denied  { open } for  pid=3280 comm="IPC_2_3485" path="/proc/439/fd" dev="proc" ino=16878 scontext=u:r:security_collector:s0 tcontext=u:r:hiview:s0 tclass=dir permissive=1
-# avc:  denied  { read } for  pid=3280 comm="IPC_2_3485" name="fd" dev="proc" ino=16878 scontext=u:r:security_collector:s0 tcontext=u:r:hiview:s0 tclass=dir permissive=1
-allow security_collector domain:dir { search read watch_sb open watch_reads };
-
-# avc:  denied  { read } for  pid=2872 comm="IPC_2_4085" name="0" dev="proc" ino=43520 scontext=u:r:security_collector:s0 tcontext=u:r:init:s0 tclass=lnk_file permissive=1
-allow security_collector domain:lnk_file { read };
-
 # avc:  denied  { call } for  pid=2872 comm="IPC_2_4085" scontext=u:r:security_collector:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
 allow security_collector time_service:binder { call };
 

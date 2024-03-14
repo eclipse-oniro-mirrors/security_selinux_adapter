@@ -17,7 +17,7 @@ allow security_guard sa_accesstoken_manager_service:samgr_class { get };
 
 allow security_guard accesstoken_service:binder { call };
 
-allow security_guard data_service_el1_file:file { lock read getattr write map ioctl open setattr create unlink };
+allow security_guard data_service_el1_file:file { lock read getattr write map ioctl open setattr create };
 
 allow security_guard hilog_param:file { read map open };
 
@@ -37,7 +37,7 @@ allow security_guard system_bin_file:dir { search };
 
 allow security_guard system_bin_file:lnk_file { read };
 
-allow security_guard data_service_el1_file:dir { read search open getattr add_name create remove_name write };
+allow security_guard data_service_el1_file:dir { read search open getattr add_name create write };
 
 allow security_guard data_service_file:dir { search };
 
@@ -53,9 +53,7 @@ allow security_guard sa_foundation_cesfwk_service:samgr_class { get };
 
 allow security_guard hiview:binder { call transfer };
 
-allow security_guard data_app_el1_file:dir { search open read remove_name write };
-
-allow security_guard data_app_el1_file:file { unlink };
+allow security_guard data_app_el1_file:dir { search open read write };
 
 allow security_guard data_app_file:dir { search };
 
