@@ -24,6 +24,7 @@ allow telephony_sa data_service_file:dir search;
 allow telephony_sa dev_console_file:chr_file { read write };
 allow telephony_sa distributeddata:binder { call transfer };
 allow telephony_sa distributeddata:fd use;
+allow distributeddata telephony_sa:binder { call };
 allow telephony_sa foundation:binder { call transfer };
 allow telephony_sa hdf_cellular_radio_ext:hdf_devmgr_class get;
 allow telephony_sa init:binder { call transfer };
