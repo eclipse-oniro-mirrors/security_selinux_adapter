@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow storage_daemon data_service_el1_utd_file:dir { open read search write remove_name getattr  rmdir }
-allow storage_daemon data_service_el1_utd_file:file { unlink }
+allow storage_daemon data_service_el1_utd_file:dir { open read search write remove_name getattr  rmdir };
+allow storage_daemon data_service_el1_utd_file:file { unlink };
