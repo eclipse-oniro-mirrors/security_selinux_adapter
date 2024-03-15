@@ -114,4 +114,10 @@ allow download_server dev_unix_file:sock_file { write };
 allow download_server sa_telephony_tel_cellular_data:samgr_class { get };
 #avc:  denied  { shutdown } for  pid=2940 comm="async-3" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=0
 #avc:  denied  { sendto } for  pid=1710 comm="async-1" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=0
-allow download_server download_server:unix_dgram_socket { shutdown sendto };
+#avc:  denied  { read } for  pid=1553 comm="async-0" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=0
+allow download_server download_server:unix_dgram_socket { shutdown sendto read };
+#avc:  denied  { read } for  pid=1956 comm="example.mytest" ... scontext=u:r:download_server:s0 tcontext=u:object_r：hmdfs:s0 tclass=file permissive=0
+#avc:  denied  { getattr } for  pid=1956 comm="example.mytest" ... scontext=u:r:download_server:s0 tcontext=u:object_r：hmdfs:s0 tclass=file permissive=0
+allow download_server hmdfs:file { read getattr };
+#avc:  denied  { read } for  pid=1956 comm="example.mytest" ... scontext=u:r:download_server:s0 tcontext=u:object_r：data_user_file:s0 tclass=file permissive=0
+allow download_server data_user_file:file { read getattr };
