@@ -92,6 +92,7 @@ allow appspawn ohos_param:file { map open read };
 allow appspawn persist_param:file { map open read };
 allow appspawn persist_sys_param:file { map open read };
 allow appspawn proc_file:dir { mounton };
+allow appspawn proc_file:filesystem { mount unmount };
 allow appspawn rootfs:dir { mounton };
 allow appspawn security_param:file { map open read };
 allow appspawn security:security { check_context };
