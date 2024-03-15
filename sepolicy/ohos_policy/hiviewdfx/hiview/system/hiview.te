@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -35,7 +35,9 @@ allow hiview hiview_file:file { getattr setattr append ioctl unlink map read wri
 
 allow hiview data_file:dir { search };
 allow hiview data_log:dir { add_name open read search watch write create remove_name };
-allow hiview data_log:file { create getattr lock map open read write unlink rename append };
+#avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+allow hiview data_log:file { create getattr lock map open read write unlink rename append ioctl };
+allowxperm hiview data_log:file ioctl { 0x5413 };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
@@ -146,8 +148,15 @@ allow hiview proc_sysrq_trigger_file:file { open getattr write ioctl };
 allow hiview data_app_file:dir { search };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="el2" dev="mmcblk0p12" ino=47 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
-allow hiview data_app_el2_file:dir { search read open };
-allow hiview data_app_el2_file:file { open getattr read write };
+#avc:  denied  { add_name } for  pid=2716 comm="freeze_detector" name="APP_FREEZE_1501994090092_2792.log" scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+#avc:  denied  { write } for  pid=266 comm="freeze_detector" name="hiappevent" dev="mmcblk0p15" ino=2265 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
+allow hiview data_app_el2_file:dir { search read open add_name write };
+
+#avc:  denied  { create } for  pid=2716 comm="freeze_detector" name="APP_FREEZE_1501994090092_2792.log" scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
+#avc:  denied  { ioctl } for  pid=2716 comm="freeze_detector" path="/data/app/el2/100/log/com.example.myapplication/hiappevent/APP_FREEZE_1501994090092_2792.log" dev="mmcblk0p15" ino=2352 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
+#avc:  denied  { setattr } for  pid=263 comm="plat_shared" name="APP_CRASH_1501997026177_1964.log" dev="mmcblk0p15" ino=2180 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=0
+allow hiview data_app_el2_file:file { open getattr read write create ioctl setattr };
+allowxperm hiview data_app_el2_file:file ioctl { 0x5413 };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
 #avc:  denied  { write } for  pid=252 comm="exportSysEventT" name="hiview" dev="mmcblk0p12" ino=2417 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
