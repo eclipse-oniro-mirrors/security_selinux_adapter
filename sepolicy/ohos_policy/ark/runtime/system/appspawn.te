@@ -29,5 +29,5 @@ allow hap_domain data_local_arkprofile:file { create getattr ioctl map open read
 allowxperm hap_domain data_local_arkprofile:file ioctl { 0x5413 };
 allow hap_domain data_local_arkprofile:dir { add_name remove_name search write };
 allow hap_domain ark_profile:file { map read open };
-allow appspawn data_local_arkprofile:dir { search mounton };
+allow appspawn data_local_arkprofile:dir { search mounton getattr };
 
