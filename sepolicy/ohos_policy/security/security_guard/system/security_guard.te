@@ -22,7 +22,7 @@ allow security_guard data_service_el1_public_security_guard_file:dir { search ad
 allow security_guard data_service_el1_public_security_guard_file:file { read create getattr ioctl write open };
 allowxperm security_guard data_service_el1_public_security_guard_file:file ioctl { 0x5413 };
 
-allow security_guard data_service_el1_file:file { lock read getattr write map open setattr create ioctl };
+allow security_guard data_service_el1_file:file { lock read getattr write map open setattr create ioctl unlink };
 allowxperm security_guard data_service_el1_file:file ioctl { 0xf50c };
 
 allow security_guard data_service_el1_file:dir { read search open getattr add_name create write remove_name};
