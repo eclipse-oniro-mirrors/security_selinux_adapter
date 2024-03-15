@@ -152,8 +152,10 @@ allow sh installs:process { getattr };
 allow sh ispserver:dir { getattr search };
 allow sh ispserver:file { open read };
 allow sh lib_file:lnk_file { getattr };
-allow sh locationhub:dir { getattr search };
-allow sh locationhub:file { open read };
+debug_only(`
+    allow sh locationhub:dir { getattr search };
+    allow sh locationhub:file { open read };
+')
 allow sh media_service:dir { getattr search };
 allow sh media_service:file { open read };
 debug_only(`
