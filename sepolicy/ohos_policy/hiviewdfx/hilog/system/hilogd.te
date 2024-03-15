@@ -94,11 +94,8 @@ neverallow {
     -hilogd
     -hiview             # write is covered next
     -hdcd               # write is covered next
-    -system_basic_hap_attr   # write is covered next
-    -system_core_hap_attr    # write is covered next
-    -normal_hap_attr         # write is covered next
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
-neverallow { sh hiview hdcd system_basic_hap_attr system_core_hap_attr } data_hilogd_file:file { append create rename setattr write };
+neverallow { domain -hilogd } data_hilogd_file:file { append create rename setattr write };
 
