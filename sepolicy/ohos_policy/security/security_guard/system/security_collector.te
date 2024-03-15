@@ -13,19 +13,6 @@
 
 binder_call(security_collector, samgr);
 
-typeattribute security_collector cap_violator_dacreadsearch;
-typeattribute security_collector cap_violator_sysptrace;
-typeattribute security_collector cap_violator_netadmin;
-typeattribute security_collector cap_violator_sysadmin;
-typeattribute security_collector data_local_tmp_violator_file_open;
-typeattribute security_collector system_core_hap_data_file_attr_violator_dir;
-typeattribute security_collector system_basic_hap_data_file_attr_violator_dir;
-typeattribute security_collector normal_hap_data_file_attr_violator_dir;
-typeattribute security_collector normal_hap_data_file_attr_violator_file_open;
-typeattribute security_collector accesstoken_data_file_violator_dir;
-typeattribute security_collector accesstoken_data_file_violator_file;
-typeattribute security_collector filesystem_violator;
-
 # avc:  denied  { call } for  pid=1696 comm="IPC_1_1707" scontext=u:r:sceneboard_hap:s0 tcontext=u:r:security_collector:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=1758 comm="IPC_5_2010" scontext=u:r:sceneboard_hap:s0 tcontext=u:r:security_collector:s0 tclass=binder permissive=1
 allow hap_domain security_collector:binder { call transfer };
@@ -92,9 +79,6 @@ allow security_collector security_collector:unix_dgram_socket { getopt setopt };
 # avc:  denied  { get } for service=4607 pid=3635 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow security_collector sa_foundation_dms:samgr_class { get };
 
-# avc:  denied  { watch } for  pid=3635 comm="security_collec" path="/data" dev="sdd78" ino=3 scontext=u:r:security_collector:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=1
-allow security_collector labeledfs:filesystem { watch };
-
 # avc:  denied  { get } for service=501 pid=3557 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=1
 allow security_collector sa_foundation_appms:samgr_class { get };
 
@@ -104,134 +88,6 @@ allow security_collector sa_foundation_cesfwk_service:samgr_class { get };
 # avc:  denied  { get } for service=3101 pid=3557 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
 allow security_collector sa_multimodalinput_service:samgr_class { get };
 
-# avc:  denied  { dac_override } for  pid=3481 comm="OS_IPC_3_3866" capability=1  scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=capability permissive=1
-# avc:  denied  { sys_admin } for  pid=3400 comm="OS_IPC_3_3827" capability=21  scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=capability permissive=0
-# avc:  denied  { sys_admin } for  pid=3400 comm="security_collec" capability=21  scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=capability permissive=0
-allow security_collector security_collector:capability { dac_read_search sys_ptrace net_admin };
-
-# avc:  denied  { open } for  pid=2872 comm="IPC_1_2876" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=138 scontext=u:r:security_collector:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=2872 comm="IPC_1_2876" name="u:object_r:persist_sys_param:s0" dev="tmpfs" ino=138 scontext=u:r:security_collector:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=2872 comm="IPC_1_2876" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=138 scontext=u:r:security_collector:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
-allow security_collector persist_sys_param:file { read map open };
-
-# avc:  denied  { open } for  pid=2872 comm="IPC_1_2876" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=150 scontext=u:r:security_collector:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=2872 comm="IPC_1_2876" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=150 scontext=u:r:security_collector:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=2872 comm="IPC_1_2876" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=150 scontext=u:r:security_collector:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
-allow security_collector arkcompiler_param:file { read map open };
-
-# avc:  denied  { read } for  pid=2872 comm="IPC_2_4085" name="/" dev="sdd78" ino=3 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
-# avc:  denied  { watch_sb } for  pid=2872 comm="IPC_2_4085" path="/data" dev="sdd78" ino=3 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
-# avc:  denied  { open } for  pid=2872 comm="IPC_2_4085" path="/data" dev="sdd78" ino=3 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
-allow security_collector data_file:dir { read watch_sb open };
-
-# avc:  denied  { open } for  pid=2872 comm="IPC_2_4085" path="/proc/2872/net/tcp" dev="proc" ino=4026532342 scontext=u:r:security_collector:s0 tcontext=u:object_r:proc_net_tcp_udp:s0 tclass=file permissive=1
-# avc:  denied  { getattr } for  pid=2872 comm="IPC_2_4085" path="/proc/2872/net/tcp" dev="proc" ino=4026532342 scontext=u:r:security_collector:s0 tcontext=u:object_r:proc_net_tcp_udp:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=2872 comm="IPC_2_4085" name="tcp" dev="proc" ino=4026532342 scontext=u:r:security_collector:s0 tcontext=u:object_r:proc_net_tcp_udp:s0 tclass=file permissive=1
-allow security_collector proc_net_tcp_udp:file { read getattr open };
-
-# avc:  denied  { map } for  pid=3408 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=139 scontext=u:r:security_collector:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=3408 comm="sa_main" name="u:object_r:debug_param:s0" dev="tmpfs" ino=139 scontext=u:r:security_collector:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
-# avc:  denied  { open } for  pid=3408 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=139 scontext=u:r:security_collector:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
-allow security_collector debug_param:file { map open read };
-
-# avc:  denied  { open } for  pid=3408 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=135 scontext=u:r:security_collector:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=3408 comm="sa_main" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=135 scontext=u:r:security_collector:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=3408 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=135 scontext=u:r:security_collector:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
-allow security_collector hilog_param:file { map open read };
-
-# avc:  denied  { search } for  pid=3408 comm="IPC_2_3660" name="socket" dev="tmpfs" ino=109 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
-allow security_collector dev_unix_socket:dir { search };
-
-# avc:  denied  { watch_reads } for  pid=3408 comm="IPC_2_3660" path="/data" dev="sdd78" ino=3 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
-allow security_collector data_file:dir { watch_reads };
-
-# avc:  denied  { search } for  pid=3240 comm="security_collec" name="/" dev="tracefs" ino=1 scontext=u:r:security_collector:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
-allow security_collector tracefs:dir { search };
-
-# avc:  denied  { open } for  pid=3240 comm="security_collec" path="/sys/devices/system/cpu/online" dev="sysfs" ino=27651 scontext=u:r:security_collector:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
-# avc:  denied  { getattr } for  pid=3240 comm="security_collec" path="/sys/devices/system/cpu/online" dev="sysfs" ino=27651 scontext=u:r:security_collector:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=3240 comm="security_collec" name="online" dev="sysfs" ino=27651 scontext=u:r:security_collector:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
-allow security_collector sysfs_devices_system_cpu:file { read getattr open };
-
-# avc:  denied  { search } for  pid=4035 comm="dump_tmp_thread" name="bin" dev="sdd74" ino=265 scontext=u:r:security_collector:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
-allow security_collector system_bin_file:dir { search };
-
-# avc:  denied  { open } for  pid=1719 comm="SaOndemand" path="/data/service/el1/public/access_token" dev="sdd78" ino=125 scontext=u:r:security_audit:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
-# avc:  denied  { read } for  pid=1719 comm="SaOndemand" name="access_token" dev="sdd78" ino=125 scontext=u:r:security_audit:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
-allow security_collector accesstoken_data_file:dir { open read };
- 
-# avc:  denied  { read open } for  pid=1719 comm="SaOndemand" path="/data/service/el1/public/access_token/access_token.db" dev="sdd78" ino=385 scontext=u:r:security_audit:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
-allow security_collector accesstoken_data_file:file { read open };
-
-# avc:  denied  { open } for  pid=1719 comm="SaOndemand" path="/data/app/el2/100/base/com.huawei.hmsapp.music/haps/phone/preferences" dev="sdd78" ino=4043 scontext=u:r:security_audit:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
-# avc:  denied  { read } for  pid=1719 comm="SaOndemand" name="preferences" dev="sdd78" ino=4043 scontext=u:r:security_audit:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
-allow security_collector normal_hap_data_file:dir { open read };
- 
-# avc:  denied  { read open } for  pid=1719 comm="SaOndemand" path="/data/app/el2/0/database/com.ohos.settingsdata/entry/rdb/settingsdata.db" dev="sdd78" ino=1577 scontext=u:r:security_audit:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
-allow security_collector normal_hap_data_file:file { read open };
- 
-# avc:  denied  { open } for  pid=1719 comm="SaOndemand" path="/data/app/el1/100/base/com.huawei.hmos.inputmethod/preferences" dev="sdd78" ino=2254 scontext=u:r:security_audit:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
-# avc:  denied  { read } for  pid=1719 comm="SaOndemand" name="preferences" dev="sdd78" ino=2254 scontext=u:r:security_audit:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
-allow security_collector system_basic_hap_data_file:dir { open read };
- 
-# avc:  denied  { read open } for  pid=1719 comm="SaOndemand" path="/data/app/el2/0/database/com.huawei.hms.pushservice/rdb/pushjs.db-wal" dev="sdd78" ino=1622 scontext=u:r:security_audit:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
-allow security_collector system_basic_hap_data_file:file { read open };
-
-# avc:  denied  { open } for  pid=1239 comm="SaInit0" path="/data/storage/el2/base/haps/entry/files/userManage.txt" dev="sdd78" ino=37705 scontext=u:r:security_audit:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file 
-allow security_collector system_core_hap_data_file:file { open };
-
-# avc:  denied  { read open } for  pid=1159 comm="SaOndemand" path="/data/storage/el2/database/rdb/media_library.db" dev="sdd78" ino=3858 scontext=u:r:security_audit:s0 tcontext=u:object_r:medialibrary_hap_data_file:s0 tclass=file 
-allow security_collector medialibrary_hap_data_file:file { read open };
-
-# avc:  denied  { read } for  pid=2872 comm="IPC_2_4085" name="dubai" dev="sdd78" ino=1962 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_system_ce:s0 tclass=dir permissive=1
-# avc:  denied  { open } for  pid=2872 comm="IPC_2_4085" path="/data/system_ce/0/dubai" dev="sdd78" ino=1962 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_system_ce:s0 tclass=dir permissive=1
-allow security_collector data_system_ce:dir { read open };
-
-# avc:  denied  { read open } for  pid=3408 comm="IPC_2_3660" path="/data/vendor/log/wifi/wifi_log_1" dev="sdd78" ino=35397 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=1
-allow security_collector data_vendor:file { read open };
-
-# avc:  denied  { read open } for  pid=3240 comm="IPC_1_3242" path="/data/log/hiview/unified_collection/cpu/cpu_stat_19700103.db-wal" dev="sdd78" ino=1927 scontext=u:r:security_collector:s0 tcontext=u:object_r:hiview_file:s0 tclass=file permissive=1
-allow security_collector hiview_file:file { read open };
-
-# avc:  denied  { open } for  pid=3240 comm="IPC_1_3242" path="/data/service/el1/public/netmanager" dev="sdd78" ino=297 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-# avc:  denied  { read } for  pid=3240 comm="IPC_1_3242" name="netmanager" dev="sdd78" ino=297 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allow security_collector data_service_el1_file:dir { read open };
-
-# avc:  denied  { read open } for  pid=3257 comm="security_collec" path="/data/system_ce/0/dubai/dubai.db" dev="sdd78" ino=1966 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_system_ce:s0 tclass=file permissive=1
-allow security_collector data_system_ce:file { read open };
- 
-# avc:  denied  { read open } for  pid=3412 comm="IPC_1_3414" path="/data/log/charge-log/charge-log" dev="sdd78" ino=1784 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
-allow security_collector data_log:file { read open };
- 
-# avc:  denied  { read open } for  pid=3324 comm="IPC_2_3561" path="/data/storage/device_life.bin" dev="sdd78" ino=258 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_storage:s0 tclass=file permissive=1
-allow security_collector data_storage:file { read open };
- 
-# avc:  denied  { read open } for  pid=3324 comm="IPC_2_3561" path="/data/service/el0/thermal/sensor/soc/temp" dev="sdd78" ino=1832 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
-allow security_collector data_service_el0_file:file { read open };
-
-# avc:  denied  { read open } for  pid=3256 comm="IPC_2_3447" path="/data/service/el1/public/update/dupdate_engine/databases/firmware_sqlite.db" dev="sdd78" ino=4724 scontext=u:r:security_collector:s0 tcontext=u:object_r:update_dupdate_engine_file:s0 tclass=file permissive=1
-allow security_collector update_dupdate_engine_file:file { read open };
- 
-# avc:  denied  { read open } for  pid=3253 comm="IPC_1_3255" path="/data/service/el1/public/database/security_audit_service/audit_event.db-wal" dev="sdd78" ino=33322 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allow security_collector data_service_el1_file:file { read open };
-
-# avc:  denied  { read open } for  pid=3193 comm="IPC_1_3195" path="/data/service/el1/public/account/account_list.json" dev="sdd78" ino=1902 scontext=u:r:security_collector:s0 tcontext=u:object_r:account_data_file:s0 tclass=file permissive=1
-allow security_collector account_data_file:file { read open };
-
-# avc:  denied  { read } for  pid=3690 comm="security_collec" name="special" dev="sdd78" ino=20564 scontext=u:r:security_collector:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=1
-# avc:  denied  { open } for  pid=3690 comm="security_collec" path="/data/log/hiview/unified_collection/trace/special" dev="sdd78" ino=20564 scontext=u:r:security_collector:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=1
-allow security_collector hiview_file:dir { open read };
- 
-# avc:  denied  { read } for  pid=3554 comm="OS_IPC_1_3557" name="hitrace" dev="sdd78" ino=44 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
-# avc:  denied  { open } for  pid=3554 comm="OS_IPC_1_3557" path="/data/log/hitrace" dev="sdd78" ino=44 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
-allow security_collector data_log:dir { open read };
- 
-# avc:  denied  { open } for  pid=3722 comm="security_collec" path="/data/service/el1/startup/parameters" dev="sdd78" ino=14 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_parameters:s0 tclass=dir permissive=1
-# avc:  denied  { read } for  pid=3722 comm="security_collec" name="parameters" dev="sdd78" ino=14 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_parameters:s0 tclass=dir permissive=1
-allow security_collector data_parameters:dir { open read };
-
-# avc:  denied  { read open } for  pid=3501 comm="security_collec" path="/data/service/el2/100/hmdfs/account/files/Photo/7/VID_1702554704_039.mp4" dev="sdd78" ino=31676 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
-allow security_collector data_user_file:file { read open };
 # avc:  denied  { call } for  pid=3728 comm="OS_cesComLstnr" scontext=u:r:security_collector:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=0
 allow security_collector storage_manager:binder { call transfer };
 
