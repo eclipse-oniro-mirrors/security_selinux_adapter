@@ -195,9 +195,11 @@ allow sh param_watcher:process { getattr };
 allow sh persist_param:file { map open read };
 allow sh persist_sys_param:file { map open read };
 allow sh proc_file:file { open read };
-allow sh render_service:dir { getattr search };
-allow sh render_service:file { open read };
-allow sh render_service:process { getattr };
+debug_only(`
+    allow sh render_service:dir { getattr search };
+    allow sh render_service:file { open read };
+    allow sh render_service:process { getattr };
+')
 allow sh rootfs:dir { open read };
 allow sh sa_foundation_bms:samgr_class { get };
 allow sh sa_foundation_dms:samgr_class { get };
