@@ -263,5 +263,5 @@ allow dcamera data_data_file:dir { search write add_name search };
 allow dcamera data_data_file:file { create append open ioctl getattr };
 allow camera_service hdf_distributed_camera_provider_service:hdf_devmgr_class { get };
 allow dcamera_host render_service:binder { transfer };
-allow dcamera_host debug_hap:binder { transfer };
+allow dcamera_host normal_hap_attr:binder { transfer };
 allow dcamera_host av_codec_service:binder { call transfer };
