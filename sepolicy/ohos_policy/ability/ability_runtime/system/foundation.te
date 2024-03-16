@@ -80,7 +80,7 @@ allow foundation system_basic_hap_attr:process { sigkill signal };
 allow foundation system_basic_hap_data_file_attr:file { read };
 allow foundation system_core_hap_attr:binder { call transfer };
 allow foundation system_core_hap_attr:dir { search };
-allow foundation system_core_hap_attr:file { getattr read };
+allow foundation system_core_hap_attr:file { getattr open read };
 allow foundation system_core_hap_attr:process { sigkill signal };
 allow foundation system_core_hap_data_file_attr:file { read };
 allow foundation system_lib_file:dir { getattr };
