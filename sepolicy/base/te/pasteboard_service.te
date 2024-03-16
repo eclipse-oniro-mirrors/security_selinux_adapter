@@ -48,3 +48,7 @@ allow pasteboard_service system_bin_file:dir { search };
 allow pasteboard_service sys_usb_param:file { map open read };
 allow pasteboard_service tracefs:dir { search };
 allow pasteboard_service tracefs_trace_marker_file:file { open write };
+allow pasteboard_service sa_multimodalinput_service:samgr_class { get };
+allow pasteboard_service multimodalinput:binder { call transfer };
+allow pasteboard_service multimodalinput:fd { use };
+allow pasteboard_service multimodalinput:unix_stream_socket { read write };
