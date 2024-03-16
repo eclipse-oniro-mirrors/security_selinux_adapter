@@ -200,7 +200,9 @@ allow sh render_service:file { open read };
 allow sh render_service:process { getattr };
 allow sh rootfs:dir { open read };
 allow sh sa_foundation_bms:samgr_class { get };
-allow sh sa_foundation_dms:samgr_class { get };
+debug_only(`
+    allow sh sa_foundation_dms:samgr_class { get };
+')
 allow sh sa_param_watcher:samgr_class { get };
 debug_only(`
     allow sh screenlock_server:dir { getattr search };
