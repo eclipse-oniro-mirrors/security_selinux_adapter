@@ -104,7 +104,8 @@ neverallow hap_domain { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file 
 neverallow { hap_domain -system_basic_hap_attr } dev_tun_file:chr_file { open ioctl };
 
 neverallow hap_domain dev_bbox:chr_file { read };
-neverallowxperm hap_domain dev_bbox:chr_file ioctl ~{ 0xab01 0xab04 0xab09 0xad01 0xaf04 0xaf06 };
+#avc denied {ioctl} ino=71 ioctlcmd=0x426a 0x426d scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
+neverallowxperm hap_domain dev_bbox:chr_file ioctl ~{ 0xab01 0xab04 0xab09 0xad01 0xaf04 0xaf06 0x426a 0x426d };
 neverallow { hap_domain -dev_fuse_file_violator -dlpmanager_hap } dev_fuse_file:chr_file { open ioctl read write};
 
 #limit hap use kobject netlink.
