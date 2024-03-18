@@ -140,6 +140,7 @@ allow resource_schedule_service multimodalinput:binder { call };
 allow resource_schedule_service multimodalinput:fd { use };
 allow resource_schedule_service multimodalinput:unix_stream_socket { write };
 allow resource_schedule_service memmgrservice:binder { call };
+allow resource_schedule_service sa_comm_net_stats_manager_service:samgr_class { get };
 debug_only(`
     allow resource_schedule_service sh:dir { search };
     allow resource_schedule_service sh:file { open };
