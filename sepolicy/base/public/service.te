@@ -148,6 +148,7 @@ type sa_msdp_movement_service, sa_service_attr;
 type sa_msdp_spatial_awareness_service, sa_service_attr;
 type sa_msdp_geofence_service, sa_service_attr;
 type sa_msdp_timeline_service, sa_service_attr;
+type sa_msdp_multimodal_awareness_service_attr, sa_service_attr;
 type sa_subsys_multimedia_service, sa_service_attr;
 type sa_radio_ivi_service, sa_service_attr;
 type sa_audio_swift_service, sa_service_attr;

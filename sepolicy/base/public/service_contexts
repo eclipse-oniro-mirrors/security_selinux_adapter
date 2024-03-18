@@ -141,6 +141,7 @@
 2904	                               u:object_r:sa_msdp_spatial_awareness_service:s0
 2905	                               u:object_r:sa_msdp_geofence_service:s0
 2906	                               u:object_r:sa_msdp_timeline_service:s0
+2908	                               u:object_r:sa_msdp_multimodal_awareness_service:s0
 3000	                               u:object_r:sa_subsys_multimedia_service:s0
 3001                                   u:object_r:sa_pulseaudio_audio_service:s0
 3002                                   u:object_r:sa_media_service:s0
