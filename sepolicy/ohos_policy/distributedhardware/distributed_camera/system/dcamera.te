@@ -265,3 +265,4 @@ allow camera_service hdf_distributed_camera_provider_service:hdf_devmgr_class { 
 allow dcamera_host render_service:binder { transfer };
 allow dcamera_host normal_hap_attr:binder { transfer };
 allow dcamera_host av_codec_service:binder { call transfer };
+allowxperm dcamera data_data_file:file ioctl { 0x5413 };
