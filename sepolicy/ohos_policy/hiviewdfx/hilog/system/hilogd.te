@@ -94,6 +94,7 @@ neverallow {
     -hilogd
     -hiview             # write is covered next
     -hdcd               # write is covered next
+    updater_only(`-updater')
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
