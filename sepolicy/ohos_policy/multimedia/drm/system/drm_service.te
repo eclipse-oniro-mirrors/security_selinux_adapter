@@ -102,9 +102,6 @@ allow drm_service port:tcp_socket { name_connect };
 # avc:  denied  { open } for  pid=11141 comm="SaInit0" path="/system/lib64/oem_certificate_service" dev="sdd86" ino=6224 scontext=u:r:drm_service:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
 allow drm_service system_lib_file:dir { open };
 
-# avc:  denied  { call transfer } for  pid=11141 comm="SaInit0" scontext=u:r:drm_service:s0 tcontext=u:r:wiseplay_host:s0 tclass=binder permissive=1
-allow drm_service wiseplay_host:binder { call transfer };
-
 # avc_audit_slow:260] avc: denied { transfer } for pid=1637, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
 allow drm_service av_codec_service:binder { transfer };
 
