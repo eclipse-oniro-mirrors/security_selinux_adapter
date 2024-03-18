@@ -1,8 +1,6 @@
 {
-    "whitelist": [
-        {
-            "user": [],
-            "developer": []
-        }
-    ]
+    "whitelist": {
+        "user": [],
+        "developer": []
+    }
 }

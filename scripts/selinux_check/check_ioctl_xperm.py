@@ -31,7 +31,7 @@ class PolicyDb(object):
 
 
 def simplify_string(string):
-    return string.replace('(', '').replace(')', '').replace('\n', '').strip()
+    return string.strip().replace('(', '').replace(')', '')
 
 
 def split_attribute(elem_list, allow_set, allowx_set):
@@ -77,10 +77,9 @@ def get_whitelist(args, with_developer):
     contexts_list = []
     for path in whitelist_file_list:
         white_list = read_json_file(path).get('whitelist')
-        for item in white_list:
-            contexts_list.extend(item.get('user'))
-            if with_developer:
-                contexts_list.extend(item.get('developer'))
+        contexts_list.extend(white_list.get('user'))
+        if with_developer:
+            contexts_list.extend(white_list.get('developer'))
     return contexts_list
 
 
@@ -88,9 +87,13 @@ def check(args, with_developer):
     policy_db = generate_database(args, with_developer)
     contexts_list = get_whitelist(args, with_developer)
     notallow = policy_db.allow_set - policy_db.allowx_set - set(contexts_list)
-    print('{} notallow xperm (scontext tcontext tclass) \n please add ioclt "allowxperm" to the above allow list '.format("developer" if with_developer else "user"))
-    for diff in notallow:
-            print('\t{}'.format(diff))
+    if len(notallow) > 0 :
+        print('check ioctl rule in {} mode failed.'.format("developer" if with_developer else "user"))
+        print('violation list (allow scontext tcontext:tclass)')
+        for diff in notallow:
+            elem_list = diff.split(' ')
+            print('\tallow {}'.format(elem_list[0] + ' ' + elem_list[1] + ':' + elem_list[2]))
+        print('the above list is not found ioctl perm set. please add "allowxperm" rule to avoid it.'.format("developer" if with_developer else "user"))
     return len(notallow) > 0
 
 

@@ -25,7 +25,7 @@ WHITELIST_FILE_NAME = "permissive_whitelist.json"
 
 
 def simplify_string(string):
-    return string.replace('(', '').replace(')', '').replace('\n', '').strip()
+    return string.strip().replace('(', '').replace(')', '')
 
 
 def deal_with_allow(cil_file, allow_set):
@@ -62,10 +62,9 @@ def get_whitelist(args, with_developer):
     contexts_list = []
     for path in whitelist_file_list:
         white_list = read_json_file(path).get('whitelist')
-        for item in white_list:
-            contexts_list.extend(item.get('user'))
-            if with_developer:
-                contexts_list.extend(item.get('developer'))
+        contexts_list.extend(white_list.get('user'))
+        if with_developer:
+            contexts_list.extend(white_list.get('developer'))
     return contexts_list
 
 
@@ -73,9 +72,15 @@ def check(args, with_developer):
     permissive_set = get_permissive_set(args, with_developer)
     contexts_list = get_whitelist(args, with_developer)
     notallow = permissive_set - set(contexts_list)
-    print('{} notallow permissive'.format("developer" if with_developer else "user"))
-    for diff in notallow:
+    if len(notallow) > 0 :
+        print('check permissive rule in {} mode failed.'.format("developer" if with_developer else "user"))
+        print('violation list (scontext):')
+        for diff in notallow:
             print('\t{}'.format(diff))
+        print('There are two solutions:\n',
+              '\t1. Add the above list to whitelist file \'{}\' under \'{}\' in \'{}\' mode.\n'.format(
+                    WHITELIST_FILE_NAME, args.policy_dir_list, "developer" if with_developer else "user"),
+              '\t2. Change the policy to avoid violating rule.')
     return len(notallow) > 0
 
 
