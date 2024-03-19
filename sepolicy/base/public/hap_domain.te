@@ -97,7 +97,7 @@ neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_fil
 neverallow hap_domain dev_attr:blk_file { read write };
 
 #limit hap access dev file.
-neverallow hap_domain { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
+neverallow hap_domain { dev_attr -dev_ucollection -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
                       -dev_zero_file -dev_unix_socket_file -dev_mali -tty_device -dev_fuse_file -dev_bbox
                       -dev_tun_file -dev_attr_violator_chr_file_rw }:chr_file { open ioctl read write};
 
