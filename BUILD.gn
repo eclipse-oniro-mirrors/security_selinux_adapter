@@ -69,6 +69,9 @@ ohos_shared_library("librestorecon") {
   deps = [ ":libselinux_hilog_static" ]
   external_deps = [
     "hilog:libhilog",
+  ]
+
+  public_external_deps = [
     "selinux:libselinux",
   ]
 
@@ -210,8 +213,10 @@ ohos_shared_library("libparaperm_checker") {
   deps += [ ":libselinux_parameter_static" ]
   external_deps = [
     "bounds_checking_function:libsec_shared",
-    "selinux:libselinux",
   ]
+
+  public_external_deps = [ "selinux:libselinux" ]
+
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -236,8 +241,8 @@ ohos_shared_library("libservice_checker") {
   external_deps = [
     "bounds_checking_function:libsec_shared",
     "hilog:libhilog",
-    "selinux:libselinux",
   ]
+  public_external_deps = [ "selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
