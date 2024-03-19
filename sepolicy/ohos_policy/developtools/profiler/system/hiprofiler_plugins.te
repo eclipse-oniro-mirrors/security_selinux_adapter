@@ -277,7 +277,6 @@ allow hiprofiler_plugins vendor_bin_file:dir search;
 allow hiprofiler_plugins dev_file:dir getattr;
 
 allow hiprofiler_plugins hisysevent:process sigkill;
-allow hiprofiler_plugins wiseplay_host:file read;
 allow hiprofiler_plugins sa_accountmgr:samgr_class get;
 allow hiprofiler_plugins sa_foundation_bms:samgr_class get;
 allow hiprofiler_plugins hiview:fd use;

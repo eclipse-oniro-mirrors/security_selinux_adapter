@@ -48,4 +48,3 @@ type hdf_devmgr_exec, exec_attr, file_attr, system_file_attr;
 type dev_hdf_kevent, dev_attr;
 type dev_hdfwifi, dev_attr;
 type intell_voice_host, hdfdomain, domain;
-type wiseplay_host, hdfdomain, domain;
