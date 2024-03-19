@@ -66,4 +66,5 @@ allow nwebspawn sys_usb_param:file { map open read };
 allow nwebspawn tmpfs:dir { mounton };
 allow nwebspawn tmpfs:filesystem { unmount };
 allow nwebspawn vendor_lib_file:dir { mounton };
+allow nwebspawn appspawn_exec:file { execute execute_no_trans open read };
 allowxperm nwebspawn dev_at_file:chr_file ioctl { 0x4102 };
