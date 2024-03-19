@@ -420,9 +420,9 @@ action("build_policy") {
     }
   }
 
-  deps = [
-    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
+  external_deps = [
+    "selinux:checkpolicy($host_toolchain)",
+    "selinux:secilc($host_toolchain)",
   ]
   outputs = [
     target_out_dir + "/policy.31",
@@ -515,9 +515,9 @@ action("build_update_policy") {
     }
   }
 
-  deps = [
-    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
+  external_deps = [
+    "selinux:checkpolicy($host_toolchain)",
+    "selinux:secilc($host_toolchain)",
   ]
   outputs = [ target_out_dir + "/updater/policy.31" ]
 }
@@ -563,10 +563,8 @@ action("build_contexts") {
       args += [ arg ]
     }
   }
-  deps = [
-    ":build_policy",
-    "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-  ]
+  deps = [ ":build_policy" ]
+  external_deps = [ "selinux:sefcontext_compile($host_toolchain)" ]
   outputs = [
     target_out_dir + "/file_contexts.bin",
     target_out_dir + "/file_contexts",
@@ -619,10 +617,8 @@ action("build_updater_contexts") {
       args += [ arg ]
     }
   }
-  deps = [
-    ":build_update_policy",
-    "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-  ]
+  deps = [ ":build_update_policy" ]
+  external_deps = [ "selinux:sefcontext_compile($host_toolchain)" ]
   outputs = [
     target_out_dir + "/updater/file_contexts.bin",
     target_out_dir + "/updater/file_contexts",
@@ -1006,7 +1002,7 @@ if (support_developer_mode) {
 
 if (build_selinux) {
   ohos_copy("libselinux_toolchain") {
-    deps = [ "$THIRD_PARTY_DIR/selinux:libselinux($host_toolchain)" ]
+    external_deps = [ "selinux:libselinux($host_toolchain)" ]
     sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
     outputs = [ "$root_build_dir/clang_x64/security/selinux/libselinux.so" ]
     part_name = "selinux_adapter"
@@ -1014,7 +1010,7 @@ if (build_selinux) {
   }
 
   ohos_copy("libpcre2_toolchain") {
-    deps = [ "$THIRD_PARTY_DIR/pcre2:libpcre2($host_toolchain)" ]
+    external_deps = [ "pcre2:libpcre2($host_toolchain)" ]
     sources = [ "$root_build_dir/clang_x64/thirdparty/pcre2/libpcre2.so" ]
     outputs = [ "$root_build_dir/clang_x64/security/selinux/libpcre2.so" ]
     part_name = "selinux_adapter"
@@ -1197,18 +1193,20 @@ group("selinux_group") {
       ":service_check",
       ":service_contexts",
       ":updater_config",
-      "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:chkcon",
-      "$THIRD_PARTY_DIR/selinux:getenforce",
-      "$THIRD_PARTY_DIR/selinux:getfilecon",
-      "$THIRD_PARTY_DIR/selinux:getpidcon",
-      "$THIRD_PARTY_DIR/selinux:secilc",
-      "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:selinux_check_access",
-      "$THIRD_PARTY_DIR/selinux:selinuxexeccon",
-      "$THIRD_PARTY_DIR/selinux:setenforce",
-      "$THIRD_PARTY_DIR/selinux:setfilecon",
+    ]
+    external_deps = [
+      "selinux:checkpolicy($host_toolchain)",
+      "selinux:chkcon",
+      "selinux:getenforce",
+      "selinux:getfilecon",
+      "selinux:getpidcon",
+      "selinux:secilc",
+      "selinux:secilc($host_toolchain)",
+      "selinux:sefcontext_compile($host_toolchain)",
+      "selinux:selinux_check_access",
+      "selinux:selinuxexeccon",
+      "selinux:setenforce",
+      "selinux:setfilecon",
     ]
     if (components == "system") {
       deps += [
