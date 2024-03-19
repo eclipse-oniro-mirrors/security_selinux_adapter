@@ -75,7 +75,7 @@ def check(args, with_developer):
     if len(notallow) > 0 :
         print('check permissive rule in {} mode failed.'.format("developer" if with_developer else "user"))
         print('violation list (scontext):')
-        for diff in notallow:
+        for diff in sorted(list(notallow)):
             print('\t{}'.format(diff))
         print('There are two solutions:\n',
               '\t1. Add the above list to whitelist file \'{}\' under \'{}\' in \'{}\' mode.\n'.format(

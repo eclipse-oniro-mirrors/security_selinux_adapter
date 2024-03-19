@@ -89,11 +89,11 @@ def check(args, with_developer):
     notallow = policy_db.allow_set - policy_db.allowx_set - set(contexts_list)
     if len(notallow) > 0 :
         print('check ioctl rule in {} mode failed.'.format("developer" if with_developer else "user"))
-        print('violation list (allow scontext tcontext:tclass)')
-        for diff in notallow:
+        print('violation list (allow scontext tcontext:tclass ioctl)')
+        for diff in sorted(list(notallow)):
             elem_list = diff.split(' ')
-            print('\tallow {}'.format(elem_list[0] + ' ' + elem_list[1] + ':' + elem_list[2]))
-        print('the above list is not found ioctl perm set. please add "allowxperm" rule to avoid it.'.format("developer" if with_developer else "user"))
+            print('\tallow {} ioctl;'.format(elem_list[0] + ' ' + elem_list[1] + ':' + elem_list[2]))
+        print('please add "allowxperm" rule based on the above list.')
     return len(notallow) > 0
 
 

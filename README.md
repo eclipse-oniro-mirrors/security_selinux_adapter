@@ -86,6 +86,11 @@ permissive=1                        #当前selinux处于宽容模式，只告警
 audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
 对应规则为
 allow hdcd selinuxfs:file open;
+
+带ioctl的权限增加allow规则后，依然会出现编译失败的情况，需要同时增加allowxperm规则：
+avc:  denied  { ioctl } for  pid=2029 comm="sample_host" path="/dev/hdf_kevent" dev="tmpfs" ino=204 ioctlcmd=0x6203 scontext=u:r:sample_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
+对应规则为
+allowxperm sample_host dev_hdf_kevent:chr_file ioctl { 0x6203 };
 ```
 
 ## 相关仓 
