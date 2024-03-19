@@ -69,8 +69,6 @@ allow hap_domain sa_dataobs_mgr_service_service:samgr_class { get };
 
 allow hap_domain self:ced { container_escape_check };
 
-allow hap_domain normal_hap_data_file_attr:file { open read write getattr };
-
 binder_call(hap_domain, samgr);
 binder_call(hap_domain, render_service);
 binder_call(hap_domain, param_watcher);
