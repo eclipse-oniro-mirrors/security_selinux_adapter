@@ -327,10 +327,10 @@ allow updater functionfs:dir { search };
 # avc:  denied  { set } for process="unknown process" parameter=sys.usb.ffs.ready pid=265 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:sys_param:s0 tclass=parameter_service permissive=1
 allow updater sys_param:parameter_service { set };
 
-debug_only(`
 # avc:  denied  { dac_override } for  pid=235 comm="updater" capability=1  scontext=u:r:updater:s0 tcontext=u:r:updater:s0 tclass=capability permissive=1
 allow updater updater:capability { dac_override };
 
+debug_only(`
 # avc:  denied  { dyntransition } for  pid=285 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
 # avc:  denied  { signal } for  pid=231 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
 # avc: denied { sigkill } for pid=241 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
