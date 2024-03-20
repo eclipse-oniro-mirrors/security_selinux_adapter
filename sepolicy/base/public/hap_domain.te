@@ -115,9 +115,9 @@ neverallow hap_domain system_file:dir_file_class_set { create write setattr rela
 
 neverallow hap_domain { file_attr -data_file_attr -dev_attr }:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { hap_domain -system_core_hap_attr -isolated_render } system_core_hap_data_file_attr:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { hap_domain -system_core_hap_attr -isolated_render } system_core_hap_data_file_attr:dir_file_class_set { create setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { hap_domain -system_basic_hap_attr -isolated_render } system_basic_hap_data_file_attr:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { hap_domain -system_basic_hap_attr -isolated_render } system_basic_hap_data_file_attr:dir_file_class_set { create setattr relabelfrom relabelto append unlink link rename };
 
 neverallow hap_domain { sysfs_attr proc_attr }:dir_file_class_set write;
 
