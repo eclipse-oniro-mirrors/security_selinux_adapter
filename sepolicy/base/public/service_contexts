@@ -247,6 +247,8 @@
 6001	                               u:object_r:sa_device_profile_service:s0
 6101                                   u:object_r:sa_oaid_service:s0
 6105	                               u:object_r:sa_ecological_rule_mgr_service:s0
+6200	                               u:object_r:sa_app_domain_verify_mgr_service:s0
+6201	                               u:object_r:sa_app_domain_verify_agent:s0
 7001	                               u:object_r:sa_subsys_ace_service:s0
 7002	                               u:object_r:sa_ui_appearance:s0
 8001	                               u:object_r:sa_ca_daemon_service:s0
