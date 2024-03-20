@@ -137,7 +137,7 @@ allow ueventd security_param:file { map open read };
 allow ueventd startup_param:file { map open read };
 allow ueventd sys_file:dir { open read };
 allow ueventd sys_file:file { open write };
-allow ueventd sysfs_android_usb:dir { open read };
+allow ueventd sysfs_gadget_usb:dir { open read };
 allow ueventd sysfs_block_file:dir { open read };
 allow ueventd sysfs_block_file:file { open write };
 allow ueventd sysfs_block_loop:dir { open read };

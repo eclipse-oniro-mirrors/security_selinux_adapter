@@ -208,6 +208,5 @@ allow normal_hap_attr dev_dri_file:dir { search };
 
 allow normal_hap_attr pasteboard_service:fd { use };
 
-#avc:  denied  { name_bind } for  pid=3559 comm="Chrome_DevTools" src=9222 scontext=u:r:normal_hap:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
 allow normal_hap_attr port:tcp_socket { name_bind };
 

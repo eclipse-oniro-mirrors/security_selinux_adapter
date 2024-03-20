@@ -70,7 +70,7 @@ type sysfs_block_file, sysfs_attr, fs_attr;
 type sysfs_hisys_file, sysfs_attr, fs_attr;
 
 type sysfs_devices_system_cpu, sysfs_attr, fs_attr;
-type sysfs_android_usb, sysfs_attr, fs_attr;
+type sysfs_gadget_usb, sysfs_attr, fs_attr;
 type sysfs_extcon, sysfs_attr, fs_attr;
 type sysfs_leds, sysfs_attr, fs_attr;
 type sysfs_net, sysfs_attr, fs_attr;
