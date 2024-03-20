@@ -67,13 +67,9 @@ ohos_shared_library("librestorecon") {
   sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_hilog_static" ]
-  external_deps = [
-    "hilog:libhilog",
-  ]
+  external_deps = [ "hilog:libhilog" ]
 
-  public_external_deps = [
-    "selinux:libselinux",
-  ]
+  public_external_deps = [ "selinux:libselinux" ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -209,11 +205,10 @@ ohos_shared_library("libparaperm_checker") {
   sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_static" ]
-
-  deps += [ ":libselinux_parameter_static" ]
-  external_deps = [
-    "bounds_checking_function:libsec_shared",
-  ]
+  if (startup_init_with_param_base) {
+    deps += [ ":libselinux_parameter_static" ]
+  }
+  external_deps = [ "bounds_checking_function:libsec_shared" ]
 
   public_external_deps = [ "selinux:libselinux" ]
 
