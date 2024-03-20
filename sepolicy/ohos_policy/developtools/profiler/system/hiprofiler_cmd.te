@@ -169,4 +169,4 @@ allow hiprofiler_cmd vendor_bin_file:dir search;
 allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };
 allow hiprofiler_cmd dev_file:dir getattr;
 allow hiprofiler_cmd dev_ashmem_file:chr_file { open };
-allow hiprofiler_cmd hdcd_exec:file { read open getattr }
+allow hiprofiler_cmd hdcd_exec:file { read open getattr };
