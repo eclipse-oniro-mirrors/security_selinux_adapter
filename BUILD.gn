@@ -205,9 +205,7 @@ ohos_shared_library("libparaperm_checker") {
   sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_static" ]
-  if (startup_init_with_param_base) {
-    deps += [ ":libselinux_parameter_static" ]
-  }
+  deps += [ ":libselinux_parameter_static" ]
   external_deps = [ "bounds_checking_function:libsec_shared" ]
 
   public_external_deps = [ "selinux:libselinux" ]
