@@ -52,6 +52,7 @@ allow processdump domain:dir { getattr open read search };
 #============= write event to hiview =========
 allow processdump hiview:binder { call transfer };
 allow processdump samgr:binder { call };
+allow processdump hiview:unix_dgram_socket { sendto };
 
 #============= for faultloggerd ===========
 allow processdump faultloggerd_temp_file:file { getattr open read write };
