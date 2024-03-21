@@ -15,3 +15,7 @@
 #avc:  denied {ioctl} for pid=1088 comm="DfxWatchdog" path="/sys/kernel/hungtask/userlist" dev="sysfs" ino=80052 ioctlcmd=0x5413 scontext=u:r:foundation:s0 tcontext=u:object_r:sysfs_hungtask_userlist:s0 tclass=file permissive=1
 #avc:  denied {getattr} for pid=1088 comm="DfxWatchdog" path="/sys/kernel/hungtask/userlist" dev="sysfs" ino=80052 scontext=u:r:foundation:s0 tcontext=u:object_r:sysfs_hungtask_userlist:s0 tclass=file permissive=1
 allow foundation sysfs_hungtask_userlist:file { open write ioctl getattr };
+
+#avc:  denied { read } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:foundation:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
+#avc:  denied { open } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:foundation:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
+allow foundation hiviewdfx_hiview_param:file { open read };
