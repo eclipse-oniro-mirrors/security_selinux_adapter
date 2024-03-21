@@ -330,6 +330,7 @@ debug_only(`
     allow processdump su:file { getattr open read };
     allow processdump su:process ptrace;
     allow processdump su:unix_stream_socket { read write }; 
+    allow processdump su:lnk_file read;
     allow hidumper_service su:dir { getattr open read search };
     allow hidumper_service su:fd use;
     allow hidumper_service su:file { getattr open read };
