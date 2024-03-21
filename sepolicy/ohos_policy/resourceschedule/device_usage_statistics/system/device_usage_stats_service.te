@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow device_usage_stats_service vendor_bin_file:dir { search };
-allow device_usage_stats_service vendor_file:file { execute getattr map open read };
 
