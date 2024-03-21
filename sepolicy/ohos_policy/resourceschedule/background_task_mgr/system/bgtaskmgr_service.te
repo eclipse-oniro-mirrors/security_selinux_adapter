@@ -67,8 +67,6 @@ allow bgtaskmgr_service data_service_el1_file:dir { open read };
 allow bgtaskmgr_service data_service_el1_file:file { lock setattr };
 allow bgtaskmgr_service musl_param:file { open };
 allow bgtaskmgr_service tmpfs:chr_file { read write };
-allow bgtaskmgr_service vendor_bin_file:dir { search };
-allow bgtaskmgr_service vendor_file:file { execute };
 allow normal_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_basic_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get };

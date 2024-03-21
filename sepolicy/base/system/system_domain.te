@@ -24,14 +24,14 @@ neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_ope
 neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_read } vendor_file:file { read };
 neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_getattr } vendor_file:file { getattr };
 neverallow { system_domain -bluetooth_service -distributeddata -foundation -audio_server -device_usage_stats_service
-    -resource_schedule_service -usb_service -vendor_file_violator_file_execute -bgtaskmgr_service } vendor_file:file { execute };
+    -resource_schedule_service -usb_service -vendor_file_violator_file_execute } vendor_file:file { execute };
 neverallow { system_domain } vendor_file:{ blk_file chr_file fifo_file lnk_file sock_file } *;
 
 # Prohibit system component processes from accessing vendor bin files to achieve access isolation
 neverallow { system_domain -vendor_bin_file_violator_dir } vendor_bin_file:dir ~{ search };
 neverallow { system_domain -accessibility -bootanimation -nfc_service -hiebpf -hiprofiler_cmd -hiprofilerd -daudio -dcamera -dhardware -dinput -dscreen -render_service 
     -processdump -hidumper_service -hiview -locationhub -audio_server -av_session -device_usage_stats_service -resource_schedule_service -dlp_permission_service
-    -security_component_service -init -module_update_service -hiprofiler_plugins -hiperf -vendor_bin_file_violator_dir_search -bgtaskmgr_service } vendor_bin_file:dir { search };
+    -security_component_service -init -module_update_service -hiprofiler_plugins -hiperf -vendor_bin_file_violator_dir_search } vendor_bin_file:dir { search };
 neverallow { system_domain -vendor_bin_file_violator_file } { vendor_bin_file }:file ~{ entrypoint execute map read getattr open };
 neverallow { system_domain -ispserver -vendor_bin_file_violator_file_entrypoint } vendor_bin_file:file { entrypoint };
 neverallow { system_domain -ispserver -init -vendor_bin_file_violator_file_execute } vendor_bin_file:file { execute };
