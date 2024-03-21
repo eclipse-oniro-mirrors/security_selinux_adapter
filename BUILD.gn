@@ -207,7 +207,6 @@ ohos_shared_library("libparaperm_checker") {
   deps = [ ":libselinux_klog_static" ]
   deps += [ ":libselinux_parameter_static" ]
   external_deps = [ "bounds_checking_function:libsec_shared" ]
-
   public_external_deps = [ "selinux:libselinux" ]
 
   cflags = [
