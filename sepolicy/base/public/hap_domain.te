@@ -162,7 +162,7 @@ neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hivi
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -distributedfiledaemon developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:dir *;
 
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon developer_only(`-hdcd') } normal_hap_data_file_attr:file_class_set open;
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:file_class_set open;
 
 neverallow { domain -installs -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
