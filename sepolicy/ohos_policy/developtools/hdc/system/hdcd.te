@@ -148,6 +148,7 @@ developer_only(`
     #avc: denied { open } for pid=716 comm="async-50" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
     #avc: denied { read } for pid=716 comm="async-50" name="u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
     allow hdcd_user_permit developtools_hdc_auth_param:file { map open read };
+    allow system_basic_hap_attr developtools_hdc_auth_param:file { map open read };
     #avc: denied { read } for pid=699 comm="async-57" name="u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=0
     #avc: denied { map } for pid=623 comm="async-46" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
     #avc: denied { open } for pid=623 comm="async-46" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
