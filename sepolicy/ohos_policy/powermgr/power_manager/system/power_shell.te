@@ -61,9 +61,23 @@ allow samgr power_shell:file { open read open read };
 # avc: denied { getattr } for pid=643 comm="IPC_0_662" scontext=u:r:samgr:s0 tcontext=u:r:power_shell:s0 tclass=process permissive=1
 allow samgr power_shell:process { getattr };
 
+# avc: denied { use } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=1
+allow power_shell hdcd:fd { use };
+
+# avc: denied { ioctl } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 ioctlcmd=0x5413 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+# avc: denied { read } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+# avc: denied { write } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+allow power_shell hdcd:fifo_file { ioctl read write };
+
+# avc: denied { ioctl } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 ioctlcmd=0x5413 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+allowxperm power_shell hdcd:fifo_file ioctl { 0x5413 };
+
 debug_only(`
     #for power-shell run
     domain_auto_transition_pattern(su, power_shell_exec, power_shell);
+
+    # avc: denied { get } for service=3308 pid=4719 scontext=u:r:power_shell:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
+    allow power_shell sa_foundation_displaymgr_service:samgr_class { get };
 
     # avc: denied { getattr } for pid=4346 comm="ps" path="/proc/4337" dev="proc" ino=36480 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=dir permissive=1
     # avc: denied  { search } for  pid=4346 comm="ps" name="4337" dev="proc" ino=36480 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=dir permissive=1
