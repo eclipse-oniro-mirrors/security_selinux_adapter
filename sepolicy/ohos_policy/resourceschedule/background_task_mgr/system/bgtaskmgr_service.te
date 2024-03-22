@@ -77,6 +77,20 @@ allow bgtaskmgr_service distributeddata:binder { call transfer };
 #avc:  denied  { get } for service=3301 pid=282 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_foundation_powermgr_service:samgr_class { get };
 
+# Add the corresponding selinux permission 
+# for the device_usage_stats.service process
+# from security_selinux_adapter\sepolicy\base\te\device_usage_stats_service.te
+allow bgtaskmgr_service data_service_el1_file:dir { add_name };
+allow bgtaskmgr_service param_watcher:binder { call transfer };
+allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class { get };
+allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { add };
+allow bgtaskmgr_service sa_time_service:samgr_class { get };
+allow bgtaskmgr_service tracefs:dir { search };
+allow bgtaskmgr_service tracefs_trace_marker_file:file { open write };
+debug_only(`
+    allow bgtaskmgr_service debug_param:file { map open read };
+')
+
 binder_call(bgtaskmgr_service, accountmgr);
 binder_call(bgtaskmgr_service, accesstoken_service);
 binder_call(bgtaskmgr_service, device_usage_stats_service);

@@ -56,18 +56,3 @@ allow bgtaskmgr_service sysfs_hctosys:file { open read };
 allow bgtaskmgr_service sysfs_rtc:dir { open read };
 allow bgtaskmgr_service sys_param:file { map open read };
 allow bgtaskmgr_service sys_usb_param:file { map open read };
-
-# Due to the merging of the device_usage_stats_service process 
-# into the bgtaskmgr_service process,
-# it is necessary to add the corresponding selinux permission 
-# for the device_usage_stats.service process.
-allow bgtaskmgr_service data_service_el1_file:dir { add_name };
-allow bgtaskmgr_service param_watcher:binder { call transfer };
-allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class { get };
-allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { add };
-allow bgtaskmgr_service sa_time_service:samgr_class { get };
-allow bgtaskmgr_service tracefs:dir { search };
-allow bgtaskmgr_service tracefs_trace_marker_file:file { open write };
-debug_only(`
-    allow bgtaskmgr_service debug_param:file { map open read };
-')
