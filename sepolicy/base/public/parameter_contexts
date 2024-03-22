@@ -62,7 +62,6 @@ ffrt.                                   u:object_r:ffrt_param:s0
 hiviewdfx.hiperf.                       u:object_r:hiviewdfx_profiler_param:s0
 hiviewdfx.hiprofiler.                   u:object_r:hiviewdfx_profiler_param:s0
 hiviewdfx.hichecker.                    u:object_r:hichecker_writable_param:s0
-debug.graphic.overdraw                  u:object_r:debug_param:s0
 
 persist.distributed_hardware.device_manager.discover_status    u:object_r:dhardware_dm_param:s0
 persist.multimedia.audio.               u:object_r:persist_audio_param:s0
