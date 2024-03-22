@@ -231,7 +231,7 @@ neverallow { domain -init } debugfs_kprobes:file *;
 
 neverallow domain parameter_attr:file { ioctl lock };
 
-neverallow { domain -init } data_parameters:file { never_write_file never_execute_file };
+neverallow { domain -init updater_only(`-updater') } data_parameters:file { never_write_file never_execute_file };
 
 neverallow { domain -init } parameter_attr:file { never_write_file never_execute_file };
 
@@ -291,8 +291,8 @@ neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice -ark_
              -installs updater_only(`-updater')
              -storage_daemon -usb_host -cap_violator_dacoverride } self:{ capability cap_userns } dac_override;
 neverallow { domain -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd') -distributedfiledaemon } self:{ capability cap_userns } dac_read_search;
-neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner } self:{ capability cap_userns } fowner;
-neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid } self:{ capability cap_userns } fsetid;
+neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner updater_only(`-updater') } self:{ capability cap_userns } fowner;
+neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid updater_only(`-updater') } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_service -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;
 neverallow { domain -init -chipset_init -appspawn -nwebspawn -storage_daemon -cap_violator_setuid updater_only(`-updater') } self:{ capability cap_userns } setuid;
 neverallow { domain -init -chipset_init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') updater_only(` -updater ') } self:{ capability cap_userns } setgid;
