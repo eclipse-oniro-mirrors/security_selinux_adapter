@@ -18,6 +18,7 @@ allow app_domain_verify_mgr_service data_service_file:dir { search };
 allow app_domain_verify_mgr_service sysfs_devices_system_cpu:file { open read getattr };
 allow app_domain_verify_mgr_service data_service_el1_file:dir { search read write open add_name remove_name };
 allow app_domain_verify_mgr_service data_service_el1_file:file { read write open getattr create setattr ioctl lock unlink };
+allowxperm app_domain_verify_mgr_service data_service_el1_file:file ioctl { 0xf50c };
 allow app_domain_verify_mgr_service dev_ashmem_file:chr_file { open };
 allow app_domain_verify_mgr_service app_domain_verify_agent:binder { call };
 allow app_domain_verify_mgr_service sa_app_domain_verify_mgr_service:samgr_class { add get };
