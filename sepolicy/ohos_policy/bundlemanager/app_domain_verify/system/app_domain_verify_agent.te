@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type app_domain_verify_agent, sadomain, domain;
 allow app_domain_verify_agent dev_kmsg_file:chr_file { write };
 allow app_domain_verify_agent debug_param:file { open read };
 allow app_domain_verify_agent dev_unix_socket:dir { search };
