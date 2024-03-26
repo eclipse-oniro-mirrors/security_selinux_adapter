@@ -111,6 +111,10 @@ int32_t HashMapAdd(HashTab *handle, HashNode *node)
 
 HashNode *HashMapGet(HashTab *handle, const char *key, uint32_t len)
 {
+    if (handle == NULL) {
+        return NULL;
+    }
+
     int hashCode = GenerateHashCode(key, len);
     hashCode = (hashCode < 0) ? -hashCode : hashCode;
     hashCode = hashCode % MAX_BUCKET;
