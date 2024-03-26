@@ -29,6 +29,16 @@ allow daudio data_file:dir { search };
 
 allow daudio data_data_file:dir { search };
 
+allow daudio data_data_file:file { create append open ioctl getattr };
+
+allowxperm daudio data_data_file:file ioctl { 0x5413 };
+
+allow daudio_host data_data_file:dir { add_name search write };
+
+allow daudio_host data_data_file:file { create append open ioctl getattr };
+
+allowxperm daudio_host data_data_file:file ioctl { 0x5413 };
+
 allow daudio data_data_pulse_dir:dir { search read open getattr };
 
 allow daudio data_data_pulse_dir:file { read write open lock };
@@ -131,7 +141,7 @@ allow daudio dslm_service:binder { call transfer };
 
 allow daudio device_manager:binder { call transfer };
 
-allow daudio dev_kmsg_file:chr_file { write };
+allow daudio dev_kmsg_file:chr_file { write open };
 
 allow daudio sa_device_security_level_manager_service:samgr_class { get };
 
