@@ -208,3 +208,7 @@ allowxperm bluetooth_service data_misc:file ioctl { 0x5413 };
 #avc:  denied  { get } for service=3299 pid=348 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_telephony_tel_sms_mms:s0 tclass=samgr_class permissive=0
 allow bluetooth_service sa_telephony_tel_sms_mms:samgr_class { get };
 allow bluetooth_service sa_foundation_bms:samgr_class { get };
+
+#avc: denied { call } for pid=1414, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+#avc: denied { transfer } for pid=1414, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow bluetooth_service device_manager:binder { call transfer };
