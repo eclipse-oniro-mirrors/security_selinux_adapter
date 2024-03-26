@@ -23,7 +23,7 @@ from check_common import read_json_file, traverse_file_in_each_type
 
 WHITELIST_FILE_NAME = "ioctl_xperm_whitelist.json"
 
-DOMAIN_ATTR_IOCTL = ["data_log_sanitizer_file file","proc_attr dir","self dir","self fifo_file",
+ALLOW_TCONTEXT_CLASS_LIST = ["data_log_sanitizer_file file","proc_attr dir","self dir","self fifo_file",
                      "self file","self lnk_file","self unix_stream_socket"]
 
 
@@ -92,7 +92,7 @@ def check(args, with_developer):
     diff_set = policy_db.allow_set - policy_db.allowx_set - set(contexts_list)
     notallow = list()
     for diff in diff_set:
-        if not (diff.endswith(tuple(DOMAIN_ATTR_IOCTL))) :
+        if not (diff.endswith(tuple(ALLOW_TCONTEXT_CLASS_LIST))) :
             notallow.append(diff)
     
     if len(notallow) > 0 :
