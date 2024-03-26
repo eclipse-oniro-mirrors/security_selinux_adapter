@@ -26,6 +26,7 @@ developer_only(`
 (allow sh data_local_tmp (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
 (allow sh data_local_tmp (file (execute execute_no_trans ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
 (allow sh debug_param (file (read map open)))
+(allow sh debug_param (parameter_service (set)))
 (allow sh dev_console_file (chr_file (read write getattr)))
 (allow sh dev_file (dir (search)))
 (allow sh dev_null_file (chr_file (read write open)))
