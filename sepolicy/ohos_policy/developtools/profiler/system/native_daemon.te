@@ -94,3 +94,4 @@ allow native_daemon app_el1_bundle_public:dir { read search open getattr };
 allow native_daemon app_el1_bundle_public:file { map getattr read open };
 allow native_daemon sa_native_daemon:samgr_class { add };
 allow native_daemon hiviewdfx_profiler_param:parameter_service { set };
+allow native_daemon hdcd_exec:file { read open getattr };
