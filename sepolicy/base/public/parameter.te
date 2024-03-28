@@ -69,7 +69,7 @@ type print_param, parameter_attr;
 type i18n_param, parameter_attr;
 type const_i18n_param, parameter_attr;
 type hichecker_writable_param, parameter_attr;
-
-allow init parameter_attr:file relabelto;
+# avc:  denied  { relabelfrom } for  pid=1 comm="init" path="/dev/__paramerters__/u:object_r:hilog_private_param:s0" dev=""ino=218 scontext=u:r:init:s0 tcontext=u:object_r:hilog_private_param:s0 tclass=file permissive=0
+allow init parameter_attr:file { relabelto relabelfrom };
 allow parameter_attr tmpfs:filesystem associate;
 

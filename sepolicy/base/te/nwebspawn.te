@@ -66,5 +66,6 @@ allow nwebspawn sys_usb_param:file { map open read };
 allow nwebspawn tmpfs:dir { mounton };
 allow nwebspawn tmpfs:filesystem { unmount };
 allow nwebspawn vendor_lib_file:dir { mounton };
-allow nwebspawn appspawn_exec:file { execute execute_no_trans open read };
+# avc: denied { map } for pid=2795 comm="appspawn" path="/system/bin/appspawn" dev="mmcblk0p7" ino=136 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:appspawn_exec:s0 tclass=file permissive=0  
+allow nwebspawn appspawn_exec:file { execute execute_no_trans open read map };
 allowxperm nwebspawn dev_at_file:chr_file ioctl { 0x4102 };
