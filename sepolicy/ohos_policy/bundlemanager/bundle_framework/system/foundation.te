@@ -39,6 +39,7 @@ type bms_param, parameter_attr;
 allow foundation multimodalinput:binder call;
 allow foundation multimodalinput:unix_stream_socket write;
 
+allow foundation bms_param:parameter_service { set };
 allow foundation accessibility:binder { call };
 allow foundation accesstoken_service:binder { call };
 allow foundation appspawn:unix_stream_socket { connectto };
