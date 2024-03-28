@@ -105,3 +105,4 @@ allow netmanager wifi_hal_service:binder { transfer call };
 allow netmanager sa_dhcp_client:samgr_class { add get };
 allow netmanager sa_dhcp_server:samgr_class { add get };
 allow netmanager sa_huks_service:samgr_class { get };
+allow netmanager huks_service:binder { call };
