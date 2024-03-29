@@ -11,6 +11,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+
+
+allow SP_daemon proc_net:file { getattr read open read };
+allow SP_daemon proc_stat_file:file { read open getattr setattr };
+allow SP_daemon proc_meminfo_file:file { getattr open read };
+allow SP_daemon proc_cmdline_file:file { getattr open read };
+allow SP_daemon proc_loadavg_file:file { getattr open read };
+allow SP_daemon proc_modules_file:file { getattr open read };
+allow SP_daemon proc_net:file { getattr open read };
+allow SP_daemon proc_net_tcp_udp:file { getattr open read };
+allow SP_daemon proc_slabinfo_file:file { getattr open read };
+allow SP_daemon proc_version_file:file { getattr open read };
+allow SP_daemon proc_vmallocinfo_file:file { getattr open read };
+allow SP_daemon proc_vmstat_file:file { getattr open read };
+allow SP_daemon proc_zoneinfo_file:file { getattr open read };
+allow SP_daemon proc_file:file { open read };
+allow SP_daemon processdump:dir search;
+allow SP_daemon processdump:file { open read };
+allow SP_daemon hiprofiler_cmd:file getattr;
+allow SP_daemon hiprofiler_plugins:file getattr;
+allow SP_daemon hiprofilerd:file getattr;
+
 developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
@@ -44,7 +66,6 @@ allow SP_daemon samgr:binder { call };
 allow SP_daemon tracefs:dir { search };
 allow SP_daemon accessibility:binder { call transfer };
 allow SP_daemon param_watcher:binder { call transfer };
-allow SP_daemon proc_stat_file:file { read open getattr setattr };
 allow SP_daemon node:tcp_socket { node_bind };
 allow SP_daemon node:udp_socket { node_bind };
 allow SP_daemon port:tcp_socket { name_bind };
@@ -107,7 +128,6 @@ allow SP_daemon dev_kmsg_file:chr_file { write };
 allow SP_daemon hisysevent:lnk_file { read };
 allow SP_daemon hisysevent:process { signal };
 allow SP_daemon hitrace:lnk_file { read };
-allow SP_daemon proc_net:file { getattr read open read };
 allow SP_daemon dev_ucollection:chr_file { ioctl read open read write open write };
 allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x1 0x2 0x3 };
 allow SP_daemon SP_daemon:tcp_socket { connect read shutdown write };
@@ -126,3 +146,5 @@ allowxperm SP_daemon hiprofiler_plugins:fifo_file ioctl { 0x5413 };
 allow SP_daemon uinput_exec:file { execute execute_no_trans getattr open read };
 allow SP_daemon aa_exec:file { execute execute_no_trans getattr open read };
 ')
+
+
