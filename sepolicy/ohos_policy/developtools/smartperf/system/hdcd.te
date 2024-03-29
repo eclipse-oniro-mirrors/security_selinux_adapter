@@ -13,4 +13,6 @@
 
 developer_only(`
 allow hdcd SP_daemon:process { signal };
+allow hdcd system_basic_hap_data_file_attr:dir {search };
+allow hdcd system_basic_hap_data_file_attr:file { getattr open read };
 ')
