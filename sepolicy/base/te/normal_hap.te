@@ -122,6 +122,8 @@ allow normal_hap_attr tracefs_trace_marker_file:file { open write };
 allowxperm normal_hap_attr dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800c 0x800e 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 0x8024 0x8025 0x8027 0x8030 0x8033 0x8034 0x8036 0x802a 0x802c 0x802d 0x802f 0x8014 };
 allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0x5413 0xf50c };
 binder_call(normal_hap_attr system_basic_hap_attr);
-allow normal_hap_attr dev_asanlog_file:dir { rw_dir_perms };
-allow normal_hap_attr dev_asanlog_file:file { create_file_perms };
+developer_only(`
+    allow debug_hap dev_asanlog_file:dir { rw_dir_perms };
+    allow debug_hap dev_asanlog_file:file { create_file_perms };
+')
 allow normal_hap_attr sa_hiview_service:samgr_class { get };
