@@ -91,7 +91,9 @@ allow wifi_manager_service port:tcp_socket { name_connect };
 
 # avc:  denied  { get } for service=4010 pid=1814 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_telephony_tel_core_service:s0 tclass=samgr_class permissive=0
 allow wifi_manager_service sa_telephony_tel_core_service:samgr_class { get };
- 
+
+allow wifi_manager_service sa_telephony_tel_cellular_data:samgr_class { get };
+
 # avc:  denied  { call } for  pid=3727 comm="RunHandleThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=0
 allow wifi_manager_service telephony_sa:binder { call };
 
