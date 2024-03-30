@@ -15,3 +15,7 @@ type resource_schedule_service, sadomain, domain;
 type sa_task_heartbeat_mgr, sa_service_attr;
 #allow resource_schedule_service set system parameter to record systemload level
 type resourceschedule_writeable_param, parameter_attr;
+
+#allow Perception of upload and download scene(Overlay scene recognition)
+allow resource_schedule_service sa_download_service:samgr_class { get };
+allow resource_schedule_service download_server:binder {call transfer};

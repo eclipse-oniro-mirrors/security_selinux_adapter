@@ -81,12 +81,12 @@ allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
 allow wukong render_service:fd { use };
 
-# for data_local_tmp_wukong
-allow wukong data_local_tmp_wukong:dir { add_name create open read relabelto search setattr write getattr };
-allow wukong data_local_tmp_wukong:file { create getattr ioctl open relabelto write append };
-allowxperm wukong data_local_tmp_wukong:file ioctl { 0x5413 };
+# for data_local_tmp
 allow wukong data_local_tmp:file { create getattr read relabelfrom ioctl write open unlink append };
 allow wukong data_local_tmp:dir { add_name create getattr read write open search remove_name };
+
+# hdcd
+allow wukong hdcd:fifo_file { read write };
 
 # ps -ef
 allow wukong domain: dir { search };
