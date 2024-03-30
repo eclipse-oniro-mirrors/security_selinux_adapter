@@ -61,5 +61,3 @@ allow download_server sys_usb_param:file { map open read };
 allow download_server telephony_sa:binder { call };
 allow download_server tracefs:dir { search };
 allow download_server tracefs_trace_marker_file:file { open write };
-
-allow download_server resource_schedule_service:binder {call};

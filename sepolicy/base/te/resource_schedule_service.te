@@ -81,5 +81,3 @@ allow resource_schedule_service sa_net_policy_manager:samgr_class { get };
 
 allow resource_schedule_service proc_net:file { getattr read open };
 
-allow resource_schedule_service sa_download_service:samgr_class { get };
-allow resource_schedule_service download_server:binder {call transfer};
