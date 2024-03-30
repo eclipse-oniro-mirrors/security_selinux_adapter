@@ -367,7 +367,7 @@ debug_only(`
     #for read and write system parameter
     #avc: denied { use } for pid=696 comm="async-55" path="socket:[28017]" dev="sockfs" ino=28017 scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
     allow hdcd su:fd { use };
-    #avc: denied { connect } for pid=696 comm="async-55" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=0
-    allow hdcd su:unix_dgram_socket { connect };
+    #avc: denied { connect write } for pid=696 comm="async-55" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=0
+    allow hdcd su:unix_dgram_socket { connect write };
 ')
 
