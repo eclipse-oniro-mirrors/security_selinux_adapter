@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#allow Perception of upload and download scene(Overlay scene recognition)
 allow download_server resource_schedule_service:binder {call};
