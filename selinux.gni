@@ -25,6 +25,7 @@ declare_args() {
   contexts_extra_args = "default"
   support_developer_mode = false
   special_build_selinux_gni_path = ""
+  selinux_check_extend_list = "default"
 }
 
 declare_args() {
