@@ -253,8 +253,6 @@ attribute system_profile_file_violator_dir;
 
 attribute hdf_service_violators;
 
-attribute resource_schedule_service;
-
 attribute binder_call_hdfdomain_violators;
 
 attribute hiview_host;
