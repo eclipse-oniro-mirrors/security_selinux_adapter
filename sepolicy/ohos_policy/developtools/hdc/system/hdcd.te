@@ -126,6 +126,10 @@ developer_only(`
     #for auth user permit: show system dialog
     #avc: denied { call } for pid=8390, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
     allow hdcd_user_permit samgr:binder { call };
+    #avc: denied { read write } for pid=7691, comm="/system/bin/hdcd_user_permit" path="/dev/tty0" dev="" ino=56 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+    allow hdcd_user_permit tty_device:chr_file { read };
+    #avc: denied { search } for pid=592, comm="/system/bin/samgr" name="/7691" dev="" ino=21628 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=dir permissive=0
+    allow hdcd_user_permit hdcd_user_permit:dir { search };
 
     allow hdcd memmgrservice:dir { getattr search };
     allow hdcd memmgrservice:file { open read };
