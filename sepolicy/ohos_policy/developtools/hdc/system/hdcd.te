@@ -159,6 +159,8 @@ developer_only(`
     allow samgr hdcd_user_permit:file { open };
     #avc: denied { getattr } for pid=623, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=process permissive=1
     allow samgr hdcd_user_permit:process { getattr };
+    #avc: denied { get } for service=180 pid=5753 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+    allow hdcd_user_permit sa_foundation_abilityms:samgr_class { get };
 
     allow hdcd memmgrservice:dir { getattr search };
     allow hdcd memmgrservice:file { open read };
