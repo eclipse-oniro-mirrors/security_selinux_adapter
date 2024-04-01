@@ -123,6 +123,10 @@ developer_only(`
     allow hdcd sa_audio_policy_service:samgr_class { get };
     allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
 
+    #for auth user permit: show system dialog
+    #avc: denied { call } for pid=8390, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+    allow hdcd_user_permit samgr:binder { call };
+
     allow hdcd memmgrservice:dir { getattr search };
     allow hdcd memmgrservice:file { open read };
 
