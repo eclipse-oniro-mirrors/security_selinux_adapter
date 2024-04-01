@@ -161,6 +161,8 @@ developer_only(`
     allow samgr hdcd_user_permit:process { getattr };
     #avc: denied { get } for service=180 pid=5753 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
     allow hdcd_user_permit sa_foundation_abilityms:samgr_class { get };
+    #avc denied { get } for service=401 pid=5574 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+    allow hdcd_user_permit sa_foundation_bms:samgr_class { get };
 
     allow hdcd memmgrservice:dir { getattr search };
     allow hdcd memmgrservice:file { open read };
