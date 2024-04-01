@@ -189,3 +189,4 @@ allow foundation arkui_param:file { map open read };
 allow foundation storage_daemon:binder { call transfer };
 allow foundation storage_daemon:fd { use };
 allow foundation proc_cmdline_file:file { open read };
+allow foundation hidumper_service:fifo_file { lock };
