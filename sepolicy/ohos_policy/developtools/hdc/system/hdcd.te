@@ -129,7 +129,7 @@ developer_only(`
     #avc: denied { read write } for pid=7691, comm="/system/bin/hdcd_user_permit" path="/dev/tty0" dev="" ino=56 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
     allow hdcd_user_permit tty_device:chr_file { read };
     #avc: denied { search } for pid=592, comm="/system/bin/samgr" name="/7691" dev="" ino=21628 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=dir permissive=0
-    allow hdcd_user_permit hdcd_user_permit:dir { search };
+    allow samgr hdcd_user_permit:dir { search };
     #avc: denied { write } for pid=7378, comm="/system/bin/hdcd_user_permit" path="/dev/tty0" dev="" ino=56 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
     allow samgr tty_device:chr_file { write };
     #avc: denied { search } for pid=593, comm="/system/bin/samgr" name="/8814" dev="" ino=24983 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=dir permissive=0
@@ -156,9 +156,9 @@ developer_only(`
     allow hdcd_user_permit tty_device:chr_file { ioctl open write };
     allowxperm hdcd_user_permit tty_device:chr_file ioctl { 0x5413 };
     # avc: denied { open } for pid=623, comm="/system/bin/samgr" path="/proc/5470/attr/current" dev="" ino=16620 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=file permissive=1
-    allow hdcd_user_permit hdcd_user_permit:file { open };
+    allow samgr hdcd_user_permit:file { open };
     #avc: denied { getattr } for pid=623, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=process permissive=1
-    allow hdcd_user_permit hdcd_user_permit:process { getattr };
+    allow samgr hdcd_user_permit:process { getattr };
 
     allow hdcd memmgrservice:dir { getattr search };
     allow hdcd memmgrservice:file { open read };
