@@ -123,6 +123,44 @@ developer_only(`
     allow hdcd sa_audio_policy_service:samgr_class { get };
     allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
 
+    #for auth user permit: show system dialog
+    #avc: denied { call } for pid=8390, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+    allow hdcd_user_permit samgr:binder { call };
+    #avc: denied { search } for pid=592, comm="/system/bin/samgr" name="/7691" dev="" ino=21628 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=dir permissive=0
+    allow samgr hdcd_user_permit:dir { search };
+    #avc: denied { read } for pid=597, comm="/system/bin/samgr" path="/proc/4938/attr/current" dev="" ino=14239 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=file permissive=0
+    allow samgr hdcd_user_permit:file { read };
+    #avc: denied { transfer } for pid=623, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=binder permissive=1
+    allow samgr hdcd_user_permit:binder { call transfer };
+    #avc: denied { write } for pid=5470, comm="/system/bin/hdcd_user_permit" path="/dev/kmsg" dev="" ino=16 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+    allow hdcd_user_permit dev_kmsg_file:chr_file { write };
+    #avc: denied { call } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+    #avc: denied { transfer } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+    allow hdcd_user_permit foundation:binder { call transfer };
+    #avc: denied { open } for pid=5574, comm="/bin/bm" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=200 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=5574, comm="/bin/bm" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=200 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+    allow hdcd_user_permit persist_sys_param:file { open read };
+    #avc: denied { call } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
+    #avc: denied { transfer } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
+    allow hdcd_user_permit hap_domain:binder { call transfer };
+    #avc: denied { ioctl } for pid=5570, comm="/bin/sh" path="/dev/tty" dev="" ino=17 ioctlcmd=0x5413 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+    #avc: denied { open } for pid=5570, comm="/bin/sh" path="/dev/tty" dev="" ino=17 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+    #avc: denied { write } for pid=5470, comm="/system/bin/hdcd_user_permit" path="/dev/tty0" dev="" ino=56 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+    #avc: denied { read write } for pid=7691, comm="/system/bin/hdcd_user_permit" path="/dev/tty0" dev="" ino=56 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+    allow hdcd_user_permit tty_device:chr_file { ioctl open write read };
+    allowxperm hdcd_user_permit tty_device:chr_file ioctl { 0x5413 };
+    # avc: denied { open } for pid=623, comm="/system/bin/samgr" path="/proc/5470/attr/current" dev="" ino=16620 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=file permissive=1
+    allow samgr hdcd_user_permit:file { open };
+    #avc: denied { getattr } for pid=623, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=process permissive=1
+    allow samgr hdcd_user_permit:process { getattr };
+    #avc: denied { get } for service=180 pid=5753 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+    allow hdcd_user_permit sa_foundation_abilityms:samgr_class { get };
+    #avc denied { get } for service=401 pid=5574 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+    allow hdcd_user_permit sa_foundation_bms:samgr_class { get };
+    #avc: denied { call } for pid=1495, comm="/system/bin/sa_main" scontext=u:r:foundation:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=binder permissive=0
+    #avc: denied { transfer } for pid=1492, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=binder permissive=0
+    allow foundation hdcd_user_permit:binder { call transfer };
+
     allow hdcd memmgrservice:dir { getattr search };
     allow hdcd memmgrservice:file { open read };
 
@@ -176,6 +214,8 @@ developer_only(`
     #avc: denied { write } for pid=623 comm="async-46" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
     #avc: denied { search } for pid=701 comm="async-18" name="misc" dev="mmcblk0p15" ino=108 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
     allow hdcd data_hdc_pubkeys:dir { search getattr read open add_name create write };
+    #avc: denied { remove_name } for pid=5502, comm="/system/bin/hdcd" name="/service/el0/hdc" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=3876 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
+    allow hdcd data_hdc_pubkeys:dir { remove_name };
     #avc: denied { getattr } for pid=728 comm="async-46" path="/data/service/el0/hdc/hdc_keys" dev="mmcblk0p15" ino=582 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
     #avc: denied { open } for pid=728 comm="async-46" path="/data/service/el0/hdc/hdc_keys" dev="mmcblk0p15" ino=582 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
     #avc: denied { append } for pid=623 comm="async-46" name="hdc_keys" dev="mmcblk0p15" ino=2116 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
