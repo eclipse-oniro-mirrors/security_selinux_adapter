@@ -12,11 +12,10 @@
 # limitations under the License.
 
 allow resource_schedule_executor resource_schedule_executor:unix_dgram_socket { getopt setopt };
+allow resource_schedule_executor sa_resource_schedule_executor:samgr_class { add };
 allow resource_schedule_executor chip_prod_file:dir { search };
 allow resource_schedule_executor sys_prod_file:dir { search };
 allow resource_schedule_executor sys_prod_file:file { open read };
-allow resource_schedule_executor sysfs_devices_system_cpu:file { getattr write open ioctl create read };
-allow resource_schedule_executor sysfs_devices_system_cpu:dir { open read search };
 allow resource_schedule_executor dev_unix_socket:dir { search };
 allow resource_schedule_executor dev_unix_socket:sock_file { write };
 allow resource_schedule_executor data_service_file:dir { search };
@@ -24,11 +23,7 @@ allow resource_schedule_executor sys_file:file { getattr write open ioctl create
 allow resource_schedule_executor sys_file:dir { open read search };
 allow resource_schedule_executor system_usr_file:dir { search map };
 allow resource_schedule_executor system_usr_file:file { getattr read map open };
-allow resource_schedule_executor sa_foundation_powermgr_service:samgr_class { get };
 allow resource_schedule_executor foundation:binder { call transfer };
-allow resource_schedule_executor data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search write };
-allow resource_schedule_executor data_service_el1_file:file { create getattr ioctl lock open read unlink write };
-allow resource_schedule_executor sa_resource_schedule_executor:samgr_class { add };
 allow resource_schedule_executor persist_param:file { map open read };
 allow resource_schedule_executor persist_sys_param:file { map open read };
 allow resource_schedule_executor ohos_boot_param:file { map open read };
@@ -39,6 +34,4 @@ allow hidumper_service sa_resource_schedule_executor:samgr_class { get };
 allow resource_schedule_service resource_schedule_executor:binder { call };
 allow resource_schedule_service sa_resource_schedule_executor:samgr_class { get };
 
-allowxperm resource_schedule_executor sysfs_devices_system_cpu:file ioctl { 0x5413 };
 allowxperm resource_schedule_executor sys_file:file ioctl { 0x5413 };
-allowxperm resource_schedule_executor data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c };
