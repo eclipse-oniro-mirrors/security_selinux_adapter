@@ -185,7 +185,7 @@ neverallow limit_domain *:file *;
 neverallow domain limit_domain:binder *;
 
 # every file should have a label. The unlabeled file shouldn't be accessed.
-neverallow { domain -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators } unlabeled:dir_file_class_set *;
+neverallow { domain -appspawn -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators } unlabeled:dir_file_class_set *;
 
 # keep selinuxfs safe.
 neverallow * kernel:security { load_policy setenforce setbool };
@@ -307,7 +307,7 @@ neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -cap_violator_sysmodule } self:{ capability cap_userns } sys_module;
 neverallow { domain -init -chipset_init -cap_violator_sysrawio} self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init -chipset_init -appspawn } self:{ capability cap_userns } sys_chroot;
-neverallow { domain -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf
+neverallow { domain -appspawn -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf
     -foundation -cap_violator_sysptrace debug_only(`-hiebpf') developer_only(`-SP_daemon') } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -init -chipset_init -storage_daemon -installs -appspawn -nwebspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater')} self:{ capability cap_userns } sys_admin;
