@@ -13,4 +13,5 @@
 
 #init
 allow init resource_schedule_service:process { rlimitinh siginh transition };
+allow init resource_schedule_executor:process { rlimitinh siginh transition };
 dontaudit init resource_schedule_service:process { noatsecure };
