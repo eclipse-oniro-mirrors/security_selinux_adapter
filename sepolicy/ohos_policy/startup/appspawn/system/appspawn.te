@@ -143,3 +143,19 @@ allowxperm appspawn cgroup:file ioctl {  0x5413  };
 
 # avc:  denied  { getattr } for  pid=2327 comm="edialibrarydata" path="/data/misc" dev="mmcblk0p15" ino=109 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_misc:s0 tclass=dir permissive=1
 allow appspawn data_misc:dir { getattr };
+
+# avc:  denied  { search } for  pid=274 comm="appspawn" name="648" dev="proc" ino=19134 scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=dir permissive=1
+allow appspawn pid_ns_init:dir { search };
+
+# avc:  denied  { read } for  pid=274 comm="appspawn" scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=file permissive=1
+allow appspawn pid_ns_init:file { open getattr read };
+
+# avc:  denied  { read } for  pid=274 comm="appspawn" name="pid" dev="proc" ino=31171 scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=lnk_file permissive=1
+allow appspawn pid_ns_init:lnk_file { read };
+
+# avc:  denied  { sys_ptrace } for  pid=265 comm="appspawn" capability=19  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=1
+allow appspawn appspawn:capability { sys_ptrace };
+
+# avc:  denied  { open } for  pid=277 comm="appspawn" path="pid:[4026532800]" dev="nsfs" ino=4026532800 scontext=u:r:appspawn:s0 tcontext=u:object_r:unlabeled:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=277 comm="appspawn" dev="nsfs" ino=4026532800 scontext=u:r:appspawn:s0 tcontext=u:object_r:unlabeled:s0 tclass=file permissive=1
+allow appspawn unlabeled:file { open read };

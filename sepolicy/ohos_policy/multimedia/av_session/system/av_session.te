@@ -66,3 +66,7 @@ allow av_session sa_distributeddata_service:samgr_class { get };
 
 
 allow av_session dev_ashmem_file:chr_file { open };
+
+allow av_session bgtaskmgr_service:binder { call transfer };
+allow av_session sa_bgtaskmgr:samgr_class { get };
+allow av_session sa_foundation_ans:samgr_class { get };

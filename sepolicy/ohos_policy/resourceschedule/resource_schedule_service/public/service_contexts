@@ -12,3 +12,4 @@
 # limitations under the License.
 
 1915                                   u:object_r:sa_task_heartbeat_mgr:s0
+1918                                   u:object_r:sa_resource_schedule_executor:s0
