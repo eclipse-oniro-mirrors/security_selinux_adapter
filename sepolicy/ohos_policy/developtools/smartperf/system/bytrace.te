@@ -13,7 +13,4 @@
 
 developer_only(`
 allow bytrace SP_daemon:fd { use };
-allow bytrace dev_kmsg_file:chr_file { write };
-allow bytrace system_basic_hap_data_file_attr:file { ioctl write };
-allowxperm bytrace system_basic_hap_data_file_attr:file ioctl { 0x5413 };
 ')
