@@ -101,6 +101,7 @@ allow foundation sa_param_watcher:samgr_class { get };
 allow foundation sa_softbus_service:samgr_class { get };
 allow foundation sa_telephony_tel_cellular_call:samgr_class { get };
 allow foundation sa_time_service:samgr_class { get };
+allow foundation default_service:samgr_class { get };
 allow foundation screenlock_server:binder { call transfer };
 allow foundation sensors:binder { call };
 allow foundation sh:binder { call transfer };
