@@ -32,7 +32,7 @@ allow pinauth hdf_pin_auth_interface_service:hdf_devmgr_class { get };
 allow pinauth system_core_hap_attr:binder { call transfer };
 
 allow pinauth sa_miscdevice_service:samgr_class { get };
-allow pinauth sensors:binder { call };
+allow pinauth sensors:binder { call transfer };
 
 allow pinauth accesstoken_service:binder { call };
 allow pinauth bootevent_param:file { map open read };
