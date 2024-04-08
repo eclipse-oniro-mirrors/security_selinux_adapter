@@ -87,3 +87,4 @@ allow cloudfiledaemon softbus_server:tcp_socket { read write setopt shutdown };
 allow cloudfiledaemon cloudfiledaemon:binder { call };
 allow cloudfiledaemon cloudfiledaemon:netlink_route_socket { create };
 allow cloudfiledaemon cloudfiledaemon:unix_dgram_socket { getopt };
+allow cloudfiledaemon media_library_param:file { map open read };
