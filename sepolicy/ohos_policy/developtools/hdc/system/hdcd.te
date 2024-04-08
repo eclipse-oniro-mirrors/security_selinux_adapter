@@ -221,7 +221,8 @@ developer_only(`
     #avc: denied { append } for pid=623 comm="async-46" name="hdc_keys" dev="mmcblk0p15" ino=2116 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
     #avc: denied { create } for pid=623 comm="async-46" name="hdc_keys" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
     #avc: denied { write } for pid=623 comm="async-46" path="/data/service/el0/hdc/hdc_keys/hdc_keys" dev="mmcblk0p15" ino=2116 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
-    allow hdcd data_hdc_pubkeys:file { getattr open append create write };
+    #avc: denied { unlink } for pid=6821, comm="/system/bin/hdcd" name="/service/el0/hdc/hdc_keys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=14932 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=0
+    allow hdcd data_hdc_pubkeys:file { getattr open append create write unlink };
     #avc: denied { getattr } for pid=1 comm="init" path="/data/service/el0/hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
     #avc: denied { open } for pid=1 comm="init" path="/data/service/el0/hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
     #avc: denied { read } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
@@ -229,8 +230,7 @@ developer_only(`
     #avc: denied { setattr } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
     allow init data_hdc_pubkeys:dir { getattr open read relabelto setattr };
     #avc: denied { read } for pid=703 comm="async-26" name="hdc_keys" dev="mmcblk0p15" ino=1974 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
-    #avc: denied { unlink } for pid=6821, comm="/system/bin/hdcd" name="/service/el0/hdc/hdc_keys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=14932 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=0
-    allow init data_hdc_pubkeys:file { read unlink };
+    allow init data_hdc_pubkeys:file { read };
 
     #avc: denied { search } for pid=736 comm="async-40" name="el0" dev="mmcblk0p15" ino=9 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
     allow hdcd_user_permit data_service_el0_file:dir { search };
