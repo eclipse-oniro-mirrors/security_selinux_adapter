@@ -245,3 +245,5 @@ allow hiview normal_hap_data_file_attr:file { create write open ioctl getattr ap
 allowxperm hiview normal_hap_data_file_attr:file ioctl { 0x5413 };
 
 allow hiview sa_distributeddata_service:samgr_class { get };
+allow hiview processdump:fd { use };
+allow hiview processdump:fifo_file { read };
