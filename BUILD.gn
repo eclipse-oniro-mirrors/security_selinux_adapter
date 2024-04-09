@@ -1175,77 +1175,87 @@ if (components != "default") {
 
 group("selinux_group") {
   if (build_selinux) {
-    deps = [
-      ":build_updater_sepolicy",
-      ":config",
-      ":file_contexts",
-      ":file_contexts_updater",
-      ":filecontexts_toolchain",
-      ":hap_restorecon",
-      ":hdf_service_contexts",
-      ":libpcre2_toolchain",
-      ":libselinux_toolchain",
-      ":load_policy",
-      ":param_check",
-      ":parameter_contexts",
-      ":restorecon",
-      ":sehap_contexts",
-      ":selinux_check",
-      ":service_check",
-      ":service_contexts",
-      ":updater_config",
-    ]
-    external_deps = [
-      "selinux:checkpolicy($host_toolchain)",
-      "selinux:chkcon",
-      "selinux:getenforce",
-      "selinux:getfilecon",
-      "selinux:getpidcon",
-      "selinux:secilc",
-      "selinux:secilc($host_toolchain)",
-      "selinux:sefcontext_compile($host_toolchain)",
-      "selinux:selinux_check_access",
-      "selinux:selinuxexeccon",
-      "selinux:setenforce",
-      "selinux:setfilecon",
-    ]
-    if (components == "system") {
-      deps += [
-        ":system_cil",
-        ":system_cil_sha256",
-        ":system_common_cil",
-        ":version_cil",
+    if (!ohos_indep_compiler_enable) {
+      deps = [
+        ":build_updater_sepolicy",
+        ":config",
+        ":file_contexts",
+        ":file_contexts_updater",
+        ":filecontexts_toolchain",
+        ":hap_restorecon",
+        ":hdf_service_contexts",
+        ":libpcre2_toolchain",
+        ":libselinux_toolchain",
+        ":load_policy",
+        ":param_check",
+        ":parameter_contexts",
+        ":restorecon",
+        ":sehap_contexts",
+        ":selinux_check",
+        ":service_check",
+        ":service_contexts",
+        ":updater_config",
       ]
-      if (support_developer_mode) {
-        deps += [
-          ":system_developer_cil",
-          ":system_developer_cil_sha256",
-          ":version_developer_cil",
-        ]
-      }
-    } else if (components == "vendor") {
-      deps += [
-        ":build_sepolicy",
-        ":prebuild_sepolicy_system_cil_sha256",
-        ":public_cil",
-        ":public_common_cil",
-        ":selinux_version",
-        ":vendor_cil",
-        ":vendor_common_cil",
+      external_deps = [
+        "selinux:checkpolicy($host_toolchain)",
+        "selinux:chkcon",
+        "selinux:getenforce",
+        "selinux:getfilecon",
+        "selinux:getpidcon",
+        "selinux:secilc",
+        "selinux:secilc($host_toolchain)",
+        "selinux:sefcontext_compile($host_toolchain)",
+        "selinux:selinux_check_access",
+        "selinux:selinuxexeccon",
+        "selinux:setenforce",
+        "selinux:setfilecon",
       ]
-      if (support_developer_mode) {
+      if (components == "system") {
         deps += [
-          ":developer_policy",
-          ":prebuild_sepolicy_system_developer_cil_sha256",
-          ":public_developer_cil",
-          ":vendor_developer_cil",
+          ":system_cil",
+          ":system_cil_sha256",
+          ":system_common_cil",
+          ":version_cil",
         ]
+        if (support_developer_mode) {
+          deps += [
+            ":system_developer_cil",
+            ":system_developer_cil_sha256",
+            ":version_developer_cil",
+          ]
+        }
+      } else if (components == "vendor") {
+        deps += [
+          ":build_sepolicy",
+          ":prebuild_sepolicy_system_cil_sha256",
+          ":public_cil",
+          ":public_common_cil",
+          ":selinux_version",
+          ":vendor_cil",
+          ":vendor_common_cil",
+        ]
+        if (support_developer_mode) {
+          deps += [
+            ":developer_policy",
+            ":prebuild_sepolicy_system_developer_cil_sha256",
+            ":public_developer_cil",
+            ":vendor_developer_cil",
+          ]
+        }
+      } else {
+        deps += [ ":build_sepolicy" ]
+        if (support_developer_mode) {
+          deps += [ ":developer_policy" ]
+        }
       }
     } else {
-      deps += [ ":build_sepolicy" ]
-      if (support_developer_mode) {
-        deps += [ ":developer_policy" ]
-      }
+      deps = [
+        ":hap_restorecon",
+        ":load_policy",
+        ":param_check",
+        ":restorecon",
+        ":service_check",
+      ]
     }
   }
 }
