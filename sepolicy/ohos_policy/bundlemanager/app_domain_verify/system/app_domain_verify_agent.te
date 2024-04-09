@@ -30,6 +30,6 @@ allow app_domain_verify_agent sa_app_domain_verify_agent:samgr_class { add get }
 allow app_domain_verify_agent sa_foundation_bms:samgr_class { get };
 allow app_domain_verify_agent sa_accountmgr:samgr_class { get };
 allow app_domain_verify_agent sa_net_conn_manager:samgr_class { get };
-allow app_domain_verify_agent dev_console_file:chr_file { read write }
-allow app_domain_verify_agent persist_param:file { open read }
-allow app_domain_verify_agent tracefs:dir { search }
+allow app_domain_verify_agent dev_console_file:chr_file { read write };
+allow app_domain_verify_agent persist_param:file { open read };
+allow app_domain_verify_agent tracefs:dir { search };
