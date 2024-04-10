@@ -240,7 +240,10 @@ allow hiview normal_hap_data_file_attr:dir { search write add_name };
 #avc:  denied  { write open } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
-allow hiview normal_hap_data_file_attr:file { create write open ioctl getattr };
+#avc:  denied  { append } for  pid=617 comm="/system/bin/hiview" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1712134642860.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25137 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=0
+allow hiview normal_hap_data_file_attr:file { create write open ioctl getattr append };
 allowxperm hiview normal_hap_data_file_attr:file ioctl { 0x5413 };
 
 allow hiview sa_distributeddata_service:samgr_class { get };
+allow hiview processdump:fd { use };
+allow hiview processdump:fifo_file { read };

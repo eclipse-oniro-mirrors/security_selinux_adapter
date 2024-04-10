@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -169,6 +169,9 @@ allow sensors sa_audio_policy_service:samgr_class { get };
 
 #avc:  denied  { get } for service=3001 pid=608 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=0
 allow sensors sa_pulseaudio_audio_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=1458 comm="/system/bin/sa_main" scontext=u:r:sensors:s0 tcontext=u:r:pinauth:s0 tclass=binder permissive=1
+allow sensors pinauth:binder { call };
 
 debug_only(`
     #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
