@@ -50,6 +50,7 @@ allow render_service persist_param:parameter_service { set };
 allow render_service sa_sensor_service:samgr_class { get };
 allow render_service sensors:binder { call transfer };
 allow render_service hmdfs:file { map write read };
+allow render_service multimodalinput:fd { use };
 
 debug_only(`
     allow render_service sh:fd { use };
