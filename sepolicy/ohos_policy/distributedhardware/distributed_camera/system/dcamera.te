@@ -213,7 +213,7 @@ allow  dcamera dev_kmsg_file:chr_file { open write };
 allow  dcamera_host dev_kmsg_file:chr_file { open write };
 allow  dcamera_host chip_prod_file:file { open getattr write read };
 allow  dcamera sa_device_security_level_manager_service:samgr_class{ get };
-allow accessibility sa_foundation_powermgr_service:samgr_class { get };
+allow accessibility sa_powermgr_powermgr_service:samgr_class { get };
 
 allow dcamera dev_ashmem_file:chr_file { read open map };
 allow normal_hap sa_dhardware_service:samgr_class { get };

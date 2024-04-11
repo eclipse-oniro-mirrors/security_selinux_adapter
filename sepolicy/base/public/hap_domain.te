@@ -75,6 +75,7 @@ binder_call(hap_domain, param_watcher);
 binder_call(hap_domain, multimodalinput);
 binder_call(hap_domain, inputmethod_service);
 binder_call(hap_domain, foundation);
+binder_call(hap_domain, powermgr);
 binder_call(hap_domain, accessibility);
 binder_call(hap_domain, hiview);
 

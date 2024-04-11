@@ -38,7 +38,8 @@ allow camera_service hdf_camera_image_process_service:hdf_devmgr_class { get };
 #avc:  denied  { use } for  pid=3966 comm="OS_FFRT_2_1" path="/dmabuf:" dev="dmabuf" ino=35644 scontext=u:r:camera_service:s0 tcontext=u:r:cameradaemon:s0 tclass=fd permissive=1
 #allow camera_service cameradaemon:fd { use };
 allow camera_service foundation:binder { transfer };
-#avc:  denied  { get } for service=3303 pid=1767 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_thermal_service:s0 tclass=samgr_class permissive=0
-allow camera_service sa_foundation_thermal_service:samgr_class { get };
+allow camera_service powermgr:binder { transfer };
+#avc:  denied  { get } for service=3303 pid=1767 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_powermgr_thermal_service:s0 tclass=samgr_class permissive=0
+allow camera_service sa_powermgr_thermal_service:samgr_class { get };
 #avc:  denied  { get } for service=3299 pid=1767 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow camera_service sa_foundation_cesfwk_service:samgr_class { get };

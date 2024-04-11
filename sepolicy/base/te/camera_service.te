@@ -50,6 +50,7 @@ allow camera_service ohos_param:file { map open read };
 allow camera_service param_watcher:binder { call transfer };
 allow camera_service persist_param:file { map open read };
 allow camera_service persist_sys_param:file { map open read };
+allow camera_service powermgr:binder { call };
 allow camera_service render_service:binder { call };
 allow camera_service sa_accesstoken_manager_service:samgr_class { get };
 allow camera_service sa_camera_service:samgr_class { add };

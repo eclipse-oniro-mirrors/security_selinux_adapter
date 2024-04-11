@@ -46,6 +46,7 @@ allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind creat
 #allow multimodalinput multimodalinput:process { ptrace };
 allow multimodalinput musl_param:file { map open read };
 allow multimodalinput param_watcher:binder { call transfer };
+allow multimodalinput powermgr:binder { call transfer };
 allow multimodalinput render_service:binder { call transfer };
 allow multimodalinput render_service:fd { use };
 allow multimodalinput resource_schedule_service:binder { call };
@@ -74,7 +75,7 @@ allow multimodalinput sa_foundation_cesfwk_service:samgr_class { get };
 allow multimodalinput sa_foundation_appms:samgr_class { get };
 allow multimodalinput normal_hap_attr:binder { call };
 allow multimodalinput normal_hap_attr:fd { use };
-allow multimodalinput sa_foundation_powermgr_service:samgr_class { get };
+allow multimodalinput sa_powermgr_powermgr_service:samgr_class { get };
 allow normal_hap_attr multimodalinput:unix_stream_socket { read write };
 allow normal_hap_attr sa_multimodalinput_service:samgr_class { get };
 allow normal_hap_attr multimodalinput:fd { use };
