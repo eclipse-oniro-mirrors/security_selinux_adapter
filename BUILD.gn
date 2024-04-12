@@ -572,6 +572,41 @@ action("build_contexts") {
   ]
 }
 
+action("build_ignore_cfg") {
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+    }
+  }
+
+  if (special_build_ignore_cfg != "default") {
+    script = special_build_ignore_cfg
+  } else {
+    script = "scripts/build_ignore_cfg.py"
+  }
+  args = [
+    "--dst-dir",
+    rebase_path(target_out_dir + "/"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy-dir-list",
+    selinux_build_path,
+    "--components",
+    components,
+  ]
+  outputs = [ target_out_dir + "/ignore_cfg" ]
+}
+
 action("build_updater_contexts") {
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("sepolicy") ],
@@ -801,6 +836,20 @@ ohos_prebuilt_etc("file_contexts") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
+  if (components == "vendor") {
+    install_images = [ "vendor" ]
+  } else {
+    install_images = [ "system" ]
+  }
+}
+
+ohos_prebuilt_etc("ignore_cfg") {
+  deps = [ ":build_ignore_cfg" ]
+  source = target_out_dir + "/ignore_cfg"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/"
   if (components == "vendor") {
     install_images = [ "vendor" ]
   } else {
@@ -1184,6 +1233,7 @@ group("selinux_group") {
         ":filecontexts_toolchain",
         ":hap_restorecon",
         ":hdf_service_contexts",
+        ":ignore_cfg",
         ":libpcre2_toolchain",
         ":libselinux_toolchain",
         ":load_policy",
