@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+allow hiprofiler_plugins data_file:dir search;
 allow hiprofiler_plugins data_init_agent:dir search;
 allow hiprofiler_plugins data_init_agent:file { append ioctl open read };
 allow hiprofiler_plugins dev_unix_socket:sock_file write;
@@ -20,6 +21,7 @@ allow hiprofiler_plugins hdcd:fifo_file write;
 allow hiprofiler_plugins tty_device:chr_file { read write };
 allow hiprofiler_plugins dev_unix_socket:dir search;
 allow hiprofiler_plugins proc_cpuinfo_file:file { open read };
+allow hiprofiler_plugins system_bin_file:dir search;
 allow hiprofiler_plugins data_local:dir search;
 allow hiprofiler_plugins hiprofilerd:unix_stream_socket connectto;
 allow hiprofiler_plugins hiprofilerd:fd { use }; 
@@ -200,6 +202,7 @@ allow hiprofiler_plugins storage_daemon:dir search;
 allow hiprofiler_plugins storage_daemon:file { getattr open };
 
 allow hiprofiler_plugins hilogd:file getattr;
+allow hiprofiler_plugins system_bin_file:file execute;
 allow hiprofiler_plugins tmpfs:file { map read };
 allow hiprofiler_plugins tracefs:dir search;
 allow hiprofiler_plugins tracefs:file { getattr read };
@@ -287,6 +290,7 @@ allow hiprofiler_plugins ark_writeable_param:file { read open map };
 allow hiprofiler_plugins accountmgr:binder { call };
 allow hiprofiler_plugins foundation:binder { call };
 allow accountmgr hiprofiler_plugins:binder { transfer };
+allow hiprofiler_plugins system_bin_file:lnk_file read;
 allow hiprofiler_plugins SP_daemon_exec:file { getattr open read execute execute_no_trans map};
 
 allow hiprofiler_plugins sa_render_service:samgr_class get;
@@ -299,26 +303,5 @@ developer_only(`
     allow hiprofiler_plugins SP_daemon:process { rlimitinh siginh sigkill signal };
 ')
 
-allow hiprofiler_plugins system_bin_file:dir { getattr open read search };
-allow hiprofiler_plugins system_bin_file:file { getattr execute read open map };
-allow hiprofiler_plugins system_bin_file:lnk_file { read };
-
-allow hiprofiler_plugins system_lib_file:dir { getattr open read search };
-allow hiprofiler_plugins system_lib_file:file { getattr read open map };
-allow hiprofiler_plugins system_lib_file:lnk_file { read };
-
-allow hiprofiler_plugins vendor_lib_file:dir { getattr open read search };
-allow hiprofiler_plugins vendor_lib_file:file { getattr read open map };
-allow hiprofiler_plugins vendor_lib_file:lnk_file { read };
-
-allow hiprofiler_plugins chip_prod_file:dir { getattr open read search };
-allow hiprofiler_plugins chip_prod_file:file { getattr read open map };
-allow hiprofiler_plugins chip_prod_file:lnk_file { read };
-
-allow hiprofiler_plugins sys_prod_file:dir { getattr open read search };
-allow hiprofiler_plugins sys_prod_file:file { getattr read open map };
-allow hiprofiler_plugins sys_prod_file:lnk_file { read };
-
-allow hiprofiler_plugins data_file:dir { getattr open read search };
-allow hiprofiler_plugins data_file:file { getattr read open map };
-allow hiprofiler_plugins data_file:lnk_file { read };
+allow hiprofiler_plugins data_hilogd_file:dir { getattr open read search };
+allow hiprofiler_plugins data_hilogd_file:file { getattr open read };

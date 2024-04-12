@@ -40,7 +40,3 @@ domain_auto_transition_pattern(native_system_domain, hiprofiler_plugins_exec, hi
 domain_auto_transition_pattern(native_system_domain, native_daemon_exec, native_daemon);
 
 domain_auto_transition_pattern(hiprofiler_plugins, SP_daemon_exec, SP_daemon);
-
-domain_auto_transition_pattern(hiprofiler_plugins, hilogd_exec, hilogd);
-
-domain_auto_transition_pattern(hiprofiler_plugins, hilog_exec, hilog);
