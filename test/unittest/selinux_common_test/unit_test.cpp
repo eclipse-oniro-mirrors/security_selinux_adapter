@@ -21,8 +21,10 @@
 #include "selinux_log.h"
 #include "test_common.h"
 
+namespace OHOS {
+namespace Security {
+namespace SelinuxUnitTest {
 using namespace testing::ext;
-using namespace OHOS::Security::SelinuxUnitTest;
 using namespace Selinux;
 
 void SelinuxUnitTest::SetUpTestCase() {}
@@ -146,3 +148,6 @@ HWTEST_F(SelinuxUnitTest, SelinuxKmsg004, TestSize.Level1)
     SetSelinuxKmsgLevel(SELINUX_KERROR);
     EXPECT_EQ(-1, SelinuxKmsg(SELINUX_KAVC + 1, "test"));
 }
+} // namespace SelinuxUnitTest
+} // namespace Security
+} // namespace OHOS

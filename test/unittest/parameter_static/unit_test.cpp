@@ -28,8 +28,10 @@
 #include "test_common.h"
 #include "unistd.h"
 
+namespace OHOS {
+namespace Security {
+namespace SelinuxUnitTest {
 using namespace testing::ext;
-using namespace OHOS::Security::SelinuxUnitTest;
 using namespace Selinux;
 const static std::string PARAMETER_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/parameter_contexts";
 static const char DEFAULT_CONTEXT[] = "u:object_r:default_param:s0";
@@ -229,3 +231,6 @@ HWTEST_F(SelinuxUnitTest, ReadSharedMem002, TestSize.Level1)
 {
     EXPECT_EQ("test", ReadSharedMem("test", 4));
 }
+} // namespace SelinuxUnitTest
+} // namespace Security
+} // namespace OHOS

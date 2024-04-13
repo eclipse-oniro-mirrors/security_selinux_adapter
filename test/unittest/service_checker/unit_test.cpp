@@ -19,8 +19,10 @@
 #include "hdf_service_checker.h"
 #include "test_common.h"
 
+namespace OHOS {
+namespace Security {
+namespace SelinuxUnitTest {
 using namespace testing::ext;
-using namespace OHOS::Security::SelinuxUnitTest;
 using namespace Selinux;
 const static std::string TEST_SERVICE_NAME = "test_service";
 const static std::string DEFAULT_SERVICE = "default_service";
@@ -160,3 +162,6 @@ HWTEST_F(SelinuxUnitTest, AddServiceCheck001, TestSize.Level1)
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
 }
+} // namespace SelinuxUnitTest
+} // namespace Security
+} // namespace OHOS
