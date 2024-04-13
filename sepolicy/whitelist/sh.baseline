@@ -65,7 +65,7 @@ developer_only(`
 (allow sh lib_file (lnk_file (read)))
 (allow sh paramservice_socket (sock_file (write)))
 (allow sh proc_file (dir (read getattr open search)))
-(allow sh proc_file (lnk_file (read)))
+(allow sh proc_file (lnk_file (read getattr)))
 (allow sh processdump (process (transition sigchld share siginh rlimitinh)))
 (allow sh processdump_exec (file (ioctl read getattr map execute open)))
 (allow sh rootfs (dir (search)))
