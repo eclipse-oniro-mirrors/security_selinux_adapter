@@ -143,9 +143,14 @@ allow SP_daemon processdump:file { open read };
 allow SP_daemon hiprofiler_cmd:file getattr;
 allow SP_daemon hiprofiler_plugins:file getattr;
 allow SP_daemon hiprofilerd:file getattr;
-allow SP_daemon SP_daemon tcp_socket:setopt;
+allow SP_daemon SP_daemon:tcp_socket { setopt };
 allow SP_daemon proc_cpuinfo_file:file { getattr open read };
 allow SP_daemon snapshot_display_exec:file { execute execute_no_trans getattr open read };
+allow SP_daemon aa_exec:file { map };
+allow SP_daemon dev_ucollection:chr_file { ioctl };
+allow SP_daemon normal_hap:file { getattr };
+allow SP_daemon sh:file { open };
+allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x4 };
 ')
 
 
