@@ -181,6 +181,19 @@ allow wifi_manager_service system_bin_file:file { getattr };
 # avc:  denied  { getattr } for  pid=6460 comm="cp" path="/data/service/el1/public/wifi/wpa_supplicant" dev="sdd91" ino=3363 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow wifi_manager_service data_service_el1_file:dir { getattr };
 
+# avc:  denied  { create } for  pid=1376 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_generic_socket permissive=1
+# avc:  denied  { setopt } for  pid=1376 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_generic_socket permissive=1
+# avc:  denied  { bind } for  pid=1376 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_generic_socket permissive=1
+# avc:  denied  { getattr } for  pid=1376 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_generic_socket permissive=1
+# avc:  denied  { write } for  pid=1376 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_generic_socket permissive=1
+# avc:  denied  { read } for  pid=1376 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_generic_socket permissive=1
+allow wifi_manager_service wifi_manager_service:netlink_generic_socket { create setopt bind getattr write read };
+
+# avc:  denied  { write } for  pid=1359 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow wifi_manager_service dev_kmsg_file:chr_file { write };
+
+# avc:  denied  { get } for  pid=1359 comm="wifi_manager_se" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:hdf_chip_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow wifi_manager_service hdf_chip_interface_service:hdf_devmgr_class { get };
 
 # avc:  denied  { call } for  pid=1376 comm="RunHandleThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
 allow wifi_manager_service hdf_devmgr:binder { call };

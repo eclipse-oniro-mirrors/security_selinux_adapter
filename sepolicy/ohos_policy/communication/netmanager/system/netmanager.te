@@ -38,6 +38,7 @@ allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write 
 allow netmanager netmanager:packet_socket { bind create read write };
 allow netmanager netmanager:tcp_socket { connect create getattr getopt read setopt write };
 allow netmanager netmanager:udp_socket { bind connect create getattr ioctl read write setopt getopt };
+allow netmanager netmanager:rawip_socket { write setopt create read };
 allow netmanager netmanager:unix_dgram_socket { ioctl };
 allow netmanager netsysnative:binder { call };
 allow netmanager node:udp_socket { node_bind };

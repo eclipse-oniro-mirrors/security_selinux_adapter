@@ -51,6 +51,9 @@ allow isolated_render ohos_boot_param:file { map open read };
 # avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="u:object_r:persist_param:s0" dev="tmpfs" ino=107 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
 allow isolated_render persist_param:file { map open read };
 
+# avc:  denied  { map } for  pid=4445 comm="e.simplewebview" path=2F646174612F726167652F656C322F626173652F63616368652F7765622F5375627265736F757263652046696C7465722F496E64657865642052756C65732F33362F302F52756C657365742044617461 dev="sdd78" ino=34505 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+allow isolated_render hap_file_attr:file { map };
+
 # avc:  denied  { getattr } for  pid=5103 comm="CompositorTileW" path="/proc/cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=5103 comm="CompositorTileW" path="/proc/cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=5103 comm="CompositorTileW" name="cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1

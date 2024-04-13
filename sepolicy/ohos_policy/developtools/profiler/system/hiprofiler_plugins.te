@@ -301,4 +301,8 @@ developer_only(`
     allow hiprofiler_plugins system_usr_file:dir { search };
     allow hiprofiler_plugins system_usr_file:file { getattr map open read };
     allow hiprofiler_plugins SP_daemon:process { rlimitinh siginh sigkill signal };
+    allow hiprofiler_plugins data_hilogd_file:dir { getattr open read search };
+    allow hiprofiler_plugins data_hilogd_file:file { getattr open read };
 ')
+
+
