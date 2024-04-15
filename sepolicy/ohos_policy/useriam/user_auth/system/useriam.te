@@ -61,7 +61,7 @@ allow useriam system_bin_file:dir { search };
 allow useriam sys_usb_param:file { map open read };
 allow useriam tracefs:dir { search };
 allow useriam tracefs_trace_marker_file:file { open write };
-allow useriam user_auth_host:binder { call };
+allow useriam user_auth_host:binder { call transfer };
 allow useriam useriam:unix_dgram_socket { getopt setopt };
 allowxperm useriam dev_at_file:chr_file ioctl { 0x4103 };
 allow useriam face_auth_host:binder { call transfer };
