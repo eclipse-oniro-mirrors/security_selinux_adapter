@@ -11,14 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow app_domain_verify_agent dev_kmsg_file:chr_file { write };
-allow app_domain_verify_agent debug_param:file { open read };
+allow app_domain_verify_agent dev_kmsg_file:chr_file { write open };
+allow app_domain_verify_agent debug_param:file { open read map };
 allow app_domain_verify_agent dev_unix_socket:dir { search };
 allow app_domain_verify_agent sysfs_devices_system_cpu:file { open read getattr };
 allow app_domain_verify_agent netmanager:binder { call };
 allow app_domain_verify_agent foundation:binder { call };
 allow app_domain_verify_agent app_domain_verify_agent:tcp_socket { create read write getopt setopt connect getattr };
-allow app_domain_verify_agent app_domain_verify_agent:udp_socket { create bind write read };
+allow app_domain_verify_agent app_domain_verify_agent:udp_socket { create bind write read connect };
 allow app_domain_verify_agent port:tcp_socket { name_connect };
 allow app_domain_verify_agent netsysnative:unix_stream_socket { connectto };
 allow app_domain_verify_agent app_domain_verify_mgr_service:binder { call };
@@ -30,3 +30,6 @@ allow app_domain_verify_agent sa_app_domain_verify_agent:samgr_class { add get }
 allow app_domain_verify_agent sa_foundation_bms:samgr_class { get };
 allow app_domain_verify_agent sa_accountmgr:samgr_class { get };
 allow app_domain_verify_agent sa_net_conn_manager:samgr_class { get };
+allow app_domain_verify_agent dev_console_file:chr_file { read write };
+allow app_domain_verify_agent persist_param:file { open read };
+allow app_domain_verify_agent tracefs:dir { search };
