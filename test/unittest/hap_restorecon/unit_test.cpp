@@ -20,8 +20,10 @@
 #include "selinux_error.h"
 #include "test_common.h"
 
+namespace OHOS {
+namespace Security {
+namespace SelinuxUnitTest {
 using namespace testing::ext;
-using namespace OHOS::Security::SelinuxUnitTest;
 using namespace Selinux;
 const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
@@ -664,3 +666,6 @@ HWTEST_F(SelinuxUnitTest, TypeSet001, TestSize.Level1)
 {
     ASSERT_EQ(-SELINUX_ARG_INVALID, test.TypeSet(EMPTY_STRING, nullptr));
 }
+} // namespace SelinuxUnitTest
+} // namespace Security
+} // namespace OHOS
