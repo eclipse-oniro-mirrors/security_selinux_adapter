@@ -130,7 +130,6 @@ allow SP_daemon proc_meminfo_file:file { getattr open read };
 allow SP_daemon proc_cmdline_file:file { getattr open read };
 allow SP_daemon proc_loadavg_file:file { getattr open read };
 allow SP_daemon proc_modules_file:file { getattr open read };
-allow SP_daemon proc_net:file { getattr open read };
 allow SP_daemon proc_net_tcp_udp:file { getattr open read };
 allow SP_daemon proc_slabinfo_file:file { getattr open read };
 allow SP_daemon proc_version_file:file { getattr open read };
