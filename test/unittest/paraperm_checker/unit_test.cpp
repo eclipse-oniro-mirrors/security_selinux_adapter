@@ -19,8 +19,10 @@
 #include "selinux_parameter.h"
 #include "test_common.h"
 
+namespace OHOS {
+namespace Security {
+namespace SelinuxUnitTest {
 using namespace testing::ext;
-using namespace OHOS::Security::SelinuxUnitTest;
 using namespace Selinux;
 const static std::string DEFAULT_CONTEXT = "u:object_r:default_param:s0";
 static const int INVALID_INDEX = -1;
@@ -79,3 +81,6 @@ HWTEST_F(SelinuxUnitTest, GetParamLabelIndex001, TestSize.Level1)
 {
     ASSERT_EQ(INVALID_INDEX, GetParamLabelIndex(nullptr));
 }
+} // namespace SelinuxUnitTest
+} // namespace Security
+} // namespace OHOS

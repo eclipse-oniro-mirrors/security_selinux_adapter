@@ -139,6 +139,12 @@ allow nwebspawn nwebspawn:unix_dgram_socket { getopt setopt };
 # avc: denied { unmount } for pid=1365 comm="appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=0
 allow nwebspawn labeledfs:filesystem { unmount };
 
+#avc:  denied  { read } for  pid=269 comm="nwebspawn" name="nwebspawn" dev="mmcblk0p7" ino=1714 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=0
+allow nwebspawn system_lib_file:dir { search open read };
+
+# avc:  denied  { map } for  pid=2795 comm="appspawn" path="/system/bin/appspawn" dev="mmcblk0p7" ino=136 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:appspawn_exec:s0 tclass=file permissive=0
+allow nwebspawn appspawn_exec:file { map };
+
 debug_only(`
     allow nwebspawn data_storage:dir { mounton getattr };
     allow nwebspawn data_file:dir { mounton getattr };

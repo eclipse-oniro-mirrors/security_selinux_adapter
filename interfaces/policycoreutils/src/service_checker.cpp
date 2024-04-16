@@ -87,7 +87,7 @@ struct AuditMsg {
 
 static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, size_t len)
 {
-    if (data == nullptr || buf == nullptr) {
+    if (data == nullptr || buf == nullptr || len == 0) {
         return -1;
     }
     auto *msg = reinterpret_cast<AuditMsg *>(data);

@@ -32,7 +32,7 @@ typedef struct AuditMsg {
 
 static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, size_t len)
 {
-    if (data == NULL || buf == NULL) {
+    if (data == NULL || buf == NULL || len == 0) {
         return -1;
     }
     AuditMsg *msg = (AuditMsg *)data;

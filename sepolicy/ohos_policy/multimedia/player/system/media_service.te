@@ -145,3 +145,5 @@ allow media_service sa_foundation_ans:samgr_class { get };
 allow media_service foundation:fd { use };
 
 allow media_service sa_foundation_cesfwk_service:samgr_class { get };
+
+allow media_service sa_foundation_tel_state_registry:samgr_class { get };

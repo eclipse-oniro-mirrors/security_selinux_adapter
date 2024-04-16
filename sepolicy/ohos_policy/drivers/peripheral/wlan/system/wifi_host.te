@@ -16,3 +16,22 @@ allow wifi_host sa_cert_manager_service:samgr_class { get };
 
 # avc:  denied  { call } for scontext=u:r:wifi_host:s0 tcontext=u:r:cert_manager_service:s0 tclass=binder permissive=1
 allow wifi_host cert_manager_service:binder { call };
+
+# avc:  denied  { write } for scontext=u:r:wifi_host:s0 tcontext=u:r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow wifi_host dev_kmsg_file:chr_file { write };
+
+# avc:  denied  { add } for scontext=u:r:wifi_host:s0 tcontext=u:r:hdf_chip_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow wifi_host hdf_chip_interface_service:hdf_devmgr_class { add };
+
+# avc:  denied  { transfer } for scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow wifi_host wifi_manager_service:binder { transfer };
+
+# avc:  denied  { write } for scontext=u:r:wifi_host:s0 tcontext=u:r:paramservice_socket:s0 tclass=sock_file permissive=1
+allow wifi_host paramservice_socket:sock_file { write };
+
+# avc:  denied  { connectto } for scontext=u:r:wifi_host:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+allow wifi_host kernel:unix_stream_socket { connectto };
+
+# avc:  denied  { nlmsg_read } for scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=netlink_route_socket permissive=1
+allow wifi_host wifi_host:netlink_route_socket { nlmsg_read };
+

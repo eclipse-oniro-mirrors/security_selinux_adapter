@@ -79,3 +79,7 @@ allow key_enable trusted_profile_data_file:file { getattr open read };
 allow key_enable data_service_el0_file:file { getattr read open };
 
 allow key_enable devinfo_private_param:file { map open read };
+
+allow key_enable foundation:binder { call transfer };
+
+allow key_enable sa_foundation_cesfwk_service:samgr_class { get };
