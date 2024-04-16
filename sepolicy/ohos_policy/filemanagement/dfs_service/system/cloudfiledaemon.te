@@ -88,3 +88,6 @@ allow cloudfiledaemon cloudfiledaemon:binder { call };
 allow cloudfiledaemon cloudfiledaemon:netlink_route_socket { create };
 allow cloudfiledaemon cloudfiledaemon:unix_dgram_socket { getopt };
 allow cloudfiledaemon media_library_param:file { map open read };
+allow cloudfiledaemon resource_schedule_service:binder { call transfer };
+allow cloudfiledaemon sa_resource_schedule:samgr_class { get };
+allow resource_schedule_service cloudfiledaemon:binder { call };
