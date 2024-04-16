@@ -35,6 +35,7 @@ allow resource_schedule_service data_service_el2_file:dir { search };
 allow resource_schedule_service data_service_el2_hmdfs:dir { search };
 allow resource_schedule_service data_service_file:dir { search };
 allow resource_schedule_service device_manager:file { read };
+allow resource_schedule_service distributeddata:binder { transfer };
 allow resource_schedule_service hdf_devmgr:file { read };
 allow resource_schedule_service hilogd:file { read };
 allow resource_schedule_service vendor_bin_file:dir { search };
