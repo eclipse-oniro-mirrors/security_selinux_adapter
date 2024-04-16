@@ -89,7 +89,8 @@ allow sh data_hilogd_file:file read_file_perms;
 # for ps -efZ
 allow sh proc_file:dir { search read open getattr };
 allow sh proc_file:lnk_file { read getattr };
-allow sh proc_net:file { getattr };
+allow sh proc_file:filesystem { getattr };
+allow sh proc_net:file { read open getattr };
 allow sh sys_file:dir { search };
 allow sh domain:dir { getattr search };
 allow sh domain:file { open read };
