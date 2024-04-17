@@ -200,3 +200,7 @@ debug_only(`
     allow appspawn dev_pts_file:dir { search };
     allow appspawn tmpfs:lnk_file { getattr };
 ')
+
+#avc:  denied  { sigkill } for  pid=282 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+allow nwebspawn isolated_render:process { sigkill };
+
