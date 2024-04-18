@@ -35,6 +35,9 @@ allow resource_schedule_service data_service_el2_file:dir { search };
 allow resource_schedule_service data_service_el2_hmdfs:dir { search };
 allow resource_schedule_service data_service_file:dir { search };
 allow resource_schedule_service device_manager:file { read };
+# avc: denied { transfer } for pid=892, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:distributeddata:s0 tclass=binder permissive=0
+# Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
+allow resource_schedule_service distributeddata:binder { transfer };
 allow resource_schedule_service hdf_devmgr:file { read };
 allow resource_schedule_service hilogd:file { read };
 allow resource_schedule_service vendor_bin_file:dir { search };
