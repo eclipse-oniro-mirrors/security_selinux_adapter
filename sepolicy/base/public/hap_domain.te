@@ -153,16 +153,16 @@ neverallow { domain -appspawn -hap_domain -installs -storage_daemon -distributed
 neverallow { system_basic_hap_attr normal_hap_attr } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to system_basic_hap_data_file
-neverallow { domain -appspawn -hap_domain -installs -storage_daemon  -distributeddata -hiview -download_server -system_basic_hap_data_file_attr_violator_dir -distributedfiledaemon updater_only(`-updater') } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
+neverallow { domain -appspawn -hap_domain -installs -storage_daemon  -distributeddata -hiview -download_server -system_basic_hap_data_file_attr_violator_dir -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt updater_only(`-updater') } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -distributedfiledaemon updater_only(`-updater') } normal_hap_data_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt updater_only(`-updater') } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -distributedfiledaemon developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:dir *;
 
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:file_class_set open;
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:file_class_set open;
 
 neverallow { domain -installs -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
