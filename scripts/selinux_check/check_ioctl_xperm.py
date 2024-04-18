@@ -40,6 +40,7 @@ def simplify_string(string):
 
 def split_allow_rule(elem_list, allow_set, allowx_set):
     if len(elem_list) < 5:
+        print("not an allow/allowx rule: {}".format(elem_list))
         return
     rulename = elem_list[0]
     scontext = elem_list[1]
@@ -55,14 +56,16 @@ def split_allow_rule(elem_list, allow_set, allowx_set):
 
 def split_typetransition(elem_list, typetransition_set):
     if len(elem_list) < 5:
+        print("not a typetransition rule: {}".format(elem_list))
         return
     rulename = elem_list[0]
     source_t = elem_list[1]
     target_t = elem_list[2]
     tclass = elem_list[3]
     default_t = elem_list[4]
-    keycontent = source_t + ' ' + target_t + ' file'
-    typetransition_set.add(keycontent)
+    if tclass == 'process':
+        keycontent = source_t + ' ' + target_t + ' file'
+        typetransition_set.add(keycontent)
 
 
 def deal_with_allow(cil_file, allow_set, allowx_set, typetransition_set):
