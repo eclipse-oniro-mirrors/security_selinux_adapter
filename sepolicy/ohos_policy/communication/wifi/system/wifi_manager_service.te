@@ -201,3 +201,5 @@ allow wifi_manager_service hdf_devmgr:binder { call };
 # avc: denied { read write } for pid=2048, comm="system/bin/sa_main/" path="proc/2048/net/aware/aware_ctrl" dev="" ino=11053 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=0
 # avc: denied { open } for pid=2048, comm="system/bin/sa_main/" path="proc/2048/net/aware/aware_ctrl" dev="" ino=11053 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=0
 allow wifi_manager_service proc_net:file { read write open };
+
+allow wifi_manager_service sa_foundation_ans:samgr_class { get };
