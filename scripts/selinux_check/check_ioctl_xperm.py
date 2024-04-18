@@ -47,10 +47,10 @@ def split_allow_rule(elem_list, allow_set, allowx_set):
     tcontext = elem_list[2]
     tclass = elem_list[3]
     if rulename == 'allow' and 'ioctl' in elem_list[4:]:
-        keycontent = scontext + ' ' + tcontext + ' ' + tclass
+        keycontent = f'{scontext} {tcontext} {tclass}'
         allow_set.add(keycontent)
     if rulename == 'allowx' and 'ioctl' == tclass:
-        keycontent = scontext + ' ' + tcontext + ' ' + elem_list[4]
+        keycontent = f'{scontext} {tcontext} {elem_list[4]}'
         allowx_set.add(keycontent)
 
 
@@ -64,7 +64,7 @@ def split_typetransition(elem_list, typetransition_set):
     tclass = elem_list[3]
     default_t = elem_list[4]
     if tclass == 'process':
-        keycontent = source_t + ' ' + target_t + ' file'
+        keycontent = f'{source_t} {target_t} file'
         typetransition_set.add(keycontent)
 
 
