@@ -134,6 +134,7 @@ type data_local_traces, file_attr, data_file_attr;
 type data_local_tmp, file_attr, data_file_attr;
 type data_local_arkcache, file_attr, data_file_attr;
 type data_local_arkprofile, file_attr, data_file_attr;
+type data_local_shadercache, file_attr, data_file_attr;
 type data_log, file_attr, data_file_attr;
 type data_media, file_attr, data_file_attr;
 type data_mediadrm, file_attr, data_file_attr;

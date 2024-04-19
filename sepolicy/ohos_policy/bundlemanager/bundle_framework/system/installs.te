@@ -54,6 +54,8 @@ allowxperm installs data_local_arkprofile:file ioctl { 0x5413 };
 allow installs data_local_arkprofile:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow installs data_local_arkprofile:lnk_file { unlink };
 allow installs data_local_arkprofile:sock_file { unlink };
+allow installs data_local_shadercache:file { create setattr getattr map open read rename unlink write };
+allow installs data_local_shadercache:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow installs system_bin_file:file { execute execute_no_trans map read open };
 allow appspawn data_local:dir { add_name create mounton search write read open getattr };
 allow normal_hap_attr data_local:file { getattr open read map create write };
