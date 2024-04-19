@@ -14,6 +14,7 @@
 #resource_schedule_service
 allow resource_schedule_service accesstoken_service:binder { call };
 allow resource_schedule_service foundation:binder { call transfer };
+allow resource_schedule_service powermgr:binder { call transfer };
 allow resource_schedule_service hiview:binder { call transfer };
 allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
@@ -127,8 +128,8 @@ allow resource_schedule_service sa_location_geo_convert_service:samgr_class { ge
 allow resource_schedule_service sa_device_standby:samgr_class { add get };
 allow resource_schedule_service sensors:binder { call };
 allow resource_schedule_service sa_sensor_service:samgr_class { get };
-allow resource_schedule_service sa_foundation_battery_service:samgr_class { get };
-allow resource_schedule_service sa_foundation_powermgr_service:samgr_class { get };
+allow resource_schedule_service sa_powermgr_battery_service:samgr_class { get };
+allow resource_schedule_service sa_powermgr_powermgr_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };

@@ -195,3 +195,6 @@ allow distributeddata data_service_el1_utd_file:file { create ioctl getattr read
 allowxperm distributeddata data_service_el1_utd_file:file ioctl { 0x5413 };
 allow distributeddata sa_time_service:samgr_class { get };
 allow distributeddata time_service:binder { call transfer };
+allow distributeddata powermgr:binder { call transfer };
+allow distributeddata powermgr:dir { search };
+allow distributeddata powermgr:file { getattr open read };

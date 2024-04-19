@@ -60,8 +60,8 @@ allow privacy_service sa_camera_service:samgr_class { get };
 allow privacy_service sa_drm_service:samgr_class { get };
 allow privacy_service sa_foundation_abilityms:samgr_class { get };
 allow privacy_service sa_foundation_appms:samgr_class { get };
-# avc:  denied  { get } for service=3301 pid=531 scontext=u:r:privacy_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-allow privacy_service sa_foundation_powermgr_service:samgr_class { get };
+# avc:  denied  { get } for service=3301 pid=531 scontext=u:r:privacy_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow privacy_service sa_powermgr_powermgr_service:samgr_class { get };
 allow privacy_service sa_foundation_wms:samgr_class { get };
 allow privacy_service sa_param_watcher:samgr_class { get };
 allow privacy_service sa_privacy_service:samgr_class { add get };
@@ -80,8 +80,10 @@ allow privacy_service sa_foundation_cesfwk_service:samgr_class { get };
 allow privacy_service sa_screenlock_service:samgr_class { get };
 
 binder_call(foundation, privacy_service);
+binder_call(powermgr, privacy_service);
 binder_call(privacy_service, accesstoken_service);
 binder_call(privacy_service, foundation);
+binder_call(privacy_service, powermgr);
 binder_call(system_basic_hap_attr, privacy_service);
 binder_call(system_core_hap_attr, privacy_service);
 

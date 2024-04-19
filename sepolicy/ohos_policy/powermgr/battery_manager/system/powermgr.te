@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { add } for service=3302 pid=608 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=1
-allow foundation sa_foundation_battery_service:samgr_class { add };
+#avc:  denied  { add } for service=3302 pid=608 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=1
+allow powermgr sa_powermgr_battery_service:samgr_class { add get};
 
-#avc:  denied  { get } for service=3602 pid=577 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_miscdevice_service:s0 tclass=samgr_class permissive=1
-allow foundation sa_miscdevice_service:samgr_class { get };
+#avc:  denied  { get } for service=3602 pid=577 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_miscdevice_service:s0 tclass=samgr_class permissive=1
+allow powermgr sa_miscdevice_service:samgr_class { get };

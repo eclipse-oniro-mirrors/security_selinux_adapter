@@ -84,8 +84,8 @@ allow audio_server audio_server:binder { call transfer};
 #avc:  denied  { get } for service=3503 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow audio_server sa_accesstoken_manager_service:samgr_class { get };
 
-#avc:  denied  { get } for service=3301 pid=876 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-allow audio_server sa_foundation_powermgr_service:samgr_class { get };
+#avc:  denied  { get } for service=3301 pid=876 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow audio_server sa_powermgr_powermgr_service:samgr_class { get };
 
 #avc:  denied  { get } for service=5100 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 allow audio_server sa_device_service_manager:samgr_class { get };
@@ -161,6 +161,8 @@ allow audio_server sa_dataobs_mgr_service_service:samgr_class { get };
 allow audio_server sa_foundation_abilityms:samgr_class { get };
 
 allow audio_server foundation:binder { call transfer };
+
+allow audio_server powermgr:binder { call transfer };
 
 allow audio_server a2dp_host:binder { call };
 

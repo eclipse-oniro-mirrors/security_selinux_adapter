@@ -32,6 +32,7 @@ type drm_service, sadomain, domain;
 type media_service, sadomain, domain;
 type param_watcher, sadomain, domain;
 type foundation, sadomain, domain;
+type powermgr, sadomain, domain;
 type token_sync_service, sadomain, domain;
 type memmgrservice, sadomain, domain;
 type accessibility, sadomain, domain;

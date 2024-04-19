@@ -142,6 +142,10 @@ allow sensors render_service:binder { call };
 allow sensors camera_service:fd { use };
 allow sensors camera_service:unix_stream_socket { read write };
 allow sensors camera_service:binder { call };
+
+allow sensors powermgr:fd { use };
+allow sensors powermgr:unix_stream_socket { read write };
+allow sensors powermgr:binder { call transfer };
  
 allow sensors audio_server:unix_stream_socket { read write };
 

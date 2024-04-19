@@ -68,6 +68,7 @@ allow hiview samgr:binder { call transfer };
 allow hiview tmpfs:lnk_file { read };
 allow hiview time_service:binder { call transfer };
 allow hiview param_watcher:binder { call transfer };
+allow hiview powermgr:binder { call transfer };
 allow hiview hdcd:binder { call transfer };
 allow hiview resource_schedule_service:binder { call transfer };
 allow hiview normal_hap_attr:binder { call transfer };
@@ -93,8 +94,9 @@ allowxperm hiview dev_bbox:chr_file ioctl { 0x4264 };
 allowxperm hiview dev_bbox:chr_file ioctl { 0x4266 };
 allowxperm hiview dev_bbox:chr_file ioctl { 0x426f };
 
-#avc:  denied  { get } for service=3301 pid=618 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-allow hiview sa_foundation_powermgr_service:samgr_class { get };
+#avc:  denied  { get } for service=3301 pid=618 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow hiview sa_powermgr_powermgr_service:samgr_class { get };
+allow hiview sa_powermgr_displaymgr_service:samgr_class { get };
 
 allowxperm hiview data_init_agent:file ioctl { 0x5413 };
 
