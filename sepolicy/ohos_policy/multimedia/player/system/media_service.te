@@ -58,6 +58,7 @@ debug_only(`
 allow media_service system_core_hap_data_file_attr:file { getattr read };
 allow media_service media_service:udp_socket { create };
 allow media_service foundation:binder { call transfer };
+allow media_service powermgr:binder { call transfer };
 
 #avc:  denied  { call } for  pid=2003 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:codec_host:s0 tclass=binder permissive=1
 allow media_service codec_host:binder { call };
@@ -134,7 +135,9 @@ allow media_service av_codec_service:binder { call transfer };
 
 allow media_service av_codec_service:fd { use };
 
-allow media_service sa_foundation_powermgr_service:samgr_class { get };
+allow media_service powermgr:fd { use };
+
+allow media_service sa_powermgr_powermgr_service:samgr_class { get };
 
 # avc:  denied  { get } for service=180 pid=1526 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow media_service sa_foundation_abilityms:samgr_class { get };

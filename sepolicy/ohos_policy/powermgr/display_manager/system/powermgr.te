@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,5 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { get } for service=3308 pid=1552 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
-allow system_basic_hap_attr sa_powermgr_displaymgr_service:samgr_class { get };
+#avc:  denied  { get } for service=3308 pid=597 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
+allow powermgr sa_powermgr_displaymgr_service:samgr_class { get add };
+
+#avc:  denied  { use } for  pid=522 comm="distributeddata" path="/dev/ashmem" dev="tmpfs" ino=183 scontext=u:r:powermgr:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
+allow powermgr distributeddata:fd { use };

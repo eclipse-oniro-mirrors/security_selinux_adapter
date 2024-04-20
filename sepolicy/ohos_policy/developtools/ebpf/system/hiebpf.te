@@ -79,3 +79,6 @@ allow hiebpf sh_exec:file read;
 
 allow hiebpf tracefs:dir search;
 allow hiebpf tracefs:file { open read write };
+
+allow hiebpf powermgr:dir search;
+allow hiebpf powermgr:file { getattr open read };

@@ -16,3 +16,8 @@ type bootanimiation_optimizing_param, parameter_attr;
 allow bootanimiation_optimizing_param tmpfs:filesystem associate;
 allow init bootanimiation_optimizing_param:file { map open read relabelto relabelfrom };
 allow init bootanimiation_optimizing_param:parameter_service { set };
+
+# avc:  denied  { read } for  pid=5103 comm="/system/bin/bootanimation" path="/system/fonts" dev="/dev/block" scontext=u:r:bootanimation:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=5103 comm="/system/bin/bootanimation" path="/system/fonts" dev="/dev/block" scontext=u:r:bootanimation:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+allow bootanimation system_fonts_file:dir { open read search };
+allow bootanimation system_fonts_file:file { getattr map open read };

@@ -23,6 +23,7 @@ allow wifi_manager_service foundation:binder { call transfer };
 allow wifi_manager_service netmanager:binder { call transfer };
 allow wifi_manager_service node:udp_socket { node_bind };
 allow wifi_manager_service port:udp_socket { name_bind };
+allow wifi_manager_service powermgr:binder { call transfer };
 allow wifi_manager_service sa_accesstoken_manager_service:samgr_class { get };
 allow wifi_manager_service netsysnative:binder { call };
 allow wifi_manager_service sa_foundation_cesfwk_service:samgr_class { get };
@@ -98,8 +99,8 @@ allow wifi_manager_service telephony_sa:binder { call };
 # avc:  denied  { transfer } for  pid=2121 comm="IPC_2_2419" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
 allow wifi_manager_service locationhub:binder { transfer };
 
-# avc:  denied  { get } for  service=3301 pid=1449 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=0
-allow wifi_manager_service sa_foundation_powermgr_service:samgr_class { get };
+# avc:  denied  { get } for  service=3301 pid=1449 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=0
+allow wifi_manager_service sa_powermgr_powermgr_service:samgr_class { get };
 
 allow wifi_manager_service wifi_hal_service:binder { transfer call };
 
@@ -115,7 +116,7 @@ allow wifi_manager_service hdf_wlan_interface_service:hdf_devmgr_class { get };
 allow wifi_manager_service hdf_device_manager:hdf_devmgr_class { get };
 allow wifi_manager_service hdf_wpa_interface_service:hdf_devmgr_class { get };
 allow wifi_manager_service sa_time_service:samgr_class { get };
-allow wifi_manager_service sa_foundation_battery_service:samgr_class { get };
+allow wifi_manager_service sa_powermgr_battery_service:samgr_class { get };
 allow wifi_manager_service time_service:binder { call };
 
 # avc:  denied  { get } for service=4010 pid=1814 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0

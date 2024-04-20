@@ -11,5 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { get } for service=3308 pid=1552 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
-allow system_basic_hap_attr sa_powermgr_displaymgr_service:samgr_class { get };
+#avc:  denied  { get } for service=power_interface_service pid=597 scontext=u:r:powermgr:s0 tcontext=u:object_r:hdf_power_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow powermgr hdf_power_interface_service:hdf_devmgr_class { get };
+
+allow powermgr vendor_etc_power_mode_config_file:file { getattr open read };

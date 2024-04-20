@@ -34,6 +34,7 @@ debug_only(`
     allow uitest su:fifo_file { write };
     allow render_service su:binder { call transfer };
     allow foundation su:binder { call transfer };
+    allow powermgr su:binder { call transfer };
     allow bm su:fd { use };
     allow bm su:fifo_file { write ioctl };
     allowxperm bm su:fifo_file ioctl { 0x5413 };

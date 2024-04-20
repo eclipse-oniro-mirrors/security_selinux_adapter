@@ -211,6 +211,7 @@
             "nwebspawn tmpfs dir",
             "pasteboard_service data_service_el1_file file",
             "pasteboard_service hmdfs dir",
+            "powermgr sysfs_hungtask_userlist file",
             "print_service data_service_el1_public_print_service_file file",
             "privacy_service accesstoken_data_file file",
             "privacy_service data_service_el1_file file",

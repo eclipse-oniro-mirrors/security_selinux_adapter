@@ -43,6 +43,7 @@ allow telephony_sa ohos_param:file { map open read };
 allow telephony_sa param_watcher:binder { call transfer };
 allow telephony_sa persist_param:file { map open read };
 allow telephony_sa persist_sys_param:file { map open read };
+allow telephony_sa powermgr:binder { call };
 allow telephony_sa security_param:file { map open read };
 allow telephony_sa startup_param:file { map open read };
 allow telephony_sa sysfs_hctosys:file { open read };

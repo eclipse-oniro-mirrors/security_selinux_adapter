@@ -33,3 +33,4 @@ allow app_domain_verify_agent sa_net_conn_manager:samgr_class { get };
 allow app_domain_verify_agent dev_console_file:chr_file { read write };
 allow app_domain_verify_agent persist_param:file { open read };
 allow app_domain_verify_agent tracefs:dir { search };
+allow app_domain_verify_agent app_domain_verify_agent:unix_dgram_socket { getopt setopt };

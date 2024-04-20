@@ -57,8 +57,8 @@ allow cadaemon proc_file:file { open read };
 allow cadaemon sys_file:file { open read getattr };
 #avc:  denied  { get } for service=3503 pid=438 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow cadaemon sa_accesstoken_manager_service:samgr_class { get };
-#avc:  denied  { get } for service=3301 pid=472 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-allow cadaemon sa_foundation_powermgr_service:samgr_class { get };
+#avc:  denied  { get } for service=3301 pid=472 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow cadaemon sa_powermgr_powermgr_service:samgr_class { get };
 #avc:  denied  { get } for service=4005 pid=472 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_foundation_tel_call_manager:s0 tclass=samgr_class permissive=1
 allow cadaemon sa_foundation_tel_call_manager:samgr_class { get };
 #avc:  denied  { get } for service=4607 pid=472 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
@@ -66,6 +66,7 @@ allow cadaemon sa_foundation_dms:samgr_class { get };
 #avc:  denied  { call } for  pid=1123 comm="SaInit2" scontext=u:r:cadaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=1123 comm="SaInit2" scontext=u:r:cadaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 allow cadaemon foundation:binder { call transfer };
+allow cadaemon powermgr:binder { call transfer };
 #avc:  denied  { call } for  pid=1220 comm="IPC_6_1660" scontext=u:r:foundation:s0 tcontext=u:r:cadaemon:s0 tclass=binder permissive=1
 allow foundation cadaemon:binder { call };
 
