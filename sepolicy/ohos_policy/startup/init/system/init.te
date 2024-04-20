@@ -487,6 +487,7 @@ allow init proc_developer_file:file { open read getattr };
 allow init appspawn:file { read open write };
 allow init render_service:file { read open write };
 allow init foundation:file { read open write };
+allow init powermgr:file { read open write };
 allow init sysfs_hungtask_userlist:file { read open write };
 allow init data_service_el1_public_huksService_file:file { getattr };
 allow init share_public_file:dir { getattr };
