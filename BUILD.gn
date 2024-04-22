@@ -1050,7 +1050,7 @@ if (support_developer_mode) {
   }
 }
 
-if (build_selinux) {
+if (build_selinux && !ohos_indep_compiler_enable) {
   ohos_copy("libselinux_toolchain") {
     external_deps = [ "selinux:libselinux($host_toolchain)" ]
     sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
