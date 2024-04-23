@@ -28,7 +28,7 @@ allow hiprofiler_cmd data_local:dir search;
 allow hiprofiler_cmd rootfs:file { read };
 
 allow hiprofiler_cmd dev_unix_socket:dir search;
-allow hiprofiler_cmd hdcd:fifo_file write;
+allow hiprofiler_cmd hdcd:fifo_file { read write };
 allow hiprofiler_cmd ohos_boot_param:file { map open read };
 allow hiprofiler_cmd ohos_param:file { map open read };
 allow hiprofiler_cmd system_bin_file:dir search;
@@ -142,7 +142,7 @@ allow hiprofiler_cmd hiview_exec:file { getattr map open read };
 
 allow domain hiprofiler_cmd:fd use;
 allow domain hiprofiler_cmd:unix_stream_socket connectto;
-allow { domain -limit_domain } tmpfs:file { map read write };
+allow domain tmpfs:file { map read write };
 allow hiprofiler_cmd ohos_dev_param:file { map open read };
 allow hiprofiler_cmd dev_unix_file:sock_file unlink;
 allow hiprofiler_cmd paramservice_socket:sock_file write;
@@ -168,3 +168,5 @@ allow hiprofiler_cmd devpts:chr_file { ioctl };
 allow hiprofiler_cmd vendor_bin_file:dir search;
 allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };
 allow hiprofiler_cmd dev_file:dir getattr;
+allow hiprofiler_cmd dev_ashmem_file:chr_file { open };
+allow hiprofiler_cmd hdcd_exec:file { read open getattr };

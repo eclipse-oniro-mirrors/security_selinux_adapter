@@ -16,5 +16,5 @@ allow normal_hap_attr data_user_file:dir { remove_name };
 #avc:  denied  { rename } for  pid=1916 comm="com.ohos.medial" name="03.jpg" dev="mmcblk0p11" ino=1044941 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
 allow normal_hap_attr data_user_file:file { rename };
 #avc:  denied  { call } for  pid=1916 comm="com.ohos.medial" scontext=u:r:normal_hap:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
-allow normal_hap_attr system_core_hap:binder { call };
-allow normal_hap_attr system_basic_hap:binder {transfer };
+allow normal_hap_attr system_core_hap_attr:binder { call };
+allow normal_hap_attr system_basic_hap_attr:binder {transfer };

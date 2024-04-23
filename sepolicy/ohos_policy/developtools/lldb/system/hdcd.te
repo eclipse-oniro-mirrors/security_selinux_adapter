@@ -1,0 +1,34 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+
+# If an lldb client is used for remotely debugging an application with a
+# OpenHarmony device, hdc is utilized to pull necessary binary and dso files
+# (e.g. /system/bin/appspawn and /lib/ld-musl-aarch64.so.1). If such files
+# cannot be pulled from the device, the lldb client was not able to resolve any
+# of dso files loaded by an application, therefore breakpoints cannot be set on
+# any of loaded dso.
+allow hdcd appspawn_exec:file { getattr read open };
+
+# Allow users using hdc to upload lldb-server to subdirectories under
+# /data/local/tmp/lldb-server/
+allow hdcd lldb_server_file:file { write create setattr read append open getattr
+    unlink };
+allow hdcd lldb_server_file:dir { add_name remove_name write create setattr
+    search getattr read open };
+# Before connecting to lldb-server, users have to create a network forwarding
+# by hdc fport to the Unix abstraact socket listened by lldb-server.
+allow hdcd lldb_server:unix_stream_socket { connectto };
+
+')

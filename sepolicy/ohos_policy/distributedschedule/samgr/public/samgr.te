@@ -15,3 +15,4 @@ type samgr_exec, exec_attr, file_attr, system_file_attr;
 
 type bootevent_samgr_param, parameter_attr;
 type samgr_perf_param, parameter_attr;
+type samgr_writable_param, parameter_attr;

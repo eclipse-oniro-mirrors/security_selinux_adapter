@@ -1,0 +1,34 @@
+{
+    "selinux_check": [
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_data_regex.py",
+            "args": "--file_contexts",
+            "extra_args": ""
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_partition_label_use.py",
+            "args": "--file_contexts",
+            "extra_args": "--config config/partition_label.txt"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_perm_group.py",
+            "args": "--cil_file",
+            "extra_args": "--config config/perm_group.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_baseline.py",
+            "args": "--cil_file",
+            "extra_args": "--config config/baseline.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_ioctl_xperm.py",
+            "args": "--cil_file",
+            "extra_args": ""
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_permissive.py",
+            "args": "--cil_file",
+            "extra_args": ""
+        }
+    ]
+}

@@ -16,3 +16,5 @@
 # for hyperhold
 /data/vendor/hyperhold(/.*)?          u:object_r:hyperhold_sys:s0
 
+# for bootup.trace
+/data/log/startup(/.*)?         u:object_r:bootuptrace_file:s0

@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -24,10 +24,11 @@ allow updater_sa dev_file:sock_file { write };
 allow updater_sa netsysnative:unix_stream_socket { connectto };
 allow updater_sa updater_sa:udp_socket { create bind connect getattr read write };
 allow updater_sa node:udp_socket { node_bind };
-allow updater_sa system_basic_hap:binder { call };
+allow updater_sa system_basic_hap_attr:binder { call };
 allow updater_sa huks_service:binder { call };
 allow updater_sa foundation:binder { call };
-allow updater_sa sa_foundation_battery_service:samgr_class { get };
+allow updater_sa powermgr:binder { call };
+allow updater_sa sa_powermgr_battery_service:samgr_class { get };
 allow updater_sa sa_foundation_abilityms:samgr_class { get };
 allow updater_sa data_service_file:dir { search };
 allow updater_sa data_service_el1_file:dir { search write add_name remove_name read open getattr };
@@ -43,7 +44,7 @@ allowxperm updater_sa update_firmware_file:file ioctl { 0x5413 };
 allow updater_sa data_file:dir { read open write getattr setattr add_name remove_name };
 allow updater_sa tmpfs:dir { read open };
 allow updater_sa data_updater_file:dir { search getattr write add_name create };
-allow updater_sa data_updater_file:file { read open getattr create append setattr ioctl };
+allow updater_sa data_updater_file:file { read open getattr create append setattr ioctl write };
 allow updater_sa dev_console_file:chr_file { read write };
 allow updater_sa sysfs_devices_system_cpu:file { read write open getattr };
 allow updater_sa dev_file:dir { getattr };
@@ -54,3 +55,19 @@ allowxperm updater_sa update_dupdate_engine_file:file ioctl { 0x5413 0xf50c };
 allow updater_sa servicectrl_param:parameter_service { set };
 allow updater_sa sa_sys_installer_service:samgr_class { get };
 allow updater_sa sys_installer_sa:binder { call transfer };
+allow updater_sa devinfo_private_param:file { map open read };
+
+# avc:  denied  { search } for  pid=1522 comm="updater_sa" name="by-name" dev="tmpfs" ino=12 scontext=u:r:updater_sa:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=0
+allow updater_sa dev_block_file:dir { search };
+
+# avc:  denied  { map } for  pid=485 comm="updater_sa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:updater_sa:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=485 comm="updater_sa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:updater_sa:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=1578 comm="updater_sa" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:updater_sa:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+allow updater_sa arkcompiler_param:file { map open read };
+allow updater_sa ark_writeable_param:file { map open read };
+#avc:  denied  { get } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=0
+allow updater_sa sa_time_service:samgr_class { get };
+#avc: denied  { call } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:time_service:s0 tclass=binder permissive=0
+#avc: denied  { transfer } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:time_service:s0 tclass=binder permissive=0
+allow updater_sa time_service:binder { call transfer };
+

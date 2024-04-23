@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap sa_devattest_service:samgr_class { get };
-allow system_basic_hap devattest_service:fd { use };
-allow system_basic_hap devattest_service:binder { call transfer };
+allow system_basic_hap_attr sa_devattest_service:samgr_class { get };
+allow system_basic_hap_attr devattest_service:fd { use };
+allow system_basic_hap_attr devattest_service:binder { call transfer };

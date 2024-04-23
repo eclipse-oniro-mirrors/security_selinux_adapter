@@ -11,9 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap distributedsche:binder { call transfer };
-allow system_basic_hap distributedsche:fd { use };
-allow system_basic_hap sa_distributeschedule:samgr_class { get };
-allow system_basic_hap sa_softbus_service:samgr_class { get };
-allow system_basic_hap softbus_server:tcp_socket { read setopt write };
-allow system_basic_hap sa_foundation_continuation_manager_service:samgr_class { get };
+allow system_basic_hap_attr distributedsche:binder { call transfer };
+allow system_basic_hap_attr distributedsche:fd { use };
+allow system_basic_hap_attr sa_distributeschedule:samgr_class { get };
+allow system_basic_hap_attr sa_softbus_service:samgr_class { get };
+allow system_basic_hap_attr softbus_server:tcp_socket { read setopt write };
+allow system_basic_hap_attr sa_foundation_continuation_manager_service:samgr_class { get };

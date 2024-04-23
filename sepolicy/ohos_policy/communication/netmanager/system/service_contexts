@@ -13,3 +13,4 @@
 
 1162 u:object_r:sa_netsys_ext_service:s0
 1163 u:object_r:sa_distributed_net_service:s0
+1164 u:object_r:sa_netvirt_ext:s0

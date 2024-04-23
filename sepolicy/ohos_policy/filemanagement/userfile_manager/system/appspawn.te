@@ -15,3 +15,4 @@ allow appspawn epfs:dir { mounton };
 allow appspawn epfs:filesystem { mount };
 allow appspawn hmdfs:dir { write add_name create };
 allow appspawn data_service_el2_hmdfs:dir { read open write add_name create };
+allow appspawn data_user_file:dir { search read open };

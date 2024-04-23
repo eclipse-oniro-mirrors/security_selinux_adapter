@@ -65,4 +65,26 @@ allow ueventd dev_xpm:chr_file { relabelto };
 
 # avc: denied { create } for pid=234 comm="ueventd" name="by-name" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=dir permissive=1
 allow ueventd dev_block_volfile:dir { create };
+
+# avc:  denied  { relabelto } for  pid=241 comm="ueventd" name="eng_system" dev="tmpfs" ino=109 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
+allow ueventd dev_block_file:lnk_file { relabelto };
+
+# avc:  denied  { relabelto } for  pid=238 comm="ueventd" name="mmcblk0p3" dev="tmpfs" ino=129 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=blk_file permissive=0
+allow ueventd dev_block_volfile:blk_file { relabelto };
+
+# avc:  denied  { getattr } for  pid=250 comm="ueventd" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
+# avc:  denied  { relabelfrom } for  pid=250 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
+# avc:  denied  { setattr } for  pid=250 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
+# avc:  denied  { relabelto } for  pid=241 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=147 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allow ueventd updater_block_file:blk_file { getattr relabelfrom setattr relabelto };
+
+# avc:  denied  { getattr } for  pid=242 comm="ueventd" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
+# avc:  denied  { relabelfrom } for  pid=242 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
+# avc:  denied  { setattr } for  pid=242 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
+allow ueventd tmpfs:blk_file { getattr relabelfrom setattr };
+
+# avc:  denied  { getattr } for  pid=245 comm="ueventd" path="/dev/block/by-name/misc" dev="tmpfs" ino=37 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
+# avc:  denied  { relabelto } for  pid=231 comm="ueventd" name="misc" dev="tmpfs" ino=149 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=0
+allow ueventd updater_block_file:lnk_file { getattr relabelto };
+
 ')

@@ -27,6 +27,8 @@ static const size_t CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const size_t CONTEXTS_LENGTH_MAX = 1024;
 static const uint32_t SELINUX_PARAM_SPACE = 1024 * 80;
 static const uint32_t MAX_LEN = 255;
+static const char SYSTEM_PARAMETER_CONTEXTS[] = "/system/etc/selinux/targeted/contexts/parameter_contexts";
+static const char VENDOR_PARAMETER_CONTEXTS[] = "/vendor/etc/selinux/targeted/contexts/parameter_contexts";
 
 static ParamHashNode *GetGroupNode(ParamContextsTrie *root, const char *name, uint32_t len)
 {
@@ -303,12 +305,11 @@ bool ReadParamFromSharedMem(ParamContextsTrie **trieRoot, ParamContextsList **li
         char *paramName = ReadSharedMem(memPtr->data, memPtr->paramNameSize);
         char *context = ReadSharedMem(memPtr->data + memPtr->paramNameSize + 1, memPtr->paramLabelSize);
         int tmpIndex = FindContextFromList(context, tmpHead->next);
-        tmpIndex = (tmpIndex == DEFAULT_CONTEXT_INDEX) ? index : tmpIndex;
+        tmpIndex = (tmpIndex == DEFAULT_CONTEXT_INDEX) ? index++ : tmpIndex;
         if ((!InsertParamToTrie(root, paramName, context, tmpIndex)) ||
             (!InsertContextsList(&listPtr, paramName, context, tmpIndex))) {
             continue;
         }
-        index++;
         uint32_t dataLen = memPtr->paramNameSize + memPtr->paramLabelSize + 2; // 2 bytes for '\0'
         uint32_t readSize = dataLen + sizeof(SharedMem);                       // space used for read SharedMem struct
         currentPos += readSize;
@@ -351,22 +352,18 @@ static int WriteParamToSharedMem(char *paramName, char *context, uint32_t *curre
     return 0;
 }
 
-int LoadParameterContextsToSharedMem(void)
+static void LoadParameterContexts(const char* fileName, uint32_t *currentPos, SharedMem **memPtr)
 {
     char buffer[512] = {0};
-    FILE *fp = fopen("/system/etc/selinux/targeted/contexts/parameter_contexts", "r");
+    FILE *fp = fopen(fileName, "r");
     if (fp == NULL) {
-        return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+        return;
     }
-    SharedMem *memPtr = (SharedMem *)InitSharedMem("/dev/__parameters__/param_selinux", SELINUX_PARAM_SPACE, false);
-    if (memPtr == NULL) {
-        (void)fclose(fp);
-        return -SELINUX_PTR_NULL;
-    }
-    SharedMem *head = memPtr;
-    uint32_t currentPos = 0;
     while (fgets(buffer, sizeof(buffer) - 1, fp) != NULL) {
         size_t n = strlen(buffer);
+        if (n == 0) {
+            continue;
+        }
         if (buffer[n - 1] == '\n') {
             buffer[n - 1] = '\0';
         }
@@ -383,11 +380,23 @@ int LoadParameterContextsToSharedMem(void)
         if (context == NULL) {
             continue;
         }
-        if (WriteParamToSharedMem(paramName, context, &currentPos, &memPtr) != 0) {
+        if (WriteParamToSharedMem(paramName, context, currentPos, memPtr) != 0) {
             break;
         }
     }
-    UnmapSharedMem((char *)head, SELINUX_PARAM_SPACE);
     (void)fclose(fp);
-    return 0;
+}
+
+int LoadParameterContextsToSharedMem(void)
+{
+    SharedMem *memPtr = (SharedMem *)InitSharedMem("/dev/__parameters__/param_selinux", SELINUX_PARAM_SPACE, false);
+    if (memPtr == NULL) {
+        return -SELINUX_PTR_NULL;
+    }
+    SharedMem *head = memPtr;
+    uint32_t currentPos = 0;
+    LoadParameterContexts(SYSTEM_PARAMETER_CONTEXTS, &currentPos, &memPtr);
+    LoadParameterContexts(VENDOR_PARAMETER_CONTEXTS, &currentPos, &memPtr);
+    UnmapSharedMem((char *)head, SELINUX_PARAM_SPACE);
+    return currentPos > 0 ? 0 : -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
 }

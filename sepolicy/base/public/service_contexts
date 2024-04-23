@@ -12,6 +12,7 @@
 # limitations under the License.
 
 
+0                                      u:object_r:sa_samgr_service:s0
 10                                     u:object_r:sa_render_service:s0
 116	                                   u:object_r:sa_ability_tools_service:s0
 179	                                   u:object_r:sa_ability_test_service:s0
@@ -56,6 +57,8 @@
 1122	                               u:object_r:sa_wifi_enhancer_service:s0
 1123                                   u:object_r:sa_wifi_p2p_ability:s0
 1124                                   u:object_r:sa_wifi_scan_ability:s0
+1126                                   u:object_r:sa_dhcp_client:s0
+1127                                   u:object_r:sa_dhcp_server:s0
 1130                                   u:object_r:sa_bluetooth_server:s0
 1140	                               u:object_r:sa_nfc_manager_service:s0
 1150	                               u:object_r:sa_net_manager_service:s0
@@ -75,6 +78,7 @@
 1201	                               u:object_r:sa_hiview_service:s0
 1202	                               u:object_r:sa_hiview_faultlogger_service:s0
 1203                                   u:object_r:sa_sys_event_service:s0
+1205                                   u:object_r:sa_native_daemon:s0
 1212	                               u:object_r:sa_dfx_sys_hidumper_ability:s0
 1300	                               u:object_r:sa_subsys_distributeddatamng_service:s0
 1301                                   u:object_r:sa_distributeddata_service:s0
@@ -98,6 +102,7 @@
 1500	                               u:object_r:sa_subsys_drivers_service:s0
 1600	                               u:object_r:sa_subsys_global_service:s0
 1601	                               u:object_r:sa_enterprise_device_manager_service:s0
+1602                                   u:object_r:sa_i18n_service:s0
 1700	                               u:object_r:sa_subsys_graphic_service:s0
 1800	                               u:object_r:sa_subsys_hbs_service:s0
 1900	                               u:object_r:sa_subsys_iaware_service:s0
@@ -136,6 +141,7 @@
 2904	                               u:object_r:sa_msdp_spatial_awareness_service:s0
 2905	                               u:object_r:sa_msdp_geofence_service:s0
 2906	                               u:object_r:sa_msdp_timeline_service:s0
+2908	                               u:object_r:sa_msdp_multimodal_awareness_service:s0
 3000	                               u:object_r:sa_subsys_multimedia_service:s0
 3001                                   u:object_r:sa_pulseaudio_audio_service:s0
 3002                                   u:object_r:sa_media_service:s0
@@ -146,6 +152,7 @@
 3008	                               u:object_r:sa_camera_service:s0
 3009                                   u:object_r:sa_audio_policy_service:s0
 3010	                               u:object_r:sa_avsession_service:s0
+3012                                   u:object_r:sa_drm_service:s0
 3100	                               u:object_r:sa_subsys_multimodainput_service:s0
 3101                                   u:object_r:sa_multimodalinput_service:s0
 3102	                               u:object_r:sa_multimodal_channel_service:s0
@@ -155,11 +162,11 @@
 3203                                   u:object_r:sa_foundation_ans:s0
 3299                                   u:object_r:sa_foundation_cesfwk_service:s0
 3300	                               u:object_r:sa_subsys_powermng_service:s0
-3301                                   u:object_r:sa_foundation_powermgr_service:s0
-3302                                   u:object_r:sa_foundation_battery_service:s0
-3303                                   u:object_r:sa_foundation_thermal_service:s0
-3304                                   u:object_r:sa_foundation_batterystats_service:s0
-3308                                   u:object_r:sa_foundation_displaymgr_service:s0
+3301                                   u:object_r:sa_powermgr_powermgr_service:s0
+3302                                   u:object_r:sa_powermgr_battery_service:s0
+3303                                   u:object_r:sa_powermgr_thermal_service:s0
+3304                                   u:object_r:sa_powermgr_batterystats_service:s0
+3308                                   u:object_r:sa_powermgr_displaymgr_service:s0
 3309	                               u:object_r:sa_ivipower_enhanced_service:s0
 3400	                               u:object_r:sa_subsys_router_service:s0
 3500	                               u:object_r:sa_subsys_security_service:s0
@@ -228,7 +235,7 @@
 5001	                               u:object_r:sa_storage_service:s0
 5002	                               u:object_r:sa_storage_manager_daemon:s0
 5003                                   u:object_r:sa_storage_manager_service:s0
-5010	                               u:object_r:sa_file_manager_service:s0
+5010	                               u:object_r:sa_file_access_service:s0
 5100                                   u:object_r:sa_device_service_manager:s0
 5200	                               u:object_r:sa_subsys_filemanagement_service:s0
 5201	                               u:object_r:sa_filemanagement_distributed_file_daemon_service:s0
@@ -239,7 +246,9 @@
 5501	                               u:object_r:sa_devattest_service:s0
 6001	                               u:object_r:sa_device_profile_service:s0
 6101                                   u:object_r:sa_oaid_service:s0
+6105	                               u:object_r:sa_ecological_rule_mgr_service:s0
 7001	                               u:object_r:sa_subsys_ace_service:s0
 7002	                               u:object_r:sa_ui_appearance:s0
 8001	                               u:object_r:sa_ca_daemon_service:s0
+
 

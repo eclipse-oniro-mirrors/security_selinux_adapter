@@ -12,4 +12,12 @@
 # limitations under the License.
 
 # avc:  denied  { call } for  pid=644 comm="CesSrvUnorderEv" scontext=u:r:foundation:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=binder permissive=1
-allow foundation hdf_ext_devmgr:binder { call };
+allow foundation hdf_ext_devmgr:binder { call transfer };
+
+# avc:  denied  { search } for  pid=616 comm="IPC_9_1109" name="599" dev="proc" ino=28762 scontext=u:r:foundation:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=dir permissive=1
+allow foundation hdf_ext_devmgr:dir { search };
+
+# avc:  denied  { getattr } for  pid=616 comm="IPC_9_1109" path="/proc/599/cmdline" dev="proc" ino=33069 scontext=u:r:foundation:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=616 comm="IPC_9_1109" path="/proc/599/cmdline" dev="proc" ino=33069 scontext=u:r:foundation:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=616 comm="IPC_9_1109" scontext=u:r:foundation:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=file permissive=1
+allow foundation hdf_ext_devmgr:file { getattr open read };

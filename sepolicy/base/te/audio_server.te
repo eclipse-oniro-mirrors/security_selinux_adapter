@@ -1,0 +1,48 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#audio_policy => audio_server
+allow audio_server bootevent_param:file { map open read };
+allow audio_server bootevent_samgr_param:file { map open read };
+allow audio_server build_version_param:file { map open read };
+allow audio_server const_allow_mock_param:file { map open read };
+allow audio_server const_allow_param:file { map open read };
+allow audio_server const_build_param:file { map open read };
+allow audio_server const_display_brightness_param:file { map read open };
+allow audio_server const_param:file { map open read };
+allow audio_server const_postinstall_fstab_param:file { map open read };
+allow audio_server const_postinstall_param:file { map open read };
+allow audio_server const_product_param:file { map open read };
+allow audio_server debug_param:file { map open read };
+allow audio_server default_param:file { map open read };
+allow audio_server dev_kmsg_file:chr_file { open write };
+allow audio_server distributedsche_param:file { map open read };
+allow audio_server hilog_param:file { map open read };
+allow audio_server hw_sc_build_os_param:file { map open read };
+allow audio_server hw_sc_build_param:file { map open read };
+allow audio_server hw_sc_param:file { map open read };
+allow audio_server init_param:file { map open read };
+allow audio_server init_svc_param:file { map open read };
+allow audio_server input_pointer_device_param:file { map open read };
+allow audio_server net_param:file { map open read };
+allow audio_server net_tcp_param:file { map open read };
+allow audio_server ohos_boot_param:file { map open read };
+allow audio_server ohos_param:file { map open read };
+allow audio_server persist_param:file { map open read };
+allow audio_server persist_sys_param:file { map open read };
+allow audio_server audio_server:unix_stream_socket { connectto };
+allow audio_server sa_bluetooth_server:samgr_class { get };
+allow audio_server security_param:file { map open read };
+allow audio_server startup_param:file { map open read };
+allow audio_server sys_param:file { map open read };
+allow audio_server sys_usb_param:file { map open read };

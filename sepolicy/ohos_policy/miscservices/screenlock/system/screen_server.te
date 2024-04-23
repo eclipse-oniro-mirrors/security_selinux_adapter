@@ -12,8 +12,8 @@
 # limitations under the License.
 
 allow screenlock_server dev_unix_socket:dir { search };
-allow screenlock_server system_core_hap:binder { call transfer };
-allow screenlock_server system_basic_hap:binder { call transfer };
+allow screenlock_server system_core_hap_attr:binder { call transfer };
+allow screenlock_server system_basic_hap_attr:binder { call transfer };
 allow screenlock_server normal_hap_attr:binder { call transfer };
 allow screenlock_server system_usr_file:file { map };
 allow screenlock_server sa_foundation_abilityms:samgr_class { get };

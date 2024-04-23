@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap sa_avsession_service:samgr_class { get };
-allow system_basic_hap av_session:binder { call transfer };
+allow system_basic_hap_attr sa_avsession_service:samgr_class { get };
+allow system_basic_hap_attr av_session:binder { call transfer };

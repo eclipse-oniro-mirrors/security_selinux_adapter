@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-debug_only(`
-    allow system_core_hap data_app_el1_file:file { execute };
-    allow system_core_hap system_core_hap:tcp_socket { create };
-')
+allow system_core_hap_attr uitest:binder { call transfer};
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { create };
+allow system_core_hap_attr data_app_el1_file:file { execute };

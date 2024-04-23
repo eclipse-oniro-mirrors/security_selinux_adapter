@@ -1,0 +1,25 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { call } for  pid=1368 comm="ndwriting_board" scontext=u:r:debug_hap:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=12711 comm="ndwriting_board" scontext=u:r:system_core_hap:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=binder permissive=0
+allow hap_domain hdf_ext_devmgr:binder { call transfer };
+
+# avc:  denied  { get } for service=5110 pid=1368 scontext=u:r:debug_hap:s0 tcontext=u:object_r:sa_hdf_ext_devmgr:s0 tclass=samgr_class permissive=1
+allow hap_domain sa_hdf_ext_devmgr:samgr_class { get };
+
+# avc:  denied  { call } for  pid=1405 comm="ffrtwk/CPU-2-0" scontext=u:r:debug_hap:s0 tcontext=u:r:usb_host:s0 tclass=binder permissive=1
+allow hap_domain usb_host:binder { call };
+
+# avc:  denied  { read } for  pid=12711 comm="ndwriting_board" name="u:object_r:hichecker_writable_param:s0" dev="tmpfs" ino=81 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=0
+allow hap_domain hichecker_writable_param:file { read open map };

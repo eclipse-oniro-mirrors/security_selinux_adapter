@@ -1,0 +1,39 @@
+# Copyright (C) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { open } for  pid=14357 comm="appspawn" path="/dev/fuse" dev="tmpfs" ino=434 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { read write } for  pid=14357 comm="appspawn" name="fuse" dev="tmpfs" ino=434 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+allow appspawn dev_fuse_file:chr_file { open read write };
+
+# avc:  denied  { mounton } for  pid=3454 comm="appspawn" path="/mnt/sandbox/com.ohos.dlpmanager/data/fuse" dev="fuse" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:fuse_file:s0 tclass=dir permissive=1
+allow appspawn fuse_file:dir { mounton };
+
+# avc:  denied  { mount } for  pid=3454 comm="appspawn" name="/" dev="fuse" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
+allow appspawn fuse_file:filesystem { mount };
+
+# avc:  denied  { unmount } for  pid=7670 comm="appspawn" scontext=u:r:appspawn:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
+allow appspawn fuse_file:filesystem { unmount };
+
+# avc:  denied  { mounton } for  pid=4924 comm="ohos.dlpmanager" path="/mnt/sandbox/com.ohos.dlpmanager/mnt/data/fuse" dev="fuse" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=dir permissive=1
+allow appspawn dlp_fuse_file:dir { mounton };
+
+# avc:  denied  { mount } for  pid=4924 comm="ohos.dlpmanager" name="/" dev="fuse" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=filesystem permissive=1
+# avc:  denied  { relabelfrom } for  pid=4924 comm="ohos.dlpmanager" scontext=u:r:appspawn:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=filesystem permissive=1
+# avc:  denied  { relabelto } for  pid=4924 comm="ohos.dlpmanager" scontext=u:r:appspawn:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=filesystem permissive=1
+allow appspawn dlp_fuse_file:filesystem { mount relabelfrom relabelto };
+
+# avc:  denied  { relabelfrom } for  pid=4924 comm="ohos.dlpmanager" scontext=u:r:appspawn:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
+allow appspawn fuse_file:filesystem { relabelfrom };
+
+# avc:  denied  { unmount } for pid=3664 comm="ohos.dlpmanager" scontext=u:r:appspawn:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=filesystem permissive=0
+allow appspawn dlp_fuse_file:filesystem { unmount };

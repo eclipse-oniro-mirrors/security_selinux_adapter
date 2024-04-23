@@ -11,18 +11,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation audio_policy:binder { call transfer };
 allow foundation camera_service:binder { call transfer };
+allow foundation drm_service:binder { call transfer };
 allow foundation persist_param:parameter_service set;
-allow foundation pulseaudio:binder { call transfer };
 allow foundation riladapter_host:binder { call transfer };
 allow foundation sa_audio_policy_service:samgr_class get;
 allow foundation sa_camera_service:samgr_class get;
+allow foundation sa_drm_service:samgr_class get;
 allow foundation sa_device_usage_statistics_service:samgr_class get;
 allow foundation sa_foundation_tel_call_manager:samgr_class { add get };
 allow foundation sa_foundation_tel_state_registry:samgr_class { add get };
 allow foundation sa_pulseaudio_audio_service:samgr_class get;
 allow foundation sa_telephony_tel_cellular_call:samgr_class get;
+allow foundation sa_telephony_tel_cellular_data:samgr_class get;
 allow foundation sa_telephony_tel_core_service:samgr_class get;
 allow foundation sa_telephony_tel_sms_mms:samgr_class get;
 allow foundation telephony_sa:dir search;
@@ -31,4 +32,5 @@ allow foundation data_data_file:dir { search };
 allow foundation data_data_pulse_dir:dir { getattr open read search };
 allow foundation data_data_pulse_dir:file { lock open read write };
 allow foundation native_socket:sock_file { write };
-allow foundation pulseaudio:unix_stream_socket { connectto };
+allow foundation audio_server:unix_stream_socket { connectto };
+allow foundation sa_miscdevice_service:samgr_class { get };

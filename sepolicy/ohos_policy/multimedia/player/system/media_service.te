@@ -32,7 +32,7 @@ allow media_service media_service:tcp_socket { connect create setopt create };
 allow media_service port:tcp_socket { name_connect };
 
 #avc:  denied  { use } for  pid=475 comm="qtdemux5:sink" path="/data/storage/el1/bundle/ohos.acts.multimedia.audio.audioplayer/assets/entry/resources/rawfile/64.mp4" dev="mmcblk0p11" ino=1307154 scontext=u:r:media_service:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
-allow media_service system_core_hap:fd { use };
+allow media_service system_core_hap_attr:fd { use };
 
 #avc:  denied  { getattr } for  pid=475 comm="media_service" path="/data/test/H264_AAC.mp4" dev="mmcblk0p11" ino=1044486 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=475 comm="media_service" name="H264_AAC.mp4" dev="mmcblk0p11" ino=1044486 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
@@ -55,9 +55,10 @@ debug_only(`
 
 #avc:  denied  { getattr } for  pid=499 comm="media_service" path="/data/storage/el2/base/haps/entry/files/H264_AAC.mp4" dev="mmcblk0p11" ino=1307219 scontext=u:r:media_service:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=2096 comm="jsThread-1" path="/data/storage/el2/base/haps/entry/files/H264_AAC.mp4" dev="mmcblk0p11" ino=1307219 scontext=u:r:media_service:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=0
-allow media_service system_core_hap_data_file:file { getattr read };
+allow media_service system_core_hap_data_file_attr:file { getattr read };
 allow media_service media_service:udp_socket { create };
 allow media_service foundation:binder { call transfer };
+allow media_service powermgr:binder { call transfer };
 
 #avc:  denied  { call } for  pid=2003 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:codec_host:s0 tclass=binder permissive=1
 allow media_service codec_host:binder { call };
@@ -77,11 +78,11 @@ allow media_service data_file:dir { write add_name };
 #avc:  denied  { read } for  pid=1968 comm="recorder_unit_t" path="/data/test/recorder_video_yuv_mpeg4.mp4" dev="mmcblk0p11" ino=1175048 scontext=u:r:media_service:s0 tcontext=u:object_r:data_test_file:s0 tclass=file permissive=0
 allow media_service data_test_media_file:file { write read getattr };
 
-allow media_service system_basic_hap:fd { use };
+allow media_service system_basic_hap_attr:fd { use };
 
-allow media_service system_basic_hap:binder { transfer call };
+allow media_service system_basic_hap_attr:binder { transfer call };
 
-allow media_service system_basic_hap_data_file:file { getattr read write };
+allow media_service system_basic_hap_data_file_attr:file { getattr read write };
 
 allow media_service normal_hap_data_file_attr:file { read getattr };
 
@@ -97,7 +98,7 @@ allowxperm media_service data_media_log_file:file ioctl { 0x5413 };
 
 allow media_service data_media_log_file:dir { create add_name write search };
 
-allow media_service normal_hap_data_file:file { write };
+allow media_service normal_hap_data_file_attr:file { write };
 
 allow media_service hilogd:unix_dgram_socket { sendto };
 
@@ -106,3 +107,48 @@ allow media_service sa_avsession_service:samgr_class { get };
 allow media_service av_session:binder { call transfer };
 
 allow media_service sa_foundation_bms:samgr_class { get };
+
+#avc:  denied  { get } for service=4607 pid=624 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
+allow media_service sa_foundation_dms:samgr_class { get };
+
+#add selinux for get sa_privacy_service
+allow media_service sa_privacy_service:samgr_class { get };
+
+#add selinux for call privacy_service
+allow media_service privacy_service:binder { call transfer };
+
+#avc:  denied  { get } for service=4607 pid=624 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
+allow media_service sa_foundation_wms:samgr_class { get };
+
+# avc:  denied  { call } for  pid=568 comm="multiqueue4:src" scontext=u:r:media_service:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
+allow media_service drm_service:binder { call };
+
+allow media_service sa_concurrent_task_service:samgr_class { get };
+
+allow media_service concurrent_task_service:binder { call };
+
+allow media_service sa_av_codec_service:samgr_class { get };
+
+allow media_service sa_concurrent_task_service:samgr_class { get };
+
+allow media_service av_codec_service:binder { call transfer };
+
+allow media_service av_codec_service:fd { use };
+
+allow media_service powermgr:fd { use };
+
+allow media_service sa_powermgr_powermgr_service:samgr_class { get };
+
+# avc:  denied  { get } for service=180 pid=1526 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow media_service sa_foundation_abilityms:samgr_class { get };
+
+# avc:  denied  { get } for service=3203 pid=1526 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=1
+allow media_service sa_foundation_ans:samgr_class { get };
+
+allow media_service foundation:fd { use };
+
+allow media_service sa_foundation_cesfwk_service:samgr_class { get };
+
+allow media_service sa_foundation_tel_state_registry:samgr_class { get };
+
+allow media_service resource_schedule_service:binder { call };

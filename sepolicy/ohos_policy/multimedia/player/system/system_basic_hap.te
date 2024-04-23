@@ -11,9 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap normal_hap_attr:binder { transfer };
+allow system_basic_hap_attr normal_hap_attr:binder { transfer };
 
 #avc:  denied  { use } for  pid=601 comm="media_service" path="/dev/ashmem" dev="tmpfs" ino=180 scontext=u:r:system_basic_hap:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=0
-allow system_basic_hap media_service:fd { use }; 
+allow system_basic_hap_attr media_service:fd { use }; 
 
-allow system_basic_hap media_service:binder { call transfer }; 
+allow system_basic_hap_attr media_service:binder { call transfer }; 

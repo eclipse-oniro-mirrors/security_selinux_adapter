@@ -1,0 +1,161 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+debug_only(`
+    # snapshot_display 
+    allow snapshot_display snapshot_display_exec:file { getattr execute execute_no_trans map read open };
+    # avc:  denied  { search } for  pid=1481 comm="snapshot_displa" name="/" dev="mmcblk0p15" ino=3 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+    allow snapshot_display data_file:dir { search };
+    # avc:  denied  { search } for  pid=1481 comm="snapshot_displa" name="local" dev="mmcblk0p15" ino=112 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+    allow snapshot_display data_local:dir { search };
+    # avc:  denied  { use } for  pid=1481 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fd permissive=1
+    allow snapshot_display su:fd { use };
+    # avc:  denied  { read write } for  pid=1481 comm="snapshot_displa" path="socket:[20370]" dev="sockfs" ino=20370 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket permissive=1
+    allow snapshot_display su:unix_stream_socket { read write };
+    # avc:  denied  { read } for  pid=1636 comm="snapshot_displa" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+    allow snapshot_display debug_param:file { read };
+    # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
+    allow snapshot_display dev_console_file:chr_file { read write };
+    # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
+    allow snapshot_display devpts:chr_file { read write };
+    # avc:  denied  { read } for  pid=1571 comm="snapshot_displa" name="u:object_r:persist_sys_param:s0" dev="tmpfs" ino=71 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+    allow snapshot_display persist_sys_param:file { read };
+    # avc:  denied  { get } for service=4607 pid=1289 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+    allow snapshot_display sa_foundation_dms:samgr_class { get };
+    # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/tty" dev="tmpfs" ino=40 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+    allow snapshot_display tty_device:chr_file { read write };
+    # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+    allow snapshot_display arkcompiler_param:file { map read open read };
+    # avc:  denied  { write search } for  pid=1475 comm="snapshot_displa" name="tmp" dev="mmcblk0p15" ino=115 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+    allow snapshot_display data_local_tmp:dir { add_name search search write search };
+    # avc:  denied  { write open } for  pid=1475 comm="snapshot_displa" path="/data/local/tmp/snapshot_2017-08-05_17-07-00.jpeg" dev="mmcblk0p15" ino=1924 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    allow snapshot_display data_local_tmp:file { create getattr ioctl write open };
+    # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+    allow snapshot_display debug_param:file { map open };
+    # avc:  denied  { search } for  pid=1475 comm="snapshot_displa" name="socket" dev="tmpfs" ino=43 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+    allow snapshot_display dev_unix_socket:dir { search };
+    # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+    allow snapshot_display devpts:chr_file { ioctl };
+    # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+    allow snapshot_display foundation:binder { call };
+    # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=68 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+    allow snapshot_display hilog_param:file { map read open read };
+    # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=71 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+    allow snapshot_display persist_sys_param:file { map open };
+    # avc:  denied  { use } for  pid=1475 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=239 scontext=u:r:snapshot_display:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
+    allow snapshot_display render_service:fd { use };
+    # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
+    allow snapshot_display samgr:binder { call };
+    # avc:  denied  { search } for  pid=1475 comm="snapshot_displa" name="/" dev="tracefs" ino=1 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
+    allow snapshot_display tracefs:dir { search };
+    # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/data/local/tmp/snapshot_2017-08-05_17-07-00.jpeg" dev="mmcblk0p15" ino=1924 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    allowxperm snapshot_display data_local_tmp:file ioctl { 0x5413 };
+    # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+    allowxperm snapshot_display devpts:chr_file ioctl { 0x5413 };
+    # avc:  denied  { write } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allow snapshot_display su:fifo_file { ioctl read write };
+    # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allowxperm snapshot_display su:fifo_file ioctl { 0x5413 };
+
+    allow snapshot_display hdcd:fd { use };
+    allow snapshot_display hdcd:fifo_file { read write };
+    allow snapshot_display hdcd:unix_stream_socket { read write };
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
+
+    # avc:  denied  { open } for  pid=8117 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=654 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_ashmem_file:chr_file { open };
+    # avc:  denied  { write } for  pid=8184 comm="snapshot_displa" path="/dev/kmsg" dev="tmpfs" ino=110 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_kmsg_file:chr_file { write };
+    # avc:  denied  { read } for  pid=8117 comm="snapshot_displa" name="u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    # avc:  denied  { read open } for  pid=8117 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    allow snapshot_display persist_param:file { read read open };
+    # avc:  denied  { search } for  pid=8117 comm="snapshot_displa" name="bin" dev="sdd74" ino=357 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+    allow snapshot_display system_bin_file:dir { search };
+')
+
+developer_only(`
+    # snapshot_display 
+    allow snapshot_display snapshot_display_exec:file { getattr execute execute_no_trans map read open };
+    # avc:  denied  { search } for  pid=1481 comm="snapshot_displa" name="/" dev="mmcblk0p15" ino=3 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+    allow snapshot_display data_file:dir { search };
+    # avc:  denied  { search } for  pid=1481 comm="snapshot_displa" name="local" dev="mmcblk0p15" ino=112 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+    allow snapshot_display data_local:dir { search };
+    # avc:  denied  { use } for  pid=1481 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fd permissive=1
+    allow snapshot_display sh:fd { use };
+    # avc:  denied  { read write } for  pid=1481 comm="snapshot_displa" path="socket:[20370]" dev="sockfs" ino=20370 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket permissive=1
+    allow snapshot_display sh:unix_stream_socket { read write };
+    # avc:  denied  { read } for  pid=1636 comm="snapshot_displa" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+    allow snapshot_display debug_param:file { read };
+    # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
+    allow snapshot_display dev_console_file:chr_file { read write };
+    # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
+    allow snapshot_display devpts:chr_file { read write };
+    # avc:  denied  { read } for  pid=1571 comm="snapshot_displa" name="u:object_r:persist_sys_param:s0" dev="tmpfs" ino=71 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+    allow snapshot_display persist_sys_param:file { read };
+    # avc:  denied  { get } for service=4607 pid=1289 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+    allow snapshot_display sa_foundation_dms:samgr_class { get };
+    # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/tty" dev="tmpfs" ino=40 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+    allow snapshot_display tty_device:chr_file { read write };
+    # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+    allow snapshot_display arkcompiler_param:file { map read open read };
+    allow snapshot_display ark_writeable_param:file { map read open read };
+    # avc:  denied  { write search } for  pid=1475 comm="snapshot_displa" name="tmp" dev="mmcblk0p15" ino=115 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+    allow snapshot_display data_local_tmp:dir { add_name search search write search };
+    # avc:  denied  { write open } for  pid=1475 comm="snapshot_displa" path="/data/local/tmp/snapshot_2017-08-05_17-07-00.jpeg" dev="mmcblk0p15" ino=1924 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    allow snapshot_display data_local_tmp:file { create getattr ioctl write open };
+    # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+    allow snapshot_display debug_param:file { map open };
+    # avc:  denied  { search } for  pid=1475 comm="snapshot_displa" name="socket" dev="tmpfs" ino=43 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+    allow snapshot_display dev_unix_socket:dir { search };
+    # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+    allow snapshot_display devpts:chr_file { ioctl };
+    # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+    allow snapshot_display foundation:binder { call };
+    # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=68 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+    allow snapshot_display hilog_param:file { map read open read };
+    # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=71 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+    allow snapshot_display persist_sys_param:file { map open };
+    # avc:  denied  { use } for  pid=1475 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=239 scontext=u:r:snapshot_display:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
+    allow snapshot_display render_service:fd { use };
+    # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
+    allow snapshot_display samgr:binder { call };
+    # avc:  denied  { search } for  pid=1475 comm="snapshot_displa" name="/" dev="tracefs" ino=1 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
+    allow snapshot_display tracefs:dir { search };
+    # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/data/local/tmp/snapshot_2017-08-05_17-07-00.jpeg" dev="mmcblk0p15" ino=1924 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    allowxperm snapshot_display data_local_tmp:file ioctl { 0x5413 };
+    # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+    allowxperm snapshot_display devpts:chr_file ioctl { 0x5413 };
+    # avc:  denied  { write } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allow snapshot_display sh:fifo_file { ioctl read write };
+    # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allowxperm snapshot_display sh:fifo_file ioctl { 0x5413 };
+
+    allow snapshot_display hdcd:fd { use };
+    allow snapshot_display hdcd:fifo_file { read write };
+    allow snapshot_display hdcd:unix_stream_socket { read write };
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
+
+    # avc:  denied  { open } for  pid=8117 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=654 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_ashmem_file:chr_file { open };
+    # avc:  denied  { write } for  pid=8184 comm="snapshot_displa" path="/dev/kmsg" dev="tmpfs" ino=110 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_kmsg_file:chr_file { write };
+    # avc:  denied  { read } for  pid=8117 comm="snapshot_displa" name="u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    # avc:  denied  { read open } for  pid=8117 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    allow snapshot_display persist_param:file { read read open };
+    # avc:  denied  { search } for  pid=8117 comm="snapshot_displa" name="bin" dev="sdd74" ino=357 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+    allow snapshot_display system_bin_file:dir { search };
+')

@@ -62,7 +62,6 @@ allow sys_installer_sa data_ota_package:file { append create ioctl open read wri
 allow sys_installer_sa data_file:dir { getattr };
 allow sys_installer_sa data_updater_file:dir { add_name search write remove_name getattr };
 allow sys_installer_sa data_updater_file:dir { append ioctl open read };
-allow sys_installer_sa data_updater_file:file { append create ioctl open read write rename unlink getattr setattr relabelfrom map};
 allow sys_installer_sa ohos_dev_param:file { read };
 
 debug_only(`
@@ -75,8 +74,6 @@ allowxperm sys_installer_sa update_firmware_file:dir ioctl { 0x5413 };
 allow sys_installer_sa update_firmware_file:file { append create ioctl open read write rename unlink getattr setattr };
 allowxperm sys_installer_sa update_firmware_file:file ioctl { 0x5413 };
 
-allow sys_installer_sa data_updater_file:file { execute execute_no_trans };
-
 allow sys_installer_sa sys_installer_sa:process { setcurrent };
 allow sys_installer_sa updater_binary:process { dyntransition };
 allow sys_installer_sa vendor_etc_file:dir { search };
@@ -88,6 +85,39 @@ allow sys_installer_sa sysfs_devices_system_cpu:file { read open getattr };
 allow sys_installer_sa updater_sa:binder { call };
 allow sys_installer_sa vendor_etc_file:dir { search };
 allow sys_installer_sa dev_block_volfile:dir { search };
-allow sys_installer_sa dev_block_file:lnk_file { read };
 allow sys_installer_sa update_firmware_file:file { map };
-allow sys_installer_sa dev_block_file:blk_file { write getattr read open };
+allow sys_installer_sa system_bin_file:file { getattr };
+
+# avc:  denied  { create } for  pid=1109 comm="IPC_1_1111" name="updater_binary" scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=1109 comm="IPC_1_1111" path="/data/updater/update.bin.tmp" dev="mmcblk0p18" ino=1844 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=1109 comm="IPC_1_1111" path="/data/updater/update.bin.tmp" dev="mmcblk0p18" ino=1844 ioctlcmd=0x5413 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1109 comm="IPC_1_1111" path="/data/updater/update.bin.tmp" dev="mmcblk0p18" ino=1844 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { read write } for  pid=1109 comm="IPC_1_1111" name="update.bin.tmp" dev="mmcblk0p18" ino=1844 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { setattr } for  pid=1092 comm="IPC_2_1100" name="updater_binary" dev="mmcblk0p18" ino=1875 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { unlink } for  pid=1092 comm="IPC_2_1100" name="updater_binary" dev="mmcblk0p18" ino=1869 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { append } for  pid=1071 comm="IPC_1_1073" name="sys_installer.log" dev="mmcblk0p18" ino=1703 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+allow sys_installer_sa data_updater_file:file { append create getattr ioctl open read write setattr unlink };
+
+# avc:  denied  { ioctl } for  pid=1109 comm="IPC_1_1111" path="/data/updater/update.bin.tmp" dev="mmcblk0p18" ino=1844 ioctlcmd=0x5413 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+allowxperm sys_installer_sa data_updater_file:file ioctl { 0x5413 };
+
+# avc:  denied  { add_name } for  pid=1092 comm="IPC_2_1112" name="updater_binary" scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+# avc:  denied  { open } for  pid=1092 comm="IPC_2_1112" path="/mnt/sys_installer" dev="tmpfs" ino=61 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+# avc:  denied  { read write } for  pid=1092 comm="IPC_2_1112" name="sys_installer" dev="tmpfs" ino=61 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+# avc:  denied  { remove_name } for  pid=1092 comm="IPC_2_1112" name="updater_binary" dev="tmpfs" ino=110 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+allow sys_installer_sa tmpfs:dir { add_name open read write remove_name };
+
+# avc:  denied  { create } for  pid=1092 comm="IPC_2_1112" name="updater_binary" scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=1092 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=1092 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 ioctlcmd=0x5413 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1092 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc:  denied  { setattr } for  pid=1092 comm="IPC_2_1112" name="updater_binary" dev="tmpfs" ino=110 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc:  denied  { unlink } for  pid=1092 comm="IPC_2_1112" name="updater_binary" dev="tmpfs" ino=110 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+allow sys_installer_sa tmpfs:file { create getattr ioctl open setattr unlink };
+
+# avc:  denied  { ioctl } for  pid=1092 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 ioctlcmd=0x5413 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+allowxperm sys_installer_sa tmpfs:file ioctl { 0x5413 };
+
+allow sys_installer_sa updater_block_file:lnk_file { read };
+allow sys_installer_sa updater_block_file:blk_file { write getattr read open };
+

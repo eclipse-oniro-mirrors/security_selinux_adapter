@@ -109,3 +109,8 @@ class hdf_devmgr_class
 class lockdown
 class perf_event
 class xpm
+class hideaddr
+class code_sign
+class hmpsf
+class ced
+class jit_memory

@@ -60,7 +60,7 @@ allow audio_host dev_bus:dir { search };
 allow audio_host dev_bus_usb_file:dir { search };
 allow audio_host dev_bus_usb_file:chr_file { getattr read open };
 allow audio_host musl_param:file { open read map };
-allow audio_host pulseaudio:binder { transfer };
+allow audio_host audio_server:binder { transfer call };
 allow audio_host dev_dma_heap_file:dir { search };
 allow audio_host dev_dma_heap_file:chr_file { read open ioctl };
 allowxperm audio_host dev_snd_file:chr_file ioctl { 0x4801 0x4132 0x4142 };
@@ -107,3 +107,36 @@ debug_only(`
     allow audio_host sh:fd { use };
     allow audio_host sh:binder { transfer };
 ')
+
+# avc:  denied  { add } for service=intell_voice_trigger_manager_service pid=1070 scontext=u:r:audio_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
+allow audio_host hdf_intell_voice_trigger_manager_service:hdf_devmgr_class { add };
+
+# avc:  denied  { read } for  pid=1070 comm="audio_host" name="usb" dev="tmpfs" ino=453 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=0
+# avc:  denied  { open } for  pid=1118 comm="audio_host" path="/dev/bus/usb" dev="tmpfs" ino=453 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=0
+allow audio_host dev_bus_usb_file:dir { open read };
+
+# avc:  denied  { ioctl } for  pid=1054 comm="audio_host" path="/dev/soundtrigger_dma_drv" dev="tmpfs" ino=552 ioctlcmd=0x5302 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_soundtrigger:s0 tclass=chr_file permissive=0
+# avc:  denied  { open } for  pid=1064 comm="audio_host" path="/dev/soundtrigger_dma_drv" dev="tmpfs" ino=552 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_soundtrigger:s0 tclass=chr_file permissive=0
+# avc:  denied  { read write } for  pid=1102 comm="audio_host" name="soundtrigger_socdsp_lp_pcm_drv" dev="tmpfs" ino=553 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_soundtrigger:s0 tclass=chr_file permissive=1
+allow audio_host dev_soundtrigger:chr_file { open ioctl read write };
+allowxperm audio_host dev_soundtrigger:chr_file ioctl { 0x5302 };
+
+# avc:  denied  { call } for  pid=1042 comm="audio_host" scontext=u:r:audio_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+# avc:  denied  { transfer } for  pid=1054 comm="IPC_4_2058" scontext=u:r:audio_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+allow audio_host intell_voice_service:binder { transfer call };
+
+# avc:  denied  { use } for  pid=596 comm="IPC_2_7119" path="/dev/ashmem" dev="tmpfs" ino=581 scontext=u:r:audio_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=fd permissive=0
+allow audio_host intell_voice_service:fd { use };
+
+# avc:  denied  { write } for  pid=1075 comm="IPC_0_1111" name="oeminfo_nvm" dev="tmpfs" ino=757 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_file:s0 tclass=sock_file permissive=0
+allow audio_host dev_file:sock_file { write };
+
+# avc:  denied  { ioctl } for  pid=1063 comm="IPC_0_1116" path="/dev/hifi_misc" dev="tmpfs" ino=583 ioctlcmd=0x417e scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_hifi_misc:s0 tclass=chr_file permissive=0
+allow audio_host dev_hifi_misc:chr_file { ioctl };
+allowxperm audio_host dev_hifi_misc:chr_file ioctl { 0x417e };
+
+# avc:  denied  { search } for  pid=1102 comm="IPC_0_1127" name="lib64" dev="sdd85" ino=83 scontext=u:r:audio_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
+allow audio_host sys_prod_file:dir { search };
+
+# /sys/class/switch
+allow audio_host sysfs_switch:file { open read getattr };

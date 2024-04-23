@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type udevadm, domain, nativedomain;
+type udevadm, native_system_domain, domain;
 type udevadm_exec, exec_attr, file_attr, system_file_attr;

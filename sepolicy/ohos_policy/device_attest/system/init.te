@@ -12,5 +12,5 @@
 # limitations under the License.
 
 allow init devattest_service:process { rlimitinh siginh transition };
-allow init data_device_attest:dir { getattr open read relabelto search setattr add_name create write remove_name };
-allow init data_device_attest:file { create ioctl open read append relabelto rename unlink write map getattr setattr lock };
+allow init data_service_el1_public_device_attest:dir { getattr open read relabelto search setattr add_name create write remove_name };
+allow init data_service_el1_public_device_attest:file { create ioctl open read append relabelto rename unlink write map getattr setattr lock };

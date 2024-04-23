@@ -13,6 +13,6 @@
 
 type hiebpf_exec, exec_attr, file_attr, system_file_attr;
 
-type hiebpf, nativedomain, domain;
+type hiebpf, native_system_domain, domain;
 
-domain_auto_transition_pattern(nativedomain, hiebpf_exec, hiebpf);
+domain_auto_transition_pattern(native_system_domain, hiebpf_exec, hiebpf);

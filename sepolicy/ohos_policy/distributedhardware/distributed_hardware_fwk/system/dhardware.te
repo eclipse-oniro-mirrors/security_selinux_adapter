@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -124,22 +124,11 @@ allow dhardware data_service_el1_file:file { create write open read getattr ioct
 
 #avc:  denied  { call } for  pid=2451 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow dhardware accesstoken_service:binder { call };
-
-debug_only(`
-    #avc:  denied  { call } for  pid=2000 comm="DistributedHard" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
-    #avc:  denied  { transfer } for  pid=2000 comm="DistributedHard" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
-    allow sh dhardware:binder { call transfer };
-')
-
 debug_only(`
     #avc:  denied  { call } for  pid=2003 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
     allow dhardware sh:binder { call };
 ')
 
-debug_only(`
-    #avc:  denied  { sigkill } for  pid=2114 comm="sh" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=process permissive=1
-    allow sh dhardware:process { sigkill };
-')
 
 #avc:  denied  { search } for  pid=2694 comm="dhardware" name="etc" dev="mmcblk0p7" ino=19 scontext=u:r:dhardware:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
 allow dhardware vendor_etc_file:dir { search };
@@ -192,3 +181,26 @@ allow hdf_devmgr dhardware:binder { transfer };
 
 #avc:  denied  { call } for  pid=3100 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:codec_host:s0 tclass=binder permissive=1
 allow dhardware codec_host:binder { call };
+
+#avc:  denied  { get } for service=3011 pid=6484 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_av_codec_service:s0 tclass=samgr_class permissive=0
+#avc:  denied  { get } for service=3011 pid=6484 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_av_codec_service:s0 tclass=samgr_class permissive=1
+allow dhardware sa_av_codec_service:samgr_class { get };
+
+#avc:  denied  { call } for pid=4347 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=0
+#avc:  denied  { call } for pid=4445 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for pid=4445 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
+allow dhardware av_codec_service:binder { call transfer };
+
+
+allow dhardware sa_foundation_abilityms:samgr_class{ get };
+allow dhardware dev_kmsg_file:chr_file{ open write };
+
+allow dhardware sa_foundation_wms:samgr_class { get };
+
+allow dhardware paramservice_socket:sock_file { write };
+
+allow dhardware powermgr:binder { call transfer };
+
+#avc:  denied  { get } for service=3301 pid=4564 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow dhardware sa_powermgr_powermgr_service:samgr_class { get };
+

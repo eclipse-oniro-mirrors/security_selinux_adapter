@@ -14,7 +14,12 @@
 ##################
 ## Type define: ##
 ##################
-type hilog, nativedomain, domain;
+type hilog, native_system_domain, domain;
+type hilog_private_param, parameter_attr;
+
+debug_only(`
+    allow hilog hilog_private_param:parameter_service { set };
+')
 
 allow hilog proc_file:file { open read };
 allow hilog musl_param:file { open read map };
@@ -24,3 +29,7 @@ allow hilog hilogd:unix_stream_socket { connectto };
 allow hilog paramservice_socket:sock_file { write };
 allow hilog kernel:unix_stream_socket { connectto };
 allow hilog hilog_param:parameter_service { set };
+allow domain hilog_param:file { read map open };
+allow domain hilog_private_param:file { read map open };
+
+neverallow ~{ hilog } hilog_private_param:parameter_service { set };

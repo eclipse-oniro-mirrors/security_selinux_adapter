@@ -1,0 +1,38 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow sandbox_manager_service sa_sandbox_manager_service:samgr_class { add };
+allow sandbox_manager_service dev_unix_socket:dir { search };
+allow sandbox_manager_service tracefs:dir { search };
+allow sandbox_manager_service hilog_param:file { read open map };
+allow sandbox_manager_service debug_param:file { read open map };
+allow sandbox_manager_service sysfs_devices_system_cpu:file { read open getattr };
+allow sandbox_manager_service sandbox_manager_service:unix_dgram_socket { getopt setopt };
+allow sandbox_manager_service dev_kmsg_file:chr_file { write };
+allow sandbox_manager_service dev_file:dir { getattr };
+allow sandbox_manager_service system_bin_file:dir { search };
+allow sandbox_manager_service sa_accesstoken_manager_service:samgr_class { get };
+allow sandbox_manager_service sa_foundation_cesfwk_service:samgr_class { get };
+allow sandbox_manager_service accesstoken_service:binder { call };
+allow sandbox_manager_service data_file:dir { search };
+allow sandbox_manager_service data_service_el1_file:dir { search };
+allow sandbox_manager_service data_service_file:dir { search };
+allow sandbox_manager_service sandbox_manager_data_file:dir { search add_name read open remove_name write };
+allow sandbox_manager_service sandbox_manager_data_file:file { getattr lock ioctl create read write open unlink };
+allowxperm sandbox_manager_service sandbox_manager_data_file:file ioctl { 0xf501 0xf502 0xf50c };
+
+allow sandbox_manager_service foundation:binder { call transfer };
+
+debug_only(`
+    binder_call(sandbox_manager_service, su);
+')

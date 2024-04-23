@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -12,42 +12,42 @@
 # limitations under the License.
 
 debug_only(`
-allow system_basic_hap sh:binder { call };
+allow system_basic_hap_attr sh:binder { call };
 ')
-allow system_basic_hap appspawn_exec:file { getattr map open read };
-allow system_basic_hap bootevent_param:file { map open read };
-allow system_basic_hap bootevent_samgr_param:file { map open read };
-allow system_basic_hap build_version_param:file { map open read };
-allow system_basic_hap const_allow_mock_param:file { map open read };
-allow system_basic_hap const_allow_param:file { map open read };
-allow system_basic_hap const_build_param:file { map open read };
-allow system_basic_hap const_display_brightness_param:file { map open read };
-allow system_basic_hap const_param:file { map open read };
-allow system_basic_hap const_postinstall_fstab_param:file { map open read };
-allow system_basic_hap const_postinstall_param:file { map open read };
-allow system_basic_hap const_product_param:file { map open read };
-allow system_basic_hap debug_param:file { map open read };
-allow system_basic_hap default_param:file { map open read };
-allow system_basic_hap dev_unix_socket:sock_file { write };
-allow system_basic_hap distributedsche_param:file { map open read };
-allow system_basic_hap faultloggerd_temp_file:file { read write read write };
-allow system_basic_hap hilog_param:file { map open read };
-allow system_basic_hap hw_sc_build_os_param:file { map open read };
-allow system_basic_hap hw_sc_build_param:file { map open read };
-allow system_basic_hap hw_sc_param:file { map open read };
-allow system_basic_hap init_param:file { map open read };
-allow system_basic_hap init_svc_param:file { map open read };
-allow system_basic_hap input_pointer_device_param:file { map open read };
-allow system_basic_hap net_param:file { map open read };
-allow system_basic_hap net_tcp_param:file { map open read };
-allow system_basic_hap ohos_boot_param:file { map open read };
-allow system_basic_hap ohos_param:file { map open read };
-allow system_basic_hap persist_param:file { map open read };
-allow system_basic_hap persist_sys_param:file { map open read };
-allow system_basic_hap security_param:file { map open read };
-allow system_basic_hap startup_param:file { map open read };
-allow system_basic_hap sys_param:file { map open read };
-allow system_basic_hap sys_usb_param:file { map open read };
-allow system_basic_hap system_basic_hap:process { ptrace };
-allow system_basic_hap system_bin_file:dir { search };
+allow system_basic_hap_attr appspawn_exec:file { getattr map open read };
+allow system_basic_hap_attr bootevent_param:file { map open read };
+allow system_basic_hap_attr bootevent_samgr_param:file { map open read };
+allow system_basic_hap_attr build_version_param:file { map open read };
+allow system_basic_hap_attr const_allow_mock_param:file { map open read };
+allow system_basic_hap_attr const_allow_param:file { map open read };
+allow system_basic_hap_attr const_build_param:file { map open read };
+allow system_basic_hap_attr const_display_brightness_param:file { map open read };
+allow system_basic_hap_attr const_param:file { map open read };
+allow system_basic_hap_attr const_postinstall_fstab_param:file { map open read };
+allow system_basic_hap_attr const_postinstall_param:file { map open read };
+allow system_basic_hap_attr const_product_param:file { map open read };
+allow system_basic_hap_attr debug_param:file { map open read };
+allow system_basic_hap_attr default_param:file { map open read };
+allow system_basic_hap_attr dev_unix_socket:sock_file { write };
+allow system_basic_hap_attr distributedsche_param:file { map open read };
+allow system_basic_hap_attr faultloggerd_temp_file:file { read write read write };
+allow system_basic_hap_attr hilog_param:file { map open read };
+allow system_basic_hap_attr hw_sc_build_os_param:file { map open read };
+allow system_basic_hap_attr hw_sc_build_param:file { map open read };
+allow system_basic_hap_attr hw_sc_param:file { map open read };
+allow system_basic_hap_attr init_param:file { map open read };
+allow system_basic_hap_attr init_svc_param:file { map open read };
+allow system_basic_hap_attr input_pointer_device_param:file { map open read };
+allow system_basic_hap_attr net_param:file { map open read };
+allow system_basic_hap_attr net_tcp_param:file { map open read };
+allow system_basic_hap_attr ohos_boot_param:file { map open read };
+allow system_basic_hap_attr ohos_param:file { map open read };
+allow system_basic_hap_attr persist_param:file { map open read };
+allow system_basic_hap_attr persist_sys_param:file { map open read };
+allow system_basic_hap_attr security_param:file { map open read };
+allow system_basic_hap_attr startup_param:file { map open read };
+allow system_basic_hap_attr sys_param:file { map open read };
+allow system_basic_hap_attr sys_usb_param:file { map open read };
+allow system_basic_hap_attr system_basic_hap_attr:process { ptrace };
+allow system_basic_hap_attr system_bin_file:dir { search };
 

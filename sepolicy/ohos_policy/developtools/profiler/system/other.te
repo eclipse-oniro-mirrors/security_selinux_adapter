@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow audio_policy pulseaudio:binder transfer;
-allow pulseaudio audio_policy:binder call;
 allow deviceauth_service paramservice_socket:sock_file write;
 allow deviceauth_service kernel:unix_stream_socket connectto;
 allow foundation data_service_el1_file:file ioctl;
@@ -25,10 +23,14 @@ allow usb_service self:unix_dgram_socket { getopt setopt };
 
 allow init dev_block_file:blk_file ioctl;
 allow init hook_param:file relabelto;
-allow { sadomain hdfdomain hap_domain nativedomain } hook_param:file { map open read };
+allow { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain } hook_param:file { map open read };
 allow normal_hap_attr normal_hap_data_file_attr:file ioctl;
+allow hap_domain proc_meminfo_file:file { read getattr open };
+allow hap_domain dev_ucollection:chr_file { read ioctl open };
+allowxperm hap_domain dev_ucollection:chr_file ioctl { 0x5 0x6 };
+neverallowxperm hap_domain dev_ucollection:chr_file ioctl { 0x7 };
 
-allow { sadomain -hilogd } system_core_hap_data_file:file { read write };
+allow { sadomain -hilogd } system_core_hap_data_file_attr:file { read write };
 allow appspawn accesstoken_service:binder call;
 allow appspawn accountmgr:binder call;
 allow appspawn dev_console_file:chr_file { read write };
@@ -74,3 +76,6 @@ allow samgr hiprofiler_plugins:process getattr;
 
 allow hiview hiprofiler_plugins:binder call;
 allow deviceauth_service dev_console_file:chr_file { read write };
+allow hiview sa_native_daemon:samgr_class { get };
+
+allow render_service hiprofiler_plugins:binder { call transfer };

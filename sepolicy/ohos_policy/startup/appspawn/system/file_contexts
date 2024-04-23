@@ -12,3 +12,5 @@
 # limitations under the License.
 
 /system/bin/appspawn        u:object_r:appspawn_exec:s0
+
+/system/bin/pid_ns_init       u:object_r:pid_ns_init_exec:s0

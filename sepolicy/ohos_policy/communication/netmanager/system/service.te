@@ -13,3 +13,4 @@
 
 type sa_netsys_ext_service, sa_service_attr;
 type sa_distributed_net_service, sa_service_attr;
+type sa_netvirt_ext, sa_service_attr;

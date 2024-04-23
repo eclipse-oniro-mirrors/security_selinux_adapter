@@ -13,3 +13,4 @@
 
 type data_service_el1_public_huksService_file, file_attr, data_file_attr;
 type data_service_el2_public_huksService_file, file_attr, data_file_attr;
+type data_data_huksService_file, file_attr, data_file_attr;

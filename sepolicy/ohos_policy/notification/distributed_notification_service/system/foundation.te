@@ -31,8 +31,8 @@ allow foundation media_service:binder { call transfer };
 allow foundation power_host:binder { call };
 allow foundation samgr:binder { call transfer };
 allow foundation sa_media_service:samgr_class { get };
-allow foundation system_basic_hap:binder { call };
-allow foundation system_basic_hap:fd { use };
+allow foundation system_basic_hap_attr:binder { call };
+allow foundation system_basic_hap_attr:fd { use };
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
 allowxperm foundation dev_mali:chr_file ioctl { 0x801e };
 

@@ -1,0 +1,48 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+allow hisysevent hdcd:fd { use };
+allow hisysevent hdcd:fifo_file { read write };
+allow hisysevent hdcd:unix_stream_socket { read write };
+allow hdcd hisysevent:process { signal };
+
+allow hisysevent sh:fd { use };
+
+allow hisysevent hiview:fd { use };
+allow hisysevent hiview:binder { call transfer };
+
+allow hisysevent debug_param:file { read open map };
+allow hisysevent hilog_param:file { read open map };
+allow hisysevent dev_unix_socket:dir { search };
+allow hisysevent dev_console_file:chr_file { read write };
+
+allow hisysevent samgr:binder { call };
+allow hisysevent sa_sys_event_service:samgr_class get;
+allow samgr hisysevent:dir { search };
+allow samgr hisysevent:file { read open };
+allow samgr hisysevent:process { getattr };
+allow samgr hisysevent:binder { call transfer };
+
+allow hisysevent tty_device:chr_file { read write };
+allow hisysevent devpts:chr_file { read write ioctl };
+allowxperm hisysevent devpts:chr_file ioctl { 0x5413 };
+
+allow hisysevent hiprofiler_plugins:fd { use };
+allow hisysevent hiprofiler_plugins:fifo_file { ioctl write };
+
+allow hisysevent sh:fifo_file { write ioctl };
+allowxperm hisysevent sh:fifo_file ioctl { 0x5413 };
+
+allow hisysevent data_local_tmp:file { write ioctl };
+allowxperm hisysevent data_local_tmp:file ioctl { 0x5413 };
+

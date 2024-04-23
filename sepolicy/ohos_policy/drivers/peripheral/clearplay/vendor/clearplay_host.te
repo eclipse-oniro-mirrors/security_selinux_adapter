@@ -1,0 +1,73 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { map } for  pid=491 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=491 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=491 comm="hdf_devhost" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow clearplay_host debug_param:file { map open read };
+
+# avc:  denied  { transfer } for  pid=503 comm="IPC_0_516" scontext=u:r:clearplay_host:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
+allow clearplay_host drm_service:binder { transfer };
+allow clearplay_host hdf_drm_service:hdf_devmgr_class { add };
+allow clearplay_host chip_prod_file:dir { search };
+allow clearplay_host dev_console_file:chr_file { read write };
+allow clearplay_host dev_hdf_kevent:chr_file { open read write ioctl getattr };
+allow clearplay_host dev_unix_socket:dir { search };
+allow clearplay_host hdf_device_manager:hdf_devmgr_class { get };
+allow clearplay_host hdf_devmgr:binder { call transfer };
+allow clearplay_host hdf_clearplay_service:hdf_devmgr_class { add };
+allow clearplay_host hilog_param:file { open read map };
+allow clearplay_host musl_param:file { open read map };
+allow clearplay_host sa_device_service_manager:samgr_class { get };
+allow clearplay_host samgr:binder { call };
+allow clearplay_host sh:binder { call };
+allow clearplay_host vendor_etc_file:dir { open read getattr search };
+allow clearplay_host vendor_etc_file:file { open read getattr };
+allowxperm clearplay_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6203 };
+# avc:  denied  { map } for  pid=491 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=491 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=491 comm="hdf_devhost" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow clearplay_host debug_param:file { map open read };
+
+# avc:  denied  { transfer } for  pid=503 comm="IPC_0_516" scontext=u:r:clearplay_host:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
+allow clearplay_host drm_service:binder { transfer };
+
+# avc:  denied  { search } for  pid=534 comm="OS_IPC_2_1671" name="/" dev="mmcblk0p15" ino=3 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow clearplay_host data_file:dir { search };
+
+# avc:  denied  { search } for  pid=534 comm="OS_IPC_2_1671" name="local" dev="mmcblk0p15" ino=109 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+allow clearplay_host data_local:dir { search };
+
+# avc:  denied  { search } for  pid=534 comm="OS_IPC_2_1671" name="traces" dev="mmcblk0p15" ino=113 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=dir permissive=1
+# avc:  denied  { add_name } for  pid=515 comm="OS_IPC_0_578" name="offline_key.txt" scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=515 comm="OS_IPC_0_578" name="traces" dev="mmcblk0p15" ino=115 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=dir permissive=1
+allow clearplay_host data_local_traces:dir { search add_name write };
+
+# avc:  denied  { getattr } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 ioctlcmd=0x5413 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
+# avc:  denied  { read write open } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
+# avc:  denied  { read write } for  pid=534 comm="OS_IPC_2_1671" name="offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
+# avc:  denied  { write } for  pid=534 comm="OS_IPC_2_1671" name="offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
+allow clearplay_host data_local_traces:file { getattr ioctl read write open create };
+
+# avc:  denied  { call } for  pid=534 comm="OS_IPC_2_1671" scontext=u:r:clearplay_host:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
+allow clearplay_host drm_service:binder { call };
+
+# avc:  denied  { use } for  pid=534 comm="OS_IPC_0_564" path="/dev/ashmem" dev="tmpfs" ino=238 scontext=u:r:clearplay_host:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
+allow clearplay_host media_service:fd { use };
+
+# avc:  denied  { ioctl } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 ioctlcmd=0x5413 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
+allowxperm clearplay_host data_local_traces:file ioctl { 0x5413 };
+
+#avc:  denied  { get } for service=1151 pid=5890 scontext=u:r:drm_service:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
+allow drm_service sa_net_conn_manager:samgr_class { get };

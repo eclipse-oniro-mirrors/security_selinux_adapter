@@ -38,6 +38,7 @@ allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write 
 allow netmanager netmanager:packet_socket { bind create read write };
 allow netmanager netmanager:tcp_socket { connect create getattr getopt read setopt write };
 allow netmanager netmanager:udp_socket { bind connect create getattr ioctl read write setopt getopt };
+allow netmanager netmanager:rawip_socket { write setopt create read };
 allow netmanager netmanager:unix_dgram_socket { ioctl };
 allow netmanager netsysnative:binder { call };
 allow netmanager node:udp_socket { node_bind };
@@ -45,7 +46,7 @@ allow netmanager port:tcp_socket { name_connect };
 allow netmanager port:udp_socket { name_bind };
 allow netmanager system_bin_file:dir { search };
 allow netmanager system_bin_file:file { execute execute_no_trans map read open };
-allow netmanager system_core_hap:binder { call };
+allow netmanager system_core_hap_attr:binder { call };
 allow netmanager telephony_sa:binder { call };
 allow netmanager time_service:binder { call };
 allow netmanager wifi_manager_service:binder { call transfer };
@@ -57,7 +58,7 @@ allow netmanager sa_wifi_scan_ability:samgr_class { get };
 allow netmanager sa_wifi_device_ability:samgr_class { get };
 allow netmanager sa_bluetooth_server:samgr_class { get };
 allow netmanager bluetooth_service:binder { call transfer };
-allow system_core_hap sa_comm_net_tethering_manager_service:samgr_class { get };
+allow system_core_hap_attr sa_comm_net_tethering_manager_service:samgr_class { get };
 allow netmanager kernel:system { module_request };
 allow netmanager accessibility_param:file { read open map };
 allow netmanager fwmark_service:sock_file { write };
@@ -65,10 +66,11 @@ allow netmanager dnsproxy_service:sock_file { write };
 allow netmanager netmanager:process { setfscreate };
 allow netmanager usb_service:binder { call };
 allow netmanager sa_usb_service:samgr_class { get };
+allow netmanager sa_telephony_tel_core_service:samgr_class { get };
 allow init configfs:dir { rmdir };
 allowxperm netmanager data_service_el1_file:file ioctl { 0x5413 };
 allowxperm netmanager data_init_agent:file ioctl { 0x5413 };
-allowxperm netmanager netmanager:udp_socket ioctl { 0x8915 0x8916 0x891b 0x891c 0x8933 };
+allowxperm netmanager netmanager:udp_socket ioctl { 0x8910 0x8915 0x8916 0x891b 0x891c 0x8933 };
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 };
 allow netsysnative netmanager:fd { use };
 allow netsysnative netmanager:tcp_socket { read write bind getopt setopt connect };
@@ -80,24 +82,29 @@ allow netmanager dev_console_file:chr_file { read write };
 allow netmanager sa_accountmgr:samgr_class { get };
 allow netmanager accountmgr:binder { call };
 allow accountmgr netmanager:binder { transfer };
+allow netmanager sa_foundation_bms:samgr_class { get };
 
 debug_only(`
-    allow sh sa_comm_ethernet_manager_service:samgr_class { add get };
     allow netmanager sh:binder { call };
-    allow sh sa_comm_net_tethering_manager_service:samgr_class { get };
-    allow sh netmanager:binder { call transfer };
 ')
 
 allow sa_comm_ethernet_manager_service sa_comm_ethernet_manager_service:samgr_class { add get };
-allow system_basic_hap sa_comm_ethernet_manager_service:samgr_class { add get };
-allow system_core_hap sa_comm_ethernet_manager_service:samgr_class { add get };
+allow system_basic_hap_attr sa_comm_ethernet_manager_service:samgr_class { add get };
+allow system_core_hap_attr sa_comm_ethernet_manager_service:samgr_class { add get };
 allow netmanager updater_sa:binder { call };
 allow netmanager musl_param:file { read open map };
 allow netmanager distributeddata:binder { call transfer };
 allow netmanager distributeddata:fd use;
 allow netmanager sa_dataobs_mgr_service_service:samgr_class get;
 allow netmanager sa_distributeddata_service:samgr_class get;
+allow netmanager mdnsmanager:binder { call };
 
 allow netmanager sa_netsys_ext_service:samgr_class { add get };
 allow netmanager sa_distributed_net_service:samgr_class { add get };
 
+allow netmanager wifi_hal_service:binder { transfer call };
+allow netmanager sa_dhcp_client:samgr_class { add get };
+allow netmanager sa_dhcp_server:samgr_class { add get };
+allow netmanager sa_huks_service:samgr_class { get };
+allow netmanager huks_service:binder { call };
+allow netmanager dev_ashmem_file:chr_file { open };

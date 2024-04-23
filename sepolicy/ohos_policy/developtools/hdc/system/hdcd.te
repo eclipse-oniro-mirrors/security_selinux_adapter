@@ -11,177 +11,331 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 type developtools_hdc_control_param, parameter_attr;
+type developtools_hdc_auth_param, parameter_attr;
 
-allow hdcd data_local:file { read open getattr create write };
-allow hdcd data_local:dir { search getattr read write add_name open create };
-allow hdcd data_local_tmp:file { write create setattr read append open getattr unlink };
-allow hdcd data_local_tmp:dir { add_name remove_name write create setattr search getattr read open };
-allow hdcd data_local_traces:dir { read open getattr };
+developer_only(`
+    allow hdcd data_local:file { read open getattr create write };
+    allow hdcd data_local:dir { search getattr read write add_name open create };
+    allow hdcd data_local_tmp:file { write create setattr read append open getattr unlink };
+    allow hdcd data_local_tmp:dir { add_name remove_name write create setattr search getattr read open };
+    allow hdcd data_local_traces:dir { read open getattr };
 
-allow hdcd vendor_lib_file:file { read getattr };
-allow hdcd vendor_lib_file:dir { read getattr search };
+    allow hdcd vendor_lib_file:file { read getattr };
+    allow hdcd vendor_lib_file:dir { read getattr search };
 
-allow hdcd self:tcp_socket { accept ioctl setopt read write create bind listen getattr connect name_connect getopt };
-allow hdcd port:tcp_socket { name_bind name_connect };
-allow hdcd node:tcp_socket { node_bind };
-allow hdcd self:udp_socket { create setopt bind };
-allow hdcd port:udp_socket { name_bind };
-allow hdcd node:udp_socket { node_bind };
-allow hdcd sh:process { signal sigkill };
-allow hdcd hdcd_exec:file { open execute_no_trans entrypoint execute map read };
+    allow hdcd self:tcp_socket { accept ioctl setopt read write create bind listen getattr connect name_connect getopt };
+    allow hdcd port:tcp_socket { name_bind name_connect };
+    allow hdcd node:tcp_socket { node_bind };
+    allow hdcd self:udp_socket { create setopt bind };
+    allow hdcd port:udp_socket { name_bind };
+    allow hdcd node:udp_socket { node_bind };
+    allow hdcd sh:process { signal sigkill };
+    allow hdcd hdcd_exec:file { open execute_no_trans entrypoint execute map read };
 
-allow hdcd kernel:system { syslog_read };
-allow hdcd kernel:unix_stream_socket { connectto };
-allow hdcd kernel:process { setsched };
+    allow hdcd kernel:system { syslog_read };
+    allow hdcd kernel:unix_stream_socket { connectto };
+    allow hdcd kernel:process { setsched };
 
-allow hdcd dev_rtc_file:chr_file { write open ioctl };
+    allow hdcd dev_rtc_file:chr_file { write open ioctl };
 
-allow hdcd vendor_file:dir { getattr };
-allow hdcd tmpfs:dir { open read };
-allow hdcd tmpfs:file { getattr open read };
-allow hdcd data_file:dir { read write open create getattr search rmdir add_name };
-allow hdcd data_file:file { read getattr open };
-allow hdcd system_file:dir { getattr };
-allow hdcd system_file:file { open };
+    allow hdcd vendor_file:dir { getattr };
+    allow hdcd tmpfs:dir { open read };
+    allow hdcd tmpfs:file { getattr open read };
+    allow hdcd data_file:dir { read write open create getattr search rmdir add_name };
+    allow hdcd data_file:file { read getattr open };
+    allow hdcd system_file:dir { getattr };
+    allow hdcd system_file:file { open };
 
-allow hdcd tty_device:chr_file { ioctl read write open };
-allow hdcd system_bin_file:lnk_file { read };
-allow hdcd system_bin_file:dir { search getattr };
-allow hdcd system_bin_file:file { open };
+    allow hdcd tty_device:chr_file { ioctl read write open };
+    allow hdcd system_bin_file:lnk_file { read };
+    allow hdcd system_bin_file:dir { search getattr };
+    allow hdcd system_bin_file:file { open };
 
-allow hdcd lib_file:lnk_file { read };
-allow hdcd dev_kmsg_file:chr_file { read open };
-allow hdcd vendor_lib_file:file { open map execute };
+    allow hdcd lib_file:lnk_file { read };
+    allow hdcd dev_kmsg_file:chr_file { read open };
+    allow hdcd vendor_lib_file:file { open map execute };
 
-allow hdcd dev_unix_socket:dir { search };
-allow hdcd dev_unix_socket:sock_file { write };
+    allow hdcd dev_unix_socket:dir { search };
+    allow hdcd dev_unix_socket:sock_file { write };
 
-allow hdcd data_init_agent:dir { search write add_name };
-allow hdcd data_init_agent:file { create };
+    allow hdcd data_init_agent:dir { search write add_name };
+    allow hdcd data_init_agent:file { create };
 
-allow hdcd dev_ptmx:chr_file { read write open ioctl };
-allow hdcd dev_pts_file:dir { search };
-allow hdcd devpts:chr_file { read write open };
-allow hdcd paramservice_socket:sock_file { write };
+    allow hdcd dev_ptmx:chr_file { read write open ioctl };
+    allow hdcd dev_pts_file:dir { search };
+    allow hdcd devpts:chr_file { read write open };
+    allow hdcd paramservice_socket:sock_file { write };
 
-allow hdcd dev_block_file:dir { search };
-allow hdcd dev_block_file:lnk_file { read };
-allow hdcd dev_block_file:blk_file { ioctl };
-allow hdcd dev_block_volfile:dir { search };
+    allow hdcd dev_block_file:dir { search };
+    allow hdcd dev_block_file:lnk_file { read };
+    allow hdcd dev_block_file:blk_file { ioctl };
+    allow hdcd dev_block_volfile:dir { search };
 
-allow hdcd bootevent_param:file { map open read };
-allow hdcd bootevent_samgr_param:file { map open read };
-allow hdcd build_version_param:file { map open read };
-allow hdcd const_allow_mock_param:file { map open read };
-allow hdcd const_allow_param:file { map open read };
-allow hdcd const_build_param:file { map open read };
-allow hdcd const_display_brightness_param:file { map open read };
-allow hdcd const_param:file { map open read };
-allow hdcd const_postinstall_fstab_param:file { map open read };
-allow hdcd const_postinstall_param:file { map open read };
-allow hdcd const_product_param:file { map open read };
-allow hdcd data_log:dir { search };
-allow hdcd debug_param:file { map open read };
-allow hdcd default_param:file { map open read };
-allow hdcd dev_usb_ffs:dir { open read search };
-allow hdcd distributedsche_param:file { map open read };
-allow hdcd faultloggerd_temp_file:dir { search };
-allow hdcd faultloggerd_temp_file:file { getattr open read };
-allow hdcd functionfs:dir { search };
-allow hdcd functionfs:file { open read write };
-allow hdcd hilog_param:file { map open read };
-allow hdcd hw_sc_build_os_param:file { map open read };
-allow hdcd hw_sc_build_param:file { map open read };
-allow hdcd hw_sc_param:file { map open read };
-allow hdcd init_param:file { map open read };
-allow hdcd init_svc_param:file { map open read };
-allow hdcd input_pointer_device_param:file { map open read };
-allow hdcd net_param:file { map read open };
-allow hdcd net_tcp_param:file { map open read };
-allow hdcd ohos_boot_param:file { map open read };
-allow hdcd ohos_param:file { map open read };
-allow hdcd persist_param:file { map open read };
-allow hdcd persist_sys_param:file { map open read };
-allow hdcd security_param:file { map open read };
-allow hdcd startup_param:file { map open read };
-allow hdcd sys_file:file { open read };
-allow hdcd sys_param:file { map open read };
-allow hdcd sys_usb_param:file { map open read };
-allow hdcd tracefs:dir { search };
-allow hdcd tracefs_trace_marker_file:file { write open };
-allow hdcd dev_console_file:chr_file { read write };
-allow hdcd musl_param:file { read open };
+    allow hdcd bootevent_param:file { map open read };
+    allow hdcd bootevent_samgr_param:file { map open read };
+    allow hdcd build_version_param:file { map open read };
+    allow hdcd const_allow_mock_param:file { map open read };
+    allow hdcd const_allow_param:file { map open read };
+    allow hdcd const_build_param:file { map open read };
+    allow hdcd const_display_brightness_param:file { map open read };
+    allow hdcd const_param:file { map open read };
+    allow hdcd const_postinstall_fstab_param:file { map open read };
+    allow hdcd const_postinstall_param:file { map open read };
+    allow hdcd const_product_param:file { map open read };
+    allow hdcd data_log:dir { search };
+    allow hdcd debug_param:file { map open read };
+    allow hdcd default_param:file { map open read };
+    allow hdcd dev_usb_ffs:dir { open read search };
+    allow hdcd distributedsche_param:file { map open read };
+    allow hdcd faultloggerd_temp_file:dir { search };
+    allow hdcd faultloggerd_temp_file:file { getattr open read };
+    allow hdcd functionfs:dir { search };
+    allow hdcd functionfs:file { open read write };
+    allow hdcd hilog_param:file { map open read };
+    allow hdcd hw_sc_build_os_param:file { map open read };
+    allow hdcd hw_sc_build_param:file { map open read };
+    allow hdcd hw_sc_param:file { map open read };
+    allow hdcd init_param:file { map open read };
+    allow hdcd init_svc_param:file { map open read };
+    allow hdcd input_pointer_device_param:file { map open read };
+    allow hdcd net_param:file { map read open };
+    allow hdcd net_tcp_param:file { map open read };
+    allow hdcd ohos_boot_param:file { map open read };
+    allow hdcd ohos_param:file { map open read };
+    allow hdcd persist_param:file { map open read };
+    allow hdcd persist_sys_param:file { map open read };
+    allow hdcd security_param:file { map open read };
+    allow hdcd startup_param:file { map open read };
+    allow hdcd sys_file:file { open read };
+    allow hdcd sys_param:file { map open read };
+    allow hdcd sys_usb_param:file { map open read };
+    allow hdcd tracefs:dir { search };
+    allow hdcd tracefs_trace_marker_file:file { write open };
+    allow hdcd dev_console_file:chr_file { read write };
+    allow hdcd musl_param:file { map read open };
+
+    allow hdcd hmdfs:dir create_dir_perms_without_ioctl;
+    allow hdcd hmdfs:file create_file_perms_without_ioctl;
+
+    allow hdcd samgr:binder { call };
+    allow hdcd param_watcher:binder { call transfer };
+    allow hdcd audio_server:binder { call transfer };
+    allow hdcd sa_audio_policy_service:samgr_class { get };
+    allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
+
+    #for auth user permit: show system dialog
+    #avc: denied { call } for pid=8390, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+    allow hdcd_user_permit samgr:binder { call };
+    #avc: denied { search } for pid=592, comm="/system/bin/samgr" name="/7691" dev="" ino=21628 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=dir permissive=0
+    allow samgr hdcd_user_permit:dir { search };
+    #avc: denied { read } for pid=597, comm="/system/bin/samgr" path="/proc/4938/attr/current" dev="" ino=14239 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=file permissive=0
+    allow samgr hdcd_user_permit:file { read };
+    #avc: denied { transfer } for pid=623, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=binder permissive=1
+    allow samgr hdcd_user_permit:binder { call transfer };
+    #avc: denied { write } for pid=5470, comm="/system/bin/hdcd_user_permit" path="/dev/kmsg" dev="" ino=16 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+    allow hdcd_user_permit dev_kmsg_file:chr_file { write };
+    #avc: denied { call } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+    #avc: denied { transfer } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+    allow hdcd_user_permit foundation:binder { call transfer };
+    #avc: denied { open } for pid=5574, comm="/bin/bm" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=200 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=5574, comm="/bin/bm" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=200 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+    allow hdcd_user_permit persist_sys_param:file { open read };
+    #avc: denied { call } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
+    #avc: denied { transfer } for pid=5470, comm="/system/bin/hdcd_user_permit" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
+    allow hdcd_user_permit hap_domain:binder { call transfer };
+    #avc: denied { ioctl } for pid=5570, comm="/bin/sh" path="/dev/tty" dev="" ino=17 ioctlcmd=0x5413 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+    #avc: denied { open } for pid=5570, comm="/bin/sh" path="/dev/tty" dev="" ino=17 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+    #avc: denied { write } for pid=5470, comm="/system/bin/hdcd_user_permit" path="/dev/tty0" dev="" ino=56 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+    #avc: denied { read write } for pid=7691, comm="/system/bin/hdcd_user_permit" path="/dev/tty0" dev="" ino=56 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+    allow hdcd_user_permit tty_device:chr_file { ioctl open write read };
+    allowxperm hdcd_user_permit tty_device:chr_file ioctl { 0x5413 };
+    # avc: denied { open } for pid=623, comm="/system/bin/samgr" path="/proc/5470/attr/current" dev="" ino=16620 scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=file permissive=1
+    allow samgr hdcd_user_permit:file { open };
+    #avc: denied { getattr } for pid=623, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=process permissive=1
+    allow samgr hdcd_user_permit:process { getattr };
+    #avc: denied { get } for service=180 pid=5753 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+    allow hdcd_user_permit sa_foundation_abilityms:samgr_class { get };
+    #avc denied { get } for service=401 pid=5574 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+    allow hdcd_user_permit sa_foundation_bms:samgr_class { get };
+    #avc: denied { call } for pid=1495, comm="/system/bin/sa_main" scontext=u:r:foundation:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=binder permissive=0
+    #avc: denied { transfer } for pid=1492, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=binder permissive=0
+    allow foundation hdcd_user_permit:binder { call transfer };
+
+    allow hdcd memmgrservice:dir { getattr search };
+    allow hdcd memmgrservice:file { open read };
+
+    allow hdcd sa_param_watcher:samgr_class { get };
+    allow hdcd sys_param:parameter_service { set };
+    allow hdcd persist_param:parameter_service { set };
+    allow hdcd servicectrl_reboot_param:parameter_service { set };
+    #avc: denied { search } for pid=2387 comm="hdcd_user_permi" name="socket" dev="tmpfs" ino=43 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+    allow hdcd_user_permit dev_unix_socket:dir { search };
+    #avc: denied { connectto } for pid=2387 comm="hdcd_user_permi" path="/dev/unix/socket/paramservice" scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+    allow hdcd_user_permit kernel:unix_stream_socket { connectto };
+    #avc: denied { write } for pid=2387 comm="hdcd_user_permi" name="paramservice" dev="tmpfs" ino=49 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
+    allow hdcd_user_permit paramservice_socket:sock_file { write };
+    #avc: denied { map } for pid=2387 comm="hdcd_user_permi" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+    #avc: denied { open } for pid=2387 comm="hdcd_user_permi" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=2387 comm="hdcd_user_permi" name="u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+    allow hdcd_user_permit debug_param:file { map open read };
+    allow hdcd developtools_hdc_auth_param:parameter_service { set };
+    allow system_basic_hap_attr developtools_hdc_auth_param:parameter_service { set };
+    #avc: denied { relabelfrom } for pid=1 comm="init" name="u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:init:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=0
+    allow init developtools_hdc_auth_param:file { relabelfrom };
+    #avc: denied { map } for pid=716 comm="async-50" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
+    #avc: denied { open } for pid=716 comm="async-50" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=716 comm="async-50" name="u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
+    allow hdcd_user_permit developtools_hdc_auth_param:file { map open read };
+    allow system_basic_hap_attr developtools_hdc_auth_param:file { map open read };
+    #avc: denied { read } for pid=699 comm="async-57" name="u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=0
+    #avc: denied { map } for pid=623 comm="async-46" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
+    #avc: denied { open } for pid=623 comm="async-46" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
+    allow hdcd developtools_hdc_auth_param:file { read map open };
+    #avc: denied { getattr } for pid=641 comm="async-34" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4921 scontext=u:r:hdcd:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+    #avc: denied { open } for pid=691 comm="async-30" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4921 scontext=u:r:hdcd:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+    #avc: denied { read } for pid=791 comm="async-0" name="online" dev="sysfs" ino=4921 scontext=u:r:hdcd:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+    allow hdcd sysfs_devices_system_cpu:file { getattr open read };
+    #avc: denied { ioctl } for pid=3677 comm="async-62" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x540e scontext=u:r:hdcd:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+    allow hdcd devpts:chr_file { ioctl };
+    allowxperm hdcd devpts:chr_file ioctl { 0x540e 0x5414 };
+    #avc: denied { ioctl } for pid=5516 comm="SaInit0" path="/data/service/el1/public/netmanager/net_stats_data.db" dev="mmcblk0p15" ino=239 ioctlcmd=0xf50c scontext=u:r:netmanager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+    allow hdcd data_service_el1_file:file { ioctl };
+    allowxperm hdcd data_service_el1_file:file ioctl { 0xf50c };
+    #avc: denied { map } for pid=14537 comm="sh" path="/dev/__parameters__/u:object_r:hook_param:s0" dev="tmpfs" ino=70 scontext=u:r:sh:s0 tcontext=u:object_r:hook_param:s0 tclass=file permissive=1
+    #avc: denied { open } for pid=5554 comm="sh" path="/dev/__parameters__/u:object_r:hook_param:s0" dev="tmpfs" ino=70 scontext=u:r:sh:s0 tcontext=u:object_r:hook_param:s0 tclass=file permissive=1
+    allow hdcd hook_param:file { map open };
+    #avc: denied { use } for pid=5554 comm="sh" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:sh:s0 tcontext=u:r:init:s0 tclass=fd permissive=1
+    allow hdcd init:fd { use };
+    #avc: denied { use } for pid=2387 comm="hdcd_user_permi" path="/system/bin/hdcd_user_permit" dev="mmcblk0p7" ino=238 scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
+    allow hdcd_user_permit sh:fd { use };
+
+    #avc: denied { add_name } for pid=623 comm="async-46" name="hdc_keys" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { create } for pid=623 comm="async-46" name="hdc_keys" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { write } for pid=623 comm="async-46" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { search } for pid=701 comm="async-18" name="misc" dev="mmcblk0p15" ino=108 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    allow hdcd data_hdc_pubkeys:dir { search getattr read open add_name create write };
+    #avc: denied { remove_name } for pid=5502, comm="/system/bin/hdcd" name="/service/el0/hdc" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=3876 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
+    allow hdcd data_hdc_pubkeys:dir { remove_name };
+    #avc: denied { getattr } for pid=728 comm="async-46" path="/data/service/el0/hdc/hdc_keys" dev="mmcblk0p15" ino=582 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { open } for pid=728 comm="async-46" path="/data/service/el0/hdc/hdc_keys" dev="mmcblk0p15" ino=582 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { append } for pid=623 comm="async-46" name="hdc_keys" dev="mmcblk0p15" ino=2116 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { create } for pid=623 comm="async-46" name="hdc_keys" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { write } for pid=623 comm="async-46" path="/data/service/el0/hdc/hdc_keys/hdc_keys" dev="mmcblk0p15" ino=2116 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { unlink } for pid=6821, comm="/system/bin/hdcd" name="/service/el0/hdc/hdc_keys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=14932 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=0
+    allow hdcd data_hdc_pubkeys:file { getattr open append create write unlink };
+    #avc: denied { getattr } for pid=1 comm="init" path="/data/service/el0/hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { open } for pid=1 comm="init" path="/data/service/el0/hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
+    #avc: denied { read } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
+    #avc: denied { relabelto } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
+    #avc: denied { setattr } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=0
+    allow init data_hdc_pubkeys:dir { getattr open read relabelto setattr };
+    #avc: denied { read } for pid=703 comm="async-26" name="hdc_keys" dev="mmcblk0p15" ino=1974 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    allow init data_hdc_pubkeys:file { read };
+
+    #avc: denied { search } for pid=736 comm="async-40" name="el0" dev="mmcblk0p15" ino=9 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+    allow hdcd_user_permit data_service_el0_file:dir { search };
+    #avc: denied { search } for pid=736 comm="async-40" name="service" dev="mmcblk0p15" ino=8 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+    allow hdcd_user_permit data_service_file:dir { search };
+
+    #avc: denied { search } for pid=692 comm="async-47" name="el0" dev="mmcblk0p15" ino=9 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+    allow init data_service_el0_file:dir { search };
+    #avc: denied { search } for pid=692 comm="async-47" name="service" dev="mmcblk0p15" ino=8 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+    allow init data_service_file:dir { search };
+
+    #avc: denied { read } for pid=703 comm="async-26" name="hdc_keys" dev="mmcblk0p15" ino=1974 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    allow hdcd data_hdc_pubkeys:file { read };
+    #avc: denied { search } for pid=692 comm="async-47" name="el0" dev="mmcblk0p15" ino=9 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+    allow hdcd data_service_el0_file:dir { search };
+    #avc: denied { search } for pid=692 comm="async-47" name="service" dev="mmcblk0p15" ino=8 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+    allow hdcd data_service_file:dir { search };
+    #avc: denied { use } for pid=5024 comm="hdcd_user_permi" path="/dev/null" dev="tmpfs" ino=3 scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=0
+    allow hdcd hdcd:fd { use };
+    #avc: denied { use } for pid=5024 comm="hdcd_user_permi" path="/dev/null" dev="tmpfs" ino=3 scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=0
+    allow hdcd_user_permit hdcd:fd { use };
+    #avc: denied { ioctl } for pid=5024 comm="sh" path="/dev/null" dev="tmpfs" ino=3 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:dev_null_file:s0 tclass=chr_file permissive=0
+    allow hdcd_user_permit dev_null_file:chr_file { ioctl };
+    allowxperm hdcd_user_permit dev_null_file:chr_file ioctl { 0x5413 };
+    #avc: denied { map } for pid=13700 comm="sh" path="/dev/__parameters__/u:object_r:startup_init_param:s0" dev="tmpfs" ino=55 scontext=u:r:sh:s0 tcontext=u:object_r:startup_init_param:s0 tclass=file permissive=1
+    #avc: denied { open } for pid=13700 comm="sh" path="/dev/__parameters__/u:object_r:startup_init_param:s0" dev="tmpfs" ino=55 scontext=u:r:sh:s0 tcontext=u:object_r:startup_init_param:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=13700 comm="sh" name="u:object_r:startup_init_param:s0" dev="tmpfs" ino=55 scontext=u:r:sh:s0 tcontext=u:object_r:startup_init_param:s0 tclass=file permissive=1
+    allow hdcd_user_permit startup_init_param:file { map open read };
+    #avc: denied { read write } for pid=10916 comm="hdcd_user_permi" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+    #avc: denied { write } for pid=12045 comm="hdcd_user_permi" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+    allow hdcd_user_permit dev_console_file:chr_file { read write };
+    #avc: denied { read write } for pid=10916 comm="hdcd_user_permi" path="socket:[20161]" dev="sockfs" ino=20161 scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:hdcd:s0 tclass=unix_stream_socket permissive=1
+    #avc: denied { read write } for pid=10916 comm="hdcd_user_permi" path="socket:[20161]" dev="sockfs" ino=20161 scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:hdcd:s0 tclass=unix_stream_socket permissive=1
+    allow hdcd_user_permit hdcd:unix_stream_socket { read write };
+    #avc: denied { ioctl } for pid=2387 comm="hdcd_user_permi" path="pipe:[37910]" dev="pipefs" ino=37910 ioctlcmd=0x5413 scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+    #avc: denied { write } for pid=13700 comm="hdcd_user_permi" path="pipe:[89014]" dev="pipefs" ino=89014 scontext=u:r:hdcd_user_permit:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+    allow hdcd_user_permit hdcd:fifo_file { ioctl write };
+    allowxperm hdcd_user_permit hdcd:fifo_file ioctl { 0x5413 };
+    #avc: denied { set } for parameter=persist.hdc.daemon.auth_result pid=12378 uid=2000 gid=2000 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=parameter_service permissive=1
+    allow hdcd_user_permit developtools_hdc_auth_param:parameter_service { set };
+    #avc: denied { open } for pid=1 comm="init" path="/data/service/el0/hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { read } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { relabelto } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { setattr } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { getattr } for pid=8467 comm="ls" path="/data/service/el0/hdc" dev="mmcblk0p15" ino=12 scontext=u:r:sh:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { open } for pid=1 comm="init" path="/data/service/el0/hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { read } for pid=1 comm="init" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { add_name } for pid=716 comm="async-50" name="hdc_keys" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { create } for pid=716 comm="async-50" name="hdc_keys" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    #avc: denied { write } for pid=716 comm="async-50" name="hdc" dev="mmcblk0p15" ino=12 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=dir permissive=1
+    allow hdcd_user_permit data_hdc_pubkeys:dir { open read relabelto setattr getattr add_name create write };
+    #avc: denied { append } for pid=716 comm="async-50" name="hdc_keys" dev="mmcblk0p15" ino=2083 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { create } for pid=716 comm="async-50" name="hdc_keys" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=703 comm="async-26" name="hdc_keys" dev="mmcblk0p15" ino=1974 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    #avc: denied { write } for pid=716 comm="async-50" path="/data/service/el0/hdc/hdc_keys/hdc_keys" dev="mmcblk0p15" ino=2083 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_hdc_pubkeys:s0 tclass=file permissive=1
+    allow hdcd_user_permit data_hdc_pubkeys:file { append create read write };
+
+    allow hdcd hiprofiler_plugins:process { signal };
+    allow hdcd hiprofilerd:process { signal };
+    allow hdcd bytrace:process { signal };
+    allow hdcd hitrace:process { signal };
+    allow hdcd hidumper:process { signal };
+    allow hdcd hidumper_file:dir { search };
+    allow hdcd hiperf:process { signal };
+    allow hdcd hidumper_file:file { getattr open read };
+    allow hdcd hilogd_exec:file { execute read open getattr execute_no_trans map };
+    allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
+    allow hdcd hisysevent_exec:file { execute read open getattr execute_no_trans map };
+
+    # for recv /data/log and /data/log/hilog
+    allow hdcd data_log:dir { getattr read open };
+    allow hdcd data_log:file { getattr read open };
+    allow hdcd data_hilogd_file:dir { getattr read open };
+    allow hdcd data_hilogd_file:file { getattr read open };
+
+    # for read hdc.version
+    allow hdcd debug_param:file { map read open };
+
+    allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
+
+    domain_auto_transition_pattern(hdcd, sh_exec, sh);
+
+    ## this is to do temporary change for get app file in sandbox
+    # access /data/app/el2/100/base/<bundleName>
+    allow hdcd data_app_file:dir { search getattr read open };
+    allow hdcd data_app_file:file { getattr read open };
+    allow hdcd data_app_el2_file:dir { search getattr read open };
+    allow hdcd debug_hap_data_file:dir { search getattr read open };
+    allow hdcd debug_hap_data_file:file { getattr read open };
+
+    # must have dac_read_search because /data/app/el2/100/base/<bundleName> is 600
+    allow hdcd hdcd:capability { dac_read_search };
+')
 
 allow samgr hdcd:dir { search };
 allow samgr hdcd:file { read open };
 allow samgr hdcd:process { getattr };
 allow samgr hdcd:binder { transfer };
-
-allow hdcd hmdfs:dir create_dir_perms;
-allow hdcd hmdfs:file create_file_perms;
-
 allow param_watcher hdcd:binder { call };
-allow hdcd samgr:binder { call };
-allow hdcd param_watcher:binder { call transfer };
-allow hdcd audio_policy:binder { call transfer };
-allow hdcd pulseaudio:binder { call };
-allow hdcd sa_audio_policy_service:samgr_class { get };
-allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
 
-allow hdcd memmgrservice:dir { getattr search };
-allow hdcd memmgrservice:file { open read };
-
-allow hdcd sa_param_watcher:samgr_class { get };
-allow hdcd sys_param:parameter_service { set };
-allow hdcd persist_param:parameter_service { set };
-allow hdcd servicectrl_reboot_param:parameter_service { set };
-
-allow hdcd { normal_hap_attr system_basic_hap system_core_hap sh }:unix_stream_socket { connectto };
-
-allow hdcd hiprofiler_plugins:process { signal };
-allow hdcd hiprofilerd:process { signal };
-allow hdcd bytrace:process { signal };
-allow hdcd hitrace:process { signal };
-allow hdcd hidumper:process { signal };
-allow hdcd hidumper_file:dir { search };
-allow hdcd hiperf:process { signal };
-allow hdcd hidumper_file:file { getattr open read };
-allow hdcd hilogd_exec:file { execute read open getattr execute_no_trans map };
-allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
-allow hdcd hisysevent_exec:file { execute read open getattr execute_no_trans map };
-
-debug_only(`
-    allow hdcd self:capability { setuid setgid dac_override dac_read_search sys_admin };
-
-    allow hdcd data_file:file { unlink write create setattr };
-    allow hdcd dev_block_file:blk_file { open read };
-
-    allow hdcd system_file:dir { add_name write };
-    allow hdcd system_file:file { create write };
-    allow hdcd system_bin_file:dir { add_name create write };
-    allow hdcd system_bin_file:file { create write };
-    allow hdcd system_etc_file:dir { add_name write };
-    allow hdcd system_etc_file:file { create write };
-
-    allow hdcd data_app_el1_file:dir { add_name getattr search write };
-    allow hdcd data_app_el1_file:file { create write open };
-    allow hdcd data_app_file:dir { search };
-
-    allow hdcd vendor_lib_file:dir { write };
-    allow hdcd vendor_lib_file:file { write };
-
-    allow hdcd labeledfs:filesystem { remount };
-
-    allow hdcd { file_attr -data_hilogd_file -data_parameters -data_local_arkcache }:dir create_dir_perms;
-    allow hdcd { file_attr -data_hilogd_file -dev_parameters_file -data_parameters -data_local_arkcache }:file create_file_perms;
-
-    allow hdcd system_core_hap_data_file:file { create write open };
-    allow hdcd system_core_hap_data_file:dir { add_name search write getattr open };
-    allow hdcd system_basic_hap_data_file:dir { read open getattr };
-    allow hdcd normal_hap_data_file_attr:dir { read open search};
-')
-
-domain_auto_transition_pattern(hdcd, sh_exec, sh);
+neverallow hdcd hmdfs:dir ioctl;
+neverallow hdcd hmdfs:file ioctl;
 
 # hdc control
 neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:parameter_service { set };
+neverallow { domain -hdcd_user_permit -hdcd } hdcd_user_permit_exec:file { execute };
+neverallow { domain -hdcd -hdcd_user_permit -system_basic_hap_attr } developtools_hdc_auth_param:parameter_service { set };
+neverallow hdcd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr -debug_hap_data_file }:{ dir file } *;

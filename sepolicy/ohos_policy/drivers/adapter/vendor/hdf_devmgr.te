@@ -100,6 +100,10 @@ allow hdf_devmgr camera_service:binder { call transfer };
 allow hdf_devmgr camera_service:dir { search };
 allow hdf_devmgr camera_service:file { open read };
 allow hdf_devmgr camera_service:process { getattr };
+allow hdf_devmgr drm_service:binder { call transfer };
+allow hdf_devmgr drm_service:dir { search };
+allow hdf_devmgr drm_service:file { open read };
+allow hdf_devmgr drm_service:process { getattr };
 allow hdf_devmgr const_allow_mock_param:file { map open read };
 allow hdf_devmgr const_allow_param:file { map open read };
 allow hdf_devmgr const_build_param:file { map open read };
@@ -116,6 +120,10 @@ allow hdf_devmgr dcamera_host:dir { search };
 allow hdf_devmgr dcamera_host:file { open read };
 allow hdf_devmgr dcamera_host:process { getattr };
 allow hdf_devmgr dcamera:process { getattr };
+allow hdf_devmgr dscreen:binder { transfer };
+allow hdf_devmgr dscreen:dir { search };
+allow hdf_devmgr dscreen:file { open read };
+allow hdf_devmgr dscreen:process { getattr };
 allow hdf_devmgr debug_param:file { map open read };
 allow hdf_devmgr default_param:file { map open read };
 allow hdf_devmgr dev_hdf_kevent:chr_file { getattr ioctl open read write };
@@ -174,6 +182,10 @@ allow hdf_devmgr power_host:binder { transfer };
 allow hdf_devmgr power_host:dir { search };
 allow hdf_devmgr power_host:file { open read };
 allow hdf_devmgr power_host:process { getattr };
+allow hdf_devmgr powermgr:binder { call transfer };
+allow hdf_devmgr powermgr:dir { search };
+allow hdf_devmgr powermgr:file { open read };
+allow hdf_devmgr powermgr:process { getattr };
 allow hdf_devmgr sa_device_service_manager:samgr_class { add };
 allow hdf_devmgr security_param:file { map open read };
 allow hdf_devmgr selinuxfs:dir { open read };
@@ -181,10 +193,10 @@ allow hdf_devmgr selinuxfs:file { map };
 allow hdf_devmgr startup_param:file { map open read };
 allow hdf_devmgr sys_param:file { map open read };
 allow hdf_devmgr system_bin_file:dir { search };
-allow hdf_devmgr system_core_hap:binder { transfer };
-allow hdf_devmgr system_core_hap:dir { search };
-allow hdf_devmgr system_core_hap:file { open read };
-allow hdf_devmgr system_core_hap:process { getattr };
+allow hdf_devmgr system_core_hap_attr:binder { transfer };
+allow hdf_devmgr system_core_hap_attr:dir { search };
+allow hdf_devmgr system_core_hap_attr:file { open read };
+allow hdf_devmgr system_core_hap_attr:process { getattr };
 allow hdf_devmgr sys_usb_param:file { map open read };
 allow hdf_devmgr usb_host:binder { call transfer };
 allow hdf_devmgr usb_host:dir { search };
@@ -198,3 +210,15 @@ allow hdf_devmgr vendor_etc_file:dir { search };
 allow hdf_devmgr vendor_etc_file:file { getattr open read };
 allow hdf_devmgr telephony_sa:binder { call };
 allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6203 };
+
+# avc:  denied  { search } for  pid=571 comm="IPC_0_581" name="1364" dev="proc" ino=31517 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=dir permissive=1
+allow hdf_devmgr wifi_manager_service:dir { search };
+
+# avc:  denied  { read } for  pid=562 comm="IPC_1_572" name="current" dev="proc" ino=19801 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=file permissive=1
+allow hdf_devmgr wifi_manager_service:file { open read };
+
+# avc:  denied  { getattr } for  pid=571 comm="IPC_0_581" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=process permissive=1
+allow hdf_devmgr wifi_manager_service:process { getattr };
+
+# avc:  denied  { transfer } for  pid=562 comm="IPC_1_572" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow hdf_devmgr wifi_manager_service:binder { transfer };

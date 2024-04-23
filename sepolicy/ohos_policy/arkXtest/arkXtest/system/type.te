@@ -1,0 +1,87 @@
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+neverallow uitest {data_file_attr -data_local_tmp}:file {execute};
+
+debug_only(`
+    domain_auto_transition_pattern(su, uitest_exec, uitest);
+')
+
+developer_only(`
+    allow uitest sa_accessibleabilityms:samgr_class { get };
+    allow uitest accessibility:binder { call transfer };
+    allow uitest foundation:binder { call transfer };
+    allow uitest sa_foundation_dms:samgr_class { get };
+    allow uitest sa_foundation_cesfwk_service:samgr_class { get };
+    allow uitest sa_foundation_abilityms:samgr_class { get };
+    allow uitest multimodalinput:binder { call };
+    allow uitest sa_multimodalinput_service:samgr_class { get };
+    allow uitest normal_hap_data_file_attr:file { getattr ioctl read write };
+    allow uitest normal_hap_attr:fd { use };
+    allow uitest normal_hap_attr:binder { call };
+    allowxperm uitest normal_hap_data_file_attr:file ioctl { 0x5413 };
+    allow uitest arkui_param:file { map open read };
+    allow uitest system_bin_file:dir { search };
+    allow uitest render_service:fd { use };
+    allow uitest data_file:dir { search };
+    allow uitest data_local:dir { search };
+    # allow uitest load and execute test tool in data_local_tmp in developer mode
+    allow uitest data_local_tmp:file { read create write open ioctl getattr map execute };
+    allow uitest uitest:tcp_socket { accept read write setopt create bind name_bind node_bind listen };
+    allow uitest port:tcp_socket { name_bind name_connect };
+    allow uitest node:tcp_socket { node_bind };
+    allowxperm uitest devpts:chr_file ioctl { 0x5413 };
+    allow uitest dev_kmsg_file:chr_file { write };
+    allow uitest key_enable:key { search };
+    allow uitest data_local_tmp:dir { search map open create write read add_name};
+    allowxperm uitest data_local_tmp:file ioctl { 0x5413 };
+    allow uitest dev_unix_socket:dir { search };
+    allow uitest dev_ashmem_file:chr_file { open };
+    allow uitest dev_console_file:chr_file { read write };
+    allow uitest hdcd:fifo_file { read write ioctl };
+    allow uitest hdcd:fd { use };
+    allow uitest hdcd:unix_stream_socket { read write };
+    allowxperm uitest hdcd:fifo_file ioctl { 0x5413 };
+    allow uitest param_watcher:binder { call transfer };
+    allow uitest persist_sys_param:file { map read open };
+    allow uitest tracefs:dir { search };
+    allow uitest hilog_param:file { map open read };
+    allow uitest samgr:binder { call };
+    allow uitest sh:fd { use };
+    allow uitest sh:fifo_file { write };
+    allow uitest tty_device:chr_file { read write };
+    allow uitest debug_param:file { map open read };
+    allow uitest sa_param_watcher:samgr_class { get };
+    allow render_service sh:binder { call transfer };
+
+    domain_auto_transition_pattern(aa, uitest_exec, uitest);
+    allow hdcd uitest:process {signal};
+    allow uitest system_basic_hap_attr:binder { call };
+    allow uitest sa_foundation_wms:samgr_class { get };
+    allow uitest arkcompiler_param:file { open read map };
+    allow uitest ark_writeable_param:file { open read map };
+    allow uitest devpts:chr_file { read write };
+    allow uitest system_basic_hap_attr:fd { use };
+    allow uitest system_basic_hap_data_file_attr:file { read write getattr write };
+    allowxperm uitest system_basic_hap_data_file_attr:file ioctl { 0x5413 0xf50c };
+    allow hidumper_service uitest:dir { search };
+    allow hidumper_service uitest:file { open getattr };
+    allow uitest aa:fd { use };
+    allow foundation uitest:binder {transfer};
+    allow uitest multimodalinput:fd {use};
+    allow uitest multimodalinput:unix_stream_socket { read write };
+    # allow sh kill uitest in deverloper mode
+    allow sh uitest:process { sigkill };
+    allow uitest pasteboard_service:binder { call };
+    allow uitest sa_pasteboard_service:samgr_class { get };
+')

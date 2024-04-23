@@ -11,4 +11,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type write_updater_exec, exec_attr, file_attr, system_file_attr;
+# avc:  denied  { map } for  pid=1449 comm="write_updater" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:write_updater:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1449 comm="write_updater" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:write_updater:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=1449 comm="write_updater" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:write_updater:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow write_updater debug_param:file { map open read };
+
+# avc:  denied  { search } for  pid=1449 comm="write_updater" name="by-name" dev="tmpfs" ino=12 scontext=u:r:write_updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+allow write_updater dev_block_file:dir { search };
+
+# avc:  denied  { search } for  pid=1449 comm="write_updater" name="block" dev="tmpfs" ino=6 scontext=u:r:write_updater:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=dir permissive=1
+allow write_updater dev_block_volfile:dir { search };
+
+# avc:  denied  { read write } for  pid=1449 comm="write_updater" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:write_updater:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+allow write_updater dev_console_file:chr_file { read write }; 
+
+# avc:  denied  { read } for  pid=1449 comm="write_updater" name="misc" dev="tmpfs" ino=37 scontext=u:r:write_updater:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
+allow write_updater updater_block_file:lnk_file { read };
+
+# avc:  denied  { read write } for  pid=1497 comm="write_updater" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:write_updater:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { open } for  pid=1497 comm="write_updater" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:write_updater:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { ioctl } for  pid=1559 comm="write_updater" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:write_updater:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { getattr } for  pid=1559 comm="write_updater" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:write_updater:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allow write_updater updater_block_file:blk_file { read write open ioctl getattr };
+
+# avc:  denied  { search } for  pid=1531 comm="write_updater" name="socket" dev="tmpfs" ino=43 scontext=u:r:write_updater:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+allow write_updater dev_unix_socket:dir { search };
+
+# avc:  denied  { read } for  pid=591 comm="write_updater" name="u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:write_updater:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1546 comm="write_updater" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:write_updater:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+#  avc:  denied  { map } for  pid=1546 comm="write_updater" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:write_updater:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+allow write_updater persist_param:file { read open map };

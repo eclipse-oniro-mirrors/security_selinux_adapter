@@ -20,10 +20,10 @@
 #(allow appspawn data_app_el2_file (dir (search)))
 #(allow appspawn data_app_file (dir (search)))
 #(allow appspawn normal_hap_data_file_attr (dir (mounton)))
-#(allow appspawn system_basic_hap_data_file (dir (mounton)))
-#(allow appspawn system_core_hap_data_file (dir (mounton)))
+#(allow appspawn system_basic_hap_data_file_attr (dir (mounton)))
+#(allow appspawn system_core_hap_data_file_attr (dir (mounton)))
 
-neverallow appspawn { hap_file_attr -data_app_el1_file -data_app_el2_file -data_service_el2_file }:dir ~{ getattr search mounton };
+neverallow appspawn { hap_file_attr -data_app_el1_file -data_app_el2_file -data_app_el3_file -data_app_el4_file -data_service_el2_file }:dir ~{ getattr search mounton };
 
 neverallow appspawn data_cache:dir ~{ read_dir_perms };
 

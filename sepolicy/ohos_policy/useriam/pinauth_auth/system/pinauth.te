@@ -29,7 +29,10 @@ allow pinauth sa_device_service_manager:samgr_class { get };
 #avc:  denied  { get } for service=pin_auth_interface_service pid=919 scontext=u:r:pinauth:s0 tcontext=u:object_r:hdf_pin_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
 allow pinauth hdf_pin_auth_interface_service:hdf_devmgr_class { get };
 
-allow pinauth system_core_hap:binder { call transfer };
+allow pinauth system_core_hap_attr:binder { call transfer };
+
+allow pinauth sa_miscdevice_service:samgr_class { get };
+allow pinauth sensors:binder { call };
 
 allow pinauth accesstoken_service:binder { call };
 allow pinauth bootevent_param:file { map open read };
@@ -67,7 +70,7 @@ allow pinauth pinauth:unix_dgram_socket { getopt setopt };
 allow pinauth security_param:file { map open read };
 allow pinauth startup_param:file { map open read };
 allow pinauth sys_param:file { map open read };
-allow pinauth system_basic_hap:binder { call transfer };
+allow pinauth system_basic_hap_attr:binder { call transfer };
 allow pinauth system_bin_file:dir { search };
 allow pinauth sys_usb_param:file { map open read };
 allow pinauth tracefs:dir { search };

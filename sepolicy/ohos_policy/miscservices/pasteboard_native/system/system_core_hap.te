@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap sa_pasteboard_service:samgr_class { get };
-allow system_core_hap pasteboard_service:binder { call transfer };
+allow system_core_hap_attr sa_pasteboard_service:samgr_class { get };
+allow system_core_hap_attr pasteboard_service:binder { call transfer };
 
 #avc:  denied  { use } for  pid=524 comm="pasteboard_serv" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:system_core_hap:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
-allow system_core_hap pasteboard_service:fd { use };
+allow system_core_hap_attr pasteboard_service:fd { use };

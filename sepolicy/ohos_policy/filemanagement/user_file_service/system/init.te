@@ -14,3 +14,10 @@
 allow init data_libinput:dir { getattr };
 allow init data_service_el1_file:sock_file { relabelfrom };
 allow init data_udev:file { relabelto };
+
+# avc:  denied  { open } for  pid=1 comm="init" path="/mnt/data/external" dev="tmpfs" ino=57 scontext=u:r:init:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=1 comm="init" name="external" dev="tmpfs" ino=57 scontext=u:r:init:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="external" dev="tmpfs" ino=57 scontext=u:r:init:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { setattr } for  pid=1 comm="init" name="external" dev="tmpfs" ino=57 scontext=u:r:init:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+allow init mnt_external_file:dir { open read relabelto setattr };
+allow init file_access_service:process { rlimitinh siginh transition };

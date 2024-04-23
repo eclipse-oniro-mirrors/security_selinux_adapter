@@ -1,0 +1,33 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { getattr } for  pid=3596 comm="com.ohos.dlpman" path="/fuse" dev="tmpfs" ino=438 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { read } for  pid=3596 comm="com.ohos.dlpman" path="/fuse" dev="tmpfs" ino=438 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { write } for  pid=3596 comm="com.ohos.dlpman" path="/fuse" dev="tmpfs" ino=438 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+allow dlpmanager_hap dev_fuse_file:chr_file { getattr read write };
+
+# avc:  denied  { search } for  pid=3454 comm="com.ohos.dlpman" name="/" dev="fuse" ino=1 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:fuse_file:s0 tclass=dir permissive=1
+allow dlpmanager_hap fuse_file:dir { search };
+
+# avc:  denied  { getattr } for  pid=3454 comm="com.ohos.dlpman" path="/data/fuse/com.example.ohnotes181722182255.dlp.link" dev="fuse" ino=547205767168 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=3454 comm="com.ohos.dlpman" path="/data/fuse/default.dlp" dev="fuse" ino=547205767392 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
+# avc:  denied  { read write } for  pid=3454 comm="com.ohos.dlpman" name="default.dlp" dev="fuse" ino=547205767392 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:fuse:s0 tclass=file permissive=1
+allow dlpmanager_hap fuse_file:file { open };
+
+# avc:  denied  { search } for  pid=4806 comm="com.ohos.dlpmanager" name="/" dev="fuse" ino=1 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=dir permissive=1
+allow dlpmanager_hap dlp_fuse_file:dir { search }; 
+
+# avc:  denied  { getattr } for  pid=4806 comm="com.ohos.dlpmanager" path="/mnt/data/fuse/com.example.ohnotes_1_17033229925098225126260049263.txt.dlp.link" dev="fuse" ino=548097499168 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=file permissive=1
+allow dlpmanager_hap dlp_fuse_file:file { getattr };
+
+neverallow dlpmanager_hap dlp_fuse_file:file { open read write };

@@ -30,7 +30,7 @@ config("selinux_unittest_config") {
 
 ohos_unittest("hap_restorecon_unittest") {
   subsystem_name = "security"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
@@ -45,12 +45,15 @@ ohos_unittest("hap_restorecon_unittest") {
     "../:libselinux_hilog_static",
   ]
   cflags = [ "-DSELINUX_TEST" ]
-  external_deps = [ "c_utils:utils" ]
+  external_deps = [
+    "c_utils:utils",
+    "hilog:libhilog",
+  ]
 }
 
 ohos_unittest("paraperm_checker_unittest") {
   subsystem_name = "security"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
@@ -60,13 +63,13 @@ ohos_unittest("paraperm_checker_unittest") {
   deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
   external_deps = [
     "c_utils:utils",
-    "selinux:libparaperm_checker",
+    "selinux_adapter:libparaperm_checker",
   ]
 }
 
 ohos_unittest("service_checker_unittest") {
   subsystem_name = "security"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
@@ -75,13 +78,13 @@ ohos_unittest("service_checker_unittest") {
   ]
   external_deps = [
     "c_utils:utils",
-    "selinux:libservice_checker",
+    "selinux_adapter:libservice_checker",
   ]
 }
 
 ohos_unittest("parameter_static_unittest") {
   subsystem_name = "security"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
@@ -96,7 +99,7 @@ ohos_unittest("parameter_static_unittest") {
 
 ohos_unittest("selinux_common_unittest") {
   subsystem_name = "security"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
@@ -108,6 +111,7 @@ ohos_unittest("selinux_common_unittest") {
     "../:libselinux_klog_static",
     "//third_party/selinux:libselinux",
   ]
+  external_deps = [ "hilog:libhilog" ]
 }
 
 group("unittest") {

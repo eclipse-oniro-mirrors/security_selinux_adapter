@@ -15,3 +15,4 @@
 /data/app/el2/[0-9]+/database(/.*)?       u:object_r:data_app_el2_database_file:s0
 /data/app/el3/[0-9]+/database(/.*)?       u:object_r:data_app_el3_database_file:s0
 /data/app/el4/[0-9]+/database(/.*)?       u:object_r:data_app_el4_database_file:s0
+/data/service/el1/[0-9]+/distributeddata/utd(/.*)?       u:object_r:data_service_el1_utd_file:s0

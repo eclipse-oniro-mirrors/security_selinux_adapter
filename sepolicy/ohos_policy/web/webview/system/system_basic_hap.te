@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,54 +11,50 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap data_app_el1_file:dir { getattr };
-allow system_basic_hap netmanager:binder { transfer };
-allow system_basic_hap proc_cpuinfo_file:file { getattr };
-allow system_basic_hap proc_max_user_watches:file { open read };
-allow system_basic_hap system_etc_file:dir { watch };
-allow system_basic_hap dev_mali:chr_file { ioctl };
-allow system_basic_hap nwebspawn:fd { use };
-allow system_basic_hap nwebspawn:fifo_file { write };
-allow system_basic_hap nwebspawn:unix_dgram_socket { write };
-allow system_basic_hap system_fonts_file:dir { open read };
-allowxperm system_basic_hap dev_mali:chr_file ioctl 0x800c;
-allow system_basic_hap dev_file:sock_file { write };
-allow system_basic_hap netsysnative:unix_stream_socket { connectto };
-allow system_basic_hap port:tcp_socket { name_connect };
-allow system_basic_hap system_basic_hap:tcp_socket { connect getopt };
-allow system_basic_hap system_basic_hap:udp_socket { connect };
-allow system_basic_hap pasteboard_service:fd { use };
+allow system_basic_hap_attr data_app_el1_file:dir { getattr };
+allow system_basic_hap_attr netmanager:binder { transfer };
+allow system_basic_hap_attr proc_cpuinfo_file:file { getattr };
+allow system_basic_hap_attr proc_max_user_watches:file { open read };
+allow system_basic_hap_attr system_etc_file:dir { watch };
+allow system_basic_hap_attr nwebspawn:fd { use };
+allow system_basic_hap_attr nwebspawn:fifo_file { write };
+allow system_basic_hap_attr nwebspawn:unix_dgram_socket { write };
+allow system_basic_hap_attr system_fonts_file:dir { open read };
+allowxperm system_basic_hap_attr dev_mali:chr_file ioctl 0x800c;
+allow system_basic_hap_attr netsysnative:unix_stream_socket { connectto };
+allow system_basic_hap_attr port:tcp_socket { name_connect };
+allow system_basic_hap_attr system_basic_hap_attr:tcp_socket { connect getopt };
+allow system_basic_hap_attr system_basic_hap_attr:udp_socket { connect };
+allow system_basic_hap_attr pasteboard_service:fd { use };
 
-allow system_core_hap musl_param:file { read };
-allow foundation system_core_hap:unix_stream_socket { read write };
-allow hidumper_service system_core_hap:file { getattr };
-allow system_core_hap proc_max_user_watches:file { read };
-allow system_core_hap system_core_hap:tcp_socket { setopt };
-allow system_core_hap system_etc_file:dir { watch };
-allow system_core_hap tmpfs:lnk_file { getattr };
-allow system_core_hap dev_mali:chr_file { ioctl };
-allow system_core_hap proc_max_user_watches:file { open };
-allow system_core_hap system_core_hap:tcp_socket { bind };
-allowxperm system_core_hap dev_mali:chr_file ioctl 0x800c;
-allow system_core_hap port:tcp_socket { name_bind };
-allow system_core_hap proc_max_user_watches:file { getattr };
-allow nwebspawn system_core_hap:process { dyntransition };
-allow nwebspawn system_core_hap_data_file:dir { mounton };
-allow system_core_hap nwebspawn:fd { use };
-allow system_core_hap nwebspawn:fifo_file { write };
-allow system_core_hap nwebspawn:unix_dgram_socket { write };
-allow system_core_hap proc_cpuinfo_file:file { getattr };
-allow system_core_hap system_fonts_file:dir { open };
-allow system_core_hap system_fonts_file:dir { read };
+allow system_core_hap_attr musl_param:file { read };
+allow foundation system_core_hap_attr:unix_stream_socket { read write };
+allow hidumper_service system_core_hap_attr:file { getattr };
+allow system_core_hap_attr proc_max_user_watches:file { read };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { setopt };
+allow system_core_hap_attr system_etc_file:dir { watch };
+allow system_core_hap_attr tmpfs:lnk_file { getattr };
+allow system_core_hap_attr proc_max_user_watches:file { open };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { bind };
+allowxperm system_core_hap_attr dev_mali:chr_file ioctl 0x800c;
+allow system_core_hap_attr port:tcp_socket { name_bind };
+allow system_core_hap_attr proc_max_user_watches:file { getattr };
+allow nwebspawn system_core_hap_data_file_attr:dir { mounton };
+allow system_core_hap_attr nwebspawn:fd { use };
+allow system_core_hap_attr nwebspawn:fifo_file { write };
+allow system_core_hap_attr nwebspawn:unix_dgram_socket { write };
+allow system_core_hap_attr proc_cpuinfo_file:file { getattr };
+allow system_core_hap_attr system_fonts_file:dir { open };
+allow system_core_hap_attr system_fonts_file:dir { read };
 
 allow foundation data_service_el0_file:file { getattr };
 allow foundation musl_param:file { read };
-allow nwebspawn system_core_hap_data_file:dir { mounton };
+allow nwebspawn system_core_hap_data_file_attr:dir { mounton };
 allow foundation storage_manager:file { read };
-allow system_core_hap port:tcp_socket { name_connect };
-allow system_core_hap system_core_hap:tcp_socket { connect };
-allow system_core_hap system_core_hap:tcp_socket { getopt };
-allow system_core_hap system_core_hap:tcp_socket { read };
-allow system_core_hap system_core_hap:tcp_socket { write };
-allow system_core_hap system_core_hap:udp_socket { connect };
-allow system_core_hap system_core_hap:udp_socket { read };
+allow system_core_hap_attr port:tcp_socket { name_connect };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { connect };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { getopt };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { read };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { write };
+allow system_core_hap_attr system_core_hap_attr:udp_socket { connect };
+allow system_core_hap_attr system_core_hap_attr:udp_socket { read };

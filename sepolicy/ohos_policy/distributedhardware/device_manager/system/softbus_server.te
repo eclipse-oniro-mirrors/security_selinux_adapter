@@ -12,4 +12,4 @@
 # limitations under the License.
 
 #avc:  denied  { call } for  pid=598 comm="softbus_server" scontext=u:r:softbus_server:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
-allow softbus_server device_manager:binder { call };
+allow softbus_server device_manager:binder { call transfer };

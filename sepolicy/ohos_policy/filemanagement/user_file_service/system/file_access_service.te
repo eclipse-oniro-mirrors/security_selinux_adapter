@@ -1,0 +1,104 @@
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type file_access_service, sadomain, domain;
+allow file_access_service sa_file_access_service:samgr_class { add get };
+
+#avc:  denied  { call } for  pid=611 comm="IPC_0_654" scontext=u:r:file_access_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+# avc:  denied  { use } for  pid=1553 comm="external_file_a" path="/dev/ashmem" dev="tmpfs" ino=231 scontext=u:r:normal_hap:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
+debug_only(`
+    allow file_access_service sh:binder { call };
+    allow normal_hap_attr su:fd { use };
+')
+
+#avc:  denied  { read } for  pid=812 comm="sa_main" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:file_access_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=812 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:file_access_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=812 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:file_access_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow file_access_service musl_param:file { read open map };
+
+#avc:  denied  { open } for  pid=685 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=56 scontext=u:r:file_access_service:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=685 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=56 scontext=u:r:file_access_service:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=812 comm="sa_main" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=56 scontext=u:r:file_access_service:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+allow file_access_service hilog_param:file { read open map };
+
+#avc:  denied  { search } for  pid=611 comm="IPC_0_654" name="socket" dev="tmpfs" ino=30 scontext=u:r:file_access_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+allow file_access_service dev_unix_socket:dir { search };
+
+#avc:  denied  { get } for service=3901 pid=536 scontext=u:r:file_access_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow file_access_service sa_param_watcher:samgr_class { get };
+
+#avc:  denied  { dac_read_search } for  pid=2108 comm="appspawn" capability=2  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=0
+
+#avc:  denied  { get } for service=3503 pid=550 scontext=u:r:file_access_service:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=0
+allow file_access_service sa_accesstoken_manager_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=553 comm="IPC_1_665" scontext=u:r:file_access_service:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=0
+allow file_access_service accesstoken_service:binder { call };
+
+#avc:  denied  { get } for service=5010 pid=1841 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_file_access_service:s0 tclass=samgr_class permissive=1
+allow system_core_hap_attr sa_file_access_service:samgr_class { get };
+
+#avc:  denied  { search } for  pid=1605 comm="file_access_ser" name="/" dev="tracefs" ino=1 scontext=u:r:file_access_service:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=0
+allow file_access_service tracefs:dir { search };
+
+#avc:  denied  { call } for  pid=1558 comm="IPC_0_1559" scontext=u:r:system_core_hap:s0 tcontext=u:r:file_access_service:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=1864 comm="mple.fileaccess" scontext=u:r:system_core_hap:s0 tcontext=u:r:file_access_service:s0 tclass=binder permissive=0
+allow system_core_hap_attr file_access_service:binder { call transfer };
+
+#avc:  denied  { call } for  pid=1915 comm="IPC_0_1916" scontext=u:r:file_access_service:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
+allow file_access_service system_core_hap_attr:binder { call };
+
+#avc:  denied  { write } for  pid=1914 comm="file_access_ser" name="trace_marker" dev="tracefs" ino=18561 scontext=u:r:file_access_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=1915 comm="file_access_ser" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=17125 scontext=u:r:file_access_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=0
+allow file_access_service tracefs_trace_marker_file:file { open write };
+
+#avc:  denied  { watch } for  pid=3065 comm="ager:fileAccess" path="/data/storage/el1/bundle/storage_daemon/uri_dir1" dev="mmcblk0p14" ino=6102 scontext=u:r:normal_hap:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
+allow normal_hap_attr share_public_file:dir { watch };
+allow normal_hap_attr share_public_file:file { watch };
+
+allow normal_hap_attr sa_file_access_service:samgr_class { get };
+
+#avc:  denied  { watch } for  pid=1412 comm="ager:fileAccess" path="/mnt/external/00D7-4E04/uri_dir1" dev="mmcblk1p1" ino=38 scontext=u:r:normal_hap:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=0
+#avc:  denied  { watch } for  pid=1412 comm="ager:fileAccess" path="/mnt/external/00D7-4E04/uri_dir1" dev="mmcblk1p1" ino=38 scontext=u:r:normal_hap:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=0
+allow normal_hap_attr vfat:dir { watch };
+allow normal_hap_attr vfat:file { watch };
+# avc:  denied  { call } for  pid=3057 comm="file_access_ser" scontext=u:r:file_access_service:s0 tcontext=u:r:filemanager_hap:s0 tclass=binder permissive=1
+allow file_access_service hap_domain:binder { call };
+
+#avc:  denied  { watch } for  pid=1604 comm="ager:fileAccess" path="/storage/External" dev="tmpfs" ino=2 scontext=u:r:normal_hap:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+allow hap_domain mnt_external_file:dir { watch };
+
+#avc:  denied  { call } for  pid=1458 comm="IPC_2_1473" scontext=u:r:system_basic_hap:s0 tcontext=u:r:file_access_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=1458 comm="xample.listfile" scontext=u:r:system_basic_hap:s0 tcontext=u:r:file_access_service:s0 tclass=binder permissive=1
+allow hap_domain file_access_service:binder { call transfer };
+#avc:  denied  { call } for  pid=1509 comm="file_access_ser" scontext=u:r:file_access_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow file_access_service hap_domain:binder {call};
+
+# avc:  denied  { open } for  pid=1554 comm="IPC_1_1556" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:file_access_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+allow file_access_service debug_param:file { read open };
+# avc:  denied  { read } for  pid=1554 comm="file_access_ser" name="u:object_r:persist_sys_param:s0" dev="tmpfs" ino=71 scontext=u:r:file_access_service:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+allow file_access_service persist_sys_param:file { read };
+# avc:  denied  { get } for service=180 pid=1473 scontext=u:r:file_access_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow file_access_service sa_foundation_abilityms:samgr_class { get };
+# avc:  denied  { get } for service=5003 pid=1473 scontext=u:r:file_access_service:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=1
+allow file_access_service sa_storage_manager_service:samgr_class { get };
+# avc:  denied  { search } for  pid=1554 comm="file_access_ser" name="usr" dev="mmcblk0p7" ino=3373 scontext=u:r:file_access_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=0
+allow file_access_service system_usr_file:dir { search };
+# avc:  denied  { call } for  pid=1483 comm="IPC_0_1484" scontext=u:r:file_access_service:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=0
+allow file_access_service storage_manager:binder { call };
+# avc:  denied  { call } for  pid=1632 comm="IPC_1_1634" scontext=u:r:file_access_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
+allow file_access_service foundation:binder { call transfer };
+# avc:  denied  { map } for  pid=1561 comm="IPC_1_1563" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:file_access_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+allow file_access_service debug_param:file { map };
+# avc:  denied  { call } for  pid=1534 comm="file_access_ser" scontext=u:r:file_access_service:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=0
+allow file_access_service hap_domain:binder { call };

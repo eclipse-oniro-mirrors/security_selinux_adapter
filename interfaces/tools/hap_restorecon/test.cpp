@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
         res = test.HapFileRestorecon(hapFileInfo);
         std::cout << GetErrStr(res) << std::endl;
     } else {
-        HapDomainInfo hapDomainInfo{
+        HapDomainInfo hapDomainInfo {
             .apl = testCmd.apl,
             .packageName = testCmd.name,
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0

@@ -43,10 +43,6 @@ allow hdcd musl_param:file { read open map };
 allow hdcd system_etc_file:lnk_file { read };
 
 debug_only(`
-    # avc: denied { getattr } for pid=270 comm="hdcd" path="/sys/devices/virtual/tty/console/active" dev="sysfs" ino=14700 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
-    # avc: denied { read } for pid=270 comm="hdcd" name="active" dev="sysfs" ino=14700 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
-    allow sh sys_file:file { read getattr };
-
     # avc:  denied  { search } for  pid=235 comm="hdcd" name="/" dev="mmcblk1p1" ino=5 scontext=u:r:hdcd:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=0
     # avc:  denied  { write } for  pid=236 comm="hdcd" name="updater" dev="mmcblk1p1" ino=64 scontext=u:r:hdcd:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=0
     # avc:  denied  { add_name } for  pid=235 comm="hdcd" name="updater.zip" scontext=u:r:hdcd:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=0

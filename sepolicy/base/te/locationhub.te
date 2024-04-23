@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -64,7 +64,7 @@ allow locationhub sa_param_watcher:samgr_class { get };
 allow locationhub security_param:file { map open read };
 allow locationhub startup_param:file { map open read };
 allow locationhub sys_param:file { map open read };
-allow locationhub system_basic_hap:binder { call };
+allow locationhub system_basic_hap_attr:binder { call };
 allow locationhub system_bin_file:dir { search };
 allow locationhub system_usr_file:dir { search };
 allow locationhub system_usr_file:file { getattr map open read };

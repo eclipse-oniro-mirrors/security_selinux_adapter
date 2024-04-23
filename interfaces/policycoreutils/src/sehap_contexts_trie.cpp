@@ -13,9 +13,7 @@
  * limitations under the License.
  */
 #include "sehap_contexts_trie.h"
-#include <cstdint>
 #include <deque>
-#include <vector>
 
 #include "src/callbacks.h"
 #include "selinux/selinux.h"

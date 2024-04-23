@@ -1,0 +1,155 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+developer_only(`
+allow SP_daemon data_file:dir { search };
+allow SP_daemon data_local:dir { search };
+allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name };
+allow SP_daemon data_local_tmp:file { create getattr ioctl open write unlink read};
+allowxperm SP_daemon data_local_tmp:file ioctl 0x5413;
+
+allow SP_daemon dev_console_file:chr_file { read write };
+allow SP_daemon dev_unix_socket:dir { search };
+allow SP_daemon devpts:chr_file { getattr read write write ioctl };
+allow SP_daemon hdcd:fd { use };
+allow SP_daemon hdcd:unix_stream_socket { read write };
+allow SP_daemon sh:fd { use };
+allow SP_daemon sh_exec:file { execute execute_no_trans map read open };
+allow SP_daemon sys_file:dir { open read };
+allow SP_daemon sys_file:file { getattr open read };
+allow SP_daemon sysfs_devices_system_cpu:file { getattr open read};
+allow SP_daemon system_bin_file:dir { search };
+allow SP_daemon system_bin_file:file { execute execute_no_trans getattr map read open };
+allow SP_daemon tty_device:chr_file { read write ioctl open };
+
+allow SP_daemon system_bin_file:lnk_file { read };
+allow SP_daemon uitest_exec:file { execute execute_no_trans getattr map read open };
+allowxperm SP_daemon devpts:chr_file ioctl 0x5413;
+allowxperm SP_daemon tty_device:chr_file ioctl 0x5413;
+allow SP_daemon multimodalinput:binder { call };
+allow SP_daemon SP_daemon:tcp_socket { create accept bind listen };
+allow SP_daemon SP_daemon:udp_socket { create read bind write };
+allow SP_daemon foundation:binder { call };
+allow SP_daemon samgr:binder { call };
+allow SP_daemon tracefs:dir { search };
+allow SP_daemon accessibility:binder { call transfer };
+allow SP_daemon param_watcher:binder { call transfer };
+allow SP_daemon node:tcp_socket { node_bind };
+allow SP_daemon node:udp_socket { node_bind };
+allow SP_daemon port:tcp_socket { name_bind };
+allow SP_daemon port:udp_socket { name_bind };
+allow SP_daemon system_basic_hap:file { getattr };
+
+allow SP_daemon sa_accessibleabilityms:samgr_class { get };
+allow SP_daemon sa_param_watcher:samgr_class { get };
+allow SP_daemon sa_foundation_abilityms:samgr_class { get };
+allow SP_daemon sa_foundation_dms:samgr_class { get };
+allow SP_daemon sa_multimodalinput_service:samgr_class { get };
+allow SP_daemon sa_foundation_wms:samgr_class { get };
+
+allow SP_daemon hilog_param:file { map open read };
+allow SP_daemon persist_sys_param:file { map open read };
+allow SP_daemon ohos_boot_param:file { map open read };
+allow SP_daemon debug_param:file { map open read };
+allow SP_daemon bootevent_param:file { map open read };
+allow SP_daemon devinfo_private_param:file { read map open };
+allow SP_daemon net_param:file { open read map };
+allow SP_daemon sys_param:file { map open read };
+allow SP_daemon sys_usb_param:file { map open read };
+allow SP_daemon const_postinstall_fstab_param:file { map read open };
+allow SP_daemon const_postinstall_param:file { map open read };
+allow SP_daemon net_tcp_param:file { map open read };
+allow SP_daemon const_allow_mock_param:file { map open read };
+allow SP_daemon const_allow_param:file { map open read };
+allow SP_daemon persist_param:file { read map open };
+allow SP_daemon security_param:file { map open read };
+allow SP_daemon bootevent_wms_param:file { map open read };
+allow SP_daemon ffrt_param:file {  map open read };
+allow SP_daemon print_param:file { map open read };
+allow SP_daemon arkcompiler_param:file { map open read };
+allow SP_daemon ark_writeable_param:file { map open read };
+allow SP_daemon arkui_param:file { map open read };
+allow SP_daemon hiviewdfx_profiler_param:file { map open read };
+allow SP_daemon bms_param:file { map read open};
+allow SP_daemon const_display_brightness_param:file { map read open };
+allow SP_daemon developtools_hdc_control_param:file { map read open };
+allow SP_daemon distributedsche_param:file { map read open };
+allow SP_daemon input_pointer_device_param:file { map read open};
+allow SP_daemon samgr_perf_param:file { map read open };
+allow SP_daemon thermal_log_param:file { map read open };
+allow SP_daemon updater_data_param:file { map read open};
+allow SP_daemon updater_flashd_param:file { map read open };
+allow SP_daemon updater_hdc_param:file { map read open };
+allow SP_daemon render_service:fd { use };
+allow SP_daemon usb_setting_param:file { read open map };
+allow SP_daemon sh:dir { search };
+allow SP_daemon sh:file { read };
+allow SP_daemon data_hilogd_file:dir { search };
+allow SP_daemon hdcd:fd { use };
+allow SP_daemon hdcd:fifo_file { ioctl read write };
+allow SP_daemon hdcd:unix_stream_socket { read write };
+allowxperm SP_daemon hdcd:fifo_file ioctl { 0x5413 };
+# ps -ef
+allow SP_daemon domain: dir { search getattr };
+allow SP_daemon domain: file { open read };
+allow SP_daemon dev_kmsg_file:chr_file { write };
+allow SP_daemon hisysevent:lnk_file { read };
+allow SP_daemon hisysevent:process { signal };
+allow SP_daemon hitrace:lnk_file { read };
+allow SP_daemon dev_ucollection:chr_file { ioctl read open read write open write };
+allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x1 0x2 0x3 };
+allow SP_daemon SP_daemon:tcp_socket { connect read shutdown write };
+allow SP_daemon port:tcp_socket { name_connect };
+allow SP_daemon sysfs_devices_system_cpu:dir { read open read };
+allow SP_daemon foundation:binder { transfer };
+allow SP_daemon SP_daemon_exec:file { execute_no_trans };
+allow SP_daemon SP_daemon:capability { sys_ptrace };
+neverallow SP_daemon *:process ptrace;
+
+allow SP_daemon hiprofiler_plugins:fd { use };
+allow SP_daemon hiprofiler_plugins:fifo_file { ioctl write };
+allow SP_daemon hiprofiler_plugins:unix_stream_socket { read write };
+allow SP_daemon hiprofilerd:fd { use };
+allowxperm SP_daemon hiprofiler_plugins:fifo_file ioctl { 0x5413 };
+allow SP_daemon uinput_exec:file { execute execute_no_trans getattr open read };
+allow SP_daemon aa_exec:file { execute execute_no_trans getattr open read };
+
+allow SP_daemon proc_net:file { getattr read open read };
+allow SP_daemon proc_stat_file:file { read open getattr setattr };
+allow SP_daemon proc_meminfo_file:file { getattr open read };
+allow SP_daemon proc_cmdline_file:file { getattr open read };
+allow SP_daemon proc_loadavg_file:file { getattr open read };
+allow SP_daemon proc_modules_file:file { getattr open read };
+allow SP_daemon proc_net_tcp_udp:file { getattr open read };
+allow SP_daemon proc_slabinfo_file:file { getattr open read };
+allow SP_daemon proc_version_file:file { getattr open read };
+allow SP_daemon proc_vmallocinfo_file:file { getattr open read };
+allow SP_daemon proc_vmstat_file:file { getattr open read };
+allow SP_daemon proc_zoneinfo_file:file { getattr open read };
+allow SP_daemon proc_file:file { open read };
+allow SP_daemon processdump:dir search;
+allow SP_daemon processdump:file { open read };
+allow SP_daemon hiprofiler_cmd:file getattr;
+allow SP_daemon hiprofiler_plugins:file getattr;
+allow SP_daemon hiprofilerd:file getattr;
+allow SP_daemon SP_daemon:tcp_socket { setopt };
+allow SP_daemon proc_cpuinfo_file:file { getattr open read };
+allow SP_daemon snapshot_display_exec:file { execute execute_no_trans getattr open read };
+allow SP_daemon aa_exec:file { map };
+allow SP_daemon dev_ucollection:chr_file { ioctl };
+allow SP_daemon normal_hap:file { getattr };
+allow SP_daemon sh:file { open };
+allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x4 };
+')
+
+

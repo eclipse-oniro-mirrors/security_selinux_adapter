@@ -30,6 +30,8 @@ allow hidumper lib_file:lnk_file read;
 
 allow hidumper samgr:binder { call transfer };
 
+allow hidumper sh:fd use;
+
 allow hidumper system_bin_file:dir search;
 allow hidumper system_bin_file:file { execute execute_no_trans map open read };
 
@@ -71,3 +73,8 @@ allow hidumper sys_usb_param:file { map open read };
 allow hidumper dev_console_file:chr_file { read write };
 allow hidumper dev_file:dir { getattr };
 allow hidumper musl_param:file { read open map };
+allow hidumper hiprofiler_plugins:fifo_file { read };
+allow hidumper sys_file:file { read };
+allow hidumper hdcd:fifo_file {read };
+
+allow hidumper hidumper_file:file { write open read };

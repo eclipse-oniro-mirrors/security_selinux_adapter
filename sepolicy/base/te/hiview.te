@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -54,6 +54,8 @@ allow hiview ohos_boot_param:file { map open read };
 allow hiview ohos_param:file { map open read };
 allow hiview persist_param:file { map open read };
 allow hiview persist_sys_param:file { map open read };
+allow hiview powermgr:dir { search };
+allow hiview powermgr:file { open read };
 allow hiview proc_file:file { open read };
 allow hiview sa_accesstoken_manager_service:samgr_class { get };
 allow hiview sa_accountmgr:samgr_class { get };
@@ -67,13 +69,20 @@ allow hiview startup_param:file { map open read };
 allow hiview sysfs_hctosys:file { open read };
 allow hiview sysfs_rtc:dir { open read };
 allow hiview sys_param:file { map open read };
-allow hiview system_basic_hap:dir { search };
-allow hiview system_basic_hap:file { open read };
-allow hiview system_core_hap:dir { search };
-allow hiview system_core_hap:file { open read getattr };
+allow hiview system_basic_hap_attr:dir { search };
+allow hiview system_basic_hap_attr:file { open read };
+allow hiview system_core_hap_attr:dir { search };
+allow hiview system_core_hap_attr:file { open read getattr };
 allow hiview sys_usb_param:file { map open read };
 allow hiview tmpfs:dir { add_name create setattr write };
 allow hiview tty_device:chr_file { open read write };
 
 allow sadomain hiview:unix_dgram_socket { sendto };
 allowxperm hiview dev_at_file:chr_file ioctl { 0x4103 };
+
+# hiview param
+allow hiviewdfx_hiview_param tmpfs:filesystem associate;
+allow init hiviewdfx_hiview_param:file { map open read relabelto relabelfrom };
+allow hiview hiviewdfx_hiview_param:parameter_service { set };
+allow hiview hiviewdfx_hiview_param:file { map open read };
+allow hiview paramservice_socket:sock_file { read write };

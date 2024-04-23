@@ -1,0 +1,25 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="access_token" dev="mmcblk0p12" ino=7387 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=1 comm="init" name="access_token" dev="mmcblk0p12" ino=7387 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { open } for  pid=1 comm="init" path="/data/service/el1/public/access_token" dev="mmcblk0p12" ino=7387 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/data/service/el1/public/access_token" dev="mmcblk0p12" ino=140 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=0
+#allow init accesstoken_data_file:dir { getattr open read relabelto setattr};
+#allow init privacy_service:process { rlimitinh siginh transition };
+
+allow init local_code_sign:process { rlimitinh siginh transition };
+
+allow init trusted_profile_data_file:dir { add_name create write open read relabelto getattr setattr search };
+
+allow init trusted_profile_data_file:dir { search };

@@ -1,0 +1,25 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { transfer } for  pid=1171 comm="distributeddata" scontext=u:r:distributeddata:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+# avc:  denied  { call } for  pid=1199 comm="IPC_2_2180" scontext=u:r:distributeddata:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+allow distributeddata intell_voice_service:binder { transfer call };
+
+# avc:  denied  { search } for  pid=1063 comm="IPC_7_2150" name="24482" dev="proc" ino=228421 scontext=u:r:distributeddata:s0 tcontext=u:r:intell_voice_service:s0 tclass=dir permissive=0
+allow distributeddata intell_voice_service:dir { search };
+
+# avc:  denied  { read } for  pid=1075 comm="IPC_5_2126" name="cgroup" dev="proc" ino=226160 scontext=u:r:distributeddata:s0 tcontext=u:r:intell_voice_service:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=1108 comm="IPC_9_3270" path="/proc/7282/cgroup" dev="proc" ino=350941 scontext=u:r:distributeddata:s0 tcontext=u:r:intell_voice_service:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=1094 comm="IPC_2_1833" path="/proc/19623/cgroup" dev="proc" ino=188442 scontext=u:r:distributeddata:s0 tcontext=u:r:intell_voice_service:s0 tclass=file permissive=0
+allow distributeddata intell_voice_service:file { read open getattr };
+

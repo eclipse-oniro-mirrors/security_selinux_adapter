@@ -11,20 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { call } for  pid=407 comm="hidumper_servic" scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-allow hidumper_service audio_policy:binder { call };
+#avc:  denied  { call } for  pid=407 comm="hidumper_servic" scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+allow hidumper_service audio_server:binder { call };
 
-#avc:  denied  { search } for  pid=384 comm="HiDumperManager" name="352" dev="proc" ino=16857 scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_policy:s0 tclass=dir permissive=1
-allow hidumper_service audio_policy:dir { search };
+#avc:  denied  { search } for  pid=384 comm="HiDumperManager" name="352" dev="proc" ino=16857 scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_server:s0 tclass=dir permissive=1
+allow hidumper_service audio_server:dir { search };
 
-#avc:  denied  { open } for  pid=384 comm="HiDumperManager" path="/proc/352/stat" dev="proc" ino=25762 scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_policy:s0 tclass=file permissive=1
-#avc:  denied  { read } for  pid=384 comm="HiDumperManager" scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_policy:s0 tclass=file permissive=1
-allow hidumper_service audio_policy:file { open read };
-
-#avc:  denied  { search } for  pid=384 comm="HiDumperManager" name="298" dev="proc" ino=24685 scontext=u:r:hidumper_service:s0 tcontext=u:r:pulseaudio:s0 tclass=dir permissive=1
-allow hidumper_service pulseaudio:dir { search };
-
-#avc:  denied  { open } for  pid=384 comm="HiDumperManager" path="/proc/298/stat" dev="proc" ino=25738 scontext=u:r:hidumper_service:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
-#avc:  denied  { read } for  pid=384 comm="HiDumperManager" scontext=u:r:hidumper_service:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
-allow hidumper_service pulseaudio:file { open read };
-
+#avc:  denied  { open } for  pid=384 comm="HiDumperManager" path="/proc/352/stat" dev="proc" ino=25762 scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_server:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=384 comm="HiDumperManager" scontext=u:r:hidumper_service:s0 tcontext=u:r:audio_server:s0 tclass=file permissive=1
+allow hidumper_service audio_server:file { open read };

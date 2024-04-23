@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap print_service:binder { call transfer };
-allow system_core_hap sa_print_service:samgr_class { get };
+allow system_core_hap_attr print_service:binder { call transfer };
+allow system_core_hap_attr sa_print_service:samgr_class { get };

@@ -25,7 +25,7 @@ define(`processdump_cmd', `
 ########################
 ## processdump rules: ##
 ########################
-use_processdump({ domain -limit_domain -init -kernel })
+use_processdump({ domain -init -kernel })
 processdump_cmd({
     domain
     data_file
@@ -35,19 +35,25 @@ processdump_cmd({
     app_el1_bundle_public
     data_app_el1_file # remove later
     vendor_bin_file
+    arkcompiler_param
+    ark_writeable_param
+    chip_prod_file
 })
 
 #============= domain =================
 allow domain processdump:process { share sigchld };
 allow domain self:fifo_file { write };
-allow processdump { domain -processdump -kernel }:process ptrace;
+allow domain system_bin_file:dir { search };
+allow processdump { domain -processdump -kernel }:process { ptrace sigstop };
 allow processdump domain:fd use;
 allow processdump domain:fifo_file { read write };
 allow processdump domain:dir { getattr open read search };
+allow processdump domain:lnk_file { read };
 
 #============= write event to hiview =========
 allow processdump hiview:binder { call transfer };
 allow processdump samgr:binder { call };
+allow processdump hiview:unix_dgram_socket { sendto };
 
 #============= for faultloggerd ===========
 allow processdump faultloggerd_temp_file:file { getattr open read write };
@@ -62,6 +68,7 @@ allow processdump processdump:dir { search };
 allow processdump processdump:lnk_file { read };
 allow processdump processdump:unix_dgram_socket { create connect write };
 allow processdump processdump:unix_stream_socket { create setopt connect write read };
+allow processdump data_local_tmp:file { getattr map open read };
 
 #============ hidumper ==============
 allow processdump hidumper_service:fifo_file ioctl;
@@ -71,6 +78,9 @@ allow processdump normal_hap_attr:dir { getattr open read search };
 allow processdump normal_hap_attr:file { getattr open read };
 allow processdump app_el1_bundle_public:dir search;
 allow processdump data_app_el1_file:dir search; # remove later
+
+#============ hap_domain ================
+allow processdump hap_domain:lnk_file { read };
 
 #============= for hdcd ================
 allow processdump hdcd:fd use;
@@ -130,6 +140,9 @@ allow processdump proc_file:lnk_file { read };
 allow processdump tmpfs:dir { search };
 allow processdump tmpfs:lnk_file { read };
 allow processdump debugfs:dir { search };
+
+#============ chip_prod_file ===================
+allow processdump chip_prod_file:dir { search };
 
 ############################
 ## neverallow assertions: ##

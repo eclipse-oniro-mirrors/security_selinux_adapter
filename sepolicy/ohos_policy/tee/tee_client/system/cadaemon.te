@@ -1,0 +1,79 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+type cadaemon, sadomain, domain;
+
+allow cadaemon system_bin_file: dir { search };
+allow cadaemon system_bin_file: file { read open getattr };
+allow cadaemon dev_tee_public:chr_file { read write open ioctl map };
+allow cadaemon dev_tee_private:chr_file { read write open ioctl };
+
+#avc:  denied  { add } for service=8001 pid=2904 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_cadaemon_service:s0 tclass=samgr_class permissive=0
+allow cadaemon sa_ca_daemon_service:samgr_class { add };
+#avc:  denied  { get } for service=3901 pid=2935 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=0
+allow cadaemon sa_param_watcher:samgr_class { get };
+#avc:  denied  { call } for  pid=2854 comm="cadaemon" scontext=u:r:cadaemon:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2854 comm="cadaemon" scontext=u:r:cadaemon:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+#avc:  denied  { call } for  pid=462 comm="IPC_2_1662" scontext=u:r:param_watcher:s0 tcontext=u:r:cadaemon:s0 tclass=binder permissive=1
+allow cadaemon param_watcher:binder { call transfer };
+allow param_watcher cadaemon:binder { call };
+#avc:  denied  { search } for  pid=2902 comm="cadaemon" name="/" dev="tracefs" ino=1 scontext=u:r:cadaemon:s0 tcontext=u:object_r:tracefs:s0 tclass=dir
+allow cadaemon tracefs:dir { search };
+#avc:  denied  { open } for  pid=439 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=74 scontext=u:r:cadaemon:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2846 comm="sa_main" name="u:object_r:debug_param:s0" dev="tmpfs" ino=74 scontext=u:r:cadaemon:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=3019 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=74 scontext=u:r:cadaemon:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+allow cadaemon debug_param:file { open read map };
+#avc:  denied  { open } for  pid=2846 comm="cadaemon" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=9933 scontext=u:r:cadaemon:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=0
+#avc:  denied  { open write } for  pid=2902 comm="cadaemon" name="trace_marker" dev="tracefs" ino=9933 scontext=u:r:cadaemon:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file
+allow cadaemon tracefs_trace_marker_file:file { open write };
+#avc:  denied  { call } for  pid=440 comm="cadaemon" scontext=u:r:cadaemon:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow cadaemon accesstoken_service:binder { call };
+#avc:  denied  { search } for  pid=460 comm="sa_main" name="socket" dev="tmpfs" ino=38 scontext=u:r:cadaemon:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow cadaemon dev_unix_socket:dir { search };
+#avc:  denied  { read } for  pid=460 comm="sa_main" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=63 scontext=u:r:cadaemon:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=460 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=63 scontext=u:r:cadaemon:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=460 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=63 scontext=u:r:cadaemon:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+allow cadaemon hilog_param:file { map open read };
+#avc:  denied  { read } for  pid=460 comm="cadaemon" name="u:object_r:musl_param:s0" dev="tmpfs" ino=69 scontext=u:r:cadaemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=460 comm="cadaemon" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=69 scontext=u:r:cadaemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=460 comm="cadaemon" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=69 scontext=u:r:cadaemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow cadaemon musl_param:file { map open read };
+#avc:  denied  { read } for  pid=460 comm="sa_main" name="overcommit_memory" dev="proc" ino=3092 scontext=u:r:cadaemon:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=460 comm="sa_main" path="/proc/sys/vm/overcommit_memory" dev="proc" ino=3092 scontext=u:r:cadaemon:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+allow cadaemon proc_file:file { open read };
+#avc:  denied  { read } for  pid=4055 comm="SaInit0" name="c_state" dev="sysfs" ino=68128 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=4055 comm="SaInit0" name="c_state" dev="sysfs" ino=68128 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
+#avc:  denied  { getattr } for  pid=3407 comm="SaInit0" path="/sys/kernel/tui/c_state" dev="sysfs" ino=68182 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow cadaemon sys_file:file { open read getattr };
+#avc:  denied  { get } for service=3503 pid=438 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
+allow cadaemon sa_accesstoken_manager_service:samgr_class { get };
+#avc:  denied  { get } for service=3301 pid=472 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow cadaemon sa_powermgr_powermgr_service:samgr_class { get };
+#avc:  denied  { get } for service=4005 pid=472 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_foundation_tel_call_manager:s0 tclass=samgr_class permissive=1
+allow cadaemon sa_foundation_tel_call_manager:samgr_class { get };
+#avc:  denied  { get } for service=4607 pid=472 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow cadaemon sa_foundation_dms:samgr_class { get };
+#avc:  denied  { call } for  pid=1123 comm="SaInit2" scontext=u:r:cadaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=1123 comm="SaInit2" scontext=u:r:cadaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow cadaemon foundation:binder { call transfer };
+allow cadaemon powermgr:binder { call transfer };
+#avc:  denied  { call } for  pid=1220 comm="IPC_6_1660" scontext=u:r:foundation:s0 tcontext=u:r:cadaemon:s0 tclass=binder permissive=1
+allow foundation cadaemon:binder { call };
+
+debug_only(`
+    allow cadaemon sh:binder { call };
+    allow cadaemon sh:dir { search };
+    allow cadaemon sh:file { read open getattr };
+    allow cadaemon sh:fd { use };
+')
+

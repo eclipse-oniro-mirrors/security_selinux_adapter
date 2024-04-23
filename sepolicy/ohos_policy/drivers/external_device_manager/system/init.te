@@ -12,3 +12,10 @@
 # limitations under the License.
 
 allow init hdf_ext_devmgr:process { rlimitinh siginh transition };
+
+# avc:  denied  { relabelto } for  pid=659 comm="init" name="pkg_service" dev="mmcblk0p14" ino=278 scontext=u:r:init:s0 tcontext=u:object_r:hdf_ext_devmgr_file:s0 tclass=dir permissive=0
+# avc:  denied  { read } for  pid=741 comm="init" name="pkg_service" dev="mmcblk0p14" ino=290 scontext=u:r:init:s0 tcontext=u:object_r:hdf_ext_devmgr_file:s0 tclass=dir permissive=0
+# avc:  denied  { setattr } for  pid=741 comm="init" name="pkg_service" dev="mmcblk0p14" ino=290 scontext=u:r:init:s0 tcontext=u:object_r:hdf_ext_devmgr_file:s0 tclass=dir permissive=0
+# avc:  denied  { open } for  pid=1431 comm="init" path="/data/service/el1/public/pkg_service" dev="mmcblk0p14" ino=1496 scontext=u:r:init:s0 tcontext=u:object_r:hdf_ext_devmgr_file:s0 tclass=dir permissive=0
+# avc:  denied  { getattr } for  pid=661 comm="init" path="/data/service/el1/public/pkg_service" dev="mmcblk0p14" ino=1488 scontext=u:r:init:s0 tcontext=u:object_r:hdf_ext_devmgr_file:s0 tclass=dir permissive=0
+allow init hdf_ext_devmgr_file:dir { relabelto read setattr open getattr };

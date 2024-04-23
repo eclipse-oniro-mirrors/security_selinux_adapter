@@ -20,9 +20,16 @@ allow huks_service data_service_file:dir { search };
 allow huks_service data_service_el1_file:dir { search };
 allow huks_service data_service_el1_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
 allow huks_service data_service_el1_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
-allow huks_service data_service_el2_file:dir { search };
+allow huks_service data_service_el2_file:dir { search create write open read add_name remove_name };
+allow huks_service data_service_el2_file:file { create write open read unlink getattr setattr };
 allow huks_service data_service_el2_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
 allow huks_service data_service_el2_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
+allow huks_service data_service_el4_file:dir { search create write open read add_name remove_name };
+allow huks_service data_service_el4_file:file { create write open read unlink getattr setattr };
+allow huks_service data_data_file:dir { search };
+allow huks_service data_data_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow huks_service data_data_huksService_file:file { create getattr ioctl open read setattr unlink write };
+allowxperm huks_service data_data_huksService_file:file ioctl { 0x5705 };
 allow huks_service foundation:binder { call transfer };
 allow huks_service vendor_lib_file:dir { search };
 allow huks_service samain_exec:file { entrypoint execute map read };
@@ -53,4 +60,26 @@ allow huks_service devinfo_private_param:file { map open read };
 
 #avc:  denied  { get } for service=401 pid=342 scontext=u:r:huks_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
 allow huks_service sa_foundation_bms:samgr_class { get };
-allow huks_service sa_ca_daemon_service:samgr_class { get };
+allow huks_service sa_ca_daemon_service:samgr_class { add get };
+
+debug_only(`
+    allow huks_service su:binder { call transfer };
+    allow su huks_service:binder { call transfer };
+')
+
+allow dslm_service huks_service:binder { call transfer };
+allow huks_service dslm_service:binder { call transfer };
+
+allow system_basic_hap huks_service:binder { call transfer };
+allow huks_service system_basic_hap:binder { call transfer };
+
+allow system_core_hap huks_service:binder { call transfer };
+allow huks_service system_core_hap:binder { call transfer };
+
+allow normal_hap huks_service:binder { call transfer };
+allow huks_service normal_hap:binder { call transfer };
+
+developer_only(`
+    allow debug_hap huks_service:binder { call transfer };
+    allow huks_service debug_hap:binder { call transfer };
+')

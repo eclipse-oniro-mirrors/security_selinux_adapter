@@ -42,8 +42,8 @@ debug_only(`
     allow foundation sh:binder { call transfer };
 ')
 
-allow foundation system_basic_hap:binder { call };
-allow foundation system_core_hap:binder { call };
+allow foundation system_basic_hap_attr:binder { call };
+allow foundation system_core_hap_attr:binder { call };
 allow foundation system_usr_file:dir { search };
 allow foundation system_usr_file:file { getattr map open read };
 allow foundation ui_service:binder { call };

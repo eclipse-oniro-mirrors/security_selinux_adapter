@@ -1,0 +1,67 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow updater_binary data_file:dir { search };
+allow updater_binary data_updater_file:dir { search };
+allow updater_binary data_updater_file:file { map read open append };
+allow updater_binary dev_block_file:blk_file { read write open };
+allow updater_binary dev_block_file:dir { search };
+allow updater_binary dev_block_file:lnk_file { read };
+allow updater_binary dev_block_volfile:dir { search };
+allow updater_binary musl_param:file { read open map };
+allow updater_binary ohos_boot_param:file { open map read };
+allow updater_binary sys_installer_sa:fifo_file { write getattr ioctl };
+allowxperm updater_binary sys_installer_sa:fifo_file ioctl { 0x5413 };
+allow updater_binary sys_installer_sa:fd { use };
+allow updater_binary dev_unix_socket:dir { search };
+allow updater_binary sys_installer_sa:unix_dgram_socket { connect write };
+allow updater_binary system_bin_file:dir { search };
+allow updater_binary system_bin_file:file { execute execute_no_trans read open map };
+allow updater_binary vendor_etc_file:dir { search };
+
+# avc:  denied  { read } for  pid=1204 comm="updater_binary" name="u:object_r:debug_param:s0" dev="tmpfs" ino=79 scontext=u:r:updater_binary:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow updater_binary debug_param:file { map open read };
+
+# avc:  denied  { ioctl } for  pid=1127 comm="updater_binary" path="/data/updater/log/error_code.log" dev="mmcblk0p18" ino=1730 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=0
+# avc:  denied  { create } for  pid=1137 comm="updater_binary" name="updater_log" scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=1137 comm="updater_binary" path="/data/updater/log/updater_log" dev="mmcblk0p18" ino=5742 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { write } for  pid=1137 comm="updater_binary" name="update.bin.tmp" dev="mmcblk0p18" ino=2016 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=1101 comm="updater_binary" path="/data/updater/log/updater_log" dev="mmcblk0p18" ino=5742 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=1101 comm="updater_binary" path="/data/updater/log/updater_log" dev="mmcblk0p18" ino=5742 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+# avc:  denied  { write } for  pid=1101 comm="updater_binary" name="update.bin.tmp" dev="mmcblk0p18" ino=2016 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
+allow updater_binary data_updater_file:file { ioctl create getattr write };
+allowxperm updater_binary data_updater_file:file ioctl { 0x5413 };
+
+# avc:  denied  { getattr } for  pid=1101 comm="updater_binary" path="/data/updater" dev="mmcblk0p18" ino=1396 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=1
+# avc:  denied  { read write } for  pid=1101 comm="updater_binary" name="updater" dev="mmcblk0p18" ino=1396 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=1087 comm="updater_binary" name="log" dev="mmcblk0p18" ino=3425 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=0
+# avc:  denied  { add_name } for  pid=1122 comm="updater_binary" name="error_code.log" scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=0
+allow updater_binary data_updater_file:dir { getattr read write write add_name };
+
+# avc:  denied  { read } for  pid=1101 comm="updater_binary" name="ota_package" dev="mmcblk0p18" ino=197 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_firmware_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=1101 comm="updater_binary" name="ota_package" dev="mmcblk0p18" ino=197 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_firmware_file:s0 tclass=dir permissive=1
+allow updater_binary update_firmware_file:dir { read search };
+
+# avc:  denied  { map } for  pid=1101 comm="updater_binary" path="/data/update/ota_package/update.zip" dev="mmcblk0p18" ino=1585 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_firmware_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1101 comm="updater_binary" path="/data/update/ota_package/update.zip" dev="mmcblk0p18" ino=1585 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_firmware_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=1101 comm="updater_binary" name="update.zip" dev="mmcblk0p18" ino=1585 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_firmware_file:s0 tclass=file permissive=1
+allow updater_binary update_firmware_file:file { map open read };
+
+# avc:  denied  { execute } for  pid=1156 comm="IPC_2_1112" name="updater_binary" dev="tmpfs" ino=110 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc:  denied  { execute_no_trans } for  pid=1156 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1156 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+allow updater_binary tmpfs:file { execute execute_no_trans open };
+
+allow updater_binary updater_block_file:blk_file { read write open };
+allow updater_binary updater_block_file:dir { search };
+allow updater_binary updater_block_file:lnk_file { read };

@@ -533,3 +533,34 @@ class xpm
     exec_no_sign
     exec_anon_mem
 }
+
+class hideaddr
+{
+    hide_exec_anon_mem
+    hide_exec_anon_mem_debug
+}
+
+class code_sign
+{
+    add_cert_chain
+    remove_cert_chain
+}
+
+class hmpsf
+{
+    map_create
+    map_read
+    map_write
+    module_load
+    module_run
+}
+
+class ced
+{
+    container_escape_check
+}
+
+class jit_memory
+{
+    exec_mem_ctrl
+}

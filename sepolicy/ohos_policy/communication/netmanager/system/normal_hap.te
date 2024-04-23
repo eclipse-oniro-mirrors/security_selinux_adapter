@@ -16,9 +16,13 @@ allow normal_hap_attr fwmark_service:sock_file { write };
 allow normal_hap_attr netmanager:binder { call transfer };
 
 allow normal_hap_attr netsysnative:unix_stream_socket { connectto read write };
-allow normal_hap_attr normal_hap_attr:tcp_socket { getattr create setopt bind connect getopt read write };
-allow normal_hap_attr normal_hap_attr:udp_socket { getattr create setopt bind connect getopt read write };
+allow normal_hap_attr normal_hap_attr:tcp_socket { getattr create setopt bind connect getopt read write shutdown };
+allow normal_hap_attr normal_hap_attr:udp_socket { getattr create setopt bind connect getopt read write shutdown };
 
 allow normal_hap_attr sa_comm_ethernet_manager_service:samgr_class { get };
 allow normal_hap_attr sa_comm_net_stats_manager_service:samgr_class { get };
 allow normal_hap_attr sa_comm_net_tethering_manager_service:samgr_class { get };
+allow normal_hap_attr sa_net_policy_manager:samgr_class { get };
+
+allow normal_hap_attr sa_comm_vpn_manager_service:samgr_class { get };
+allow normal_hap_attr port:udp_socket { name_bind };

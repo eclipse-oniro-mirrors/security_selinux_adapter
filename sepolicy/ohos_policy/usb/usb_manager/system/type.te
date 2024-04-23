@@ -11,3 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 type usb_setting_param, parameter_attr;
+allow init {parameter_attr -usb_setting_param}:file { read getattr open };

@@ -21,7 +21,7 @@ allow codec_host musl_param:file { open map read };
 allow codec_host dev_ashmem_file:chr_file { open };
 allow codec_host hdf_device_manager:hdf_devmgr_class { get };
 allow codec_host hdf_codec_hdi_omx_service:hdf_devmgr_class { add get };
-allow codec_host hdf_codec_image_jpeg_service:hdf_devmgr_class { add get };
+allow codec_host hdf_codec_image_service:hdf_devmgr_class { add get };
 allow codec_host hdf_codec_component_manager_service:hdf_devmgr_class { add get };
 allow codec_host hdf_codec_hdi_service:hdf_devmgr_class { add get };
 allow codec_host dev_dri_file:dir { search read write };
@@ -76,6 +76,7 @@ allow codec_host system_bin_file:dir { search };
 allow codec_host sys_usb_param:file { map open read };
 allow codec_host vendor_etc_file:dir { search };
 allow codec_host vendor_etc_file:file { getattr open read };
+allow codec_host hap_domain:binder { call transfer };
 allowxperm codec_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 debug_only(`
     allow codec_host sh:binder { transfer call };

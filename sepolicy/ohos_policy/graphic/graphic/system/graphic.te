@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -26,15 +26,17 @@ allow render_service allocator_host:binder { call };
 allow render_service allocator_host:fd { use };
 allow render_service foundation:binder { call transfer };
 allow render_service foundation:fd { use };
+allow render_service powermgr:binder { call transfer };
+allow render_service powermgr:fd { use };
 allow render_service normal_hap_attr:binder { call };
 allow render_service normal_hap_attr:fd { use };
 allow render_service proc_file:file { open read };
 allow render_service render_service:netlink_kobject_uevent_socket { read };
 allow render_service sys_file:file { open read write };
-allow render_service system_basic_hap:binder { call };
-allow render_service system_basic_hap:fd { use };
-allow render_service system_core_hap:binder { call };
-allow render_service system_core_hap:fd { use };
+allow render_service system_basic_hap_attr:binder { call };
+allow render_service system_basic_hap_attr:fd { use };
+allow render_service system_core_hap_attr:binder { call };
+allow render_service system_core_hap_attr:fd { use };
 allow render_service vendor_lib_file:dir { search };
 allow render_service accessibility_param:file { read };
 allow render_service system_fonts_file:dir { open read search };
@@ -45,15 +47,39 @@ allow render_service vendor_bin_file:dir { search };
 allow render_service paramservice_socket:sock_file { write };
 allow render_service kernel:unix_stream_socket { connectto };
 allow render_service debug_param:parameter_service { set };
+allow render_service sa_resource_schedule_socperf_server:samgr_class { get };
+allow render_service persist_param:parameter_service { set };
+allow render_service sa_sensor_service:samgr_class { get };
+allow render_service sensors:binder { call transfer };
+allow render_service hmdfs:file { map write read };
+allow render_service multimodalinput:fd { use };
 
 debug_only(`
     allow render_service sh:fd { use };
 ')
 
+developer_only(`
+    allow sh debug_param:parameter_service { set };
+')
+
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x6409 0x640d 0x641e 0x642e 0x643a 0x64af 0x64b8 0x64bc 0x64bd 0x64be };
 allowxperm render_service dev_graphics_file:chr_file ioctl 0x4611;
-allowxperm render_service dev_mali:chr_file ioctl { 0x8002 0x8006 0x8007 0x8016 0x8018 0x8019 0x801d 0x801e };
+allowxperm render_service dev_mali:chr_file ioctl { 0x8002 0x8006 0x8007 0x8016 0x8018 0x8019 0x801b 0x801d 0x801e };
 allowxperm render_service dev_rga:chr_file ioctl 0x5017;
 
 
 hdi_call(render_service, hdf_allocator_service)
+
+allow render_service vendor_etc_file:dir { search };
+allow render_service vendor_etc_vulkan_file:dir { open read search };
+allow render_service vendor_etc_vulkan_file:file { getattr open read };
+
+allow hap_domain vendor_etc_file:dir { search };
+allow hap_domain vendor_etc_vulkan_file:dir { open read search };
+allow hap_domain vendor_etc_vulkan_file:file { getattr open read };
+
+neverallow { domain } vendor_etc_vulkan_file:dir ~{ open read search getattr };
+neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };
+neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search } vendor_etc_vulkan_file:dir { open read search };
+neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read } vendor_etc_vulkan_file:file { getattr open read };
+neverallow { domain -init } vendor_etc_vulkan_file:dir { getattr };

@@ -52,5 +52,6 @@ allow mmi_uinput_service sys_param:file { map open read };
 allow mmi_uinput_service system_bin_file:dir { search };
 allow mmi_uinput_service sys_usb_param:file { map open read };
 allow mmi_uinput_service uinput_inject_exec:file { entrypoint execute map read };
+allow mmi_uinput_service sysfs_devices_system_cpu:file { open read getattr };
 allowxperm mmi_uinput_service dev_hdf_input:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allowxperm mmi_uinput_service dev_uinput:chr_file ioctl { 0x5501 0x5564 0x5565 0x5567 0x556e };

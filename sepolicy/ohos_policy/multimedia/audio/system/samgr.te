@@ -11,31 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { call } for  pid=242 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=234 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-allow samgr audio_policy:binder { call transfer };
+#avc:  denied  { call } for  pid=242 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=234 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+allow samgr audio_server:binder { call transfer };
 
-#avc:  denied  { search } for  pid=243 comm="samgr" name="371" dev="proc" ino=16359 scontext=u:r:samgr:s0 tcontext=u:r:audio_policy:s0 tclass=dir permissive=1
-allow samgr audio_policy:dir { search };
+#avc:  denied  { search } for  pid=243 comm="samgr" name="371" dev="proc" ino=16359 scontext=u:r:samgr:s0 tcontext=u:r:audio_server:s0 tclass=dir permissive=1
+allow samgr audio_server:dir { search };
 
-#avc:  denied  { open } for  pid=243 comm="samgr" path="/proc/371/attr/current" dev="proc" ino=24521 scontext=u:r:samgr:s0 tcontext=u:r:audio_policy:s0 tclass=file permissive=1
-#avc:  denied  { read } for  pid=243 comm="samgr" name="current" dev="proc" ino=24521 scontext=u:r:samgr:s0 tcontext=u:r:audio_policy:s0 tclass=file permissive=1
-allow samgr audio_policy:file { open read };
+#avc:  denied  { open } for  pid=243 comm="samgr" path="/proc/371/attr/current" dev="proc" ino=24521 scontext=u:r:samgr:s0 tcontext=u:r:audio_server:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=243 comm="samgr" name="current" dev="proc" ino=24521 scontext=u:r:samgr:s0 tcontext=u:r:audio_server:s0 tclass=file permissive=1
+allow samgr audio_server:file { open read };
 
-#avc:  denied  { getattr } for  pid=243 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:audio_policy:s0 tclass=process permissive=1
-allow samgr audio_policy:process { getattr };
-
-#avc:  denied  { call } for  pid=242 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=234 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
-allow samgr pulseaudio:binder { call transfer };
-
-#avc:  denied  { search } for  pid=243 comm="samgr" name="337" dev="proc" ino=23366 scontext=u:r:samgr:s0 tcontext=u:r:pulseaudio:s0 tclass=dir permissive=1
-allow samgr pulseaudio:dir { search };
-
-#avc:  denied  { open } for  pid=243 comm="samgr" path="/proc/337/attr/current" dev="proc" ino=24855 scontext=u:r:samgr:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
-#avc:  denied  { read } for  pid=243 comm="samgr" name="current" dev="proc" ino=24855 scontext=u:r:samgr:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
-allow samgr pulseaudio:file { open read };
-
-#avc:  denied  { getattr } for  pid=243 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:pulseaudio:s0 tclass=process permissive= 1
-allow samgr pulseaudio:process { getattr };
-
+#avc:  denied  { getattr } for  pid=243 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:audio_server:s0 tclass=process permissive=1
+allow samgr audio_server:process { getattr };

@@ -1,0 +1,20 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc: denied { search } for pid=248 comm="HiDumperCpuServ" name="2277" dev="proc" ino=37362 scontext=u:r:hiview:s0 tcontext=u:r:isolated_render:s0 tclass=dir permissive=1
+allow hiview isolated_render:dir { search };
+
+#avc: denied { getattr } for pid=248 comm="HiDumperCpuServ" path="/proc/2277/stat" dev="proc" ino=37368 scontext=u:r:hiview:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+#avc: denied { open } for pid=248 comm="HiDumperCpuServ" path="/proc/2277/stat" dev="proc" ino=37368 scontext=u:r:hiview:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+#avc: denied { read } for pid=248 comm="HiDumperCpuServ" name="stat" dev="proc" ino=37368 scontext=u:r:hiview:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+allow hiview isolated_render:file { getattr open read };

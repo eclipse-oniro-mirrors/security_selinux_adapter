@@ -13,8 +13,8 @@
 
 type work_scheduler_service, sadomain, domain;
 
-allow system_core_hap sa_work_schedule_service:samgr_class { get };
-allow system_basic_hap sa_work_schedule_service:samgr_class { get };
+allow system_core_hap_attr sa_work_schedule_service:samgr_class { get };
+allow system_basic_hap_attr sa_work_schedule_service:samgr_class { get };
 allow work_scheduler_service data_file:dir { search };
 allow work_scheduler_service data_service_el1_file:dir { add_name write search };
 allow work_scheduler_service data_service_el1_file:file { create getattr ioctl open read write };
@@ -31,7 +31,10 @@ binder_call(work_scheduler_service, accountmgr);
 binder_call(work_scheduler_service, foundation);
 binder_call(work_scheduler_service, normal_hap_attr);
 binder_call(work_scheduler_service, param_watcher);
-binder_call(work_scheduler_service, sh);
 binder_call(param_watcher, work_scheduler_service);
 binder_call(foundation, work_scheduler_service);
 binder_call(normal_hap_attr, work_scheduler_service);
+
+debug_only(`
+    binder_call(work_scheduler_service, sh);
+')

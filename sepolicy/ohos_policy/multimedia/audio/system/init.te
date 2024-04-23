@@ -11,10 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { rlimitinh } for  pid=355 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:audio_policy:s0 tclass=process permissive=1
-#avc:  denied  { siginh } for  pid=355 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:audio_policy:s0 tclass=process permissive=1
-#avc:  denied  { transition } for  pid=355 comm="init" path="/system/bin/sa_main" dev="mmcblk0p5" ino=336 scontext=u:r:init:s0 tcontext=u:r:audio_policy:s0 tclass=process permissive=1
-allow init audio_policy:process { rlimitinh siginh transition };
+#avc:  denied  { rlimitinh } for  pid=355 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:audio_server:s0 tclass=process permissive=1
+#avc:  denied  { siginh } for  pid=355 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:audio_server:s0 tclass=process permissive=1
+#avc:  denied  { transition } for  pid=355 comm="init" path="/system/bin/sa_main" dev="mmcblk0p5" ino=336 scontext=u:r:init:s0 tcontext=u:r:audio_server:s0 tclass=process permissive=1
+allow init audio_server:process { rlimitinh siginh transition };
 
 #avc:  denied  { relabelfrom } for  pid=1 comm="init" name=".pulse_dir" dev="mmcblk0p11" ino=783368 scontext=u:r:init:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
 allow init data_data_file:dir { relabelfrom };
@@ -30,10 +30,5 @@ allow init data_data_file:dir { relabelfrom };
 #avc:  denied  { setattr } for  pid=1 comm="init" name=".pulse_dir" dev="mmcblk0p11" ino=522246 scontext=u:r:init:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1#
 #avc:  denied  { write } for  pid=1 comm="init" name="runtime" dev="mmcblk0p11" ino=522247 scontext=u:r:init:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
 allow init data_data_pulse_dir:dir { add_name create getattr open read relabelto remove_name search setattr write };
-
-#avc:  denied  { rlimitinh } for  pid=298 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:pulseaudio:s0 tclass=process permissive=1
-#avc:  denied  { siginh } for  pid=298 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:pulseaudio:s0 tclass=process permissive=1
-#avc:  denied  { transition } for  pid=319 comm="init" path="/system/bin/sa_main" dev="mmcblk0p5" ino=336 scontext=u:r:init:s0 tcontext=u:r:audio_policy:s0 tclass=process permissive=1
-allow init pulseaudio:process { rlimitinh siginh transition };
 
 allow init native_socket:sock_file { unlink };

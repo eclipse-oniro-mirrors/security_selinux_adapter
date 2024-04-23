@@ -56,3 +56,13 @@ allow hiperf render_service_exec:file { getattr map open read };
 
 allow bytrace const_allow_mock_param:file { read map open };
 allow bytrace const_allow_param:file { read map open };
+
+allow bytrace sa_hiview_service:samgr_class get;
+allow bytrace samgr:binder { call };
+allow bytrace dev_console_file:chr_file { read write };
+allow bytrace hiview:binder { call transfer };
+
+allow samgr bytrace:dir { search };
+allow samgr bytrace:file { read open };
+allow samgr bytrace:process { getattr };
+allow samgr bytrace:binder { call transfer };

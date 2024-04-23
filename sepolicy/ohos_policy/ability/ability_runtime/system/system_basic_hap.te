@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,18 +11,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap dev_mali:chr_file { ioctl };
-allow system_basic_hap faultloggerd_temp_file:file { write };
-allow system_basic_hap net_param:file { map open read };
-allow system_basic_hap ohos_boot_param:file { map open read };
-allow system_basic_hap ohos_param:file { map open read };
-allow system_basic_hap sys_param:file { map open read };
-allow system_basic_hap sys_usb_param:file { map open read };
-allow system_basic_hap system_basic_hap:process { ptrace };
-allow system_basic_hap system_bin_file:dir { search };
-allowxperm system_basic_hap dev_mali:chr_file ioctl {  0x8007 0x800f  };
-allow system_basic_hap system_file:file { getattr open read execute };
-allow system_basic_hap data_service_el1_file:file { getattr map open read };
-allow system_basic_hap sa_quick_fix_mgr_service:samgr_class { get };
-allow system_basic_hap quick_fix:binder { call };
-allow system_basic_hap system_file:file { map };
+allow system_basic_hap_attr dev_mali:chr_file { ioctl };
+allow system_basic_hap_attr faultloggerd_temp_file:file { write };
+allow system_basic_hap_attr net_param:file { map open read };
+allow system_basic_hap_attr ohos_boot_param:file { map open read };
+allow system_basic_hap_attr ohos_param:file { map open read };
+allow system_basic_hap_attr sys_param:file { map open read };
+allow system_basic_hap_attr sys_usb_param:file { map open read };
+allow system_basic_hap_attr system_basic_hap_attr:process { ptrace };
+allow system_basic_hap_attr system_bin_file:dir { search };
+allowxperm system_basic_hap_attr dev_mali:chr_file ioctl {  0x8007 0x800f  };
+allow system_basic_hap_attr system_file:file { getattr open read execute };
+allow system_basic_hap_attr data_service_el1_file:file { getattr map open read };
+allow system_basic_hap_attr sa_quick_fix_mgr_service:samgr_class { get };
+allow system_basic_hap_attr quick_fix:binder { call };
+allow system_basic_hap_attr system_file:file { map };

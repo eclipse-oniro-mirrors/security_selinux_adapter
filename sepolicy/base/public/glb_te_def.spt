@@ -57,6 +57,27 @@ define(`hap_set', `
     neverallow { domain -$1 -processdump } $1:process ptrace;
 ')
 
+# policy only for developer version
+# developer_only(`
+#    developer_only
+# ')
+#
+define(`developer_only', ifelse(build_with_developer, `enable', $1, ))
+# The macro non_developer_mode is expected to strengthen the expressiveness for
+# SELinux policies. For example,
+
+# neverallow init data_local_tmp:dir { write add_name remove_name  };
+
+# in the developer mode, we'd like to allow init to create the directory
+# /data/local/tmp/debugserver. Without this macro, it seems very hard to tweak
+# the above rule to give the init process permissions, write and add_name.
+# Nevertheless, by non_developer_mode, we can encompass rules only effective
+# in the developer mode with it. Then, the above rule becoms,
+
+# neverallow init data_local_tmp:dir {
+#     non_developer_mode(`write add_name') remove_name };
+define(`non_developer_mode', ifelse(build_with_developer, `enable', , $1))
+
 # policy only for debug version
 # debug_only(`
 #    debug_policy
@@ -70,3 +91,35 @@ define(`debug_only', ifelse(build_with_debug, `enable', $1, ))
 # ')
 #
 define(`updater_only', ifelse(build_with_updater, `enable', $1, ))
+
+###################
+## Macro define: ##
+###################
+define(`use_hilog', `
+    allow $1 hilog_input_socket:sock_file write;
+    allow $1 hilogd:unix_dgram_socket sendto;
+')
+
+define(`read_hilog', `
+    allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
+    allow $1 hilog_output_socket:sock_file write;
+    allow $1 hilogd:unix_stream_socket connectto;
+    allow $1 time_param:file { read open map };
+')
+
+define(`control_hilog', `
+    allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
+    allow $1 hilog_control_socket:sock_file write;
+    allow $1 hilogd:unix_stream_socket connectto;
+    allow $1 hilog_param:parameter_service { set };
+')
+
+# define(`native_system_domain', `sh hdcd atm bm updater uitest wukong SP_daemon aa su bytrace hiebpf 
+# hiperf hiprofilerd hiprofiler_cmd hiprofiler_plugins native_daemon processdump hidumper hisysevent 
+# write_updater hitrace udevadm udevd key_enable appspawn init ueventd updater_binary hilog')
+
+# define(`native_chipset_domain', `chipset_init')
+
+define(`system_domain', `sadomain hap_domain native_system_domain')
+
+define(`chipset_domain', `hdfdomain native_chipset_domain')

@@ -1,0 +1,149 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# add for aa in debug mode
+debug_only(`
+    allow aa aa_exec:file { execute_no_trans };
+    allow aa accessibility:binder { call transfer };
+    allow aa arkcompiler_param:file { map open read };
+    allow aa ark_writeable_param:file { map open read };
+    allow aa bm_exec:file { getattr execute execute_no_trans map read open };
+    allow aa data_file:dir { search getattr};
+    allow aa data_local:dir { search };
+    allow aa data_local_tmp:dir { getattr write search };
+    allow aa data_service_el1_file:file { read write };
+    allow aa debug_param:file { map read open };
+    allow aa dev_ashmem_file:chr_file { open };
+    allow aa dev_console_file:chr_file { read write };
+    allow aa dev_kmsg_file:chr_file { write };
+    allow aa devpts:chr_file { ioctl read write };
+    allow aa dev_unix_socket:dir { search };
+    allow aa foundation:binder { call transfer };
+    allow aa foundation:fd { use };
+    allow aa hap_domain:fd { use };
+    allow aa hap_file_attr:file { getattr ioctl read write };
+    allow aa hdcd:fd { use };
+    allow aa hdcd:fifo_file { ioctl read write };
+    allow aa hdcd:unix_stream_socket { read write };
+    allow aa hilog_control_socket:sock_file { write };
+    allow aa hilogd:unix_stream_socket { connectto };
+    allow aa hilog_exec:file { getattr execute execute_no_trans map read open };
+    allow aa hilog_output_socket:sock_file { write };
+    allow aa hilog_param:file { map read open };
+    allow aa init:dir { getattr search };
+    allow aa init:file { open read };
+    allow aa kernel:dir { getattr search };
+    allow aa kernel:file { open read };
+    allow aa multimodalinput:binder { call };
+    allow aa normal_hap_attr:binder { call transfer };
+    allow aa param_watcher:binder { call transfer };
+    allow aa persist_sys_param:file { map open read };
+    allow aa powermgr:binder { call transfer };
+    allow aa powermgr:fd { use };
+    allow aa render_service:fd { use };
+    allow aa sa_accessibleabilityms:samgr_class { get };
+    allow aa sa_accountmgr:samgr_class { get };
+    allow aa sa_foundation_abilityms:samgr_class { get };
+    allow aa sa_foundation_appms:samgr_class { get };
+    allow aa sa_foundation_bms:samgr_class { get };
+    allow aa sa_foundation_bms:samgr_class { get };
+    allow aa sa_foundation_cesfwk_service:samgr_class { get };
+    allow aa sa_foundation_dms:samgr_class { get };
+    allow aa samgr:binder { call };
+    allow aa sa_multimodalinput_service:samgr_class { get };
+    allow aa sa_param_watcher:samgr_class { get };
+    allow aa sh_exec:file { execute execute_no_trans map read open };
+    allow aa sh:fd { use };
+    allow aa sh:fifo_file { ioctl write };
+    allow aa system_bin_file:dir { search };
+    allow aa system_bin_file:file { getattr execute read open execute_no_trans map };
+    allow aa system_bin_file:lnk_file { read };
+    allow aa tracefs:dir { search };
+    allow aa tty_device:chr_file { read write open ioctl };
+    allow aa uinput_exec:file { execute execute_no_trans getattr map read open };
+    allow aa uitest_exec:file { execute getattr map read open };
+    allow aa watchdog_service:dir { getattr search };
+    allow accessibility aa:binder { call transfer };
+    allow foundation aa:binder { call };
+    allow hap_domain aa:binder { call };
+    allow hdcd aa:process { signal };
+    allow hidumper aa:fd { use };
+    allow hidumper aa:fifo_file { write };
+    allow hidumper_service aa:dir { search };
+    allow hidumper_service aa:fd { use };
+    allow hidumper_service aa:fifo_file { write };
+    allow hidumper_service aa:file { getattr open read };
+    allow hiview aa:dir { search };
+    allow hiview aa:file { read open getattr };
+    allow normal_hap_attr aa:binder { transfer };
+    allow param_watcher aa:binder { call };
+    allow powermgr aa:binder { call };
+    allow samgr aa:binder { call transfer };
+    allow samgr aa:dir { search };
+    allow samgr aa:file { open read };
+    allow samgr aa:process { getattr };
+    allowxperm aa devpts:chr_file ioctl { 0x5413 };
+    allowxperm aa hap_file_attr:file ioctl { 0x5413 };
+    allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
+    allowxperm aa sh:fifo_file ioctl { 0x5413 };
+    allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+')
+
+# add for aa in developer mode
+developer_only(`
+    allow aa aa_exec:file { execute_no_trans };
+    allow aa arkcompiler_param:file { map open read };
+    allow aa ark_writeable_param:file { map open read };
+    allow aa debug_param:file { map read open };
+    allow aa dev_console_file:chr_file { read write };
+    allow aa devpts:chr_file { ioctl read write };
+    allow aa dev_unix_socket:dir { search };
+    allow aa foundation:binder { call transfer };
+    allow aa foundation:fd { use };
+    allow aa hdcd:fd { use };
+    allow aa hdcd:fifo_file { ioctl read write };
+    allow aa hdcd:unix_stream_socket { read write };
+    allow aa hilog_param:file { map read open };
+    allow aa persist_sys_param:file { map open read };
+    allow aa powermgr:binder { call transfer };
+    allow aa powermgr:fd { use };
+    allow aa sa_foundation_abilityms:samgr_class { get };
+    allow aa sa_foundation_appms:samgr_class { get };
+    allow aa samgr:binder { call };
+    allow aa samgr:dir { search };
+    allow aa samgr:file { read open };
+    allow aa samgr:process { getattr };
+    allow aa sh_exec:file { execute execute_no_trans map read open };
+    allow aa sh:fd { use };
+    allow aa system_bin_file:dir { search };
+    allow aa system_bin_file:file { getattr execute read open execute_no_trans map };
+    allow aa system_bin_file:lnk_file { read };
+    allow aa tracefs:dir { search };
+    allow aa tty_device:chr_file { read write open ioctl };
+    allow debug_hap aa:binder { call };
+    allow foundation aa:binder { call transfer };
+    allow hdcd aa:process { signal };
+    allow hidumper_service aa:dir { search };
+    allow hidumper_service aa:file { getattr open read };
+    allow hiview aa:dir { search };
+    allow hiview aa:file { read open getattr };
+    allow normal_hap aa:binder { call };
+    allow powermgr aa:binder { call transfer };
+    allow samgr aa:binder { call transfer };
+    allow samgr aa:dir { search };
+    allow samgr aa:file { open read };
+    allow samgr aa:process { getattr };
+    allowxperm aa devpts:chr_file ioctl { 0x5413 };
+    allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
+    allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+')

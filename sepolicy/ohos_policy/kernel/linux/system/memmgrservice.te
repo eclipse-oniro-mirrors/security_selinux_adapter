@@ -11,18 +11,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow memmgrservice resource_schedule_service:binder { transfer };
+
 allow memmgrservice data_file:dir { search };
 allow memmgrservice data_init_agent:dir { search };
 allow memmgrservice data_init_agent:file { ioctl open read append };
 allow memmgrservice domain:dir { search };
-allow memmgrservice domain:file { open read getattr };
+allow memmgrservice domain:file { open read getattr write };
 allow memmgrservice accountmgr:binder { call transfer };
 allow memmgrservice dev_unix_socket:dir { search };
 allow memmgrservice bgtaskmgr_service:binder { call transfer };
 allow memmgrservice cgroup:dir { add_name create search open read write };
 allow memmgrservice cgroup:file { append getattr ioctl open read write };
 allow memmgrservice foundation:binder { call transfer };
-
+allow memmgrservice data_vendor:dir { search };
+allow memmgrservice hyperhold_sys:dir { search relabelto write add_name getattr setattr remove_name };
+allow memmgrservice hyperhold_sys:file { getattr open read write create rename unlink };
+allow memmgrservice servicectrl_param:parameter_service { set };
 allow memmgrservice memmgrservice:capability { kill sys_resource dac_override sys_ptrace };
 neverallow memmgrservice *:process ptrace;
 
@@ -35,10 +40,10 @@ allow memmgrservice normal_hap_attr:process { sigkill };
 allow memmgrservice proc_file:file { write open read create ioctl getattr };
 
 allow memmgrservice proc_meminfo_file:file { open read getattr };
-allow memmgrservice system_basic_hap:file { write getattr };
-allow memmgrservice system_basic_hap:process { sigkill };
-allow memmgrservice system_core_hap:file { write };
-allow memmgrservice system_core_hap:process { sigkill };
+allow memmgrservice system_basic_hap_attr:file { write getattr };
+allow memmgrservice system_basic_hap_attr:process { sigkill };
+allow memmgrservice system_core_hap_attr:file { write };
+allow memmgrservice system_core_hap_attr:process { sigkill };
 allow memmgrservice vendor_lib_file:file { read };
 allowxperm memmgrservice cgroup:file ioctl {  0x5413  };
 allowxperm memmgrservice data_init_agent:file ioctl 0x5413;

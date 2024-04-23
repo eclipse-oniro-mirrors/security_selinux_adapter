@@ -43,7 +43,7 @@ allow wifi_host ohos_param:file { map read read open };
 allow wifi_host persist_param:file { map open read };
 allow wifi_host persist_sys_param:file { map open read };
 allow wifi_host sa_device_service_manager:samgr_class { get };
-allow wifi_host samgr:binder { call };
+allow wifi_host samgr:binder { call transfer };
 allow wifi_host security_param:file { map open read };
 allow wifi_host startup_param:file { map open read };
 allow wifi_host sys_param:file { map open read };
@@ -52,7 +52,7 @@ allow wifi_host sys_usb_param:file { map open read };
 allow wifi_host vendor_etc_file:dir { search };
 allow wifi_host vendor_etc_file:file { getattr open read };
 allow wifi_host wifi_hal_service:binder { call };
-
+allow wifi_host wifi_manager_service:binder { call };
 allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
@@ -81,3 +81,91 @@ debug_only(`
     #avc:  denied  { call} for  pid=448 comm="wifi_host" scontext=u:r:wifi_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
     allow wifi_host sh:binder { call };
 ')
+
+allow wifi_host chip_prod_file:dir { search };
+allow wifi_host dev_console_file:chr_file { read write };
+
+allow wifi_host hdf_wpa_interface_service:hdf_devmgr_class { add };
+allow wifi_host musl_param:file { open read map };
+
+allow wifi_host data_service_el1_file:file { create read write open getattr ioctl rename append unlink };
+allow wifi_host data_service_el1_file:sock_file { write setattr getattr unlink create };
+allow wifi_host data_service_el1_file:dir { create search write getattr add_name remove_name rmdir };
+allow wifi_host wifi_host:netlink_generic_socket { bind create getattr read setopt write };
+allow wifi_host dev_unix_socket:sock_file { write };
+#avc:  denied  { create } for  pid=521 comm="IPC_1_583" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=netlink_route_socket permissive=0
+allow wifi_host wifi_host:netlink_route_socket { bind create nlmsg_write read write };
+allow wifi_host wifi_host:packet_socket { bind create ioctl read setopt write };
+allow wifi_host wifi_host:udp_socket { bind connect create ioctl read write };
+allow wifi_host faultloggerd:fd { use };
+allow wifi_host faultloggerd:unix_stream_socket { connectto };
+allow wifi_host hiview:binder { call };
+allow wifi_host kernel:system { module_request };
+allow wifi_host node:udp_socket { node_bind };
+allow wifi_host port:udp_socket { name_bind };
+allow wifi_host vendor_lib_file:dir { search };
+allow wifi_host vendor_lib_file:file { execute getattr map open read };
+allow wifi_host huks_service:binder { call };
+allowxperm wifi_host wifi_host:packet_socket ioctl { 0x8927 0x8933 };
+allowxperm wifi_host wifi_host:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8927 0x8b0d 0x8bf7 0x8933 0x8910 };
+allowxperm wifi_host wifi_host:unix_dgram_socket ioctl { 0x8933 0x5411 };
+allow wifi_host wifi_host:unix_dgram_socket { setattr };
+allow wifi_host wifi_host:unix_dgram_socket { sendto };
+allow wifi_host wifi_host:unix_dgram_socket { read };
+allow wifi_host wifi_host:unix_dgram_socket { getopt };
+allow wifi_host wifi_host:unix_dgram_socket { ioctl };
+allow wifi_host dev_hdfwifi:chr_file { read open write getattr ioctl };
+allow wifi_host data_local_tmp:dir { getattr read };
+allow wifi_host sys_file:file { read write open };
+allow wifi_host chip_prod_file:file { getattr open read };
+allow wifi_host data_vendor:dir { search };
+
+#avc:  denied  { transition } for  pid=1441 comm="init" path="/vendor/bin/hdf_devhost" dev="mmcblk0p8" ino=13 scontext=u:r:chipset_init:s0 tcontext=u:r:wifi_host:s0 tclass=process permissive=0
+allow chipset_init wifi_host:process { rlimitinh siginh transition };
+
+#avc:  denied  { bind } for  pid=1414 comm="WpaMainThread" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=unix_dgram_socket permissive=0
+allow wifi_host wifi_host:unix_dgram_socket { bind };
+
+#avc:  denied  { search } for  pid=516 comm="IPC_1_584" name="/" dev="mmcblk0p14" ino=3 scontext=u:r:wifi_host:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow wifi_host data_file:dir { search };
+
+#avc:  denied  { search } for  pid=508 comm="IPC_1_550" name="service" dev="mmcblk0p14" ino=8 scontext=u:r:wifi_host:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+allow wifi_host data_service_file:dir { search };
+
+#avc:  denied  { ioctl } for  pid=532 comm="WpaMainThread" path="socket:[29690]" dev="sockfs" ino=29690 ioctlcmd=0x8910 scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=unix_dgram_socket permissive=0
+allowxperm wifi_host wifi_host:unix_dgram_socket ioctl { 0x8910 };
+
+#avc:  denied  { search } for  pid=532 comm="IPC_1_574" name="misc" dev="mmcblk0p14" ino=97 scontext=u:r:wifi_host:s0 tcontext=u:object_r:data_misc:s0 tclass=dir permissive=0
+allow wifi_host data_misc:dir { add_name remove_name search write };
+allow wifi_host data_misc:file { ioctl rename unlink };
+allow wifi_host data_misc:sock_file { create unlink };
+allowxperm wifi_host data_misc:file ioctl { 0x5413 };
+
+#avc:  denied  { dac_override } for  pid=1621 comm="wifi_host" capability=1  scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=capability permissive=0
+#avc:  denied  { dac_override } for  pid=1359 comm="wifi_host" capability=1  scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=capability permissive=0
+#avc:  denied  { dac_override } for  pid=1621 comm="IPC_1_1625" capability=1  scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=capability permissive=0
+#allow wifi_host wifi_host:capability { dac_override };
+
+#avc:  denied  { dac_read_search } for  pid=1621 comm="IPC_1_1625" capability=2  scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=capability permissive=0
+allow wifi_host wifi_host:capability { dac_read_search };
+
+allow wifi_host wifi_host:capability { net_admin net_raw };
+
+#avc:  denied  { read } for  pid=1374 comm="IPC_1_1379" name="rfkill" dev="tmpfs" ino=219 scontext=u:r:wifi_host:s0 tcontext=u:object_r:dev_rfkill:s0 tclass=chr_file permissive=0
+#avc:  denied  { open } for  pid=1387 comm="IPC_1_1389" path="/dev/rfkill" dev="tmpfs" ino=219 scontext=u:r:wifi_host:s0 tcontext=u:object_r:dev_rfkill:s0 tclass=chr_file permissive=0
+allow wifi_host dev_rfkill:chr_file { read open };
+
+#avc:  denied  { ioctl } for  pid=1374 comm="evt_list_1380" path="/dev/hdf_kevent" dev="tmpfs" ino=259 ioctlcmd=0x6201 scontext=u:r:wifi_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=0
+allow wifi_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+
+#avc:  denied  { sendto } for  pid=533 comm="WpaMainThread" path="/data/service/el1/public/wifi/wpa_ctrl_499-1" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_hal_service:s0 tclass=unix_dgram_socket permissive=1
+allow wifi_host wifi_hal_service:unix_dgram_socket { sendto };
+
+allow wifi_host hdf_hostapd_interface_service:hdf_devmgr_class { add };
+
+# avc:  denied  { read } for  pid=1398 comm="IPC_1_1430" name="WL_IRAM.bin" dev="sdd84" ino=448 scontext=u:r:wifi_host:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+allow wifi_host vendor_file:file { open read };
+
+# avc:  denied  { call } for  pid=1293 comm="WpaMainThread" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow wifi_host wifi_manager_service:binder { call };

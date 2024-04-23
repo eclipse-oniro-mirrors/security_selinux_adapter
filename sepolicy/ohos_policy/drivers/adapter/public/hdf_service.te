@@ -26,7 +26,7 @@ type hdf_input_service, hdf_service_attr;
 type hdf_codec_hdi_omx_service, hdf_service_attr;
 type hdf_codec_component_manager_service, hdf_service_attr;
 type hdf_codec_hdi_service, hdf_service_attr;
-type hdf_codec_image_jpeg_service, hdf_service_attr;
+type hdf_codec_image_service, hdf_service_attr;
 type hdf_battery_interface_service, hdf_service_attr;
 type hdf_power_interface_service, hdf_service_attr;
 type hdf_light_interface_service, hdf_service_attr;
@@ -39,7 +39,10 @@ type hdf_wlan_hal_service, hdf_service_attr;
 type hdf_display_composer_service, hdf_service_attr;
 type hdf_allocator_service, hdf_service_attr;
 type hdf_camera_service, hdf_service_attr;
+type hdf_camera_image_process_service, hdf_service_attr;
+type hdf_clearplay_service, hdf_service_attr;
 type hdf_face_auth_interface_service, hdf_service_attr;
+type hdf_drm_service, hdf_service_attr;
 type hdf_pin_auth_interface_service, hdf_service_attr;
 type hdf_user_auth_interface_service, hdf_service_attr;
 type hdf_fingerprint_auth_interface_service, hdf_service_attr;
@@ -65,8 +68,16 @@ type hdf_hdi_media_layer_service, hdf_service_attr;
 type hdf_wlan_interface_service, hdf_service_attr;
 type hdf_partition_slot_service, hdf_service_attr;
 type hdf_input_interfaces_service, hdf_service_attr;
+type hdf_chip_interface_service, hdf_service_attr;
+type hdf_wpa_interface_service, hdf_service_attr;
+type hdf_hostapd_interface_service, hdf_service_attr;
+type hdf_hid_ddk_service, hdf_service_attr;
 
 # for testcase start
 type hdf_sample_service, hdf_service_attr;
 type hdf_sample1_driver_service, hdf_service_attr;
 # for testcase end
+
+type hdf_intell_voice_engine_manager_service, hdf_service_attr;
+type hdf_intell_voice_trigger_manager_service, hdf_service_attr;
+

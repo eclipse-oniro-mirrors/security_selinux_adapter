@@ -1,0 +1,72 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+
+# lldb-server has to access stdin, stdout and stderror SELinuc context of which
+# is appspawn.
+allow lldb_server appspawn:fd { use };
+
+# lldb-server at first ran in the platform mode. Each time it accepts a request
+# of a client, it forks, and the child run (reload using the execv syscall)
+# lldb-server. The logs of lldb-server are also allowed to be output to the directory 
+# where lldb-server is stored.
+allow lldb_server data_file:dir { search };
+allow lldb_server data_local:dir { search };
+allow lldb_server data_local_tmp:dir { search getattr };
+allow lldb_server lldb_server_file:dir { write create add_name search };
+allow lldb_server lldb_server_file:file { create append map execute execute_no_trans };
+allow lldb_server lldb_server:process { fork };
+
+# lldb-server needs to read the procfs of a debuggable app to know runtime
+# information such as what the binary is and the runtime vm address the binary
+# is loaded at.
+allow lldb_server debug_hap:dir { search read open };
+allow lldb_server debug_hap:file { read open };
+allow lldb_server debug_hap:lnk_file { read };
+
+# lldb-server needs to read system libraries and the Appspawn binary so that it
+# can compare these with local module caches which are used for symbol resolving
+# and breaking setting etc.
+allow lldb_server system_bin_file:dir { search };
+allow lldb_server appspawn_exec:file { getattr read open map };
+
+# Debugging functionalities like breakpoints and stepping are accomplished by
+# sending ptrace syscalls.
+allow lldb_server debug_hap:process { ptrace sigkill signal sigstop };
+
+# For fs-verify(signature checking) of lldb-server. lldb-server will execute lldb-server.
+allow lldb_server key_enable:key { search };
+
+')
+
+# Forbid lldb-server to debug other processes except debuggable applications and
+# even child processes launched by lldb-server.
+neverallow lldb_server { domain developer_only(`-debug_hap') }:process {
+    ptrace sigkill signal sigstop };
+neverallow lldb_server self:process { ptrace sigkill signal sigstop };
+# Only processes of Appspawn and lldb-server can execute lldb-server.
+neverallow { domain developer_only(`-appspawn -lldb_server') }
+    lldb_server_file:file { map execute execute_no_trans entrypoint };
+# Only allow Appspawn to spawn lldb-server, the context transition is
+# accomplished by the kernel, and dynamic transition in the user land is
+# forbidden.
+neverallow { domain developer_only(`-appspawn') }
+    lldb_server:process { transition };
+neverallow domain lldb_server:process { dyntransition };
+# Only allow hdcd to connect to Unix socket owned lldb-server in the developer
+# mode in case an already launched lldb-server is utilized by other thirdy-party
+# process directly or indirectly to dump sensitive information from debuggable
+# applications.
+neverallow { domain -lldb_server developer_only(`-hdcd') }
+  lldb_server:unix_stream_socket { connectto };

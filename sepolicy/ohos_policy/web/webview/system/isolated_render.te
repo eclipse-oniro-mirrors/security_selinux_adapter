@@ -1,0 +1,147 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow isolated_render allocator_host:fd { use };
+
+# avc:  denied  { search } for  pid=5103 comm="ThreadPoolForeg" name="/" dev="cgroup2" ino=1 scontext=u:r:isolated_render:s0 tcontext=u:object_r:cgroup2:s0 tclass=dir permissive=1
+allow isolated_render cgroup2:dir { search };
+
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/data/storage/el1/bundle/nweb" dev="sdd78" ino=1840 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+allow isolated_render data_app_el1_file:dir { getattr };
+
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/dev/ashmem" dev="tmpfs" ino=490 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow isolated_render dev_ashmem_file:chr_file { open };
+
+# avc:  denied  { search } for  pid=3061 comm="ei.hmos.browser" name="socket" dev="tmpfs" ino=79 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+allow isolated_render dev_unix_socket:dir { search };
+
+allow isolated_render hap_domain:fd { use };
+
+# avc:  denied  { exec_anon_mem } for  pid=5103 comm="ei.hmos.browser" scontext=u:r:isolated_render:s0 tcontext=u:r:isolated_render:s0 tclass=xpm permissive=0
+allow isolated_render isolated_render:xpm { exec_anon_mem };
+
+allow isolated_render normal_hap_data_file_attr:file { read write getattr lock };
+
+# avc:  denied  { use } for  pid=5103 comm="ei.hmos.browser" path="socket:[33368]" dev="sockfs" ino=33368 scontext=u:r:isolated_render:s0 tcontext=u:r:nwebspawn:s0 tclass=fd permissive=1
+allow isolated_render nwebspawn:fd { use };
+
+# avc:  denied  { write } for  pid=5103 comm="ei.hmos.browser" path="pipe:[45491]" dev="pipefs" ino=45491 scontext=u:r:isolated_render:s0 tcontext=u:r:nwebspawn:s0 tclass=fifo_file permissive=1
+allow isolated_render nwebspawn:fifo_file { write };
+
+# avc:  denied  { write } for  pid=5103 comm="CompositorTileW" path="socket:[33368]" dev="sockfs" ino=33368 scontext=u:r:isolated_render:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1
+allow isolated_render nwebspawn:unix_dgram_socket { write };
+
+# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=89 scontext=u:r:isolated_render:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=89 scontext=u:r:isolated_render:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=89 scontext=u:r:isolated_render:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+allow isolated_render ohos_boot_param:file { map open read };
+
+# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=107 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=107 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="u:object_r:persist_param:s0" dev="tmpfs" ino=107 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+allow isolated_render persist_param:file { map open read };
+
+# avc:  denied  { map } for  pid=4445 comm="e.simplewebview" path=2F646174612F726167652F656C322F626173652F63616368652F7765622F5375627265736F757263652046696C7465722F496E64657865642052756C65732F33362F302F52756C657365742044617461 dev="sdd78" ino=34505 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+allow isolated_render hap_file_attr:file { map };
+
+# avc:  denied  { getattr } for  pid=5103 comm="CompositorTileW" path="/proc/cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="CompositorTileW" path="/proc/cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="CompositorTileW" name="cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+allow isolated_render proc_cpuinfo_file:file { getattr open read };
+
+# avc:  denied  { call } for  pid=5103 comm="ei.hmos.browser" scontext=u:r:isolated_render:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
+allow isolated_render resource_schedule_service:binder { call };
+
+# avc:  denied  { get } for service=501 pid=5103 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=1
+allow isolated_render sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { get } for service=401 pid=5103 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+allow isolated_render sa_foundation_bms:samgr_class { get };
+
+# avc:  denied  { get } for service=3901 pid=5103 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow isolated_render sa_param_watcher:samgr_class { get };
+
+# avc:  denied  { get } for service=1906 pid=5103 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_resource_schedule_socperf_server:s0 tclass=samgr_class permissive=1
+allow isolated_render sa_resource_schedule_socperf_server:samgr_class { get };
+
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/sys/devices/system/cpu" dev="sysfs" ino=33247 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="cpu" dev="sysfs" ino=33247 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+allow isolated_render sysfs_devices_system_cpu:dir { open read };
+
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/sys/devices/system/cpu/cpu0/regs/identification/midr_el1" dev="sysfs" ino=69186 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/sys/devices/system/cpu/cpu0/regs/identification/midr_el1" dev="sysfs" ino=69186 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="midr_el1" dev="sysfs" ino=69186 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow isolated_render sysfs_devices_system_cpu:file { getattr open read };
+
+# avc:  denied  { read write } for  pid=1077 comm="AppMgrService" path="socket:[43723]" dev="sockfs" ino=43723 scontext=u:r:isolated_render:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
+# avc:  denied  { write } for  pid=4973 comm="e.myapplication" scontext=u:r:isolated_render:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
+allow isolated_render hap_domain:unix_stream_socket { read write shutdown };
+
+allow isolated_render system_core_hap_data_file_attr:file { append read write getattr lock map };
+
+allow isolated_render system_basic_hap_data_file_attr:file { append read write getattr lock map};
+
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+allow isolated_render system_file:file { getattr map open read };
+
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=5103 comm="ei.hmos.browser" name="fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+allow isolated_render system_fonts_file:dir { open read search };
+
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts/HarmonyOS_Sans_Light.ttf" dev="sdd74" ino=2229 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts/HarmonyOS_Sans_Light.ttf" dev="sdd74" ino=2229 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts/HarmonyOS_Sans_Light.ttf" dev="sdd74" ino=2229 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="HarmonyOS_Sans_Light.ttf" dev="sdd74" ino=2229 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+allow isolated_render system_fonts_file:file { getattr map open read };
+
+# avc:  denied  { search } for  pid=5103 comm="ei.hmos.browser" name="/" dev="tracefs" ino=1 scontext=u:r:isolated_render:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
+allow isolated_render tracefs:dir { search };
+
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=13214 scontext=u:r:isolated_render:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+# avc:  denied  { write } for  pid=5103 comm="ei.hmos.browser" name="trace_marker" dev="tracefs" ino=13214 scontext=u:r:isolated_render:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+allow isolated_render tracefs_trace_marker_file:file { open write };
+
+# avc: denied { nnp_transition } for pid=4000 comm="dump_tmp_thread" scontext=u:r:isolated_render:s0 tcontext=u:r:processdump:s0 tclass=process2 permissive=1
+allow isolated_render processdump:process2 { nnp_transition };
+
+# avc: denied { search } for pid=4000 comm="dump_tmp_thread" name="bin" dev="sdd74" ino=282 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow isolated_render system_bin_file:dir { search };
+
+#avc: denied { connect } for pid=1795 comm="IPC_0_1796" scontext=u:r:isolated_render:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=0
+allow isolated_render nwebspawn:unix_dgram_socket { connect };
+
+#avc: denied { execute } for pid=2265 comm="e.myapplication" path="/data/storage/el1/bundle/nweb/libs/arm/libweb_engine.so" dev="mmcblk0p14" ino=600 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=0
+allow isolated_render data_app_el1_file:file { execute };
+
+#avc: denied { call } for pid=3693 comm="e.myapplication" scontext=u:r:isolated_render:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
+allow isolated_render time_service:binder { call };
+
+#avc: denied { get } for service=3702 pid=13433 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=0
+allow isolated_render sa_time_service:samgr_class { get };
+
+allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem };
+
+allow isolated_render isolated_render:jit_memory { exec_mem_ctrl };
+
+allow isolated_render sa_resource_schedule:samgr_class { get };
+
+# avc_audit_slow:260] avc: denied { ptrace } for pid=15, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+allow isolated_render isolated_render:process { ptrace };
+
+debug_only(`
+    allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem_debug };
+')

@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/bin/cupsd        u:object_r:cupsd_exec:s0                            
+/system/bin/cupsd        u:object_r:cupsd_exec:s0
+/system/bin/cupsfilter        u:object_r:cupsd_exec:s0

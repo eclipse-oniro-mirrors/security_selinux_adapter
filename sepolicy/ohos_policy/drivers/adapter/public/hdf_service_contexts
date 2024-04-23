@@ -25,7 +25,7 @@ input_service                           u:object_r:hdf_input_service:s0
 codec_hdi_omx_service                   u:object_r:hdf_codec_hdi_omx_service:s0
 codec_component_manager_service         u:object_r:hdf_codec_component_manager_service:s0
 codec_hdi_service                       u:object_r:hdf_codec_hdi_service:s0
-codec_image_jpeg_service                u:object_r:hdf_codec_image_jpeg_service:s0
+codec_image_service                     u:object_r:hdf_codec_image_service:s0
 battery_interface_service               u:object_r:hdf_battery_interface_service:s0
 power_interface_service                 u:object_r:hdf_power_interface_service:s0
 light_interface_service                 u:object_r:hdf_light_interface_service:s0
@@ -42,6 +42,9 @@ effect_model_service                    u:object_r:hdf_effect_model_service:s0
 wlan_hal_service                        u:object_r:hdf_wlan_hal_service:s0
 display_composer_service                u:object_r:hdf_display_composer_service:s0
 camera_service                          u:object_r:hdf_camera_service:s0
+camera_image_process_service            u:object_r:hdf_camera_image_process_service:s0
+drm_service                             u:object_r:hdf_drm_service:s0
+clearplay_service                       u:object_r:hdf_clearplay_service:s0
 face_auth_interface_service             u:object_r:hdf_face_auth_interface_service:s0
 pin_auth_interface_service              u:object_r:hdf_pin_auth_interface_service:s0
 user_auth_interface_service             u:object_r:hdf_user_auth_interface_service:s0
@@ -70,8 +73,14 @@ usbfn_mtp_interface_service             u:object_r:hdf_usbfn_mtp_interface_servi
 usb_ddk_service                         u:object_r:hdf_usb_ddk_service:s0
 partition_slot_service                  u:object_r:hdf_partition_slot_service:s0
 wlan_interface_service                  u:object_r:hdf_wlan_interface_service:s0
-
+wpa_interface_service                   u:object_r:hdf_wpa_interface_service:s0
+chip_interface_service                  u:object_r:hdf_chip_interface_service:s0
+hostapd_interface_service               u:object_r:hdf_hostapd_interface_service:s0
+hid_ddk_service                         u:object_r:hdf_hid_ddk_service:s0
 # for testcase start
 sample_driver_service2                  u:object_r:hdf_sample_service:s0
 sample1_driver_service                  u:object_r:hdf_sample1_driver_service:s0
 # for testcase end
+
+intell_voice_engine_manager_service     u:object_r:hdf_intell_voice_engine_manager_service:s0
+intell_voice_trigger_manager_service    u:object_r:hdf_intell_voice_trigger_manager_service:s0

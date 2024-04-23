@@ -20,8 +20,10 @@
 #include "selinux_error.h"
 #include "test_common.h"
 
+namespace OHOS {
+namespace Security {
+namespace SelinuxUnitTest {
 using namespace testing::ext;
-using namespace OHOS::Security::SelinuxUnitTest;
 using namespace Selinux;
 const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
@@ -63,7 +65,7 @@ const static std::string TEST_HAP_DOMAIN = "u:r:selftest:s0";
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
-HapFileInfo g_hapFileInfoWithoutFlags = {
+static HapFileInfo g_hapFileInfoWithoutFlags = {
     .pathNameOrig = {TEST_SUB_PATH_1},
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -71,7 +73,7 @@ HapFileInfo g_hapFileInfoWithoutFlags = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoWithFlags = {
+static HapFileInfo g_hapFileInfoWithFlags = {
     .pathNameOrig = {TEST_HAP_PATH},
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -79,7 +81,7 @@ HapFileInfo g_hapFileInfoWithFlags = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoWithAplEmpty = {
+static HapFileInfo g_hapFileInfoWithAplEmpty = {
     .pathNameOrig = {TEST_HAP_PATH},
     .apl = "",
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -87,7 +89,7 @@ HapFileInfo g_hapFileInfoWithAplEmpty = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoWithPathEmpty = {
+static HapFileInfo g_hapFileInfoWithPathEmpty = {
     .pathNameOrig = {},
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -95,7 +97,7 @@ HapFileInfo g_hapFileInfoWithPathEmpty = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoWithAplInvalid = {
+static HapFileInfo g_hapFileInfoWithAplInvalid = {
     .pathNameOrig = {TEST_HAP_PATH},
     .apl = INVALID_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -103,7 +105,7 @@ HapFileInfo g_hapFileInfoWithAplInvalid = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoWithCannotFindContexts = {
+static HapFileInfo g_hapFileInfoWithCannotFindContexts = {
     .pathNameOrig = {TEST_HAP_PATH},
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME_WITH_NO_CONTEXTS,
@@ -111,7 +113,7 @@ HapFileInfo g_hapFileInfoWithCannotFindContexts = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoForRepeatLabel = {
+static HapFileInfo g_hapFileInfoForRepeatLabel = {
     .pathNameOrig = {TEST_SUB_PATH_1},
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -119,7 +121,7 @@ HapFileInfo g_hapFileInfoForRepeatLabel = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoWithPreinstallHap = {
+static HapFileInfo g_hapFileInfoWithPreinstallHap = {
     .pathNameOrig = {TEST_SUB_PATH_1},
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -127,7 +129,7 @@ HapFileInfo g_hapFileInfoWithPreinstallHap = {
     .hapFlags = 0,
 };
 
-HapFileInfo g_hapFileInfoWithInvalidPath = {
+static HapFileInfo g_hapFileInfoWithInvalidPath = {
     .pathNameOrig = {TEST_SUB_PATH_1, INVALID_PATH},
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
@@ -135,7 +137,7 @@ HapFileInfo g_hapFileInfoWithInvalidPath = {
     .hapFlags = 1,
 };
 
-HapFileInfo g_hapFileInfoForInvalidContexts = {
+static HapFileInfo g_hapFileInfoForInvalidContexts = {
     .pathNameOrig = {TEST_HAP_PATH},
     .apl = NORMAL_APL,
     .packageName = TEST_HAP_BUNDLE_NAME_FOR_INVALID_CONTEXTS,
@@ -143,25 +145,25 @@ HapFileInfo g_hapFileInfoForInvalidContexts = {
     .hapFlags = 1,
 };
 
-HapDomainInfo g_hapDomainInfoWithAplEmpty{
+static HapDomainInfo g_hapDomainInfoWithAplEmpty {
     .apl = "",
     .packageName = TEST_HAP_BUNDLE_NAME,
     .hapFlags = 1,
 };
 
-HapDomainInfo g_hapDomainInfoWithInvalidApl{
+static HapDomainInfo g_hapDomainInfoWithInvalidApl {
     .apl = INVALID_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
     .hapFlags = 1,
 };
 
-HapDomainInfo g_hapDomainInfo{
+static HapDomainInfo g_hapDomainInfo {
     .apl = SYSTEM_CORE_APL,
     .packageName = TEST_HAP_BUNDLE_NAME,
     .hapFlags = 1,
 };
 
-HapDomainInfo g_hapDomainInfoForInvalidContexts{
+static HapDomainInfo g_hapDomainInfoForInvalidContexts {
     .apl = NORMAL_APL,
     .packageName = TEST_HAP_BUNDLE_NAME_FOR_INVALID_CONTEXTS,
     .hapFlags = 1,
@@ -664,3 +666,6 @@ HWTEST_F(SelinuxUnitTest, TypeSet001, TestSize.Level1)
 {
     ASSERT_EQ(-SELINUX_ARG_INVALID, test.TypeSet(EMPTY_STRING, nullptr));
 }
+} // namespace SelinuxUnitTest
+} // namespace Security
+} // namespace OHOS

@@ -1,0 +1,22 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow normal_hap_attr appspawn:unix_stream_socket { read write };
+allow normal_hap_attr normal_hap_data_file_attr:file { ioctl };
+allow normal_hap_attr print_service:binder { call transfer };
+allow normal_hap_attr sa_print_service:samgr_class { get };
+allow normal_hap_attr sharefs:file { lock };
+allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0xf501 0xf502 };
+allow normal_hap_attr print_service:tcp_socket { read write };
+allow normal_hap_attr print_service:fd { use };
+allow normal_hap_attr print_service:unix_dgram_socket { read write };

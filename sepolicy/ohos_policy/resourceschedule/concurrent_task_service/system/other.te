@@ -18,11 +18,11 @@ dontaudit init concurrent_task_service:process { noatsecure };
 allow normal_hap_attr sa_concurrent_task_service:samgr_class { get };
 allow normal_hap_attr concurrent_task_service:binder { call };
 #system_core_hap
-allow system_core_hap sa_concurrent_task_service:samgr_class { get };
-allow system_core_hap concurrent_task_service:binder { call };
+allow system_core_hap_attr sa_concurrent_task_service:samgr_class { get };
+allow system_core_hap_attr concurrent_task_service:binder { call };
 #system_basic_hap
-allow system_basic_hap sa_concurrent_task_service:samgr_class { get };
-allow system_basic_hap concurrent_task_service:binder { call };
+allow system_basic_hap_attr sa_concurrent_task_service:samgr_class { get };
+allow system_basic_hap_attr concurrent_task_service:binder { call };
 #resource_schedule_service
 allow resource_schedule_service sa_concurrent_task_service:samgr_class { get };
 allow resource_schedule_service concurrent_task_service:binder { call };
@@ -49,14 +49,7 @@ allow render_service ffrt_param:file { read open map };
 allow render_service sa_concurrent_task_service:samgr_class { get };
 allow render_service concurrent_task_service:binder { call };
 allow normal_hap_attr ffrt_param:file { read open map };
-allow system_basic_hap ffrt_param:file { read open map };
-allow system_core_hap ffrt_param:file { read open map };
+allow system_basic_hap_attr ffrt_param:file { read open map };
+allow system_core_hap_attr ffrt_param:file { read open map };
 allow foundation ffrt_param:file { read open map };
 allow foundation sa_concurrent_task_service:samgr_class { get };
-#sh
-debug_only(`
-    allow sh concurrent_task_service:file { read open };
-    allow sh concurrent_task_service:dir { getattr search };
-    allow sh concurrent_task_service:binder { call };
-    allow sh sa_concurrent_task_service:samgr_class { get };
-')

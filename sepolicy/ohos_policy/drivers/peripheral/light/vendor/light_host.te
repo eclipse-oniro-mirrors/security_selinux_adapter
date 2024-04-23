@@ -72,3 +72,4 @@ allow light_host system_bin_file:dir { search };
 allow light_host sys_usb_param:file { map open read };
 allow light_host vendor_etc_file:dir { search };
 allow light_host vendor_etc_file:file { getattr open read };
+allow light_host sys_file:file { create };

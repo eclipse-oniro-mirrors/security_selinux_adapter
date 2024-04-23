@@ -42,7 +42,7 @@ allow daudio_host dev_ashmem_file:chr_file { open };
 
 allow daudio_host proc_file:file { open read };
 
-allow daudio_host pulseaudio:binder { transfer };
+allow daudio_host audio_server:binder { transfer };
 
 allow daudio_host sa_device_service_manager:samgr_class { get };
 
@@ -53,3 +53,7 @@ allow daudio_host vendor_bin_file:file { entrypoint map read execute };
 allow daudio_host vendor_etc_file:dir { search };
 
 allow daudio_host vendor_etc_file:file { getattr open read };
+
+allow daudio_host dev_kmsg_file:chr_file { write };
+
+allow daudio_host chip_prod_file:file { open getattr write };

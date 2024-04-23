@@ -13,3 +13,6 @@
 
 # avc:  denied  { get } for service=1901 pid=580 scontext=u:r:render_service:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
 allow render_service sa_resource_schedule:samgr_class { get };
+
+# avc:  denied  { call } for  pid=556 comm="IPC_1_583" scontext=u:r:render_service:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=0
+allow render_service av_codec_service:binder { call };

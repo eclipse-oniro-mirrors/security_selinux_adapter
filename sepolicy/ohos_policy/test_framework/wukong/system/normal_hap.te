@@ -13,6 +13,8 @@
 
 debug_only(`
 allow normal_hap_attr sh:binder { call };
+allowxperm normal_hap_attr dev_mali:chr_file ioctl { 0x800f };
+allow normal_hap_attr dev_mali:chr_file { ioctl };
 ')
 
 allow normal_hap_attr build_version_param:file { read open map };
@@ -27,8 +29,7 @@ allow normal_hap_attr distributedsche_param:file { map open read };
 allow normal_hap_attr faultloggerd_temp_file:file { read write };
 allow normal_hap_attr netmanager:binder { call transfer };
 allow normal_hap_attr appspawn_exec:file { getattr map open read };
-allow normal_hap_attr dev_mali:chr_file { ioctl };
 allow normal_hap_attr dev_unix_socket:sock_file { write };
 allow normal_hap_attr faultloggerd_temp_file:file { read write read write };
-allowxperm normal_hap_attr dev_mali:chr_file ioctl { 0x800f };
+
 

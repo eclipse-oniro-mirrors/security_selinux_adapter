@@ -11,18 +11,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow system_basic_hap dev_mali:chr_file { ioctl map read write };
-allow system_basic_hap dev_unix_socket:dir { search };
-allow system_basic_hap multimodalinput:unix_stream_socket { read };
-allow system_basic_hap proc_file:file { open read };
-allow system_basic_hap proc_stat_file:file { open read };
-allow system_basic_hap render_service:unix_stream_socket { read };
-allow system_basic_hap sa_net_conn_manager:samgr_class { get };
-allow system_basic_hap sys_file:file { open read };
-allow system_basic_hap sysfs_devices_system_cpu:dir { open read };
-allow system_basic_hap system_basic_hap:udp_socket { read };
-allow system_basic_hap system_basic_hap_data_file:dir { search };
-allow system_basic_hap system_basic_hap_data_file:file { lock };
-allow system_basic_hap system_usr_file:dir { search };
-allow system_basic_hap vendor_file:dir { search };
-allowxperm system_basic_hap dev_mali:chr_file ioctl { 0x8002 0x8016 };
+allow system_basic_hap_attr dev_unix_socket:dir { search };
+allow system_basic_hap_attr multimodalinput:unix_stream_socket { read };
+allow system_basic_hap_attr proc_file:file { open read };
+allow system_basic_hap_attr proc_stat_file:file { open read };
+allow system_basic_hap_attr render_service:unix_stream_socket { read };
+allow system_basic_hap_attr sa_net_conn_manager:samgr_class { get };
+allow system_basic_hap_attr sys_file:file { open read };
+allow system_basic_hap_attr sysfs_devices_system_cpu:dir { open read };
+allow system_basic_hap_attr system_basic_hap_attr:udp_socket { read };
+allow system_basic_hap_attr system_basic_hap_data_file_attr:dir { search };
+allow system_basic_hap_attr system_basic_hap_data_file_attr:file { lock };
+allow system_basic_hap_attr system_usr_file:dir { search };
+allow system_basic_hap_attr vendor_file:dir { search };
+developer_only(`
+allow system_basic_hap_attr SP_daemon:binder { call };
+')
+

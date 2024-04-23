@@ -1,0 +1,11 @@
+u:object_r:dev_file:s0
+u:object_r:etc_file:s0
+u:object_r:lib_file:s0
+u:object_r:config_file:s0
+u:object_r:updater_file:s0
+u:object_r:system_file:s0
+u:object_r:sys_prod_file:s0
+u:object_r:chip_prod_file:s0
+u:object_r:vendor_file:s0
+u:object_r:data_file:s0
+u:object_r:module_update_file:s0

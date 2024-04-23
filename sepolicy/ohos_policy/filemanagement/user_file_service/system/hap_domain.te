@@ -1,0 +1,32 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# avc:  denied  { add_name } for  pid=20925 comm=".myapplication4" name="test0.txt" scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=20925 comm=".myapplication4" name="public" dev="mmcblk0p14" ino=66 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=20925 comm=".myapplication4" name="public" dev="mmcblk0p14" ino=66 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
+# avc:  denied  { create } for  pid=20925 comm=".myapplication4" name="test0.txt" scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:share_public_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5180 comm=".myapplication4" path="/storage/Share/test0.txt" dev="mmcblk0p14" ino=2509 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:share_public_file:s0 tclass=file permissive=1
+# avc:  denied  { read write } for  pid=20925 comm=".myapplication4" name="test0.txt" dev="mmcblk0p14" ino=2509 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:share_public_file:s0 tclass=file permissive=1
+# avc:  denied  { create } for  pid=21851 comm=".myapplication4" name="test1.txt" scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=21851 comm=".myapplication4" path="/storage/External/3056-3B24/test1.txt" dev="mmcblk1p1" ino=31 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+# avc:  denied  { read write } for  pid=21851 comm=".myapplication4" name="test1.txt" dev="mmcblk1p1" ino=31 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+allow hap_domain permissions_mount_file_attr:file { create open read write getattr lock rename unlink append ioctl setattr };
+allowxperm hap_domain permissions_mount_file_attr:file ioctl { 0x9409 };
+# avc:  denied  { search } for  pid=21054 comm=".myapplication4" name="external" dev="tmpfs" ino=57 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { add_name } for  pid=3202 comm=".myapplication4" name="test0.txt" scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=3202 comm=".myapplication4" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=3202 comm=".myapplication4" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
+allow hap_domain permissions_mount_file_attr:dir { add_name search write create rename open read getattr reparent remove_name rmdir };
+allow hap_domain ntfs:file { append setattr };
+allow hap_domain file_access_service:binder { call transfer };

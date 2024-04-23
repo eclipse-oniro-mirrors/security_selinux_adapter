@@ -1,4 +1,4 @@
-# security_selinux
+# selinux_adapter
 
 ## 简介
 
@@ -38,7 +38,7 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 ```
 本模块单独编译命令
-./build.sh --product-name=rk3568 -T selinux --ccache
+./build.sh --product-name=rk3568 -T selinux_adapter --ccache
 ```
 ### 运行验证
 
@@ -94,7 +94,7 @@ allow hdcd selinuxfs:file open;
 
 | 仓库 | 源码目录 | 说明 |
 | --- | --- | --- |
-| [security_selinux](https://gitee.com/openharmony/security_selinux.git) | `base/security/selinux/` | 策略和一些自研接口 |
+| [selinux_adapter](https://gitee.com/openharmony/security_selinux_adapter.git) | `base/security/selinux_adapter/` | 策略和一些自研接口 |
 | [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux 的主仓库 |
 | [productdefine_common](https://gitee.com/openharmony/productdefine_common.git) | `productdefine/common/` | 添加 SELinux 组件定义 |
 | [third_party_toybox](https://gitee.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | 完善了 `ls` 的 SELinux 支持 |

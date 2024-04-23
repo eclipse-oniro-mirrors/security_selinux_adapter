@@ -1,0 +1,152 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# for developer_only version
+developer_only(`
+# for shell
+allow sh rootfs:dir { search };
+allow sh rootfs:lnk_file { read };
+allow sh dev_file:dir { search };
+allow sh dev_null_file:chr_file { read write open };
+allow sh dev_unix_file:dir { search };
+allow sh dev_unix_socket:dir { search };
+allow sh devpts:chr_file { getattr ioctl read write };
+allowxperm sh devpts:chr_file ioctl { 0x5413 0x5403 };
+allow sh dev_console_file:chr_file { getattr read write };
+allow sh sh:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
+allow sh sh:fd use;
+allow sh sh:file rw_file_perms;
+allow sh sh:fifo_file rw_file_perms;
+allow sh sh:dir read_dir_perms;
+allow sh sh:lnk_file read_file_perms;
+allow sh sh:unix_dgram_socket { connect create write };
+allow sh sh:unix_stream_socket { connect create write read setopt };
+allow sh devinfo_public_param:file { map open read };
+## for musl.so
+allow sh system_lib_file:file { map read execute open getattr };
+
+#avc: denied { execute } for pid=26490 comm="sh" name="hdcd_user_permit" dev="mmcblk0p15" ino=2134 scontext=u:r:sh:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+#avc: denied { execute_no_trans } for pid=1621 comm="sh" path="/data/local/tmp/a.sh" dev="mmcblk0p15" ino=1984 scontext=u:r:sh:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+allow sh data_local_tmp:file { execute execute_no_trans };
+
+# for toybox command execute
+allow sh system_file:dir { search };
+allow sh vendor_file:dir { search };
+allow sh system_lib_file:dir { search };
+allow sh vendor_lib_file:dir { search };
+allow sh system_etc_file:dir { search };
+allow sh lib_file:lnk_file { read };
+allow sh etc_file:lnk_file { read };
+allow sh system_etc_file:file { read open getattr };
+
+allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
+allow sh system_bin_file:lnk_file { read };
+## for toybox command auto complete, like tab
+allow sh system_bin_file:dir { search getattr open read };
+
+# for terminal
+allow sh tty_device:chr_file { getattr ioctl open read write };
+allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
+
+# for reboot
+allow sh servicectrl_reboot_param:parameter_service set;
+allow sh hichecker_writable_param:parameter_service { set };
+allow sh arkui_param:parameter_service { set };
+allow sh paramservice_socket:sock_file { write };
+## for /dev/unix/socket/parameterservice
+allow sh kernel:unix_stream_socket { connectto };
+
+# for hdc shell command
+allow sh hdcd:fifo_file { read };
+allow sh hdcd:fd { use };
+allow sh hdcd:unix_stream_socket { read write };
+allow sh hdcd:fifo_file { ioctl write };
+allowxperm sh hdcd:fifo_file ioctl { 0x5413 };
+
+# for data/local/tmp
+allow sh data_file:dir { search getattr };
+allow sh data_local:dir read_dir_perms;
+allow sh data_local_tmp:dir { create_dir_perms read_dir_perms };
+allow sh data_local_tmp:file { create_file_perms };
+
+# for data/log
+allow sh data_log:dir { search };
+
+# for data/log/hilog
+allow sh data_hilogd_file:dir read_dir_perms;
+allow sh data_hilogd_file:file read_file_perms;
+
+# for ps -efZ
+allow sh proc_file:dir { search read open getattr };
+allow sh proc_file:lnk_file { read getattr };
+allow sh proc_net:file { read open getattr };
+allow sh sys_file:dir { search };
+allow sh domain:dir { getattr search };
+allow sh domain:file { open read };
+allow sh domain:process { getattr };
+allow sh selinuxfs:filesystem { getattr };
+
+# for access debug_hap_data_file
+allow sh sh:capability dac_read_search;
+allow sh data_file:dir search;
+allow sh data_app_file:dir search;
+allow sh data_app_el1_file:dir search;
+allow sh data_app_el2_file:dir search;
+allow sh data_app_el3_file:dir search;
+allow sh data_app_el4_file:dir search;
+allow sh debug_hap_data_file:dir { search getattr read open };
+allow sh debug_hap_data_file:file { getattr read open };
+
+# for system_fonts_file
+allow sh system_file:dir search;
+allow sh system_fonts_file:dir { getattr search read open };
+allow sh system_fonts_file:file { getattr read open }; 
+
+# for param_get
+allow sh dev_parameters_file:dir { search };
+allow sh dev_parameters_file:file read_file_perms;
+allow sh debug_param:file { map read open };
+allow sh hilog_param:file { map read open };
+allow sh developtools_hdc_control_param:file { map read open };
+
+# for bin run
+## for bm install
+domain_auto_transition_pattern(sh, bm_exec, bm);
+## for aa start in deveco
+domain_auto_transition_pattern(sh, aa_exec, aa);
+domain_auto_transition_pattern(sh, hiperf_exec, hiperf);
+domain_auto_transition_pattern(sh, hiprofiler_cmd_exec, hiprofiler_cmd);
+domain_auto_transition_pattern(sh, hidumper_exec, hidumper);
+domain_auto_transition_pattern(sh, hitrace_exec, hitrace);
+domain_auto_transition_pattern(sh, bytrace_exec, bytrace);
+domain_auto_transition_pattern(sh, hisysevent_exec, hisysevent);
+domain_auto_transition_pattern(sh, wukong_exec, wukong);
+domain_auto_transition_pattern(sh, SP_daemon_exec, SP_daemon);
+domain_auto_transition_pattern(sh, uitest_exec, uitest);
+domain_auto_transition_pattern(sh, snapshot_display_exec, snapshot_display);
+
+# for sh process crash faultlog
+allow sh processdump:process { share sigchld };
+domain_auto_transition_pattern(sh, processdump_exec, processdump);
+
+# for sh process arkCompiler AOT
+allow sh ark_profile:parameter_service { set };
+
+# for sh process arkCompiler param
+allow sh ark_writeable_param:parameter_service { set };
+
+# for hilog
+use_hilog(sh)
+read_hilog(sh)
+control_hilog(sh)
+')

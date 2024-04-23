@@ -14,3 +14,14 @@
 type storage_daemon, sadomain, domain;
 type storage_daemon_exec, exec_attr, file_attr, system_file_attr;
 type dev_block_volfile, dev_attr;
+
+define(`storage_daemon_relabel', `
+    allow storage_daemon $1:{ file dir sock_file } { relabelto setattr };
+    allow storage_daemon $1:dir { search };
+')
+storage_daemon_relabel(data_user_file);
+storage_daemon_relabel(data_service_el2_hmdfs);
+storage_daemon_relabel(data_service_el2_public_huksService_file);
+
+allow storage_daemon data_user_file:lnk_file { relabelto setattr };
+

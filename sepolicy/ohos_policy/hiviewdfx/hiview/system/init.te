@@ -12,10 +12,18 @@
 # limitations under the License.
 
 #avc:  denied  { setattr } for  pid=1 comm="init" name="bbox" dev="tmpfs" ino=198 scontext=u:r:init:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
-allow init dev_bbox:chr_file { setattr };
+allow init dev_bbox:chr_file { setattr ioctl };
 
 #avc:  denied  { write } for  pid=4175 comm="init" name="hiview" dev="mmcblk0p11" ino=18 scontext=u:r:init:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=0
 #avc:  denied  { add_name } for  pid=1594 comm="init" name="temp" scontext=u:r:init:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=0
 #avc:  denied  { create } for  pid=1594 comm="init" name="temp" scontext=u:r:init:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=0
 allow init hiview_file:dir { write add_name create };
 
+#avc:  denied  { setattr } for pid=899 comm="init" name="userlist" dev="sysfs" scontext=u:r:init:s0 tcontext=u:object_r:sysfs_hungtask_userlist:s0 tclass=file permissive=0
+allow init sysfs_hungtask_userlist:file { setattr };
+
+allow init dev_ucollection:chr_file { setattr };
+
+allow init data_system:dir { relabelfrom };
+
+allowxperm init dev_bbox:chr_file ioctl { 0x426a 0x4202 0x4203};

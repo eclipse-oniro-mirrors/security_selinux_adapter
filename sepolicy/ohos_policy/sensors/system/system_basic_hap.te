@@ -12,11 +12,11 @@
 # limitations under the License.
 
 #avc:  denied  { get } for service=3601 pid=23547 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=0
-allow system_basic_hap sa_sensor_service:samgr_class { get };
+allow system_basic_hap_attr sa_sensor_service:samgr_class { get };
 
 #avc:  denied  { get } for service=3602 pid=2065 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_miscdevice_service:s0 tclass=samgr_class permissive=1
-allow system_basic_hap sa_miscdevice_service:samgr_class { get };
+allow system_basic_hap_attr sa_miscdevice_service:samgr_class { get };
 
 #avc:  denied  { call } for  pid=2335 comm="jsThread-1" scontext=u:r:system_basic_hap:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=2335 comm="jsThread-1" scontext=u:r:system_basic_hap:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
-allow system_basic_hap sensors:binder { call transfer };
+allow system_basic_hap_attr sensors:binder { call transfer };

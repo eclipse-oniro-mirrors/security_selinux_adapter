@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -35,13 +35,13 @@ allow accesstoken_service sensors:binder { call };
 
 #avc:  denied  { use } for pid=2519 comm="wei.hmos.health" path="socket:[39017]" dev="sockfs" ino=39017 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=0
 #avc:  denied  { use } for pid=2748 comm="wei.hmos.health" path="socket:[39096]" dev="sockfs" ino=39096 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=1
-allow sensors system_basic_hap:fd { use };
+allow sensors system_basic_hap_attr:fd { use };
 
 #avc:  denied  { read write } for pid=2748 comm="wei.hmos.health" path="socket:[39036]" dev="sockfs" ino=39036 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=unix_stream_socket permissive=1
-allow sensors system_basic_hap:unix_stream_socket { read write };
+allow sensors system_basic_hap_attr:unix_stream_socket { read write };
 
 #avc:  denied  { call } for pid=1208 comm="IPC_0_1342" scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
-allow sensors system_basic_hap:binder { call };
+allow sensors system_basic_hap_attr:binder { call };
 
 #avc:  denied  { use } for  pid=1963 comm="jsThread-1" path="socket:[26923]" dev="sockfs" ino=26923 scontext=u:r:sensors:s0 tcontext=u:r:normal_hap:s0 tclass=fd permissive=1
 allow sensors normal_hap_attr:fd { use };
@@ -83,13 +83,13 @@ allow sensors faultloggerd:fd { use };
 
 #avc:  denied  { write } for  pid=621 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
 #avc:  denied  { read write } for  pid=2097 comm="jsThread-1" path="socket:[40085]" dev="sockfs" ino=40085 scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
-allow sensors system_core_hap:unix_stream_socket { write read };
+allow sensors system_core_hap_attr:unix_stream_socket { write read };
 
 #avc:  denied  { use } for  pid=2097 comm="jsThread-1" path="socket:[40085]" dev="sockfs" ino=40085 scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1allow 
-allow sensors system_core_hap:fd { use };
+allow sensors system_core_hap_attr:fd { use };
 
 #avc:  denied  { call } for  pid=687 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
-allow sensors system_core_hap:binder { call };
+allow sensors system_core_hap_attr:binder { call };
 
 #avc:  denied  { get } for service=3505 pid=575 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow sensors sa_privacy_service:samgr_class { get };
@@ -119,7 +119,8 @@ allow sensors foundation:fd { use };
 allow sensors foundation:unix_stream_socket { read write };
 
 #avc:  denied  { call } for  pid=585 comm="IPC_2_1283" scontext=u:r:sensors:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
-allow sensors foundation:binder { call };
+#avc:  denied  { transfer } for  pid=1143 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow sensors foundation:binder { call transfer };
 
 #avc:  denied { getattr } for  pid=1324 comm="IPC_1_1486" path="/data/storage/el2/base/files/coin_drop.json" dev="sdd78" ino=4521 scontext=u:r:sensors:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied { read } for  pid=4754 comm="jsThread-1" path="/data/storage/el2/base/files/coin_drop.json" dev="sdd78" ino=4521 scontext=u:r:sensors:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=0
@@ -133,6 +134,48 @@ allow sensors data_local_tmp:file { getattr read };
 #avc:  denied { open } for  pid=1324 comm="sensors" path="/sys/devices/system/cpu/online" dev="sysfs" ino=33211 scontext=u:r:sensors:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 #avc:  denied { read } for  pid=1324 comm="sensors" name="online" dev="sysfs" ino=33211 scontext=u:r:sensors:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 allow sensors sysfs_devices_system_cpu:file { getattr open read };
+
+allow sensors render_service:fd { use };
+allow sensors render_service:unix_stream_socket { read write };
+allow sensors render_service:binder { call };
+
+allow sensors camera_service:fd { use };
+allow sensors camera_service:unix_stream_socket { read write };
+allow sensors camera_service:binder { call };
+
+allow sensors powermgr:fd { use };
+allow sensors powermgr:unix_stream_socket { read write };
+allow sensors powermgr:binder { call transfer };
+ 
+allow sensors audio_server:unix_stream_socket { read write };
+
+# avc:  denied  { use } for  pid=356 comm="audio_server" path="socket:[30765]" dev="sockfs" ino=30765 scontext=u:r:sensors:s0 tcontext=u:r:audio_server:s0 tclass=fd permissive=1
+allow sensors audio_server:fd { use };
+
+#avc:  denied  { call } for  pid=1143 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=1143 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+allow sensors audio_server:binder { call transfer };
+
+#avc:  denied  { call } for  pid=1143 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+allow sensors distributeddata:binder { call };
+
+#avc:  denied  { use } for  pid=1143 comm="sensors" path="/dev/ashmem" dev ="tmpfs" ino=619 ioctlcmd=0x7706 scontext=u:r:sensors:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
+allow sensors distributeddata:fd { use };
+
+#avc:  denied  { get } for service=1301 pid=599 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=0
+allow sensors sa_distributeddata_service:samgr_class { get };
+
+#avc:  denied  { get } for service=180 pid=599 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+allow sensors sa_foundation_abilityms:samgr_class { get };
+
+#avc:  denied  { get } for service=3009 pid=599 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=0
+allow sensors sa_audio_policy_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3001 pid=608 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=0
+allow sensors sa_pulseaudio_audio_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=1458 comm="/system/bin/sa_main" scontext=u:r:sensors:s0 tcontext=u:r:pinauth:s0 tclass=binder permissive=1
+allow sensors pinauth:binder { call };
 
 debug_only(`
     #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0

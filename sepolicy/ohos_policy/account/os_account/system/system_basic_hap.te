@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap accountmgr:binder { call };
-allow system_basic_hap sa_accountmgr:samgr_class { get };
+allow system_basic_hap_attr accountmgr:binder { call };
+allow system_basic_hap_attr sa_accountmgr:samgr_class { get };

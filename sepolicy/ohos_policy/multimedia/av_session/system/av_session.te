@@ -33,13 +33,13 @@ debug_only(`
     allow av_session sh:binder { call transfer };
 ')
 
-allow av_session system_core_hap:binder { call transfer };
+allow av_session system_core_hap_attr:binder { call transfer };
 allow av_session tracefs:dir { search };
 allow av_session tracefs_trace_marker_file:file { write open };
 allow av_session data_file:file { open };
 allow av_session av_session_data_file:file { append open create write ioctl read unlink getattr };
 allow av_session debug_param:file { map open read };
-allow av_session audio_policy:binder { call transfer };
+allow av_session audio_server:binder { call transfer };
 allow av_session device_manager:binder { call transfer };
 allow av_session param_watcher:binder { call transfer };
 allow av_session sa_accesstoken_manager_service:samgr_class { get };
@@ -59,7 +59,14 @@ allow av_session softbus_server:binder { call transfer };
 allow av_session softbus_server:fd { use };
 allow av_session softbus_server:tcp_socket { read write setopt shutdown };
 allow av_session data_log:dir { getattr };
-allow av_session system_basic_hap:binder { transfer call };
+allow av_session system_basic_hap_attr:binder { transfer call };
 allow av_session sa_foundation_bms:samgr_class { get };
 allow av_session vendor_bin_file:dir { search };
 allow av_session sa_distributeddata_service:samgr_class { get };
+
+
+allow av_session dev_ashmem_file:chr_file { open };
+
+allow av_session bgtaskmgr_service:binder { call transfer };
+allow av_session sa_bgtaskmgr:samgr_class { get };
+allow av_session sa_foundation_ans:samgr_class { get };

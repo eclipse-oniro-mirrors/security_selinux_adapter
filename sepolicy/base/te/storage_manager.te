@@ -59,3 +59,5 @@ allow storage_manager system_usr_file:file { getattr map open read };
 allow storage_manager sys_usb_param:file { map open read };
 allow storage_manager tracefs:dir { search };
 allow storage_manager tracefs_trace_marker_file:file { open write };
+allow storage_manager sa_accountmgr:samgr_class { get };
+allow storage_manager accountmgr:binder { call };

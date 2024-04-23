@@ -15,3 +15,9 @@ allow hdf_devmgr wifi_hal_service:dir { search };
 allow hdf_devmgr wifi_hal_service:file { open read };
 allow hdf_devmgr wifi_hal_service:process { getattr };
 allow hdf_devmgr wifi_hal_service:binder { transfer };
+
+allow hdf_devmgr wifi_manager_service:dir { search };
+allow hdf_devmgr wifi_manager_service:file { open read };
+allow hdf_devmgr wifi_manager_service:process { getattr };
+allow hdf_devmgr wifi_manager_service:binder { transfer };
+

@@ -11,23 +11,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap faultloggerd:fifo_file { write };
-allow system_core_hap faultloggerd_temp_file:file { read write };
-allow system_core_hap normal_hap_attr:binder { call transfer };
-allow system_core_hap sysfs_rtc:dir { open read };
-allow system_core_hap system_core_hap:binder { call transfer };
-allow system_core_hap time_service:binder { call };
-allow system_core_hap sa_form_mgr_service:samgr_class { get };
-allow system_core_hap sa_dataobs_mgr_service_service:samgr_class { get };
-allow system_core_hap system_file:file { getattr open read execute };
-allow system_core_hap data_service_el1_file:file { getattr open read };
-allow system_core_hap softbus_server:binder { call transfer };
-allow system_core_hap softbus_server:fd { use };
-allow system_core_hap sa_quick_fix_mgr_service:samgr_class { get };
-allow system_core_hap quick_fix:binder { call };
-allow system_core_hap system_file:file { map };
-allow system_core_hap data_service_el1_file:file { map };
+allow system_core_hap_attr faultloggerd:fifo_file { write };
+allow system_core_hap_attr faultloggerd_temp_file:file { read write };
+allow system_core_hap_attr normal_hap_attr:binder { call transfer };
+allow system_core_hap_attr sysfs_rtc:dir { open read };
+allow system_core_hap_attr system_core_hap_attr:binder { call transfer };
+allow system_core_hap_attr time_service:binder { call };
+allow system_core_hap_attr sa_form_mgr_service:samgr_class { get };
+allow system_core_hap_attr sa_dataobs_mgr_service_service:samgr_class { get };
+allow system_core_hap_attr system_file:file { getattr open read execute };
+allow system_core_hap_attr data_service_el1_file:file { getattr open read };
+allow system_core_hap_attr softbus_server:binder { call transfer };
+allow system_core_hap_attr softbus_server:fd { use };
+allow system_core_hap_attr sa_quick_fix_mgr_service:samgr_class { get };
+allow system_core_hap_attr quick_fix:binder { call };
+allow system_core_hap_attr system_file:file { map };
+allow system_core_hap_attr data_service_el1_file:file { map };
 
 debug_only(`
-    allow system_core_hap sh:binder { call transfer };
+    allow system_core_hap_attr sh:binder { call transfer };
 ')

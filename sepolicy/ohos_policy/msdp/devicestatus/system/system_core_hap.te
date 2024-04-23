@@ -12,13 +12,13 @@
 # limitations under the License.
 
 # avc:  denied  { get } for service=2902 pid=2145 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_msdp_devicestatus_service:s0 tclass=samgr_class permissive=0
-allow system_core_hap sa_msdp_devicestatus_service:samgr_class { get };
+allow system_core_hap_attr sa_msdp_devicestatus_service:samgr_class { get };
 
 #avc:  denied  { call transfer } for  pid=1636 comm="jsThread-1" scontext=u:r:system_core_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=binder permissive=0
-allow system_core_hap msdp_sa:binder { call transfer};
+allow system_core_hap_attr msdp_sa:binder { call transfer};
 
 #avc:  denied  { use } for  pid=851 comm="msdp" path="socket:[41650]" dev="sockfs" ino=41650 scontext=u:r:system_core_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=fd permissive=0
-allow system_core_hap msdp_sa:fd { use };
+allow system_core_hap_attr msdp_sa:fd { use };
 
 #avc:  denied  { read write } for  pid=845 comm="msdp" path="socket:[39318]" dev="sockfs" ino=39318 scontext=u:r:system_core_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_stream_socket permissive=1
-allow system_core_hap msdp_sa:unix_stream_socket { read write };
+allow system_core_hap_attr msdp_sa:unix_stream_socket { read write };

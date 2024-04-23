@@ -1,0 +1,14 @@
+{
+    "check_rules": [
+        {
+            "name": "execute and execute_no_trans",
+            "description": "process label should transform while execute a file",
+            "perm_group": [
+                {
+                    "tclass": "*",
+                    "perm": "execute execute_no_trans"
+                }
+            ]
+        }
+    ]
+}

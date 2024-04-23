@@ -13,3 +13,6 @@
 
 # for hyperhold
 type hyperhold_sys, file_attr, data_file_attr;
+
+# for bootup.trace
+type bootuptrace_file, file_attr, data_file_attr;

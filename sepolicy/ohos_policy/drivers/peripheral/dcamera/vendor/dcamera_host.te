@@ -70,7 +70,7 @@ allow dcamera_host allocator_host:binder { call };
 allow dcamera_host accessibility_param:file { read open map };
 allow dcamera_host normal_hap_attr:binder { call };
 allow dcamera_host sa_param_watcher:samgr_class { get };
-allow dcamera_host system_core_hap:binder { call };
+allow dcamera_host system_core_hap_attr:binder { call };
 allow dcamera_host render_service:binder { call };
 allow dcamera_host tracefs:dir { search };
 allow dcamera_host tracefs_trace_marker_file:file { write open };

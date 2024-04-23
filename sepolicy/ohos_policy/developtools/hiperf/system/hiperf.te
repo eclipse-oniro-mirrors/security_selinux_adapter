@@ -72,7 +72,8 @@ allow hiperf sh:fifo_file { read write };
 allow hiperf sys_param:file { map open read };
 allow hiperf sys_usb_param:file { map open read };
 allow hiperf tracefs:dir { open read search };
-allow hiperf tracefs:file { getattr open read };
+allow hiperf tracefs:file { getattr open read write ioctl };
+allowxperm hiperf tracefs:file ioctl { 0x5413 };
 allow hiperf tty_device:chr_file { read write };
 
 allow hiperf appspawn_exec:file { getattr map open read };
@@ -126,6 +127,8 @@ allow hiperf domain:file { getattr map open read };
 
 allow hiperf camera_service:dir { open read };
 allow hiperf camera_service:process signull;
+allow hiperf drm_service:dir { open read };
+allow hiperf drm_service:process signull;
 allow hiperf data_file:dir { add_name getattr open read write };
 
 allow hiperf dev_mali:chr_file { getattr open read };
@@ -140,8 +143,8 @@ allow hiperf render_service:process signull;
 allow hiperf render_service_exec:file { getattr map open read };
 allow hiperf rootfs:dir read;
 allow hiperf self:perf_event tracepoint;
-allow hiperf system_basic_hap:dir { open read };
-allow hiperf system_basic_hap:process signull;
+allow hiperf system_basic_hap_attr:dir { open read };
+allow hiperf system_basic_hap_attr:process signull;
 allow hiperf system_bin_file:lnk_file read;
 allow hiperf ui_service:dir { open read };
 allow hiperf ui_service:process signull;
@@ -159,7 +162,7 @@ allow hiperf data_local_tmp_hiperf_file:file { create_file_perms };
 allow hiperf data_local_tmp_hiperf_file:fifo_file { create open read unlink write };
 
 allow hiperf data_log:dir { add_name open read search watch write create remove_name };
-allow hiperf data_log:file { create getattr lock map open read ioctl write unlink };
+allow hiperf data_log:file { create getattr lock map open read rename ioctl write unlink };
 allow hiperf data_app_el1_file:file { getattr map open read };
 allow hiperf data_app_el1_file:dir search;
 allow hiperf normal_hap_attr:lnk_file read;
@@ -228,3 +231,19 @@ allow hiview hiperf:process sigkill;
 allow hiview data_local:dir { search };
 allow hiview proc_file:file { getattr };
 allow hiview debug_param:parameter_service { set };
+
+allow hiperf system_file:file { getattr open read };
+allow hiperf SP_daemon_exec:file { getattr open read };
+allow hiperf data_local_arkcache:dir { search };
+allow hiperf data_local_arkcache:file { getattr open read };
+allow hiperf app_el1_bundle_public:dir { getattr open read search };
+allow hiperf app_el1_bundle_public:file { getattr map open read };
+allow hiperf deviceauth_service_exec:file { getattr map open read };
+allow hiperf faultloggerd_exec:file { getattr map open read };
+allow hiperf hidumper_exec:file { getattr map open read };
+allow hiperf hiprofiler_cmd_exec:file { getattr map open read };
+allow hiperf hiprofiler_plugins_exec:file { getattr map open read };
+allow hiperf hiprofilerd_exec:file { getattr map open read };
+allow hiperf hisysevent_exec:file { getattr map open read };
+allow hiperf hitrace_exec:file { getattr map open read };
+allow hiperf init_exec:file { getattr map open read };

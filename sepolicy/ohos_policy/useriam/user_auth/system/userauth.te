@@ -52,3 +52,7 @@ allow useriam sa_foundation_bms:samgr_class { get };
 
 #avc:  denied  { call } for  pid=509 comm="IPC_1_853" scontext=u:r:useriam:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
 allow useriam foundation:binder { call };
+
+#avc:  denied  { get } for service=501 pid=625 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow useriam sa_foundation_appms:samgr_class { get };
+

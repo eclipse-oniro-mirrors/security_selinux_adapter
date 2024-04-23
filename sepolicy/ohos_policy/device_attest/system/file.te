@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type data_device_attest, file_attr, data_file_attr;
+type data_service_el1_public_device_attest, file_attr, data_file_attr;
 type etc_device_attest, file_attr, data_file_attr;

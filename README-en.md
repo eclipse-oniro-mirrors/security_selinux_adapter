@@ -1,4 +1,4 @@
-# security_selinux
+# selinux_adapter
 
 ## Introduction
 
@@ -39,7 +39,7 @@ Run the following command to build the image that supports SELinux:
 
 ```
 Independent build command of this module:
-./build.sh --product-name=rk3568 -T selinux --ccache
+./build.sh --product-name=rk3568 -T selinux_adapter --ccache
 ```
 ### Verifying Basic Functions
 
@@ -95,7 +95,7 @@ The table below lists the repositories involved.
 
 | Repository| Source Code| Description|
 | --- | --- | --- |
-| [security_selinux](https://gitee.com/openharmony/security_selinux.git) | `base/security/selinux/` | Provides policies and self-developed APIs.|
+| [selinux_adapter](https://gitee.com/openharmony/security_selinux_adapter.git) | `base/security/selinux_adapter/` | Provides policies and self-developed APIs.|
 | [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux main repository.|
 | [productdefine_common](https://gitee.com/openharmony/productdefine_common.git) | `productdefine/common/` | Provides SELinux component definitions.|
 | [third_party_toybox](https://gitee.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | Provides the support for SELinux of `ls`.|

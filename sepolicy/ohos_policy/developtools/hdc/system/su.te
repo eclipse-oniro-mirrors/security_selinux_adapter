@@ -1,0 +1,374 @@
+# Copyright (c) 2023-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+debug_only(`
+    permissive su;
+    neverallow { domain -init } su:process transition;
+    neverallow { domain -updater -process_dyntransition_su_violators } su:process dyntransition;
+    domain_auto_transition_pattern(su, SP_daemon_exec, SP_daemon);
+
+# allow xxx sh:xxx {xxxx} to allow xxx su:xxx {xxxx}
+    allow hidumper_service su:dir { search };
+    allow hidumper_service su:file { getattr open read };
+    allow memmgrservice su:binder { call };
+    allow render_service su:fd { use };
+    allow aa su:fd { use };
+    allow aa su:fifo_file { ioctl write };
+    allowxperm aa su:fifo_file ioctl { 0x5413 };
+    allow system_core_hap_attr su:binder { call transfer };
+    allow accountmgr su:binder { call };
+    # avc:  denied  { call } for  pid=858 comm="IPC_1_914" scontext=u:r:pinauth:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow pinauth su:binder { call };
+    #avc:  denied  { call } for  pid=510 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow useriam su:binder { call };
+    allow uitest su:fd { use };
+    allow uitest su:fifo_file { write };
+    allow render_service su:binder { call transfer };
+    allow foundation su:binder { call transfer };
+    allow powermgr su:binder { call transfer };
+    allow bm su:fd { use };
+    allow bm su:fifo_file { write ioctl };
+    allowxperm bm su:fifo_file ioctl { 0x5413 };
+    allow oaid_service su:binder { call };
+    allow bluetooth_service su:binder { transfer };
+    allow bluetooth_service su:binder { call };
+    allow mdnsmanager su:binder { call };
+    allow netmanager su:binder { call };
+    allow accountmgr su:binder { transfer };
+    allow bytrace su:fd use;
+    allow bytrace su:fifo_file { read write };
+    allow hiebpf su:fd use;
+    allow hdcd su:process { signal sigkill };
+    allow hiperf su:dir { getattr open read search };
+    allow hiperf su:fd use;
+    allow hiperf su:fifo_file { read write };
+    allow hiperf su:process signull;
+    allow hiprofiler_cmd su:fd use;
+    allow hiprofiler_cmd su:fifo_file write;
+    allow hiprofiler_cmd su:fifo_file ioctl;
+    allow hiprofiler_plugins su:fd use;
+    allow hiprofiler_plugins su:dir { open read };
+    allow hiprofiler_plugins su:file { getattr open };
+    allow hiprofilerd su:fd use;
+    allow native_daemon su:fd use;
+    allow native_daemon su:file read;
+    allow hidumper_service su:fd { use };
+    allow hidumper_service su:fifo_file { write };
+    allow hidumper su:fd { use };
+    allow hidumper su:fifo_file { read write };
+    allow distributeddata su:binder { call transfer };
+    allow distributeddata su:dir { search };
+    allow distributeddata su:fd { use };
+    allow distributeddata su:file { getattr open read };
+    # avc:  denied  { getattr } for  pid=2245 comm="ps" path="/proc/651" dev="proc" ino=19199 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for  pid=2245 comm="ps" name="651" dev="proc" ino=19199 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=dir permissive=1
+    allow su drm_service:dir { getattr search };
+    #avc:  denied  { call } for  pid=686 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    # avc:  denied  { open } for  pid=2245 comm="ps" path="/proc/651/stat" dev="proc" ino=30035 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=2245 comm="ps" name="stat" dev="proc" ino=30035 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=file permissive=1
+    allow su drm_service:file { open read };
+    allow device_manager su:binder { call };
+    allow daudio su:binder { call };
+    allow daudio_host su:binder { call transfer };
+    allow dcamera su:binder { call transfer };
+    #avc:  denied  { call } for  pid=2003 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow dhardware su:binder { call };
+    #avc:  denied  { call } for  pid=2552 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow dscreen su:binder { call transfer };
+    allow distributedsche su:binder { call };
+    allow samgr su:dir { search };
+    allow samgr su:file { open read };
+    allow samgr su:process { getattr };
+    allow samgr su:binder { call transfer };
+    #avc:  denied  { call } for  pid=240 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    #avc:  denied  { transfer } for  pid=241 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    #avc:  denied  { search } for  pid=241 comm="hdf_devmgr" name="1998" dev="proc" ino=31745 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:su:s0 tclass=dir permissive=1
+    #avc:  denied  { read } for  pid=241 comm="hdf_devmgr" name="current" dev="proc" ino=31058 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:su:s0 tclass=file permissive=1
+    #avc:  denied  { open } for  pid=241 comm="hdf_devmgr" path="/proc/2125/attr/current" dev="proc" ino=31058 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:su:s0 tclass=file permissive=1
+    #avc:  denied  { getattr } for  pid=241 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:su:s0 tclass=process permissive=1
+    allow hdf_devmgr su:binder { call transfer };
+    allow hdf_devmgr su:dir { search };
+    allow hdf_devmgr su:file { open read };
+    allow hdf_devmgr su:process { getattr };
+    #avc:  denied  { use } for  pid=1997 comm="HdiServiceManag" path="/dev/ashmem" dev="tmpfs" ino=185 scontext=u:r:sample_host:s0 tcontext=u:r:su:s0 tclass=fd permissive=1
+    #avc:  denied  { call } for  pid=2011 comm="sample_host" scontext=u:r:sample_host:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow sample_host su:binder { call };
+    allow sample_host su:fd { use };
+    #avc:  denied  { call } for  pid=1295 comm="hdf_ext_devmgr" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow hdf_ext_devmgr su:binder {call};
+    allow audio_host su:fd { use };
+    allow audio_host su:binder { transfer };
+    allow camera_host su:binder { call transfer };
+    allow codec_host su:binder { transfer call };
+    allow codec_host su:fd { use };
+    #avc:  denied  { call } for  pid=2059 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow dcamera_host su:binder { call transfer };
+    allow allocator_host su:fd { use };
+    allow composer_host su:fd { use };
+    allow composer_host su:binder { call transfer };
+    allow input_user_host su:binder { call };
+    #avc:  denied  { call } for  pid=502 comm="sensor_host" scontext=u:r:sensor_host:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow sensor_host su:binder { call };
+    allow usb_host su:binder { call };
+    #avc:  denied  { call} for  pid=448 comm="wifi_host" scontext=u:r:wifi_host:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow wifi_host su:binder { call };
+    allow softbus_server su:binder { call transfer };
+    allow backup_sa su:fd { use };
+    allow backup_sa su:binder { call };
+    allow cloudfiledaemon su:binder { call };
+    #avc:  denied  { call } for  pid=611 comm="IPC_0_654" scontext=u:r:file_access_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow file_access_service su:binder { call };
+    allow render_service su:fd { use };
+    allow hidumper su:fd use;
+    allow hisysevent su:fd { use };
+    allow hisysevent su:fifo_file { write ioctl };
+    allowxperm hisysevent su:fifo_file ioctl { 0x5413 };
+    allow hitrace su:fd use;
+    allow hitrace su:fifo_file { read write };
+    allow hiview su:dir { getattr open read search};
+    allow hiview su:file { getattr read open };
+    allow hiview su:binder { call transfer };
+    #avc:  denied  { call } for pid=353 comm="IPC_1_409" scontext=u:r:locationhub:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow locationhub su:binder { call };
+    #avc:  denied  { signal } for  pid=1549 comm="su" scontext=u:r:su:s0 tcontext=u:r:inputmethod_service:s0 tclass=process permissive=1
+    allow inputmethod_service su:binder { call transfer };
+    #avc:  denied  { use } for  pid=555 comm="IPC_1_843" path="/dev/ashmem" dev="tmpfs" ino=166 scontext=u:r:su:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
+    allow pasteboard_service su:fd { use };
+    allow pasteboard_service su:binder { call transfer };
+    allow screenlock_server su:binder { call transfer };
+    allow time_service su:binder { call };
+    allow wallpaper_service su:fd { use };
+    allow wallpaper_service su:fifo_file { read };
+    allow wallpaper_service su:binder { call };
+    #avc:  denied  { call } for  pid=543 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow msdp_sa su:binder { call };
+    #avc:  denied  { use } for  pid=1794 comm="InteractionMana" path="/dev/ashmem" dev="tmpfs" ino=197 scontext=u:r:msdp_sa:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
+    allow msdp_sa su:fd { use };
+    allow audio_server su:binder { call transfer };
+    allow av_codec_service su:binder { call transfer };
+    allow av_codec_service su:fd { use };
+    allow av_session su:binder { call transfer };
+    allow camera_service su:binder { call transfer };
+    #avc:  denied  { call } for  pid=475 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    #avc:  denied  { transfer } for  pid=475 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow media_service su:binder { call transfer };
+    #avc:  denied  { use } for  pid=20777 comm="avmetadata_unit" path="/data/test/H264_AAC.mp4" dev="mmcblk0p11" ino=1044486 scontext=u:r:media_service:s0 tcontext=u:r:su:s0 tclass=fd permissive=1
+    allow media_service su:fd { use };
+    #avc:  denied  { call } for  pid=449 comm="render_service" scontext=u:r:render_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow render_service su:binder { call };
+    #avc:  denied  { transfer } for  pid=449 comm="render_service" scontext=u:r:render_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow render_service su:binder { transfer };
+    #avc:  denied  { setsched } for  pid=270 comm="CgroupEventHand" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:su:s0 tclass=process permissive=1
+    allow resource_schedule_service su:process { setsched };
+    allow multimodalinput su:binder { call };
+    #avc:  denied  { transfer } for  pid=1615 comm="com.ohos.settin" scontext=u:r:normal_hap:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow normal_hap_attr su:binder { transfer };
+    #avc:  denied  { transfer } for  pid=1529 comm="com.ohos.settin" scontext=u:r:system_basic_hap:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow system_basic_hap_attr su:binder { transfer };
+    #avc:  denied  { call } for  pid=472 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow foundation su:binder { call };
+    allow resource_schedule_service su:dir { search };
+    allow resource_schedule_service su:file { open };
+    allow resource_schedule_service su:binder { call };
+    allow su su:code_sign { add_cert_chain remove_cert_chain };
+    # avc:  denied  { call } for  pid=12263 comm="IPC_1_12275" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow dlp_permission_service su:binder { call };
+    # avc:  denied  { call } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    # avc:  denied  { transfer } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow security_component_service su:binder { call transfer };
+    #avc:  denied  { getattr } for  pid=1853 comm="ls" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:su:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
+    #avc:  denied  { getattr } for  pid=1805 comm="su" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:su:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
+    #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
+    allow sensors su:fd { use };
+    # avc:  denied  { call } for  pid=687 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow sensors su:binder { call };
+    #avc:  denied  { read write } for  pid=2132 comm="SensorAgentTest" path="socket:[39407]" dev="sockfs" ino=39407 scontext=u:r:sensors:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket permissive=0
+    allow sensors su:unix_stream_socket { read write };
+    allow init su:file { map open read relabelto relabelfrom };
+    allow init su:dir { search };
+    allow init su:process { getattr };
+    allow param_watcher su:binder { call };
+    allow hdf_devmgr su:binder transfer;
+    allow hdf_devmgr su:dir search;
+    allow hdf_devmgr su:file { open read };
+    allow hdf_devmgr su:process getattr;
+    allow riladapter_host su:binder call;
+    allow telephony_sa su:binder { call transfer };
+    allow accessibility su:binder { call transfer };
+    allow normal_hap_attr su:binder { call };
+    allow system_basic_hap_attr su:binder { call };
+    allow system_core_hap_attr su:binder { call };
+    allow module_update_service su:binder { call transfer };
+    allow sys_installer_sa su:binder { call };
+    # avc:  denied  { dyntransition } for  pid=285 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:su:s0 tclass=process permissive=1
+    # avc:  denied  { signal } for  pid=231 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:su:s0 tclass=process permissive=1
+    # avc: denied { sigkill } for pid=241 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:su:s0 tclass=process permissive=1
+    allow updater su:process { signal sigkill };
+    allow foundation su:binder { call transfer };
+    allow { SP_daemon wukong uitest } su:fd { use };
+    allow { SP_daemon wukong uitest }  su:unix_stream_socket { read write };
+    allow su data_hdc_pubkeys:dir { getattr setattr };
+
+    # sh.te baseline to su
+    allow su su:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
+    allow su su:fd use;
+    allow su su:file rw_file_perms;
+    allow su su:fifo_file rw_file_perms;
+    allow su su:dir read_dir_perms;
+    allow su su:lnk_file read_file_perms;
+    allow su su:unix_dgram_socket { connect create write };
+    allow su su:unix_stream_socket { connect create write read setopt };
+
+    # for bin run
+    ## for bm install
+    domain_auto_transition_pattern(su, bm_exec, bm);
+    ## for aa start in deveco
+    domain_auto_transition_pattern(su, aa_exec, aa);
+    domain_auto_transition_pattern(su, hiperf_exec, hiperf);
+    domain_auto_transition_pattern(su, hiprofiler_cmd_exec, hiprofiler_cmd);
+    domain_auto_transition_pattern(su, hidumper_exec, hidumper);
+    domain_auto_transition_pattern(su, hitrace_exec, hitrace);
+    domain_auto_transition_pattern(su, bytrace_exec, bytrace);
+    domain_auto_transition_pattern(su, hisysevent_exec, hisysevent);
+    domain_auto_transition_pattern(su, snapshot_display_exec, snapshot_display);
+
+    # for su process crash faultlog
+    # avc:  denied  { getattr } for  pid=2245 comm="ps" path="/proc/503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for  pid=2245 comm="ps" name="503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
+    allow su clearplay_host:dir { getattr search };
+    allow su processdump:process { share sigchld };
+    # avc:  denied  { open } for  pid=2245 comm="ps" path="/proc/503/stat" dev="proc" ino=30001 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=2245 comm="ps" name="stat" dev="proc" ino=30001 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=file permissive=1
+    allow su clearplay_host:file { open read };
+    domain_auto_transition_pattern(su, processdump_exec, processdump);
+
+    # for hilog
+    use_hilog(su)
+    read_hilog(su)
+    control_hilog(su)
+
+    # enable getting accessibility service
+    allow su sa_accessibleabilityms:samgr_class { get };
+
+    # allow xxxx hdcd:xxx {xxx} to allow xxxx su:xxx {xxx}
+    allow foundation su:binder { transfer };
+    allow aa su:fd { use };
+    allow aa su:unix_stream_socket { read write };
+    allow aa su:fifo_file { ioctl read write };
+    allowxperm aa su:fifo_file ioctl { 0x5413 };
+    allow normal_hap_attr su:unix_stream_socket { connectto };
+    allow system_basic_hap_attr su:unix_stream_socket { connectto };
+    allow system_core_hap_attr su:unix_stream_socket { connectto };
+    allow uitest su:fifo_file { read write ioctl };
+    allow uitest su:fd { use };
+    allow uitest su:unix_stream_socket { read write };
+    allowxperm uitest su:fifo_file ioctl { 0x5413 };
+    allow bm su:fd { use };
+    allow bm su:fifo_file { read write ioctl };
+    allowxperm bm su:fifo_file ioctl { 0x5413 };
+    allow bm su:unix_stream_socket { read write };
+    allow bytrace su:fd use;
+    allow bytrace su:unix_stream_socket { read write };
+    allow bytrace su:fifo_file { ioctl write };
+    allow hiebpf su:fd use;
+    allow hiebpf su:unix_stream_socket { read write };
+    allow samgr su:dir { search };
+    allow samgr su:file { read open };
+    allow samgr su:process { getattr };
+    allow samgr su:binder { transfer }; 
+    allow param_watcher su:binder { call };
+    allow sh su:fifo_file { read };
+    allow sh su:fd { use };
+    allow sh su:unix_stream_socket { read write };
+    allow sh su:fifo_file { ioctl write };
+    allowxperm sh su:fifo_file ioctl { 0x5413 };
+    # for hdc shell command
+    allow su su:fifo_file { read };
+    allow su su:fd { use };
+    allow su su:unix_stream_socket { read write };
+    allow su su:fifo_file { ioctl write };
+    allowxperm su su:fifo_file ioctl { 0x5413 }; 
+    allow hiperf su:fd use;
+    allow hiperf su:unix_stream_socket { read write };
+    allow hiperf su:dir { open read };
+    allow hiperf su:process signull;
+    allow hiprofiler_cmd su:fd use;
+    allow hiprofiler_cmd su:unix_stream_socket { read write };
+    allow hiprofiler_cmd su:fifo_file write;
+    allow hiprofiler_plugins su:unix_stream_socket { read write };
+    allow hiprofiler_plugins su:fifo_file write;
+    allow hiprofiler_plugins su:fd use;
+    allow hiprofiler_plugins su:fifo_file ioctl;
+    allow hiprofiler_plugins su:file read;
+    allow hiprofilerd su:fd use;
+    allow hiprofilerd su:unix_stream_socket { read write };
+    allow hiprofilerd su:fifo_file write;
+    allow native_daemon su:fd use;
+    allow native_daemon su:unix_stream_socket { read write };
+    allow hiperf su:fifo_file { ioctl write };
+    allow appspawn su:unix_stream_socket connectto;
+    allow hiprofilerd su:fifo_file { ioctl };
+    allowxperm hiprofilerd su:fifo_file ioctl 0x5413;
+    allow distributeddata su:binder { call transfer };
+    allow distributeddata su:dir { search };
+    allow distributeddata su:fd { use };
+    allow distributeddata su:file { open read };
+    allow audio_host su:fd { use };
+    allow codec_host su:fd { use };
+    allow codec_host su:fifo_file { write };
+    allow codec_host su:fifo_file { read };
+    allow processdump su:fd use;
+    allow processdump su:fifo_file { read write };
+    allow processdump su:file { getattr open read };
+    allow processdump su:process ptrace;
+    allow processdump su:unix_stream_socket { read write }; 
+    allow processdump su:lnk_file read;
+    allow hidumper_service su:dir { getattr open read search };
+    allow hidumper_service su:fd use;
+    allow hidumper_service su:file { getattr open read };
+    allow hidumper_service su:lnk_file read;
+    allow hidumper_service su:fifo_file write; 
+    allow hidumper su:fd use;
+    allow hidumper su:fifo_file write;
+    allow hidumper su:unix_stream_socket { read write }; 
+    allow hisysevent su:fd { use };
+    allow hisysevent su:fifo_file { read write };
+    allow hisysevent su:unix_stream_socket { read write };
+    allow hitrace su:fd use;
+    allow hitrace su:unix_stream_socket { read write };
+    allow hitrace su:fifo_file { ioctl write }; 
+    allow hiview su:dir search;
+    allow hiview su:file { getattr open read };
+    allow hiview su:binder { call transfer };
+    allow bytrace su:fifo_file { ioctl write };
+    allowxperm bytrace su:fifo_file ioctl { 0x5413 };
+    allow init su:process { rlimitinh siginh transition getattr };
+    allow init su:file { read open };
+    allow init su:dir { search };
+    allow hdcd su:process { setcurrent };
+    #avc:  denied  { use } for  pid=1953 comm="nweb_test" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:normal_hap:s0 tcontext=u:r:su:s0 tclass=fd permissive=1
+    allow normal_hap_attr su:fd { use };
+    allow SP_daemon su:unix_stream_socket { read write };
+    allow SP_daemon su:fd use;
+    allow SP_daemon su:fifo_file { ioctl read write };
+    allowxperm SP_daemon su:fifo_file ioctl { 0x5413 };
+    allow SP_daemon su:dir { getattr open read search };
+    allow SP_daemon su:file { getattr open read };
+    allow SP_daemon su:lnk_file read;
+
+    #for read and write system parameter
+    #avc: denied { use } for pid=696 comm="async-55" path="socket:[28017]" dev="sockfs" ino=28017 scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
+    allow hdcd su:fd { use };
+    #avc: denied { connect write } for pid=696 comm="async-55" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=0
+    allow hdcd su:unix_dgram_socket { connect write };
+')
+

@@ -1,0 +1,54 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type cast_engine_service, sadomain, domain;
+allow cast_engine_service foundation:binder { call };
+allow cast_engine_service hilog_param:file { map read open };
+allow cast_engine_service media_service:binder { call };
+allow cast_engine_service net_param:file { map open read };
+allow cast_engine_service net_tcp_param:file { map open read };
+allow cast_engine_service ohos_param:file { map open read };
+allow cast_engine_service sa_accesstoken_manager_service:samgr_class { get };
+allow cast_engine_service sa_cast_engine_service:samgr_class { add };
+allow cast_engine_service sa_device_service_manager:samgr_class { get };
+allow cast_engine_service sa_foundation_dms:samgr_class { get };
+allow cast_engine_service security_param:file { map open read };
+allow cast_engine_service startup_param:file { map open read };
+allow cast_engine_service dev_unix_socket:dir { search };
+allow cast_engine_service render_service:binder { call };
+allow cast_engine_service debug_param:file { map open read };
+allow cast_engine_service sys_param:file { map open read };
+allow cast_engine_service persist_param:file { map open read };
+allow cast_engine_service persist_sys_param:file { map open read };
+allow cast_engine_service system_bin_file:dir { search };
+allow cast_engine_service system_core_hap_attr:binder { call transfer };
+allow cast_engine_service tracefs:dir { search };
+allow cast_engine_service dev_console_file:chr_file { read write };
+allow cast_engine_service tracefs_trace_marker_file:file { open write };
+allow cast_engine_service sa_memory_manager_service:samgr_class { get };
+allow cast_engine_service sa_audio_policy_service:samgr_class { get };
+allow cast_engine_service sa_media_service:samgr_class { get };
+allow cast_engine_service sa_softbus_service:samgr_class { get };
+allow cast_engine_service sa_foundation_devicemanager_service:samgr_class { get };
+allow cast_engine_service device_manager:binder { call transfer };
+allow cast_engine_service audio_server:binder { call transfer };
+allow cast_engine_service softbus_server:binder { call transfer };
+allow cast_engine_service softbus_server:fd { use };
+allow cast_engine_service softbus_server:tcp_socket { read write setopt shutdown };
+allow cast_engine_service media_service:binder { call transfer };
+allow cast_engine_service medialibrary_hap:fd { use };
+allow cast_engine_service hmdfs:file { read write };
+allow cast_engine_service data_user_file:file { read write };
+allow cast_engine_service media_service:fd { use };
+allow cast_engine_service cast_engine_service:unix_dgram_socket { getopt setopt };
+allow cast_engine_service sysfs_devices_system_cpu:file { getattr read open };

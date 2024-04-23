@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow medialibrary_hap cloudfiledaemon:binder { transfer };
+allow medialibrary_hap storage_daemon:fd { use };

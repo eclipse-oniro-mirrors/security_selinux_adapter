@@ -51,3 +51,8 @@ allow cert_manager_service system_bin_file:dir { search };
 #avc:  denied  { getopt } for  pid=1564 comm="cert_manager_se" scontext=u:r:cert_manager_service:s0 tcontext=u:r:cert_manager_service:s0 tclass=unix_dgram_socket permissive=1
 #avc:  denied  { getopt } for  pid=1564 comm="cert_manager_se" scontext=u:r:cert_manager_service:s0 tcontext=u:r:cert_manager_service:s0 tclass=unix_dgram_socket permissive=1
 allow cert_manager_service cert_manager_service:unix_dgram_socket { getopt setopt };
+
+#avc: denied { read } for pid=18044 comm="cert_manager_se" name="online" dev="sysfs" ino=27674 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+#avc: denied { open } for pid=18044 comm="cert_manager_se" path="/sys/devices/system/cpu/online" dev="sysfs" ino=27674 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=18044 comm="cert_manager_se" path="/sys/devices/system/cpu/online" dev="sysfs" ino=27674 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow cert_manager_service sysfs_devices_system_cpu:file { read open getattr };

@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap sa_distributeddata_service:samgr_class { get };
-allow system_basic_hap sa_huks_service:samgr_class { get };
-allow system_basic_hap system_core_hap:binder { call };
-allow system_basic_hap normal_hap_data_file_attr:file { read write };
+allow system_basic_hap_attr sa_distributeddata_service:samgr_class { get };
+allow system_basic_hap_attr sa_huks_service:samgr_class { get };
+allow system_basic_hap_attr system_core_hap_attr:binder { call };
+allow system_basic_hap_attr normal_hap_data_file_attr:file { read write };

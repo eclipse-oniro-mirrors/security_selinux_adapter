@@ -16,3 +16,10 @@ allow init update_firmware_file:file { getattr };
 allow init update_dupdate_engine_file:dir { getattr open read relabelto search setattr };
 allow init update_dupdate_engine_file:file { getattr relabelto };
 allow init updater_sa:file { getattr };
+
+# avc:  denied  { setattr } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allow init updater_block_file:blk_file { setattr };
+
+# avc:  denied  { read } for  pid=1 comm="init" name="misc" dev="tmpfs" ino=37 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
+allow init updater_block_file:lnk_file { read };
+

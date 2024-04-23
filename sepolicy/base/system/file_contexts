@@ -25,8 +25,8 @@
 /storage      u:object_r:rootfs:s0
 /sys_prod      u:object_r:rootfs:s0
 /cust      u:object_r:rootfs:s0
-/version      u:object_r:rootfs:s0
-/preload      u:object_r:rootfs:s0
+/version      u:object_r:system_file:s0
+/preload      u:object_r:system_file:s0
 /tmp      u:object_r:rootfs:s0
 /sys           u:object_r:sys_file:s0
 
@@ -35,6 +35,10 @@
 /dev/__parameters__(/.*)?         u:object_r:dev_parameters_file:s0
 /dev/block(/.*)?                u:object_r:dev_block_file:s0
 /dev/block/zram0                u:object_r:zram_device:s0
+/dev/block/by-name/misc         u:object_r:updater_block_file:s0
+/dev/block/mmcblk0p2            u:object_r:updater_block_file:s0
+/dev/block/by-name/bootctrl     u:object_r:updater_block_file:s0
+/dev/block/mmcblk0p3            u:object_r:updater_block_file:s0
 /dev/bus(/.*)?                u:object_r:dev_bus_file:s0
 /dev/bus/usb(/.*)?                u:object_r:dev_bus_usb_file:s0
 /dev/char(/.*)?                u:object_r:dev_char_file:s0
@@ -153,6 +157,9 @@
 
 /config(/.*)?       u:object_r:config_file:s0
 /updater(/.*)?       u:object_r:updater_file:s0
+/cust(/.*)?       u:object_r:system_file:s0
+/preload(/.*)?       u:object_r:system_file:s0
+/version(/.*)?       u:object_r:system_file:s0
 /system(/.*)?       u:object_r:system_file:s0
 /system/hap(/.*)?       u:object_r:system_hap_file:s0
 /system/bin(/.*)?       u:object_r:system_bin_file:s0
@@ -165,6 +172,7 @@
 /sys_prod(/.*)?      u:object_r:sys_prod_file:s0
 
 /chip_prod(/.*)?     u:object_r:chip_prod_file:s0
+/chip_ckm(/.*)?      u:object_r:chip_ckm_file:s0
 
 /eng_system(/.*)?           u:object_r:system_file:s0
 /eng_system/etc(/.*)?       u:object_r:system_etc_file:s0
@@ -188,7 +196,10 @@
 /data/service/(.*)?           u:object_r:data_service_file:s0
 /data/service/el0(/.*)?       u:object_r:data_service_el0_file:s0
 /data/service/el1(/.*)?       u:object_r:data_service_el1_file:s0
+/data/service/el1/public/print_service(/.*)?       u:object_r:data_service_el1_public_print_service_file:s0
 /data/service/el2(/.*)?       u:object_r:data_service_el2_file:s0
+/data/service/el3(/.*)?       u:object_r:data_service_el3_file:s0
+/data/service/el4(/.*)?       u:object_r:data_service_el4_file:s0
 /data/chipset                 u:object_r:data_chipset_file:s0
 /data/chipset/(.*)?           u:object_r:data_chipset_file:s0
 /data/chipset/el1(/.*)?       u:object_r:data_chipset_el1_file:s0
@@ -221,7 +232,7 @@
 /data/drm/(.*)?                 u:object_r:data_drm:s0
 /data/ethernet                  u:object_r:data_ethernet:s0
 /data/ethernet/(.*)?                 u:object_r:data_ethernet:s0
-/data/file.log                 u:object_r:data_filelog:s0
+/data/file\.log                 u:object_r:data_filelog:s0
 /data/init_agent                       u:object_r:data_init_agent:s0
 /data/init_agent/(.*)?                 u:object_r:data_init_agent:s0
 /data/log/libinput(/.*)?                 u:object_r:data_libinput:s0
@@ -230,6 +241,7 @@
 /data/local/traces(/.*)?                 u:object_r:data_local_traces:s0
 /data/local/tmp(/.*)?                 u:object_r:data_local_tmp:s0
 /data/local/ark-cache(/.*)?                 u:object_r:data_local_arkcache:s0
+/data/local/ark-profile(/.*)?               u:object_r:data_local_arkprofile:s0
 /data/log                       u:object_r:data_log:s0
 /data/log/(.*)?                 u:object_r:data_log:s0
 /data/media                       u:object_r:data_media:s0
@@ -257,6 +269,8 @@
 /data/sadata/(.*)?                 u:object_r:data_sadata:s0
 /data/sadata_de                       u:object_r:data_sadata_de:s0
 /data/sadata_de/(.*)?                 u:object_r:data_sadata_de:s0
+/data/samgr                       u:object_r:data_samgr:s0
+/data/samgr/(.*)?                 u:object_r:data_samgr:s0
 /data/ss                       u:object_r:data_ss:s0
 /data/ss/(.*)?                 u:object_r:data_ss:s0
 /data/system                       u:object_r:data_system:s0
@@ -266,7 +280,7 @@
 /data/system_de                       u:object_r:data_system_de:s0
 /data/system_de/(.*)?                 u:object_r:data_system_de:s0
 /data/service/el1/public/udev(/.*)?                 u:object_r:data_udev:s0
-/data/update_service_log.txt     u:object_r:data_update_service_log:s0
+/data/update_service_log\.txt     u:object_r:data_update_service_log:s0
 /data/user                       u:object_r:data_user:s0
 /data/user/(.*)?                 u:object_r:data_user:s0
 /data/user_de                       u:object_r:data_user_de:s0
@@ -307,3 +321,5 @@
 /system/bin/hdcd        u:object_r:hdcd_exec:s0
 
 /system/lib64(/.*)?        u:object_r:system_lib_file:s0
+
+/eng_system/bin/hdcd        u:object_r:hdcd_exec:s0

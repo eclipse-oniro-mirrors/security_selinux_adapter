@@ -50,6 +50,7 @@ type startup_appspawn_param, parameter_attr;
 type startup_uevent_param, parameter_attr;
 type devinfo_private_param, parameter_attr;
 type devinfo_public_param, parameter_attr;
+type const_telephony_param, parameter_attr;
 type telephony_param, parameter_attr;
 type bootevent_wms_param, parameter_attr;
 type dhardware_dm_param, parameter_attr;
@@ -62,8 +63,13 @@ type time_param, parameter_attr;
 type accesstoken_perm_param, parameter_attr;
 type ffrt_param, parameter_attr;
 type hiviewdfx_profiler_param, parameter_attr;
+type hiviewdfx_hiview_param, parameter_attr;
 type bluetooth_param, parameter_attr;
-
-allow init parameter_attr:file relabelto;
+type print_param, parameter_attr;
+type i18n_param, parameter_attr;
+type const_i18n_param, parameter_attr;
+type hichecker_writable_param, parameter_attr;
+# avc:  denied  { relabelfrom } for  pid=1 comm="init" path="/dev/__paramerters__/u:object_r:hilog_private_param:s0" dev=""ino=218 scontext=u:r:init:s0 tcontext=u:object_r:hilog_private_param:s0 tclass=file permissive=0
+allow init parameter_attr:file { relabelto relabelfrom };
 allow parameter_attr tmpfs:filesystem associate;
 

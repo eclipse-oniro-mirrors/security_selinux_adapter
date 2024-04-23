@@ -36,10 +36,10 @@ allow av_codec_service hdf_allocator_service:hdf_devmgr_class { get };
 allow av_codec_service hdf_devmgr:binder { call };
 allow av_codec_service sa_device_service_manager:samgr_class { get };
 allow av_codec_service data_test_media_file:file { write read getattr };
-allow av_codec_service system_core_hap:fd { use };
-allow av_codec_service system_basic_hap:fd { use };
-allow av_codec_service system_basic_hap:binder { transfer call };
-allow av_codec_service system_basic_hap_data_file:file { getattr read write };
+allow av_codec_service system_core_hap_attr:fd { use };
+allow av_codec_service system_basic_hap_attr:fd { use };
+allow av_codec_service system_basic_hap_attr:binder { transfer call };
+allow av_codec_service system_basic_hap_data_file_attr:file { getattr read write };
 allow av_codec_service normal_hap_data_file_attr:file { read getattr };
 allow av_codec_service normal_hap_data_file:file { write };
 allow av_codec_service sa_av_codec_service:samgr_class { add get_remote };
@@ -111,3 +111,22 @@ allow av_codec_service hdf_codec_component_manager_service:hdf_devmgr_class { ge
 allow av_codec_service data_file:dir { search };
 
 allow av_codec_service normal_hap_attr:binder { call transfer };
+
+# avc:  denied  { transfer } for  pid=595 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=0
+allow av_codec_service render_service:binder { transfer };
+
+allow av_codec_service render_service:fd { use };
+allow av_codec_service dev_mpp:chr_file { open read write ioctl };
+allowxperm av_codec_service dev_mpp:chr_file ioctl { 0x7601 };
+
+allow av_codec_service dev_rga:chr_file { open read write ioctl };
+allowxperm av_codec_service dev_rga:chr_file ioctl { 0x601b 0x5017 };
+
+allow av_codec_service media_service:binder { call transfer };
+allow av_codec_service system_core_hap_attr:binder { call transfer };
+
+# avc_audit_slow:260] avc: denied { call } for pid=1654, comm="/system/bin/sa_main"  scontext=u:r:av_codec_service:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
+allow av_codec_service drm_service:binder { call };
+
+allow av_codec_service dhardware:binder { call transfer };
+allow av_codec_service dscreen:binder { call transfer };

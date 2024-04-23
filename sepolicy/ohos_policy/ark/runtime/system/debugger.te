@@ -11,8 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap_attr hdcd:unix_stream_socket { connectto };
-allow system_basic_hap hdcd:unix_stream_socket { connectto };
-allow system_core_hap hdcd:unix_stream_socket { connectto };
+developer_only(`
+    allow hap_domain hdcd:unix_stream_socket { connectto read write };
+')
 
-allow normal_hap_attr normal_hap_data_file_attr:dir { add_name create write };
+debug_only(`
+    developer_only(`
+        allow hap_domain su:unix_stream_socket { read write };
+    ')
+')

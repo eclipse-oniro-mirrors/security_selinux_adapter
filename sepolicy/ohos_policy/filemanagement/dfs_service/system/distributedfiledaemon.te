@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow distributedfiledaemon sys_fs_hmdfs:dir { read search setattr getattr };
+allow distributedfiledaemon sys_fs_hmdfs:dir { read search setattr getattr open };
 allow distributedfiledaemon sys_fs_hmdfs:file { setattr getattr open read write };
 
 #avc:  denied  { transfer } for  pid=604 comm="distributedfile" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
@@ -47,3 +47,58 @@ allow distributedfiledaemon dslm_service:binder { call };
 #avc:  denied  { get } for service=3299 pid=609 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
 
+neverallow { domain -pasteboard_service -dslm_service -foundation -softbus_server -accountmgr -device_manager -param_watcher -sadomain -hidumper_service -hap_domain } distributedfiledaemon:binder { call };
+
+allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:samgr_class { get_remote };
+
+allow distributedfiledaemon data_app_file:dir { search };
+
+allow distributedfiledaemon data_app_el2_file:dir { search };
+
+allow distributedfiledaemon distributedfiledaemon:capability { dac_read_search chown net_raw };
+
+allow distributedfiledaemon distributedfiledaemon:tcp_socket { create setopt bind getattr listen getopt shutdown connect accept write read };
+
+allow distributedfiledaemon node:tcp_socket { node_bind };
+
+allow distributedfiledaemon distributedfiledaemon:udp_socket { ioctl shutdown create };
+
+allowxperm distributedfiledaemon distributedfiledaemon:udp_socket ioctl { 0x8912 0x8913 0x8915 0x891b };
+
+allow distributedfiledaemon normal_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
+
+allow distributedfiledaemon normal_hap_data_file_attr:file { write setattr getattr read open create };
+
+allow distributedfiledaemon system_basic_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
+
+allow distributedfiledaemon system_basic_hap_data_file_attr:file { write setattr getattr read open create };
+
+allow distributedfiledaemon system_core_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
+
+allow distributedfiledaemon system_core_hap_data_file_attr:file { write setattr getattr read open create };
+
+allow distributedfiledaemon port:tcp_socket { name_connect name_bind };
+
+allow distributedfiledaemon sysfs_devices_system_cpu:dir { open read };
+
+allow distributedfiledaemon sysfs_devices_system_cpu:file { read };
+
+allow distributedfiledaemon data_file:file { getattr read open };
+
+allow distributedfiledaemon proc_stat_file:file { open read };
+
+allow distributedfiledaemon data_user_file:dir { search getattr write add_name create read open };
+
+allow distributedfiledaemon data_user_file:file { getattr open read write create };
+
+allow distributedfiledaemon hap_domain:binder { call };
+
+allow distributedfiledaemon hmdfs:dir { search read open write add_name create setattr };
+
+allow distributedfiledaemon hmdfs:file { read open getattr create write setattr };
+
+allow distributedfiledaemon dev_kmsg_file:chr_file { write };
+
+allow distributedfiledaemon data_service_el2_hmdfs:file { create };
+
+allow distributedfiledaemon sa_uri_permission_mgr_service:samgr_class { get };

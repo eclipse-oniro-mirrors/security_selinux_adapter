@@ -40,8 +40,8 @@ allow distributedsche foundation:binder { call transfer };
 allow distributedsche foundation:fd { use };
 allow distributedsche kernel:unix_stream_socket { connectto };
 allow distributedsche normal_hap_attr:binder { call transfer };
-allow distributedsche system_basic_hap:binder { call transfer };
-allow distributedsche system_core_hap:binder { call transfer };
+allow distributedsche system_basic_hap_attr:binder { call transfer };
+allow distributedsche system_core_hap_attr:binder { call transfer };
 allow distributedsche paramservice_socket:sock_file { write };
 allow distributedsche proc_cpuinfo_file:file { open read };
 allow distributedsche proc_file:file { open read };
@@ -51,6 +51,7 @@ allow distributedsche softbus_server:tcp_socket { read setopt shutdown write };
 allow distributedsche sa_device_security_level_manager_service:samgr_class { get };
 allow distributedsche dslm_service:binder { call transfer };
 allow distributedsche dev_console_file:chr_file { read write };
+allow distributedsche sa_foundation_wms:samgr_class { get };
 
 allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
 allow distributedsche devinfo_private_param:file { map open read};
@@ -70,5 +71,36 @@ allow distributedsche memmgrservice:binder { call };
 allow distributedsche sa_distributed_bundle_mgr_service_service:samgr_class { get };
 #avc:  denied  { call } for  pid=479 comm="continue_manage" scontext=u:r:distributedsche:s0 tcontext=u:r:d-bms:s0 tclass=binder permissive=0
 allow distributedsche d-bms:binder { call };
+#avc:  denied  { get } for service=4606 pid=2716 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
+allow distributedsche sa_foundation_wms:samgr_class { get };
+#avc:  denied  { get } for service=3299 pid=3829 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_foundation_cesfwk_service:samgr_class { get };
+#avc:  denied  { read } for  pid=2255 comm="distributedsche" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=148 scontext=u:r:distributedsche:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+allow distributedsche arkcompiler_param:file { read map open };
+allow distributedsche ark_writeable_param:file { read map open };
+#avc:  denied  { read } for  pid=2255 comm="distributedsche" name="online" dev="sysfs" ino=27676 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+allow distributedsche sysfs_devices_system_cpu:file { read };
+#avc:  denied  { setattr } for  pid=2255 comm="dmsDataStorageH" name="gen_natural_store.db" dev="sdd78" ino=60840 scontext=u:r:distributedsche:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow distributedsche data_service_el1_file:file { setattr };
+#avc:  denied  { use } for  pid=2263 comm="IPC_1_2266" path="/dev/ashmem" dev="tmpfs" ino=612 scontext=u:r:distributedsche:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
+allow distributedsche render_service:fd { use };
+#avc:  denied  { open } for  pid=3435 comm="deviceprofile" path="/sys/devices/system/cpu/online" dev="sysfs" ino=30137 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+allow distributedsche sysfs_devices_system_cpu:file { open };
+#avc:  denied  { read } for  pid=4101 comm="mmi_EventHdr" scontext=u:r:distributedsche:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+allow distributedsche multimodalinput:unix_stream_socket { read };
+#avc:  denied  { get } for service=3101 pid=3284 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow distributedsche sa_multimodalinput_service:samgr_class { get };
+#avc:  denied  { use } for  pid=761 comm="IPC_1_779" path="socket:[100099]" dev="sockfs" ino=100099 scontext=u:r:distributedsche:s0 tcontext=u:r:multimodalinput:s0 tclass=fd permissive=0
+allow distributedsche multimodalinput:fd { use };
+#avc:  denied  { write } for  pid=761 comm="multimodalinput" path="socket:[47027]" dev="sockfs" ino=47027 scontext=u:r:distributedsche:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=0
+allow distributedsche multimodalinput:unix_stream_socket { write };
+#avc:  denied  { getattr } for  pid=10752 comm="distributedsche" path="/sys/devices/system/cpu/online" dev="sysfs" ino=30409 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+allow distributedsche sysfs_devices_system_cpu:file { getattr };
+#avc:  denied  { write } for  pid=10752 comm="sa_main" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:distributedsche:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
+allow distributedsche dev_kmsg_file:chr_file { write };
+#avc: denied { read write } for pid=2684, comm="/system/bin/sa_main"  path="/dev/tty0" dev="" ino=44 scontext=u:r:distributedsche:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+allow distributedsche tty_device:chr_file { read write };
+#avc: denied { use } for pid=1524, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:distributedsche:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
+allow distributedsche distributeddata:fd { use };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };

@@ -13,26 +13,30 @@
 
 type hiprofilerd_exec, exec_attr, file_attr, system_file_attr;
 
-type hiprofilerd, nativedomain, domain;
+type hiprofilerd, native_system_domain, domain;
 
 type hiprofiler_cmd_exec, exec_attr, file_attr, system_file_attr;
 
-type hiprofiler_cmd, nativedomain, domain;
+type hiprofiler_cmd, native_system_domain, domain;
 
 type hiprofiler_plugins_exec, exec_attr, file_attr, system_file_attr;
 
-type hiprofiler_plugins, nativedomain, domain;
+type hiprofiler_plugins, native_system_domain, domain;
 
 type native_daemon_exec, exec_attr, file_attr, system_file_attr;
 
-type native_daemon, nativedomain, domain;
+type native_daemon, sadomain, domain;
 
 type hiprofiler_socket, dev_attr, file_attr;
 
-domain_auto_transition_pattern(nativedomain, hiprofilerd_exec, hiprofilerd);
+type sa_native_daemon, sa_service_attr;
 
-domain_auto_transition_pattern(nativedomain, hiprofiler_cmd_exec, hiprofiler_cmd);
+domain_auto_transition_pattern(native_system_domain, hiprofilerd_exec, hiprofilerd);
 
-domain_auto_transition_pattern(nativedomain, hiprofiler_plugins_exec, hiprofiler_plugins);
+domain_auto_transition_pattern(native_system_domain, hiprofiler_cmd_exec, hiprofiler_cmd);
 
-domain_auto_transition_pattern(nativedomain, native_daemon_exec, native_daemon);
+domain_auto_transition_pattern(native_system_domain, hiprofiler_plugins_exec, hiprofiler_plugins);
+
+domain_auto_transition_pattern(native_system_domain, native_daemon_exec, native_daemon);
+
+domain_auto_transition_pattern(hiprofiler_plugins, SP_daemon_exec, SP_daemon);

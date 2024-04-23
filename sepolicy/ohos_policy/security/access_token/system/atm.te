@@ -1,0 +1,46 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+    domain_auto_transition_pattern(sh, atm_exec, atm);
+
+    allow samgr atm:dir { search };
+    allow samgr atm:file { open read };
+    allow samgr atm:process { getattr };
+    allow samgr atm:binder { call transfer };
+
+    allow atm hdcd:fifo_file { ioctl read write };
+    allowxperm atm hdcd:fifo_file ioctl { 0x5413 };
+
+    allow atm sa_accesstoken_manager_service:samgr_class { get };
+    allow atm sa_privacy_service:samgr_class { get };
+    allow atm sh:fd { use };
+
+    allow atm hdcd:unix_stream_socket { read write  };
+    allow atm hdcd:fd { use };
+
+    allow atm tty_device:chr_file { read write  };
+    allow atm devpts:chr_file { read write ioctl };
+    allowxperm atm devpts:chr_file ioctl { 0x5413 };
+
+    allow atm dev_console_file:chr_file { read write  };
+    allow atm debug_param:file { read open map };
+    allow atm dev_unix_socket:dir { search  };
+
+    allow atm hilog_param:file { read map open };
+
+    allow atm samgr:binder { call };
+    allow atm accesstoken_service:binder { call };
+
+    allow atm privacy_service:binder { call };
+')

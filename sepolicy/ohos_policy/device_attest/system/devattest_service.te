@@ -18,9 +18,10 @@ init_daemon_domain(devattest_service);
 
 #avc:  denied  { search } for  pid=324 comm="IPC_0_424" name="/" dev="mmcblk0p12" ino=3 scontext=u:r:devattest_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
 allow devattest_service data_file:dir { search };
-
-allow devattest_service data_device_attest:dir { search getattr add_name open read remove_name write create };
-allow devattest_service data_device_attest:file { append map open read create write getattr setattr unlink lock ioctl rename };
+allow devattest_service data_service_file:dir { search };
+allow devattest_service data_service_el1_file:dir { search };
+allow devattest_service data_service_el1_public_device_attest:dir { search getattr add_name open read remove_name write create };
+allow devattest_service data_service_el1_public_device_attest:file { append map open read create write getattr setattr unlink lock ioctl rename };
 
 allow devattest_service netsysnative:unix_stream_socket { connectto read write };
 allow devattest_service port:tcp_socket { name_connect };
@@ -59,8 +60,8 @@ allow devattest_service devinfo_private_param:file { map open read };
 allow devattest_service hilog_param:file { map open read };
 
 allow devattest_service normal_hap_attr:binder { call transfer };
-allow devattest_service system_basic_hap:binder { call transfer };
-allow devattest_service system_core_hap:binder { call transfer };
+allow devattest_service system_basic_hap_attr:binder { call transfer };
+allow devattest_service system_core_hap_attr:binder { call transfer };
 
 #avc:  denied  { open } for  pid=326 comm="IPC_2_436" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { map } for  pid=324 comm="devattest_servi" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
@@ -104,3 +105,9 @@ allow devattest_service sa_param_watcher:samgr_class { get };
 
 #avc:  denied  { call } for  pid=1588 comm="SaInit0" scontext=u:r:devattest_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 allow devattest_service accountmgr:binder { call };
+
+#avc:  denied  { get } for service=3510 pid=1486 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_huks_service:s0 tclass=samgr_class permissive=0
+allow devattest_service huks_service:binder { call };
+allow devattest_service sa_huks_service:samgr_class { get };
+
+allow devattest_service sysfs_devices_system_cpu:file { open read getattr};

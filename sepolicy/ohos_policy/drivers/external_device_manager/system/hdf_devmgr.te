@@ -23,3 +23,6 @@ allow hdf_devmgr hdf_ext_devmgr:file { open read };
 
 # avc:  denied  { getattr } for  pid=243 comm="IPC_3_507" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=process permissive=1
 allow hdf_devmgr hdf_ext_devmgr:process { getattr };
+
+allow hdf_devmgr dev_mgr_file:chr_file { ioctl read write };
+allowxperm hdf_devmgr dev_mgr_file:chr_file ioctl { 0x6201 };

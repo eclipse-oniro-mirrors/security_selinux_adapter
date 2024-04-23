@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -84,8 +84,8 @@ allow softbus_server softbus_server:udp_socket { bind connect create getattr ioc
 allow softbus_server softbus_server:unix_dgram_socket { getopt ioctl setopt };
 allow softbus_server startup_param:file { map open read };
 allow softbus_server sys_param:file { map open read };
-allow softbus_server system_basic_hap:binder { call transfer };
-allow softbus_server system_basic_hap:fd { use };
+allow softbus_server system_basic_hap_attr:binder { call transfer };
+allow softbus_server system_basic_hap_attr:fd { use };
 allow softbus_server system_bin_file:dir { search };
 allow softbus_server system_bin_file:file { execute execute_no_trans map read read open };
 allow softbus_server system_usr_file:dir { search };
@@ -97,5 +97,5 @@ allow softbus_server tracefs_trace_marker_file:file { open write };
 allow softbus_server wifi_manager_service:binder { call transfer };
 allow softbus_server kernel:system { module_request };
 allow softbus_server softbus_server:capability { net_admin };
-allowxperm softbus_server softbus_server:udp_socket ioctl { 0x8912 0x8913 0x8915 0x8919 0x8927 };
+allowxperm softbus_server softbus_server:udp_socket ioctl { 0x8910 0x8912 0x8913 0x8915 0x8919 0x8927 };
 allowxperm softbus_server softbus_server:unix_dgram_socket ioctl { 0x8910 };

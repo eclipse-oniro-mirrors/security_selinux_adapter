@@ -32,6 +32,8 @@ allow multimodalinput dev_input_file:chr_file { ioctl };
 allow multimodalinput dev_input_file:dir { watch open read search getattr };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
+allow multimodalinput distributeddata:binder { call };
+allow multimodalinput distributeddata:fd { use };
 allow multimodalinput allocator_host:binder { call };
 allow multimodalinput allocator_host:fd { use };
 allow multimodalinput hdf_allocator_service:hdf_devmgr_class { get };
@@ -44,10 +46,13 @@ allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind creat
 #allow multimodalinput multimodalinput:process { ptrace };
 allow multimodalinput musl_param:file { map open read };
 allow multimodalinput param_watcher:binder { call transfer };
+allow multimodalinput powermgr:binder { call transfer };
 allow multimodalinput render_service:binder { call transfer };
+allow multimodalinput render_service:fd { use };
 allow multimodalinput resource_schedule_service:binder { call };
 allow multimodalinput rootfs:chr_file { write };
 allow multimodalinput sa_device_service_manager:samgr_class { get };
+allow multimodalinput sa_distributeddata_service:samgr_class { get };
 allow multimodalinput sa_foundation_dms:samgr_class { get };
 allow multimodalinput sa_foundation_wms:samgr_class { get };
 allow multimodalinput sa_multimodalinput_service:samgr_class { get };
@@ -61,15 +66,30 @@ allow multimodalinput tracefs:file { open write };
 allow multimodalinput tracefs_trace_marker_file:file { open write };
 allow multimodalinput vendor_etc_file:dir { search };
 allow multimodalinput vendor_etc_file:file { getattr open read };
+allow multimodalinput data_file:dir { remove_name };
+allow multimodalinput data_multimodalinput:file { lock };
+allow multimodalinput sysfs_devices_system_cpu:file { open read getattr };
+allow multimodalinput data_file:sock_file { setattr create unlink };
+# avc:  denied  { get } for service=3299 pid=722 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow multimodalinput sa_foundation_cesfwk_service:samgr_class { get };
+allow multimodalinput sa_foundation_appms:samgr_class { get };
+allow multimodalinput normal_hap_attr:binder { call };
+allow multimodalinput normal_hap_attr:fd { use };
+allow multimodalinput sa_powermgr_powermgr_service:samgr_class { get };
 allow normal_hap_attr multimodalinput:unix_stream_socket { read write };
 allow normal_hap_attr sa_multimodalinput_service:samgr_class { get };
-allow system_basic_hap multimodalinput:unix_stream_socket { read };
-allow system_basic_hap multimodalinput:unix_stream_socket { read write };
-allow system_core_hap multimodalinput:unix_stream_socket { read };
+allow normal_hap_attr multimodalinput:fd { use };
+allow system_basic_hap_attr multimodalinput:unix_stream_socket { read };
+allow system_basic_hap_attr multimodalinput:unix_stream_socket { read write };
+allow system_core_hap_attr multimodalinput:unix_stream_socket { read };
 allow init data_multimodalinput:dir { create getattr open read relabelfrom relabelto search setattr write };
+# avc:  denied  { read } scontext=u:r:useriam:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+allow useriam multimodalinput:unix_stream_socket { read };
+# avc:  denied  { get } scontext=u:r:useriam:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow useriam sa_multimodalinput_service:samgr_class { get };
 allowxperm multimodalinput data_log:file ioctl { 0x5413 };
 allowxperm multimodalinput dev_dri_file:chr_file ioctl { 0x641f };
-allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4503 0x4560 0x4542 0x4548 0x456f 0x450a 0x4559 0x4568 0x455a 0x455b };
+allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4503 0x4560 0x4542 0x4548 0x456f 0x450a 0x4559 0x4568 0x455a 0x455b 0x4577 0x4545 0x4549 0x454a 0x4550 0x4551 };
 allowxperm multimodalinput data_multimodalinput:file ioctl { 0x5413 };
 debug_only(`
     allow multimodalinput sh:binder { call };

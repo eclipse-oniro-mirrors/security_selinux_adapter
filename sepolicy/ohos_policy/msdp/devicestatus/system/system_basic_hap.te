@@ -12,13 +12,13 @@
 # limitations under the License.
 
 #avc:  denied  { read write } for  pid=923 comm="IPC_1_1099" path="socket:[36387]" dev="sockfs" ino=36387 scontext=u:r:system_basic_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_stream_socket permissive=1
-allow system_basic_hap msdp_sa:unix_stream_socket { read write };
+allow system_basic_hap_attr msdp_sa:unix_stream_socket { read write };
 
 #avc:  denied  { call } for  pid=3251 comm="com.example.din" scontext=u:r:system_basic_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=binder permissive=1
-allow system_basic_hap msdp_sa:binder { call };
+allow system_basic_hap_attr msdp_sa:binder { call };
 
 #avc:  denied  { use } for  pid=943 comm="IPC_1_1099" path="socket:[35980]" dev="sockfs" ino=35980 scontext=u:r:system_basic_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=fd permissive=1
-allow system_basic_hap msdp_sa:fd { use };
+allow system_basic_hap_attr msdp_sa:fd { use };
 
 #avc:  denied  { get } for service=2902 pid=3511 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_msdp_devicestatus_service:s0 tclass=samgr_class permissive=1
-allow system_basic_hap sa_msdp_devicestatus_service:samgr_class { get };
+allow system_basic_hap_attr sa_msdp_devicestatus_service:samgr_class { get };

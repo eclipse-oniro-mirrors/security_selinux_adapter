@@ -1,0 +1,66 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+binder_call(local_code_sign, samgr);
+
+binder_call(local_code_sign, huks_service);
+
+allow local_code_sign accesstoken_service:binder { call };
+
+allow local_code_sign sa_param_watcher:samgr_class { get };
+
+allow local_code_sign sa_local_code_sign:samgr_class { add get };
+
+allow local_code_sign sa_huks_service:samgr_class { get };
+
+allow local_code_sign sa_accesstoken_manager_service:samgr_class { get };
+
+allow local_code_sign musl_param:file { map open read };
+
+allow local_code_sign huks_service:binder { call };
+
+allow local_code_sign hilog_param:file { map open read };
+
+allow local_code_sign dev_unix_socket:dir { search };
+
+allow local_code_sign debug_param:file { map open read };
+
+allow local_code_sign proc_file:file { open read };
+
+allow local_code_sign sysfs_devices_system_cpu:file { getattr open read };
+
+allow local_code_sign data_file:dir { search };
+
+allow local_code_sign data_local:dir { search };
+
+allow local_code_sign data_local:file { getattr open read };
+
+allow local_code_sign local_code_sign:unix_dgram_socket { getopt setopt };
+
+allow local_code_sign param_watcher:binder { call transfer };
+
+allow local_code_sign tracefs:dir { search };
+
+allow local_code_sign tracefs_trace_marker_file:file { open write };
+
+allow local_code_sign tmpfs:chr_file { ioctl map open read write };
+
+allow local_code_sign tmpfs:file { open };
+
+allow local_code_sign tmpfs:sock_file { write };
+
+allowxperm local_code_sign tmpfs:chr_file ioctl { 0x6201 0x6209 0x621f };
+
+allow local_code_sign data_local_arkcache:dir { search };
+
+allow local_code_sign data_local_arkcache:file { getattr open read };

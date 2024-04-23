@@ -11,18 +11,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap netmanager:binder { call };
-allow system_core_hap netmanager:binder { transfer };
+allow system_core_hap_attr netmanager:binder { call };
+allow system_core_hap_attr netmanager:binder { transfer };
 
-allow system_core_hap netsysnative:unix_stream_socket { connectto read write };
-allow system_core_hap system_core_hap:tcp_socket { getattr create setopt bind connect getopt read write };
-allow system_core_hap system_core_hap:udp_socket { getattr create setopt bind connect getopt read write };
+allow system_core_hap_attr netsysnative:unix_stream_socket { connectto read write };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { getattr create setopt bind connect getopt read write shutdown };
+allow system_core_hap_attr system_core_hap_attr:udp_socket { getattr create setopt bind connect getopt read write shutdown };
 
-allow system_core_hap system_core_hap:udp_socket { getopt };
-allow system_core_hap fwmark_service:sock_file { write };
+allow system_core_hap_attr system_core_hap_attr:udp_socket { getopt };
+allow system_core_hap_attr fwmark_service:sock_file { write };
 
-allow system_core_hap sa_comm_net_stats_manager_service:samgr_class { get };
-allow system_core_hap node:tcp_socket { node_bind };
+allow system_core_hap_attr sa_comm_net_stats_manager_service:samgr_class { get };
+allow system_core_hap_attr node:tcp_socket { node_bind };
 
-allow system_core_hap sa_netsys_ext_service:samgr_class { add get };
-allow system_core_hap sa_distributed_net_service:samgr_class { add get };
+allow system_core_hap_attr sa_netsys_ext_service:samgr_class { add get };
+allow system_core_hap_attr sa_distributed_net_service:samgr_class { add get };
+
+allow system_core_hap_attr sa_comm_vpn_manager_service:samgr_class { get };

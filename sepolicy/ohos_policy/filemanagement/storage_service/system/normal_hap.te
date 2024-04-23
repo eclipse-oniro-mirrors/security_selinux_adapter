@@ -12,5 +12,5 @@
 # limitations under the License.
 
 allow normal_hap_attr storage_manager:binder { transfer };
-allow normal_hap_attr sa_file_manager_service:samgr_class { get };
-allow normal_hap_attr system_core_hap_data_file:file { getattr read };
+allow normal_hap_attr sa_file_access_service:samgr_class { get };
+allow normal_hap_attr system_core_hap_data_file_attr:file { getattr read };

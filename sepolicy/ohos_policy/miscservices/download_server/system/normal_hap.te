@@ -14,3 +14,7 @@
 allow normal_hap_attr sa_download_service:samgr_class { get };
 allow normal_hap_attr download_server:binder { call };
 allow normal_hap_attr download_server:binder { transfer };
+#avc:  denied  { use } for  pid=1481 comm="download_server" path="socket:[37160]" dev="sockfs" ino=37160 scontext=u:r:debug_hap:s0 tcontext=u:r:download_server:s0 tclass=fd permissive=0
+allow normal_hap_attr download_server:fd { use };
+#avc:  denied  { read write } for  pid=2215 comm="OS_IPC_1_2244" path="socket:[41327]" dev="sockfs" ino=41327 scontext=u:r:debug_hap:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=0
+allow normal_hap_attr download_server:unix_dgram_socket { read write };

@@ -256,6 +256,7 @@ static void Test(testInput &testCmd)
         }
         case 'w': {
             TestWriteParameters(testCmd);
+            break;
         }
         default:
             PrintUsage();

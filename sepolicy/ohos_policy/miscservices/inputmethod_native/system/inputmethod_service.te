@@ -16,8 +16,8 @@ allow inputmethod_service sa_foundation_bms:samgr_class { get };
 allow inputmethod_service dev_unix_socket:dir { search };
 allow inputmethod_service dev_unix_socket:sock_file { write };
 allow inputmethod_service normal_hap_attr:binder { call };
-allow inputmethod_service system_basic_hap:binder { call };
-allow inputmethod_service system_core_hap:binder { call };
+allow inputmethod_service system_basic_hap_attr:binder { call };
+allow inputmethod_service system_core_hap_attr:binder { call };
 allow inputmethod_service data_file:dir { search };
 allow inputmethod_service inputmethod_service:unix_dgram_socket { getopt setopt };
 allow inputmethod_service kernel:unix_stream_socket { connectto };
@@ -25,7 +25,7 @@ allow inputmethod_service paramservice_socket:sock_file { write };
 allow inputmethod_service sa_subsys_ace_service:samgr_class { get };
 allow inputmethod_service pasteboard_service:binder { call transfer };
 allow inputmethod_service inputmethod_param:parameter_service { set };
-allow { domain -limit_domain } inputmethod_param:file { map open read };
+allow domain inputmethod_param:file { map open read };
 #avc:  denied  { get } for service=200 pid=475 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
 #avc:  denied  { call } for  pid=485 comm="IPC_1_1016" scontext=u:r:inputmethod_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 #avc:  denied  { transfer } for  pid=504 comm="IPC_1_928" scontext=u:r:accountmgr:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
@@ -54,6 +54,8 @@ allow inputmethod_service musl_param:file { read open map };
 allow inputmethod_service data_service_file:dir { search };
 allow inputmethod_service data_service_el1_file:dir { search write add_name create };
 allow inputmethod_service data_service_el1_file:file {create read write open };
+allow inputmethod_service data_service_el1_file:file { getattr };
+allow inputmethod_service sysfs_devices_system_cpu:file { open read getattr };
 
 #avc:  denied  { search } for  pid=528 comm="IPC_2_1183" name="app" dev="mmcblk0p12" ino=38 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
 allow inputmethod_service data_app_file:dir { search };
@@ -71,3 +73,14 @@ allow inputmethod_service sa_foundation_wms:samgr_class { get };
 # avc:  denied  { transfer } for  pid=505 comm="WindowManagerSe" scontext=u:r:foundation:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
 allow foundation inputmethod_service:binder { transfer };
 
+#avc:  denied  { get } for service=1301 pid=1216 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_distributeddate_service:s0 tclass=samgr_class permissive=0
+allow inputmethod_service sa_distributeddata_service:samgr_class { get };
+
+# avc:  denied  { read } for  pid=3271 comm="inputmethod_ser" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=1806 comm="inputmethod_ser" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+# avc:  denied  { call } for  pid=3271 comm="SaInit0" scontext=u:r:inputmethod_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
+# avc:  denied  { use } for  pid=562 comm="OS_IPC_3_1292" path="/dev/ashmem" dev="tmpfs" ino=240 scontext=u:r:inputmethod_service:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=0
+allow inputmethod_service arkcompiler_param:file { read open map };
+allow inputmethod_service ark_writeable_param:file { read open map };
+allow inputmethod_service distributeddata:binder { call transfer };
+allow inputmethod_service distributeddata:fd { use };

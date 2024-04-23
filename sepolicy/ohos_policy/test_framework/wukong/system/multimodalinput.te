@@ -15,7 +15,7 @@ allow multimodalinput render_service:binder { call };
 allow multimodalinput render_service:binder { transfer };
 allow multimodalinput foundation:binder { transfer };
 allow multimodalinput allocator_host:fd { use };
-allow multimodalinput system_core_hap:fd { use };
+allow multimodalinput system_core_hap_attr:fd { use };
 allow multimodalinput dev_dri_file:dir { search };
 allow multimodalinput dev_dri_file:chr_file { getattr };
 allow multimodalinput hdf_allocator_service:hdf_devmgr_class { get };

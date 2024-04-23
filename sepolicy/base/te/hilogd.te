@@ -45,3 +45,6 @@ allow hilogd startup_param:file { map open read };
 allow hilogd sys_param:file { map open read };
 allow hilogd system_bin_file:dir { search };
 allow hilogd sys_usb_param:file { map open read };
+allow hilogd proc_kmsg_file:file { map open read };
+allow hilogd kernel:system { syslog_mod };
+allow hilogd hilogd:capability2 { syslog };

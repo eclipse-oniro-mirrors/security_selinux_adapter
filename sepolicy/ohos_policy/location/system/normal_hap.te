@@ -16,4 +16,4 @@ allow normal_hap_attr sa_location_locator_service:samgr_class { get };
 
 allow normal_hap_attr locationhub:binder { call transfer };
 
-allow system_core_hap locationhub:binder { call transfer };
+allow system_core_hap_attr locationhub:binder { call transfer };

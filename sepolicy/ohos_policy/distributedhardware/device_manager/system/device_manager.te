@@ -41,7 +41,7 @@ allow device_manager persist_param:parameter_service { set };
 allow device_manager persist_param:file { read open map };
 
 #avc:  denied  { call } for  pid=506 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
-allow device_manager system_basic_hap:binder { call };
+allow device_manager system_basic_hap_attr:binder { call };
 
 #avc:  denied  { get } for service=3510 pid=559 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_huks_service:s0 tclass=samgr_class permissive=1
 allow device_manager sa_huks_service:samgr_class { get };
@@ -288,14 +288,14 @@ allow device_manager sa_accesstoken_manager_service:samgr_class { get };
 #avc: denied  { get } for service=180 pid=246 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
 allow device_manager sa_foundation_abilityms:samgr_class { get };
 
-allow device_manager system_core_hap:binder { call transfer };
+allow device_manager system_core_hap_attr:binder { call transfer };
 allow device_manager pasteboard_service:binder { call transfer };
 allow device_manager distributeddata:binder { call };
 
 allow device_manager devinfo_private_param:file { map open read};
 
 allow device_manager dhardware_dm_param:parameter_service { set };
-allow { domain -limit_domain } dhardware_dm_param:file { map open read };
+allow domain dhardware_dm_param:file { map open read };
 
 allow device_manager msdp_sa:binder { call };
 allow device_manager multimodalinput:binder { call };
@@ -310,3 +310,13 @@ allow device_manager musl_param:file { read open map };
 
 #avc:  denied  { call } for  pid=255 comm="IPC_0_273" scontext=u:r:device_manager:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
 allow device_manager dcamera:binder { call };
+
+#avc:  denied  { get } for service=1130 pid=580 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=0
+allow device_manager sa_bluetooth_server:samgr_class { get };
+allow device_manager bluetooth_service:binder { call transfer };
+
+allow device_manager daudio:binder { call transfer };
+allow device_manager softbus_server:fd { use };
+allow device_manager softbus_server:tcp_socket { read write setopt shutdown };
+allow device_manager arkcompiler_param:file { read };
+allow device_manager ark_writeable_param:file { read };

@@ -10,39 +10,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-###################
-## Macro define: ##
-###################
-define(`use_hilog', `
-    allow $1 hilog_input_socket:sock_file write;
-    allow $1 hilogd:unix_dgram_socket sendto;
-')
-
-define(`read_hilog', `
-    allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
-    allow $1 hilog_output_socket:sock_file write;
-    allow $1 hilogd:unix_stream_socket connectto;
-')
-
-define(`control_hilog', `
-    allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
-    allow $1 hilog_control_socket:sock_file write;
-    allow $1 hilogd:unix_stream_socket connectto;
-')
-
 ###################################
 ## Read/Use/Control hilog rules: ##
 ###################################
-debug_only(`
-    read_hilog(sh)
-    control_hilog(sh)
-    allow sh data_hilogd_file:dir { read_dir_perms };
-    allow sh data_hilogd_file:file { read_file_perms };
-
-')
 read_hilog(hap_domain)
-
 use_hilog({ domain -kernel })
 
 #######################
@@ -109,7 +80,7 @@ neverallow { domain -init -processdump } hilogd:process ptrace;
 neverallow hilogd system_file:dir_file_class_set write;
 
 # write to hap files
-neverallow hilogd { normal_hap_data_file_attr system_basic_hap_data_file system_core_hap_data_file }:dir_file_class_set write;
+neverallow hilogd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr }:dir_file_class_set write;
 
 # only init is allowed to enter the hilogd domain via exec()
 neverallow { domain -init } hilogd:process transition;
@@ -118,16 +89,15 @@ neverallow * hilogd:process dyntransition;
 # protect persist tmp file and info file
 neverallow {
     domain
+    developer_only(`-wukong')
+    developer_only(`-hiprofiler_plugins')    
     -init
     -hilogd
-    -sh                 # write is covered next
     -hiview             # write is covered next
     -hdcd               # write is covered next
-    -system_basic_hap   # write is covered next
-    -system_core_hap    # write is covered next
-    -normal_hap_attr         # write is covered next
+    updater_only(`-updater')
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
-neverallow { sh hiview hdcd system_basic_hap system_core_hap } data_hilogd_file:file { append create rename setattr write };
+neverallow { domain -hilogd } data_hilogd_file:file { append create rename setattr write };
 

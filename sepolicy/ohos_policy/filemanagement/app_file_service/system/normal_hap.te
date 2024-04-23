@@ -12,3 +12,5 @@
 # limitations under the License.
 allow normal_hap_attr hmdfs:file { read open getattr write };
 allow normal_hap_attr data_service_el2_hmdfs:file { read open getattr write };
+allow normal_hap_attr system_core_hap_data_file:file { write };
+allow normal_hap_attr system_basic_hap_data_file:file { write };

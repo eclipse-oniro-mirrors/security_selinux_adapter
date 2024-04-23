@@ -137,7 +137,7 @@ allow ueventd security_param:file { map open read };
 allow ueventd startup_param:file { map open read };
 allow ueventd sys_file:dir { open read };
 allow ueventd sys_file:file { open write };
-allow ueventd sysfs_android_usb:dir { open read };
+allow ueventd sysfs_gadget_usb:dir { open read };
 allow ueventd sysfs_block_file:dir { open read };
 allow ueventd sysfs_block_file:file { open write };
 allow ueventd sysfs_block_loop:dir { open read };
@@ -164,6 +164,25 @@ allow ueventd vendor_etc_file:dir { search };
 allow ueventd init:unix_dgram_socket { read write };
 allow ueventd paramservice_socket:sock_file { write };
 allow ueventd kernel:unix_stream_socket { connectto };
+allow ueventd dev_block_file:blk_file { relabelfrom };
+allow ueventd dev_block_file:lnk_file { relabelfrom getattr };
+allow ueventd dev_block_file:dir { open read };
+allow ueventd dev_block_volfile:lnk_file { setattr getattr relabelfrom};
 
 # for hyperhold
 allow ueventd zram_device:blk_file { relabelto getattr setattr };
+
+# avc:  denied  { getattr } for  pid=250 comm="ueventd" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
+# avc:  denied  { relabelfrom } for  pid=250 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
+# avc:  denied  { setattr } for  pid=250 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
+# avc:  denied  { relabelto } for  pid=245 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allow ueventd updater_block_file:blk_file { getattr relabelfrom setattr relabelto };
+
+# avc:  denied  { getattr } for  pid=242 comm="ueventd" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
+# avc:  denied  { relabelfrom } for  pid=242 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
+# avc:  denied  { setattr } for  pid=242 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
+allow ueventd tmpfs:blk_file { getattr relabelfrom setattr };
+
+# avc:  denied  { getattr } for  pid=245 comm="ueventd" path="/dev/block/by-name/misc" dev="tmpfs" ino=37 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
+allow ueventd updater_block_file:lnk_file { getattr };
+

@@ -14,9 +14,9 @@
 #avc:  denied  { add } for service=3302 pid=608 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=1
 allow bluetooth_service sa_bluetooth_server:samgr_class { add };
 
-#avc:  denied  { call } for pid=293 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for pid=310 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-allow bluetooth_service audio_policy:binder { call transfer };
+#avc:  denied  { call } for pid=293 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for pid=310 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+allow bluetooth_service audio_server:binder { call transfer };
 
 #avc:  denied  {search} for pid=371 comm="threaded-ml" name="data" dev="mmcblk0p7" ino=1436162 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:data_bluetooth:s0 tclass=dir permissive=1
 allow bluetooth_service data_bluetooth:dir { search };
@@ -87,11 +87,11 @@ allow bluetooth_service dev_uhid_file:chr_file { open };
 allow bluetooth_service normal_hap_attr:binder { call transfer };
 
 #avc:  denied  { call } for  pid=380 comm="1IPC_450" scontext=u:r:bluetooth_service:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
-allow bluetooth_service system_core_hap:binder { call transfer };
+allow bluetooth_service system_core_hap_attr:binder { call transfer };
 
 allow bluetooth_service dev_console_file:chr_file { read write };
 allow bluetooth_service data_service_file:dir { search };
-allow bluetooth_service data_service_el1_file:dir { search open read write add_name remove_name };
+allow bluetooth_service data_service_el1_file:dir { getattr search open read write add_name remove_name };
 allow bluetooth_service data_service_el1_file:file { getattr setattr open read write rename unlink ioctl create};
 
 #avc: denied { getattr } bluetooth_service data_log tclass=file
@@ -105,11 +105,11 @@ allow bluetooth_service data_log:dir { read open };
 
 #avc: denied { read } bluetooth_service hdf_bluetooth_audio_session_service tclass=hdf_devmgr_class
 #avc: denied { open } bluetooth_service a2dp_host tclass=fd
-#avc: denied { open } bluetooth_service sa_foundation_battery_service tclass=samgr_class
+#avc: denied { open } bluetooth_service sa_powermgr_battery_service tclass=samgr_class
 allow bluetooth_service hdf_bluetooth_audio_session_service:hdf_devmgr_class { get };
 allow bluetooth_service hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
 allow bluetooth_service a2dp_host:fd { use };
-allow bluetooth_service sa_foundation_battery_service:samgr_class { get };
+allow bluetooth_service sa_powermgr_battery_service:samgr_class { get };
 
 #avc: denied { read open getattr } scontext=u:r:bluetooth_service  tcontext=u:object_r:sysfs_devices_system_cpu: tclass=file permissive=1
 allow bluetooth_service sysfs_devices_system_cpu:file { read open getattr };
@@ -157,15 +157,16 @@ allow bluetooth_service ohos_param:file { map open read };
 allow bluetooth_service param_watcher:binder { call transfer };
 allow bluetooth_service persist_param:file { map open read };
 allow bluetooth_service persist_sys_param:file { map open read };
+allow bluetooth_service powermgr:binder { call transfer };
 allow bluetooth_service sa_accesstoken_manager_service:samgr_class { get };
 allow bluetooth_service sa_param_watcher:samgr_class { get };
 allow bluetooth_service security_param:file { map open read };
 allow bluetooth_service startup_param:file { map open read };
 allow bluetooth_service sys_param:file { map open read };
-allow bluetooth_service system_basic_hap:binder { call transfer };
+allow bluetooth_service system_basic_hap_attr:binder { call transfer };
 allow bluetooth_service system_bin_file:dir { search };
 allow bluetooth_service sys_usb_param:file { map open read };
-allow bluetooth_service telephony_sa:binder { call };
+allow bluetooth_service telephony_sa:binder { call transfer };
 allow bluetooth_service tracefs:dir { search };
 allow bluetooth_service tracefs_trace_marker_file:file { open write };
 allow bluetooth_service normal_hap_attr:binder { call };
@@ -175,13 +176,6 @@ allowxperm bluetooth_service data_log:file ioctl { 0x5413 };
 #avc:  denied  { call } for  pid=305 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:a2dp_host:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=305 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:a2dp_host:s0 tclass=binder permissive=1
 allow bluetooth_service a2dp_host:binder { call transfer };
-
-#avc:  denied  { call } for  pid=293 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=310 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-allow bluetooth_service audio_policy:binder { call transfer };
-
-#avc:  denied  { call } for  pid=299 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
-allow bluetooth_service pulseaudio:binder { call };
 
 #avc:  denied  { get } for service=3009 pid=283 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
 allow bluetooth_service sa_audio_policy_service:samgr_class { get };
@@ -208,3 +202,20 @@ allow bluetooth_service sa_distributeddata_service:samgr_class { get };
 allow bluetooth_service sa_foundation_abilityms:samgr_class { get };
 allow bluetooth_service sa_net_conn_manager:samgr_class { get };
 
+allow bluetooth_service data_misc:dir { read write add_name remove_name open };
+allow bluetooth_service data_misc:file { read getattr unlink create ioctl write open };
+allowxperm bluetooth_service data_misc:file ioctl { 0x5413 };
+
+#avc:  denied  { get } for service=3299 pid=348 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_telephony_tel_sms_mms:s0 tclass=samgr_class permissive=0
+allow bluetooth_service sa_telephony_tel_sms_mms:samgr_class { get };
+allow bluetooth_service sa_foundation_bms:samgr_class { get };
+
+#avc: denied { call } for pid=1414, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+#avc: denied { transfer } for pid=1414, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow bluetooth_service device_manager:binder { call transfer };
+
+#avc:  denied  { get } for service=3505 pid=14188 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
+allow bluetooth_service sa_privacy_service:samgr_class { get };
+
+#avc:  denied  { call } for pid=1612, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
+allow bluetooth_service privacy_service:binder { call };

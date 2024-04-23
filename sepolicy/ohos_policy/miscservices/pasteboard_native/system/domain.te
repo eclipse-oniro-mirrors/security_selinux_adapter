@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow { domain -limit_domain } pasteboard_param:file { map open read };
+allow domain pasteboard_param:file { map open read };

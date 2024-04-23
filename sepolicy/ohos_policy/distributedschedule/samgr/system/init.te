@@ -12,6 +12,8 @@
 # limitations under the License.
 
 allow init samgr_perf_param:file { map open read relabelto };
+allow init samgr_writable_param:file { map open read relabelto };
+allow init data_samgr:dir { getattr open read relabelto search setattr add_name create write };
 debug_only(`
     allow init listen_test:process { transition rlimitinh siginh };
 ')

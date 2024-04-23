@@ -1,0 +1,91 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type sharing_service, sadomain, domain;
+allow sharing_service foundation:binder { call };
+allow sharing_service hilog_param:file { map read open };
+allow sharing_service media_service:binder { call };
+allow sharing_service net_param:file { map open read };
+allow sharing_service net_tcp_param:file { map open read };
+allow sharing_service ohos_param:file { map open read };
+allow sharing_service sa_accesstoken_manager_service:samgr_class { get };
+allow sharing_service sa_device_service_manager:samgr_class { get };
+allow sharing_service sa_foundation_dms:samgr_class { get };
+allow sharing_service security_param:file { map open read };
+allow sharing_service startup_param:file { map open read };
+allow sharing_service dev_unix_socket:dir { search };
+allow sharing_service render_service:binder { call transfer };
+allow sharing_service debug_param:file { map open read };
+allow sharing_service sys_param:file { map open read };
+allow sharing_service persist_param:file { map open read };
+allow sharing_service persist_sys_param:file { map open read };
+allow sharing_service system_bin_file:dir { search };
+allow sharing_service system_core_hap_attr:binder { call transfer };
+allow sharing_service dev_console_file:chr_file { read write };
+allow sharing_service tracefs_trace_marker_file:file { open write };
+allow sharing_service sa_memory_manager_service:samgr_class { get };
+allow sharing_service sa_audio_policy_service:samgr_class { get };
+allow sharing_service sa_media_service:samgr_class { get };
+allow sharing_service sa_softbus_service:samgr_class { get };
+allow sharing_service sa_foundation_devicemanager_service:samgr_class { get };
+allow sharing_service device_manager:binder { call transfer };
+allow sharing_service audio_server:binder { call transfer };
+allow sharing_service softbus_server:binder { call transfer };
+allow sharing_service softbus_server:fd { use };
+allow sharing_service softbus_server:tcp_socket { read write setopt shutdown };
+allow sharing_service media_service:binder { call transfer };
+allow sharing_service sharing_service:unix_dgram_socket { getopt setopt };
+allow sharing_service sysfs_devices_system_cpu:file { getattr read open };
+
+allow sharing_service accesstoken_service:binder { call };
+allow sharing_service sa_sharing_service:samgr_class { add get };
+allow sharing_service sharing_service:tcp_socket { connect create setopt create };
+allow sharing_service sharing_service:tcp_socket { bind shutdown read write };
+allow sharing_service sharing_service:udp_socket { bind shutdown setopt connect write read create };
+allow sharing_service sa_wifi_device_ability:samgr_class { get };
+allow sharing_service sa_wifi_p2p_ability:samgr_class { get };
+allow sharing_service wifi_manager_service:binder { call transfer };
+allow sharing_service sa_wifi_scan_ability:samgr_class { get };
+allow sharing_service sa_wifi_hotspot_ability:samgr_class { get };
+allow sharing_service port:tcp_socket { name_connect };
+allow sharing_service port:udp_socket { name_bind };
+allow sharing_service node:udp_socket { node_bind };
+allow sharing_service node:tcp_socket { node_bind };
+allow sharing_service native_socket:sock_file { write };
+allow sharing_service system_core_hap:fd { use };
+allow sharing_service data_file:file { getattr read open };
+allow sharing_service data_file:dir { write add_name search };
+allow sharing_service dev_console_file:chr_file { read write };
+allow sharing_service audio_server:binder { call transfer };
+allow sharing_service system_core_hap:binder { transfer call };
+allow sharing_service system_basic_hap:binder { transfer call };
+allow sharing_service data_data_file:dir { search };
+allow sharing_service data_data_pulse_dir:dir { search read open getattr };
+allow sharing_service data_data_pulse_dir:file { read write open lock };
+allow sharing_service data_service_file:dir { search };
+allow sharing_service data_service_el0_file:dir { search };
+allow sharing_service system_usr_file:dir { search getattr };
+allow sharing_service system_usr_file:file { getattr };
+allow sharing_service tracefs:dir { search write };
+allow sharing_service media_service:fd { use };
+allow sharing_service data_service_el1_file:dir { search read write };
+allow sharing_service sa_av_codec_service:samgr_class { get };
+allow sharing_service av_codec_service:binder { call transfer };
+allow sharing_service av_codec_service:fd { use };
+allow sharing_service sa_pulseaudio_audio_service:samgr_class { get };
+allow sharing_service sa_foundation_bms:samgr_class { get };
+debug_only(`
+    allow sharing_service sh:binder { call };
+    allow sharing_service su:binder { call transfer };
+	allow sharing_service su:process { signal };
+')

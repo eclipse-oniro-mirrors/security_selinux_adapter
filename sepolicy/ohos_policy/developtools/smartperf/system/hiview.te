@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,3 +13,9 @@
 
 allow hiview hiview_file:dir { add_name write };
 allow hiview hiview_file:file { create };
+
+developer_only(`
+allow hiview SP_daemon:dir { search };
+allow hiview SP_daemon:file { getattr open read };
+')
+

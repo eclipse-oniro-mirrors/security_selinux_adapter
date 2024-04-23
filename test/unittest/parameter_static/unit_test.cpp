@@ -15,11 +15,11 @@
 
 #include "unit_test.h"
 
-#include "gtest/gtest.h"
 #include <iostream>
 #include <new>
 #include <selinux/selinux.h>
 #include <vector>
+#include "gtest/gtest.h"
 #include "contexts_trie.h"
 #include "selinux_error.h"
 #include "selinux_map.h"
@@ -28,8 +28,10 @@
 #include "test_common.h"
 #include "unistd.h"
 
+namespace OHOS {
+namespace Security {
+namespace SelinuxUnitTest {
 using namespace testing::ext;
-using namespace OHOS::Security::SelinuxUnitTest;
 using namespace Selinux;
 const static std::string PARAMETER_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/parameter_contexts";
 static const char DEFAULT_CONTEXT[] = "u:object_r:default_param:s0";
@@ -194,17 +196,6 @@ HWTEST_F(SelinuxUnitTest, HashMapAdd004, TestSize.Level1)
 }
 
 /**
- * @tc.name: LoadParameterContextsToSharedMem001
- * @tc.desc: Test 'int LoadParameterContextsToSharedMem(void)' must success.
- * @tc.type: FUNC
- * @tc.require:
- */
-HWTEST_F(SelinuxUnitTest, LoadParameterContextsToSharedMem001, TestSize.Level1)
-{
-    ASSERT_EQ(0, LoadParameterContextsToSharedMem());
-}
-
-/**
  * @tc.name: InitSharedMem001
  * @tc.desc: Test 'void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)' with invalid params.
  * @tc.type: FUNC
@@ -240,3 +231,6 @@ HWTEST_F(SelinuxUnitTest, ReadSharedMem002, TestSize.Level1)
 {
     EXPECT_EQ("test", ReadSharedMem("test", 4));
 }
+} // namespace SelinuxUnitTest
+} // namespace Security
+} // namespace OHOS

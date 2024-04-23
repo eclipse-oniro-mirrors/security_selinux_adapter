@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { call } for  pid=239 comm="param_watcher" scontext=u:r:param_watcher:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-allow param_watcher audio_policy:binder { call };
+#avc:  denied  { call } for  pid=239 comm="param_watcher" scontext=u:r:param_watcher:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+allow param_watcher audio_server:binder { call };
 
 allow param_watcher accessibility_param:file { map open read };

@@ -12,7 +12,7 @@
 # limitations under the License.
 
 allow normal_hap_attr sa_form_mgr_service:samgr_class { get };
-allow normal_hap_attr system_core_hap:binder { call transfer };
+allow normal_hap_attr system_core_hap_attr:binder { call transfer };
 allow normal_hap_attr system_file:file { getattr open read execute};
 allow normal_hap_attr data_service_el1_file:file { getattr map open read };
 allow normal_hap_attr sa_quick_fix_mgr_service:samgr_class { get };

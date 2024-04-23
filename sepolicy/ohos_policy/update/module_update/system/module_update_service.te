@@ -17,9 +17,13 @@ type module_update_service_exec, exec_attr, file_attr, system_file_attr;
 init_daemon_domain(module_update_service);
 
 allow module_update_service bootevent_param:file { map open read };
-allow module_update_service data_file:dir { remove_name search write };
-allow module_update_service data_module_update:dir { getattr open read remove_name rmdir write };
-allow module_update_service data_module_update_package:dir { open read remove_name rmdir search write };
+allow module_update_service data_file:dir { remove_name search write add_name create setattr read open rmdir getattr relabelfrom };
+allow module_update_service data_module_update:dir { getattr open read remove_name rmdir write search add_name create setattr rename };
+allow module_update_service data_module_update_package:dir { open read remove_name rmdir search write getattr setattr add_name relabelto create };
+allow module_update_service data_module_update_package:file { create read write open unlink ioctl getattr map link };
+allowxperm module_update_service data_module_update_package:file ioctl { 0x5413 };
+allow module_update_service data_module_update:file { create read write open unlink ioctl getattr link map };
+allowxperm module_update_service data_module_update:file ioctl { 0x5413 };
 allow module_update_service debug_param:file { map open read };
 allow module_update_service dev_console_file:chr_file { open read write };
 allow module_update_service dev_unix_socket:dir { search };
@@ -34,4 +38,20 @@ allow module_update_service sa_sys_event_service:samgr_class { get };
 allow module_update_service sysfs_devices_system_cpu:file { getattr open read };
 allow module_update_service system_bin_file:dir { search };
 allow module_update_service system_module_update_file:dir { getattr open read search };
+allow module_update_service system_module_update_file:file { getattr open read };
 allow module_update_service vendor_bin_file:dir { search };
+allow module_update_service system_file:dir { read search getattr open };
+allow module_update_service update_firmware_file:dir { add_name search write remove_name getattr append read open };
+allow module_update_service update_firmware_file:file { append create open read write rename unlink getattr setattr map };
+allow module_update_service data_updater_file:dir { add_name search write remove_name getattr };
+allow module_update_service data_updater_file:file { append create open read write rename unlink getattr setattr relabelfrom };
+allow module_update_service kernel:unix_stream_socket { connectto };
+allow module_update_service servicectrl_reboot_param:parameter_service { set };
+allow module_update_service paramservice_socket:sock_file { write };
+allow module_update_service accesstoken_service:binder { call };
+allow module_update_service sa_accesstoken_manager_service:samgr_class { get };
+allow module_update_service updater_sa:binder { call };
+allow module_update_service vendor_etc_file:dir { search };
+debug_only(`
+    allow module_update_service sh:binder { call transfer };
+')

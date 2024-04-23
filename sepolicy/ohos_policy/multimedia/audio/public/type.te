@@ -13,11 +13,8 @@
 
 type data_data_pulse_dir, file_attr, data_file_attr;
 
-type audio_policy, sadomain, domain;
-type audio_policy_exec, exec_attr, file_attr, system_file_attr;
-
-type pulseaudio, sadomain, domain;
-type pulseaudio_exec, exec_attr, file_attr, system_file_attr;
+type audio_server, sadomain, domain;
+type audio_server_exec, exec_attr, file_attr, system_file_attr;
 
 type hdf_audio_hdi_service, hdf_service_attr;
 type hdf_audio_hdi_usb_service, hdf_service_attr;

@@ -13,3 +13,4 @@
 
 apl=normal name=com.ohos.medialibrary.medialibrarydata domain=medialibrary_hap type=medialibrary_hap_data_file
 apl=normal name=com.ohos.medialibrary.medialibrarydata:fileAccess domain=medialibrary_hap type=medialibrary_hap_data_file
+apl=normal name=com.ohos.medialibrary.medialibrarydata:backup domain=medialibrary_hap type=medialibrary_hap_data_file

@@ -17,3 +17,10 @@ allow storage_daemon proc_filesystems_file:file { open read };
 allow storage_daemon dev_block_file:dir { search };
 allow storage_daemon dev_block_file:blk_file { getattr }; 
 allow storage_daemon unlabeled:filesystem { mount };
+# avc:  denied  { remove_name } for  pid=262 comm="storage_daemon" name="F0C2A58FC2A55A9C" dev="tmpfs" ino=61 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { rmdir } for  pid=262 comm="storage_daemon" name="F0C2A58FC2A55A9C" dev="tmpfs" ino=61 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+allow storage_daemon mnt_external_file:dir { remove_name rmdir };
+# avc:  denied  { getattr } for  pid=262 comm="IPC_1_282" path="/data/service/el1/public/storage_daemon/share/public" dev="mmcblk0p14" ino=69 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
+# avc:  denied  { setattr } for  pid=262 comm="IPC_1_282" name="public" dev="mmcblk0p14" ino=69 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
+allow storage_daemon share_public_file:dir { getattr setattr };
+allow storage_daemon system_bin_file:lnk_file { read };

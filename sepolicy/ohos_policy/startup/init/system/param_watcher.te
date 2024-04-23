@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -25,6 +25,7 @@ allow param_watcher bootevent_param:file { map open read };
 allow param_watcher bootevent_samgr_param:file { map open read };
 allow param_watcher build_version_param:file { map open read };
 allow param_watcher camera_service:binder { call };
+allow param_watcher drm_service:binder { call };
 allow param_watcher const_allow_mock_param:file { map open read };
 allow param_watcher const_allow_param:file { map open read };
 allow param_watcher const_build_param:file { map open read };
@@ -50,6 +51,7 @@ allow param_watcher dscreen:binder { call };
 allow param_watcher dslm_service:binder { call };
 allow param_watcher edm_sa:binder { call };
 allow param_watcher foundation:binder { call };
+allow param_watcher powermgr:binder { call };
 allow param_watcher hidumper_service:binder { call };
 allow param_watcher hilog_param:file { map open read };
 allow param_watcher hiview:binder { call };
@@ -79,7 +81,6 @@ allow param_watcher pasteboard_service:binder { call };
 allow param_watcher persist_param:file { map open read };
 allow param_watcher persist_sys_param:file { map open read };
 allow param_watcher pinauth:binder { call };
-allow param_watcher pulseaudio:binder { call };
 allow param_watcher render_service:binder { call };
 allow param_watcher resource_schedule_service:binder { call };
 allow param_watcher sa_param_watcher:samgr_class { add get };
@@ -90,9 +91,9 @@ allow param_watcher softbus_server:binder { call };
 allow param_watcher startup_param:file { map open read };
 allow param_watcher storage_manager:binder { call };
 allow param_watcher sys_param:file { map open read };
-allow param_watcher system_basic_hap:binder { call };
+allow param_watcher system_basic_hap_attr:binder { call };
 allow param_watcher system_bin_file:dir { search };
-allow param_watcher system_core_hap:binder { call };
+allow param_watcher system_core_hap_attr:binder { call };
 allow param_watcher sys_usb_param:file { map open read };
 allow param_watcher telephony_sa:binder { call };
 allow param_watcher time_service:binder { call };

@@ -1,0 +1,23 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+    allow debug_hap debug_hap_data_file:sock_file { create unlink read write };
+    allow installs debug_hap_data_file:sock_file { unlink }; 
+')
+allow normal_hap_attr normal_hap_data_file_attr:sock_file { create unlink read write };
+allow system_basic_hap_attr system_basic_hap_data_file_attr:sock_file { create unlink read write };
+allow system_core_hap_attr system_core_hap_data_file_attr:sock_file { create unlink read write };
+allow installs normal_hap_data_file_attr:sock_file { unlink };
+allow installs system_basic_hap_data_file_attr:sock_file { unlink };
+allow installs system_core_hap_data_file_attr:sock_file { unlink };

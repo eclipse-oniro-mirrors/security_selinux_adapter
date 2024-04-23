@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -12,6 +12,6 @@
 # limitations under the License.
 
 #avc:  denied  { getattr } for  pid=535 comm="hidumper_servic" path="/proc/10928" dev="proc" ino=102645 scontext=u:r:hidumper_service:s0 tcontext=u:r:system_core_hap:s0 tclass=dir permissive=1
-allow hidumper_service system_core_hap:dir { getattr };
+allow hidumper_service system_core_hap_attr:dir { getattr };
 allow hidumper_service dev_at_file:chr_file { ioctl };
 allowxperm hidumper_service dev_at_file:chr_file ioctl { 0x4104 };

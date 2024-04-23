@@ -23,12 +23,12 @@ allow mdnsmanager musl_param:file { open read map };
 allow mdnsmanager mdnsmanager:netlink_route_socket { create write read nlmsg_read };
 
 allow param_watcher mdnsmanager:binder { call };
-allow system_basic_hap mdnsmanager:binder { transfer call };
-allow mdnsmanager system_basic_hap:binder { call };
-allow system_basic_hap sa_comm_mdns_manager_service:samgr_class { get };
-allow system_core_hap mdnsmanager:binder { transfer call };
-allow mdnsmanager system_core_hap:binder { call };
-allow system_core_hap sa_comm_mdns_manager_service:samgr_class { get };
+allow system_basic_hap_attr mdnsmanager:binder { transfer call };
+allow mdnsmanager system_basic_hap_attr:binder { call };
+allow system_basic_hap_attr sa_comm_mdns_manager_service:samgr_class { get };
+allow system_core_hap_attr mdnsmanager:binder { transfer call };
+allow mdnsmanager system_core_hap_attr:binder { call };
+allow system_core_hap_attr sa_comm_mdns_manager_service:samgr_class { get };
 allow normal_hap_attr mdnsmanager:binder { transfer call };
 allow mdnsmanager normal_hap_attr:binder { call };
 allow normal_hap_attr sa_comm_mdns_manager_service:samgr_class { get };
@@ -41,6 +41,9 @@ allow mdnsmanager mdnsmanager:udp_socket { create getopt setopt bind name_bind i
 allow mdnsmanager node:udp_socket { node_bind };
 allow mdnsmanager port:udp_socket { name_bind };
 allow mdnsmanager mdnsmanager:unix_dgram_socket { ioctl getopt setopt };
+
+allow mdnsmanager netmanager:binder { call transfer };
+allow mdnsmanager sa_net_conn_manager:samgr_class { get };
 
 debug_only(`
     allow mdnsmanager sh:binder { call };

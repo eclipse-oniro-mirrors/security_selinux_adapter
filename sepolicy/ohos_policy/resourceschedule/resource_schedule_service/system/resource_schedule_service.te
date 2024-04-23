@@ -14,11 +14,11 @@
 #resource_schedule_service
 allow resource_schedule_service accesstoken_service:binder { call };
 allow resource_schedule_service foundation:binder { call transfer };
+allow resource_schedule_service powermgr:binder { call transfer };
 allow resource_schedule_service hiview:binder { call transfer };
 allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
-allow resource_schedule_service audio_policy:binder { call transfer };
-allow resource_schedule_service pulseaudio:binder { call transfer };
+allow resource_schedule_service audio_server:binder { call transfer };
 allow resource_schedule_service msdp_sa:binder { call transfer };
 allow resource_schedule_service bluetooth_service:binder { call };
 allow resource_schedule_service locationhub:binder { call };
@@ -36,6 +36,9 @@ allow resource_schedule_service data_service_el2_file:dir { search };
 allow resource_schedule_service data_service_el2_hmdfs:dir { search };
 allow resource_schedule_service data_service_file:dir { search };
 allow resource_schedule_service device_manager:file { read };
+# avc: denied { transfer } for pid=892, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:distributeddata:s0 tclass=binder permissive=0
+# Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
+allow resource_schedule_service distributeddata:binder { transfer };
 allow resource_schedule_service hdf_devmgr:file { read };
 allow resource_schedule_service hilogd:file { read };
 allow resource_schedule_service vendor_bin_file:dir { search };
@@ -45,15 +48,15 @@ allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };
 allow resource_schedule_service vendor_etc_file:file { getattr map open read };
-allow resource_schedule_service system_basic_hap:dir { open read search };
-allow resource_schedule_service system_basic_hap:file { getattr open read };
-allow resource_schedule_service system_basic_hap:process { setsched sigkill };
+allow resource_schedule_service system_basic_hap_attr:dir { open read search };
+allow resource_schedule_service system_basic_hap_attr:file { getattr open read };
+allow resource_schedule_service system_basic_hap_attr:process { setsched sigkill };
 allow resource_schedule_service system_bin_file:dir { search };
 allow resource_schedule_service system_bin_file:file { execute execute_no_trans getattr map read open };
 allow resource_schedule_service system_bin_file:lnk_file { read };
-allow resource_schedule_service system_core_hap:dir { open read search };
-allow resource_schedule_service system_core_hap:file { getattr open read };
-allow resource_schedule_service system_core_hap:process { setsched };
+allow resource_schedule_service system_core_hap_attr:dir { open read search };
+allow resource_schedule_service system_core_hap_attr:file { getattr open read };
+allow resource_schedule_service system_core_hap_attr:process { setsched };
 allow resource_schedule_service system_fonts_file:dir { open read search };
 allow resource_schedule_service system_fonts_file:file { open read };
 allow resource_schedule_service system_usr_file:dir { search map };
@@ -90,7 +93,9 @@ allow resource_schedule_service musl_param:file { open read map };
 allow resource_schedule_service resource_schedule_service:netlink_socket { read };
 allow resource_schedule_service proc_file:file { read open };
 allow resource_schedule_service param_watcher:file { read };
-allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
+debug_only(`
+    allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
+')
 allow resource_schedule_service sys_file:file { getattr write open ioctl create read };
 allow resource_schedule_service sys_file:dir { open read search };
 allow resource_schedule_service system_file:file { open read };
@@ -123,8 +128,8 @@ allow resource_schedule_service sa_location_geo_convert_service:samgr_class { ge
 allow resource_schedule_service sa_device_standby:samgr_class { add get };
 allow resource_schedule_service sensors:binder { call };
 allow resource_schedule_service sa_sensor_service:samgr_class { get };
-allow resource_schedule_service sa_foundation_battery_service:samgr_class { get };
-allow resource_schedule_service sa_foundation_powermgr_service:samgr_class { get };
+allow resource_schedule_service sa_powermgr_battery_service:samgr_class { get };
+allow resource_schedule_service sa_powermgr_powermgr_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
@@ -132,9 +137,20 @@ allow resource_schedule_service sensors:binder { transfer };
 allow resource_schedule_service time_service:binder { transfer };
 allow resource_schedule_service sa_task_heartbeat_mgr:samgr_class { add get };
 allow bgtaskmgr_service sa_device_standby:samgr_class { get };
-allow system_basic_hap sa_device_standby:samgr_class { get };
+allow normal_hap_attr sa_device_standby:samgr_class { get };
+allow system_basic_hap_attr sa_device_standby:samgr_class { get };
+allow system_core_hap_attr sa_device_standby:samgr_class { get };
+allow resource_schedule_service multimodalinput:binder { call };
+allow resource_schedule_service multimodalinput:fd { use };
+allow resource_schedule_service multimodalinput:unix_stream_socket { write };
+allow resource_schedule_service memmgrservice:binder { call };
+allow resource_schedule_service sa_comm_net_stats_manager_service:samgr_class { get };
+# for RegisterDisplayModeListener on observer_manager.cpp
+allow resource_schedule_service sa_foundation_dms:samgr_class { get };
 debug_only(`
     allow resource_schedule_service sh:dir { search };
     allow resource_schedule_service sh:file { open };
     allow resource_schedule_service sh:binder { call };
 ')
+#set : allow resource_schedule_service set system parameter to record systemload level
+allow resource_schedule_service resourceschedule_writeable_param:parameter_service { set };

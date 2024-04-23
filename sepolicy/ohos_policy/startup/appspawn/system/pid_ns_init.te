@@ -1,0 +1,45 @@
+# Copyright (c) 2024-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow pid_ns_init pid_ns_init_exec:file { execute execute_no_trans open read };
+
+# avc_audit_slow:260] avc: denied { open } for pid=1, comm="/system/bin/pid_ns_init"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=223 scontext=u:r:pid_ns_init:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc_audit_slow:260] avc: denied { read } for pid=1, comm="/system/bin/pid_ns_init"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=223 scontext=u:r:pid_ns_init:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow pid_ns_init debug_param:file { open read };
+
+# avc:  denied  { search } for  pid=268 comm="plat_shared" name="708" dev="proc" ino=30028 scontext=u:r:hiview:s0 tcontext=u:r:pid_ns_init:s0 tclass=dir permissive=1
+allow hiview pid_ns_init:dir { search };
+# avc:  denied  { getattr } for  pid=268 comm="plat_shared" path="/proc/708/comm" dev="proc" ino=33421 scontext=u:r:hiview:s0 tcontext=u:r:pid_ns_init:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=268 comm="plat_shared" path="/proc/708/comm" dev="proc" ino=33421 scontext=u:r:hiview:s0 tcontext=u:r:pid_ns_init:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=268 comm="plat_shared" name="comm" dev="proc" ino=33421 scontext=u:r:hiview:s0 tcontext=u:r:pid_ns_init:s0 tclass=file permissive=1
+allow hiview pid_ns_init:file { getattr open read };
+
+# avc:  denied  { map } for  pid=768 comm="pid_ns_init" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:pid_ns_init:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow pid_ns_init debug_param:file { map };
+# avc:  denied  { map } for  pid=768 comm="pid_ns_init" path="/system/bin/pid_ns_init" dev="mmcblk0p7" ino=335 scontext=u:r:pid_ns_init:s0 tcontext=u:object_r:pid_ns_init_exec:s0 tclass=file permissive=1
+allow pid_ns_init pid_ns_init_exec:file { map };
+
+debug_only(`
+    # avc:  denied  { getattr } for  pid=1654 comm="ls" path="/proc/708/ns" dev="proc" ino=33493 scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=dir permissive=1
+    # avc:  denied  { open } for  pid=1654 comm="ls" path="/proc/708/ns" dev="proc" ino=33493 scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=dir permissive=1
+    # avc:  denied  { read } for  pid=1654 comm="ls" name="ns" dev="proc" ino=33493 scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for  pid=1654 comm="ls" name="708" dev="proc" ino=30028 scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=dir permissive=1
+    allow su pid_ns_init:dir { getattr open read search };
+    # avc:  denied  { read } for  pid=1654 comm="ls" scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=file permissive=1
+    allow su pid_ns_init:file { read };
+    # avc:  denied  { getattr } for  pid=1654 comm="ls" path="/proc/708/ns/net" dev="proc" ino=33494 scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=lnk_file permissive=1
+    # avc:  denied  { read } for  pid=1654 comm="ls" name="net" dev="proc" ino=33494 scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=lnk_file permissive=1
+    allow su pid_ns_init:lnk_file { getattr read };
+    # avc:  denied  { open } for  pid=1761 comm="ps" path="/proc/768/status" dev="proc" ino=37714 scontext=u:r:su:s0 tcontext=u:r:pid_ns_init:s0 tclass=file permissive=1
+    allow su pid_ns_init:file { open };
+')

@@ -1,0 +1,27 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+
+# lldb-server is launch by Appspawn, therefore Appspawn should be allowed to
+# execute lldb-server and transit to the SELinux context designated for the
+# lldb-server process.
+domain_auto_transition_pattern(appspawn, lldb_server_file, lldb_server);
+# Needed for Appspawn to execute lldb-server
+allow appspawn data_local_tmp:dir { search };
+allow appspawn lldb_server_file:dir { search };
+allow appspawn lldb_server:process2 { nosuid_transition };
+# For fs-verify(signature checking) of lldb-server. appspawn will execute lldb-server.
+allow appspawn key_enable:key { search };
+
+')

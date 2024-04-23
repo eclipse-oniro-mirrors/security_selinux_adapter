@@ -32,12 +32,19 @@ define(`use_faultloggerd_crash', `
     allow $1 faultloggerd_socket_crash:sock_file { getattr write };
 ')
 
+define(`use_faultloggerd_sdkdump', `
+    allow $1 faultloggerd:fd use;
+    allow $1 faultloggerd:unix_stream_socket connectto;
+    allow $1 faultloggerd_socket_sdkdump:sock_file { getattr write };
+')
+
 ##########################################
 ## Read/Use/Control faultloggerd rules: ##
 ##########################################
-use_faultloggerd({ domain -limit_domain })
+use_faultloggerd(domain)
 use_faultloggerd_crash({ processdump })
 use_faultloggerd_file({ hiview hidumper })
+use_faultloggerd_sdkdump({ hiview hidumper foundation })
 
 #########################
 ## faultloggerd rules: ##
@@ -61,6 +68,7 @@ allow faultloggerd data_init_agent:file { append ioctl open read };
 allow faultloggerd dev_unix_socket:sock_file unlink;
 allow faultloggerd faultloggerd_socket:sock_file unlink;
 allow faultloggerd faultloggerd_socket_crash:sock_file unlink;
+allow faultloggerd faultloggerd_socket_sdkdump:sock_file unlink;
 allow faultloggerd faultloggerd_temp_file:dir { add_name remove_name write open read search };
 allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write open read unlink };
 

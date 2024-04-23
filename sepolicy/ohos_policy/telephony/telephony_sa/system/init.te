@@ -21,4 +21,17 @@ allow init telephony_sa:dir { getattr search };
 allow init telephony_sa:file { open read };
 allow init telephony_sa:lnk_file read;
 allow init telephony_sa:process getattr;
+allow init telephony_sa:process { rlimitinh siginh transition };
 
+# for create map file
+allow const_telephony_param tmpfs:filesystem associate;
+allow telephony_param tmpfs:filesystem associate;
+allow init const_telephony_param:file { map open read relabelto relabelfrom };
+allow init telephony_param:file { map open read relabelto relabelfrom };
+
+#for set
+allow { init telephony_sa riladapter_host } telephony_param:parameter_service { set };
+
+#for read
+allow domain const_telephony_param:file { map open read };
+allow domain telephony_param:file { map open read };

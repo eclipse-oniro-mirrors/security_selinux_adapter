@@ -32,3 +32,5 @@ allow dslm_service system_etc_file:dir { getattr open read };
 allow dslm_service system_profile_file:dir { search };
 
 allow dslm_service sa_foundation_devicemanager_service:samgr_class { get };
+
+allow dslm_service daudio:binder { call transfer };

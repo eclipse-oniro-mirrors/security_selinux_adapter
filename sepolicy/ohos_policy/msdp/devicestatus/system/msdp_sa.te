@@ -39,7 +39,7 @@ allow msdp_sa normal_hap_attr:binder { call };
 allow msdp_sa data_file:dir { search };
 
 #avc:  denied  { call } for  pid=429 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
-allow msdp_sa system_core_hap:binder { call };
+allow msdp_sa system_core_hap_attr:binder { call };
 
 #avc:  denied  { watch } for  pid=453 comm="device_status_s" path="/dev/input" dev="tmpfs" ino=77 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=dir permissive=0
 #avc:  denied  { open } for  pid=1729 comm="device_status_s" path="/dev/input" dev="tmpfs" ino=77 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=dir permissive=0
@@ -174,7 +174,7 @@ allow msdp_sa sysfs_devices_system_cpu:file { getattr open read };
 allow msdp_sa sysfs_devices_system_cpu:dir { open read };
 
 #avc:  denied  { use } for  pid=1172 comm="com.ohos.launch" path="/dev/ashmem" dev="tmpfs" ino=188 scontext=u:r:msdp_sa:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=1
-allow msdp_sa system_basic_hap:fd { use };
+allow msdp_sa system_basic_hap_attr:fd { use };
 
 allow msdp_sa sa_distributeddata_service:samgr_class { get };
 
@@ -195,16 +195,21 @@ allow msdp_sa allocator_host:fd { use };
 #avc:  denied  { call } for  pid=3255 comm="mmi_EventHdr" scontext=u:r:msdp_sa:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
 allow msdp_sa distributeddata:binder { call };
 
-#avc:  denied  { use } for  pid=3612 comm="e.myapplication" path="/dev/ashmem" dev="tmpfs" ino=480 scontext=u:r:msdp_sa:s0 tcontext=u:r:debug_hap:s0 tclass=fd permissive=1
-debug_only(`
-allow msdp_sa debug_hap:fd { use };
-')
-
 #avc:  denied  { use } for  pid=2822 comm="mos.filemanager" path="/dev/ashmem" dev="tmpfs" ino=480 scontext=u:r:msdp_sa:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=0
-allow msdp_sa system_core_hap:fd { use };
+allow msdp_sa system_core_hap_attr:fd { use };
 
 #avc:  denied  { read } for  pid=2361 comm="ClientEventHand" scontext=u:r:system_core_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_stream_socket permissive=1
-allow msdp_sa system_core_hap:unix_stream_socket { read };
+allow msdp_sa system_core_hap_attr:unix_stream_socket { read };
 
 #avc: denied { use } for pid=4218 comm="awei.ohos.clock" path="/dev/ashmem" dev="tmpfs" ino=487 scontext=u:r:msdp_sa:s0 tcontext:u:r:normal_hap:s0 tclass=fd permissive=1
 allow msdp_sa normal_hap_attr:fd { use };
+
+#avc: denied { transfer } for pid=858 comm="SoftBusConnect" scontext=u:r:msdp_sa:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+allow msdp_sa multimodalinput:binder { transfer };
+
+#avc:  denied  { get } for service=3299 pid=470 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_foundation_cesfwk_service:samgr_class { get }; 
+
+allow msdp_sa sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
+allow msdp_sa distributedfiledaemon:binder { call };
+allow msdp_sa inputmethod_service:binder { call transfer };

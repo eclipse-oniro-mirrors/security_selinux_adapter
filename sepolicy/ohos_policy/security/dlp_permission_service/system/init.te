@@ -1,0 +1,29 @@
+# Copyright (C) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { rlimitinh } for  pid=14376 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:dlp_permission_service:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=14376 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:dlp_permission_service:s0 tclass=process permissive=1
+# avc:  denied  { transition } for  pid=14376 comm="init" path="/system/bin/sa_main" dev="sdd74" ino=406 scontext=u:r:init:s0 tcontext=u:r:dlp_permission_service:s0 tclass=process permissive=1
+allow init dlp_permission_service:process { rlimitinh siginh transition };
+
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="dlp_permission_service" dev="sdd78" ino=3362 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=dir permissive=0
+allow init dlp_permission_data_file:dir { relabelto };
+allow init dlp_permission_data_file:file { getattr };
+
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="retention_sandbox_info.json" dev="sdd78" ino=6121 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=file permissive=0
+allow init dlp_permission_data_file:file { relabelto };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/data/service/el1/public/dlp_permission_service" dev="sdd78" ino=144 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { open } for  pid=1 comm="init" path="/data/service/el1/public/dlp_permission_service" dev="sdd78" ino=144 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=1 comm="init" name="dlp_permission_service" dev="sdd78" ino=144 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { setattr } for  pid=1 comm="init" name="dlp_permission_service" dev="sdd78" ino=144 scontext=u:r:init:s0 tcontext=u:object_r:dlp_permission_data_file:s0 tclass=dir permissive=1
+allow init dlp_permission_data_file:dir { getattr open read setattr };

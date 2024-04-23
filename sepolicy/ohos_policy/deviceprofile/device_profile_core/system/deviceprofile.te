@@ -11,9 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-debug_only(`
-    allow sh sa_device_profile_service:samgr_class { add get };
-')
 allow distributedsche sa_device_profile_service:samgr_class { add get };
 allow distributedsche pasteboard_service:binder { call transfer };
+allow distributedsche sa_dhardware_service:samgr_class { get_remote };
 

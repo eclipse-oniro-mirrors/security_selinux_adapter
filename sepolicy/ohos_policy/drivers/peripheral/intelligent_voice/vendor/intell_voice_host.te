@@ -1,0 +1,127 @@
+# Copyright (C) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { add } for service=intell_voice_engine_manager_service pid=1022 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
+allow intell_voice_host hdf_intell_voice_engine_manager_service:hdf_devmgr_class { add };
+
+# avc:  denied  { get } for service=hdf_device_manager pid=1022 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+allow intell_voice_host hdf_device_manager:hdf_devmgr_class { get };
+
+# avc:  denied  { get } for service=5100 pid=1022 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+allow intell_voice_host sa_device_service_manager:samgr_class { get };
+
+# avc:  denied  { open } for  pid=1394 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=140 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+# avc:  denied  { map } for  pid=1484 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=140 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=1256 comm="hdf_devhost" name="u:object_r:debug_param:s0" dev="tmpfs" ino=140 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+allow intell_voice_host debug_param:file { open map read };
+
+# avc:  denied  { search } for  pid=1506 comm="intell_voice_ho" name="socket" dev="tmpfs" ino=109 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+allow intell_voice_host dev_unix_socket:dir { search };
+
+# avc:  denied  { open } for  pid=1394 comm="hdf_devhost" path="/proc/sys/vm/overcommit_memory" dev="proc" ino=29218 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=1256 comm="hdf_devhost" name="overcommit_memory" dev="proc" ino=28517 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=0
+allow intell_voice_host proc_file:file { open read };
+
+# avc:  denied  { call } for  pid=1256 comm="intell_voice_ho" scontext=u:r:intell_voice_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+allow intell_voice_host samgr:binder { call };
+
+# avc:  denied  { open } for  pid=1394 comm="hdf_devhost" path="/sys/devices/system/cpu/online" dev="sysfs" ino=33295 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=1129 comm="hdf_devhost" path="/sys/devices/system/cpu/online" dev="sysfs" ino=33295 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=1256 comm="hdf_devhost" name="online" dev="sysfs" ino=33295 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+allow intell_voice_host sysfs_devices_system_cpu:file { open getattr read };
+
+# avc:  denied  { transfer } for  pid=1178 comm="intell_voice_ho" scontext=u:r:intell_voice_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=0
+# avc:  denied  { call } for  pid=1206 comm="intell_voice_ho" scontext=u:r:intell_voice_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=0
+allow intell_voice_host hdf_devmgr:binder { transfer call };
+
+# avc:  denied  { open } for  pid=1394 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=136 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=1506 comm="intell_voice_ho" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=136 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+# avc:  denied  { map } for  pid=1484 comm="intell_voice_ho" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=136 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+allow intell_voice_host hilog_param:file { open read map };
+
+# avc:  denied  { search } for  pid=1065 comm="intell_voice_ho" name="etc" dev="sdd71" ino=12 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=0
+allow intell_voice_host chip_prod_file:dir { search };
+
+# avc:  denied  { getattr } for  pid=27925 comm="IPC_1_27937" path="/vendor/etc/audio/intell_voice/wakeup/vpr" dev="sdd72" ino=607 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=0
+# avc:  denied  { search } for  pid=1065 comm="intell_voice_ho" name="etc" dev="sdd72" ino=49 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=0
+allow intell_voice_host vendor_etc_file:dir { getattr search };
+
+# avc:  denied  { read } for  pid=1051 comm="intell_voice_ho" name="hdf_default.hcb" dev="sdd71" ino=461 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=1059 comm="intell_voice_ho" path="/chip_prod/etc/hdfconfig/hdf_default.hcb" dev="sdd71" ino=461 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=1064 comm="intell_voice_ho" path="/chip_prod/etc/hdfconfig/hdf_default.hcb" dev="sdd71" ino=461 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=0
+allow intell_voice_host chip_prod_file:file { read open getattr };
+
+# avc:  denied  { search } for  pid=7321 comm="dump_tmp_thread" name="bin" dev="sdd74" ino=237 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
+allow intell_voice_host system_bin_file:dir { search };
+
+# avc:  denied  { call } for  pid=19731 comm="IPC_1_19745" scontext=u:r:intell_voice_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+# avc:  denied  { transfer } for  pid=18368 comm="IPC_2_18400" scontext=u:r:intell_voice_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+allow intell_voice_host intell_voice_service:binder { transfer call };
+
+# avc:  denied  { search } for  pid=24578 comm="IPC_0_24590" name="/" dev="sdd78" ino=3 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow intell_voice_host data_file:dir { search };
+
+# avc:  denied  { search } for  pid=25024 comm="IPC_1_25043" name="service" dev="sdd78" ino=4095 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+allow intell_voice_host data_service_file:dir { search };
+
+# avc:  denied  { open } for  pid=4535 comm="IPC_1_4551" path="/data/service/el0/intellligent_voice/wakeup/vpr/vpr/enroll/tmp/pcm" dev="sdd78" ino=3458 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { search } for  pid=7450 comm="IPC_0_7463" name="el0" dev="sdd78" ino=4096 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { write } for  pid=19731 comm="IPC_1_19745" name="wakeup" dev="sdd78" ino=4379 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { add_name } for  pid=21951 comm="IPC_0_21961" name="dsp" scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { create } for  pid=31770 comm="IPC_1_31784" name="dsp" scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { getattr } for  pid=27925 comm="IPC_1_27937" path="/data/service/el0/intellligent_voice/wakeup/vpr" dev="sdd78" ino=3446 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { read } for  pid=25908 comm="IPC_1_25919" name="pcm" dev="sdd78" ino=3458 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { remove_name } for  pid=18194 comm="IPC_1_18209" name="tmp" dev="sdd78" ino=10104 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+# avc:  denied  { rmdir } for  pid=22108 comm="IPC_0_22126" name="tmp" dev="sdd78" ino=10104 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+allow intell_voice_host data_service_el0_file:dir { open search read write add_name create  getattr remove_name rmdir };
+
+# avc:  denied  { getattr } for  pid=25908 comm="IPC_1_25919" path="/vendor/etc/audio/intell_voice/wakeup/vpr/vpr_domainDict_03.dat" dev="sdd72" ino=617 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=25908 comm="IPC_1_25919" path="/vendor/etc/audio/intell_voice/wakeup/ap/wakeup_config.json" dev="sdd72" ino=640 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=27925 comm="IPC_1_27937" name="wakeup_config.json" dev="sdd72" ino=640 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+# avc:  denied  { map } for  pid=4535 comm="IPC_1_4551" path="/vendor/etc/audio/intell_voice/wakeup/ap/condict/kws2_domainDict_01.dat" dev="sdd72" ino=629 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+allow intell_voice_host vendor_etc_file:file { map read getattr open };
+
+# avc:  denied  { create } for  pid=25908 comm="IPC_1_25919" name="vpr_history_info.dat" scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { write } for  pid=4535 comm="IPC_1_4551" name="vpr_history_info.dat" dev="sdd78" ino=3569 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { write open } for  pid=4535 comm="IPC_1_4551" path="/data/service/el0/intellligent_voice/wakeup/tmp/tmpenroll_phrase.txt" dev="sdd78" ino=3571 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=18194 comm="IPC_1_18209" path="/data/service/el0/intellligent_voice/wakeup/tmp/tmpap_fst/tmp/HCLG.fst" dev="sdd78" ino=10107 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { ioctl } for  pid=18194 comm="IPC_1_18209" path="/data/service/el0/intellligent_voice/wakeup/tmp/tmpap_fst/tmp/addr_map.txt" dev="sdd78" ino=10110 ioctlcmd=0x5413 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=22108 comm="IPC_0_22126" name="vpr_history_info.dat" dev="sdd78" ino=3569 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { rename } for  pid=22108 comm="IPC_0_22126" name="addr_map.txt" dev="sdd78" ino=10110 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { append } for  pid=11539 comm="IPC_1_11555" name="pcoffice_wakeup.fst" dev="sdd78" ino=10218 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { unlink } for  pid=5173 comm="IPC_0_5184" name="tmp.pcm" dev="sdd78" ino=10211 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+# avc:  denied  { map } for  pid=11633 comm="AsrEngineThread" path="/data/service/el0/intellligent_voice/wakeup/tmp/tmpap_fst/wakeup.w2p" dev="sdd78" ino=10240 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+allow intell_voice_host data_service_el0_file:file { create map write write open getattr ioctl read rename append unlink };
+allowxperm intell_voice_host data_service_el0_file:file ioctl { 0x5413 };
+
+# avc:  denied  { open } for  pid=7263 comm="IPC_3_27758" path="/dev/ashmem" dev="tmpfs" ino=581 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+allow intell_voice_host dev_ashmem_file:chr_file { open };
+
+# avc:  denied  { read } for  pid=7263 comm="AsrEngineThread" name="cpu" dev="sysfs" ino=33293 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
+# avc:  denied  { open } for  pid=7010 comm="AsrEngineThread" path="/sys/devices/system/cpu" dev="sysfs" ino=33293 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
+allow intell_voice_host sysfs_devices_system_cpu:dir { open read };
+
+# avc:  denied  { search } for  pid=7243 comm="IPC_0_7253" name="variant" dev="sdd73" ino=98 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
+# avc:  denied  { getattr } for  pid=7204 comm="IPC_1_7217" path="/sys_prod/variant/region_comm/china/etc/intellvoice/wakeup/vpr" dev="sdd73" ino=168 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
+allow intell_voice_host sys_prod_file:dir { getattr search };
+
+# avc:  denied  { read } for  pid=7204 comm="IPC_1_7217" name="wakeup_config.json" dev="sdd73" ino=140 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=6928 comm="IPC_1_6942" path="/sys_prod/variant/region_comm/china/etc/intellvoice/wakeup/vpr/vpr_domainDict_03.dat" dev="sdd73" ino=174 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=6928 comm="IPC_1_6942" name="wakeup_config.json" dev="sdd73" ino=140 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=7069 comm="IPC_1_7081" path="/sys_prod/variant/region_comm/china/etc/intellvoice/wakeup/vpr/vpr_domainDict_03.dat" dev="sdd73" ino=174 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=0
+# avc:  denied  { map } for  pid=7236 comm="IPC_1_7248" path="/sys_prod/variant/region_comm/china/etc/intellvoice/wakeup/ap/condict/kws2_domainDict_01.dat" dev="sdd73" ino=121 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=0
+allow intell_voice_host sys_prod_file:file { open read map getattr read };
+
+# avc:  denied  { use } for  pid=757 comm="IPC_2_3452" path="/dev/ashmem" dev="tmpfs" ino=615 scontext=u:r:intell_voice_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=fd permissive=0
+allow intell_voice_host intell_voice_service:fd { use };
+

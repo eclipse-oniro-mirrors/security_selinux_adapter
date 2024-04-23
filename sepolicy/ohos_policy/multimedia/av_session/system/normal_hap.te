@@ -14,3 +14,4 @@
 allow normal_hap_attr sa_avsession_service:samgr_class { get };
 allow normal_hap_attr av_session:binder { call transfer };
 
+allow normal_hap_attr av_session:fd {use};

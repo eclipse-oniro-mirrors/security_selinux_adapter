@@ -40,8 +40,6 @@
 using namespace Selinux;
 
 namespace {
-static const std::string SERVICE_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/service_contexts";
-static const std::string HDF_SERVICE_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/hdf_service_contexts";
 static const std::string OBJECT_PREFIX = "u:object_r:";
 static const std::string DEFAULT_CONTEXT = "u:object_r:default_service:s0";
 static const std::string DEFAULT_HDF_CONTEXT = "u:object_r:default_hdf_service:s0";
@@ -51,6 +49,14 @@ static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 static std::unordered_map<std::string, struct ServiceInfo> g_serviceMap;
 std::mutex g_selinuxLock;
 std::mutex g_loadContextsLock;
+static const std::vector<std::string> SERVICE_CONTEXTS_FILE = {
+    "/system/etc/selinux/targeted/contexts/service_contexts",
+    "/vendor/etc/selinux/targeted/contexts/service_contexts",
+};
+static const std::vector<std::string> HDF_SERVICE_CONTEXTS_FILE = {
+    "/system/etc/selinux/targeted/contexts/hdf_service_contexts",
+    "/vendor/etc/selinux/targeted/contexts/hdf_service_contexts",
+};
 } // namespace
 
 extern "C" int HdfListServiceCheck(pid_t callingPid)
@@ -81,7 +87,7 @@ struct AuditMsg {
 
 static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, size_t len)
 {
-    if (data == nullptr || buf == nullptr) {
+    if (data == nullptr || buf == nullptr || len == 0) {
         return -1;
     }
     auto *msg = reinterpret_cast<AuditMsg *>(data);
@@ -153,11 +159,15 @@ static int CheckServiceNameValid(const std::string &serviceName)
     return SELINUX_SUCC;
 }
 
-static bool ServiceContextsLoad(const std::string &name)
+static bool ServiceContextsLoad(const std::vector<std::string> &fileName)
 {
     // load service_contexts file
-    std::ifstream contextsFile(name);
-    if (contextsFile) {
+    for (const auto &file : fileName) {
+        std::ifstream contextsFile(file);
+        if (!contextsFile) {
+            selinux_log(SELINUX_ERROR, "Load service_contexts fail, no such file: %s\n", file.c_str());
+            continue;
+        }
         int lineNum = 0;
         std::string line;
         while (getline(contextsFile, line)) {
@@ -172,13 +182,10 @@ static bool ServiceContextsLoad(const std::string &name)
                 selinux_log(SELINUX_ERROR, "service_contexts read fail in line %d\n", lineNum);
             }
         }
-    } else {
-        selinux_log(SELINUX_ERROR, "Load service_contexts fail, no such file: %s\n", name.c_str());
-        return false;
+        selinux_log(SELINUX_INFO, "Load service_contexts success: %s\n", file.c_str());
+        contextsFile.close();
     }
-    selinux_log(SELINUX_INFO, "Load service_contexts succes: %s\n", name.c_str());
-    contextsFile.close();
-    return true;
+    return !g_serviceMap.empty();
 }
 
 ServiceChecker::ServiceChecker(bool isHdf) : isHdf_(isHdf)

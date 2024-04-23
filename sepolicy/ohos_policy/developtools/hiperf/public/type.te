@@ -19,7 +19,7 @@ type data_local_tmp_hiperf_file, file_attr, data_file_attr;
 
 type hiperf_exec, exec_attr, file_attr, system_file_attr;
 
-type hiperf, nativedomain, domain;
+type hiperf, native_system_domain, domain;
 
-domain_auto_transition_pattern(nativedomain, hiperf_exec, hiperf);
+domain_auto_transition_pattern(native_system_domain, hiperf_exec, hiperf);
 domain_auto_transition_pattern(hiview, hiperf_exec, hiperf);

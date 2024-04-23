@@ -12,7 +12,9 @@
 # limitations under the License.
 
 allow kernel device:blk_file { create getattr setattr unlink };
-allow kernel hmdfs:dir { create_dir_perms };
-allow kernel hmdfs:dir { create_file_perms };
+allow kernel hmdfs:dir { create_dir_perms_without_ioctl };
+allow kernel hmdfs:file { create_file_perms_without_ioctl };
+neverallow kernel hmdfs:dir ioctl;
+neverallow kernel hmdfs:file ioctl;
 allow kernel data_service_el2_hmdfs:dir { create_dir_perms };
 allow kernel data_service_el2_hmdfs:file { create_file_perms };

@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -16,19 +16,37 @@ type system_basic_hap, domain;
 type normal_hap, domain;
 type debug_hap, domain, hap_domain, normal_hap_attr;
 
-hap_set(system_core_hap);
-hap_set(system_basic_hap);
-
 typeattribute normal_hap hap_domain;
 typeattribute normal_hap normal_hap_attr;
 
 neverallow normal_hap_attr { domain -normal_hap_attr }:file never_rw_file;
 neverallow { hap_domain -normal_hap_attr } normal_hap_attr:file never_rw_file;
-neverallow { domain -normal_hap_attr -processdump } normal_hap_attr:process ptrace;
+neverallow { domain -normal_hap_attr -processdump developer_only(`-lldb_server') } normal_hap_attr:process ptrace;
 
-type system_core_hap_data_file, hap_file_attr, data_file_attr, file_attr;
-type system_basic_hap_data_file, hap_file_attr, data_file_attr, file_attr;
+typeattribute system_core_hap hap_domain;
+typeattribute system_core_hap system_core_hap_attr;
+
+neverallow system_core_hap_attr { domain -system_core_hap_attr }:file never_rw_file;
+neverallow { hap_domain -system_core_hap_attr } system_core_hap_attr:file never_rw_file;
+neverallow { domain -system_core_hap_attr -processdump } system_core_hap_attr:process ptrace;
+
+typeattribute system_basic_hap hap_domain;
+typeattribute system_basic_hap system_basic_hap_attr;
+
+neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw_file;
+neverallow { hap_domain -system_basic_hap_attr } system_basic_hap_attr:file never_rw_file;
+neverallow { domain -system_basic_hap_attr -processdump } system_basic_hap_attr:process ptrace;
+
+neverallow hap_domain ~{ proc_attr tmpfs system_bin_file data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file }:lnk_file *;
+neverallow hap_domain { proc_attr tmpfs system_bin_file rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file }:lnk_file ~{ getattr read };
+neverallow hap_domain hap_domain:lnk_file ~{ read_file_perms };
+neverallow { hap_domain -hap_domain_lnk_file_violators } data_user_file:lnk_file *;
+neverallow { hap_domain -hap_domain_lnk_file_violators } hmdfs:lnk_file *;
+
+type system_core_hap_data_file, system_core_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+type system_basic_hap_data_file, system_basic_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 type normal_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+
 type debug_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 
 allow hap_domain appspawn:fd use;
@@ -38,12 +56,18 @@ allow hap_domain self:process execmem;
 
 allow hap_domain data_app_el1_file:dir { add_name create  open read search setattr write };
 allow hap_domain data_app_el1_file:file { getattr map open read };
-allow hap_domain data_app_el2_file:dir search;
+allow hap_domain data_app_el2_file:dir { add_name search read write create open remove_name setattr };
+allow hap_domain data_app_el2_file:file { create read write open lock ioctl unlink map setattr getattr rename };
 allow hap_domain data_app_file:dir search;
 allow hap_domain data_file:dir { getattr open read  search };
 #to remove
 allow hap_domain data_file:file { create getattr ioctl lock map open read write rename setattr unlink write };
 allow hap_domain data_log:file { read write };
+
+allow hap_domain sa_dataobs_mgr_service_service:binder { call };
+allow hap_domain sa_dataobs_mgr_service_service:samgr_class { get };
+
+allow hap_domain self:ced { container_escape_check };
 
 binder_call(hap_domain, samgr);
 binder_call(hap_domain, render_service);
@@ -51,6 +75,7 @@ binder_call(hap_domain, param_watcher);
 binder_call(hap_domain, multimodalinput);
 binder_call(hap_domain, inputmethod_service);
 binder_call(hap_domain, foundation);
+binder_call(hap_domain, powermgr);
 binder_call(hap_domain, accessibility);
 binder_call(hap_domain, hiview);
 
@@ -67,28 +92,29 @@ neverallow hap_domain { domain -hap_domain }:file never_rw_file;
 
 neverallow hap_domain vendor_file_attr:dir never_write_dir;
 #limit hap access vendor.
-neverallow hap_domain { vendor_file_attr -vendor_lib_file }:{ file fifo_file lnk_file sock_file } *;
+neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file }:{ file fifo_file lnk_file sock_file } *;
 
 #hap never access blk_file.
 neverallow hap_domain dev_attr:blk_file { read write };
 
 #limit hap access dev file.
-neverallow { hap_domain -system_basic_hap } { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
-                      -dev_zero_file -dev_unix_socket_file -dev_mali -tty_device -dev_fuse_file -dev_bbox }:chr_file { open ioctl read write};
+neverallow hap_domain { dev_attr -dev_ucollection -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
+                      -dev_zero_file -dev_unix_socket_file -dev_mali -tty_device -dev_fuse_file -dev_bbox
+                      -dev_tun_file -dev_attr_violator_chr_file_rw }:chr_file { open ioctl read write};
 
-neverallow system_basic_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file -dev_zero_file
-                      -dev_unix_socket_file -dev_mali -tty_device -dev_fuse_file -dev_tun_file -dev_bbox }:chr_file { open ioctl read write};
+neverallow { hap_domain -system_basic_hap_attr } dev_tun_file:chr_file { open ioctl };
 
 neverallow hap_domain dev_bbox:chr_file { read };
-neverallowxperm hap_domain dev_bbox:chr_file ioctl ~{ 0xab01 0xab04 0xab09 0xad01 0xaf04 0xaf06 };
-neverallow { hap_domain -dev_fuse_file_violator } dev_fuse_file:chr_file { open ioctl read write};
+#avc denied {ioctl} ino=71 ioctlcmd=0x426a 0x426d scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
+neverallowxperm hap_domain dev_bbox:chr_file ioctl ~{ 0xab01 0xab04 0xab09 0xad01 0xaf04 0xaf06 0x426a 0x426d };
+neverallow { hap_domain -dev_fuse_file_violator -dlpmanager_hap } dev_fuse_file:chr_file { open ioctl read write};
 
 #limit hap use kobject netlink.
 neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
 
 #no use ptrace
 neverallow hap_domain { domain -hap_domain }:process ptrace;
-neverallow { domain -hap_domain -processdump } hap_domain:process ptrace;
+neverallow { domain -hap_domain -processdump developer_only(`-lldb_server') } hap_domain:process ptrace;
 
 #hap don't bother other domain.
 neverallow hap_domain { domain -hap_domain }:process { sigkill sigstop signal };
@@ -99,9 +125,15 @@ neverallow hap_domain system_file:dir_file_class_set { create write setattr rela
 
 neverallow hap_domain { file_attr -data_file_attr -dev_attr }:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { hap_domain -system_core_hap } system_core_hap_data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { hap_domain -system_core_hap_attr -isolated_render } system_core_hap_data_file_attr:dir_file_class_set { create setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { hap_domain -system_basic_hap } system_basic_hap_data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { hap_domain -system_basic_hap_attr -isolated_render } system_basic_hap_data_file_attr:dir_file_class_set { create setattr relabelfrom relabelto append unlink link rename };
+
+# dir_file_class_set defines { dir { { blk_file chr_file } { fifo_file file lnk_file sock_file } } }, need to subtract file
+neverallow { isolated_render } system_core_hap_data_file_attr: { dir blk_file chr_file fifo_file lnk_file sock_file } { create write setattr relabelfrom relabelto append unlink link rename };
+
+# dir_file_class_set defines { dir { { blk_file chr_file } { fifo_file file lnk_file sock_file } } }, need to subtract file
+neverallow { isolated_render } system_basic_hap_data_file_attr: { dir blk_file chr_file fifo_file lnk_file sock_file } { create write setattr relabelfrom relabelto append unlink link rename };
 
 neverallow hap_domain { sysfs_attr proc_attr }:dir_file_class_set write;
 
@@ -117,23 +149,23 @@ neverallow { hap_domain } *:security { compute_av check_context };
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
 #limit access to system_core_hap_data_file
-neverallow { domain -hap_domain -installs debug_only(`-hdcd') -sh -storage_daemon -distributeddata } system_core_hap_data_file:dir_file_class_set { create unlink open };
+neverallow { domain -appspawn -hap_domain -installs -storage_daemon -distributeddata -download_server -system_core_hap_data_file_attr_violator_dir -distributedfiledaemon updater_only(`-updater') } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
 
-neverallow { system_basic_hap normal_hap_attr } system_core_hap_data_file:dir_file_class_set { create unlink open };
+neverallow { system_basic_hap_attr normal_hap_attr } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to system_basic_hap_data_file
-neverallow { domain -hap_domain -installs -storage_daemon debug_only(`-hdcd')  -distributeddata -hiview } system_basic_hap_data_file:dir_file_class_set { create unlink open };
+neverallow { domain -appspawn -hap_domain -installs -storage_daemon  -distributeddata -hiview -download_server -system_basic_hap_data_file_attr_violator_dir -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt updater_only(`-updater') } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
-neverallow normal_hap_attr system_basic_hap_data_file:dir_file_class_set { create unlink open };
+neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
-neverallow { domain -hap_domain -installs debug_only(`-hdcd') -distributeddata -storage_daemon -hiview } normal_hap_data_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt updater_only(`-updater') } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn debug_only(`-hdcd') -distributeddata -sh -storage_daemon -hiview -cloudfiledaemon } normal_hap_data_file_attr:dir *;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -distributedfiledaemon developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:dir *;
 
-neverallow { domain -hap_domain -installs debug_only(`-hdcd') -distributeddata -storage_daemon -hiview -cloudfiledaemon } normal_hap_data_file_attr:file_class_set open;
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:file_class_set open;
 
-neverallow { domain -installs } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
+neverallow { domain -installs -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
 neverallow hap_domain { domain -hap_domain -processdump }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;
@@ -149,8 +181,8 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -sys_installer_sa -updater_binary } data_file_attr:file { execute execute_no_trans };
-neverallow { sys_installer_sa updater_binary } { data_file_attr -data_updater_file }:file { execute execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -cupsd} data_file_attr:file { execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-uitest')} data_file_attr:file { execute };
 neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
 neverallow hap_domain system_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
@@ -158,9 +190,7 @@ neverallow hap_domain system_file:dir_file_class_set { create write setattr rela
 # limit access to /data/(*)? first level.todo
 #neverallow hap_domain data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { domain -installs } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
-
-neverallow { hap_domain -system_basic_hap } data_app_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { hap_domain -system_basic_hap_attr } data_app_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
 neverallow hap_domain proc_file:dir_file_class_set write;
 
@@ -169,7 +199,7 @@ neverallow * { file_attr -hap_file_attr }:file execmod;
 neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelto append unlink link rename };
 
 #normal_hap or selfdefine should be forbidden to set parameters.
-neverallow { hap_domain -system_core_hap -system_basic_hap } init:unix_stream_socket connectto;
+neverallow { hap_domain -system_core_hap_attr -system_basic_hap_attr } init:unix_stream_socket connectto;
 
-neverallow hiview normal_hap_data_file:file read;
-neverallow hiview system_basic_hap_data_file:file read;
+neverallow hiview normal_hap_data_file_attr:file read;
+neverallow hiview system_basic_hap_data_file_attr:file read;

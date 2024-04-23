@@ -11,12 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type init, nativedomain, domain;
+type init, native_system_domain, domain;
 type init_exec, exec_attr, file_attr, system_file_attr;
-type ueventd, domain, nativedomain;
+type ueventd, native_system_domain, domain;
 type ueventd_exec, system_file_attr, exec_attr, file_attr;
 
-allow init console:process { rlimitinh siginh transition getattr };
+debug_only(`
+    allow init console:process { rlimitinh siginh transition getattr };
+')
 allow init data_startup:dir { create getattr open read relabelfrom relabelto remove_name search setattr write add_name };
 allow init data_startup:file { create ioctl open read append relabelto rename unlink write open };
 allow init proc_stat_file:file { setattr read open };
@@ -52,12 +54,50 @@ allow init xts_devattest_authresult_param:parameter_service { set };
 allow init hiviewdfx_profiler_param:file { map open read relabelto relabelfrom };
 allow init devpts:chr_file { ioctl };
 
+allow i18n_param tmpfs:filesystem associate;
+allow init i18n_param:file { map open read relabelto relabelfrom };
+allow init i18n_param:parameter_service { set };
+allow { domain -limit_domain } i18n_param:file { map open read };
+allow const_i18n_param tmpfs:filesystem associate;
+allow init const_i18n_param:file { map open read relabelto relabelfrom };
+allow { domain -limit_domain } const_i18n_param:file { map open read };
+
 #for bootchart to read
-allow init { domain }:file { open read };
-allow init { domain }:dir { search };
+allow init domain:file { open read };
+allow init domain:dir { search };
 
 # for init trace
 allow init hiview:unix_dgram_socket { sendto };
 
 # all can read
-allow { domain -limit_domain } musl_param:file { map open read };
+allow domain musl_param:file { map open read };
+
+#for crash handle
+allow init init_exec:file { open read getattr map };
+allow init faultloggerd_temp_file:dir { add_name remove_name write open read search };
+allow init faultloggerd_temp_file:file { create getattr setattr write open read unlink };
+allow init sa_device_service_manager:samgr_class{ get };
+
+allow edm_writable_param tmpfs:filesystem associate;
+allow init edm_writable_param:file { map open read relabelto };
+allow init edm_writable_param:parameter_service { set };
+allow { domain } edm_writable_param:file { map open read };
+
+define(`init_relabel', `
+    allow init $1:{ file dir sock_file } { relabelto setattr };
+    allow init $1:dir { search };
+')
+init_relabel(data_service_el1_public_print_service_file);
+init_relabel(data_parameters);
+init_relabel(data_udev);
+init_relabel(data_multimodalinput);
+init_relabel(sandbox_manager_data_file);
+init_relabel(account_data_file);
+init_relabel(hdf_ext_devmgr_file);
+init_relabel(cloudfile_data_file);
+init_relabel(udevd_socket);
+init_relabel(accesstoken_data_file);
+init_relabel(data_service_el1_public_deviceauthService_file);
+init_relabel(data_service_el1_public_huksService_file);
+init_relabel(update_dupdate_engine_file);
+

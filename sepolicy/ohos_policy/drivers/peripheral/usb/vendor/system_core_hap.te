@@ -12,11 +12,11 @@
 # limitations under the License.
 
 # avc:  denied  { get } for service=usb_ddk_service pid=1442 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:hdf_usb_ddk_service:s0 tclass=hdf_devmgr_class permissive=1
-allow system_core_hap hdf_usb_ddk_service:hdf_devmgr_class { get };
+allow system_core_hap_attr hdf_usb_ddk_service:hdf_devmgr_class { get };
 debug_only(`
 # avc:  denied  { get } for service=usb_interface_service pid=1442 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:hdf_usb_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow system_core_hap hdf_usb_interface_service:hdf_devmgr_class { get };
+allow system_core_hap_attr hdf_usb_interface_service:hdf_devmgr_class { get };
 ')
 
 # avc:  denied  { use } for  pid=499 comm="IPC_2_1896" path="/data/service/el1/public/usb/005_003" dev="mmcblk0p14" ino=2577 scontext=u:r:system_core_hap:s0 tcontext=u:r:usb_host:s0 tclass=fd permissive=1
-allow system_core_hap usb_host:fd { use };
+allow system_core_hap_attr usb_host:fd { use };

@@ -11,7 +11,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-allow dhardware audio_policy:binder { call transfer };
+allow dhardware audio_server:binder { call transfer };
 allow dhardware daudio:binder { call transfer };
 allow dhardware sa_distributed_hardware_audio_source_service:samgr_class { get };
 allow dhardware sa_distributed_hardware_audio_sink_service:samgr_class { get };

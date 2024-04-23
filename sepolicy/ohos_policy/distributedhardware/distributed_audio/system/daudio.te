@@ -19,7 +19,7 @@ allow daudio debug_param:file { open read map };
 
 allow daudio accesstoken_service:binder { call };
 
-allow daudio audio_policy:binder { call transfer };
+allow daudio audio_server:binder { call transfer };
 
 allow daudio media_service:binder { call transfer};
 
@@ -28,6 +28,16 @@ allow daudio musl_param:file { read open map };
 allow daudio data_file:dir { search };
 
 allow daudio data_data_file:dir { search };
+
+allow daudio data_data_file:file { create append open ioctl getattr };
+
+allowxperm daudio data_data_file:file ioctl { 0x5413 };
+
+allow daudio_host data_data_file:dir { add_name search write };
+
+allow daudio_host data_data_file:file { create append open ioctl getattr };
+
+allowxperm daudio_host data_data_file:file ioctl { 0x5413 };
 
 allow daudio data_data_pulse_dir:dir { search read open getattr };
 
@@ -79,9 +89,9 @@ allow daudio tracefs_trace_marker_file:file { write open };
 
 allow daudio proc_file:file { read open };
 
-allow daudio pulseaudio:unix_stream_socket { connectto };
+allow daudio audio_server:unix_stream_socket { connectto };
 
-allow daudio pulseaudio:binder { call };
+allow daudio audio_server:fd { use };
 
 allow daudio param_watcher:binder { call transfer };
 
@@ -107,11 +117,45 @@ allow daudio daudio:udp_socket { bind getattr };
 
 allow daudio node:udp_socket { node_bind };
 
+allow daudio sys_param:file { open read map };
+
 allow daudio system_bin_file:dir { search };
 
 allow daudio vendor_bin_file:dir { search };
 
 allow daudio daudio_host:fd { use };
+
+allow daudio sa_dhardware_service:samgr_class { get };
+
+allow daudio hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
+
+allow daudio sa_foundation_bms:samgr_class { get };
+
+allow daudio foundation:binder { call };
+
+allow daudio dhardware:binder { transfer };
+
+allow daudio sa_foundation_devicemanager_service:samgr_class { get };
+
+allow daudio dslm_service:binder { call transfer };
+
+allow daudio device_manager:binder { call transfer };
+
+allow daudio dev_kmsg_file:chr_file { write open };
+
+allow daudio sa_device_security_level_manager_service:samgr_class { get };
+
+allow daudio persist_sys_param:file { read open map };
+
+allow daudio arkcompiler_param:file { read open map };
+
+allow daudio ark_writeable_param:file { read open map };
+
+allow daudio system_lib_file:dir { read open };
+
+allow daudio persist_param:file { read open map };
+
+allow daudio codec_host:binder { call transfer };
 
 debug_only(`
     allow daudio sh:binder { call };

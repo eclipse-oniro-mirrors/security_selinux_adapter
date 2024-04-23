@@ -1,0 +1,108 @@
+# Copyright (C) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { map } for pid=4345 comm="power-shell" path="/dev/parameters/u:object_r:debug_param:s0" dev="tmpfs" ino=148 scontext=u:r:power_shell:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc: denied { read open } for pid=4345 comm="power-shell" path="/dev/parameters/u:object_r:debug_param:s0" dev="tmpfs" ino=148 scontext=u:r:power_shell:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=4345 comm="power-shell" path="/dev/parameters/u:object_r:debug_param:s0" dev="tmpfs" ino=148 scontext=u:r:power_shell:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow power_shell debug_param:file { map read open read };
+
+# avc: denied { write } for pid=4345 comm="power-shell" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:power_shell:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow power_shell dev_kmsg_file:chr_file { write };
+
+# avc: denied { search } for pid=4337 comm="power-shell" name="socket" dev="tmpfs" ino=118 scontext=u:r:power_shell:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow power_shell dev_unix_socket:dir { search };
+
+# avc: denied { ioctl } for pid=4337 comm="power-shell" path="/dev/pts/2" dev="devpts" ino=5 ioctlcmd=0x5413 scontext=u:r:power_shell:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc: denied { read write } for pid=4345 comm="power-shell" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:power_shell:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc: denied { write } for pid=4337 comm="power-shell" path="/dev/pts/2" dev="devpts" ino=5 scontext=u:r:power_shell:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+allow power_shell devpts:chr_file { ioctl read write write };
+
+# avc: denied { call } for pid=4337 comm="power-shell" scontext=u:r:power_shell:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+allow power_shell powermgr:binder { call };
+
+# avc: denied { map } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+# avc: denied { read open } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+allow power_shell hilog_param:file { map read open read };
+
+# avc: denied { get } for service=3301 pid=4256 scontext=u:r:power_shell:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow power_shell sa_powermgr_powermgr_service:samgr_class { get };
+
+# avc: denied { call } for pid=4337 comm="power-shell" scontext=u:r:power_shell:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
+allow power_shell samgr:binder { call };
+
+# avc: denied { read write } for pid=4345 comm="power-shell" path="/dev/tty" dev="tmpfs" ino=115 scontext=u:r:power_shell:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+allow power_shell tty_device:chr_file { read write };
+
+# avc: denied { ioctl } for pid=4337 comm="power-shell" path="/dev/pts/2" dev="devpts" ino=5 ioctlcmd=0x5413 scontext=u:r:power_shell:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+allowxperm power_shell devpts:chr_file ioctl { 0x5413 };
+
+# avc: denied { transfer } for pid=643 comm="IPC_0_662" scontext=u:r:samgr:s0 tcontext=u:r:power_shell:s0 tclass=binder permissive=1
+allow samgr power_shell:binder { transfer };
+
+# avc: denied { search } for pid=643 comm="IPC_0_662" name="attr" dev="proc" ino=41686 scontext=u:r:samgr:s0 tcontext=u:r:power_shell:s0 tclass=dir permissive=1
+allow samgr power_shell:dir { search };
+
+# avc: denied { open } for pid=604 comm="IPC_2_629" path="/proc/4859/attr/current" dev="proc" ino=49337 scontext=u:r:samgr:s0 tcontext=u:r:power_shell:s0 tclass=file permissive=1
+# avc: denied { read open } for pid=643 comm="IPC_0_662" path="/proc/4257/attr/current" dev="proc" ino=41687 scontext=u:r:samgr:s0 tcontext=u:r:power_shell:s0 tclass=file permissive=1
+# avc: denied { read } for pid=643 comm="IPC_0_662" name="current" dev="proc" ino=41687 scontext=u:r:samgr:s0 tcontext=u:r:power_shell:s0 tclass=file permissive=1
+allow samgr power_shell:file { open read open read };
+
+# avc: denied { getattr } for pid=643 comm="IPC_0_662" scontext=u:r:samgr:s0 tcontext=u:r:power_shell:s0 tclass=process permissive=1
+allow samgr power_shell:process { getattr };
+
+# avc: denied { use } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=1
+allow power_shell hdcd:fd { use };
+
+# avc: denied { ioctl } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 ioctlcmd=0x5413 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+# avc: denied { read } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+# avc: denied { write } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+allow power_shell hdcd:fifo_file { ioctl read write };
+
+# avc: denied { ioctl } for pid=4605, comm="/bin/power-shell" path="pipe:[350]" dev="tmpfs" ino=350 ioctlcmd=0x5413 scontext=u:r:power_shell:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=1
+allowxperm power_shell hdcd:fifo_file ioctl { 0x5413 };
+
+debug_only(`
+    #for power-shell run
+    domain_auto_transition_pattern(su, power_shell_exec, power_shell);
+
+    # avc: denied { get } for service=3308 pid=4719 scontext=u:r:power_shell:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
+    allow power_shell sa_powermgr_displaymgr_service:samgr_class { get };
+
+    # avc: denied { getattr } for pid=4346 comm="ps" path="/proc/4337" dev="proc" ino=36480 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=dir permissive=1
+    # avc: denied  { search } for  pid=4346 comm="ps" name="4337" dev="proc" ino=36480 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=dir permissive=1
+    # avc: denied  { read open } for  pid=4346 comm="ps" path="/proc/4337/cmdline" dev="proc" ino=45889 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=file permissive=1
+    # avc: denied  { read } for  pid=4346 comm="ps" name="cmdline" dev="proc" ino=45889 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=file permissive=1
+    # avc: denied  { read } for  pid=4346 comm="ps" name="0" dev="proc" ino=40752 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=lnk_file permissive=1
+    # avc: denied  { getattr } for  pid=4346 comm="ps" scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=process permissive=1
+    allow su power_shell:dir { getattr search };
+    allow su power_shell:file { read open read };
+    allow su power_shell:lnk_file { read };
+    allow su power_shell:process { getattr };
+    allow power_shell su:fd { use };
+    allow power_shell su:unix_stream_socket { read write };
+    allow power_shell su:fifo_file { ioctl read write };
+    allowxperm power_shell su:fifo_file ioctl { 0x5413 };
+')
+
+developer_only(`
+    #for power-shell run
+    domain_auto_transition_pattern(sh, power_shell_exec, power_shell);
+
+    allow sh power_shell:dir { getattr search };
+    allow sh power_shell:file { read open read };
+    allow sh power_shell:lnk_file { read };
+    allow sh power_shell:process { getattr };
+    allow power_shell sh:fd { use };
+    allow power_shell sh:unix_stream_socket { read write };
+')

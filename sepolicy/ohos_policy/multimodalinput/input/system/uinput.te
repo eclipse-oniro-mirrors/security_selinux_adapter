@@ -1,0 +1,91 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { get } scontext=u:r:uinput:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow uinput sa_multimodalinput_service:samgr_class { get };
+
+# avc:  denied  { read write } scontext=u:r:uinput:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+allow uinput tty_device:chr_file { read write };
+
+# avc:  denied  { search } for scontext=u:r:uinput:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow uinput dev_unix_socket:dir { search };
+
+# avc:  denied  { call } tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+allow uinput multimodalinput:binder { call };
+
+# avc:  denied  { map } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc:  denied  { open } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc:  denied  { read } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow uinput arkcompiler_param:file { map open read };
+allow uinput ark_writeable_param:file { map open read };
+
+# avc:  denied  { map } scontext=u:r:uinput:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { open } scontext=u:r:uinput:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { read } scontext=u:r:uinput:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow uinput debug_param:file { map open read };
+
+# avc:  denied  { ioctl } scontext=u:r:uinput:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { read write } scontext=u:r:uinput:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+allow uinput devpts:chr_file { ioctl read write };
+
+# avc:  denied  { read } scontext=u:r:uinput:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+allow uinput hilog_param:file { read };
+
+# avc:  denied  { map } scontext=u:r:uinput:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+# avc:  denied  { open } scontext=u:r:uinput:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+allow uinput hilog_param:file { map open };
+
+# avc:  denied  { call } scontext=u:r:uinput:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+allow uinput samgr:binder { call };
+
+# avc:  denied  { search } scontext=u:r:samgr:s0 tcontext=u:r:uinput:s0 tclass=dir permissive=0
+allow samgr uinput:dir { search };
+
+# avc:  denied  { transfer } scontext=u:r:samgr:s0 tcontext=u:r:uinput:s0 tclass=binder permissive=1
+allow samgr uinput:binder { transfer };
+
+# avc:  denied  { open } scontext=u:r:samgr:s0 tcontext=u:r:uinput:s0 tclass=file permissive=1
+# avc:  denied  { read } scontext=u:r:samgr:s0 tcontext=u:r:uinput:s0 tclass=file permissive=0
+allow samgr uinput:file { open read };
+
+# avc:  denied  { getattr } scontext=u:r:samgr:s0 tcontext=u:r:uinput:s0 tclass=process permissive=1
+allow samgr uinput:process { getattr };
+
+# avc:  denied  { ioctl } scontext=u:r:uinput:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+allowxperm uinput devpts:chr_file ioctl { 0x5413 };
+
+debug_only(`
+    # for uinput run
+    domain_auto_transition_pattern(su, uinput_exec, uinput);
+
+    # avc:  denied  { use } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
+    # avc:  denied  { ioctl } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { read } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { write } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { read write } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket permissive=0
+    # avc:  denied  { ioctl } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allow uinput su:fd { use };
+    allow uinput su:fifo_file { ioctl read write };
+    allow uinput su:unix_stream_socket { read write };
+    allowxperm uinput su:fifo_file ioctl { 0x5413 };
+')
+
+developer_only(`
+    #for uinput run
+    domain_auto_transition_pattern(sh, uinput_exec, uinput);
+
+    allow uinput sh:fd { use };
+    allow uinput sh:fifo_file { ioctl read write };
+    allow uinput sh:unix_stream_socket { read write };
+    allowxperm uinput sh:fifo_file ioctl { 0x5413 };
+')

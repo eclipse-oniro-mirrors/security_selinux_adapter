@@ -13,6 +13,6 @@
 
 type bytrace_exec, exec_attr, file_attr, system_file_attr;
 
-type bytrace, nativedomain, domain;
+type bytrace, native_system_domain, domain;
 
-domain_auto_transition_pattern(nativedomain, bytrace_exec, bytrace);
+domain_auto_transition_pattern(native_system_domain, bytrace_exec, bytrace);

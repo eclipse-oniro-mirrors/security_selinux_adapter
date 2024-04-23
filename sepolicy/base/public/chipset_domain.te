@@ -1,0 +1,55 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# Prohibit chipset component processes from accessing system files to achieve access isolation
+neverallow { chipset_domain -system_file_violator_dir } system_file:dir ~{ search };
+neverallow { chipset_domain -system_file_violator_file } system_file:file *;
+neverallow { chipset_domain } system_file:{ blk_file chr_file fifo_file lnk_file sock_file } *;
+
+# Prohibit chipset component processes from accessing system bin files to achieve access isolation
+neverallow { chipset_domain -system_bin_file_violator_dir } system_bin_file:dir ~{ search getattr };
+neverallow { chipset_domain -camera_host -system_bin_file_violator_dir_getattr } system_bin_file:dir { getattr };
+neverallow { chipset_domain -system_bin_file_violator_file } system_bin_file:file ~{ execute execute_no_trans map read open getattr };
+neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -chipset_init -system_bin_file_violator_file_execute } system_bin_file:file { execute };
+neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -system_bin_file_violator_file_execute_no_trans } system_bin_file:file { execute_no_trans };
+neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -system_bin_file_violator_file_map } system_bin_file:file { map };
+neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -chipset_init -system_bin_file_violator_file_read } system_bin_file:file { read };
+neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -chipset_init -system_bin_file_violator_file_open } system_bin_file:file { open };
+neverallow { chipset_domain -camera_host -input_user_host -riladapter_host -chipset_init -system_bin_file_violator_file_getattr } system_bin_file:file { getattr };
+neverallow { chipset_domain -system_bin_file_violator_lnk_file } system_bin_file:lnk_file ~{ read };
+neverallow { chipset_domain -camera_host -input_user_host -riladapter_host -system_bin_file_violator_lnk_file_read } system_bin_file:lnk_file { read };
+neverallow { chipset_domain } system_bin_file:{ blk_file chr_file fifo_file sock_file } *;
+
+# Prohibit chipset component processes from accessing system etc files to achieve access isolation
+neverallow { chipset_domain -system_etc_file_violator_dir } system_etc_file:dir ~{ open read search getattr };
+neverallow { chipset_domain -system_etc_file_violator_file } system_etc_file:file ~{ getattr map open read };
+neverallow { chipset_domain -system_etc_file_violator_lnk_file } system_etc_file:lnk_file ~{ relabelto read getattr };
+neverallow { chipset_domain -chipset_init } system_etc_file:lnk_file { relabelto read getattr };
+neverallow { chipset_domain } system_etc_file:{ blk_file chr_file fifo_file sock_file } *;
+
+# Prohibit chipset component processes from accessing system hap files to achieve access isolation
+neverallow { chipset_domain } system_hap_file:dir_file_class_set *;
+
+# Prohibit chipset component processes from accessing system fonts files to achieve access isolation
+neverallow { chipset_domain } system_fonts_file:dir_file_class_set *;
+
+# Prohibit chipset component processes from accessing system profile files to achieve access isolation
+neverallow { chipset_domain -system_profile_file_violator_dir } { system_profile_file }:dir ~{ search };
+neverallow { chipset_domain } system_profile_file:file_class_set *;
+
+# Prohibit chipset component processes from accessing system usr files to achieve access isolation
+neverallow { chipset_domain } system_usr_file:dir_file_class_set *;
+
+# Prohibit chipset component processes from accessing system module_update files to achieve access isolation
+neverallow { chipset_domain } system_module_update_file:dir_file_class_set *;

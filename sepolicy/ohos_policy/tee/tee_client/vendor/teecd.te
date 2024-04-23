@@ -1,0 +1,55 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow teecd dev_tee_public:chr_file { read write open ioctl };
+allow teecd dev_tee_private:chr_file { read write open ioctl };
+
+allow teecd teecd_data_file:dir create_dir_perms;
+allow teecd teecd_data_file:filesystem { getattr };
+allow teecd teecd_data_file:file create_file_perms;
+allow teecd teecd_data_file:lnk_file { unlink create read setattr getattr };
+allow teecd teecd_data_file:dir { setattr mounton };
+allow teecd teecd_data_file_vendor:dir create_dir_perms;
+allow teecd teecd_data_file_vendor:filesystem { getattr };
+allow teecd teecd_data_file_vendor:file create_file_perms;
+allow teecd teecd_data_file_vendor:lnk_file { unlink create read setattr getattr };
+
+#avc:  denied  { search } for  pid=1149 comm="teecd" name="/" dev="sdd78" ino=3 scontext=u:r:teecd:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow teecd data_file:dir { search };
+#avc:  denied  { search } for  pid=1149 comm="teecd" name="vendor" dev="sdd78" ino=93 scontext=u:r:teecd:s0 tcontext=u:object_r:data_vendor:s0 tclass=dir permissive=1
+allow teecd data_vendor:dir { search };
+#avc:  denied  { search } for  pid=626 comm="teecd" name="socket" dev="tmpfs" ino=38 scontext=u:r:teecd:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow teecd dev_unix_socket:dir { search };
+#avc:  denied  { read } for  pid=626 comm="teecd" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=63 scontext=u:r:teecd:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=626 comm="teecd" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=63 scontext=u:r:teecd:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=626 comm="teecd" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=63 scontext=u:r:teecd:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+allow teecd hilog_param:file { map open read };
+#avc:  denied  { read } for  pid=626 comm="teecd" name="overcommit_memory" dev="proc" ino=3092 scontext=u:r:teecd:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=626 comm="teecd" path="/proc/sys/vm/overcommit_memory" dev="proc" ino=3092 scontext=u:r:teecd:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+allow teecd proc_file:file { open read };
+#avc:  denied  { entrypoint } for  pid=626 comm="init" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
+#avc:  denied  { execute } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
+allow teecd vendor_bin_file:file { entrypoint execute map read open getattr };
+allow teecd vendor_bin_file:dir { search };
+allow teecd vendor_etc_file:dir { search };
+allow teecd vendor_etc_file:file { read open getattr };
+allow teecd dev_console_file:chr_file { read write };
+allow teecd debug_param:file { read open map };
+
+debug_only(`
+    allow teecd sh:dir { search };
+    allow teecd sh:file { read open getattr };
+')
+

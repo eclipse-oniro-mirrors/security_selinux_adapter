@@ -13,3 +13,4 @@
 allow foundation usb_service:binder { call transfer };
 allow foundation usb_service:dir { search };
 allow foundation usb_service:file { getattr open read };
+allow foundation usb_service:fd { use };

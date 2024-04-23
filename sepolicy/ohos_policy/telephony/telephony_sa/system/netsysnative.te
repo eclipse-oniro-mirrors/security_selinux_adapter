@@ -12,3 +12,6 @@
 # limitations under the License.
 
 allow netsysnative telephony_sa:binder call;
+allow netsysnative telephony_sa:tcp_socket { read write bind getopt setopt connect };
+allow netsysnative telephony_sa:udp_socket { read write bind getopt setopt connect };
+allow netsysnative telephony_sa:fd { use };

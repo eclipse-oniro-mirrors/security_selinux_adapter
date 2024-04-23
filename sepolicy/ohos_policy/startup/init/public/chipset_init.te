@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type chipset_init, nativedomain, domain;
+type chipset_init, native_chipset_domain, domain;
 allow chipset_init self:capability { chown dac_override dac_read_search fsetid setgid setuid sys_admin sys_boot sys_chroot sys_rawio sys_resource fowner };
 
 allow domain chipset_init:fd use;
@@ -70,11 +70,14 @@ allow hidumper_service chipset_init:dir { getattr open read search };
 allow hidumper_service chipset_init:file { getattr open read };
 allow hidumper_service chipset_init:lnk_file read;
 
+# avc:  denied  { rlimitinh } for  pid=2969 comm="hdf_devhost" scontext=u:r:chipset_init:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=2969 comm="hdf_devhost" scontext=u:r:chipset_init:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=1
+# avc:  denied  { transition } for  pid=2969 comm="init" path="/vendor/bin/hdf_devhost" dev="sdd84" ino=33 scontext=u:r:chipset_init:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=1
 #for for start process in subcontext  hdf_devhost.cfg
 chipset_init_daemon_domain(hdf_devmgr);
 allow chipset_init { user_auth_host pin_auth_host fingerprint_auth_host face_auth_host codec_host vibrator_host sensor_host }:process { rlimitinh siginh transition };
 allow chipset_init { light_host input_user_host wifi_host camera_host power_host audio_host }:process { rlimitinh siginh transition };
-allow chipset_init { usb_host blue_host partitionslot_host location_host dcamera_host a2dp_host daudio_host sample_host }:process { rlimitinh siginh transition };
+allow chipset_init { usb_host blue_host partitionslot_host location_host dcamera_host a2dp_host daudio_host sample_host intell_voice_host }:process { rlimitinh siginh transition };
 
 #for init.usb.configfs.cfg
 allow chipset_init configfs:dir { add_name create mounton open read search setattr write remove_name rmdir };
@@ -102,3 +105,8 @@ allow chipset_init self:capability { net_admin };
 
 # avc:  denied  { getopt } for  pid=245 comm="chipset_init" scontext=u:r:chipset_init:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=0
 allow chipset_init init:unix_stream_socket { getopt };
+# avc:  denied  { rlimitinh } for  pid=491 comm="hdf_devhost" scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=491 comm="hdf_devhost" scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
+# avc:  denied  { transition } for  pid=491 comm="init" path="/vendor/bin/hdf_devhost" dev="mmcblk0p8" ino=13 scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
+allow chipset_init clearplay_host:process { rlimitinh siginh transition };
+

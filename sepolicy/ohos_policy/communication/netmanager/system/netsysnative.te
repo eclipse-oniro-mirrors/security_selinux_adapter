@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow netsysnative dev_unix_socket:dir { search };
+allow netsysnative dev_unix_socket:sock_file { write };
 allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service sys_resource sys_admin };
 allow netsysnative netsysnative:netlink_route_socket { create listen nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
@@ -26,7 +27,7 @@ allow netsysnative proc_net:file { getattr };
 allow netsysnative system_bin_file:file { execute execute_no_trans getattr map open read };
 allow netsysnative system_etc_file:file { lock };
 allow netsysnative tty_device:chr_file { open read write };
-allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write };
+allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write ioctl };
 allow netsysnative port:udp_socket { name_bind };
 allow netsysnative node:udp_socket { node_bind };
 allow netsysnative netsysnative:netlink_nflog_socket { read };
@@ -49,17 +50,19 @@ allow netsysnative normal_hap_attr:unix_dgram_socket { read write getopt setopt 
 allow netsysnative normal_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:unix_stream_socket { read write getopt setopt };
 allow init dev_unix_file:sock_file { unlink };
+allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8933 0x8953 0x8955 0x8915 0x891b 0x8913 0x8927 0x8914 0x8916 0x891c 0x8922 };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
-allow netsysnative system_basic_hap:fd { use };
-allow netsysnative system_basic_hap:tcp_socket { read write getopt setopt };
+allow netsysnative system_basic_hap_attr:fd { use };
+allow netsysnative system_basic_hap_attr:tcp_socket { read write getopt setopt };
 allow netsysnative dev_tun_file:chr_file { open read write ioctl };
 allow netsysnative netsysnative:tun_socket { create relabelfrom relabelto };
+allow netsysnative system_basic_hap_attr:udp_socket { read write getopt setopt };
 
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
 
 allow netsysnative iptables_exec:file { execute read open execute_no_trans map };
-allow netsysnative netsysnative:packet_socket { create ioctl };
+allow netsysnative netsysnative:packet_socket { create ioctl setopt };
 allow netsysnative netsysnative:bpf { map_read prog_load map_create prog_run map_write };
 allow netsysnative data_file:file { read };
 allow netsysnative sa_netsys_ext_service:samgr_class { add get };
@@ -91,12 +94,18 @@ allow netsysnative fs_bpf:file { create setattr write read };
 allow netsysnative fs_bpf:filesystem { mount };
 allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
 allow netsysnative netsysnative:netlink_tcpdiag_socket { create connect write nlmsg_read read nlmsg_write };
-allow netsysnative system_core_hap:fd { use };
-allow netsysnative system_core_hap:tcp_socket { read write getopt setopt };
+allow netsysnative system_core_hap_attr:fd { use };
+allow netsysnative system_core_hap_attr:tcp_socket { read write getopt setopt };
+allow netsysnative system_core_hap_attr:udp_socket { read write getopt setopt };
+allow netsysnative edm_sa:binder { call };
+allow netsysnative sysfs_devices_system_cpu:file { read open getattr };
+allow netsysnative dev_kmsg_file:chr_file { open write };
 
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 
 allow netsysnative cgroup2:dir { read open };
+
+allow netsysnative sa_netvirt_ext:samgr_class { add };
 
 allow init fs_bpf:dir { add_name create mounton open read search setattr write };
 allow init fs_bpf:file { create getattr open };
@@ -109,5 +118,15 @@ allow init cgroup2:filesystem { mount };
 allow init cgroup2:file { write };
 allow init cgroup2:lnk_file { create };
 
-neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr debug_only(`-sh') } netsysnative:binder *;
-neverallow { domain -netsysnative debug_only(`-sh') } iptables_exec:file { execute };
+allow init dnsproxy_service:sock_file { getattr unlink setattr relabelto };
+allow netsysnative dnsproxy_service:sock_file { setattr };
+allow init fwmark_service:sock_file { getattr unlink setattr relabelto };
+allow netsysnative fwmark_service:sock_file { setattr };
+
+allow domain fwmark_service:sock_file { write read };
+allow domain dnsproxy_service:sock_file { write read };
+allow domain dev_tun_file:chr_file { read write };
+allow domain netsysnative:fd { use };
+
+neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call } netsysnative:binder *;
+neverallow { domain -netsysnative } iptables_exec:file { execute };

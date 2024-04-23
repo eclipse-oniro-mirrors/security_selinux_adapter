@@ -15,3 +15,4 @@ type data_app_el1_database_file, file_attr, data_file_attr;
 type data_app_el2_database_file, file_attr, data_file_attr;
 type data_app_el3_database_file, file_attr, data_file_attr;
 type data_app_el4_database_file, file_attr, data_file_attr;
+type data_service_el1_utd_file, file_attr, data_file_attr;

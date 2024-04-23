@@ -28,9 +28,11 @@ type netmanager, sadomain, domain;
 type sensors, sadomain, domain;
 type telephony_sa, sadomain, domain;
 type camera_service, sadomain, domain;
+type drm_service, sadomain, domain;
 type media_service, sadomain, domain;
 type param_watcher, sadomain, domain;
 type foundation, sadomain, domain;
+type powermgr, sadomain, domain;
 type token_sync_service, sadomain, domain;
 type memmgrservice, sadomain, domain;
 type accessibility, sadomain, domain;
@@ -47,9 +49,8 @@ type misc, sadomain, domain;
 type netsysnative, sadomain, domain;
 type mdnsmanager, sadomain, domain;
 type hidumper_service, sadomain, domain;
-type console, sadomain, domain;
 type bootanimation, sadomain, domain;
-type limit_domain, domain;
+type limit_domain, develop_domain;
 type device_usage_statistics_service, sadomain, domain;
 type thermal_sa, sadomain, domain;
 type nfc_service, sadomain, domain;
@@ -76,12 +77,40 @@ type thermal_protector, sadomain, domain;
 type thermal_protector_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, thermal_protector_exec, thermal_protector);
 
-type sh, nativedomain, domain;
+type sh, develop_domain;
 type sh_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, sh_exec, sh);
 
-type hdcd, nativedomain, domain;
+type hdcd, native_system_domain, domain;
 type hdcd_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, hdcd_exec, hdcd);
 
-type updater, nativedomain, domain;
+type atm, native_system_domain, domain;
+type atm_exec, exec_attr, file_attr, system_file_attr;
+
+type bm, native_system_domain, domain;
+type bm_exec, exec_attr, file_attr, system_file_attr;
+
+type updater, native_system_domain, domain;
+type cupsd, sadomain,  domain;
+type file_guard_server, sadomain,  domain;
+
+type uitest_exec, exec_attr, file_attr, system_file_attr;
+type uitest, native_system_domain, domain;
+
+type wukong, native_system_domain, domain;
+type wukong_exec, exec_attr, file_attr, system_file_attr;
+
+type SP_daemon, native_system_domain, domain;
+type SP_daemon_exec, exec_attr, file_attr, system_file_attr;
+
+type aa, native_system_domain, domain;
+type aa_exec, exec_attr, file_attr, system_file_attr;
+
+type ark_aot_compiler, native_system_domain, domain;
+type ark_aot_compiler_exec, exec_attr, file_attr, system_file_attr;
+
+debug_only(`
+    type console, sadomain, domain;
+    type su, native_system_domain, domain;
+')

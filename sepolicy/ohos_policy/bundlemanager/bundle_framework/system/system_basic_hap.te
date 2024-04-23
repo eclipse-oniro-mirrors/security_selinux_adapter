@@ -11,22 +11,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap_attr system_basic_hap:binder { transfer };
+allow normal_hap_attr system_basic_hap_attr:binder { transfer };
 allow normal_hap_attr system_file:file { getattr };
-allow system_basic_hap const_param:file { map open read };
-allow system_basic_hap const_postinstall_fstab_param:file { read };
-allow system_basic_hap const_postinstall_param:file { open map read };
-allow system_basic_hap data_service_el1_file:file { open write };
-allow system_basic_hap hw_sc_build_os_param:file { read };
-allow system_basic_hap hw_sc_build_param:file { read };
-allow system_basic_hap hw_sc_param:file { read };
-allow system_basic_hap init_param:file { read };
-allow system_basic_hap init_svc_param:file { map open read };
-allow system_basic_hap net_param:file { read };
-allow system_basic_hap normal_hap_attr:binder { transfer };
-allow system_basic_hap ohos_boot_param:file { map open read };
-allow system_basic_hap ohos_param:file { map open read };
-allow system_basic_hap sys_param:file { open read };
-allow system_basic_hap system_bin_file:dir { search };
-allow system_basic_hap system_file:file { getattr };
-allow system_basic_hap sys_usb_param:file { read };
+allow system_basic_hap_attr const_param:file { map open read };
+allow system_basic_hap_attr const_postinstall_fstab_param:file { read };
+allow system_basic_hap_attr const_postinstall_param:file { open map read };
+allow system_basic_hap_attr data_service_el1_file:file { open write };
+allow system_basic_hap_attr hw_sc_build_os_param:file { read };
+allow system_basic_hap_attr hw_sc_build_param:file { read };
+allow system_basic_hap_attr hw_sc_param:file { read };
+allow system_basic_hap_attr init_param:file { read };
+allow system_basic_hap_attr init_svc_param:file { map open read };
+allow system_basic_hap_attr net_param:file { read };
+allow system_basic_hap_attr normal_hap_attr:binder { transfer };
+allow system_basic_hap_attr ohos_boot_param:file { map open read };
+allow system_basic_hap_attr ohos_param:file { map open read };
+allow system_basic_hap_attr sys_param:file { open read };
+allow system_basic_hap_attr system_bin_file:dir { search };
+allow system_basic_hap_attr system_file:file { getattr };
+allow system_basic_hap_attr sys_usb_param:file { read };

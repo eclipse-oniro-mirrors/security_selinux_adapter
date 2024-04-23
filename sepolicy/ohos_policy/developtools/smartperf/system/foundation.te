@@ -23,4 +23,8 @@ allow foundation power_host:binder { call };
 allow foundation render_service:binder { call };
 allow foundation resource_schedule_service:binder { call transfer };
 allow foundation screenlock_server:binder { call transfer };
-allow foundation system_basic_hap:binder { call };
+allow foundation system_basic_hap_attr:binder { call };
+
+developer_only(`
+allow foundation SP_daemon:binder { transfer };
+')

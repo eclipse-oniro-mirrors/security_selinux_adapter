@@ -13,3 +13,5 @@
 
 allow normal_hap_attr bluetooth_service:fd { use };
 
+allow normal_hap_attr bluetooth_service:unix_stream_socket { read write shutdown };
+

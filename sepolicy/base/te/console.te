@@ -11,45 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow console bootevent_param:file { map open read };
-allow console bootevent_samgr_param:file { map open read };
-allow console build_version_param:file { map open read };
-dontaudit console console:capability { dac_read_search };
-allow console const_allow_mock_param:file { map open read };
-allow console const_allow_param:file { map open read };
-allow console const_build_param:file { map open read };
-allow console const_param:file { map open read };
-allow console const_postinstall_fstab_param:file { map open read };
-allow console const_postinstall_param:file { map open read };
-allow console const_product_param:file { map open read };
-allow console debug_param:file { map open read };
-allow console default_param:file { map open read };
-allow console dev_console_file:chr_file { getattr ioctl read write };
-allow console dev_unix_socket:dir { search };
-allow console hw_sc_build_os_param:file { map open read };
-allow console hw_sc_build_param:file { map open read };
-allow console hw_sc_param:file { map open read };
-allow console init_param:file { map open read };
-allow console init_svc_param:file { map open read };
-allow console input_pointer_device_param:file { map open read };
-allow console net_param:file { map open read };
-allow console net_tcp_param:file { map open read };
-allow console ohos_boot_param:file { map open read };
-allow console ohos_param:file { map open read };
-allow console persist_param:file { map open read };
-allow console persist_sys_param:file { map open read };
-allow console security_param:file { map open read };
-allow console sh_exec:file { entrypoint execute map read debug_only(`open execute_no_trans') };
-allow console startup_param:file { map read read open };
-allow console sys_param:file { map open read };
-allow console system_bin_file:dir { open read search };
-allow console system_bin_file:file { execute execute_no_trans getattr map read open };
-allow console system_bin_file:lnk_file { read };
-allow console sys_usb_param:file { map open read };
-allow console tty_device:chr_file { ioctl ioctl open read write };
-allowxperm console dev_console_file:chr_file ioctl { debug_only(`0x5401 0x5402 0x5404 0x540b') 0x5413 };
-allowxperm console tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
-
 debug_only(`
-    allow console console:capability { setgid setuid };
+    permissive console;
 ')

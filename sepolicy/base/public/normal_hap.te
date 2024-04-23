@@ -33,11 +33,11 @@ neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioc
 
 neverallow normal_hap_attr dev_kmsg_file:chr_file never_rw_file;
 
-neverallow { normal_hap_attr -dev_fuse_file_violator } dev_fuse_file:chr_file *;
+neverallow { normal_hap_attr -dev_fuse_file_violator -dlpmanager_hap} dev_fuse_file:chr_file *;
 
 neverallow normal_hap_attr debugfs_attr:file read;
 
-neverallow normal_hap_attr { normal_hap_data_file_attr system_core_hap_data_file }:file execute_no_trans;
+neverallow normal_hap_attr { normal_hap_data_file_attr system_core_hap_data_file_attr }:file execute_no_trans;
 
 neverallow normal_hap_attr file_attr:file link;
 

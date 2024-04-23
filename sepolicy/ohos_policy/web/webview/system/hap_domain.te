@@ -1,0 +1,21 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow hap_domain isolated_render:fd { use };
+
+allow hap_domain isolated_render:unix_stream_socket { read write shutdown };
+
+# avc_audit_slow:260] avc: denied { getattr } for pid=4594, comm="/system/bin/appspawn"  path="/data/storage/el2/log/crashpad" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=5159 scontext=u:r:debug_hap:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+allow hap_domain data_app_el2_file:dir { getattr };
+
+allow hap_domain isolated_render:unix_stream_socket { getopt };

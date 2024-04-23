@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow updater_binary data_updater_file:file { execute execute_no_trans };
-
 updater_only(`
 
 #avc: denied { search } for pid=281 comm="updater" name="/" dev="rootfs" ino=1 scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
@@ -193,9 +191,6 @@ allow updater_binary hilog_param:file { read open map };
 # avc:  denied  { read write } for  pid=272 comm="processdump" path="/data/log/faultlog/temp/cppcrash-265-1679413199123" dev="mmcblk0p12" ino=8782 scontext=u:r:updater_binary:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=file permissive=0
 allow updater_binary faultloggerd_temp_file:file { read write };
 
-# avc:  denied  { chown } for  pid=270 comm="updater_binary" capability=0  scontext=u:r:updater_binary:s0 tcontext=u:r:updater_binary:s0 tclass=capability permissive=0
-allow updater_binary updater_binary:capability { chown };
-
 # avc:  denied  { search } for  pid=279 comm="updater_binary" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater_binary:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=0
 # avc:  denied  { read write } for  pid=281 comm="updater_binary" name="updater" dev="mmcblk1p1" ino=99 scontext=u:r:updater_binary:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=0
 allow updater_binary exfat:dir { search read write };
@@ -255,15 +250,7 @@ allow updater_binary dev_dri_file:chr_file { ioctl };
 # avc: denied { ioctl } for pid=267 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=93 ioctlcmd=0x64af scontext=u:r:updater_binary:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
 allowxperm updater_binary dev_dri_file:chr_file ioctl { 0x6409 0x64af };
 
+allow updater_binary updater_block_file:blk_file { read write open map getattr ioctl };
+allowxperm updater_binary updater_block_file:blk_file ioctl { 0x1277 };
 ')
 
-allow updater_binary data_file:dir { search };
-allow updater_binary data_updater_file:dir { search };
-allow updater_binary data_updater_file:file { map read open };
-allow updater_binary dev_block_file:blk_file { read write open };
-allow updater_binary dev_block_file:dir { search };
-allow updater_binary dev_block_file:lnk_file { read };
-allow updater_binary dev_block_volfile:dir { search };
-allow updater_binary musl_param:file { read open map };
-allow updater_binary ohos_boot_param:file { open map read };
-allow updater_binary sys_installer_sa:fifo_file { write };

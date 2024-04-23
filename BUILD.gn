@@ -12,30 +12,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//base/startup/init/begetd.gni")
 import("//build/ohos.gni")
 import("selinux.gni")
 
+startup_init_with_param_base = false
+if (!use_musl) {
+  startup_init_with_param_base = true
+}
+
+special_build_selinux_gni_exist =
+    special_build_selinux_gni_path != "" &&
+    exec_script("/bin/sh",
+                [
+                  "-c",
+                  "if [ -f " + rebase_path(special_build_selinux_gni_path) +
+                      " ]; then echo true; else echo false; fi",
+                ],
+                "value")
+if (special_build_selinux_gni_exist) {
+  import(special_build_selinux_gni_path)
+}
+
 config("selinux_core_config") {
-  include_dirs = [
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-  ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
 }
 
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
   sources = [ "interfaces/policycoreutils/src/load_policy.cpp" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [
-    ":libselinux_klog_static",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
-  ]
+  deps = [ ":libselinux_klog_static" ]
+  external_deps = [ "selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
   ]
+  if (support_developer_mode) {
+    cflags += [ "-DWITH_DEVELOPER" ]
+  }
   install_enable = true
   install_images = [
     "system",
@@ -43,7 +58,7 @@ ohos_shared_library("libload_policy") {
     "updater",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -51,7 +66,11 @@ ohos_shared_library("librestorecon") {
   output_name = "librestorecon"
   sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
-  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
+  deps = [ ":libselinux_hilog_static" ]
+  external_deps = [ "hilog:libhilog" ]
+
+  public_external_deps = [ "selinux:libselinux" ]
+
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -65,7 +84,7 @@ ohos_shared_library("librestorecon") {
   ]
   innerapi_tags = [ "platformsdk_indirect" ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -79,8 +98,10 @@ ohos_shared_library("libhap_restorecon") {
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
+  external_deps = [ "hilog:libhilog" ]
+
+  public_external_deps = [ "selinux:libselinux" ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -89,7 +110,7 @@ ohos_shared_library("libhap_restorecon") {
   ]
   install_enable = true
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -101,7 +122,7 @@ ohos_static_library("libselinux_error_static") {
     "-D_GNU_SOURCE",
     "-w",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -109,13 +130,13 @@ ohos_static_library("libselinux_klog_static") {
   output_name = "libselinux_klog_static"
   sources = [ "interfaces/policycoreutils/src/selinux_klog.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
+  external_deps = [ "bounds_checking_function:libsec_shared" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -123,14 +144,16 @@ ohos_static_library("libselinux_hilog_static") {
   output_name = "libselinux_hilog_static"
   sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
-  external_deps = [ "hilog:libhilog" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "hilog:libhilog",
+  ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -155,7 +178,7 @@ if (!startup_init_with_param_base) {
   ]
 }
 
-source_set("libselinux_parameter_static") {
+static_library("libselinux_parameter_static") {
   output_name = "libselinux_parameter_static"
   sources = [
     "interfaces/policycoreutils/src/contexts_trie.c",
@@ -163,6 +186,7 @@ source_set("libselinux_parameter_static") {
     "interfaces/policycoreutils/src/selinux_parameter.c",
     "interfaces/policycoreutils/src/selinux_share_mem.c",
   ]
+  public_configs = [ ":selinux_core_config" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -180,14 +204,11 @@ ohos_shared_library("libparaperm_checker") {
   output_name = "libparaperm_checker"
   sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
   public_configs = [ ":selinux_core_config" ]
-  deps = [
-    ":libselinux_klog_static",
-    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
-  ]
-  if (startup_init_with_param_base) {
-    deps += [ ":libselinux_parameter_static" ]
-  }
+  deps = [ ":libselinux_klog_static" ]
+  deps += [ ":libselinux_parameter_static" ]
+  external_deps = [ "bounds_checking_function:libsec_shared" ]
+  public_external_deps = [ "selinux:libselinux" ]
+
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -197,7 +218,7 @@ ohos_shared_library("libparaperm_checker") {
     "system",
     "updater",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -208,16 +229,19 @@ ohos_shared_library("libservice_checker") {
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
-    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "hilog:libhilog",
+  ]
+  public_external_deps = [ "selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
   ]
   innerapi_tags = [ "chipsetsdk" ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -232,7 +256,7 @@ ohos_executable("load_policy") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   install_images = [
     "system",
@@ -244,9 +268,10 @@ ohos_executable("restorecon") {
   install_enable = true
   sources = [ "interfaces/tools/restorecon/restorecon.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
-  deps = [
-    ":librestorecon",
-    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
+  deps = [ ":librestorecon" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "selinux:libselinux",
   ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -254,7 +279,7 @@ ohos_executable("restorecon") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   install_images = [
     "system",
@@ -275,8 +300,9 @@ ohos_executable("hap_restorecon") {
     "-Wall",
     "-Werror",
   ]
+  external_deps = [ "selinux:libselinux" ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -288,7 +314,10 @@ ohos_executable("param_check") {
     ":libparaperm_checker",
     ":libselinux_error_static",
     ":libselinux_parameter_static",
-    "$THIRD_PARTY_DIR/selinux:libselinux",
+  ]
+  external_deps = [
+    "pcre2:libpcre2",
+    "selinux:libselinux",
   ]
   if (startup_init_with_param_base) {
     deps += [ ":libselinux_parameter_static" ]
@@ -300,7 +329,7 @@ ohos_executable("param_check") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -318,7 +347,7 @@ ohos_executable("service_check") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -346,6 +375,10 @@ action("build_policy") {
                             [ rebase_path(src) ],
                             "list lines")
     }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+    }
   }
 
   if (special_build_policy_script != "default") {
@@ -358,7 +391,7 @@ action("build_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -384,20 +417,42 @@ action("build_policy") {
     }
   }
 
-  deps = [
-    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
+  external_deps = [
+    "selinux:checkpolicy($host_toolchain)",
+    "selinux:secilc($host_toolchain)",
   ]
   outputs = [
     target_out_dir + "/policy.31",
+    target_out_dir + "/user_policy",
     target_out_dir + "/vendor.cil",
     target_out_dir + "/prebuild_sepolicy.system.cil.sha256",
     target_out_dir + "/system.cil",
     target_out_dir + "/system.cil.sha256",
-    target_out_dir + "/$vendor_policy_version.cil",
+    target_out_dir + "/compatible/$vendor_policy_version.cil",
+    target_out_dir + "/compatible",
     target_out_dir + "/version",
     target_out_dir + "/public.cil",
   ]
+
+  outputs += [
+    target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256",
+    target_out_dir + "/developer/system.cil.sha256",
+    target_out_dir + "/developer/compatible/$vendor_policy_version.cil",
+    target_out_dir + "/developer/compatible",
+    target_out_dir + "/developer/developer_policy",
+    target_out_dir + "/developer/policy.31",
+    target_out_dir + "/developer/vendor.cil",
+    target_out_dir + "/developer/system.cil",
+    target_out_dir + "/developer/public.cil",
+  ]
+
+  if (components != "default") {
+    outputs += [
+      target_out_dir + "/system_common.cil",
+      target_out_dir + "/vendor_common.cil",
+      target_out_dir + "/public_common.cil",
+    ]
+  }
 }
 
 action("build_update_policy") {
@@ -421,6 +476,11 @@ action("build_update_policy") {
                             [ rebase_path(src) ],
                             "list lines")
     }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext_updater != "default") {
+      selinux_build_path =
+          selinux_build_path + ":" + selinux_build_path_ext_updater
+    }
   }
 
   if (special_build_policy_script != "default") {
@@ -433,7 +493,7 @@ action("build_update_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -452,9 +512,9 @@ action("build_update_policy") {
     }
   }
 
-  deps = [
-    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
+  external_deps = [
+    "selinux:checkpolicy($host_toolchain)",
+    "selinux:secilc($host_toolchain)",
   ]
   outputs = [ target_out_dir + "/updater/policy.31" ]
 }
@@ -470,6 +530,10 @@ action("build_contexts") {
                             [ rebase_path(src) ],
                             "list lines")
     }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+    }
   }
 
   if (special_build_contexts_script != "default") {
@@ -481,7 +545,7 @@ action("build_contexts") {
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
     "--policy-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--source-root-dir",
@@ -496,10 +560,8 @@ action("build_contexts") {
       args += [ arg ]
     }
   }
-  deps = [
-    ":build_policy",
-    "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-  ]
+  deps = [ ":build_policy" ]
+  external_deps = [ "selinux:sefcontext_compile($host_toolchain)" ]
   outputs = [
     target_out_dir + "/file_contexts.bin",
     target_out_dir + "/file_contexts",
@@ -507,6 +569,137 @@ action("build_contexts") {
     target_out_dir + "/service_contexts",
     target_out_dir + "/hdf_service_contexts",
     target_out_dir + "/parameter_contexts",
+  ]
+}
+
+action("build_ignore_cfg") {
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+    }
+  }
+
+  if (special_build_ignore_cfg != "default") {
+    script = special_build_ignore_cfg
+  } else {
+    script = "scripts/build_ignore_cfg.py"
+  }
+  args = [
+    "--dst-dir",
+    rebase_path(target_out_dir + "/"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy-dir-list",
+    selinux_build_path,
+    "--components",
+    components,
+  ]
+  outputs = [ target_out_dir + "/ignore_cfg" ]
+}
+
+action("build_updater_contexts") {
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext_updater != "default") {
+      selinux_build_path =
+          selinux_build_path + ":" + selinux_build_path_ext_updater
+    }
+  }
+
+  if (special_build_contexts_script != "default") {
+    script = special_build_contexts_script
+  } else {
+    script = "scripts/build_contexts.py"
+  }
+  args = [
+    "--dst-dir",
+    rebase_path(target_out_dir + "/updater"),
+    "--tool-path",
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    "--policy-file",
+    rebase_path(target_out_dir + "/updater/policy.31"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy_dir_list",
+    selinux_build_path,
+    "--components",
+    components,
+  ]
+  if (contexts_extra_args != "default") {
+    foreach(arg, string_split(contexts_extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
+  deps = [ ":build_update_policy" ]
+  external_deps = [ "selinux:sefcontext_compile($host_toolchain)" ]
+  outputs = [
+    target_out_dir + "/updater/file_contexts.bin",
+    target_out_dir + "/updater/file_contexts",
+    target_out_dir + "/updater/sehap_contexts",
+    target_out_dir + "/updater/service_contexts",
+    target_out_dir + "/updater/hdf_service_contexts",
+    target_out_dir + "/updater/parameter_contexts",
+  ]
+}
+
+action("selinux_check") {
+  script = "scripts/selinux_check/selinux_check_main.py"
+
+  if (selinux_check_extend_list != "default") {
+    selinux_build_path = selinux_build_path + ":" + selinux_check_extend_list
+  }
+
+  args = [
+    "--output-path",
+    rebase_path(target_out_dir),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--user-policy",
+    rebase_path(target_out_dir + "/user_policy"),
+    "--developer-policy",
+    rebase_path(target_out_dir + "/developer/developer_policy"),
+    "--tool-path",
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    "--policy-dir-list",
+    selinux_build_path,
+  ]
+
+  if (special_selinux_check_config != "default") {
+    args += [
+      "--selinux-check-config",
+      special_selinux_check_config,
+    ]
+  } else {
+    args += [
+      "--selinux-check-config",
+      "base/security/selinux_adapter/scripts/selinux_check/config/selinux_check.json",
+    ]
+  }
+
+  outputs = [ "$target_out_dir" ]
+
+  deps = [
+    ":build_contexts",
+    ":build_policy",
   ]
 }
 
@@ -528,12 +721,15 @@ ohos_prebuilt_etc("build_sepolicy") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/policy.31"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   if (components == "vendor") {
     relative_install_dir = "selinux/prebuild_sepolicy/"
     install_images = [ "vendor" ]
   } else if (components == "default") {
+    if (!support_developer_mode) {
+      source = target_out_dir + "/developer/policy.31"
+    }
     relative_install_dir = "selinux/targeted/policy/"
     install_images = [ "system" ]
   }
@@ -543,7 +739,7 @@ ohos_prebuilt_etc("build_updater_sepolicy") {
   deps = [ ":build_update_policy" ]
   source = target_out_dir + "/updater/policy.31"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/policy/"
   install_images = [ "updater" ]
@@ -553,7 +749,7 @@ ohos_prebuilt_etc("selinux_version") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/version"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -563,7 +759,7 @@ ohos_prebuilt_etc("config") {
   deps = [ ":selinux_config" ]
   source = target_out_dir + "/config"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
@@ -573,7 +769,7 @@ ohos_prebuilt_etc("updater_config") {
   deps = [ ":updater_selinux_config" ]
   source = target_out_dir + "/updater/config"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "updater" ]
@@ -583,7 +779,7 @@ ohos_prebuilt_etc("sehap_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/sehap_contexts"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
 }
@@ -592,38 +788,7 @@ ohos_prebuilt_etc("parameter_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/parameter_contexts"
   license_file = "LICENSE"
-  part_name = "selinux"
-  subsystem_name = "security"
-  relative_install_dir = "selinux/targeted/contexts/"
-  install_images = [
-    "system",
-    "updater",
-  ]
-}
-
-ohos_prebuilt_etc("service_contexts") {
-  deps = [ ":build_contexts" ]
-  source = target_out_dir + "/service_contexts"
-  license_file = "LICENSE"
-  part_name = "selinux"
-  subsystem_name = "security"
-  relative_install_dir = "selinux/targeted/contexts/"
-}
-
-ohos_prebuilt_etc("hdf_service_contexts") {
-  deps = [ ":build_contexts" ]
-  source = target_out_dir + "/hdf_service_contexts"
-  license_file = "LICENSE"
-  part_name = "selinux"
-  subsystem_name = "security"
-  relative_install_dir = "selinux/targeted/contexts/"
-}
-
-ohos_prebuilt_etc("file_contexts") {
-  deps = [ ":build_contexts" ]
-  source = target_out_dir + "/file_contexts"
-  license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
   if (components == "vendor") {
@@ -636,31 +801,125 @@ ohos_prebuilt_etc("file_contexts") {
   }
 }
 
+ohos_prebuilt_etc("service_contexts") {
+  deps = [ ":build_contexts" ]
+  source = target_out_dir + "/service_contexts"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/targeted/contexts/"
+  if (components == "vendor") {
+    install_images = [ "vendor" ]
+  } else {
+    install_images = [ "system" ]
+  }
+}
+
+ohos_prebuilt_etc("hdf_service_contexts") {
+  deps = [ ":build_contexts" ]
+  source = target_out_dir + "/hdf_service_contexts"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/targeted/contexts/"
+  if (components == "vendor") {
+    install_images = [ "vendor" ]
+  } else {
+    install_images = [ "system" ]
+  }
+}
+
+ohos_prebuilt_etc("file_contexts") {
+  deps = [ ":build_contexts" ]
+  source = target_out_dir + "/file_contexts"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/targeted/contexts/"
+  if (components == "vendor") {
+    install_images = [ "vendor" ]
+  } else {
+    install_images = [ "system" ]
+  }
+}
+
+ohos_prebuilt_etc("ignore_cfg") {
+  deps = [ ":build_ignore_cfg" ]
+  source = target_out_dir + "/ignore_cfg"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/"
+  if (components == "vendor") {
+    install_images = [ "vendor" ]
+  } else {
+    install_images = [ "system" ]
+  }
+}
+
+ohos_prebuilt_etc("file_contexts_updater") {
+  deps = [ ":build_updater_contexts" ]
+  source = target_out_dir + "/updater/file_contexts"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/targeted/contexts/"
+  if (components == "vendor") {
+    install_images = [ "updater_vendor" ]
+  } else {
+    install_images = [ "updater" ]
+  }
+}
+
 ohos_prebuilt_etc("vendor_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/vendor.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
+}
+
+if (components == "vendor") {
+  ohos_prebuilt_etc("vendor_common_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/vendor_common.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "vendor" ]
+  }
 }
 
 ohos_prebuilt_etc("public_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/public.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
 }
 
+if (components == "vendor") {
+  ohos_prebuilt_etc("public_common_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/public_common.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "vendor" ]
+  }
+}
+
 ohos_prebuilt_etc("version_cil") {
   deps = [ ":build_policy" ]
-  source = target_out_dir + "/$vendor_policy_version.cil"
+  source = target_out_dir + "/compatible/$vendor_policy_version.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/compatible/"
   install_images = [ "system" ]
@@ -670,7 +929,7 @@ ohos_prebuilt_etc("prebuild_sepolicy_system_cil_sha256") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/prebuild_sepolicy.system.cil.sha256"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -680,67 +939,373 @@ ohos_prebuilt_etc("system_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/system.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
+}
+
+if (components == "system") {
+  ohos_prebuilt_etc("system_common_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/system_common.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "system" ]
+  }
 }
 
 ohos_prebuilt_etc("system_cil_sha256") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/system.cil.sha256"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
 }
 
+if (support_developer_mode) {
+  ohos_prebuilt_etc("system_developer_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/system.cil"
+    output = "system_developer.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "system" ]
+  }
+
+  ohos_prebuilt_etc("vendor_developer_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/vendor.cil"
+    output = "vendor_developer.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "vendor" ]
+  }
+
+  ohos_prebuilt_etc("public_developer_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/public.cil"
+    output = "public_developer.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "vendor" ]
+  }
+
+  ohos_prebuilt_etc("version_developer_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/compatible/$vendor_policy_version.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/compatible_developer/"
+    install_images = [ "system" ]
+  }
+
+  ohos_prebuilt_etc("developer_policy") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/policy.31"
+    output = "developer_policy"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    if (components == "vendor") {
+      relative_install_dir = "selinux/prebuild_sepolicy/"
+      install_images = [ "vendor" ]
+    } else if (components == "default") {
+      relative_install_dir = "selinux/targeted/policy/"
+      install_images = [ "system" ]
+    }
+  }
+
+  ohos_prebuilt_etc("prebuild_sepolicy_system_developer_cil_sha256") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256"
+    output = "prebuild_sepolicy.system_developer.cil.sha256"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "vendor" ]
+  }
+
+  ohos_prebuilt_etc("system_developer_cil_sha256") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/system.cil.sha256"
+    output = "system_developer.cil.sha256"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/"
+    install_images = [ "system" ]
+  }
+}
+
+if (build_selinux && !ohos_indep_compiler_enable) {
+  ohos_copy("libselinux_toolchain") {
+    external_deps = [ "selinux:libselinux($host_toolchain)" ]
+    sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
+    outputs = [ "$root_build_dir/clang_x64/security/selinux/libselinux.so" ]
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+  }
+
+  ohos_copy("libpcre2_toolchain") {
+    external_deps = [ "pcre2:libpcre2($host_toolchain)" ]
+    sources = [ "$root_build_dir/clang_x64/thirdparty/pcre2/libpcre2.so" ]
+    outputs = [ "$root_build_dir/clang_x64/security/selinux/libpcre2.so" ]
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+  }
+}
+
+ohos_copy("filecontexts_toolchain") {
+  deps = [ ":build_contexts" ]
+  sources = [ "$target_out_dir/file_contexts.bin" ]
+  outputs = [ "$target_out_dir/../security/selinux/file_contexts.bin" ]
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+}
+
+if (components != "default") {
+  copy("eng_system_compatible") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/compatible" ]
+    outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/compatible" ]
+  }
+
+  copy("eng_system_compatible_developer") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/developer/compatible" ]
+    outputs = [
+      "$root_out_dir/$eng_system_base_dir/etc/selinux/compatible_developer",
+    ]
+  }
+
+  copy("eng_system_system_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/system.cil" ]
+    outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil" ]
+  }
+
+  copy("eng_system_system_cil_sha256") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/system.cil.sha256" ]
+    outputs =
+        [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil.sha256" ]
+  }
+
+  copy("eng_system_system_common_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/system_common.cil" ]
+    outputs =
+        [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_common.cil" ]
+  }
+
+  copy("eng_system_system_developer_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/developer/system.cil" ]
+    outputs = [
+      "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil",
+    ]
+  }
+
+  copy("eng_system_system_developer_cil_sha256") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/developer/system.cil.sha256" ]
+    outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil.sha256" ]
+  }
+
+  copy("eng_chipset_developer_policy") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/developer/policy.31" ]
+    outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy/developer_policy" ]
+  }
+
+  copy("eng_chipset_policy") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/policy.31" ]
+    outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy/policy.31" ]
+  }
+
+  copy("eng_chipset_system_cil_sha256") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/prebuild_sepolicy.system.cil.sha256" ]
+    outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy.system.cil.sha256" ]
+  }
+
+  copy("eng_chipset_system_developer_cil_sha256") {
+    deps = [ ":build_policy" ]
+    sources =
+        [ "$target_out_dir/developer/prebuild_sepolicy.system.cil.sha256" ]
+    outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy.system_developer.cil.sha256" ]
+  }
+
+  copy("eng_chipset_public_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/public.cil" ]
+    outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public.cil" ]
+  }
+
+  copy("eng_chipset_public_common_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/public_common.cil" ]
+    outputs =
+        [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public_common.cil" ]
+  }
+
+  copy("eng_chipset_public_developer_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/developer/public.cil" ]
+    outputs = [
+      "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public_developer.cil",
+    ]
+  }
+
+  copy("eng_chipset_vendor_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/vendor.cil" ]
+    outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor.cil" ]
+  }
+
+  copy("eng_chipset_vendor_common_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/vendor_common.cil" ]
+    outputs =
+        [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor_common.cil" ]
+  }
+
+  copy("eng_chipset_vendor_developer_cil") {
+    deps = [ ":build_policy" ]
+    sources = [ "$target_out_dir/developer/vendor.cil" ]
+    outputs = [
+      "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor_developer.cil",
+    ]
+  }
+
+  group("eng_system_selinux_group") {
+    deps = [
+      ":eng_system_compatible",
+      ":eng_system_compatible_developer",
+      ":eng_system_system_cil",
+      ":eng_system_system_cil_sha256",
+      ":eng_system_system_common_cil",
+      ":eng_system_system_developer_cil",
+      ":eng_system_system_developer_cil_sha256",
+      ":filecontexts_toolchain",
+    ]
+  }
+
+  group("eng_chipset_selinux_group") {
+    deps = [
+      ":eng_chipset_developer_policy",
+      ":eng_chipset_policy",
+      ":eng_chipset_public_cil",
+      ":eng_chipset_public_common_cil",
+      ":eng_chipset_public_developer_cil",
+      ":eng_chipset_system_cil_sha256",
+      ":eng_chipset_system_developer_cil_sha256",
+      ":eng_chipset_vendor_cil",
+      ":eng_chipset_vendor_common_cil",
+      ":eng_chipset_vendor_developer_cil",
+      ":filecontexts_toolchain",
+    ]
+  }
+}
+
 group("selinux_group") {
   if (build_selinux) {
-    deps = [
-      ":build_updater_sepolicy",
-      ":config",
-      ":file_contexts",
-      ":hap_restorecon",
-      ":hdf_service_contexts",
-      ":load_policy",
-      ":param_check",
-      ":parameter_contexts",
-      ":restorecon",
-      ":sehap_contexts",
-      ":service_check",
-      ":service_contexts",
-      ":updater_config",
-      "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:chkcon",
-      "$THIRD_PARTY_DIR/selinux:getenforce",
-      "$THIRD_PARTY_DIR/selinux:getfilecon",
-      "$THIRD_PARTY_DIR/selinux:getpidcon",
-      "$THIRD_PARTY_DIR/selinux:secilc",
-      "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:selinux_check_access",
-      "$THIRD_PARTY_DIR/selinux:selinuxexeccon",
-      "$THIRD_PARTY_DIR/selinux:setenforce",
-      "$THIRD_PARTY_DIR/selinux:setfilecon",
-    ]
-    if (components == "system") {
-      deps += [
-        ":system_cil",
-        ":system_cil_sha256",
-        ":version_cil",
+    if (!ohos_indep_compiler_enable) {
+      deps = [
+        ":build_updater_sepolicy",
+        ":config",
+        ":file_contexts",
+        ":file_contexts_updater",
+        ":filecontexts_toolchain",
+        ":hap_restorecon",
+        ":hdf_service_contexts",
+        ":ignore_cfg",
+        ":libpcre2_toolchain",
+        ":libselinux_toolchain",
+        ":load_policy",
+        ":param_check",
+        ":parameter_contexts",
+        ":restorecon",
+        ":sehap_contexts",
+        ":selinux_check",
+        ":service_check",
+        ":service_contexts",
+        ":updater_config",
       ]
-    } else if (components == "vendor") {
-      deps += [
-        ":build_sepolicy",
-        ":prebuild_sepolicy_system_cil_sha256",
-        ":public_cil",
-        ":selinux_version",
-        ":vendor_cil",
+      external_deps = [
+        "selinux:checkpolicy($host_toolchain)",
+        "selinux:chkcon",
+        "selinux:getenforce",
+        "selinux:getfilecon",
+        "selinux:getpidcon",
+        "selinux:secilc",
+        "selinux:secilc($host_toolchain)",
+        "selinux:sefcontext_compile($host_toolchain)",
+        "selinux:selinux_check_access",
+        "selinux:selinuxexeccon",
+        "selinux:setenforce",
+        "selinux:setfilecon",
       ]
+      if (components == "system") {
+        deps += [
+          ":system_cil",
+          ":system_cil_sha256",
+          ":system_common_cil",
+          ":version_cil",
+        ]
+        if (support_developer_mode) {
+          deps += [
+            ":system_developer_cil",
+            ":system_developer_cil_sha256",
+            ":version_developer_cil",
+          ]
+        }
+      } else if (components == "vendor") {
+        deps += [
+          ":build_sepolicy",
+          ":prebuild_sepolicy_system_cil_sha256",
+          ":public_cil",
+          ":public_common_cil",
+          ":selinux_version",
+          ":vendor_cil",
+          ":vendor_common_cil",
+        ]
+        if (support_developer_mode) {
+          deps += [
+            ":developer_policy",
+            ":prebuild_sepolicy_system_developer_cil_sha256",
+            ":public_developer_cil",
+            ":vendor_developer_cil",
+          ]
+        }
+      } else {
+        deps += [ ":build_sepolicy" ]
+        if (support_developer_mode) {
+          deps += [ ":developer_policy" ]
+        }
+      }
     } else {
-      deps += [ ":build_sepolicy" ]
+      deps = [
+        ":hap_restorecon",
+        ":load_policy",
+        ":param_check",
+        ":restorecon",
+        ":service_check",
+      ]
     }
   }
 }

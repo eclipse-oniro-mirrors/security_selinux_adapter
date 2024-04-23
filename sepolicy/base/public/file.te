@@ -42,7 +42,6 @@ type updater_file, system_file_attr, file_attr;
 type config_file, system_file_attr, file_attr;
 type system_lib_file, system_file_attr, file_attr;
 type system_etc_file, system_file_attr, file_attr;
-type system_data_file, system_file_attr, file_attr;
 type system_hap_file, system_file_attr, file_attr;
 type system_fonts_file, system_file_attr, file_attr;
 type system_profile_file, system_file_attr, file_attr;
@@ -65,12 +64,13 @@ type dev_file, dev_attr, file_attr;
 type sys_prod_file, sys_prod_file_attr, file_attr;
 
 type chip_prod_file, chip_prod_file_attr, file_attr;
+type chip_ckm_file, chip_ckm_file_attr, file_attr;
 
 type sysfs_block_file, sysfs_attr, fs_attr;
 type sysfs_hisys_file, sysfs_attr, fs_attr;
 
 type sysfs_devices_system_cpu, sysfs_attr, fs_attr;
-type sysfs_android_usb, sysfs_attr, fs_attr;
+type sysfs_gadget_usb, sysfs_attr, fs_attr;
 type sysfs_extcon, sysfs_attr, fs_attr;
 type sysfs_leds, sysfs_attr, fs_attr;
 type sysfs_net, sysfs_attr, fs_attr;
@@ -90,6 +90,7 @@ type sysfs_wake_lck, sysfs_attr, fs_attr;
 type sysfs_kernel_notes, sysfs_attr, fs_attr;
 type sysfs_wakeup_reasons, sysfs_attr, fs_attr;
 type sysfs_hctosys, sysfs_attr, fs_attr;
+type sysfs_hungtask_userlist, sysfs_attr, fs_attr;
 
 type config_usb_gadget, fs_attr;
 
@@ -102,7 +103,10 @@ type data_app_el4_file, file_attr, data_file_attr, hap_file_attr;
 type data_service_file, file_attr, data_file_attr;
 type data_service_el0_file, file_attr, data_file_attr;
 type data_service_el1_file, file_attr, data_file_attr;
+type data_service_el1_public_print_service_file, file_attr, data_file_attr;
 type data_service_el2_file, file_attr, data_file_attr;
+type data_service_el3_file, file_attr, data_file_attr;
+type data_service_el4_file, file_attr, data_file_attr;
 type data_user_file, file_attr, data_file_attr;
 type data_chipset_file, file_attr, data_file_attr;
 type data_chipset_el1_file, file_attr, data_file_attr;
@@ -129,6 +133,8 @@ type data_local, file_attr, data_file_attr;
 type data_local_traces, file_attr, data_file_attr;
 type data_local_tmp, file_attr, data_file_attr;
 type data_local_arkcache, file_attr, data_file_attr;
+type data_local_arkprofile, file_attr, data_file_attr;
+type data_local_shadercache, file_attr, data_file_attr;
 type data_log, file_attr, data_file_attr;
 type data_media, file_attr, data_file_attr;
 type data_mediadrm, file_attr, data_file_attr;
@@ -143,6 +149,7 @@ type data_preloads, file_attr, data_file_attr;
 type data_resourcecache, file_attr, data_file_attr;
 type data_sadata, file_attr, data_file_attr;
 type data_sadata_de, file_attr, data_file_attr;
+type data_samgr, file_attr, data_file_attr;
 type data_ss, file_attr, data_file_attr;
 type data_storage, file_attr, data_file_attr;
 type data_system, file_attr, data_file_attr;
@@ -199,10 +206,12 @@ type proc_vmstat_file, fs_attr, proc_attr;
 type proc_zoneinfo_file, fs_attr, proc_attr;
 type proc_boot_id, fs_attr, proc_attr;
 type proc_max_user_watches, fs_attr, proc_attr;
+type proc_developer_file, fs_attr, proc_attr;
 
 
 type dev_parameters_file, dev_attr, file_attr;
 type dev_block_file, dev_attr;
+type updater_block_file, dev_attr;
 type dev_bus_file, dev_attr;
 type dev_bus_usb_file, dev_attr;
 type dev_char_file, dev_attr;

@@ -71,7 +71,7 @@ allow oaid_service sa_foundation_bms:samgr_class { get };
 allow oaid_service sa_foundation_cesfwk_service:samgr_class { get };
 allow oaid_service sa_net_conn_manager:samgr_class { get };
 allow oaid_service normal_hap_attr:binder { call transfer };
-allow oaid_service system_basic_hap:binder { call };
+allow oaid_service system_basic_hap_attr:binder { call };
 allow oaid_service sa_distributeddata_service:samgr_class { get };
 allow oaid_service musl_param:file { map open read };
 allow oaid_service distributeddata:binder { call transfer };

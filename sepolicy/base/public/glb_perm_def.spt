@@ -46,3 +46,12 @@ define(`write_file_perms',`{ open write append lock map }')
 define(`rw_file_perms',`{ write_file_perms read_file_perms }')
 define(`create_file_perms',`{ create rename setattr unlink rw_file_perms }')
 
+# permission without ioctl for dir
+define(`read_dir_perms_without_ioctl', `{ getattr search open read lock watch watch_reads }')
+define(`rw_dir_perms_without_ioctl', `{ open read getattr lock search add_name remove_name write }')
+define(`create_dir_perms_without_ioctl',`{ create reparent rename rmdir setattr rw_dir_perms_without_ioctl }')
+
+# permission without ioctl for file
+define(`read_file_perms_without_ioctl',`{ getattr open read lock map watch watch_reads }')
+define(`rw_file_perms_without_ioctl',`{ write_file_perms read_file_perms_without_ioctl }')
+define(`create_file_perms_without_ioctl',`{ create rename setattr unlink rw_file_perms_without_ioctl }')

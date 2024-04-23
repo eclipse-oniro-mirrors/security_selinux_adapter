@@ -1,0 +1,21 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# The context for processes of lldb-server, it does not inherit any other
+# existing attributes for processes other than 'domain' because rules for
+# lldb-server are expected to be controlled discretely.
+type lldb_server, domain;
+# The context for the binary file of lldb-server, files and subdirectories under
+# /data/local/tmp/debugserver/ are supposed to be labeled with it. The rationale
+# of not inheritting other file-related attributes is the same as above.
+type lldb_server_file, file_attr;

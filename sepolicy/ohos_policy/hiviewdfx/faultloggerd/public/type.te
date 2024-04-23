@@ -24,10 +24,12 @@ type faultloggerd_socket, dev_attr, file_attr;
 
 type faultloggerd_socket_crash, dev_attr, file_attr;
 
+type faultloggerd_socket_sdkdump, dev_attr, file_attr;
+
 init_daemon_domain(faultloggerd);
 
-type processdump, nativedomain, domain;
+type processdump, native_system_domain, domain;
 
 type processdump_exec, exec_attr, file_attr, system_file_attr;
 
-domain_auto_transition_pattern({ domain -limit_domain }, processdump_exec, processdump);
+domain_auto_transition_pattern(domain, processdump_exec, processdump);

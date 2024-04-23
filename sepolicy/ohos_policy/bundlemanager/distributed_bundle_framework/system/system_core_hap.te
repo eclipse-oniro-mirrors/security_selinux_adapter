@@ -14,12 +14,12 @@
 allow normal_hap_attr bluetooth_service:binder { call };
 allow normal_hap_attr bluetooth_service:binder { transfer };
 
-allow system_core_hap d-bms:binder { call transfer };
-allow system_core_hap data_service_el1_file:file { read write };
-allow system_core_hap sa_distributed_bundle_mgr_service_service:samgr_class { get };
-allow system_core_hap sa_foundation_devicemanager_service:samgr_class { get };
+allow system_core_hap_attr d-bms:binder { call transfer };
+allow system_core_hap_attr data_service_el1_file:file { read write };
+allow system_core_hap_attr sa_distributed_bundle_mgr_service_service:samgr_class { get };
+allow system_core_hap_attr sa_foundation_devicemanager_service:samgr_class { get };
 
-allow system_basic_hap d-bms:binder { call transfer };
-allow system_basic_hap data_service_el1_file:file { read write };
-allow system_basic_hap sa_distributed_bundle_mgr_service_service:samgr_class { get };
-allow system_basic_hap sa_foundation_devicemanager_service:samgr_class { get };
+allow system_basic_hap_attr d-bms:binder { call transfer };
+allow system_basic_hap_attr data_service_el1_file:file { read write };
+allow system_basic_hap_attr sa_distributed_bundle_mgr_service_service:samgr_class { get };
+allow system_basic_hap_attr sa_foundation_devicemanager_service:samgr_class { get };

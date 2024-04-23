@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap accesstoken_service:binder { call };
-allow system_core_hap sa_accesstoken_manager_service:samgr_class { get };
-allow system_core_hap sa_privacy_service:samgr_class { get };
+allow system_core_hap_attr accesstoken_service:binder { call };
+allow system_core_hap_attr sa_accesstoken_manager_service:samgr_class { get };
+allow system_core_hap_attr sa_privacy_service:samgr_class { get };
 
-binder_call(system_core_hap, accesstoken_service);
+binder_call(system_core_hap_attr, accesstoken_service);

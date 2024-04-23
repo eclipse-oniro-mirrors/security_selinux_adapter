@@ -21,6 +21,10 @@ allow param_watcher render_service:binder { call };
 allow param_watcher resource_schedule_service:binder { call };
 allow param_watcher screenlock_server:binder { call };
 allow param_watcher storage_manager:binder { call };
-allow param_watcher system_basic_hap:binder { call };
+allow param_watcher system_basic_hap_attr:binder { call };
 allow param_watcher wallpaper_service:binder { call };
 allow param_watcher netsysnative:binder { call };
+developer_only(`
+allow param_watcher SP_daemon:binder { call };
+')
+

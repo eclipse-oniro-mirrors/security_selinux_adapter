@@ -87,4 +87,12 @@ allow locationhub vendor_bin_file:dir { search };
 
 allow locationhub musl_param:file { open };
 allow locationhub dev_file:dir { getattr };
+
+allow locationhub sa_bluetooth_server:samgr_class { get };
+allow locationhub sa_wifi_scan_ability:samgr_class { get };
+
+allow locationhub sa_bgtaskmgr:samgr_class { get };
+allow locationhub bgtaskmgr_service:binder { call };
+
+allow locationhub sa_form_mgr_service:samgr_class { get };
 allow locationhub sa_foundation_ans:samgr_class { get };

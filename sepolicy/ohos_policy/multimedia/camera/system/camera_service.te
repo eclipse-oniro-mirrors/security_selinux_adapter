@@ -30,3 +30,16 @@ allow camera_service accesstoken_service:binder { call transfer };
 allow camera_service privacy_service:binder { call transfer };
 allow privacy_service camera_service:binder { call transfer };
 allow camera_service sa_privacy_service:samgr_class { get };
+allow camera_service sa_sensor_service:samgr_class { get add};
+allow camera_service sensors:binder { call transfer };
+#avc:  denied  { get } for service=camera_image_process_service pid=1392 scontext=u:r:camera_service:s0 tcontext=u:object_r:hdf_camera_image_process_service:s0 tclass=hdf_devmgr_class permissive=1
+allow camera_service hdf_camera_image_process_service:hdf_devmgr_class { get };
+#avc:  denied  { use } for  pid=3966 comm="OS_FFRT_2_1" path="/dev/ashmem" dev="tmpfs" ino=630 scontext=u:r:camera_service:s0 tcontext=u:r:cameradaemon:s0 tclass=fd permissive=1
+#avc:  denied  { use } for  pid=3966 comm="OS_FFRT_2_1" path="/dmabuf:" dev="dmabuf" ino=35644 scontext=u:r:camera_service:s0 tcontext=u:r:cameradaemon:s0 tclass=fd permissive=1
+#allow camera_service cameradaemon:fd { use };
+allow camera_service foundation:binder { transfer };
+allow camera_service powermgr:binder { transfer };
+#avc:  denied  { get } for service=3303 pid=1767 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_powermgr_thermal_service:s0 tclass=samgr_class permissive=0
+allow camera_service sa_powermgr_thermal_service:samgr_class { get };
+#avc:  denied  { get } for service=3299 pid=1767 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow camera_service sa_foundation_cesfwk_service:samgr_class { get };

@@ -61,6 +61,7 @@ static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
+std::mutex g_loadContextsLock;
 } // namespace
 
 static void SelinuxSetCallback()
@@ -126,7 +127,9 @@ static bool CheckPath(const std::string &path)
 {
     std::regex pathPrefix1("^/data/app/el[1-4]/[0-9]+/(base|database)/.*");
     std::regex pathPrefix2("^/data/accounts/account_0/appdata/.*");
-    if (std::regex_match(path, pathPrefix1) || std::regex_match(path, pathPrefix2)) {
+    std::regex pathPrefix3("^/data/service/el[1-4]/[0-9]+/backup/bundles/.*");
+    if (std::regex_match(path, pathPrefix1) || std::regex_match(path, pathPrefix2) ||
+        std::regex_match(path, pathPrefix3)) {
         return true;
     }
     return false;
@@ -138,14 +141,6 @@ static bool CheckApl(const std::string &apl)
         return true;
     }
     return false;
-}
-
-static void HapContextsClear()
-{
-    if (g_sehapContextsTrie != nullptr) {
-        g_sehapContextsTrie->Clear();
-        g_sehapContextsTrie = nullptr;
-    }
 }
 
 static std::string GetHapContextKey(struct SehapInfo *hapInfo)
@@ -192,7 +187,6 @@ static bool HapContextsLoad()
     // load sehap_contexts file
     std::ifstream contextsFile(SEHAP_CONTEXTS_FILE);
     if (contextsFile) {
-        HapContextsClear();
         g_sehapContextsTrie = std::make_unique<SehapContextsTrie>();
         if (g_sehapContextsTrie == nullptr) {
             selinux_log(SELINUX_ERROR, "malloc g_sehapContextsTrie fail");
@@ -328,7 +322,9 @@ int HapContext::HapFileRecurseRestorecon(const std::string &realPath, HapFileInf
                 continue;
             case FTS_D:
             default:
-                error += RestoreconSb(ftsent->fts_path, hapFileInfo);
+                if (RestoreconSb(ftsent->fts_path, hapFileInfo) != 0) {
+                    error = -SELINUX_RESTORECON_ERROR;
+                }
                 break;
         }
     }
@@ -380,7 +376,7 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
     if (*secontextPtr == nullptr) {
         return -SELINUX_PTR_NULL;
     }
-    char *secontext = *secontextPtr;
+    const char *secontext = *secontextPtr;
     context_t con = context_new(secontext);
     if (con == nullptr) {
         freecon(*secontextPtr);
@@ -437,17 +433,16 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         return SELINUX_SUCC;
     }
 
-    char *typeContext = nullptr;
-    if (getcon(&typeContext)) {
+    char *oldTypeContext = nullptr;
+    if (getcon(&oldTypeContext)) {
         return -SELINUX_GET_CONTEXT_ERROR;
     }
 
     context_t con = nullptr;
-    con = context_new(typeContext);
+    con = context_new(oldTypeContext);
     if (con == nullptr) {
         return -SELINUX_PTR_NULL;
     }
-    char *oldTypeContext = typeContext;
 
     int res = HapContextsLookup(true, hapDomainInfo.apl, hapDomainInfo.packageName, con, hapDomainInfo.hapFlags);
     if (res < 0) {
@@ -456,7 +451,7 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         return res;
     }
 
-    typeContext = context_str(con);
+    const char *typeContext = context_str(con);
     if (typeContext == nullptr) {
         freecon(oldTypeContext);
         context_free(con);
@@ -490,9 +485,12 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
 int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
     context_t con, unsigned int hapFlags)
 {
-    if (g_sehapContextsTrie == nullptr) {
-        if (!HapContextsLoad()) {
-            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+    {
+        std::lock_guard<std::mutex> lock(g_loadContextsLock);
+        if (g_sehapContextsTrie == nullptr) {
+            if (!HapContextsLoad()) {
+                return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+            }
         }
     }
 

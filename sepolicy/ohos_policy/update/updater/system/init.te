@@ -164,4 +164,26 @@ allow init updater:file { getattr };
 
 # avc: denied { relabelfrom } for pid=237 comm="init" name=".persisterInfo_1" dev="rootfs" ino=28034 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow init rootfs:file { relabelfrom };
+
+allow init updater_block_file:blk_file { getattr ioctl open read write };
+allowxperm init updater_block_file:blk_file ioctl { 0x5413 };
 ')
+
+# avc:  denied  { execute } for  pid=1849 comm="init" name="write_updater" dev="mmcblk0p7" ino=455 scontext=u:r:init:s0 tcontext=u:object_r:write_updater_exec:s0 tclass=file permissive=1
+# avc:  denied  { execute_no_trans } for  pid=1849 comm="init" path="/system/bin/write_updater" dev="mmcblk0p7" ino=455 scontext=u:r:init:s0 tcontext=u:object_r:write_updater_exec:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=1849 comm="write_updater" path="/system/bin/write_updater" dev="mmcblk0p7" ino=455 scontext=u:r:init:s0 tcontext=u:object_r:write_updater_exec:s0 tclass=file permissive=1
+# avc:  denied  { read open } for  pid=1849 comm="init" path="/system/bin/write_updater" dev="mmcblk0p7" ino=455 scontext=u:r:init:s0 tcontext=u:object_r:write_updater_exec:s0 tclass=file permissive=1
+#allow init write_updater_exec:file { execute execute_no_trans map read open };
+
+# avc:  denied  { open } for  pid=271 comm="init" path="/dev/asanlog" dev="tmpfs" ino=377 scontext=u:r:init:s0 tcontext=u:object_r:dev_asanlog_file:s0 tclass=dir permissive=1
+allow init dev_asanlog_file:dir { open };
+
+# avc:  denied  { getattr } for  pid=591 comm="init" path="/dev/unix/socket/faultloggerd.crash.server" dev="tmpfs" ino=385 scontext=u:r:init:s0 tcontext=u:object_r:faultloggerd_socket_crash:s0 tclass=sock_file permissive=1
+# avc:  denied  { relabelto } for  pid=591 comm="init" name="faultloggerd.crash.server" dev="tmpfs" ino=385 scontext=u:r:init:s0 tcontext=u:object_r:faultloggerd_socket_crash:s0 tclass=sock_file permissive=1
+allow init faultloggerd_socket_crash:sock_file { getattr relabelto };
+
+# avc:  denied  { setattr } for  pid=271 comm="init" name="sysrq-trigger" dev="proc" ino=4026532372 scontext=u:r:init:s0 tcontext=u:object_r:proc_sysrq_trigger_file:s0 tclass=file permissive=1
+allow init proc_sysrq_trigger_file:file { setattr };
+
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allow init updater_block_file:blk_file { relabelto };

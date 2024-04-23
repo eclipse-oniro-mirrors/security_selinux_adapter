@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/device_attest                       u:object_r:data_device_attest:s0
-/data/device_attest/(.*)?                 u:object_r:data_device_attest:s0
+/data/service/el1/public/device_attest                       u:object_r:data_service_el1_public_device_attest:s0
+/data/service/el1/public/device_attest/(.*)?                 u:object_r:data_service_el1_public_device_attest:s0
 /etc/device_attest                        u:object_r:etc_device_attest:s0
 /etc/device_attest/(.*)?                  u:object_r:etc_device_attest:s0

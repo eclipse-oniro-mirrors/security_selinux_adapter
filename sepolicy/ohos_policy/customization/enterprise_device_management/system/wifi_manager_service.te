@@ -12,3 +12,8 @@
 # limitations under the License.
 
 allow wifi_manager_service edm_sa:binder { transfer };
+
+debug_only(`
+    # avc:  denied  { transfer } for  pid=912 comm="IPC_2_1093" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    allow wifi_manager_service su:binder { transfer };
+')

@@ -63,9 +63,9 @@ allow composer_host security_param:file { map open read };
 allow composer_host startup_param:file { map open read };
 allow composer_host sys_file:file { open read write };
 allow composer_host sys_param:file { map open read };
-allow composer_host system_basic_hap:fd { use };
+allow composer_host system_basic_hap_attr:fd { use };
 allow composer_host system_bin_file:dir { search };
-allow composer_host system_core_hap:fd { use };
+allow composer_host system_core_hap_attr:fd { use };
 allow composer_host sys_usb_param:file { map open read };
 allow composer_host vendor_etc_file:dir { search };
 allow composer_host vendor_etc_file:file { getattr open read };
@@ -90,3 +90,4 @@ allowxperm composer_host dev_dri_file:chr_file ioctl { 0x6409 0x640d 0x6411 0x64
 allowxperm composer_host dev_graphics_file:chr_file ioctl { 0x4611 };
 allowxperm composer_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allowxperm composer_host dev_rga:chr_file ioctl { 0x5017 0x601b };
+allow composer_host composer_host:capability {sys_nice};

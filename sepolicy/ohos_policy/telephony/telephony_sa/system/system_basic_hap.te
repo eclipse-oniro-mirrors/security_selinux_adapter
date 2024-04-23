@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,10 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap sa_foundation_tel_state_registry:samgr_class get;
-allow system_basic_hap sa_telephony_tel_core_service:samgr_class get;
-allow system_basic_hap sa_telephony_tel_cellular_data:samgr_class get;
-allow system_basic_hap sa_telephony_tel_sms_mms:samgr_class get;
-allow system_basic_hap telephony_sa:binder { call transfer };
-allow system_basic_hap sa_foundation_tel_call_manager:samgr_class get;
+allow system_basic_hap_attr sa_foundation_tel_state_registry:samgr_class get;
+allow system_basic_hap_attr sa_telephony_tel_core_service:samgr_class get;
+allow system_basic_hap_attr sa_telephony_tel_cellular_data:samgr_class get;
+allow system_basic_hap_attr sa_telephony_tel_sms_mms:samgr_class get;
+allow system_basic_hap_attr telephony_sa:binder { call transfer };
+allow system_basic_hap_attr sa_foundation_tel_call_manager:samgr_class get;
 

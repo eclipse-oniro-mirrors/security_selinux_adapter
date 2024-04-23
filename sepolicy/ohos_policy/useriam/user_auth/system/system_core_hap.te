@@ -11,12 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap sa_useriam_useridm_service:samgr_class { get };
+allow system_core_hap_attr sa_useriam_useridm_service:samgr_class { get };
 
-allow system_core_hap sa_useriam_userauth_service:samgr_class { get };
+allow system_core_hap_attr sa_useriam_userauth_service:samgr_class { get };
 
-allow system_core_hap sa_useriam_authexecutormgr_service:samgr_class { get };
+allow system_core_hap_attr sa_useriam_authexecutormgr_service:samgr_class { get };
 
-allow system_core_hap sa_useriam_faceauth_service:samgr_class { get };
+allow system_core_hap_attr sa_useriam_faceauth_service:samgr_class { get };
 
-allow system_core_hap sa_useriam_fingerprintauth_service:samgr_class { get };
+allow system_core_hap_attr sa_useriam_fingerprintauth_service:samgr_class { get };
