@@ -11,3 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 persist.usb.setting.                    u:object_r:usb_setting_param:s0
+persist.sys.usb.                        u:object_r:sys_usb_param:s0
