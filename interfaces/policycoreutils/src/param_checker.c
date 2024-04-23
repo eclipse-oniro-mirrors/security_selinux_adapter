@@ -22,7 +22,7 @@
 #include "selinux_klog.h"
 #include "src/callbacks.h"
 
-static pthread_once_t SET_LOG_ONCE = PTHREAD_ONCE_INIT;
+static pthread_once_t g_setLogOnce = PTHREAD_ONCE_INIT;
 #define BUF_SIZE 512
 
 typedef struct AuditMsg {
@@ -75,7 +75,7 @@ static int CheckPerm(const char *paraName, const char *srcContext, const char *d
 void SetInitSelinuxLog(void)
 {
     if (getpid() == 1) {
-        __selinux_once(SET_LOG_ONCE, SelinuxSetCallback);
+        __selinux_once(g_setLogOnce, SelinuxSetCallback);
     }
 }
 

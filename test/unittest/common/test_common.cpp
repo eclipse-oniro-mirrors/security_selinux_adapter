@@ -82,7 +82,7 @@ std::string GetDirectory(const std::string &path)
 {
     std::string dir = "";
     size_t index = path.rfind('/');
-    if (std::string::npos != index) {
+    if (index != std::string::npos) {
         dir = path.substr(0, index);
     }
     return dir;
