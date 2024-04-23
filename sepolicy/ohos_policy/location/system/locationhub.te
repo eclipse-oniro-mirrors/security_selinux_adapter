@@ -87,3 +87,4 @@ allow locationhub vendor_bin_file:dir { search };
 
 allow locationhub musl_param:file { open };
 allow locationhub dev_file:dir { getattr };
+allow locationhub sa_foundation_ans:samgr_class { get };
