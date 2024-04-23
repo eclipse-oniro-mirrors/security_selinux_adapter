@@ -32,7 +32,7 @@
 using namespace Selinux;
 
 static const int ALARM_TIME_S = 5;
-struct testInput {
+struct TestInput {
     std::string name = "";
     std::string apl = "";
     std::vector<std::string> multiPath;
@@ -62,7 +62,7 @@ static void PrintUsage()
     printf("\n");
 }
 
-static void SetOptions(int argc, char *argv[], const option *options, testInput &input)
+static void SetOptions(int argc, char *argv[], const option *options, TestInput &input)
 {
     int index = 0;
     const char *optStr = "hda:p:n:r:m:i";
@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    testInput testCmd;
+    TestInput testCmd;
     SetOptions(argc, argv, options, testCmd);
     HapContext test;
     int res = 0;

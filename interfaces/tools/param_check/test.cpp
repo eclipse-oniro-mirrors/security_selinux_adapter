@@ -39,7 +39,7 @@ using namespace Selinux;
 const static long USEC_PER_SEC = 1000000L;
 #endif
 
-struct testInput {
+struct TestInput {
     std::string paraName;
     char cmd = '\0';
 };
@@ -164,7 +164,7 @@ static void PrintUsage()
     std::cout << "" << std::endl;
 }
 
-static void SetOptions(int argc, char *argv[], const option *options, testInput &input)
+static void SetOptions(int argc, char *argv[], const option *options, TestInput &input)
 {
     int index = 0;
     const char *optStr = "hgrwln:";
@@ -202,7 +202,7 @@ static void SetOptions(int argc, char *argv[], const option *options, testInput 
     }
 }
 
-static void TestWriteParameters(testInput &testCmd)
+static void TestWriteParameters(TestInput &testCmd)
 {
     int fd[2];
     if (socketpair(AF_UNIX, SOCK_DGRAM, 0, fd) < 0) {
@@ -230,7 +230,7 @@ static void TestWriteParameters(testInput &testCmd)
     exit(0);
 }
 
-static void Test(testInput &testCmd)
+static void Test(TestInput &testCmd)
 {
     std::string paraName;
     switch (testCmd.cmd) {
@@ -278,7 +278,7 @@ int main(int argc, char *argv[])
         exit(0);
     }
     InitParamSelinux(0);
-    testInput testCmd;
+    TestInput testCmd;
     SetOptions(argc, argv, options, testCmd);
     Test(testCmd);
     exit(0);
