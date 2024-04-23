@@ -95,6 +95,12 @@ allow storage_daemon data_service_el1_public_huksService_file:file { getattr rea
 allow storage_daemon data_service_el2_public_huksService_file:dir { search };
 allow storage_daemon data_service_el2_public_huksService_file:file { getattr read open };
 
+allow storage_daemon data_service_el2_userId_huksService_file:dir { getattr open read search };
+allow storage_daemon data_service_el2_userId_huksService_file:file { getattr open read };
+
+allow storage_daemon data_service_el4_userId_huksService_file:dir { getattr open read search };
+allow storage_daemon data_service_el4_userId_huksService_file:file { getattr open read };
+
 #avc:  denied  { search } for  pid=257 comm="storage_daemon" name="huks_service" dev="mmcblk0p11" ino=1044496 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_data_huksService_file:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=257 comm="storage_daemon" path="/data/data/huks_service/maindata/root_encrypt_key" dev="mmcblk0p11" ino=1044535 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_data_huksService_file:s0 tclass=file permissive=1
 allow storage_daemon data_data_huksService_file:dir { search };
@@ -329,6 +335,8 @@ allow storage_daemon foundation:binder { call transfer };
 allow storage_daemon foundation:fd { use };
 allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
+allow storage_daemon data_service_el2_file:file { relabelfrom };
+allow storage_daemon data_service_el4_file:file { relabelfrom };
 storage_daemon_relabel(data_service_el2_share);
 allow storage_daemon data_app_el2_file:file { unlink };
 allow storage_daemon data_chipset_el2_file:file { unlink };

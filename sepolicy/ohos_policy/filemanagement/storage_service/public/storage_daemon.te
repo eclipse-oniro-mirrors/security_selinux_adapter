@@ -22,6 +22,8 @@ define(`storage_daemon_relabel', `
 storage_daemon_relabel(data_user_file);
 storage_daemon_relabel(data_service_el2_hmdfs);
 storage_daemon_relabel(data_service_el2_public_huksService_file);
+storage_daemon_relabel(data_service_el2_userId_huksService_file);
+storage_daemon_relabel(data_service_el4_userId_huksService_file);
 
 allow storage_daemon data_user_file:lnk_file { relabelto setattr };
 
