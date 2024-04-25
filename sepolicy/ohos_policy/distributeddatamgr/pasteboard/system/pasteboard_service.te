@@ -15,3 +15,5 @@ allow pasteboard_service sa_multimodalinput_service:samgr_class { get };
 allow pasteboard_service multimodalinput:binder { call transfer };
 allow pasteboard_service multimodalinput:fd { use };
 allow pasteboard_service multimodalinput:unix_stream_socket { read write };
+allow pasteboard_service sa_privacy_service:samgr_class { get };
+allow pasteboard_service privacy_service:binder { call };
