@@ -16,7 +16,7 @@ allow hiview faultloggerd_temp_file:file { getattr };
 allow hiview system_basic_hap_attr:dir { search };
 allow hiview system_basic_hap_attr:file { open read };
 allow hiview wukong:binder { call };
-allow hiview wukong:dir { search };
+allow hiview wukong:dir { search getattr };
 allow hiview wukong:file { getattr open read };
 ')
 

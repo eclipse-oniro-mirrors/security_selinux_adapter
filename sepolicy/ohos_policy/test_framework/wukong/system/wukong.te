@@ -15,10 +15,6 @@ developer_only(`
 allow wukong accessibility:binder { call transfer };
 allow wukong accessibility:dir { search };
 allow wukong accessibility:file { open read };
-allow wukong appspawn:file { read open };
-allow wukong appspawn:dir { search };
-allow wukong bluetooth_service:dir { search };
-allow wukong bluetooth_service:file { open read };
 allow wukong data_file:dir { search read open };
 allow wukong data_hilogd_file:dir { open read search };
 allow wukong data_hilogd_file:file { getattr open read };
@@ -27,15 +23,10 @@ allow wukong data_log:dir { read watch };
 allow wukong data_log:file { getattr open read };
 allow wukong data_service_el0_file:dir { search };
 allow wukong data_service_file:dir { search };
-allow wukong dev_console_file:chr_file { read write };
-allow wukong hdcd:fd { use };
 allow wukong devpts:chr_file { read write ioctl };
-allow wukong dev_at_file:chr_file { ioctl };
-allow wukong device_usage_stats_service:dir { search };
 allow wukong foundation:fd { use };
 allow wukong foundation:binder { call };
-allow wukong powermgr:fd { use };
-allow wukong powermgr:binder { call transfer};
+allow wukong foundation:binder { transfer };
 allow wukong hiview:binder { call transfer };
 allow wukong multimodalinput:binder { call };
 allow wukong samgr:binder { call };
@@ -46,41 +37,21 @@ allow wukong sh_exec:file { execute_no_trans execute  read open map };
 allow wukong system_bin_file:file { execute execute_no_trans getattr map read open };
 allow wukong system_bin_file:lnk_file { read };
 allow wukong system_bin_file:dir { search };
-allow wukong tty_device:chr_file { ioctl open read write };
-allow wukong param_watcher:binder { call transfer };
-allow wukong foundation:binder { transfer };
-allow wukong accesstoken_service:binder { call };
-allow wukong dev_kmsg_file:chr_file { open write };
 allow wukong multimodalinput:fd { use };
-allow wukong tracefs:dir { search };
-
-allow wukong hdcd:unix_stream_socket { read write };
-allow wukong multimodalinput:unix_stream_socket { read };
-allow wukong kernel:unix_stream_socket { connectto };
-allow wukong paramservice_socket:sock_file { write };
 allow wukong multimodalinput:unix_stream_socket { write };
 allow wukong dev_unix_socket:dir { search };
 
 allowxperm wukong data_local_tmp:file ioctl { 0x5413 };
-allowxperm wukong dev_at_file:chr_file ioctl { 0x4102 };
 allowxperm wukong devpts:chr_file ioctl { 0x5413 };
-allowxperm wukong tty_device:chr_file ioctl { 0x5413 };
 
-allow wukong debug_param:file { map open read };
-allow wukong hilog_param:file { read map open };
-allow wukong arkui_param:parameter_service { set };
-allow wukong arkcompiler_param:file { read open map };
-allow wukong ark_writeable_param:file { read open map };
-allow wukong persist_sys_param:file { map open read };
 allow wukong sa_accessibleabilityms:samgr_class { get };
-allow wukong sa_accesstoken_manager_service:samgr_class { get };
 allow wukong sa_foundation_abilityms:samgr_class { get };
 allow wukong sa_foundation_bms:samgr_class { get };
 allow wukong sa_foundation_dms:samgr_class { get };
 allow wukong sa_foundation_wms:samgr_class { get };
 allow wukong sa_multimodalinput_service:samgr_class { get };
-allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
+allow wukong sa_param_watcher:samgr_class { get };
 allow wukong render_service:fd { use };
 
 # for data_local_tmp
@@ -89,8 +60,6 @@ allow wukong data_local_tmp:dir { add_name create getattr read write open search
 
 # hdcd
 allow wukong hdcd:fifo_file { read write };
-
-# ps -ef
-allow wukong domain: dir { search };
-allow wukong domain: file { open read };
+allow wukong hdcd:unix_stream_socket { read write };
+allow wukong hdcd:fd { use };
 ')
