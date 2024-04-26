@@ -18,6 +18,7 @@ allow pasteboard_service multimodalinput:unix_stream_socket { read write };
 allow pasteboard_service data_app_el1_file:dir { search };
 allow pasteboard_service normal_hap_data_file_attr:dir { search };
 allow pasteboard_service arkcompiler_param:file { read };
+allow pasteboard_service arkcompiler_param:file { map };
 allow pasteboard_service dev_kmsg_file:chr_file { write };
 allow pasteboard_service sa_resource_schedule:samgr_class { get };
 allow pasteboard_service tty_device:chr_file { read write };
