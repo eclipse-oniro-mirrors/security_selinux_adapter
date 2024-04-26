@@ -16,4 +16,4 @@ allow hap_domain hiviewdfx_hiview_param:parameter_service { set };
 
 #avc:  denied { read } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:su:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
 #avc:  denied { open } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:su:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
-allow hap_domain hiviewdfx_hiview_param:file { open read };
+allow hap_domain hiviewdfx_hiview_param:file { map open read };
