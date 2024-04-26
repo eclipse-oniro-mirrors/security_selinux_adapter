@@ -24,3 +24,5 @@ allow formrenderservice_hap quick_fix:binder { call };
 allow formrenderservice_hap system_file:file { map };
 allow formrenderservice_hap sa_service_router_mgr_service:samgr_class { get };
 allow formrenderservice_hap service_router:binder { call transfer };
+allow formrenderservice_hap sa_memory_manager_service:samgr_class { get };
+allow formrenderservice_hap memmgrservice:binder { call };

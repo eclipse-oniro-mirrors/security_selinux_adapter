@@ -95,3 +95,4 @@ allow locationhub sa_bgtaskmgr:samgr_class { get };
 allow locationhub bgtaskmgr_service:binder { call };
 
 allow locationhub sa_form_mgr_service:samgr_class { get };
+allow locationhub sa_foundation_ans:samgr_class { get };
