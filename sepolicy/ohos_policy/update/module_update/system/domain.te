@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -init -module_update_service -module_update_file_violator_file_dir } { data_module_update
+neverallow { domain -init -module_update_service -module_update_file_violator_file_dir updater_only(`-updater') } { data_module_update
   data_module_update_package system_module_update_file }:{ file dir } *;
 
 # sa process which support module update should add itself here

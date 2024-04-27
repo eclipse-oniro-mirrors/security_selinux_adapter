@@ -4,6 +4,7 @@
             "name": "execute and execute_no_trans",
             "user": [
                 "appspawn appspawn_exec",
+                "nwebspawn appspawn_exec",
                 "appspawn sh_exec",
                 "audio_host system_bin_file",
                 "bgtaskmgr_service system_bin_file",
@@ -90,7 +91,8 @@
                 "SP_daemon SP_daemon_exec",
                 "sh data_local_tmp",
                 "SP_daemon uinput_exec",
-                "SP_daemon aa_exec"
+                "SP_daemon aa_exec",
+                "SP_daemon snapshot_display_exec"
             ]
         }
     ]

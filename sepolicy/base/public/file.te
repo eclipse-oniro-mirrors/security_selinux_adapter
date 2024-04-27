@@ -70,7 +70,7 @@ type sysfs_block_file, sysfs_attr, fs_attr;
 type sysfs_hisys_file, sysfs_attr, fs_attr;
 
 type sysfs_devices_system_cpu, sysfs_attr, fs_attr;
-type sysfs_android_usb, sysfs_attr, fs_attr;
+type sysfs_gadget_usb, sysfs_attr, fs_attr;
 type sysfs_extcon, sysfs_attr, fs_attr;
 type sysfs_leds, sysfs_attr, fs_attr;
 type sysfs_net, sysfs_attr, fs_attr;
@@ -134,6 +134,7 @@ type data_local_traces, file_attr, data_file_attr;
 type data_local_tmp, file_attr, data_file_attr;
 type data_local_arkcache, file_attr, data_file_attr;
 type data_local_arkprofile, file_attr, data_file_attr;
+type data_local_shadercache, file_attr, data_file_attr;
 type data_log, file_attr, data_file_attr;
 type data_media, file_attr, data_file_attr;
 type data_mediadrm, file_attr, data_file_attr;

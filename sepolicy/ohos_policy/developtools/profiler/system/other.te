@@ -26,6 +26,9 @@ allow init hook_param:file relabelto;
 allow { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain } hook_param:file { map open read };
 allow normal_hap_attr normal_hap_data_file_attr:file ioctl;
 allow hap_domain proc_meminfo_file:file { read getattr open };
+allow hap_domain dev_ucollection:chr_file { read ioctl open };
+allowxperm hap_domain dev_ucollection:chr_file ioctl { 0x5 0x6 };
+neverallowxperm hap_domain dev_ucollection:chr_file ioctl { 0x7 };
 
 allow { sadomain -hilogd } system_core_hap_data_file_attr:file { read write };
 allow appspawn accesstoken_service:binder call;

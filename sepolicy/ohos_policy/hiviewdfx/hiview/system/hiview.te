@@ -31,7 +31,7 @@ allow hiview init:unix_stream_socket { connectto };
 allow hiview faultloggerd:unix_stream_socket { connectto };
 
 allow hiview hiview_file:dir { search getattr read open write add_name remove_name rmdir };
-allow hiview hiview_file:file { getattr setattr append ioctl unlink map read write getattr open lock };
+allow hiview hiview_file:file { getattr setattr append ioctl unlink map read write getattr open lock rename };
 
 allow hiview data_file:dir { search };
 allow hiview data_log:dir { add_name open read search watch write create remove_name };
@@ -68,6 +68,7 @@ allow hiview samgr:binder { call transfer };
 allow hiview tmpfs:lnk_file { read };
 allow hiview time_service:binder { call transfer };
 allow hiview param_watcher:binder { call transfer };
+allow hiview powermgr:binder { call transfer };
 allow hiview hdcd:binder { call transfer };
 allow hiview resource_schedule_service:binder { call transfer };
 allow hiview normal_hap_attr:binder { call transfer };
@@ -93,8 +94,9 @@ allowxperm hiview dev_bbox:chr_file ioctl { 0x4264 };
 allowxperm hiview dev_bbox:chr_file ioctl { 0x4266 };
 allowxperm hiview dev_bbox:chr_file ioctl { 0x426f };
 
-#avc:  denied  { get } for service=3301 pid=618 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-allow hiview sa_foundation_powermgr_service:samgr_class { get };
+#avc:  denied  { get } for service=3301 pid=618 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow hiview sa_powermgr_powermgr_service:samgr_class { get };
+allow hiview sa_powermgr_displaymgr_service:samgr_class { get };
 
 allowxperm hiview data_init_agent:file ioctl { 0x5413 };
 
@@ -150,12 +152,12 @@ allow hiview data_app_file:dir { search };
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="el2" dev="mmcblk0p12" ino=47 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
 #avc:  denied  { add_name } for  pid=2716 comm="freeze_detector" name="APP_FREEZE_1501994090092_2792.log" scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=266 comm="freeze_detector" name="hiappevent" dev="mmcblk0p15" ino=2265 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
-allow hiview data_app_el2_file:dir { search read open add_name write };
+allow hiview data_app_el2_file:dir { search read open add_name write create };
 
 #avc:  denied  { create } for  pid=2716 comm="freeze_detector" name="APP_FREEZE_1501994090092_2792.log" scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=2716 comm="freeze_detector" path="/data/app/el2/100/log/com.example.myapplication/hiappevent/APP_FREEZE_1501994090092_2792.log" dev="mmcblk0p15" ino=2352 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 #avc:  denied  { setattr } for  pid=263 comm="plat_shared" name="APP_CRASH_1501997026177_1964.log" dev="mmcblk0p15" ino=2180 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=0
-allow hiview data_app_el2_file:file { open getattr read write create ioctl setattr };
+allow hiview data_app_el2_file:file { open getattr read write create ioctl setattr append };
 allowxperm hiview data_app_el2_file:file ioctl { 0x5413 };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
@@ -240,7 +242,14 @@ allow hiview normal_hap_data_file_attr:dir { search write add_name };
 #avc:  denied  { write open } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
-allow hiview normal_hap_data_file_attr:file { create write open ioctl getattr };
+#avc:  denied  { append } for  pid=617 comm="/system/bin/hiview" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1712134642860.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25137 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=0
+allow hiview normal_hap_data_file_attr:file { create write open ioctl getattr append };
 allowxperm hiview normal_hap_data_file_attr:file ioctl { 0x5413 };
 
 allow hiview sa_distributeddata_service:samgr_class { get };
+allow hiview processdump:fd { use };
+allow hiview processdump:fifo_file { read };
+
+allow hiview distributeddata:binder { call transfer };
+allow hiview distributeddata:fd { use };
+

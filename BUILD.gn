@@ -67,10 +67,9 @@ ohos_shared_library("librestorecon") {
   sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_hilog_static" ]
-  external_deps = [
-    "hilog:libhilog",
-    "selinux:libselinux",
-  ]
+  external_deps = [ "hilog:libhilog" ]
+
+  public_external_deps = [ "selinux:libselinux" ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -206,12 +205,10 @@ ohos_shared_library("libparaperm_checker") {
   sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_static" ]
-
   deps += [ ":libselinux_parameter_static" ]
-  external_deps = [
-    "bounds_checking_function:libsec_shared",
-    "selinux:libselinux",
-  ]
+  external_deps = [ "bounds_checking_function:libsec_shared" ]
+  public_external_deps = [ "selinux:libselinux" ]
+
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -236,8 +233,8 @@ ohos_shared_library("libservice_checker") {
   external_deps = [
     "bounds_checking_function:libsec_shared",
     "hilog:libhilog",
-    "selinux:libselinux",
   ]
+  public_external_deps = [ "selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -420,9 +417,9 @@ action("build_policy") {
     }
   }
 
-  deps = [
-    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
+  external_deps = [
+    "selinux:checkpolicy($host_toolchain)",
+    "selinux:secilc($host_toolchain)",
   ]
   outputs = [
     target_out_dir + "/policy.31",
@@ -515,9 +512,9 @@ action("build_update_policy") {
     }
   }
 
-  deps = [
-    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
+  external_deps = [
+    "selinux:checkpolicy($host_toolchain)",
+    "selinux:secilc($host_toolchain)",
   ]
   outputs = [ target_out_dir + "/updater/policy.31" ]
 }
@@ -563,10 +560,8 @@ action("build_contexts") {
       args += [ arg ]
     }
   }
-  deps = [
-    ":build_policy",
-    "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-  ]
+  deps = [ ":build_policy" ]
+  external_deps = [ "selinux:sefcontext_compile($host_toolchain)" ]
   outputs = [
     target_out_dir + "/file_contexts.bin",
     target_out_dir + "/file_contexts",
@@ -575,6 +570,41 @@ action("build_contexts") {
     target_out_dir + "/hdf_service_contexts",
     target_out_dir + "/parameter_contexts",
   ]
+}
+
+action("build_ignore_cfg") {
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+    }
+  }
+
+  if (special_build_ignore_cfg != "default") {
+    script = special_build_ignore_cfg
+  } else {
+    script = "scripts/build_ignore_cfg.py"
+  }
+  args = [
+    "--dst-dir",
+    rebase_path(target_out_dir + "/"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy-dir-list",
+    selinux_build_path,
+    "--components",
+    components,
+  ]
+  outputs = [ target_out_dir + "/ignore_cfg" ]
 }
 
 action("build_updater_contexts") {
@@ -619,10 +649,8 @@ action("build_updater_contexts") {
       args += [ arg ]
     }
   }
-  deps = [
-    ":build_update_policy",
-    "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-  ]
+  deps = [ ":build_update_policy" ]
+  external_deps = [ "selinux:sefcontext_compile($host_toolchain)" ]
   outputs = [
     target_out_dir + "/updater/file_contexts.bin",
     target_out_dir + "/updater/file_contexts",
@@ -635,6 +663,10 @@ action("build_updater_contexts") {
 
 action("selinux_check") {
   script = "scripts/selinux_check/selinux_check_main.py"
+
+  if (selinux_check_extend_list != "default") {
+    selinux_build_path = selinux_build_path + ":" + selinux_check_extend_list
+  }
 
   args = [
     "--output-path",
@@ -804,6 +836,20 @@ ohos_prebuilt_etc("file_contexts") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
+  if (components == "vendor") {
+    install_images = [ "vendor" ]
+  } else {
+    install_images = [ "system" ]
+  }
+}
+
+ohos_prebuilt_etc("ignore_cfg") {
+  deps = [ ":build_ignore_cfg" ]
+  source = target_out_dir + "/ignore_cfg"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/"
   if (components == "vendor") {
     install_images = [ "vendor" ]
   } else {
@@ -1004,9 +1050,9 @@ if (support_developer_mode) {
   }
 }
 
-if (build_selinux) {
+if (build_selinux && !ohos_indep_compiler_enable) {
   ohos_copy("libselinux_toolchain") {
-    deps = [ "$THIRD_PARTY_DIR/selinux:libselinux($host_toolchain)" ]
+    external_deps = [ "selinux:libselinux($host_toolchain)" ]
     sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
     outputs = [ "$root_build_dir/clang_x64/security/selinux/libselinux.so" ]
     part_name = "selinux_adapter"
@@ -1014,7 +1060,7 @@ if (build_selinux) {
   }
 
   ohos_copy("libpcre2_toolchain") {
-    deps = [ "$THIRD_PARTY_DIR/pcre2:libpcre2($host_toolchain)" ]
+    external_deps = [ "pcre2:libpcre2($host_toolchain)" ]
     sources = [ "$root_build_dir/clang_x64/thirdparty/pcre2/libpcre2.so" ]
     outputs = [ "$root_build_dir/clang_x64/security/selinux/libpcre2.so" ]
     part_name = "selinux_adapter"
@@ -1178,75 +1224,88 @@ if (components != "default") {
 
 group("selinux_group") {
   if (build_selinux) {
-    deps = [
-      ":build_updater_sepolicy",
-      ":config",
-      ":file_contexts",
-      ":file_contexts_updater",
-      ":filecontexts_toolchain",
-      ":hap_restorecon",
-      ":hdf_service_contexts",
-      ":libpcre2_toolchain",
-      ":libselinux_toolchain",
-      ":load_policy",
-      ":param_check",
-      ":parameter_contexts",
-      ":restorecon",
-      ":sehap_contexts",
-      ":selinux_check",
-      ":service_check",
-      ":service_contexts",
-      ":updater_config",
-      "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:chkcon",
-      "$THIRD_PARTY_DIR/selinux:getenforce",
-      "$THIRD_PARTY_DIR/selinux:getfilecon",
-      "$THIRD_PARTY_DIR/selinux:getpidcon",
-      "$THIRD_PARTY_DIR/selinux:secilc",
-      "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
-      "$THIRD_PARTY_DIR/selinux:selinux_check_access",
-      "$THIRD_PARTY_DIR/selinux:selinuxexeccon",
-      "$THIRD_PARTY_DIR/selinux:setenforce",
-      "$THIRD_PARTY_DIR/selinux:setfilecon",
-    ]
-    if (components == "system") {
-      deps += [
-        ":system_cil",
-        ":system_cil_sha256",
-        ":system_common_cil",
-        ":version_cil",
+    if (!ohos_indep_compiler_enable) {
+      deps = [
+        ":build_updater_sepolicy",
+        ":config",
+        ":file_contexts",
+        ":file_contexts_updater",
+        ":filecontexts_toolchain",
+        ":hap_restorecon",
+        ":hdf_service_contexts",
+        ":ignore_cfg",
+        ":libpcre2_toolchain",
+        ":libselinux_toolchain",
+        ":load_policy",
+        ":param_check",
+        ":parameter_contexts",
+        ":restorecon",
+        ":sehap_contexts",
+        ":selinux_check",
+        ":service_check",
+        ":service_contexts",
+        ":updater_config",
       ]
-      if (support_developer_mode) {
-        deps += [
-          ":system_developer_cil",
-          ":system_developer_cil_sha256",
-          ":version_developer_cil",
-        ]
-      }
-    } else if (components == "vendor") {
-      deps += [
-        ":build_sepolicy",
-        ":prebuild_sepolicy_system_cil_sha256",
-        ":public_cil",
-        ":public_common_cil",
-        ":selinux_version",
-        ":vendor_cil",
-        ":vendor_common_cil",
+      external_deps = [
+        "selinux:checkpolicy($host_toolchain)",
+        "selinux:chkcon",
+        "selinux:getenforce",
+        "selinux:getfilecon",
+        "selinux:getpidcon",
+        "selinux:secilc",
+        "selinux:secilc($host_toolchain)",
+        "selinux:sefcontext_compile($host_toolchain)",
+        "selinux:selinux_check_access",
+        "selinux:selinuxexeccon",
+        "selinux:setenforce",
+        "selinux:setfilecon",
       ]
-      if (support_developer_mode) {
+      if (components == "system") {
         deps += [
-          ":developer_policy",
-          ":prebuild_sepolicy_system_developer_cil_sha256",
-          ":public_developer_cil",
-          ":vendor_developer_cil",
+          ":system_cil",
+          ":system_cil_sha256",
+          ":system_common_cil",
+          ":version_cil",
         ]
+        if (support_developer_mode) {
+          deps += [
+            ":system_developer_cil",
+            ":system_developer_cil_sha256",
+            ":version_developer_cil",
+          ]
+        }
+      } else if (components == "vendor") {
+        deps += [
+          ":build_sepolicy",
+          ":prebuild_sepolicy_system_cil_sha256",
+          ":public_cil",
+          ":public_common_cil",
+          ":selinux_version",
+          ":vendor_cil",
+          ":vendor_common_cil",
+        ]
+        if (support_developer_mode) {
+          deps += [
+            ":developer_policy",
+            ":prebuild_sepolicy_system_developer_cil_sha256",
+            ":public_developer_cil",
+            ":vendor_developer_cil",
+          ]
+        }
+      } else {
+        deps += [ ":build_sepolicy" ]
+        if (support_developer_mode) {
+          deps += [ ":developer_policy" ]
+        }
       }
     } else {
-      deps += [ ":build_sepolicy" ]
-      if (support_developer_mode) {
-        deps += [ ":developer_policy" ]
-      }
+      deps = [
+        ":hap_restorecon",
+        ":load_policy",
+        ":param_check",
+        ":restorecon",
+        ":service_check",
+      ]
     }
   }
 }

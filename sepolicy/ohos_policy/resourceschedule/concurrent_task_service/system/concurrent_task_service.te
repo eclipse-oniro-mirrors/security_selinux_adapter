@@ -45,3 +45,6 @@ allow concurrent_task_service paramservice_socket:sock_file { write };
 allow concurrent_task_service kernel:unix_stream_socket { connectto };
 allow concurrent_task_service persist_param:file { read open map };
 allow concurrent_task_service persist_param:parameter_service { set };
+#cgroup
+allow concurrent_task_service cgroup:dir { search open read write };
+allow concurrent_task_service cgroup:file { open read write };

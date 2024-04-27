@@ -1,0 +1,19 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied { set } for parameter=hiviewdfx.freeze.filter.com.ohos.scenboard pid=4689 uid=0 gid=0 scontext=u:r:su:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=parameter_service permissive=1
+allow hap_domain hiviewdfx_hiview_param:parameter_service { set };
+
+#avc:  denied { read } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:su:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
+#avc:  denied { open } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:su:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
+allow hap_domain hiviewdfx_hiview_param:file { map open read };

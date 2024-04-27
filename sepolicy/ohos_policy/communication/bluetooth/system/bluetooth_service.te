@@ -105,11 +105,11 @@ allow bluetooth_service data_log:dir { read open };
 
 #avc: denied { read } bluetooth_service hdf_bluetooth_audio_session_service tclass=hdf_devmgr_class
 #avc: denied { open } bluetooth_service a2dp_host tclass=fd
-#avc: denied { open } bluetooth_service sa_foundation_battery_service tclass=samgr_class
+#avc: denied { open } bluetooth_service sa_powermgr_battery_service tclass=samgr_class
 allow bluetooth_service hdf_bluetooth_audio_session_service:hdf_devmgr_class { get };
 allow bluetooth_service hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
 allow bluetooth_service a2dp_host:fd { use };
-allow bluetooth_service sa_foundation_battery_service:samgr_class { get };
+allow bluetooth_service sa_powermgr_battery_service:samgr_class { get };
 
 #avc: denied { read open getattr } scontext=u:r:bluetooth_service  tcontext=u:object_r:sysfs_devices_system_cpu: tclass=file permissive=1
 allow bluetooth_service sysfs_devices_system_cpu:file { read open getattr };
@@ -157,6 +157,7 @@ allow bluetooth_service ohos_param:file { map open read };
 allow bluetooth_service param_watcher:binder { call transfer };
 allow bluetooth_service persist_param:file { map open read };
 allow bluetooth_service persist_sys_param:file { map open read };
+allow bluetooth_service powermgr:binder { call transfer };
 allow bluetooth_service sa_accesstoken_manager_service:samgr_class { get };
 allow bluetooth_service sa_param_watcher:samgr_class { get };
 allow bluetooth_service security_param:file { map open read };
@@ -208,3 +209,13 @@ allowxperm bluetooth_service data_misc:file ioctl { 0x5413 };
 #avc:  denied  { get } for service=3299 pid=348 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_telephony_tel_sms_mms:s0 tclass=samgr_class permissive=0
 allow bluetooth_service sa_telephony_tel_sms_mms:samgr_class { get };
 allow bluetooth_service sa_foundation_bms:samgr_class { get };
+
+#avc: denied { call } for pid=1414, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+#avc: denied { transfer } for pid=1414, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow bluetooth_service device_manager:binder { call transfer };
+
+#avc:  denied  { get } for service=3505 pid=14188 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
+allow bluetooth_service sa_privacy_service:samgr_class { get };
+
+#avc:  denied  { call } for pid=1612, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
+allow bluetooth_service privacy_service:binder { call };

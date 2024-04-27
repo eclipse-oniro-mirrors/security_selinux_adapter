@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_dir } accesstoken_data_file:dir *;
-neverallow { domain -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_file } accesstoken_data_file:file *;
+neverallow { domain -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_dir updater_only(`-updater') } accesstoken_data_file:dir *;
+neverallow { domain -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_file updater_only(`-updater') } accesstoken_data_file:file *;
 
 neverallow accesstoken_service accesstoken_data_file:dir ~{ search add_name open read write remove_name };
 neverallow accesstoken_service accesstoken_data_file:file ~{ open read getattr ioctl lock write create unlink };

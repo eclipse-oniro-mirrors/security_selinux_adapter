@@ -76,6 +76,7 @@ allow codec_host system_bin_file:dir { search };
 allow codec_host sys_usb_param:file { map open read };
 allow codec_host vendor_etc_file:dir { search };
 allow codec_host vendor_etc_file:file { getattr open read };
+allow codec_host hap_domain:binder { call transfer };
 allowxperm codec_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 debug_only(`
     allow codec_host sh:binder { transfer call };

@@ -48,6 +48,7 @@ allow faultloggerd ohos_boot_param:file { map open read };
 allow faultloggerd ohos_param:file { map open read };
 allow faultloggerd persist_param:file { map open read };
 allow faultloggerd persist_sys_param:file { map open read };
+allow faultloggerd powermgr:process { signal };
 allow faultloggerd security_param:file { map open read };
 allow faultloggerd startup_param:file { map open read };
 allow faultloggerd sys_param:file { map open read };

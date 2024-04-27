@@ -34,6 +34,7 @@ debug_only(`
     allow uitest su:fifo_file { write };
     allow render_service su:binder { call transfer };
     allow foundation su:binder { call transfer };
+    allow powermgr su:binder { call transfer };
     allow bm su:fd { use };
     allow bm su:fifo_file { write ioctl };
     allowxperm bm su:fifo_file ioctl { 0x5413 };
@@ -330,6 +331,7 @@ debug_only(`
     allow processdump su:file { getattr open read };
     allow processdump su:process ptrace;
     allow processdump su:unix_stream_socket { read write }; 
+    allow processdump su:lnk_file read;
     allow hidumper_service su:dir { getattr open read search };
     allow hidumper_service su:fd use;
     allow hidumper_service su:file { getattr open read };
@@ -366,7 +368,7 @@ debug_only(`
     #for read and write system parameter
     #avc: denied { use } for pid=696 comm="async-55" path="socket:[28017]" dev="sockfs" ino=28017 scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
     allow hdcd su:fd { use };
-    #avc: denied { connect } for pid=696 comm="async-55" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=0
-    allow hdcd su:unix_dgram_socket { connect };
+    #avc: denied { connect write } for pid=696 comm="async-55" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=0
+    allow hdcd su:unix_dgram_socket { connect write };
 ')
 

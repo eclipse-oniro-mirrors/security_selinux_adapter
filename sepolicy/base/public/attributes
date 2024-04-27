@@ -163,6 +163,7 @@ attribute accesstoken_data_file_violator_file;
 attribute module_update_file_violator_file_dir;
 attribute module_update_binary_file_violator_file_dir;
 attribute normal_hap_data_file_attr_violator_relabel;
+attribute file_migrate_hap_data_file_attr_violator_opt;
 
 attribute data_user_file_dir_violator;
 attribute data_user_file_file_violator;
@@ -256,6 +257,3 @@ attribute hdf_service_violators;
 attribute binder_call_hdfdomain_violators;
 
 attribute hiview_host;
-debug_only(`
-    attribute process_dyntransition_su_violators;
-')

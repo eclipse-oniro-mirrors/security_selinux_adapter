@@ -141,6 +141,7 @@
 2904	                               u:object_r:sa_msdp_spatial_awareness_service:s0
 2905	                               u:object_r:sa_msdp_geofence_service:s0
 2906	                               u:object_r:sa_msdp_timeline_service:s0
+2908	                               u:object_r:sa_msdp_multimodal_awareness_service:s0
 3000	                               u:object_r:sa_subsys_multimedia_service:s0
 3001                                   u:object_r:sa_pulseaudio_audio_service:s0
 3002                                   u:object_r:sa_media_service:s0
@@ -161,11 +162,11 @@
 3203                                   u:object_r:sa_foundation_ans:s0
 3299                                   u:object_r:sa_foundation_cesfwk_service:s0
 3300	                               u:object_r:sa_subsys_powermng_service:s0
-3301                                   u:object_r:sa_foundation_powermgr_service:s0
-3302                                   u:object_r:sa_foundation_battery_service:s0
-3303                                   u:object_r:sa_foundation_thermal_service:s0
-3304                                   u:object_r:sa_foundation_batterystats_service:s0
-3308                                   u:object_r:sa_foundation_displaymgr_service:s0
+3301                                   u:object_r:sa_powermgr_powermgr_service:s0
+3302                                   u:object_r:sa_powermgr_battery_service:s0
+3303                                   u:object_r:sa_powermgr_thermal_service:s0
+3304                                   u:object_r:sa_powermgr_batterystats_service:s0
+3308                                   u:object_r:sa_powermgr_displaymgr_service:s0
 3309	                               u:object_r:sa_ivipower_enhanced_service:s0
 3400	                               u:object_r:sa_subsys_router_service:s0
 3500	                               u:object_r:sa_subsys_security_service:s0

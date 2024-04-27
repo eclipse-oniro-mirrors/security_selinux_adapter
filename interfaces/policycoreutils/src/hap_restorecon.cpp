@@ -59,7 +59,7 @@ static const std::string DEBUGGABLE = "debuggable";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
-static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
+static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
 std::mutex g_loadContextsLock;
 } // namespace
@@ -216,7 +216,7 @@ static bool HapContextsLoad()
 
 HapContext::HapContext()
 {
-    __selinux_once(FC_ONCE, SelinuxSetCallback);
+    __selinux_once(g_fcOnce, SelinuxSetCallback);
 }
 
 HapContext::~HapContext() {}

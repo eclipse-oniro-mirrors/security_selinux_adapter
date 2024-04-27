@@ -52,6 +52,7 @@ allow riladapter_host ohos_param:file { map open read };
 allow riladapter_host persist_param:file { map open read };
 allow riladapter_host persist_sys_param:file { map open read };
 allow riladapter_host power_host:binder call;
+allow riladapter_host powermgr:binder { call transfer };
 allow riladapter_host proc_net:file { getattr open };
 allow riladapter_host samgr:binder call;
 #avc:  denied  { get } for service=power_interface_service pid=439 scontext=u:r:riladapter_host:s0 tcontext=u:object_r:hdf_power_interface_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -59,7 +60,7 @@ allow riladapter_host hdf_power_interface_service:hdf_devmgr_class get;
 #avc:  denied  { add } for service=ril_service pid=439 scontext=u:r:riladapter_host:s0 tcontext=u:object_r:hdf_ril_service:s0 tclass=hdf_devmgr_class permissive=1
 allow riladapter_host hdf_ril_service:hdf_devmgr_class add;
 allow riladapter_host sa_device_service_manager:samgr_class get;
-allow riladapter_host sa_foundation_powermgr_service:samgr_class get;
+allow riladapter_host sa_powermgr_powermgr_service:samgr_class get;
 allow riladapter_host security_param:file { open read map };
 allow riladapter_host self:capability net_admin;
 allow riladapter_host self:udp_socket { create ioctl };

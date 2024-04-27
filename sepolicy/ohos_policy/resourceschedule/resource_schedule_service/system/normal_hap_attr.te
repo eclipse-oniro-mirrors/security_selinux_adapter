@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#normal_hap_attr
-allow normal_hap_attr resource_schedule_service:binder { call };
+#transfer : allow normal_hap_attr register systemload callback to rss
+allow normal_hap_attr resource_schedule_service:binder { call transfer };

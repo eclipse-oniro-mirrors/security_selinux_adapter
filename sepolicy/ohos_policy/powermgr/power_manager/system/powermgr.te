@@ -11,9 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { get } for service=3301 pid=597 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-#avc:  denied  { add } for service=3301 pid=597 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-allow foundation sa_foundation_powermgr_service:samgr_class { get add };
+#avc:  denied  { get } for service=3301 pid=597 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+#avc:  denied  { add } for service=3301 pid=597 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow powermgr sa_powermgr_powermgr_service:samgr_class { get add };
 
-#avc:  denied  { transfer } for  pid=571 comm="IPC_15_1220" scontext=u:r:foundation:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=0
-allow foundation sensors:binder { transfer };
+#avc:  denied  { transfer } for  pid=571 comm="IPC_15_1220" scontext=u:r:powermgr:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=0
+allow powermgr sensors:binder { transfer };

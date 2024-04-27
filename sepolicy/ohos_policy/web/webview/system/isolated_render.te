@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { use } for  pid=4973 comm="Chrome_ChildIOT" path="/dmabuf:" dev="dmabuf" ino=34734 scontext=u:r:isolated_render:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=1
 allow isolated_render allocator_host:fd { use };
 
 # avc:  denied  { search } for  pid=5103 comm="ThreadPoolForeg" name="/" dev="cgroup2" ino=1 scontext=u:r:isolated_render:s0 tcontext=u:object_r:cgroup2:s0 tclass=dir permissive=1
@@ -26,13 +25,11 @@ allow isolated_render dev_ashmem_file:chr_file { open };
 # avc:  denied  { search } for  pid=3061 comm="ei.hmos.browser" name="socket" dev="tmpfs" ino=79 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
 allow isolated_render dev_unix_socket:dir { search };
 
-# avc:  denied  { use } for  pid=5103 comm="Chrome_ChildIOT" path="/dev/ashmem" dev="tmpfs" ino=490 scontext=u:r:isolated_render:s0 tcontext=u:r:normal_hap:s0 tclass=fd permissive=1
 allow isolated_render hap_domain:fd { use };
 
 # avc:  denied  { exec_anon_mem } for  pid=5103 comm="ei.hmos.browser" scontext=u:r:isolated_render:s0 tcontext=u:r:isolated_render:s0 tclass=xpm permissive=0
 allow isolated_render isolated_render:xpm { exec_anon_mem };
 
-# avc:  denied  { read write } for  pid=5103 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E416F6E624B66202864656C6574656429 dev="sdd78" ino=9424 scontext=u:r:isolated_render:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
 allow isolated_render normal_hap_data_file_attr:file { read write getattr lock };
 
 # avc:  denied  { use } for  pid=5103 comm="ei.hmos.browser" path="socket:[33368]" dev="sockfs" ino=33368 scontext=u:r:isolated_render:s0 tcontext=u:r:nwebspawn:s0 tclass=fd permissive=1
@@ -53,6 +50,9 @@ allow isolated_render ohos_boot_param:file { map open read };
 # avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=107 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="u:object_r:persist_param:s0" dev="tmpfs" ino=107 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
 allow isolated_render persist_param:file { map open read };
+
+# avc:  denied  { map } for  pid=4445 comm="e.simplewebview" path=2F646174612F726167652F656C322F626173652F63616368652F7765622F5375627265736F757263652046696C7465722F496E64657865642052756C65732F33362F302F52756C657365742044617461 dev="sdd78" ino=34505 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+allow isolated_render hap_file_attr:file { map };
 
 # avc:  denied  { getattr } for  pid=5103 comm="CompositorTileW" path="/proc/cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=5103 comm="CompositorTileW" path="/proc/cpuinfo" dev="proc" ino=4026532324 scontext=u:r:isolated_render:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
@@ -84,16 +84,11 @@ allow isolated_render sysfs_devices_system_cpu:dir { open read };
 allow isolated_render sysfs_devices_system_cpu:file { getattr open read };
 
 # avc:  denied  { read write } for  pid=1077 comm="AppMgrService" path="socket:[43723]" dev="sockfs" ino=43723 scontext=u:r:isolated_render:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
-# avc:  denied  { read } for  pid=4973 comm="Chrome_ChildIOT" scontext=u:r:isolated_render:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
 # avc:  denied  { write } for  pid=4973 comm="e.myapplication" scontext=u:r:isolated_render:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
 allow isolated_render hap_domain:unix_stream_socket { read write shutdown };
 
-# avc:  denied  { read write } for  pid=4973 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E70454F426E6F202864656C6574656429 dev="sdd78" ino=9413 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=3067 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E4E474B684865202864656C6574656429 dev="sdd78" ino=8404 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
-# avc:  denied  { write } for  pid=5077 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E6C4A696E6267202864656C6574656429 dev="sdd78" ino=6786 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=0
 allow isolated_render system_core_hap_data_file_attr:file { append read write getattr lock map };
 
-#avc: denied { read write } for pid=16501 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E4B4749446162202864656C6574656429 dev="sdd78" ino=8091 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
 allow isolated_render system_basic_hap_data_file_attr:file { append read write getattr lock map};
 
 # avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1

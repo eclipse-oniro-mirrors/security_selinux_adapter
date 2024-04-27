@@ -17,9 +17,11 @@ allow bgtaskmgr_service app_el1_bundle_public:file { open };
 allow bgtaskmgr_service data_app_el1_file:file { map getattr read open };
 allow bgtaskmgr_service data_app_file:dir { search };
 allow bgtaskmgr_service data_file:dir { search };
-allow bgtaskmgr_service data_service_el1_file:dir { add_name write search };
-allow bgtaskmgr_service data_service_el1_file:file { create getattr ioctl open read write };
+# device_usage_stats database read/write, Record events
+allow bgtaskmgr_service data_service_el1_file:dir { add_name write search read};
+allow bgtaskmgr_service data_service_el1_file:file { create getattr ioctl open read write lock setattr};
 allow bgtaskmgr_service data_service_file:dir { search };
+
 allow bgtaskmgr_service dev_console_file:chr_file { read write };
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 allow bgtaskmgr_service dev_unix_socket:sock_file { write };
@@ -29,7 +31,7 @@ allow bgtaskmgr_service musl_param:file { read };
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
 allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { get };
 allow bgtaskmgr_service sa_foundation_abilityms:samgr_class { get };
-allow bgtaskmgr_service sa_foundation_thermal_service:samgr_class { get };
+allow bgtaskmgr_service sa_powermgr_thermal_service:samgr_class { get };
 allow bgtaskmgr_service sys_file:dir { open read };
 allow bgtaskmgr_service system_bin_file:dir { search };
 allow bgtaskmgr_service system_bin_file:file { execute execute_no_trans map open read };
@@ -54,10 +56,37 @@ allow bgtaskmgr_service sysfs_devices_system_cpu:file { read };
 allow audio_server bgtaskmgr_service:binder { call transfer };
 allow hiview bgtaskmgr_service:dir { getattr open read };
 allow hiview bgtaskmgr_service:file { getattr };
-allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
+
+# device_usage_stats database read/write, Record events
+allowxperm bgtaskmgr_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
+
 allow bgtaskmgr_service usb_service:fd { use };
 allow bgtaskmgr_service sa_device_service_manager:samgr_class { get };
 allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
+
+# Due to the merging of the device_usage_stats_service process 
+# into the bgtaskmgr_service process,
+# it is necessary to add the corresponding selinux permission 
+# for the device_usage_stats.service process.
+# device_usage_stats interface call and return result
+allow normal_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+allow system_basic_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3301 pid=282 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow bgtaskmgr_service sa_powermgr_powermgr_service:samgr_class { get };
+
+# Add the corresponding selinux permission 
+# for the device_usage_stats.service process
+# from security_selinux_adapter\sepolicy\base\te\device_usage_stats_service.te
+# device_usage_stats IPC authentication, get current user
+allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class { get };
+allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { add };
+# device_usage_stats Event timing usage
+allow bgtaskmgr_service sa_time_service:samgr_class { get };
+debug_only(`
+    allow bgtaskmgr_service debug_param:file { map open read };
+')
 
 binder_call(bgtaskmgr_service, accountmgr);
 binder_call(bgtaskmgr_service, accesstoken_service);
@@ -66,6 +95,7 @@ binder_call(bgtaskmgr_service, foundation);
 binder_call(bgtaskmgr_service, memmgrservice);
 binder_call(bgtaskmgr_service, normal_hap_attr);
 binder_call(bgtaskmgr_service, param_watcher);
+binder_call(bgtaskmgr_service, powermgr);
 binder_call(bgtaskmgr_service, resource_schedule_service);
 binder_call(bgtaskmgr_service, system_core_hap_attr);
 binder_call(bgtaskmgr_service, system_basic_hap_attr);
@@ -77,6 +107,7 @@ binder_call(normal_hap_attr, bgtaskmgr_service);
 binder_call(system_core_hap_attr, bgtaskmgr_service);
 binder_call(param_watcher, bgtaskmgr_service);
 binder_call(foundation, bgtaskmgr_service);
+binder_call(powermgr, bgtaskmgr_service);
 binder_call(hiview, bgtaskmgr_service);
 binder_call(distributedsche, bgtaskmgr_service);
 binder_call(bluetooth_service, bgtaskmgr_service);

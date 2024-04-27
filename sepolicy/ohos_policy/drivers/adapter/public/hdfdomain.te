@@ -19,4 +19,4 @@ neverallow { domain -hdfdomain -sadomain -init -hap_domain } hdf_devmgr:binder c
 
 neverallow { domain -hdfdomain -sadomain -hap_domain -binder_call_hdfdomain_violators } hdfdomain:binder call;
 neverallow { hap_domain } { hdfdomain -allocator_host -hdf_public_domain -codec_host -usb_host -input_user_host }:binder call;
-neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service -hdf_usb_interface_service -hdf_allocator_service -hdf_codec_image_service -hdf_service_violators }:hdf_devmgr_class { get };
+neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service -hdf_usb_interface_service -hdf_allocator_service -hdf_codec_image_service -hdf_service_violators -hdf_codec_component_manager_service }:hdf_devmgr_class { get };

@@ -14,3 +14,5 @@
 allow normal_hap_attr system_usr_file:file { open read getattr };
 allow normal_hap_attr system_usr_file:dir { open read getattr };
 allow normal_hap_attr sysfs_devices_system_cpu:file { getattr };
+allow normal_hap_attr sa_i18n_service:samgr_class { get };
+allow normal_hap_attr i18n_service:binder { call };

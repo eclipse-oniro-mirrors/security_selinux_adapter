@@ -44,14 +44,16 @@ processdump_cmd({
 allow domain processdump:process { share sigchld };
 allow domain self:fifo_file { write };
 allow domain system_bin_file:dir { search };
-allow processdump { domain -processdump -kernel }:process ptrace;
+allow processdump { domain -processdump -kernel }:process { ptrace sigstop };
 allow processdump domain:fd use;
 allow processdump domain:fifo_file { read write };
 allow processdump domain:dir { getattr open read search };
+allow processdump domain:lnk_file { read };
 
 #============= write event to hiview =========
 allow processdump hiview:binder { call transfer };
 allow processdump samgr:binder { call };
+allow processdump hiview:unix_dgram_socket { sendto };
 
 #============= for faultloggerd ===========
 allow processdump faultloggerd_temp_file:file { getattr open read write };

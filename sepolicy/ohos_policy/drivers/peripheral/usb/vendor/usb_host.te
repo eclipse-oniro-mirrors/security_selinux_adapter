@@ -130,7 +130,7 @@ allow usb_host samgr:binder { transfer };
 allow usb_host sa_usb_service:samgr_class { get };
 allowxperm usb_host configfs:file ioctl { 0x5413 };
 allowxperm usb_host data_init_agent:file ioctl { 0x5413 };
-allowxperm usb_host dev_bus_usb_file:chr_file ioctl { 0x5500 0x5504 0x5508 0x550b 0x550c 0x550f 0x5510 0x550a 0x5512 0x5516 0x551a 0x551b };
+allowxperm usb_host dev_bus_usb_file:chr_file ioctl { 0x5500 0x5504 0x5508 0x550b 0x550c 0x550f 0x5510 0x550a 0x5512 0x5516 0x551a 0x551b 0x551f };
 allowxperm usb_host dev_file:chr_file ioctl { 0x6201 0x6202 0x6203 0x6731 0x6732 0x6734 0x673c 0x6782 0x6736 0x673d 0x6735 0x6738 };
 allowxperm usb_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6201 0x6203 };
 allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
@@ -138,3 +138,5 @@ allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206
 # avc:  denied  { get } for service=5110 pid=512 scontext=u:r:usb_host:s0 tcontext=u:object_r:sa_hdf_ext_devmgr:s0 tclass=samgr_class permissive=1
 allow usb_host sa_hdf_ext_devmgr:samgr_class { add get };
 allow usb_host hdf_ext_devmgr:binder { call };
+allow usb_host sys_usb_param:parameter_service { set };
+allow usb_host sys_usb_param:file { map read open };

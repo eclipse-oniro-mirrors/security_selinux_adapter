@@ -43,7 +43,7 @@ allow udevadm security_param:file { map open read };
 allow udevadm startup_param:file { map open read };
 allow udevadm sys_file:dir { open read };
 allow udevadm sys_file:file { getattr open write };
-allow udevadm sysfs_android_usb:dir { open read };
+allow udevadm sysfs_gadget_usb:dir { open read };
 allow udevadm sysfs_block_file:file { getattr open write };
 allow udevadm sysfs_block_loop:file { getattr open write };
 allow udevadm sysfs_block_zram:file { getattr open write };

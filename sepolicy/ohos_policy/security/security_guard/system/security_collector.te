@@ -1,0 +1,110 @@
+# Copyright (C) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+binder_call(security_collector, samgr);
+
+# avc:  denied  { call } for  pid=1696 comm="IPC_1_1707" scontext=u:r:sceneboard_hap:s0 tcontext=u:r:security_collector:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=1758 comm="IPC_5_2010" scontext=u:r:sceneboard_hap:s0 tcontext=u:r:security_collector:s0 tclass=binder permissive=1
+allow hap_domain security_collector:binder { call transfer };
+
+# avc:  denied  { call } for  pid=2872 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=2872 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
+allow security_collector hap_domain:binder { transfer call };
+
+# avc:  denied  { call } for  pid=2872 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow security_collector accesstoken_service:binder { call };
+
+# avc:  denied  { call } for  pid=2872 comm="IPC_2_4085" scontext=u:r:security_collector:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
+allow security_collector time_service:binder { call };
+
+# avc:  denied  { transfer } for  pid=2872 comm="IPC_1_2876" scontext=u:r:security_collector:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+# avc:  denied  { call } for  pid=2872 comm="IPC_2_4085" scontext=u:r:security_collector:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+# avc:  denied  { call } for  pid=2872 comm="IPC_3_4407" scontext=u:r:security_collector:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow security_collector foundation:binder { transfer call };
+
+# avc:  denied  { call } for  pid=2872 comm="IPC_0_2875" scontext=u:r:security_collector:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+allow security_collector multimodalinput:binder { call };
+
+# avc:  denied  { write } for  pid=2872 comm="IPC_0_2875" name="kmsg" dev="tmpfs" ino=107 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { open } for  pid=2872 comm="IPC_0_2875" path="/dev/kmsg" dev="tmpfs" ino=107 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow security_collector dev_kmsg_file:chr_file { open write };
+
+# avc:  denied  { read } for  pid=2872 comm="mmi_EventHdr" scontext=u:r:security_collector:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+allow security_collector multimodalinput:unix_stream_socket { read };
+
+# avc:  denied  { call } for  pid=1033 comm="OS_FFRT_2_165" scontext=u:r:foundation:s0 tcontext=u:r:security_collector:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=1033 comm="OS_FFRT_2_165" scontext=u:r:foundation:s0 tcontext=u:r:security_collector:s0 tclass=binder permissive=1
+allow foundation security_collector:binder { transfer call };
+
+# avc:  denied  { siginh } for  pid=3408 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:security_collector:s0 tclass=process permissive=1
+# avc:  denied  { rlimitinh } for  pid=3408 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:security_collector:s0 tclass=process permissive=1
+# avc:  denied  { transition } for  pid=3408 comm="init" path="/system/bin/sa_main" dev="sdd74" ino=519 scontext=u:r:init:s0 tcontext=u:r:security_collector:s0 tclass=process permissive=1
+allow init security_collector:process { siginh transition rlimitinh };
+
+# avc:  denied  { read } for  pid=3408 comm="IPC_2_3660" scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=netlink_connector_socket permissive=1
+# avc:  denied  { write } for  pid=3408 comm="IPC_2_3660" scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=netlink_connector_socket permissive=1
+# avc:  denied  { bind } for  pid=3408 comm="IPC_2_3660" scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=netlink_connector_socket permissive=1
+# avc:  denied  { create } for  pid=3408 comm="IPC_2_3660" scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=netlink_connector_socket permissive=1
+allow security_collector security_collector:netlink_connector_socket { write create bind read };
+
+# avc:  denied  { use } for  pid=542 comm="IPC_3_1730" path="socket:[58351]" dev="sockfs" ino=58351 scontext=u:r:security_collector:s0 tcontext=u:r:multimodalinput:s0 tclass=fd permissive=1
+allow security_collector multimodalinput:fd { use };
+
+# avc:  denied  { write } for  pid=542 comm="IPC_3_1730" path="socket:[58351]" dev="sockfs" ino=58351 scontext=u:r:security_collector:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+allow security_collector multimodalinput:unix_stream_socket { write };
+
+# avc:  denied  { add } for service=3525 pid=3321 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_security_collector_service:s0 tclass=samgr_class permissive=1
+allow security_collector sa_security_collector_service:samgr_class { add };
+
+# avc:  denied  { get } for service=3503 pid=3321 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
+allow security_collector sa_accesstoken_manager_service:samgr_class { get };
+
+# avc:  denied  { get } for service=3702 pid=3321 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=1
+allow security_collector sa_time_service:samgr_class { get };
+
+# avc:  denied  { setopt } for  pid=3321 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=unix_dgram_socket permissive=1
+# avc:  denied  { getopt } for  pid=3321 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:security_collector:s0 tclass=unix_dgram_socket permissive=1
+allow security_collector security_collector:unix_dgram_socket { getopt setopt };
+
+# avc:  denied  { get } for service=4607 pid=3635 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow security_collector sa_foundation_dms:samgr_class { get };
+
+# avc:  denied  { get } for service=501 pid=3557 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=1
+allow security_collector sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { get } for service=3299 pid=3557 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow security_collector sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc:  denied  { get } for service=3101 pid=3557 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow security_collector sa_multimodalinput_service:samgr_class { get };
+
+# avc:  denied  { call } for  pid=3728 comm="OS_cesComLstnr" scontext=u:r:security_collector:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=0
+allow security_collector storage_manager:binder { call transfer };
+
+# avc:  denied  { call } for  pid=4414 comm="IPC_1_4419" scontext=u:r:security_collector:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow security_collector device_manager:binder { call transfer };
+
+# avc:  denied  { call } for  pid=3359 comm="IPC_1_3364" scontext=u:r:security_collector:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=0
+# avc:  denied  { call } for  pid=3359 comm="IPC_1_3364" scontext=u:r:security_collector:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=0
+allow security_collector camera_service:binder { call transfer };
+
+# avc:  denied  { get } for service=5003 pid=3415 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=0
+allow security_collector sa_foundation_devicemanager_service:samgr_class { get };
+
+# avc:  denied  { get } for service=3008 pid=3430 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_camera_service:s0 tclass=samgr_class permissive=0
+allow security_collector sa_camera_service:samgr_class { get };
+
+# avc:  denied  { get } for service=5003 pid=3415 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=0
+allow security_collector sa_storage_manager_service:samgr_class { get };
+
+

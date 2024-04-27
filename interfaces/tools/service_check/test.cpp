@@ -31,7 +31,7 @@ using namespace Selinux;
 
 static std::unique_ptr<ServiceChecker> g_service = nullptr;
 
-struct testInput {
+struct TestInput {
     char cmd = '\0';
     bool isHdf = false;
     std::string serviceName;
@@ -62,7 +62,7 @@ static void PrintUsage()
     std::cout << "" << std::endl;
 }
 
-static void SetOptions(int argc, char *argv[], const option *options, testInput &input)
+static void SetOptions(int argc, char *argv[], const option *options, TestInput &input)
 {
     int index = 0;
     const char *optStr = "dhlagrn:";
@@ -156,7 +156,7 @@ static void TestListService(bool isHdf)
     std::cout << GetErrStr(isHdf ? HdfListServiceCheck(getpid()) : g_service->ListServiceCheck(getpid())) << std::endl;
 }
 
-static void Test(const testInput &testCmd)
+static void Test(const TestInput &testCmd)
 {
     switch (testCmd.cmd) {
         case 'a': {
@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    testInput input;
+    TestInput input;
     SetOptions(argc, argv, options, input);
     if (!input.isHdf) {
         g_service = std::make_unique<ServiceChecker>(false);

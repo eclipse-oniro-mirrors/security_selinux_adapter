@@ -39,6 +39,7 @@ type bms_param, parameter_attr;
 allow foundation multimodalinput:binder call;
 allow foundation multimodalinput:unix_stream_socket write;
 
+allow foundation bms_param:parameter_service { set };
 allow foundation accessibility:binder { call };
 allow foundation accesstoken_service:binder { call };
 allow foundation appspawn:unix_stream_socket { connectto };
@@ -188,3 +189,6 @@ allow foundation arkui_param:file { map open read };
 allow foundation storage_daemon:binder { call transfer };
 allow foundation storage_daemon:fd { use };
 allow foundation proc_cmdline_file:file { open read };
+allow foundation hidumper_service:fifo_file { lock };
+allow foundation app_domain_verify_mgr_service:binder { call };
+allow foundation sa_app_domain_verify_mgr_service:samgr_class { get };
