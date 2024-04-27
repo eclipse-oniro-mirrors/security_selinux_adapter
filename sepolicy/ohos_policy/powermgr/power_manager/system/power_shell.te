@@ -28,7 +28,7 @@ allow power_shell dev_unix_socket:dir { search };
 allow power_shell devpts:chr_file { ioctl read write write };
 
 # avc: denied { call } for pid=4337 comm="power-shell" scontext=u:r:power_shell:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
-allow power_shell powermgr:binder { call };
+binder_call(power_shell, powermgr);
 
 # avc: denied { map } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
 # avc: denied { read open } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1

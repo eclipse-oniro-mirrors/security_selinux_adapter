@@ -66,7 +66,7 @@ allow cadaemon sa_foundation_dms:samgr_class { get };
 #avc:  denied  { call } for  pid=1123 comm="SaInit2" scontext=u:r:cadaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=1123 comm="SaInit2" scontext=u:r:cadaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 allow cadaemon foundation:binder { call transfer };
-allow cadaemon powermgr:binder { call transfer };
+binder_call(cadaemon, powermgr);
 #avc:  denied  { call } for  pid=1220 comm="IPC_6_1660" scontext=u:r:foundation:s0 tcontext=u:r:cadaemon:s0 tclass=binder permissive=1
 allow foundation cadaemon:binder { call };
 

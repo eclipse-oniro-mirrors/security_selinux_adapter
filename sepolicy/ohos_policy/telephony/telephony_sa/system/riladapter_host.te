@@ -52,7 +52,7 @@ allow riladapter_host ohos_param:file { map open read };
 allow riladapter_host persist_param:file { map open read };
 allow riladapter_host persist_sys_param:file { map open read };
 allow riladapter_host power_host:binder call;
-allow riladapter_host powermgr:binder { call transfer };
+binder_call(riladapter_host, powermgr);
 allow riladapter_host proc_net:file { getattr open };
 allow riladapter_host samgr:binder call;
 #avc:  denied  { get } for service=power_interface_service pid=439 scontext=u:r:riladapter_host:s0 tcontext=u:object_r:hdf_power_interface_service:s0 tclass=hdf_devmgr_class permissive=1

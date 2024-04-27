@@ -13,6 +13,7 @@
 
 #avc:  denied  { get } for service=3304 pid=2168 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_powermgr_batterystats_service:s0 tclass=samgr_class permissive=0
 allow hiview sa_powermgr_batterystats_service:samgr_class { get };
+binder_call(hiview, powermgr);
 
 #avc:  denied  { open } for  pid=1782 comm="sh" path="/dev/__parameters__/u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:hiview:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=1782 comm="sh" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:hiview:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1

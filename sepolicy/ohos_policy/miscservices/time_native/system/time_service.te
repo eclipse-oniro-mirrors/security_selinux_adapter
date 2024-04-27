@@ -31,7 +31,7 @@ allow domain time_param:file { map open read };
 allow time_service kernel:unix_stream_socket { connectto };
 allow time_service paramservice_socket:sock_file { write };
 allow time_service sa_device_standby:samgr_class { get };
-allow time_service powermgr:binder { call transfer };
+binder_call(time_service, powermgr);
 allow time_service sa_powermgr_powermgr_service:samgr_class { get };
 debug_only(`
     allow time_service sh:binder { call };
