@@ -157,7 +157,7 @@ allow bluetooth_service ohos_param:file { map open read };
 allow bluetooth_service param_watcher:binder { call transfer };
 allow bluetooth_service persist_param:file { map open read };
 allow bluetooth_service persist_sys_param:file { map open read };
-allow bluetooth_service powermgr:binder { call transfer };
+binder_call(bluetooth_service, powermgr);
 allow bluetooth_service sa_accesstoken_manager_service:samgr_class { get };
 allow bluetooth_service sa_param_watcher:samgr_class { get };
 allow bluetooth_service security_param:file { map open read };

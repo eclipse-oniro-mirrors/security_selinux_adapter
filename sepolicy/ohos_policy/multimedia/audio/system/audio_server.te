@@ -162,7 +162,7 @@ allow audio_server sa_foundation_abilityms:samgr_class { get };
 
 allow audio_server foundation:binder { call transfer };
 
-allow audio_server powermgr:binder { call transfer };
+binder_call(audio_server, powermgr);
 
 allow audio_server a2dp_host:binder { call };
 

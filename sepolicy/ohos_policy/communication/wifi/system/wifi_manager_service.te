@@ -23,7 +23,7 @@ allow wifi_manager_service foundation:binder { call transfer };
 allow wifi_manager_service netmanager:binder { call transfer };
 allow wifi_manager_service node:udp_socket { node_bind };
 allow wifi_manager_service port:udp_socket { name_bind };
-allow wifi_manager_service powermgr:binder { call transfer };
+binder_call(wifi_manager_service, powermgr);
 allow wifi_manager_service sa_accesstoken_manager_service:samgr_class { get };
 allow wifi_manager_service netsysnative:binder { call };
 allow wifi_manager_service sa_foundation_cesfwk_service:samgr_class { get };

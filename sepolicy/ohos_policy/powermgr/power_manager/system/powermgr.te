@@ -16,4 +16,5 @@
 allow powermgr sa_powermgr_powermgr_service:samgr_class { get add };
 
 #avc:  denied  { transfer } for  pid=571 comm="IPC_15_1220" scontext=u:r:powermgr:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=0
-allow powermgr sensors:binder { transfer };
+binder_call(powermgr, sensors);
+

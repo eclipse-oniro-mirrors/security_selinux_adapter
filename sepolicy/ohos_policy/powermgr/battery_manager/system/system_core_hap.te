@@ -13,3 +13,5 @@
 
 #avc:  denied  { get } for service=3302 pid=1546 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=0
 allow system_core_hap_attr sa_powermgr_battery_service:samgr_class { get };
+binder_call(system_core_hap_attr, powermgr);
+

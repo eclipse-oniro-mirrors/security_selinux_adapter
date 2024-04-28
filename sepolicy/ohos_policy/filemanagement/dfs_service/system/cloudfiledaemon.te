@@ -24,7 +24,7 @@ allow cloudfiledaemon data_service_file:dir { search };
 allow cloudfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
 allow cloudfiledaemon foundation:binder { transfer call };
 allow cloudfiledaemon sa_foundation_abilityms:samgr_class { get };
-allow cloudfiledaemon powermgr:binder { transfer call };
+binder_call(cloudfiledaemon, powermgr);
 allow cloudfiledaemon sa_powermgr_battery_service:samgr_class { get };
 allow cloudfiledaemon data_app_file:dir { search open read write };
 allow cloudfiledaemon data_app_el2_file:dir { search read write open };

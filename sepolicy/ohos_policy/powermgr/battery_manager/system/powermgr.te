@@ -16,3 +16,4 @@ allow powermgr sa_powermgr_battery_service:samgr_class { add get};
 
 #avc:  denied  { get } for service=3602 pid=577 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_miscdevice_service:s0 tclass=samgr_class permissive=1
 allow powermgr sa_miscdevice_service:samgr_class { get };
+binder_call(powermgr, sensors);

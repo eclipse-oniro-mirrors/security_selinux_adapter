@@ -59,7 +59,7 @@ allow edm_sa distributeddata:binder { call transfer };
 allow edm_sa distributedsche_param:file { map open read };
 allow edm_sa distributeddata:fd { use };
 allow edm_sa foundation:binder { call transfer };
-allow edm_sa powermgr:binder { call transfer };
+binder_call(edm_sa, powermgr);
 
 # avc: denied { call } for pid=740 comm="edm" scontext=u:r:edm_sa:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
 allow edm_sa hdf_devmgr:binder { call };

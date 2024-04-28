@@ -46,7 +46,7 @@ allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind creat
 #allow multimodalinput multimodalinput:process { ptrace };
 allow multimodalinput musl_param:file { map open read };
 allow multimodalinput param_watcher:binder { call transfer };
-allow multimodalinput powermgr:binder { call transfer };
+binder_call(multimodalinput, powermgr);
 allow multimodalinput render_service:binder { call transfer };
 allow multimodalinput render_service:fd { use };
 allow multimodalinput resource_schedule_service:binder { call };

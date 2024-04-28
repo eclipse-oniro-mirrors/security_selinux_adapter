@@ -51,7 +51,6 @@ allow param_watcher dscreen:binder { call };
 allow param_watcher dslm_service:binder { call };
 allow param_watcher edm_sa:binder { call };
 allow param_watcher foundation:binder { call };
-allow param_watcher powermgr:binder { call };
 allow param_watcher hidumper_service:binder { call };
 allow param_watcher hilog_param:file { map open read };
 allow param_watcher hiview:binder { call };

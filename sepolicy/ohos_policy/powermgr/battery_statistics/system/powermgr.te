@@ -30,7 +30,7 @@ allow powermgr data_service_el0_file:dir { add_name search write };
 
 #avc:  denied  { get } for service=1203 pid=598 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_sys_event_service:s0 tclass=samgr_class permissive=1
 allow powermgr sa_sys_event_service:samgr_class { get };
-allow powermgr hisysevent:binder { call transfer };
+binder_call(powermgr, hisysevent);
 
 #avc:  denied  { ioctl } for  pid=520 comm="CesFwkListener" path="/data/service/el0/stats/battery_stats.json" dev="mmcblk0p11" ino=6893 ioctlcmd=0x5413 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
 allowxperm powermgr data_service_el0_file:file ioctl { 0x5413 };
