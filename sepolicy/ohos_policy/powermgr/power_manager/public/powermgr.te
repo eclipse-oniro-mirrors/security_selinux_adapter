@@ -74,7 +74,6 @@ allow powermgr init_svc_param:file { map open read };
 allow powermgr input_pointer_device_param:file { map open read };
 allow powermgr kernel:unix_stream_socket { connectto };
 allow powermgr key_enable:key { search };
-allow powermgr media_service:fd { use };
 allow powermgr multimodalinput:unix_stream_socket { read write };
 allow powermgr musl_param:file { map open open};
 allow powermgr native_socket:sock_file { write };
@@ -91,6 +90,7 @@ allow powermgr persist_sys_param:file { map open read };
 allow powermgr proc_file:file { open read getattr };
 allow powermgr servicectrl_reboot_param:parameter_service { set };
 allow powermgr devinfo_private_param:file { map open read };
+allow powermgr sa_privacy_service:samgr_class { get };
 allow powermgr security_param:file { map open read };
 allow powermgr servicectrl_param:parameter_service { set };
 allow powermgr startup_param:file { map open read };
@@ -129,6 +129,9 @@ allow powermgr vendor_lib_file:file { read };
 allow powermgr vfat:file { read write };
 allowxperm powermgr data_service_el1_file:file ioctl { 0x5413 0xf50c };
 allowxperm powermgr sys_file:file ioctl { 0x5413 };
+
+allow powermgr sa_media_service:samgr_class { get };
+binder_call(powermgr, media_service);
 
 allow powermgr sa_bgtaskmgr:samgr_class { get };
 binder_call(powermgr, bgtaskmgr_service);
@@ -174,6 +177,7 @@ allow powermgr sa_foundation_dms:samgr_class { get };
 allow powermgr sa_foundation_tel_call_manager:samgr_class { get };
 allow powermgr sa_foundation_tel_state_registry:samgr_class { get };
 allow powermgr sa_foundation_wms:samgr_class { get };
+allow powermgr sa_uri_permission_mgr_service:samgr_class { get };
 binder_call(powermgr, foundation);
 
 allow powermgr sa_accessibleabilityms:samgr_class { get };
@@ -200,4 +204,14 @@ binder_call(powermgr, system_basic_hap_attr);
 binder_call(powermgr, system_core_hap_attr);
 binder_call(powermgr, normal_hap_attr);
 binder_call(powermgr, wifi_manager_service);
+binder_call(powermgr, riladapter_host);
+binder_call(powermgr, pasteboard_service);
+binder_call(powermgr, dhardware);
+binder_call(powermgr, ui_service);
+binder_call(powermgr, useriam);
+binder_call(powermgr, drm_service);
+binder_call(powermgr, dscreen);
+binder_call(powermgr, edm_sa);
+binder_call(powermgr, inputmethod_service);
+binder_call(powermgr, memmgrservice);
 
