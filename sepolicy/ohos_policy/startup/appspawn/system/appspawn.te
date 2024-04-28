@@ -185,6 +185,8 @@ allow appspawn data_app_el1_file:dir { open read search };
 #allow appspawn formrenderservice_hap_data_file:dir { open read search };
 allow appspawn data_service_el2_hmdfs:dir { mounton };
 
+allow appspawn normal_hap_data_file_attr:dir { create write add_name setattr };
+
 # avc:  denied  { fsetid } for  pid=274 comm="appspawn" capability=4  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=0
 allow appspawn appspawn:capability { fsetid };
 
