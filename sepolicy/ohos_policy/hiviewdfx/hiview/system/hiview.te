@@ -152,7 +152,7 @@ allow hiview data_app_file:dir { search };
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="el2" dev="mmcblk0p12" ino=47 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
 #avc:  denied  { add_name } for  pid=2716 comm="freeze_detector" name="APP_FREEZE_1501994090092_2792.log" scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=266 comm="freeze_detector" name="hiappevent" dev="mmcblk0p15" ino=2265 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
-allow hiview data_app_el2_file:dir { search read open add_name write create };
+allow hiview data_app_el2_file:dir { search read open add_name write create setattr getattr };
 
 #avc:  denied  { create } for  pid=2716 comm="freeze_detector" name="APP_FREEZE_1501994090092_2792.log" scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=2716 comm="freeze_detector" path="/data/app/el2/100/log/com.example.myapplication/hiappevent/APP_FREEZE_1501994090092_2792.log" dev="mmcblk0p15" ino=2352 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
