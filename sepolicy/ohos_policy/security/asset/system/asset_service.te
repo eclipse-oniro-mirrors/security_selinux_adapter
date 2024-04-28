@@ -32,5 +32,6 @@ allow asset_service accesstoken_service:binder { call };
 allow asset_service sa_accesstoken_manager_service:samgr_class { get };
 
 allow asset_service foundation:binder { call transfer };
+allow asset_service sa_foundation_abilityms:samgr_class { get };
 allow asset_service sa_foundation_cesfwk_service:samgr_class { get };
 allow asset_service sa_foundation_bms:samgr_class { get };
