@@ -60,6 +60,10 @@ allow storage_daemon data_service_el3_file:dir { rw_dir_perms rmdir ioctl getatt
 allow storage_daemon data_service_el4_file:file { create_file_perms };
 allow storage_daemon data_service_el4_file:dir { rw_dir_perms rmdir ioctl getattr search rename };
 
+#avc:  denied  { ioctl } for  pid=271 comm="OS_IPC_1_302" path="/data/service/el5/101" dev="mmcblk0p15" ino=3343 ioctlcmd=0x6613 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el5_file:s0 tclass=dir permissive=1
+allow storage_daemon data_service_el5_file:dir { rw_dir_perms rmdir ioctl getattr search rename };
+allowxperm storage_daemon data_service_el5_file:dir ioctl { 0x6613 };
+
 allow storage_daemon data_data_file:file { create_file_perms relabelto relabelfrom };
 allow storage_daemon data_data_file:dir { rw_dir_perms rmdir ioctl getattr search rename relabelto relabelfrom };
 allowxperm storage_daemon data_data_file:dir ioctl { 0x5705 };
@@ -134,6 +138,9 @@ allow storage_daemon data_app_el2_file:dir { rw_dir_perms rmdir ioctl };
 allow storage_daemon data_app_el3_file:dir { rw_dir_perms rmdir ioctl };
 allow storage_daemon data_app_el4_file:dir { rw_dir_perms rmdir ioctl };
 
+#avc:  denied  { ioctl } for  pid=271 comm="OS_IPC_1_302" path="/data/app/el5/101" dev="mmcblk0p15" ino=3342 ioctlcmd=0x6613 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el5_file:s0 tclass=dir permissive=1
+allow storage_daemon data_app_el5_file:dir { rw_dir_perms rmdir ioctl };
+allowxperm storage_daemon data_app_el5_file:dir ioctl { 0x6613 };
 
 #avc:  denied  { remove_name } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=262719 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=dir permissive=1
 #avc:  denied  { rmdir } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=262719 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=dir permissive=1
@@ -324,4 +331,5 @@ allow storage_daemon tracefs:dir { search };
 storage_daemon_relabel(data_service_el2_share);
 allow storage_daemon data_app_el2_file:file { unlink };
 allow storage_daemon data_chipset_el2_file:file { unlink };
+allow storage_daemon data_app_el5_file:file { unlink };
 

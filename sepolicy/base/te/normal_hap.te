@@ -29,6 +29,7 @@ allow normal_hap_attr data_service_el2_hmdfs:dir { add_name create getattr read 
 allow normal_hap_attr data_service_el2_hmdfs:file { create getattr rename };
 allow normal_hap_attr data_service_el3_file:dir { read open search };
 allow normal_hap_attr data_service_el4_file:dir { read open search };
+allow normal_hap_attr data_service_el5_file:dir { read open search };
 allow normal_hap_attr data_user_file:dir { getattr read open search add_name create write };
 allow normal_hap_attr data_user_file:file { create getattr };
 allow normal_hap_attr debug_param:file { map open read };
