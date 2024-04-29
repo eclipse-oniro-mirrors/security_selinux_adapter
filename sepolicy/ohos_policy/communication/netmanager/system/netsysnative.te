@@ -128,5 +128,7 @@ allow domain dnsproxy_service:sock_file { write read };
 allow domain dev_tun_file:chr_file { read write };
 allow domain netsysnative:fd { use };
 
+allow netsysnative sa_net_policy_manager:samgr_class { get };
+
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call } netsysnative:binder *;
 neverallow { domain -netsysnative } iptables_exec:file { execute };
