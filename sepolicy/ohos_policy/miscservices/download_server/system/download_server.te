@@ -121,3 +121,6 @@ allow download_server download_server:unix_dgram_socket { shutdown sendto read }
 allow download_server hmdfs:file { read getattr };
 #avc:  denied  { read } for  pid=1956 comm="example.mytest" ... scontext=u:r:download_server:s0 tcontext=u:object_r：data_user_file:s0 tclass=file permissive=0
 allow download_server data_user_file:file { read getattr };
+allow download_server sys_prod_file:dir { search };
+allow download_server chip_prod_file:dir { search };
+allow download_server dev_kmsg_file:chr_file { write };
