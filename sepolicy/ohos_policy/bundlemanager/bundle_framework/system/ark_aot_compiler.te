@@ -40,3 +40,4 @@ allow ark_aot_compiler data_app_file:dir { search };
 allow ark_aot_compiler data_app_el1_file:dir { search };
 allow ark_aot_compiler sys_prod_file:dir { search };
 allow ark_aot_compiler sys_prod_file:file { map read open };
+allow ark_aot_compiler hiview:unix_dgram_socket { sendto };
