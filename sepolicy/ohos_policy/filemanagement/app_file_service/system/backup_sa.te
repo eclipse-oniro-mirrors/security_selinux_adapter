@@ -54,3 +54,4 @@ allow backup_sa sys_prod_file:file { map open read getattr };
 allow backup_sa sys_prod_file:dir { search };
 allow backup_sa system_file:file { map open read getattr };
 allow backup_sa system_file:dir { search };
+allow backup_sa sa_foundation_cesfwk_service:samgr_class { get };
