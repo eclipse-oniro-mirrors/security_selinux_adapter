@@ -34,7 +34,7 @@ allow asset_service sa_foundation_cesfwk_service:samgr_class { get };
 allow asset_service sa_foundation_bms:samgr_class { get };
 
 allow asset_service sa_accountmgr:samgr_class { get };
-allow asset_service accountmgr:binder { call };
+binder_call(asset_service, accountmgr);
 binder_call(asset_service, foundation);
 binder_call(asset_service, accesstoken_service);
 binder_call(asset_service, huks_service);
