@@ -252,7 +252,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_
 neverallow { domain -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display') -bm -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display -appspawn') -bm -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -264,7 +264,8 @@ neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display') 
 #[OHOS ERROR]       (allow hdcd hdcd (tcp_socket (connect getopt name_connect)))
 #[OHOS ERROR]       (allow hdcd self (tcp_socket (ioctl read write create getattr bind listen accept setopt)))
 #
-neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver } domain:{ tcp_socket udp_socket rawip_socket } *;
+neverallow { storage_daemon udevd resource_schedule_service ispserver } domain:{ tcp_socket udp_socket rawip_socket } *;
+neverallow appspawn { domain developer_only(`-appspawn') }:{ tcp_socket udp_socket rawip_socket } *;
 
 #ensure no write access to readonly filesystem.
 
