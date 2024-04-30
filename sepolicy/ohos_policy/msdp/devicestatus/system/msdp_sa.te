@@ -210,6 +210,9 @@ allow msdp_sa multimodalinput:binder { transfer };
 #avc:  denied  { get } for service=3299 pid=470 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow msdp_sa sa_foundation_cesfwk_service:samgr_class { get }; 
 
+#avc:  denied  { get } for service=501 pid=762 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_foundation_appms:samgr_class { get };
+
 allow msdp_sa sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
 allow msdp_sa distributedfiledaemon:binder { call };
 allow msdp_sa inputmethod_service:binder { call transfer };
