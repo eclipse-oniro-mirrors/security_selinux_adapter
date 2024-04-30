@@ -29,7 +29,7 @@ neverallow appspawn data_cache:dir ~{ read_dir_perms };
 
 neverallow appspawn data_cache:file ~{ read getattr };
 
-neverallow appspawn data_file_attr:file never_execute_file;
+neverallow appspawn { data_file_attr developer_only(`-data_local_tmp') }:file never_execute_file;
 
 neverallow { domain -appspawn -foundation -ui_service } appspawn:unix_stream_socket connectto;
 
