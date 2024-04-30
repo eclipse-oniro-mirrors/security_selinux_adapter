@@ -33,9 +33,8 @@ allow asset_service sa_foundation_abilityms:samgr_class { get };
 allow asset_service sa_foundation_cesfwk_service:samgr_class { get };
 allow asset_service sa_foundation_bms:samgr_class { get };
 
-allow asset_service normal_hap:binder { call transfer };
-
 allow asset_service sa_accountmgr:samgr_class { get };
+binder_call(asset_service, normal_hap_attr);
 binder_call(asset_service, accountmgr);
 binder_call(asset_service, foundation);
 binder_call(asset_service, accesstoken_service);
