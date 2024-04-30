@@ -116,3 +116,7 @@ allow native_daemon hiprofilerd_exec:file { getattr map open read };
 allow native_daemon hisysevent_exec:file { getattr map open read };
 allow native_daemon hitrace_exec:file { getattr map open read };
 allow native_daemon init_exec:file { getattr map open read };
+allow native_daemon sys_prod_file:dir { search };
+allow native_daemon sys_prod_file:file { getattr map open read };
+allow native_daemon system_usr_file:file { getattr map open read };
+allow native_daemon data_service_el1_file:file { getattr map open read };

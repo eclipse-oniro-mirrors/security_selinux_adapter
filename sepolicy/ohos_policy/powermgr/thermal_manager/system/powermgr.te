@@ -13,6 +13,7 @@
 
 #avc:  denied  { get } for service=5100 pid=622 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 allow powermgr sa_device_service_manager:samgr_class { get };
+binder_call(powermgr, hdf_devmgr);
 
 #avc:  denied  { get } for service=3299 pid=622 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
 allow powermgr sa_foundation_cesfwk_service:samgr_class { get };
@@ -29,13 +30,14 @@ allow powermgr normal_hap_attr:binder { call };
 allow powermgr sa_resource_schedule_socperf_server:samgr_class { get };
 
 #avc:  denied  { call } for  pid=412 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
-allow powermgr resource_schedule_service:binder { call };
+binder_call(powermgr, resource_schedule_service);
 
 #avc:  denied  { add } for service=3303 pid=530 scontext=u:r:thermal:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 allow powermgr vendor_etc_file:file { getattr open read };
 
 #avc:  denied  { get } for service=3009 pid=2003 scontext=u:r:thermal:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
 allow powermgr sa_audio_policy_service:samgr_class { get };
+binder_call(powermgr, audio_server);
 
 #avc:  denied  { add } for service=3303 pid=487 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
 allow powermgr sa_powermgr_thermal_service:samgr_class { add get};
@@ -45,6 +47,7 @@ allow powermgr system_etc_thermal_file:dir { search };
 
 #avc:  denied  { get } for service=801 pid=510 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_accessibleabilityms:s0 tclass=samgr_class permissive=1
 allow powermgr sa_accessibleabilityms:samgr_class { get };
+binder_call(powermgr, accessibility);
 
 #avc:  denied  { getattr } for  pid=493 comm="powermgr" path="/system/etc/thermal_config/thermal_service_config.xml" dev="mmcblk0p6" ino=916 scontext=u:r:powermgr:s0 tcontext=u:object_r:system_etc_thermal_file:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=2200 comm="powermgr" name="thermal_service_config.xml" dev="mmcblk0p6" ino=916 scontext=u:r:powermgr:s0 tcontext=u:object_r:system_etc_thermal_file:s0 tclass=file permissive=1

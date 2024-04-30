@@ -25,12 +25,16 @@ allow asset_service tracefs:dir { search };
 allow asset_service hilog_param:file { read map open };
 allow asset_service debug_param:file { read map open };
 
-allow asset_service huks_service:binder { call };
 allow asset_service sa_huks_service:samgr_class { get };
 
-allow asset_service accesstoken_service:binder { call };
 allow asset_service sa_accesstoken_manager_service:samgr_class { get };
 
-allow asset_service foundation:binder { call transfer };
+allow asset_service sa_foundation_abilityms:samgr_class { get };
 allow asset_service sa_foundation_cesfwk_service:samgr_class { get };
 allow asset_service sa_foundation_bms:samgr_class { get };
+
+allow asset_service sa_accountmgr:samgr_class { get };
+binder_call(asset_service, accountmgr);
+binder_call(asset_service, foundation);
+binder_call(asset_service, accesstoken_service);
+binder_call(asset_service, huks_service);

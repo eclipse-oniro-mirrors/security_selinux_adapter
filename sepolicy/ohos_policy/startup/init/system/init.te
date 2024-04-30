@@ -161,6 +161,7 @@ allow init data_app_el1_file:dir { add_name create getattr open read relabelto s
 allow init data_app_el2_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_app_el3_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_app_el4_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_app_el5_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_appephemeral:dir { getattr open read relabelto setattr };
 allow init data_app_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_applib:dir { getattr open read relabelto setattr };
@@ -218,6 +219,7 @@ allow init data_service_el2_file:dir { add_name create getattr open read relabel
 allow init data_service_el2_hmdfs:dir { getattr open read relabelto setattr };
 allow init data_service_el3_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_el4_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init data_service_el5_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_file:file { create getattr unlink write write open };
 allow init data_ss:dir { getattr open read relabelto setattr };

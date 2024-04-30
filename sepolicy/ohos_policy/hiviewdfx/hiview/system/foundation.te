@@ -18,4 +18,22 @@ allow foundation sysfs_hungtask_userlist:file { open write ioctl getattr };
 
 #avc:  denied { read } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:foundation:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
 #avc:  denied { open } for pid=4718 comm="/bin/param" path="/dev/__parameters__/u:object_r:hiviewdfx_hiview_param:s0" dev="" ino=239 scontext=u:r:foundation:s0 tcontext=u:object_r:hiviewdfx_hiview_param:s0 tclass=file permissive=1
-allow foundation hiviewdfx_hiview_param:file { open read };
+allow foundation hiviewdfx_hiview_param:file { map open read };
+
+#avc:  denied { write } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
+#avc:  denied { setattr } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
+#avc:  denied { add_name } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
+#avc:  denied { create } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
+#avc:  denied { open } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
+#avc:  denied { read } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
+allow foundation data_log:dir { write setattr add_name create open read };
+#avc:  denied { read } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+#avc:  denied { write } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+#avc:  denied { create } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+#avc:  denied { setattr } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+#avc:  denied { getattr } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+#avc:  denied { open } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+#avc:  denied { append } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+#avc:  denied { ioctl } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 ioctlcmd=0x5413 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
+allow foundation data_log:file { ioctl read write create setattr getattr open append };
+allowxperm foundation data_log:file ioctl { 0x5413 };

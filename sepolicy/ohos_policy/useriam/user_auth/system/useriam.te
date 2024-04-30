@@ -73,7 +73,7 @@ allow useriam sa_render_service:samgr_class { get };
 allow useriam sa_foundation_cesfwk_service:samgr_class { get };
 allow useriam sa_powermgr_displaymgr_service:samgr_class { get };
 allow useriam sa_foundation_dms:samgr_class { get };
-allow useriam powermgr:binder { call transfer };
+binder_call(useriam, powermgr);
 allow useriam sa_powermgr_powermgr_service:samgr_class { get };
 allow useriam dev_mali:chr_file { getattr ioctl map open read write };
 allow useriam sysfs_devices_system_cpu:dir { read open };

@@ -14,7 +14,7 @@
 #resource_schedule_service
 allow resource_schedule_service accesstoken_service:binder { call };
 allow resource_schedule_service foundation:binder { call transfer };
-allow resource_schedule_service powermgr:binder { call transfer };
+binder_call(resource_schedule_service, powermgr);
 allow resource_schedule_service hiview:binder { call transfer };
 allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };

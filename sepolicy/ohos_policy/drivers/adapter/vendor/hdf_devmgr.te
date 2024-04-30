@@ -182,7 +182,7 @@ allow hdf_devmgr power_host:binder { transfer };
 allow hdf_devmgr power_host:dir { search };
 allow hdf_devmgr power_host:file { open read };
 allow hdf_devmgr power_host:process { getattr };
-allow hdf_devmgr powermgr:binder { call transfer };
+binder_call(hdf_devmgr, powermgr);
 allow hdf_devmgr powermgr:dir { search };
 allow hdf_devmgr powermgr:file { open read };
 allow hdf_devmgr powermgr:process { getattr };

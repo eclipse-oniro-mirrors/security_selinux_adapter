@@ -57,7 +57,7 @@ allow power_host ohos_param:file { map open read };
 allow power_host persist_param:file { map open read };
 allow power_host persist_sys_param:file { map open read };
 allow power_host power_host:netlink_kobject_uevent_socket { bind create setopt read };
-allow power_host powermgr:binder { call };
+binder_call(power_host, powermgr);
 allow power_host samgr:binder { call };
 allow power_host security_param:file { map open read };
 allow power_host startup_param:file { map open read };

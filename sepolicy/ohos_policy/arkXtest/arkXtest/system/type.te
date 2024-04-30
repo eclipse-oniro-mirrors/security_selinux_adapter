@@ -30,7 +30,6 @@ developer_only(`
     allow uitest normal_hap_attr:fd { use };
     allow uitest normal_hap_attr:binder { call };
     allowxperm uitest normal_hap_data_file_attr:file ioctl { 0x5413 };
-    allow uitest arkui_param:file { map open read };
     allow uitest system_bin_file:dir { search };
     allow uitest render_service:fd { use };
     allow uitest data_file:dir { search };
@@ -52,16 +51,10 @@ developer_only(`
     allow uitest hdcd:fd { use };
     allow uitest hdcd:unix_stream_socket { read write };
     allowxperm uitest hdcd:fifo_file ioctl { 0x5413 };
-    allow uitest param_watcher:binder { call transfer };
-    allow uitest persist_sys_param:file { map read open };
-    allow uitest tracefs:dir { search };
-    allow uitest hilog_param:file { map open read };
     allow uitest samgr:binder { call };
     allow uitest sh:fd { use };
     allow uitest sh:fifo_file { write };
     allow uitest tty_device:chr_file { read write };
-    allow uitest debug_param:file { map open read };
-    allow uitest sa_param_watcher:samgr_class { get };
     allow render_service sh:binder { call transfer };
 
     domain_auto_transition_pattern(aa, uitest_exec, uitest);

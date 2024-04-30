@@ -68,6 +68,7 @@ allow accesstoken_service persist_sys_param:file { map open read };
 allow accesstoken_service privacy_service:binder { call };
 allow accesstoken_service sa_accesstoken_manager_service:samgr_class { add get };
 allow accesstoken_service sa_foundation_devicemanager_service:samgr_class { get };
+allow accesstoken_service sa_powermgr_powermgr_service:samgr_class { get };
 allow accesstoken_service sa_param_watcher:samgr_class { get };
 allow accesstoken_service sa_privacy_service:samgr_class { get };
 allow accesstoken_service sa_softbus_service:samgr_class { get };

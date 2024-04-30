@@ -27,6 +27,7 @@ allow wukong devpts:chr_file { read write ioctl };
 allow wukong foundation:fd { use };
 allow wukong foundation:binder { call };
 allow wukong foundation:binder { transfer };
+binder_call(wukong, powermgr);
 allow wukong hiview:binder { call transfer };
 allow wukong multimodalinput:binder { call };
 allow wukong samgr:binder { call };

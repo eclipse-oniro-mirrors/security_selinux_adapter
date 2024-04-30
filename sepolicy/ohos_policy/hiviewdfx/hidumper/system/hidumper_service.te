@@ -151,7 +151,7 @@ allow hidumper_service { hdfdomain sadomain }:lnk_file read;
 #avc:  denied  { get } for service=3301 pid=611 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_powermgr_powermgr_service:samgr_class { get };
 
-allow hidumper_service powermgr:binder { call transfer };
+binder_call(hidumper_service, powermgr);
 
 #avc:  denied  { get } for service=3302 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_powermgr_battery_service:samgr_class { get };
