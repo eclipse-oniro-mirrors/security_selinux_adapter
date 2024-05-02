@@ -123,16 +123,22 @@ allow processdump dev_unix_socket_file:dir { search };
 allow processdump system_bin_file:dir search;
 allow processdump system_file:dir { search };
 allow processdump system_lib_file:dir { search };
-allow processdump system_lib_file:file { execute getattr map open read };
+allow processdump system_lib_file:file { getattr map open read };
 allow processdump system_etc_file:dir { getattr open read search };
 allow processdump system_etc_file:file { getattr open read };
 allow processdump system_usr_file:dir { search };
 allow processdump system_usr_file:file { getattr read open map };
+allow processdump system_bin_file:file { getattr map open read };
+allow processdump system_file:dir { search };
+allow processdump system_file:file { getattr map open read };
 
 #============ vendor_xxx =================
 allow processdump vendor_file:file { getattr map open read };
 allow processdump vendor_file:dir { getattr open read search };
 allow processdump vendor_bin_file:dir search;
+allow processdump vendor_bin_file:file { getattr map open read };
+allow processdump vendor_lib_file:dir search;
+allow processdump vendor_lib_file:file { getattr map open read };
 
 #============ proc_file & tmpfs & debugfs ===================
 allow processdump proc_file:dir { search };
