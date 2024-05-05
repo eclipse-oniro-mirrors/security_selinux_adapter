@@ -10,8 +10,9 @@ allow storage_daemon data_local_shadercache:file { mounton };
 # for render_service
 allow render_service data_local:dir { search };
 allow render_service data_local_shadercache:file { create setattr getattr map open read rename unlink write };
-allow render_service data_local_shadercache:dir { create setattr getattr open read add_name remove_name search unlink write };
+allow render_service data_local_shadercache:dir { create setattr getattr open read add_name remove_name search unlink write rmdir };
 
 # for hap_domain
-allow hap_domain data_local_shadercache:file { create setattr getattr map open read rename unlink write };
-allow hap_domain data_local_shadercache:dir { create setattr getattr open read add_name remove_name search unlink write };
+allow hap_domain data_local_shadercache:file { create setattr getattr map open read rename unlink write ioctl lock };
+allow hap_domain data_local_shadercache:dir { create setattr getattr open read add_name remove_name search unlink write rmdir };
+allowxperm hap_domain data_local_shadercache:file ioctl { 0x5413 };
