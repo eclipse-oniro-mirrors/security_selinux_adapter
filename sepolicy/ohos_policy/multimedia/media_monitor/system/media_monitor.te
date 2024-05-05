@@ -1,0 +1,47 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type media_monitor, sadomain, domain;
+type sa_media_monitor, sa_service_attr;
+
+allow media_monitor sa_media_monitor:samgr_class { add get_remote };
+
+allow media_monitor audio_server:binder { call transfer };
+allow media_monitor dev_unix_socket:dir { search };
+allow media_monitor distributeddata:binder { call transfer };
+allow media_monitor multimodalinput:binder { call };
+allow media_monitor multimodalinput:fd { use };
+allow media_monitor multimodalinput:unix_stream_socket { read write };
+allow media_monitor param_watcher:binder { call transfer };
+allow media_monitor sa_accesstoken_manager_service:samgr_class { get };
+allow media_monitor sa_distributeddata_service:samgr_class { get };
+allow media_monitor sa_multimodalinput_service:samgr_class { get };
+allow media_monitor sa_param_watcher:samgr_class { get };
+allow media_monitor tracefs:dir { search };
+allow media_monitor tracefs:file { open write };
+allow media_monitor tracefs_trace_marker_file:file { write open };
+allow media_monitor data_service_file:dir { search };
+allow media_monitor accesstoken_service:binder { call transfer };
+allow media_monitor sa_foundation_devicemanager_service:samgr_class { get };
+allow media_monitor device_manager:binder { call transfer };
+allow media_monitor sa_foundation_bms:samgr_class { get };
+allow media_monitor sa_foundation_abilityms:samgr_class { get };
+allow media_monitor normal_hap_attr:binder { transfer call };
+allow media_monitor system_core_hap_attr:binder { call transfer };
+allow media_monitor system_bin_file:dir { getattr search };
+allow media_monitor sa_audio_policy_service:samgr_class { add get };
+allow media_monitor dev_console_file:chr_file { read write };
+allow media_monitor debug_param:file { map open read };
+allow media_monitor dev_kmsg_file:chr_file { open write };
+allow media_monitor sysfs_devices_system_cpu:file { getattr open read };
+allow media_monitor media_monitor:unix_dgram_socket { getopt setopt };
