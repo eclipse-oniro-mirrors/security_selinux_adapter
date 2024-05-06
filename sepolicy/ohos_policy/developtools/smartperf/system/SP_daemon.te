@@ -41,20 +41,14 @@ allow SP_daemon SP_daemon:tcp_socket { create accept bind listen };
 allow SP_daemon SP_daemon:udp_socket { create read bind write };
 allow SP_daemon foundation:binder { call };
 allow SP_daemon samgr:binder { call };
-allow SP_daemon tracefs:dir { search };
-allow SP_daemon accessibility:binder { call transfer };
 allow SP_daemon param_watcher:binder { call transfer };
 allow SP_daemon node:tcp_socket { node_bind };
 allow SP_daemon node:udp_socket { node_bind };
 allow SP_daemon port:tcp_socket { name_bind };
 allow SP_daemon port:udp_socket { name_bind };
-allow SP_daemon system_basic_hap:file { getattr };
 
-allow SP_daemon sa_accessibleabilityms:samgr_class { get };
 allow SP_daemon sa_param_watcher:samgr_class { get };
-allow SP_daemon sa_foundation_abilityms:samgr_class { get };
 allow SP_daemon sa_foundation_dms:samgr_class { get };
-allow SP_daemon sa_multimodalinput_service:samgr_class { get };
 allow SP_daemon sa_foundation_wms:samgr_class { get };
 
 allow SP_daemon hilog_param:file { map open read };
@@ -84,7 +78,6 @@ allow SP_daemon bms_param:file { map read open};
 allow SP_daemon const_display_brightness_param:file { map read open };
 allow SP_daemon developtools_hdc_control_param:file { map read open };
 allow SP_daemon distributedsche_param:file { map read open };
-allow SP_daemon input_pointer_device_param:file { map read open};
 allow SP_daemon samgr_perf_param:file { map read open };
 allow SP_daemon thermal_log_param:file { map read open };
 allow SP_daemon updater_data_param:file { map read open};
@@ -102,7 +95,6 @@ allowxperm SP_daemon hdcd:fifo_file ioctl { 0x5413 };
 # ps -ef
 allow SP_daemon domain: dir { search getattr };
 allow SP_daemon domain: file { open read };
-allow SP_daemon dev_kmsg_file:chr_file { write };
 allow SP_daemon hisysevent:lnk_file { read };
 allow SP_daemon hisysevent:process { signal };
 allow SP_daemon hitrace:lnk_file { read };
@@ -147,7 +139,6 @@ allow SP_daemon proc_cpuinfo_file:file { getattr open read };
 allow SP_daemon snapshot_display_exec:file { execute execute_no_trans getattr open read map };
 allow SP_daemon aa_exec:file { map };
 allow SP_daemon dev_ucollection:chr_file { ioctl };
-allow SP_daemon normal_hap:file { getattr };
 allow SP_daemon sh:file { open };
 allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x4 };
 ')
