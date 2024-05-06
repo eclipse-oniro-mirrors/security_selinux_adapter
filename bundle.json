@@ -52,6 +52,14 @@
               "policycoreutils.h"
             ],
             "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          },
+        {
+          "name": "//base/security/selinux_adapter:librestorecon_static",
+          "header": {
+            "header_files": [
+              "policycoreutils.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
           }
         },
         {
