@@ -109,3 +109,4 @@ allow netmanager sa_huks_service:samgr_class { get };
 allow netmanager huks_service:binder { call };
 allow netmanager dev_ashmem_file:chr_file { open };
 allow netmanager foundation:fd { use };
+allow netmanager proc_net:file { open write };
