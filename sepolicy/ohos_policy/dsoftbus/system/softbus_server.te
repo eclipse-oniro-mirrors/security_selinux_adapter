@@ -107,3 +107,6 @@ allow softbus_server hiview:fd { use };
 
 #avc:  denied  { transfer } for pid=1421 comm="SaInit0" scontext=u:r:softbus_server:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
 allow softbus_server distributeddata:binder { transfer };
+
+#avc:  denied  { get } for service=501 pid=1448 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow softbus_server sa_foundation_appms:samgr_class { get };
