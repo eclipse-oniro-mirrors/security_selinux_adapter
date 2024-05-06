@@ -76,8 +76,6 @@ allow multimodalinput sa_foundation_appms:samgr_class { get };
 allow multimodalinput normal_hap_attr:binder { call };
 allow multimodalinput normal_hap_attr:fd { use };
 allow init data_multimodalinput (file (getattr))
-allow su multimodalinput (dir (getattr search))
-allow su multimodalinput (file (read open))
 allow multimodalinput system_fonts_file (dir (read open search))
 allow multimodalinput system_fonts_file (file (read open getattr map))
 allow multimodalinput sa_powermgr_powermgr_service:samgr_class { get };
