@@ -152,5 +152,12 @@ debug_only(`
     allow resource_schedule_service sh:file { open };
     allow resource_schedule_service sh:binder { call };
 ')
+
+#systemload
 #set : allow resource_schedule_service set system parameter to record systemload level
 allow resource_schedule_service resourceschedule_writeable_param:parameter_service { set };
+#call : allow rss to read normal_hap_attr/system_basic_hap_attr/system_core_hap_attr register systemload callback
+#transfer : allow rss to transfer result to normal_hap_attr/system_basic_hap_attr/system_core_hap_attr
+allow resource_schedule_service normal_hap_attr:binder { call transfer };
+allow resource_schedule_service system_basic_hap_attr:binder { call transfer };
+allow resource_schedule_service system_core_hap_attr:binder { call transfer };
