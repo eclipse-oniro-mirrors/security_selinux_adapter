@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,11 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#installs
-/system/bin/installs u:object_r:installs_exec:s0
-
-# for sa_main Service
-/system/bin/sa_main u:object_r:samain_exec:s0
-
-# for bm tool
-/system/bin/bm u:object_r:bm_exec:s0
+allow installs compiler_service:binder { call };
+allow installs sa_ark_aot_compiler:samgr_class { get };
+allow installs code_sign_utils:file { execute getattr map open read };
