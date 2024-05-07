@@ -77,4 +77,5 @@ developer_only(`
     allow sh uitest:process { sigkill };
     allow uitest pasteboard_service:binder { call };
     allow uitest sa_pasteboard_service:samgr_class { get };
+    allow uitest samgr:binder { transfer };
 ')
