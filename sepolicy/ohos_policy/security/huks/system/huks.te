@@ -79,7 +79,7 @@ allow huks_service system_core_hap:binder { call transfer };
 allow normal_hap huks_service:binder { call transfer };
 allow huks_service normal_hap:binder { call transfer };
 
-developer_only(`
+debug_only(`
     allow debug_hap huks_service:binder { call transfer };
     allow huks_service debug_hap:binder { call transfer };
 ')
