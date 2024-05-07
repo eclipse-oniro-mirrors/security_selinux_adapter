@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow cloudfiledaemon persist_param:parameter_service { set };
+allow cloudfiledaemon persist_param:file { map open read };
+allow cloudfiledaemon cloudfile_data_file:dir { rmdir };
 allow cloudfiledaemon sa_accesstoken_manager_service:samgr_class { get };
 allow cloudfiledaemon sa_param_watcher:samgr_class { get };
 allow cloudfiledaemon param_watcher:binder { call transfer };
