@@ -34,3 +34,4 @@ allow i18n_service data_service_file:dir { search };
 allow i18n_service data_service_el1_file:dir { search };
 allow i18n_service data_service_el1_file:file { getattr read open };
 allow i18n_service sa_memory_manager_service:samgr_class { get };
+allow i18n_service memmgrservice:binder { call };
