@@ -16,3 +16,5 @@
 /dev/code_sign                           u:object_r:dev_code_sign:s0
 
 /data/service/el0/profiles(/.*)?               u:object_r:trusted_profile_data_file:s0
+
+/system/bin/key_enable                         u:object_r:key_enable_exec:s0
