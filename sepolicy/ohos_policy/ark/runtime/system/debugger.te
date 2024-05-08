@@ -16,7 +16,5 @@ developer_only(`
 ')
 
 debug_only(`
-    developer_only(`
-        allow hap_domain su:unix_stream_socket { read write };
-    ')
+    allow hap_domain su:unix_stream_socket { read write };
 ')
