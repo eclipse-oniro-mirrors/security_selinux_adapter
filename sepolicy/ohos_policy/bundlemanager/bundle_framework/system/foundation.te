@@ -103,7 +103,6 @@ allow foundation sa_telephony_tel_cellular_call:samgr_class { get };
 allow foundation sa_time_service:samgr_class { get };
 allow foundation screenlock_server:binder { call transfer };
 allow foundation sensors:binder { call };
-allow foundation sh:binder { call transfer };
 allow foundation softbus_server:binder { call transfer };
 allow foundation storage_manager:binder { call transfer };
 allow foundation sys_file:dir { open read };

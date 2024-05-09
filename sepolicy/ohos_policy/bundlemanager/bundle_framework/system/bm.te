@@ -91,6 +91,7 @@ developer_only(`
     allow bm data_local:dir read_dir_perms;
     allow bm data_local_tmp:dir read_dir_perms;
     allow foundation bm:binder { call transfer };
+    allow foundation sh:binder { call transfer };
     allow bm hdcd:unix_stream_socket { read write };
     allow bm data_local_tmp:file { read_file_perms };
     allow bm devinfo_private_param:file { read map open };
