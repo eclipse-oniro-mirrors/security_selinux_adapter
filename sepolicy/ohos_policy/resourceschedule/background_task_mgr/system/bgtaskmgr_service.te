@@ -21,7 +21,7 @@ allow bgtaskmgr_service data_file:dir { search };
 allow bgtaskmgr_service data_service_el1_file:dir { add_name write search read};
 allow bgtaskmgr_service data_service_el1_file:file { create getattr ioctl open read write lock setattr};
 allow bgtaskmgr_service data_service_file:dir { search };
-
+allow bgtaskmgr_service netmanager:binder { call transfer };
 allow bgtaskmgr_service dev_console_file:chr_file { read write };
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 allow bgtaskmgr_service dev_unix_socket:sock_file { write };
