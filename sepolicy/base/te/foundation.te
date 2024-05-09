@@ -113,6 +113,7 @@ allow foundation sys_param:file { map open read };
 allow foundation system_basic_hap_attr:process { sigkill };
 allow foundation system_bin_file:dir { search };
 allow foundation system_core_hap_attr:fd { use };
+allow foundation system_basic_hap_attr:fd { use };
 allow foundation system_core_hap_attr:process { signal };
 allow foundation system_etc_power_mode_config_file:file { getattr open read };
 allow foundation system_file:dir { getattr open read };
