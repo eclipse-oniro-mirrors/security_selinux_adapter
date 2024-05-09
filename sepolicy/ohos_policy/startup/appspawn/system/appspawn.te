@@ -189,8 +189,6 @@ allow appspawn normal_hap_data_file_attr:dir { create write add_name setattr };
 
 # avc:  denied  { fsetid } for  pid=274 comm="appspawn" capability=4  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=0
 
-allowxperm normal_hap dev_ucollection:chr_file ioctl { 0x1 };
-
 #init extend command, support to enter the application sandbox.
 debug_only(`
     allow appspawn system_bin_file:lnk_file { read };
