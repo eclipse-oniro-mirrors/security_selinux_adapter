@@ -64,6 +64,11 @@ allow bgtaskmgr_service usb_service:fd { use };
 allow bgtaskmgr_service sa_device_service_manager:samgr_class { get };
 allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
 
+#avc: denied { get } for service=1151 pid=1063 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_net_conn_manager:samgr_class { get };
+#avc: denied { get } for service=3302 pid=1063 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_powermgr_battery_service:samgr_class { get };
+
 # Due to the merging of the device_usage_stats_service process 
 # into the bgtaskmgr_service process,
 # it is necessary to add the corresponding selinux permission 
