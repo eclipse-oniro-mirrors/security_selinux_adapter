@@ -96,6 +96,9 @@ debug_only(`
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa sh:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+    # ability_delegator call hidumper --mem $(pidof com.ohos.formrenderservice)
+    allow aa formrenderservice_hap:dir { search };
+    allow aa formrenderservice_hap:file { open read };
 ')
 
 # add for aa in developer mode
@@ -144,4 +147,7 @@ developer_only(`
     allowxperm aa devpts:chr_file ioctl { 0x5413 };
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+    # ability_delegator call hidumper --mem $(pidof com.ohos.formrenderservice)
+    allow aa formrenderservice_hap:dir { search };
+    allow aa formrenderservice_hap:file { open read };
 ')
