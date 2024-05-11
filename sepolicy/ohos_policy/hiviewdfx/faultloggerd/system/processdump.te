@@ -27,17 +27,25 @@ define(`processdump_cmd', `
 ########################
 use_processdump({ domain -init -kernel })
 processdump_cmd({
-    domain
-    data_file
-    dev_parameters_file
-    exec_attr
-    foundation
     app_el1_bundle_public
-    data_app_el1_file # remove later
-    vendor_bin_file
     arkcompiler_param
     ark_writeable_param
     chip_prod_file
+    data_app_el1_file # remove later
+    data_file
+    data_service_el1_file
+    dev_parameters_file
+    domain
+    exec_attr
+    foundation
+    sys_prod_file
+    system_bin_file
+    system_file
+    system_lib_file
+    system_usr_file
+    vendor_bin_file
+    vendor_file
+    vendor_lib_file
 })
 
 #============= domain =================
@@ -106,9 +114,9 @@ allow processdump foundation:binder { call transfer };
 allow processdump sa_foundation_abilityms:samgr_class { get };
 
 #============ data_xxx ==================
+allow processdump data_file:dir search;
 allow processdump data_init_agent:file { append ioctl open read };
 allow processdump data_init_agent:dir search;
-allow processdump data_file:dir search;
 
 #============ dev_xxx ===================
 allow processdump dev_file:dir { search };
@@ -119,26 +127,21 @@ allow processdump dev_unix_socket:dir search;
 allow processdump dev_unix_socket:sock_file write;
 allow processdump dev_unix_socket_file:dir { search };
 
+#============ sys_xxx =================
+allow processdump sys_prod_file:dir { search };
+
 #============ system_xxx =================
 allow processdump system_bin_file:dir search;
-allow processdump system_file:dir { search };
-allow processdump system_lib_file:dir { search };
-allow processdump system_lib_file:file { getattr map open read };
 allow processdump system_etc_file:dir { getattr open read search };
 allow processdump system_etc_file:file { getattr open read };
-allow processdump system_usr_file:dir { search };
-allow processdump system_usr_file:file { getattr read open map };
-allow processdump system_bin_file:file { getattr map open read };
 allow processdump system_file:dir { search };
-allow processdump system_file:file { getattr map open read };
+allow processdump system_lib_file:dir { search };
+allow processdump system_usr_file:dir { search };
 
 #============ vendor_xxx =================
-allow processdump vendor_file:file { getattr map open read };
 allow processdump vendor_file:dir { getattr open read search };
 allow processdump vendor_bin_file:dir search;
-allow processdump vendor_bin_file:file { getattr map open read };
 allow processdump vendor_lib_file:dir search;
-allow processdump vendor_lib_file:file { getattr map open read };
 
 #============ proc_file & tmpfs & debugfs ===================
 allow processdump proc_file:dir { search };
