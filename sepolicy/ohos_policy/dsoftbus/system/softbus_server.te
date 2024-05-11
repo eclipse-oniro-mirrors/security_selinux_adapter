@@ -110,3 +110,7 @@ allow softbus_server distributeddata:binder { transfer };
 
 #avc:  denied  { get } for service=501 pid=1448 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_foundation_appms:samgr_class { get };
+
+allow softbus_server data_service_el1_file:file { map };
+
+allow softbus_server data_service_el1_file:dir { create };
