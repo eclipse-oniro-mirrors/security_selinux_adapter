@@ -17,7 +17,5 @@
 #(allow hiview dev_bbox:chr_file ioctl { 0xaf02 }
 #(allow hiview dev_bbox:chr_file ioctl { 0xaf03 }
 
-neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };
-
 # avc:  denied  { call } for  pid=1218 comm="sys_dispatcher" scontext=u:r:hiview:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
 allow hiview wifi_manager_service:binder { call };
