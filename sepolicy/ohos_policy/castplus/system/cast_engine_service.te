@@ -52,4 +52,3 @@ allow cast_engine_service data_user_file:file { read write };
 allow cast_engine_service media_service:fd { use };
 allow cast_engine_service cast_engine_service:unix_dgram_socket { getopt setopt };
 allow cast_engine_service sysfs_devices_system_cpu:file { getattr read open };
-allow cast_engine_service sa_resource_schedule:samgr_class { get };
