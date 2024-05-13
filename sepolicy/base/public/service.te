@@ -229,5 +229,6 @@ type sa_devattest_service, sa_service_attr;
 type sa_oaid_service, sa_service_attr;
 type sa_ui_appearance, sa_service_attr;
 type sa_device_standby, sa_service_attr;
+type sa_netfirewall_service, sa_service_attr;
 
 
