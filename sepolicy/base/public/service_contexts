@@ -250,5 +250,6 @@
 7001	                               u:object_r:sa_subsys_ace_service:s0
 7002	                               u:object_r:sa_ui_appearance:s0
 8001	                               u:object_r:sa_ca_daemon_service:s0
+8300                                   u:object_r:sa_netfirewall_service:s0
 
 
