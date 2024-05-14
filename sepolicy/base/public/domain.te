@@ -215,7 +215,7 @@ neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemo
 neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
-neverallow { domain -init -storage_daemon -appspawn -netsysnative updater_only(`-updater')} *:filesystem mount;
+neverallow { domain -init -storage_daemon -appspawn -netsysnative -rgm_violator_filesystem_mount updater_only(`-updater')} *:filesystem mount;
 neverallow { domain -init } *:filesystem remount;
 neverallow { domain -init -storage_daemon -appspawn -nwebspawn updater_only(`-updater')} *:filesystem unmount;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelfrom;
