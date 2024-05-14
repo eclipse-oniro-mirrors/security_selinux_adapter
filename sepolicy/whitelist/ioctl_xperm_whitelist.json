@@ -9,10 +9,6 @@
             "appspawn dev_mali chr_file",
             "appspawn dev_xpm chr_file",
             "appspawn sharefs dir",
-            "cjappspawn data_service_el2_share dir",
-            "cjappspawn dev_mali chr_file",
-            "cjappspawn dev_xpm chr_file",
-            "cjappspawn sharefs dir",
             "audio_host dev_dma_heap_file chr_file",
             "audio_host dev_mgr_file chr_file",
             "audio_server data_service_el1_file file",
@@ -302,7 +298,6 @@
         "developer": [
             "aa uitest_exec file",
             "appspawn lldb_server_file file",
-            "cjappspawn lldb_server_file file",
             "hdcd dev_block_file blk_file",
             "hdcd dev_ptmx chr_file",
             "hdcd dev_rtc_file chr_file",

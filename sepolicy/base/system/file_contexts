@@ -53,7 +53,6 @@
 /dev/unix(/.*)?                u:object_r:dev_unix_file:s0
 /dev/unix/socket                u:object_r:dev_unix_socket:s0
 /dev/unix/socket/AppSpawn       u:object_r:appspawn_socket:s0
-/dev/unix/socket/CJAppSpawn       u:object_r:appspawn_socket:s0
 /dev/unix/socket/NWebSpawn      u:object_r:nwebspawn_socket:s0
 /dev/unix/socket/fd_holder      u:object_r:fd_holder_socket:s0
 /dev/unix/socket/hdcd           u:object_r:hdcd_socket:s0
