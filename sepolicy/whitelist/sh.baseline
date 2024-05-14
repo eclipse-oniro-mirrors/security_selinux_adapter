@@ -136,4 +136,7 @@ developer_only(`
 (allow sh system_file (dir (search)))
 (allow sh system_fonts_file (dir (getattr search read open)))
 (allow sh system_fonts_file (file (getattr read open)))
+(allow sh sh (udp_socket (connect create)))
+(allow sh sh (tcp_socket (connect create setopt getattr read write)))
+(allow sh port (tcp_socket (name_connect)))
 ')
