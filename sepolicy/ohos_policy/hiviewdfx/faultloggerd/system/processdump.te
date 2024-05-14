@@ -78,6 +78,11 @@ allow processdump processdump:unix_dgram_socket { create connect write };
 allow processdump processdump:unix_stream_socket { create setopt connect write read };
 allow processdump data_local_tmp:file { getattr map open read };
 
+developer_only(`
+allow processdump data_local_tmp:dir { search };
+allow processdump data_local:dir { search };
+')
+
 #============ hidumper ==============
 allow processdump hidumper_service:fifo_file ioctl;
 
