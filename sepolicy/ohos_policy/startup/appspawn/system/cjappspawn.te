@@ -113,7 +113,6 @@ allow cjappspawn selinuxfs:file { read write open };
 allow cjappspawn security:security { check_context };
 allow cjappspawn debug_hap:process { dyntransition };
 allow cjappspawn dev_file:dir { write add_name search create };
-allow cjappspawn hianalytics:binder { transfer };
 allow cjappspawn debug_hap:binder { call };
 allow cjappspawn cgroup:dir { search };
 allow cjappspawn cgroup:file { read open getattr };
