@@ -110,7 +110,7 @@ allow sh debug_hap_data_file:file { getattr read open };
 # for system_fonts_file
 allow sh system_file:dir search;
 allow sh system_fonts_file:dir { getattr search read open };
-allow sh system_fonts_file:file { getattr read open }; 
+allow sh system_fonts_file:file { getattr read open };
 
 # for param_get
 allow sh dev_parameters_file:dir { search };
@@ -137,7 +137,10 @@ domain_auto_transition_pattern(sh, snapshot_display_exec, snapshot_display);
 
 # for sh process crash faultlog
 allow sh processdump:process { share sigchld };
+domain_auto_transition_pattern({ domain -sh }, processdump_exec, processdump);
+developer_only(`
 domain_auto_transition_pattern(sh, processdump_exec, processdump);
+')
 
 # for sh process arkCompiler AOT
 allow sh ark_profile:parameter_service { set };
