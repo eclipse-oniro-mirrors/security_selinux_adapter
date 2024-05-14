@@ -194,3 +194,5 @@ allow audio_server accountmgr:binder { call transfer };
 allow domain persist_audio_param:file { map open read };
 
 allow foundation audio_server:binder { call transfer };
+
+allow audio_server camera_service:binder { call };
