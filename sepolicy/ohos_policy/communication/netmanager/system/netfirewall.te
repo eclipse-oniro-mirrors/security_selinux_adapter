@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow netmanager sa_netfirewall_service:samgr_class { add get };
+allow netsysnative sa_netfirewall_service:samgr_class { add get };
 
 allow system_basic_hap_attr sa_netfirewall_service:samgr_class { get };
 allow system_core_hap_attr sa_netfirewall_service:samgr_class { get };
