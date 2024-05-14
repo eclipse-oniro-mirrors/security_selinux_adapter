@@ -1,0 +1,281 @@
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+init_daemon_domain(cjappspawn);
+
+allow init cjappspawn_exec:file { execute };
+allow cjappspawn appspawn_socket:sock_file { setattr };
+allow normal_hap_attr cjappspawn_exec:file { getattr map open read };
+
+allow debug_hap cjappspawn:unix_dgram_socket { write };
+allow debug_hap cjappspawn:fd { use };
+allow debug_hap cjappspawn:fifo_file { write };
+allow hap_domain cjappspawn:fifo_file write;
+allow hap_domain cjappspawn:fd use;
+allow hap_domain cjappspawn:fifo_file write;
+allow hap_domain cjappspawn:unix_dgram_socket { connect write };
+allow cjappspawn normal_hap_attr:process dyntransition;
+allow normal_hap_attr cjappspawn_exec:file { getattr map open read };
+allow normal_hap_attr cjappspawn:unix_stream_socket { read write };
+allow normal_hap_attr cjappspawn:unix_dgram_socket { write connect };
+allow normal_hap_attr cjappspawn:fd { use };
+
+allow cjappspawn dev_unix_socket:sock_file unlink;
+
+allow cjappspawn dev_null_file:chr_file { read write open };
+allow cjappspawn kernel:fd { use };
+allow cjappspawn dev_kmsg_file:chr_file { write };
+allow cjappspawn init:unix_stream_socket { read write };
+allow cjappspawn init:netlink_kobject_uevent_socket { read write };
+allow cjappspawn dev_parameters_file:file { read open };
+allow cjappspawn dev_parameters_file:dir { search };
+allow cjappspawn proc_file:lnk_file { read };
+allow cjappspawn debug_param:file { read open };
+allow cjappspawn etc_file:lnk_file { read };
+allow cjappspawn system_file:dir { search getattr };
+allow cjappspawn system_etc_file:file { read open getattr };
+allow cjappspawn system_lib_file:dir { search };
+allow cjappspawn vendor_lib_file:dir { search };
+allow cjappspawn system_lib_file:file { read open getattr };
+allow cjappspawn sys_file:dir { search };
+allow cjappspawn dev_random_file:chr_file { read open };
+allow cjappspawn system_bin_file:file { read };
+allow cjappspawn default_param:file { read open };
+allow cjappspawn hook_param:file { read open };
+allow cjappspawn musl_param:file { read open };
+allow cjappspawn startup_init_param:file { read open };
+allow cjappspawn selinuxfs:filesystem { getattr };
+allow cjappspawn hilog_param:file { read open };
+allow cjappspawn rootfs:lnk_file { read };
+allow cjappspawn system_bin_file:dir { search };
+allow cjappspawn persist_sys_param:file { read open };
+allow cjappspawn vendor_lib_file:file { read open getattr };
+allow cjappspawn system_etc_file:dir { read open };
+allow cjappspawn arkcompiler_param:file { read open };
+allow cjappspawn devinfo_public_param:file { read open };
+allow cjappspawn system_usr_file:file { read open getattr };
+allow cjappspawn system_bin_file:file { execute open execute_no_trans };
+allow cjappspawn lib_file:lnk_file { read };
+allow cjappspawn system_lib_file:file { execute };
+allow cjappspawn hilog_private_param:file { read open };
+allow cjappspawn time_param:file { read open };
+allow cjappspawn dev_unix_file:dir { search };
+allow cjappspawn dev_unix_socket:dir { search };
+allow cjappspawn hilog_input_socket:sock_file { write };
+allow cjappspawn hilogd:unix_dgram_socket { sendto };
+allow cjappspawn init:unix_stream_socket { getopt getattr listen };
+allow cjappspawn dev_unix_file:sock_file { setattr };
+allow cjappspawn chip_prod_file:dir { search };
+allow cjappspawn sys_prod_file:dir { search };
+allow cjappspawn init:unix_stream_socket { accept };
+allow cjappspawn data_app_file:dir { search };
+allow cjappspawn data_app_el2_file:dir { search };
+allow cjappspawn dev_at_file:chr_file { read write open ioctl };
+allow cjappspawn tmpfs:dir { create mounton write add_name search };
+allow cjappspawn rootfs:dir { mounton };
+allow cjappspawn configfs:dir { mounton };
+allow cjappspawn dev_file:dir { mounton };
+allow cjappspawn proc_file:dir { mounton };
+allow cjappspawn sys_file:dir { mounton };
+allow cjappspawn system_file:dir { mounton };
+allow cjappspawn system_usr_file:dir { mounton };
+allow cjappspawn system_etc_file:dir { mounton };
+allow cjappspawn data_app_el1_file:dir { mounton };
+allow cjappspawn data_app_el2_file:dir { mounton };
+allow cjappspawn hmdfs:dir { search mounton };
+allow cjappspawn data_local:dir { mounton search };
+allow cjappspawn data_local_arkcache:dir { search };
+allow cjappspawn data_local_arkprofile:dir { search mounton };
+allow cjappspawn data_service_el2_share:dir { search };
+allow cjappspawn sharefs:dir { mounton };
+allow cjappspawn data_service_file:dir { search };
+allow cjappspawn data_service_el1_file:dir { search mounton };
+allow cjappspawn cert_manager_service_file:dir { search getattr };
+allow cjappspawn data_app_el3_file:dir { search };
+allow cjappspawn data_app_el4_file:dir { search };
+allow cjappspawn vendor_lib_file:dir { mounton };
+allow cjappspawn kernel:key { search };
+allow cjappspawn data_app_el1_file:dir { write add_name create };
+allow cjappspawn data_misc:dir { mounton };
+allow cjappspawn tmpfs:lnk_file { create };
+allow cjappspawn vendor_etc_file:file { read open getattr };
+allow cjappspawn selinuxfs:file { read write open };
+allow cjappspawn security:security { check_context };
+allow cjappspawn debug_hap:process { dyntransition };
+allow cjappspawn dev_file:dir { write add_name search create };
+allow cjappspawn hianalytics:binder { transfer };
+allow cjappspawn debug_hap:binder { call };
+allow cjappspawn cgroup:dir { search };
+allow cjappspawn cgroup:file { read open getattr };
+allow cjappspawn limit_domain:unix_dgram_socket { getopt setopt write };
+allow cjappspawn hisysevent_socket:sock_file { write };
+allow cjappspawn hiview:unix_dgram_socket { sendto };
+
+
+allow cjappspawn cjappspawn_exec:file { execute_no_trans };
+allow cjappspawn bootevent_param:parameter_service { set };
+allow cjappspawn paramservice_socket:sock_file { write };
+allow cjappspawn kernel:unix_stream_socket { connectto };
+allow cjappspawn dev_unix_socket:sock_file write;
+allow cjappspawn data_service_el2_file:dir { search write add_name create };
+allow cjappspawn data_app_el2_file:dir { search mounton write add_name create setattr getattr};
+allow cjappspawn data_app_el3_file:dir { search mounton write add_name create setattr getattr};
+allow cjappspawn data_app_el4_file:dir { search mounton write add_name create setattr getattr};
+allow cjappspawn sharefs:dir { create_dir_perms mounton };
+allow cjappspawn sharefs:filesystem { mount };
+allow cjappspawn data_service_el2_share:dir { create_dir_perms mounton };
+
+# read cfg from
+#avc:  denied  { getattr } for  pid=1802 comm="cjappspawn" path="/dev" dev="tmpfs" ino=1 scontext=u:r:cjappspawn:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
+allow cjappspawn dev_file:dir { getattr };
+allow cjappspawn chip_prod_file:dir { open read search getattr };
+allow cjappspawn chip_prod_file:file { getattr open read };
+allow cjappspawn sys_prod_file:dir { open read search getattr };
+allow cjappspawn sys_prod_file:file { getattr open read map };
+allow cjappspawn vendor_etc_file:dir { open read search getattr };
+
+allow cjappspawn cjappspawn:capability { dac_override kill setgid setuid sys_admin dac_read_search };
+allow cjappspawn cjappspawn:process { setcurrent };
+allow cjappspawn cjappspawn:unix_dgram_socket { getopt setopt };
+allow cjappspawn bootevent_param:file { map open read };
+allow cjappspawn bootevent_samgr_param:file { map open read };
+allow cjappspawn build_version_param:file { map open read };
+allow cjappspawn configfs:dir { mounton };
+allow cjappspawn const_allow_mock_param:file { map open read };
+allow cjappspawn const_allow_param:file { map open read };
+allow cjappspawn const_build_param:file { map open read };
+allow cjappspawn const_display_brightness_param:file { map open read };
+allow cjappspawn const_param:file { map open read };
+allow cjappspawn const_postinstall_fstab_param:file { map open read };
+allow cjappspawn const_postinstall_param:file { map open read };
+allow cjappspawn const_product_param:file { map open read };
+allow cjappspawn data_app_el1_file:dir { add_name create mounton search };
+allow cjappspawn data_app_el2_file:dir { search mounton };
+allow cjappspawn data_app_file:dir { search };
+allow cjappspawn data_file:dir { add_name create mounton search write };
+allow cjappspawn data_service_el2_file:dir { search };
+allow cjappspawn data_service_el2_hmdfs:dir { search };
+allow cjappspawn data_service_file:dir { search };
+allow cjappspawn data_storage:dir { mounton };
+allow cjappspawn debug_param:file { map open read };
+allow cjappspawn default_param:file { map open read };
+allow cjappspawn dev_at_file:chr_file { ioctl };
+allow cjappspawn dev_file:dir { mounton };
+allow cjappspawn dev_unix_socket:dir { add_name search write remove_name };
+allow cjappspawn dev_unix_socket:sock_file { create setattr };
+allow cjappspawn distributedsche_param:file { map open read };
+allow cjappspawn hilog_param:file { map open read };
+allow cjappspawn hiview:unix_dgram_socket { sendto };
+allow cjappspawn hmdfs:dir { mounton search };
+allow cjappspawn hw_sc_build_os_param:file { map open read };
+allow cjappspawn hw_sc_build_param:file { map open read };
+allow cjappspawn hw_sc_param:file { map open read };
+allow cjappspawn init_param:file { map open read };
+allow cjappspawn init_svc_param:file { map open read };
+allow cjappspawn input_pointer_device_param:file { map open read };
+allow cjappspawn labeledfs:filesystem { unmount };
+allow cjappspawn net_param:file { map open read };
+allow cjappspawn net_tcp_param:file { map open read };
+allow cjappspawn normal_hap_data_file_attr:dir { mounton getattr };
+allow cjappspawn normal_hap_attr:process { sigkill };
+allow cjappspawn ohos_boot_param:file { map open read };
+allow cjappspawn ohos_param:file { map open read };
+allow cjappspawn persist_param:file { map open read };
+allow cjappspawn persist_sys_param:file { map open read };
+allow cjappspawn proc_file:dir { mounton };
+allow cjappspawn rootfs:dir { mounton };
+allow cjappspawn security_param:file { map open read };
+allow cjappspawn security:security { check_context };
+allow cjappspawn selinuxfs:dir { search };
+allow cjappspawn selinuxfs:file { open read write };
+allow cjappspawn startup_param:file { map open read };
+allow cjappspawn sys_file:dir { mounton };
+allow cjappspawn sys_param:file { map open read };
+allow cjappspawn system_bin_file:dir { mounton search getattr };
+allow cjappspawn system_etc_file:dir { mounton };
+allow cjappspawn system_file:dir { mounton };
+allow cjappspawn system_fonts_file:dir { mounton open read search getattr };
+allow cjappspawn system_fonts_file:file { getattr map open read };
+allow cjappspawn system_lib_file:dir { mounton getattr };
+allow cjappspawn system_profile_file:dir { mounton getattr };
+allow cjappspawn system_usr_file:dir { mounton search getattr };
+allow cjappspawn system_usr_file:file { getattr map open read };
+allow cjappspawn sys_usb_param:file { map open read };
+allow cjappspawn tmpfs:dir { add_name create mounton write };
+allow cjappspawn tmpfs:lnk_file { create };
+allow cjappspawn vendor_lib_file:dir { mounton };
+allowxperm cjappspawn dev_at_file:chr_file ioctl { 0x4102 };
+allow cjappspawn dev_xpm:chr_file { open read write ioctl };
+allow cjappspawn system_file:file { map };
+allow cjappspawn dev_asanlog_file:dir { getattr };
+allow cjappspawn share_public_file:dir { search };
+# avc_audit_slow:260] avc: denied { dyntransition } for pid=1, comm="/system/bin/cjappspawn"  scontext=u:r:cjappspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=process permissive=1
+allow cjappspawn pid_ns_init:process { dyntransition };
+allow cjappspawn share_public_file:dir { search create add_name write };
+
+# for app cgroup pids
+allow cjappspawn cgroup:dir { add_name create search open read write };
+allow cjappspawn cgroup:file { append getattr ioctl open read write };
+allowxperm cjappspawn cgroup:file ioctl {  0x5413  };
+
+
+allow cjappspawn data_misc:dir { getattr };
+
+allow cjappspawn pid_ns_init:dir { search };
+
+allow cjappspawn pid_ns_init:file { open getattr read };
+
+allow cjappspawn pid_ns_init:lnk_file { read };
+
+allow cjappspawn cert_manager_service_file:dir { mounton };
+allow cjappspawn sh_exec:file { getattr };
+allow cjappspawn system_bin_file:dir { open read };
+allow cjappspawn tmpfs:dir { open read };
+
+allow cjappspawn data_misc:dir { open read search };
+allow cjappspawn data_file:dir { open read search };
+allow cjappspawn hmdfs:dir { open read search };
+allow cjappspawn data_app_el2_file:dir { open read search };
+allow cjappspawn data_app_el1_file:dir { open read search };
+
+allow cjappspawn data_service_el2_hmdfs:dir { mounton };
+
+# taken from sepolicy/ohos_policy/developtools/profiler/system/other.te
+allow cjappspawn accesstoken_service:binder call;
+allow cjappspawn accountmgr:binder call;
+allow cjappspawn dev_console_file:chr_file { read write };
+allow cjappspawn foundation:binder { call transfer };
+allow cjappspawn hdcd:unix_stream_socket connectto;
+allow cjappspawn multimodalinput:binder call;
+allow cjappspawn multimodalinput:fd use;
+allow cjappspawn multimodalinput:unix_stream_socket { read write };
+allow cjappspawn musl_param:file { map open read };
+allow cjappspawn normal_hap_attr:binder { call transfer };
+allow cjappspawn normal_hap_attr:fd use;
+allow cjappspawn normal_hap_data_file_attr:dir search;
+allow cjappspawn render_service:binder { call transfer };
+allow cjappspawn render_service:fd use;
+allow cjappspawn resource_schedule_service:binder call;
+allow cjappspawn samgr:binder call;
+allow cjappspawn system_file:file { getattr open read };
+allow cjappspawn system_lib_file:dir { open read };
+allow cjappspawn tracefs:dir search;
+allow cjappspawn tracefs_trace_marker_file:file { open write };
+allow cjappspawn accessibility:binder { call transfer };
+allow cjappspawn dev_mali:chr_file { getattr ioctl open read write };
+allow cjappspawn param_watcher:binder { call transfer };
+
+# taken from sepolicy/ohos_policy/filemanagement/user_file_service/system/appspawn.te
+allow cjappspawn data_service_el1_file:dir { mounton search getattr };
+allow cjappspawn permissions_mount_file_attr:dir { mounton };
+allow cjappspawn data_user_file:dir { add_name create write };
