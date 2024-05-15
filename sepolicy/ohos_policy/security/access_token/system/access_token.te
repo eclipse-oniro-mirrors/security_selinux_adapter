@@ -83,17 +83,23 @@ allow accesstoken_service system_core_hap_attr:binder {call};
 allow accesstoken_service token_sync_service:binder { call };
 allow accesstoken_service tracefs_trace_marker_file:file { open write };
 allow accesstoken_service tracefs:dir { search };
+allow accesstoken_service sa_bgtaskmgr:samgr_class { get };
+allow accesstoken_service sa_form_mgr_service:samgr_class { get };
 
 # avc:  denied  { get } for service=501 pid=537 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow accesstoken_service sa_foundation_appms:samgr_class { get };
 
 allowxperm accesstoken_service data_service_el1_file:file ioctl { 0xf50c };
 
-allow accesstoken_service dev_at_file:chr_file { ioctl open };
+allow domain dev_at_file:chr_file { ioctl open read write };
+allowxperm domain dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4107 };
+allowxperm { domain -hap_domain } dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm ~{ accesstoken_service } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
+neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };
 
 binder_call(accesstoken_service, foundation);
+binder_call(accesstoken_service, bgtaskmgr_service);
 binder_call(accesstoken_service, privacy_service);
 binder_call(accesstoken_service, softbus_server);
 
