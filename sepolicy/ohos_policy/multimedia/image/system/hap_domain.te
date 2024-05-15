@@ -15,3 +15,5 @@ allow hap_domain hdf_codec_image_service:hdf_devmgr_class { get };
 allow hap_domain codec_host:binder { call transfer };
 allow hap_domain hdf_codec_component_manager_service:hdf_devmgr_class { get };
 allow hap_domain hdf_devmgr:binder { transfer };
+allow hap_domain hdf_camera_offline_algo_service:hdf_devmgr_class { get };
+allow hap_domain cameradaemon:binder { call transfer };
