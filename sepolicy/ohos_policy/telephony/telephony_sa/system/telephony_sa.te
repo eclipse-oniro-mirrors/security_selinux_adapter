@@ -122,3 +122,5 @@ allow telephony_sa allocator_host:binder { call };
 allow telephony_sa allocator_host:fd { use };
 allow telephony_sa sa_foundation_dms:samgr_class { get };
 allow telephony_sa dev_ashmem_file:chr_file { open };
+allow telephony_sa sa_huks_service:samgr_class { get };
+allow telephony_sa huks_service:binder { call };
