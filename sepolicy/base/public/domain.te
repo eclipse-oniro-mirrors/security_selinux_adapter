@@ -245,7 +245,9 @@ neverallow { domain -cgroup_creator } cgroup:file create;
 
 neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 
-neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
+neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr -system_fonts_file_violator_dir_mounton } system_file_attr:dir_file_class_set mounton;
+
+neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } vendor_file_attr:dir_file_class_set mounton;
 
 neverallow { domain -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
