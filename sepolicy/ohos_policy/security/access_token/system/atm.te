@@ -22,6 +22,7 @@ developer_only(`
     allow atm sa_accesstoken_manager_service:samgr_class { get };
     allow atm sa_privacy_service:samgr_class { get };
     allow atm sh:fd { use };
+    allow atm hdcd:fd { use };
 
     allow atm devpts:chr_file { read write ioctl };
     allowxperm atm devpts:chr_file ioctl { 0x5413 };
