@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow { domain -installs debug_only(` -aa ') } data_app_el1_file:file { write };
+
 init_daemon_domain(installs);
 
 allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write setattr };
