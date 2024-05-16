@@ -72,7 +72,6 @@ type hdf_chip_interface_service, hdf_service_attr;
 type hdf_wpa_interface_service, hdf_service_attr;
 type hdf_hostapd_interface_service, hdf_service_attr;
 type hdf_hid_ddk_service, hdf_service_attr;
-type hdf_camera_offline_algo_service, hdf_service_attr;
 
 # for testcase start
 type hdf_sample_service, hdf_service_attr;
