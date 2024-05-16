@@ -47,7 +47,7 @@ allow sh vendor_lib_file:dir { search };
 allow sh system_etc_file:dir { search };
 allow sh lib_file:lnk_file { read };
 allow sh etc_file:lnk_file { read };
-allow sh system_etc_file:file { read open getattr };
+allow sh system_etc_file:file { read open getattr map };
 
 allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
 allow sh system_bin_file:lnk_file { read };

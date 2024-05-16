@@ -87,7 +87,7 @@ developer_only(`
 (allow sh system_bin_file (file (read getattr map execute open execute_no_trans)))
 (allow sh system_bin_file (lnk_file (read)))
 (allow sh system_etc_file (dir (search)))
-(allow sh system_etc_file (file (read getattr open)))
+(allow sh system_etc_file (file (read getattr open map)))
 (allow sh system_file (dir (search)))
 (allow sh system_lib_file (file (read getattr map execute open)))
 (allow sh tty_device (chr_file (ioctl read write getattr open)))
