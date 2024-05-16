@@ -532,6 +532,7 @@ class xpm
 {
     exec_no_sign
     exec_anon_mem
+    exec_in_jitfort
 }
 
 class hideaddr
