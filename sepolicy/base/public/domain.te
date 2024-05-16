@@ -160,8 +160,6 @@ neverallow { domain develop_domain updater_only(`-updater') } ~{ domain fs_attr 
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
-# keep every paramter join parameter_attr
-neverallow * ~parameter_attr:parameter_service *;
 
 # keep every service join service_type
 neverallow * ~sa_service_attr:samgr_class ~list;
