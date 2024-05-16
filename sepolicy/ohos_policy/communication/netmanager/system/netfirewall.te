@@ -11,15 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow netmanager sa_netfirewall_service:samgr_class { add get };
-allow netsysnative sa_netfirewall_service:samgr_class { add get };
-
+# avc:  denied  { get } for service=8300 pid=2244 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_netfirewall_service:s0 tclass=samgr_class permissive=0
 allow system_basic_hap_attr sa_netfirewall_service:samgr_class { get };
-allow system_core_hap_attr sa_netfirewall_service:samgr_class { get };
-
-allow system_basic_hap_attr netmanager:binder { call transfer };
-allow system_core_hap_attr netmanager:binder { call transfer };
-allow system_basic_hap_attr netmanager:fd { use };
-allow netmanager dev_ashmem_file:chr_file { read open map };
+# avc:  denied  { get } for service=8300 pid=2715 scontext=u:r:netsysnative:s0 tcontext=u:object_r:sa_netfirewall_service:s0 tclass=samgr_class permissive=0
+allow netsysnative sa_netfirewall_service:samgr_class { get };
+# avc:  denied  { get } for service=8300 pid=2813 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_netfirewall_service:s0 tclass=samgr_class permissive=0
 allow hidumper_service sa_netfirewall_service:samgr_class { get };
+# avc:  denied  { add } for service=8300 pid=2927 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_netfirewall_service:s0 tclass=samgr_class permissive=0
+allow netmanager sa_netfirewall_service:samgr_class { add };
 
