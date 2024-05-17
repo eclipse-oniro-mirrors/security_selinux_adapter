@@ -16,7 +16,10 @@
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 #avc: denied { search } for pid=1067, ino=4022 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
 allow bgtaskmgr_service sys_prod_file:dir { search };
-#avc: denied { search } for pid=1067, ino=12 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=1
+#avc: denied { map } for pid=1067, ino=12 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1067, ino=12 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1067, ino=12 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=1067, ino=12 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service chip_prod_file:file { map open read getattr };
 #avc: denied { search } for pid=1067, ino=6413 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
 allow bgtaskmgr_service system_usr_file:dir { search };
@@ -31,16 +34,27 @@ allow bgtaskmgr_service tracefs_trace_marker_file:file { open write };
 allow bgtaskmgr_service sysfs_devices_system_cpu:file { read };
 #avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_hiview_service:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
+#avc: denied { open } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
 
 # device_usage_stats database read/write, Record events,bgtask info persistence
 #avc: denied { search } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 #avc: denied { write } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { add_name } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service data_service_el1_file:dir { add_name write search read};
 #avc: denied { ioctl } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc: denied { getattr } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { setattr } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { create } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { lock } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service data_service_el1_file:file { create getattr ioctl open read write lock setattr};
 allow bgtaskmgr_service data_service_file:dir { search };
+#avc: denied { 0x5413 } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
+#avc: denied { 0xf50c } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
 
 # transient task apply
@@ -56,7 +70,10 @@ allow bgtaskmgr_service sa_foundation_abilityms:samgr_class { get };
 allow bgtaskmgr_service sa_bgtaskmgr:samgr_class { get };
 
 # get power and net service
+#avc: denied { call } for pid=1137, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=1
+#avc: denied { transfer } for pid=1137, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=1
 allow bgtaskmgr_service netmanager:binder { call transfer };
+#avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_powermgr_thermal_service:s0 tclass=samgr_class 
 allow bgtaskmgr_service sa_powermgr_thermal_service:samgr_class { get };
 #avc: denied { get } for service=1151 pid=1063 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=0
 allow bgtaskmgr_service sa_net_conn_manager:samgr_class { get };
@@ -69,7 +86,9 @@ allow bgtaskmgr_service sa_powermgr_powermgr_service:samgr_class { get };
 # for the device_usage_stats.service process
 # from security_selinux_adapter\sepolicy\base\te\device_usage_stats_service.te
 # device_usage_stats IPC authentication, get current user
+#avc:  denied  { get } for service=3301 pid=282 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class { get };
+#avc:  denied  { get } for service=3301 pid=282 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_device_usage_statistics_service:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { add };
 # device_usage_stats Event timing usage,workschedule task trigger,get device start-up time
 allow bgtaskmgr_service sa_time_service:samgr_class { get };
