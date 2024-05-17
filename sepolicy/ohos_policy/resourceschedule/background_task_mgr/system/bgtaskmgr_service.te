@@ -15,7 +15,7 @@
 #avc: denied { search } for pid=1067, ino=171 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 #avc: denied { search } for pid=1067, ino=4022 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
-allow bgtaskmgr_service  :dir { search };
+allow bgtaskmgr_service sys_prod_file:dir { search };
 #avc: denied { search } for pid=1067, ino=12 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=1
 allow bgtaskmgr_service chip_prod_file:file { map open read getattr };
 #avc: denied { search } for pid=1067, ino=6413 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
