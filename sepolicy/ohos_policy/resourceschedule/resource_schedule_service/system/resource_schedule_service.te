@@ -32,9 +32,6 @@ allow resource_schedule_service cgroup:file { append getattr ioctl open read wri
 allow resource_schedule_service chip_prod_file:dir { search };
 allow resource_schedule_service data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search write };
 allow resource_schedule_service data_service_el1_file:file { create getattr ioctl lock open read unlink write };
-allow resource_schedule_service data_service_el2_file:dir { search };
-allow resource_schedule_service data_service_el2_hmdfs:dir { search };
-allow resource_schedule_service data_service_file:dir { search };
 allow resource_schedule_service device_manager:file { read };
 # avc: denied { transfer } for pid=892, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:distributeddata:s0 tclass=binder permissive=0
 # Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
@@ -42,8 +39,6 @@ allow resource_schedule_service distributeddata:binder { transfer };
 allow resource_schedule_service hdf_devmgr:file { read };
 allow resource_schedule_service hilogd:file { read };
 allow resource_schedule_service vendor_bin_file:dir { search };
-allow resource_schedule_service vendor_lib_file:dir { search };
-allow resource_schedule_service vendor_lib_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };
@@ -51,18 +46,11 @@ allow resource_schedule_service vendor_etc_file:file { getattr map open read };
 allow resource_schedule_service system_basic_hap_attr:dir { open read search };
 allow resource_schedule_service system_basic_hap_attr:file { getattr open read };
 allow resource_schedule_service system_basic_hap_attr:process { setsched sigkill };
-allow resource_schedule_service system_bin_file:dir { search };
-allow resource_schedule_service system_bin_file:file { execute execute_no_trans getattr map read open };
-allow resource_schedule_service system_bin_file:lnk_file { read };
 allow resource_schedule_service system_core_hap_attr:dir { open read search };
 allow resource_schedule_service system_core_hap_attr:file { getattr open read };
 allow resource_schedule_service system_core_hap_attr:process { setsched };
-allow resource_schedule_service system_fonts_file:dir { open read search };
-allow resource_schedule_service system_fonts_file:file { open read };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
-allow resource_schedule_service system_lib_file:dir { search };
-allow resource_schedule_service system_lib_file:file { getattr map open read };
 allow resource_schedule_service system_etc_file:dir { search };
 allow resource_schedule_service system_etc_file:file { getattr map open read };
 allow resource_schedule_service tracefs:dir { search };
@@ -75,7 +63,6 @@ allow resource_schedule_service normal_hap_attr:dir { open read search };
 allow resource_schedule_service normal_hap_attr:file { getattr open read };
 allow resource_schedule_service normal_hap_attr:process { setsched };
 allow resource_schedule_service resource_schedule_service:unix_dgram_socket { getopt setopt };
-allow resource_schedule_service data_file:dir { search };
 allow resource_schedule_service data_init_agent:dir { search };
 allow resource_schedule_service data_init_agent:file { ioctl open read append };
 allow resource_schedule_service data_log:file { read write };
@@ -161,3 +148,10 @@ allow resource_schedule_service resourceschedule_writeable_param:parameter_servi
 allow resource_schedule_service normal_hap_attr:binder { call transfer };
 allow resource_schedule_service system_basic_hap_attr:binder { call transfer };
 allow resource_schedule_service system_core_hap_attr:binder { call transfer };
+
+#proc_protect_lru
+# avc: denied { search } for pid=873, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:data_service_file:s0 tclass=dir permissive=0
+allow resource_schedule_service data_service_file:dir { search };
+# avc: denied { open read search } for pid=873, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:system_fonts_file:s0 tclass=dir permissive=0
+allow resource_schedule_service system_fonts_file:dir { open read search };
+
