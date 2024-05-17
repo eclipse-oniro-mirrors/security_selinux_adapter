@@ -12,32 +12,47 @@
 # limitations under the License.
 
 # device start-up
+#avc: denied { search } for pid=1067, ino=171 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow bgtaskmgr_service dev_unix_socket:dir { search };
-allow bgtaskmgr_service sys_prod_file:dir { search };
+#avc: denied { search } for pid=1067, ino=4022 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
+allow bgtaskmgr_service  :dir { search };
+#avc: denied { search } for pid=1067, ino=12 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=1
 allow bgtaskmgr_service chip_prod_file:file { map open read getattr };
+#avc: denied { search } for pid=1067, ino=6413 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
 allow bgtaskmgr_service system_usr_file:dir { search };
+#avc: denied { getopt } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:bgtaskmgr_service:s0 tclass=unix_dgram_socket permissive=1
+#avc: denied { setopt } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:bgtaskmgr_service:s0 tclass=unix_dgram_socket permissive=1
 allow bgtaskmgr_service bgtaskmgr_service:unix_dgram_socket { getopt setopt };
 allow bgtaskmgr_service tracefs:dir { search };
 allow bgtaskmgr_service tracefs_trace_marker_file:file { open write };
 
 # workschedule task get cpu info
+#avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 allow bgtaskmgr_service sysfs_devices_system_cpu:file { read };
+#avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_hiview_service:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
 
 # device_usage_stats database read/write, Record events,bgtask info persistence
+#avc: denied { search } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { write } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service data_service_el1_file:dir { add_name write search read};
+#avc: denied { ioctl } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service data_service_el1_file:file { create getattr ioctl open read write lock setattr};
 allow bgtaskmgr_service data_service_file:dir { search };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
 
 # transient task apply
+#avc: denied { search } for pid=1114, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
 allow bgtaskmgr_service data_app_file:dir { search };
 
 # audio play apply continous task
+#avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_foundation_abilityms:samgr_class { get };
 
 # get service from samgr
+#avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_bgtaskmgr:samgr_class { get };
 
 # get power and net service
