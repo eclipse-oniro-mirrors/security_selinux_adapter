@@ -13,3 +13,5 @@
 
 # avc:  denied  { call } for  pid=487 comm="IPC_4_2477" scontext=u:r:param_watcher:s0 tcontext=u:r:isolated_render:s0 tclass=binder permissive=1
 allow param_watcher isolated_render:binder { call };
+
+allow param_watcher isolated_gpu:binder { call };
