@@ -125,15 +125,35 @@ allow resource_schedule_service sa_locationhub_lbsservice_gnss:samgr_class { get
 allow resource_schedule_service sa_locationhub_lbsservice_network:samgr_class { get };
 allow resource_schedule_service sa_locationhub_lbsservice_passive:samgr_class { get };
 allow resource_schedule_service sa_location_geo_convert_service:samgr_class { get };
+# Subscribing to public events is required.
+# acv: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1 
+allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
+# Standby management SIM card.
+# avc: denied  { call } for pid=679 comm="IPC_3_2276" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=1
+allow resource_schedule_service telephony_sa:binder { call };
+# Standby moden enables or disables data services.
+# avc: denied  { get } for service=4010  pid=675 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_telephony_tel_core_service:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_telephony_tel_core_service:samgr_class { get };
+# Standby management Determine data status Service requirements.
+# avc: denied  { get } for service=4007  pid=668 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_telephony_tel_cellular_data:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_telephony_tel_cellular_data:samgr_class { get };
+# Standby control network restriction.
+# avc: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_net_policy_manager:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_net_policy_manager:samgr_class { get };
+# avc: denied  { add } for pid=946,comm="/system/bin/sa_man" scontext=u:r:sa_device_standby:s0 tcontext=u:r:resource_schedule_service:s0 tclass=samgr_class permissive=1
+# avc: denied  { get } for service=1043  pid=622 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_device_standby:s0 tclass=samgr_class permissive=1
 allow resource_schedule_service sa_device_standby:samgr_class { add get };
+# Standby This parameter is required when the monitoring device is ststionary.
+# avc: denied  { call } for pid=681 comm="IPC_2_14413" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow resource_schedule_service sensors:binder { call };
+# avc: denied  { transfer } for pid=657 comm="IPC_3_2264" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:transfer:s0 tclass=binder permissive=1
+allow resource_schedule_service sensors:binder { transfer };
 allow resource_schedule_service sa_sensor_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_battery_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_powermgr_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
-allow resource_schedule_service sensors:binder { transfer };
 allow resource_schedule_service time_service:binder { transfer };
 allow resource_schedule_service sa_task_heartbeat_mgr:samgr_class { add get };
 allow bgtaskmgr_service sa_device_standby:samgr_class { get };
