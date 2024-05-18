@@ -93,7 +93,7 @@ allow bgtaskmgr_service sa_powermgr_powermgr_service:samgr_class { get };
 #avc:  denied  { get } for service=3301 pid=282 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class { get };
 #avc:  denied  { get } for service=3301 pid=282 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_device_usage_statistics_service:s0 tclass=samgr_class permissive=1
-allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { add };
+allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { get add };
 # device_usage_stats Event timing usage,workschedule task trigger,get device start-up time
 allow bgtaskmgr_service sa_time_service:samgr_class { get };
 
