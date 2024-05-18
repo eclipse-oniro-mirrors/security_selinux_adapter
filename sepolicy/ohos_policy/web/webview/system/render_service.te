@@ -12,3 +12,6 @@
 # limitations under the License.
 
 allow render_service accessibility:binder { call transfer };
+
+allow render_service isolated_gpu:binder { call };
+allow render_service isolated_gpu:fd { use };

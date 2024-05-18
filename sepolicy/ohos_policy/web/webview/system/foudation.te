@@ -18,3 +18,6 @@ allow foundation isolated_render:binder { call };
 
 # avc: denied { sigkill } for pid=1101 comm="IPC_10_2173" scontext=u:r:foundation:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow foundation isolated_render:process { sigkill };
+
+allow foundation isolated_gpu:binder { call };
+allow foundation isolated_gpu:process { sigkill };
