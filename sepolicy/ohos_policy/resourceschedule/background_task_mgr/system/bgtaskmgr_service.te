@@ -11,6 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#moke test
+#avc:  denied  { search } for  pid=488 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow bgtaskmgr_service data_file:dir { search };
+
 # device start-up
 #avc: denied { search } for pid=1067, ino=171 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow bgtaskmgr_service dev_unix_socket:dir { search };
