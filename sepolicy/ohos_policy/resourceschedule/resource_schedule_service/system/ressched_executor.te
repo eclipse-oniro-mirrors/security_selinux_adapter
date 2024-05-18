@@ -35,3 +35,7 @@ allow resource_schedule_service resource_schedule_executor:binder { call };
 allow resource_schedule_service sa_resource_schedule_executor:samgr_class { get };
 
 allowxperm resource_schedule_executor sys_file:file ioctl { 0x5413 };
+
+# resource_schedule_service config
+allow resource_schedule_executor sys_prod_ressched_file:dir: {search };
+allow resource_schedule_executor sys_prod_ressched_file:file { getattr open read };
