@@ -10,3 +10,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+#smoke test
+#avc:  denied  { get } for service=501 pid=473 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_foundation_appms:samgr_class { get };
+#avc:  denied  { get } for service=401 pid=473 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_foundation_bms:samgr_class { get };
+#avc:  denied  { add } for service=1903 pid=471 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_bgtaskmgr:samgr_class { add };
