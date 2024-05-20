@@ -119,3 +119,5 @@ allow installs labeledfs:filesystem { quotaget };
 allow installs installs:capability { sys_admin };
 allow installs sa_el5_filekey_manager:samgr_class { get };
 allow installs el5_filekey_manager:binder { call };
+allow installs data_app_el5_file:dir { ioctl };
+allowxperm installs data_app_el5_file:dir ioctl { 0xf554 };
