@@ -14,6 +14,8 @@
 allow resource_schedule_service bootevent_param:file { map open read };
 allow resource_schedule_service bootevent_samgr_param:file { map open read };
 allow resource_schedule_service const_display_brightness_param:file { map open read };
+allow resource_schedule_service const_postinstall_fstab_param:file { map open read };
+allow resource_schedule_service const_postinstall_param:file { map open read };
 debug_only(`
     allow resource_schedule_service debug_param:file { map open read };
 ')
@@ -36,7 +38,16 @@ allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get }
 allow resource_schedule_service sa_foundation_tel_state_registry:samgr_class { get };
 allow resource_schedule_service sa_foundation_wms:samgr_class { get };
 allow resource_schedule_service sa_param_watcher:samgr_class { get };
+allow resource_schedule_service sa_resource_schedule:samgr_class { add get };
+allow resource_schedule_service sa_resource_schedule_socperf_server:samgr_class { add get };
+allow resource_schedule_service sa_sys_event_service:samgr_class { get };
+allow resource_schedule_service security_param:file { map open read };
+allow resource_schedule_service startup_param:file { map open read };
 allow resource_schedule_service sysfs_devices_system_cpu:file { getattr ioctl open write };
+allow resource_schedule_service sys_param:file { map open read };
+allow resource_schedule_service system_usr_file:file { map open };
+allow resource_schedule_service sys_usb_param:file { map open read };
+allow resource_schedule_service vendor_etc_file:dir { search };
 allowxperm resource_schedule_service sysfs_devices_system_cpu:file ioctl { 0x5413 };
 allow resource_schedule_service sa_multimodalinput_service:samgr_class { get };
 allow resource_schedule_service multimodalinput:unix_stream_socket { read };
