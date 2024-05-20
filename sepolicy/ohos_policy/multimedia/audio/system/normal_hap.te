@@ -25,5 +25,3 @@ allow normal_hap_attr sa_audio_policy_service:samgr_class { get };
 #avc:  denied  { write } for  pid=2050 comm="com.example.ohn" name="native" dev="tmpfs" ino=293 scontext=u:r:normal_hap:s0 tcontext=u:object_r:native_socket:s0 tclass=sock_file permissive=0
 allow normal_hap_attr native_socket:sock_file { write };
 
-#avc:  denied  { connectto } for  pid=2080 comm="com.example.ohn" path="/dev/unix/socket/native" scontext=u:r:normal_hap:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=0
-allow normal_hap_attr audio_server:unix_stream_socket { connectto };

@@ -25,6 +25,7 @@ allow isolated_render dev_ashmem_file:chr_file { open };
 # avc:  denied  { search } for  pid=3061 comm="ei.hmos.browser" name="socket" dev="tmpfs" ino=79 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
 allow isolated_render dev_unix_socket:dir { search };
 
+allow isolated_render hap_domain:binder { call };
 allow isolated_render hap_domain:fd { use };
 
 # avc:  denied  { exec_anon_mem } for  pid=5103 comm="ei.hmos.browser" scontext=u:r:isolated_render:s0 tcontext=u:r:isolated_render:s0 tclass=xpm permissive=0
@@ -141,6 +142,8 @@ allow isolated_render sa_resource_schedule:samgr_class { get };
 
 # avc_audit_slow:260] avc: denied { ptrace } for pid=15, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow isolated_render isolated_render:process { ptrace };
+
+allow isolated_render web_private_param:file { map open read };
 
 debug_only(`
     allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem_debug };

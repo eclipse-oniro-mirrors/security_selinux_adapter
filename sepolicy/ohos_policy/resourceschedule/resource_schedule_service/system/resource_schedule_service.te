@@ -32,9 +32,6 @@ allow resource_schedule_service cgroup:file { append getattr ioctl open read wri
 allow resource_schedule_service chip_prod_file:dir { search };
 allow resource_schedule_service data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search write };
 allow resource_schedule_service data_service_el1_file:file { create getattr ioctl lock open read unlink write };
-allow resource_schedule_service data_service_el2_file:dir { search };
-allow resource_schedule_service data_service_el2_hmdfs:dir { search };
-allow resource_schedule_service data_service_file:dir { search };
 allow resource_schedule_service device_manager:file { read };
 # avc: denied { transfer } for pid=892, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:distributeddata:s0 tclass=binder permissive=0
 # Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
@@ -42,8 +39,6 @@ allow resource_schedule_service distributeddata:binder { transfer };
 allow resource_schedule_service hdf_devmgr:file { read };
 allow resource_schedule_service hilogd:file { read };
 allow resource_schedule_service vendor_bin_file:dir { search };
-allow resource_schedule_service vendor_lib_file:dir { search };
-allow resource_schedule_service vendor_lib_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };
@@ -51,18 +46,11 @@ allow resource_schedule_service vendor_etc_file:file { getattr map open read };
 allow resource_schedule_service system_basic_hap_attr:dir { open read search };
 allow resource_schedule_service system_basic_hap_attr:file { getattr open read };
 allow resource_schedule_service system_basic_hap_attr:process { setsched sigkill };
-allow resource_schedule_service system_bin_file:dir { search };
-allow resource_schedule_service system_bin_file:file { execute execute_no_trans getattr map read open };
-allow resource_schedule_service system_bin_file:lnk_file { read };
 allow resource_schedule_service system_core_hap_attr:dir { open read search };
 allow resource_schedule_service system_core_hap_attr:file { getattr open read };
 allow resource_schedule_service system_core_hap_attr:process { setsched };
-allow resource_schedule_service system_fonts_file:dir { open read search };
-allow resource_schedule_service system_fonts_file:file { open read };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
-allow resource_schedule_service system_lib_file:dir { search };
-allow resource_schedule_service system_lib_file:file { getattr map open read };
 allow resource_schedule_service system_etc_file:dir { search };
 allow resource_schedule_service system_etc_file:file { getattr map open read };
 allow resource_schedule_service tracefs:dir { search };
@@ -76,6 +64,8 @@ allow resource_schedule_service normal_hap_attr:file { getattr open read };
 allow resource_schedule_service normal_hap_attr:process { setsched };
 allow resource_schedule_service resource_schedule_service:unix_dgram_socket { getopt setopt };
 allow resource_schedule_service data_file:dir { search };
+allow resource_schedule_service data_init_agent:dir { search };
+allow resource_schedule_service data_init_agent:file { ioctl open read append };
 allow resource_schedule_service data_log:file { read write };
 allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
@@ -121,15 +111,35 @@ allow resource_schedule_service sa_locationhub_lbsservice_gnss:samgr_class { get
 allow resource_schedule_service sa_locationhub_lbsservice_network:samgr_class { get };
 allow resource_schedule_service sa_locationhub_lbsservice_passive:samgr_class { get };
 allow resource_schedule_service sa_location_geo_convert_service:samgr_class { get };
+# Subscribing to public events is required.
+# acv: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1 
+allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
+# Standby management SIM card.
+# avc: denied  { call } for pid=679 comm="IPC_3_2276" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=1
+allow resource_schedule_service telephony_sa:binder { call };
+# Standby moden enables or disables data services.
+# avc: denied  { get } for service=4010  pid=675 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_telephony_tel_core_service:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_telephony_tel_core_service:samgr_class { get };
+# Standby management Determine data status Service requirements.
+# avc: denied  { get } for service=4007  pid=668 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_telephony_tel_cellular_data:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_telephony_tel_cellular_data:samgr_class { get };
+# Standby control network restriction.
+# avc: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_net_policy_manager:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_net_policy_manager:samgr_class { get };
+# avc: denied  { add } for pid=946,comm="/system/bin/sa_man" scontext=u:r:sa_device_standby:s0 tcontext=u:r:resource_schedule_service:s0 tclass=samgr_class permissive=1
+# avc: denied  { get } for service=1043  pid=622 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_device_standby:s0 tclass=samgr_class permissive=1
 allow resource_schedule_service sa_device_standby:samgr_class { add get };
+# Standby This parameter is required when the monitoring device is ststionary.
+# avc: denied  { call } for pid=681 comm="IPC_2_14413" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow resource_schedule_service sensors:binder { call };
+# avc: denied  { transfer } for pid=657 comm="IPC_3_2264" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:transfer:s0 tclass=binder permissive=1
+allow resource_schedule_service sensors:binder { transfer };
 allow resource_schedule_service sa_sensor_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_battery_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_powermgr_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
-allow resource_schedule_service sensors:binder { transfer };
 allow resource_schedule_service time_service:binder { transfer };
 allow resource_schedule_service sa_task_heartbeat_mgr:samgr_class { add get };
 allow bgtaskmgr_service sa_device_standby:samgr_class { get };
@@ -157,3 +167,13 @@ allow resource_schedule_service resourceschedule_writeable_param:parameter_servi
 allow resource_schedule_service normal_hap_attr:binder { call transfer };
 allow resource_schedule_service system_basic_hap_attr:binder { call transfer };
 allow resource_schedule_service system_core_hap_attr:binder { call transfer };
+
+#proc_protect_lru
+# avc: denied { search } for pid=873, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:data_service_file:s0 tclass=dir permissive=0
+allow resource_schedule_service data_service_file:dir { search };
+# avc: denied { open read search } for pid=873, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:system_fonts_file:s0 tclass=dir permissive=0
+allow resource_schedule_service system_fonts_file:dir { open read search };
+
+# resource_schedule_service config
+allow resource_schedule_service sys_prod_ressched_file:dir { search };
+allow resource_schedule_service sys_prod_ressched_file:file { getattr open read };

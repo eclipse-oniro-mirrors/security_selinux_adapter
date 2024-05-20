@@ -16,5 +16,5 @@ typeattribute telephony_param param_set_allow_attr;
 typeattribute hiviewdfx_hiview_param param_set_allow_attr;
 
 
-neverallow normal_hap_attr { parameter_attr -param_set_allow_attr }:parameter_service { set };
+neverallow normal_hap_attr { parameter_attr -web_private_param -param_set_allow_attr }:parameter_service { set };
 
