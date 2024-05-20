@@ -13,5 +13,3 @@
 
 # resource_schedule_service config file
 /sys_prod/etc/ressched(/.*)?       u:object_r:sys_prod_ressched_file:s0
-
-#
