@@ -18,3 +18,6 @@ allow hiview isolated_render:dir { search };
 #avc: denied { open } for pid=248 comm="HiDumperCpuServ" path="/proc/2277/stat" dev="proc" ino=37368 scontext=u:r:hiview:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
 #avc: denied { read } for pid=248 comm="HiDumperCpuServ" name="stat" dev="proc" ino=37368 scontext=u:r:hiview:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
 allow hiview isolated_render:file { getattr open read };
+
+allow hiview isolated_gpu:dir { search };
+allow hiview isolated_gpu:file { getattr open read };

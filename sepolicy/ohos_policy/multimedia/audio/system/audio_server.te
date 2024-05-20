@@ -61,10 +61,6 @@ allow audio_server data_service_file:dir { search };
 allow audio_server data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow audio_server data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 
-allow audio_server tracefs:dir { search };
-allow audio_server tracefs:file { open write };
-allow audio_server tracefs_trace_marker_file:file { open write };
-
 allow audio_server vendor_file:file { execute getattr map open read };
 
 allow audio_server vendor_bin_file:dir { search };
