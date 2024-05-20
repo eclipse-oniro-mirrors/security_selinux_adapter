@@ -12,4 +12,6 @@
 # limitations under the License.
 
 type tracefs_trace_marker_file, fs_attr;
+# resource_schedule_service config file
+type sys_prod_ressched_file, sys_prod_file_attr, file_attr;
 

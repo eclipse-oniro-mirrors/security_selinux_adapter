@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow { domain -installs debug_only(` -aa ') } data_app_el1_file:file { write };
+
 init_daemon_domain(installs);
 
 allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write setattr };
@@ -120,3 +122,5 @@ allow installs labeledfs:filesystem { quotaget };
 allow installs installs:capability { sys_admin };
 allow installs sa_el5_filekey_manager:samgr_class { get };
 allow installs el5_filekey_manager:binder { call };
+allow installs data_app_el5_file:dir { ioctl };
+allowxperm installs data_app_el5_file:dir ioctl { 0xf554 };
