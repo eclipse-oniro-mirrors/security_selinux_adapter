@@ -63,6 +63,8 @@ allow faultloggerd data_log:dir search;
 allow faultloggerd tty_device:chr_file { open read write };
 allow faultloggerd system_bin_file:file { execute execute_no_trans getattr map open read };
 allow faultloggerd system_bin_file:lnk_file read;
+allow faultloggerd toybox_exec:file { execute execute_no_trans getattr map open read };
+allow faultloggerd toybox_exec:lnk_file read;
 
 allow faultloggerd data_init_agent:file { append ioctl open read };
 allow faultloggerd dev_unix_socket:sock_file unlink;

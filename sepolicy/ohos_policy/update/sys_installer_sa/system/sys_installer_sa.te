@@ -87,6 +87,7 @@ allow sys_installer_sa vendor_etc_file:dir { search };
 allow sys_installer_sa dev_block_volfile:dir { search };
 allow sys_installer_sa update_firmware_file:file { map };
 allow sys_installer_sa system_bin_file:file { getattr };
+allow sys_installer_sa toybox_exec:file { getattr map read open };
 
 # avc:  denied  { create } for  pid=1109 comm="IPC_1_1111" name="updater_binary" scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 # avc:  denied  { getattr } for  pid=1109 comm="IPC_1_1111" path="/data/updater/update.bin.tmp" dev="mmcblk0p18" ino=1844 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1

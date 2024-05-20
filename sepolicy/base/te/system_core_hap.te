@@ -105,6 +105,7 @@ allow system_core_hap_attr sys_param:file { map open read };
 allow system_core_hap_attr system_basic_hap_attr:fd { use };
 allow system_core_hap_attr system_bin_file:dir { search };
 allow system_core_hap_attr system_bin_file:file { execute execute_no_trans map read open };
+allow system_core_hap_attr toybox_exec:file { execute execute_no_trans map read open };
 allow system_core_hap_attr system_core_hap_data_file_attr:dir { add_name create getattr open read remove_name search write };
 allow system_core_hap_attr system_core_hap_data_file_attr:file { create getattr setattr ioctl lock map read write open unlink };
 allow system_core_hap_attr system_core_hap_attr:process { ptrace };

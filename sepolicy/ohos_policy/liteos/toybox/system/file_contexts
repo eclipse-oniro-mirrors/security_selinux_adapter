@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -9,10 +9,7 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License
-allow hiprofiler_plugins system_bin_file:file { execute_no_trans };
-allow hiprofiler_plugins system_bin_file:file { getattr };
-allow hiprofiler_plugins system_bin_file:file { map };
-allow hiprofiler_plugins system_bin_file:file { read open };
+# limitations under the License.
 
-allow hiprofiler_plugins toybox_exec:file { execute execute_no_trans getattr map read open };
+# for toybox
+/system/bin/toybox             u:object_r:toybox_exec:s0

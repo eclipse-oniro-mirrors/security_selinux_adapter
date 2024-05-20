@@ -84,6 +84,7 @@ allow camera_host sys_usb_param:file { map open read };
 allow camera_host system_basic_hap_attr:fd { use };
 allow camera_host system_bin_file:dir { search getattr };
 allow camera_host system_bin_file:file { execute execute_no_trans map read open getattr };
+allow camera_host toybox_exec:file { execute execute_no_trans map read open getattr };
 allow camera_host system_core_hap_attr:binder { call };
 allow camera_host system_core_hap_attr:fd { use };
 allow camera_host tracefs:dir { search };
@@ -101,6 +102,7 @@ debug_only(`
     allow camera_host dev_block_volfile:lnk_file { read };
     allow camera_host dev_file:dir { getattr };
     allow camera_host system_bin_file:lnk_file { read };
+    allow camera_host toybox_exec:lnk_file { read };
     allow camera_host system_lib_file:dir { getattr };
     allow camera_host tty_device:chr_file { read write open };
     allow camera_host data_local_tmp:dir { write search getattr add_name create };

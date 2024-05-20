@@ -55,6 +55,7 @@ allow nwebspawn sys_file:dir { mounton };
 allow nwebspawn sys_param:file { map open read };
 allow nwebspawn system_bin_file:dir { mounton search };
 allow nwebspawn system_bin_file:file { entrypoint execute map read };
+allow nwebspawn toybox_exec:file { entrypoint execute map read };
 allow nwebspawn system_etc_file:dir { mounton };
 allow nwebspawn system_file:dir { mounton };
 allow nwebspawn system_fonts_file:dir { mounton };

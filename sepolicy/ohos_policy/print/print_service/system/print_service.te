@@ -80,6 +80,7 @@ allow print_service kernel:unix_stream_socket { connectto };
 allow print_service paramservice_socket:sock_file { write };
 allow print_service print_param:file { open read map };
 allow print_service system_bin_file:file { getattr open read };
+allow print_service toybox_exec:file { getattr map open read };
 neverallow { domain -print_service } print_param:parameter_service { set };
 allow print_service sa_usb_service:samgr_class { get };
 allow print_service node:tcp_socket { node_bind };

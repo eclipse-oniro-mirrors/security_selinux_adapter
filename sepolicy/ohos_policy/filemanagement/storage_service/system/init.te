@@ -24,6 +24,7 @@ allow init samgr:binder { call };
 #avc:  denied  { execute_no_trans } for  pid=260 comm="init" path="/system/bin/sdc" dev="mmcblk0p6" ino=354 scontext=u:r:init:s0 tcontext=u:object_r:sdc_exec:s0 tclass=file permissive=1
 #avc:  denied  { map } for  pid=260 comm="sdc" path="/system/bin/sdc" dev="mmcblk0p6" ino=354 scontext=u:r:init:s0 tcontext=u:object_r:sdc_exec:s0 tclass=file permissive=1
 allow init system_bin_file:file { execute execute_no_trans map read open };
+allow init toybox_exec:file { execute execute_no_trans getattr map read open };
 
 #avc:  denied  { execute } for  pid=250 comm="init" name="sdc" dev="mmcblk0p6" ino=354 scontext=u:r:init:s0 tcontext=u:object_r:sdc_exec:s0 tclass=file permissive=0
 allow init sdc_exec:file { execute execute_no_trans map read open };

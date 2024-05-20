@@ -86,6 +86,8 @@ developer_only(`
 (allow sh system_bin_file (dir (read getattr open search)))
 (allow sh system_bin_file (file (read getattr map execute open execute_no_trans)))
 (allow sh system_bin_file (lnk_file (read)))
+(allow sh toybox_exec (file (read getattr map execute open execute_no_trans)))
+(allow sh toybox_exec (lnk_file (read)))
 (allow sh system_etc_file (dir (search)))
 (allow sh system_etc_file (file (read getattr open)))
 (allow sh system_file (dir (search)))

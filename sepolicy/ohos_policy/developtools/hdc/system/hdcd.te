@@ -48,8 +48,10 @@ developer_only(`
 
     allow hdcd tty_device:chr_file { ioctl read write open };
     allow hdcd system_bin_file:lnk_file { read };
+    allow hdcd toybox_exec:lnk_file { read };
     allow hdcd system_bin_file:dir { search getattr };
     allow hdcd system_bin_file:file { open };
+    allow hdcd toybox_exec:file { getattr map open read };
 
     allow hdcd lib_file:lnk_file { read };
     allow hdcd dev_kmsg_file:chr_file { read open };

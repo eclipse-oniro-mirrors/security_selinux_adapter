@@ -76,6 +76,8 @@ allow riladapter_host sys_usb_param:file { map open read };
 allow riladapter_host system_bin_file:dir search;
 allow riladapter_host system_bin_file:file { execute execute_no_trans getattr map open read };
 allow riladapter_host system_bin_file:lnk_file read;
+allow riladapter_host toybox_exec:file { execute execute_no_trans getattr map open read };
+allow riladapter_host toybox_exec:lnk_file read;
 allow riladapter_host telephony_sa:binder call;
 allow riladapter_host tty_device:chr_file { open read write };
 allow riladapter_host vendor_etc_file:dir search;

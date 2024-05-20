@@ -30,9 +30,11 @@ allow SP_daemon sys_file:file { getattr open read };
 allow SP_daemon sysfs_devices_system_cpu:file { getattr open read};
 allow SP_daemon system_bin_file:dir { search };
 allow SP_daemon system_bin_file:file { execute execute_no_trans getattr map read open };
+allow SP_daemon toybox_exec:file { execute execute_no_trans getattr map read open };
 allow SP_daemon tty_device:chr_file { read write ioctl open };
 
 allow SP_daemon system_bin_file:lnk_file { read };
+allow SP_daemon toybox_exec:lnk_file { read };
 allow SP_daemon uitest_exec:file { execute execute_no_trans getattr map read open };
 allowxperm SP_daemon devpts:chr_file ioctl 0x5413;
 allowxperm SP_daemon tty_device:chr_file ioctl 0x5413;

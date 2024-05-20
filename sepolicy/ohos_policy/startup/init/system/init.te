@@ -411,6 +411,8 @@ allow init system_basic_hap_attr:process { getattr };
 allow init system_bin_file:dir { search };
 allow init system_bin_file:file { execute execute_no_trans getattr map open read read open };
 allow init system_bin_file:lnk_file { read };
+allow init toybox_exec:file { execute execute_no_trans getattr map open read };
+allow init toybox_exec:lnk_file { read };
 allow init sys_usb_param:file { map open read relabelto };
 allow init thermal_protector_exec:file { execute getattr read open };
 allow init time_service:process { rlimitinh siginh transition };
