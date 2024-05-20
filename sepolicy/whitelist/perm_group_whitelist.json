@@ -59,7 +59,6 @@
                 "netsysnative sh_exec",
                 "netsysnative system_bin_file",
                 "nwebspawn system_bin_file",
-                "resource_schedule_service system_bin_file",
                 "riladapter_host sh_exec",
                 "riladapter_host system_bin_file",
                 "softbus_server system_bin_file",
