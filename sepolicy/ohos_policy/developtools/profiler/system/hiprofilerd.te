@@ -89,6 +89,7 @@ allow hiprofilerd const_display_brightness_param:file { map open read };
 
 allow hiprofilerd default_param:file { map open read };
 allow hiprofilerd system_bin_file:file { map open read execute execute_no_trans };
+allow hiprofilerd toybox_exec:file { getattr map open read execute execute_no_trans };
 allow hiprofilerd dev_unix_socket:sock_file { getattr setattr };
 
 allow hiprofilerd hiprofiler_cmd:fd use;
@@ -108,6 +109,7 @@ allow hiprofilerd hiprofiler_cmd:unix_stream_socket connectto;
 allow hiprofilerd ohos_dev_param:file { open read map};
 allow hiprofilerd system_bin_file:file getattr;
 allow hiprofilerd system_bin_file:lnk_file read;
+allow hiprofilerd toybox_exec:lnk_file read;
 allow hiprofilerd tty_device:chr_file { ioctl open };
 allow hiprofilerd musl_param:file { map open read };
 allow hiprofilerd dev_unix_file:sock_file unlink;

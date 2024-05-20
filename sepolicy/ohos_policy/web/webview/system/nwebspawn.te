@@ -99,6 +99,7 @@ allow nwebspawn data_app_file:dir { search };
 allow nwebspawn nwebspawn_socket:sock_file { setattr };
 allow nwebspawn system_bin_file:dir { search };
 allow nwebspawn system_bin_file:file { entrypoint execute map read };
+allow nwebspawn toybox_exec:file { entrypoint execute execute_no_trans getattr map read open };
 allow nwebspawn vendor_lib_file:dir { search };
 allow nwebspawn vendor_lib_file:file { execute getattr map open read };
 allowxperm nwebspawn data_init_agent:file ioctl { 0x5413 };

@@ -35,6 +35,8 @@ allow wukong sh:dir { search };
 allow wukong sh_exec:file { execute_no_trans execute  read open map };
 allow wukong system_bin_file:file { execute execute_no_trans getattr map read open };
 allow wukong system_bin_file:lnk_file { read };
+allow wukong toybox_exec:file { execute execute_no_trans getattr map read open };
+allow wukong toybox_exec:lnk_file { read };
 allow wukong system_bin_file:dir { search };
 allow wukong multimodalinput:fd { use };
 allow wukong multimodalinput:unix_stream_socket { write };

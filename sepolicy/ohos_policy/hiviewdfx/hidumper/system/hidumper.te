@@ -34,6 +34,7 @@ allow hidumper sh:fd use;
 
 allow hidumper system_bin_file:dir search;
 allow hidumper system_bin_file:file { execute execute_no_trans map open read };
+allow hidumper toybox_exec:file { execute execute_no_trans getattr map open read };
 
 allow hidumper tty_device:chr_file { read write };
 
