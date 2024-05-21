@@ -110,6 +110,10 @@ allow normal_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_basic_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 
+allow bgtaskmgr_service sa_foundation_cesfwk_service:samgr_class {get};
+allow bgtaskmgr_service sa_foundation_ans:samgr_class {get};
+allow bgtaskmgr_service sa_accountmgr:samgr_class {get};
+
 debug_only(`
     allow bgtaskmgr_service debug_param:file { map open read };
 ')
