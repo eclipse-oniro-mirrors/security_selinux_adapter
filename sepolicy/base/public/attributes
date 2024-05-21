@@ -260,3 +260,5 @@ attribute binder_call_hdfdomain_violators;
 attribute hiview_host;
 
 attribute rgm_violator_filesystem_mount;
+
+attribute system_bin_file_quickfix;
