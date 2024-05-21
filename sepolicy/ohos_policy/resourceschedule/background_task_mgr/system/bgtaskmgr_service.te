@@ -133,7 +133,7 @@ binder_call(bgtaskmgr_service, system_basic_hap_attr);
 binder_call(bgtaskmgr_service, hiview);
 binder_call(bgtaskmgr_service, distributedsche);
 binder_call(bgtaskmgr_service, bluetooth_service);
-binder_call(bgtaskmgr_service, time_service)
+binder_call(bgtaskmgr_service, time_service);
 binder_call(normal_hap_attr, bgtaskmgr_service);
 binder_call(system_core_hap_attr, bgtaskmgr_service);
 binder_call(param_watcher, bgtaskmgr_service);
