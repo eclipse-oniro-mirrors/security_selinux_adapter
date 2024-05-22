@@ -152,3 +152,4 @@ debug_only(`
     allow nwebspawn data_file:dir { mounton getattr };
 ')
 
+neverallow { domain -nwebspawn -foundation } nwebspawn_socket:sock_file { read write };
