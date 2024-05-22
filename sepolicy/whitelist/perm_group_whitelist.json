@@ -79,7 +79,6 @@
                 "init toybox_exec",
                 "input_user_host system_bin_file",
                 "installs system_bin_file",
-                "installs toybox_exec",
                 "multimodalinput system_bin_file",
                 "multimodalinput toybox_exec",
                 "native_daemon system_bin_file",
