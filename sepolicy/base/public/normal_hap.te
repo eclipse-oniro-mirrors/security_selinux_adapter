@@ -60,6 +60,7 @@ neverallow normal_hap_attr system_file_attr:file lock;
 
 # neverallow normal_hap_attr selinuxfs:file never_rw_file;
 neverallow hap_domain selinuxfs:file never_rw_file;
+neverallow sh selinuxfs:file { write };
 
 neverallow normal_hap_attr cgroup:file *;
 
