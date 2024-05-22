@@ -28,7 +28,7 @@ allow wukong foundation:fd { use };
 allow wukong foundation:binder { call transfer };
 allow wukong hiview:binder { call transfer };
 allow wukong multimodalinput:binder { call };
-allow wukong samgr:binder { call };
+allow wukong samgr:binder { call transfer };
 allow wukong sh:fd { use };
 allow wukong sh:file { read open };
 allow wukong sh:dir { search };
