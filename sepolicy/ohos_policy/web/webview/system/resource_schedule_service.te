@@ -15,3 +15,11 @@
 allow resource_schedule_service isolated_render:process { setsched };
 
 allow resource_schedule_service isolated_gpu:process { setsched };
+
+allow resource_schedule_service isolated_render:dir { search };
+
+allow resource_schedule_service isolated_gpu:dir { search };
+
+allow resource_schedule_service isolated_render:file { getattr open read };
+
+allow resource_schedule_service isolated_gpu:file { getattr open read };

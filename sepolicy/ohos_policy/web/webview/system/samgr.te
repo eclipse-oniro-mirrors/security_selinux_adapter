@@ -25,3 +25,4 @@ allow samgr isolated_render:binder { call };
 allow samgr isolated_gpu:dir { search };
 allow samgr isolated_gpu:file { open read };
 allow samgr isolated_gpu:process { getattr };
+allow samgr isolated_gpu:binder { call };
