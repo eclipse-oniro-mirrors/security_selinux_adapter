@@ -155,7 +155,8 @@ allow distributeddata persist_param:file { map open read };
 allow distributeddata persist_sys_param:file { map open read };
 # avc denied { call } for pid=1509, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=resource_schedule_service:s0 tclass=binder permissive=1
 #Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
-allow distributeddata resource_schedule_service:binder { call };
+allow distributeddata resource_schedule_service:binder { call transfer };
+allow distributeddata sa_resource_schedule:samgr_class { get };
 allow distributeddata sa_device_auth_service:samgr_class { get };
 allow distributeddata sa_device_security_level_manager_service:samgr_class { get };
 allow distributeddata sa_foundation_abilityms:samgr_class { get };

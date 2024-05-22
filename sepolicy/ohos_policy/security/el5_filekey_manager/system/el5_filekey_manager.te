@@ -1,0 +1,57 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow el5_filekey_manager sa_accesstoken_manager_service:samgr_class { get };
+allow el5_filekey_manager sa_foundation_cesfwk_service:samgr_class { get };
+allow el5_filekey_manager sa_screenlock_service:samgr_class { get };
+allow el5_filekey_manager sa_el5_filekey_manager:samgr_class { add };
+
+allow hap_domain sa_el5_filekey_manager:samgr_class { get };
+
+allow init el5_filekey_manager:process { rlimitinh siginh transition };
+
+# avc:  denied  { call } for  pid=563 comm="OS_FFRT_1_0" scontext=u:r:foundation:s0 tcontext=u:r:el5_filekey_manager:s0 tclass=binder permissive=1
+allow foundation el5_filekey_manager:binder { call };
+
+# avc:  denied  { map } for  pid=2030 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=2030 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=2030 comm="sa_main" name="u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow el5_filekey_manager debug_param:file { map open read };
+
+# avc:  denied  { read write } for  pid=2030 comm="sa_main" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+allow el5_filekey_manager dev_console_file:chr_file { read write };
+
+# avc:  denied  { search } for  pid=2030 comm="sa_main" name="socket" dev="tmpfs" ino=43 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow el5_filekey_manager dev_unix_socket:dir { search };
+
+# avc:  denied  { getopt } for  pid=1643 comm="SaOndemand" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:el5_filekey_manager:s0 tclass=unix_dgram_socket permissive=1
+# avc:  denied  { setopt } for  pid=1643 comm="SaOndemand" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:el5_filekey_manager:s0 tclass=unix_dgram_socket permissive=1
+allow el5_filekey_manager el5_filekey_manager:unix_dgram_socket { getopt setopt };
+
+# avc:  denied  { map } for  pid=2030 comm="sa_main" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=71 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=2030 comm="sa_main" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=71 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=2030 comm="sa_main" name="u:object_r:persist_param:s0" dev="tmpfs" ino=71 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+allow el5_filekey_manager persist_param:file { map open read };
+
+# avc:  denied  { read } for  pid=2030 comm="el5_filekey_man" name="online" dev="sysfs" ino=4921 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow el5_filekey_manager sysfs_devices_system_cpu:file { read getattr open };
+
+# avc:  denied  { search } for  pid=2030 comm="el5_filekey_man" name="/" dev="tracefs" ino=1 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
+allow el5_filekey_manager tracefs:dir { search };
+
+# avc:  denied  { call } for  pid=1626 comm="el5_filekey_man" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow el5_filekey_manager accesstoken_service:binder { call };
+
+# avc:  denied  { call } for  pid=2285 comm="SaInit0" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=2285 comm="SaInit0" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow el5_filekey_manager foundation:binder { call transfer };

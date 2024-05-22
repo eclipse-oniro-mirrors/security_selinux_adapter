@@ -114,6 +114,8 @@ allow hidumper_service system_basic_hap_attr:lnk_file read;
 allow hidumper_service system_bin_file:dir { getattr search };
 allow hidumper_service system_bin_file:file { execute execute_no_trans getattr map open read };
 allow hidumper_service system_bin_file:lnk_file read;
+allow hidumper_service toybox_exec:file { execute execute_no_trans getattr map open read };
+allow hidumper_service toybox_exec:lnk_file read;
 allow hidumper_service system_file:dir getattr;
 allow hidumper_service system_fonts_file:dir getattr;
 allow hidumper_service system_lib_file:dir getattr;

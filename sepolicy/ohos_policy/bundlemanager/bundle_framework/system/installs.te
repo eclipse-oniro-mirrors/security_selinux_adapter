@@ -11,10 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow { domain -installs debug_only(` -aa ') } data_app_el1_file:file { write };
+
 init_daemon_domain(installs);
 
 allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write setattr };
-allow installs data_app_el1_file:file { create getattr ioctl setattr unlink map read rename };
+allow installs data_app_el1_file:file { create getattr ioctl setattr unlink map read rename relabelfrom relabelto };
 allow installs data_app_el1_file:lnk_file { unlink };
 allow installs data_app_el1_file:sock_file { unlink };
 allow installs data_app_el2_file:dir { add_name create getattr open read remove_name search setattr write rmdir };
@@ -61,6 +63,7 @@ allow installs data_local_arkprofile:sock_file { unlink };
 allow installs data_local_shadercache:file { create setattr getattr map open read rename unlink write };
 allow installs data_local_shadercache:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow installs system_bin_file:file { execute execute_no_trans map read open };
+allow installs toybox_exec:file { execute execute_no_trans map read open };
 allow appspawn data_local:dir { add_name create mounton search write read open getattr };
 allow normal_hap_attr data_local:file { getattr open read map create write };
 allow normal_hap_attr data_local:dir { getattr search write add_name };
@@ -92,13 +95,13 @@ allow installs installs:code_sign { add_cert_chain remove_cert_chain };
 allow installs data_service_el0_file:dir { add_name create getattr write open read rmdir remove_name search setattr };
 allow installs data_service_el0_file:file { create getattr open read unlink write setattr };
 allow installs dev_code_sign:chr_file { ioctl write write open };
-allow installs data_app_el2_file:file { create getattr setattr unlink map read rename };
+allow installs data_app_el2_file:file { create getattr setattr unlink map read rename relabelfrom relabelto };
 allowxperm installs dev_code_sign:chr_file ioctl { 0x6b01 };
-allow installs data_app_el3_file:file { create getattr setattr unlink map read rename };
+allow installs data_app_el3_file:file { create getattr setattr unlink map read rename relabelfrom relabelto };
 allow installs data_app_el3_file:dir { add_name create getattr open read relabelfrom remove_name search setattr write rmdir };
-allow installs data_app_el4_file:file { create getattr setattr unlink map read rename };
+allow installs data_app_el4_file:file { create getattr setattr unlink map read rename relabelfrom relabelto };
 allow installs data_app_el4_file:dir { add_name create getattr open read relabelfrom remove_name search setattr write rmdir };
-allow installs data_app_el5_file:file { create getattr setattr unlink map read rename };
+allow installs data_app_el5_file:file { create getattr setattr unlink map read rename relabelfrom relabelto };
 allow installs data_app_el5_file:dir { add_name create getattr open read relabelfrom remove_name search setattr write rmdir };
 allow installs normal_hap_data_file_attr:lnk_file { unlink };
 allow installs system_basic_hap_data_file_attr:lnk_file { unlink };
@@ -117,4 +120,7 @@ allow installs dev_block_file:lnk_file { read };
 allow installs dev_block_volfile:dir { search };
 allow installs labeledfs:filesystem { quotaget };
 allow installs installs:capability { sys_admin };
-allow installs ark_aot_compiler:process { sigkill };
+allow installs sa_el5_filekey_manager:samgr_class { get };
+allow installs el5_filekey_manager:binder { call };
+allow installs data_app_el5_file:dir { ioctl };
+allowxperm installs data_app_el5_file:dir ioctl { 0xf554 };

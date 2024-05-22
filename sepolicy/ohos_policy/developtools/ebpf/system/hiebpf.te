@@ -31,6 +31,7 @@ allow hiebpf domain:file { open read getattr };
 
 allow hiebpf system_bin_file:dir search;
 allow hiebpf system_bin_file:file { getattr map open read };
+allow hiebpf toybox_exec:file { getattr map open read };
 allow hiebpf self:perf_event { cpu kernel open write };
 
 debug_only(`

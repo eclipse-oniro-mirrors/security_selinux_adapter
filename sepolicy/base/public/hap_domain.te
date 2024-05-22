@@ -37,7 +37,7 @@ neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw
 neverallow { hap_domain -system_basic_hap_attr } system_basic_hap_attr:file never_rw_file;
 neverallow { domain -system_basic_hap_attr -processdump } system_basic_hap_attr:process ptrace;
 
-neverallow hap_domain ~{ proc_attr tmpfs system_bin_file data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file }:lnk_file *;
+neverallow hap_domain ~{ proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file }:lnk_file *;
 neverallow hap_domain { proc_attr tmpfs system_bin_file rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file }:lnk_file ~{ getattr read };
 neverallow hap_domain hap_domain:lnk_file ~{ read_file_perms };
 neverallow { hap_domain -hap_domain_lnk_file_violators } data_user_file:lnk_file *;
@@ -161,7 +161,7 @@ neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { 
 #limit access to normal_hap_data_file_attr
 neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -appspawn -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt updater_only(`-updater') } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -distributedfiledaemon -pasteboard_service developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:dir *;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -cjappspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -distributedfiledaemon -pasteboard_service developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:dir *;
 
 neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt developer_only(`-hdcd') updater_only(`-updater') } normal_hap_data_file_attr:file_class_set open;
 

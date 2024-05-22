@@ -67,6 +67,7 @@ allow bootanimation sys_param:file { map open read };
 allow bootanimation system_basic_hap_attr:fd { use };
 allow bootanimation system_bin_file:dir { search };
 allow bootanimation system_bin_file:file { entrypoint execute map read };
+allow bootanimation toybox_exec:file { entrypoint execute map read };
 allow bootanimation system_usr_file:dir { search };
 allow bootanimation system_usr_file:file { getattr map open read };
 allow bootanimation sys_usb_param:file { map open read };

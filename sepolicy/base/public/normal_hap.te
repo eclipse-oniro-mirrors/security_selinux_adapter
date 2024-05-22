@@ -58,7 +58,8 @@ neverallow normal_hap_attr proc_config_gz_file:file { never_rwx_file };
 #expand to system_file_attr
 neverallow normal_hap_attr system_file_attr:file lock;
 
-neverallow normal_hap_attr selinuxfs:file never_rw_file;
+# neverallow normal_hap_attr selinuxfs:file never_rw_file;
+neverallow hap_domain selinuxfs:file never_rw_file;
 
 neverallow normal_hap_attr cgroup:file *;
 
@@ -71,3 +72,8 @@ neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr proc_net:file rw_file_perms;
 neverallow normal_hap_attr proc_net:dir ~{ getattr };
+
+# neverallow normal_hap sh restorecon
+neverallow { sh debug_only(`-sh') normal_hap_attr } *:dir_file_class_set { relabelto relabelfrom };
+
+neverallow normal_hap_attr { dev_block_volfile dev_block_file dev_bus cgroup dev_char_file dev_pts_file dev_snd_file dev_unix_file dev_v_file }:file { open read };

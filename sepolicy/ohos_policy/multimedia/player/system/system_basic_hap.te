@@ -17,3 +17,7 @@ allow system_basic_hap_attr normal_hap_attr:binder { transfer };
 allow system_basic_hap_attr media_service:fd { use }; 
 
 allow system_basic_hap_attr media_service:binder { call transfer }; 
+
+allow system_basic_hap sys_prod_file:dir { search };
+
+allow system_basic_hap system_core_hap:binder { transfer };

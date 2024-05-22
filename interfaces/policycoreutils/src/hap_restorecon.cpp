@@ -406,10 +406,10 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
     }
     // check whether the context is valid
     if (security_check_context(secontext) < 0) {
+        selinux_log(SELINUX_ERROR, "context: %s, %s\n", secontext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         freecon(*secontextPtr);
         *secontextPtr = nullptr;
         context_free(con);
-        selinux_log(SELINUX_ERROR, "context: %s, %s\n", secontext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
     freecon(*secontextPtr);
@@ -462,9 +462,9 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         hapDomainInfo.packageName.c_str(), oldTypeContext, typeContext);
 
     if (security_check_context(typeContext) < 0) {
+        selinux_log(SELINUX_ERROR, "context: %s, %s\n", typeContext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         freecon(oldTypeContext);
         context_free(con);
-        selinux_log(SELINUX_ERROR, "context: %s, %s\n", typeContext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 

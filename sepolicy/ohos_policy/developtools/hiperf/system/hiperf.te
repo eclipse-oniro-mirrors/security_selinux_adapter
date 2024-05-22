@@ -108,6 +108,7 @@ allow hiperf rootfs:file read;
 allow hiperf sh_exec:file { getattr map open read };
 allow hiperf sysfs_kernel_notes:file { open read };
 allow hiperf system_bin_file:file { execute execute_no_trans getattr map open read };
+allow hiperf toybox_exec:file { execute execute_no_trans getattr map open read };
 allow hiperf tmpfs:file { read write };
 
 allow hiperf hiprofiler_plugins:fd use;
@@ -146,6 +147,7 @@ allow hiperf self:perf_event tracepoint;
 allow hiperf system_basic_hap_attr:dir { open read };
 allow hiperf system_basic_hap_attr:process signull;
 allow hiperf system_bin_file:lnk_file read;
+allow hiperf toybox_exec:lnk_file read;
 allow hiperf ui_service:dir { open read };
 allow hiperf ui_service:process signull;
 allow hiperf hiview:process signull;

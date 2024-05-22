@@ -62,6 +62,7 @@ allowxperm softbus_server softbus_server:socket ioctl { 0x8933 0x8916 0x890B 0x8
 allow softbus_server system_core_hap_attr:binder { call };
 
 binder_call(softbus_server, privacy_service);
+binder_call(softbus_server, accountmgr);
 
 allow softbus_server musl_param:file { open map read };
 
@@ -110,3 +111,7 @@ allow softbus_server distributeddata:binder { transfer };
 
 #avc:  denied  { get } for service=501 pid=1448 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_foundation_appms:samgr_class { get };
+
+allow softbus_server data_service_el1_file:file { map };
+
+allow softbus_server data_service_el1_file:dir { create };

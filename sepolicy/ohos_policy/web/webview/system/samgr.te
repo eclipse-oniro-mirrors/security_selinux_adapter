@@ -20,3 +20,8 @@ allow samgr isolated_render:file { open read };
 
 # avc:  denied  { getattr } for  pid=490 comm="IPC_7_1799" scontext=u:r:samgr:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow samgr isolated_render:process { getattr };
+
+allow samgr isolated_render:binder { call };
+allow samgr isolated_gpu:dir { search };
+allow samgr isolated_gpu:file { open read };
+allow samgr isolated_gpu:process { getattr };

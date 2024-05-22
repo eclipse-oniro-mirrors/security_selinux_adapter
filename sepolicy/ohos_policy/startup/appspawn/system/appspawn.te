@@ -188,14 +188,13 @@ allow appspawn data_service_el2_hmdfs:dir { mounton };
 allow appspawn normal_hap_data_file_attr:dir { create write add_name setattr };
 
 # avc:  denied  { fsetid } for  pid=274 comm="appspawn" capability=4  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=0
-allow appspawn appspawn:capability { fsetid };
-
-allowxperm normal_hap dev_ucollection:chr_file ioctl { 0x1 };
 
 #init extend command, support to enter the application sandbox.
 debug_only(`
     allow appspawn system_bin_file:lnk_file { read };
     allow appspawn system_bin_file:file { getattr execute read open execute_no_trans map };
+    allow appspawn toybox_exec:lnk_file { read };
+    allow appspawn toybox_exec:file { getattr execute read open execute_no_trans map };
     allow appspawn tty_device:chr_file { getattr ioctl open read write };
     allowxperm appspawn tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
     allow appspawn devpts:chr_file { read write open getattr ioctl };

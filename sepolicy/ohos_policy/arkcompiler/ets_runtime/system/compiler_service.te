@@ -1,0 +1,43 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain_auto_transition_pattern(compiler_service, ark_aot_compiler_exec, ark_aot_compiler);
+allow compiler_service sa_local_code_sign:samgr_class { add get };
+allow compiler_service compiler_service:capability { setgid setuid };
+allow compiler_service sa_local_code_sign:samgr_class { get };
+allow compiler_service local_code_sign:binder { call };
+allow compiler_service hilog_param:file { map open read };
+allow compiler_service ark_writeable_param:file { map read open };
+allow compiler_service data_local_arkcache:file { map read open ioctl };
+allowxperm compiler_service data_local_arkcache:file ioctl { 0x5413 };
+
+allow compiler_service ark_aot_compiler_exec:file { execute execute_no_trans map open read execute read };
+allow compiler_service compiler_service:unix_dgram_socket { getopt setopt };
+allow compiler_service data_local:dir { search };
+allow compiler_service data_local_arkcache:dir { open read search setattr write add_name search write remove_name search };
+allow compiler_service data_local_arkcache:file { create getattr setattr unlink write };
+allow compiler_service data_local_arkprofile:dir { search write add_name search write remove_name search };
+allow compiler_service data_local_arkprofile:file { map open read rename };
+allow compiler_service debug_param:file { map open read };
+
+allow compiler_service dev_kmsg_file:chr_file { write };
+allow compiler_service dev_unix_socket:dir { search };
+allow compiler_service sa_ark_aot_compiler:samgr_class { add };
+allow compiler_service sysfs_devices_system_cpu:file { getattr open read };
+allow compiler_service tty_device:chr_file { read write };
+allow compiler_service ark_aot_compiler:process { rlimitinh siginh transition sigkill };
+allow compiler_service compiler_service:capability { kill };
+allow compiler_service persist_param:file { map open read };
+allow compiler_service sa_foundation_cesfwk_service:samgr_class { get };
+allow compiler_service foundation:binder { call transfer };
+allow foundation compiler_service:binder { call };

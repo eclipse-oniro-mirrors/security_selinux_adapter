@@ -55,6 +55,7 @@ allow download_server startup_param:file { map open read };
 allow download_server sys_param:file { map open read };
 allow download_server system_bin_file:dir { search };
 allow download_server system_bin_file:file { execute execute_no_trans map read open };
+allow download_server toybox_exec:file { execute execute_no_trans map read open };
 allow download_server system_basic_hap_attr:fd { use };
 allow download_server system_basic_hap_data_file_attr:file { read write };
 allow download_server sys_usb_param:file { map open read };

@@ -203,6 +203,7 @@ allow hiprofiler_plugins storage_daemon:file { getattr open };
 
 allow hiprofiler_plugins hilogd:file getattr;
 allow hiprofiler_plugins system_bin_file:file execute;
+allow hiprofiler_plugins toybox_exec:file { execute execute_no_trans getattr map open read };
 allow hiprofiler_plugins tmpfs:file { map read };
 allow hiprofiler_plugins tracefs:dir search;
 allow hiprofiler_plugins tracefs:file { getattr read };
@@ -291,6 +292,7 @@ allow hiprofiler_plugins accountmgr:binder { call };
 allow hiprofiler_plugins foundation:binder { call };
 allow accountmgr hiprofiler_plugins:binder { transfer };
 allow hiprofiler_plugins system_bin_file:lnk_file read;
+allow hiprofiler_plugins toybox_exec:lnk_file read;
 allow hiprofiler_plugins SP_daemon_exec:file { getattr open read execute execute_no_trans map};
 
 allow hiprofiler_plugins sa_render_service:samgr_class get;

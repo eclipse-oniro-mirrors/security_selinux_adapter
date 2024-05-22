@@ -83,3 +83,4 @@ neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };
 neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search } vendor_etc_vulkan_file:dir { open read search };
 neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read } vendor_etc_vulkan_file:file { getattr open read };
 neverallow { domain -init developer_only(`-appspawn') } vendor_etc_vulkan_file:dir { getattr };
+neverallow { domain } dev_graphics_file:file ~{ getattr open read };

@@ -67,6 +67,8 @@ debug_only(`
     allow aa system_bin_file:dir { search };
     allow aa system_bin_file:file { getattr execute read open execute_no_trans map };
     allow aa system_bin_file:lnk_file { read };
+    allow aa toybox_exec:file { execute execute_no_trans getattr map read open };
+    allow aa toybox_exec:lnk_file { read };
     allow aa tracefs:dir { search };
     allow aa tty_device:chr_file { read write open ioctl };
     allow aa uinput_exec:file { execute execute_no_trans getattr map read open };
@@ -96,6 +98,9 @@ debug_only(`
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa sh:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+    # ability_delegator call hidumper --mem $(pidof com.ohos.formrenderservice)
+    allow aa formrenderservice_hap:dir { search };
+    allow aa formrenderservice_hap:file { open read };
 ')
 
 # add for aa in developer mode
@@ -126,6 +131,8 @@ developer_only(`
     allow aa system_bin_file:dir { search };
     allow aa system_bin_file:file { getattr execute read open execute_no_trans map };
     allow aa system_bin_file:lnk_file { read };
+    allow aa toybox_exec:file { getattr execute read open execute_no_trans map };
+    allow aa toybox_exec:lnk_file { read };
     allow aa tracefs:dir { search };
     allow aa tty_device:chr_file { read write open ioctl };
     allow debug_hap aa:binder { call };
@@ -144,4 +151,7 @@ developer_only(`
     allowxperm aa devpts:chr_file ioctl { 0x5413 };
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+    # ability_delegator call hidumper --mem $(pidof com.ohos.formrenderservice)
+    allow aa formrenderservice_hap:dir { search };
+    allow aa formrenderservice_hap:file { open read };
 ')

@@ -128,5 +128,7 @@ allow av_codec_service system_core_hap_attr:binder { call transfer };
 # avc_audit_slow:260] avc: denied { call } for pid=1654, comm="/system/bin/sa_main"  scontext=u:r:av_codec_service:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
 allow av_codec_service drm_service:binder { call };
 
+allow av_codec_service camera_service:binder { call transfer };
+
 allow av_codec_service dhardware:binder { call transfer };
 allow av_codec_service dscreen:binder { call transfer };

@@ -236,6 +236,7 @@ allow storage_daemon system_basic_hap_attr:file { read };
 #avc:  denied  { open } for  pid=1662 comm="storage_daemon" path="/system/bin/restorecon" dev="mmcblk0p6" ino=335 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 #avc:  denied  { map } for  pid=1662 comm="restorecon" path="/system/bin/restorecon" dev="mmcblk0p6" ino=335 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow storage_daemon system_bin_file:file { read execute open execute_no_trans map };
+allow storage_daemon toybox_exec:file { read execute open execute_no_trans getattr map };
 
 #avc:  denied  { getattr } for  pid=256 comm="storage_daemon" path="/sys/devices/platform/fd800000.usb/usb1/1-1/1-1:1.0/host1/target1:0:0/1:0:0:0/vendor" dev="sysfs" ino=32018 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 allow storage_daemon sys_file:file { getattr read };

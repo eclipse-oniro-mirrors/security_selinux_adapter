@@ -88,6 +88,7 @@ allow softbus_server system_basic_hap_attr:binder { call transfer };
 allow softbus_server system_basic_hap_attr:fd { use };
 allow softbus_server system_bin_file:dir { search };
 allow softbus_server system_bin_file:file { execute execute_no_trans map read read open };
+allow softbus_server toybox_exec:file { execute execute_no_trans map read open };
 allow softbus_server system_usr_file:dir { search };
 allow softbus_server system_usr_file:file { getattr map open read };
 allow softbus_server sys_usb_param:file { map open read };

@@ -251,9 +251,14 @@ attribute system_etc_file_violator_dir;
 attribute system_etc_file_violator_file;
 attribute system_etc_file_violator_lnk_file;
 attribute system_profile_file_violator_dir;
+attribute system_fonts_file_violator_dir_mounton;
 
 attribute hdf_service_violators;
 
 attribute binder_call_hdfdomain_violators;
 
 attribute hiview_host;
+
+attribute rgm_violator_filesystem_mount;
+
+attribute system_bin_file_quickfix;

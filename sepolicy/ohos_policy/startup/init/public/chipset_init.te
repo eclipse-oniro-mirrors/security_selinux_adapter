@@ -26,6 +26,7 @@ allow chipset_init system_lib_file:dir { open read };
 allow chipset_init system_lib_file:lnk_file { relabelto getattr };
 allow chipset_init system_bin_file:dir { search };
 allow chipset_init system_bin_file:file { execute getattr read read open };
+allow chipset_init toybox_exec:file { execute getattr map read open };
 allow chipset_init system_etc_file:dir { open read search getattr };
 allow chipset_init system_etc_file:file { getattr open read };
 allow chipset_init system_etc_file:lnk_file { relabelto read getattr };

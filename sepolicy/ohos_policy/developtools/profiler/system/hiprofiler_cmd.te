@@ -90,10 +90,12 @@ allow hiprofiler_cmd tty_device:chr_file { ioctl open };
 
 allow hiprofiler_cmd rootfs:file getattr;
 allow hiprofiler_cmd system_bin_file:lnk_file read;
+allow hiprofiler_cmd toybox_exec:lnk_file read;
 
 allow hiprofiler_cmd init:file read;
 allow hiprofiler_cmd kernel:file read;
 allow hiprofiler_cmd system_bin_file:file { execute execute_no_trans getattr map open read };
+allow hiprofiler_cmd toybox_exec:file { execute execute_no_trans getattr map open read };
 
 allow hiprofiler_cmd dev_unix_socket:dir remove_name;
 allow hiprofiler_cmd dev_unix_socket:sock_file unlink;
@@ -169,4 +171,4 @@ allow hiprofiler_cmd vendor_bin_file:dir search;
 allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };
 allow hiprofiler_cmd dev_file:dir getattr;
 allow hiprofiler_cmd dev_ashmem_file:chr_file { open };
-allow hiprofiler_cmd hdcd_exec:file { read open getattr };
+allow hiprofiler_cmd hdcd_exec:file { read open getattr map };

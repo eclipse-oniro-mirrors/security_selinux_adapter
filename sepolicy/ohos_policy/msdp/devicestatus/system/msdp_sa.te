@@ -216,3 +216,6 @@ allow msdp_sa sa_foundation_appms:samgr_class { get };
 allow msdp_sa sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
 allow msdp_sa distributedfiledaemon:binder { call };
 allow msdp_sa inputmethod_service:binder { call transfer };
+
+#avc:  denied  { get } for service=1912 pid=1070 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_concurrent_task_service:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_concurrent_task_service:samgr_class { get };

@@ -11,12 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-debug_only(`
-allow accessibility sh:binder { call transfer };
-')
 developer_only(`
-allow accessibility wukong:binder { call };
-allow accessibility wukong:binder { transfer };
+allow accessibility sh:binder { call transfer };
+allow accessibility wukong:binder { call transfer };
 ')
 
 

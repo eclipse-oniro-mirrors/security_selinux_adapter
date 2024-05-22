@@ -43,6 +43,8 @@ allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
 allow hiview system_bin_file:file { read execute entrypoint };
 allow hiview system_bin_file:lnk_file { read };
+allow hiview toybox_exec:file { read execute entrypoint getattr map open };
+allow hiview toybox_exec:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
 allow hiview dev_bbox:chr_file { ioctl read open };
@@ -253,3 +255,7 @@ allow hiview processdump:fifo_file { read };
 allow hiview distributeddata:binder { call transfer };
 allow hiview distributeddata:fd { use };
 
+allow sadomain dev_bbox:chr_file { ioctl read open write };
+allowxperm sadomain dev_bbox:chr_file ioctl { 0xab09 };
+
+neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };

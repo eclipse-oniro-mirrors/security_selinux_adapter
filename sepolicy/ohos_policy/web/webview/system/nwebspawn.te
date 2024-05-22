@@ -99,6 +99,7 @@ allow nwebspawn data_app_file:dir { search };
 allow nwebspawn nwebspawn_socket:sock_file { setattr };
 allow nwebspawn system_bin_file:dir { search };
 allow nwebspawn system_bin_file:file { entrypoint execute map read };
+allow nwebspawn toybox_exec:file { entrypoint execute execute_no_trans getattr map read open };
 allow nwebspawn vendor_lib_file:dir { search };
 allow nwebspawn vendor_lib_file:file { execute getattr map open read };
 allowxperm nwebspawn data_init_agent:file ioctl { 0x5413 };
@@ -118,6 +119,7 @@ allow nwebspawn data_misc:file { create map open read write unlink };
 
 # avc:  denied  { dyntransition } for  pid=5103 comm="ei.hmos.browser" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow nwebspawn isolated_render:process { dyntransition };
+allow nwebspawn isolated_gpu:process { dyntransition };
 
 # avc:  denied  { search } for  pid=308 comm="appspawn" name="etc" dev="mmcblk0p8" ino=16 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
 allow nwebspawn vendor_etc_file:dir { search };

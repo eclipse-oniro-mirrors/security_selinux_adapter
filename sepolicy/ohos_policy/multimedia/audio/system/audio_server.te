@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,175 +11,73 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#audio_policy => audio_server
 init_daemon_domain(audio_server);
 
-#avc:  denied  { getopt } for  pid=476 comm="threaded-ml" scontext=u:r:audio_server:s0 tcontext=u:r:audio_server:s0 tclass=unix_dgram_socket permissive=1
-#avc:  denied  { setopt } for  pid=476 comm="threaded-ml" scontext=u:r:audio_server:s0 tcontext=u:r:audio_server:s0 tclass=unix_dgram_socket permissive=1
-allow audio_server audio_server:unix_dgram_socket { getopt setopt };
+debug_only(`
+    allow audio_server sh:binder { call transfer };
+')
 
-#avc:  denied  { call } for  pid=353 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=351 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
-allow audio_server bluetooth_service:binder { call transfer };
+# core func
 
-#avc:  denied  { search } for  pid=371 comm="threaded-ml" name="data" dev="mmcblk0p7" ino=1436162 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
-allow audio_server data_data_file:dir { search };
+allow audio_server sa_audio_policy_service:samgr_class { add get };
 
-#avc:  denied  { search } for  pid=371 comm="threaded-ml" name="/" dev="mmcblk0p7" ino=2 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
-allow audio_server data_file:dir { search };
+allow audio_server sa_pulseaudio_audio_service:samgr_class { get add };
 
-#avc:  denied  { search } for  pid=348 comm="audio_server" name="init_agent" dev="mmcblk0p7" ino=8166 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
-allow audio_server data_init_agent:dir { search };
+allow audio_server audio_server:binder { call transfer };
+allow audio_server audio_server:fd { use };
 
-#avc:  denied  { ioctl } for  pid=334 comm="audio_server" path="/data/init_agent/begetctl.log" dev="mmcblk0p7" ino=75 ioctlcmd=0x5413 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=334 comm="audio_server" path="/data/init_agent/begetctl.log" dev="mmcblk0p7" ino=75 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
-#avc:  denied  { read append } for  pid=334 comm="audio_server" name="begetctl.log" dev="mmcblk0p7" ino=75 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
-allow audio_server data_init_agent:file { ioctl open read append };
-
-#avc:  denied  { search } for  pid=382 comm="audio_server" name="socket" dev="tmpfs" ino=38 scontext=u:r:audio_server:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow audio_server dev_unix_socket:dir { search };
-
-#avc:  denied  { write } for  pid=382 comm="audio_server" name="hilogInput" dev="tmpfs" ino=281 scontext=u:r:audio_server:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=sock_file permissive=1
 allow audio_server dev_unix_socket:sock_file { write };
 
-#avc:  denied  { call } for  pid=371 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=361 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
-allow audio_server distributeddata:binder { call transfer };
-
-#avc:  denied  { call } for  pid=334 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:hdcd:s0 tclass=binder permissive=1
-allow audio_server hdcd:binder { call };
-
-#avc:  denied  { call } for  pid=355 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=355 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
-allow audio_server hdf_devmgr:binder { call transfer };
-
-#avc:  denied  { use } for  pid=407 comm="hidumper_servic" path="pipe:[37893]" dev="pipefs" ino=37893 scontext=u:r:audio_server:s0 tcontext=u:r:hidumper_service:s0 tclass=fd permissive=1
-allow audio_server hidumper_service:fd { use };
-
-#avc:  denied  { write } for  pid=407 comm="hidumper_servic" path="pipe:[31279]" dev="pipefs" ino=31279 scontext=u:r:audio_server:s0 tcontext=u:r:hidumper_service:s0 tclass=fifo_file permissive=1
-allow audio_server hidumper_service:fifo_file { write };
-
-#avc:  denied  { transfer } for  pid=360 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:init:s0 tclass=binder permissive=1
-#allow audio_server init:binder { transfer };
-
-#avc:  denied  { call } for  pid=348 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
-allow audio_server multimodalinput:binder { call };
-
-#avc:  denied  { use } for  pid=244 comm="multimodalinput" path="socket:[25817]" dev="sockfs" ino=25817 scontext=u:r:audio_server:s0 tcontext=u:r:multimodalinput:s0 tclass=fd permissive=1
-allow audio_server multimodalinput:fd { use };
-
-#avc:  denied  { read write } for  pid=244 comm="multimodalinput" path="socket:[25817]" dev="sockfs" ino=25817 scontext=u:r:audio_server:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
-allow audio_server multimodalinput:unix_stream_socket { read write };
-
-#avc:  denied  { write } for  pid=338 comm="audio_server" name="native" dev="tmpfs" ino=293 scontext=u:r:audio_server:s0 tcontext=u:object_r:native_socket:s0 tclass=sock_file permissive=1
 allow audio_server native_socket:sock_file { write };
 
-#avc:  denied  { call } for  pid=348 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=348 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
-allow audio_server param_watcher:binder { call transfer };
+allow audio_server init:unix_stream_socket { accept connectto getattr getopt listen setopt };
 
-#avc:  denied  { call } for  pid=342 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
-allow audio_server audio_server:binder { call transfer};
+allow audio_server kernel:unix_stream_socket { connectto };
 
-#avc:  denied  { get } for service=3503 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
-allow audio_server sa_accesstoken_manager_service:samgr_class { get };
+allow audio_server audio_server:unix_dgram_socket { getopt setopt };
 
-#avc:  denied  { get } for service=3301 pid=876 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
-allow audio_server sa_powermgr_powermgr_service:samgr_class { get };
+allow audio_server audio_server:netlink_kobject_uevent_socket { getattr read bind create setopt };
 
-#avc:  denied  { get } for service=5100 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-allow audio_server sa_device_service_manager:samgr_class { get };
+# dir or file access
 
-#avc:  denied  { get } for service=1301 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=1
-allow audio_server sa_distributeddata_service:samgr_class { get };
+allow audio_server data_data_pulse_dir:dir { add_name getattr open read remove_name search setattr write };
+allow audio_server data_data_pulse_dir:fifo_file { create getattr open read write setattr unlink };
+allow audio_server data_data_pulse_dir:file { create getattr ioctl read write open lock setattr unlink };
+allow audio_server data_data_pulse_dir:sock_file { create setattr unlink write };
+allowxperm audio_server data_data_pulse_dir:file ioctl { 0x5413 };
 
-#avc:  denied  { get } for service=3101 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
-allow audio_server sa_multimodalinput_service:samgr_class { get };
+allow audio_server system_bin_file:dir { getattr search };
 
-#avc:  denied  { get } for service=3901 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
-allow audio_server sa_param_watcher:samgr_class { get };
+allow audio_server data_file:dir { search };
 
-#avc:  denied  { search } for  pid=338 comm="audio_server" name="/" dev="tracefs" ino=1 scontext=u:r:audio_server:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
-allow audio_server tracefs:dir { search };
+allow audio_server data_data_file:dir { search };
 
-#avc:  denied  { open } for  pid=338 comm="audio_server" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=13989 scontext=u:r:audio_server:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=1
-#avc:  denied  { write } for  pid=338 comm="audio_server" name="trace_marker" dev="tracefs" ino=13989 scontext=u:r:audio_server:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=1
-allow audio_server tracefs:file { open write };
-
-#avc:  denied  { open } for  pid=335 comm="audio_server" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=13989 scontext=u:r:audio_server:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
-#avc:  denied  { write } for  pid=385 comm="audio_server" name="trace_marker" dev="tracefs" ino=15019 scontext=u:r:audio_server:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
-allow audio_server tracefs_trace_marker_file:file { open write };
-
-#avc:  denied  { search } for  pid=374 comm="audio_server" name="etc" dev="mmcblk0p7" ino=19 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
-allow audio_server vendor_etc_file:dir { search };
-
-#avc:  denied  { read } for  pid=359 comm="audio_server" name="libhdi.z.so" dev="mmcblk0p6" ino=87 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=359 comm="audio_server" path="/vendor/lib/libhdi.z.so" dev="mmcblk0p6" ino=87 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
-#avc:  denied  { getattr } for  pid=359 comm="audio_server" path="/vendor/lib/libhdi.z.so" dev="mmcblk0p6" ino=87 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
-#avc:  denied  { map } for  pid=359 comm="audio_server" path="/vendor/lib/libhdi.z.so" dev="mmcblk0p6" ino=87 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
-#avc:  denied  { execute } for  pid=359 comm="audio_server" path="/vendor/lib/libhdi.z.so" dev="mmcblk0p6" ino=87 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
-allow audio_server vendor_lib_file:file { read open getattr map execute };
-
-#avc:  denied  { ioctl } for  pid=334 comm="audio_server" path="/data/init_agent/begetctl.log" dev="mmcblk0p7" ino=75 ioctlcmd=0x5413 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
+allow audio_server data_init_agent:dir { search };
+allow audio_server data_init_agent:file { ioctl open read append };
 allowxperm audio_server data_init_agent:file ioctl { 0x5413 };
 
 allow audio_server data_service_file:dir { search };
 allow audio_server data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow audio_server data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 
-allow audio_server accesstoken_service:binder { call transfer };
-
-allow audio_server accessibility:binder { call transfer };
-allow audio_server accessibility_param:file { map open read };
-allow audio_server sa_accessibleabilityms:samgr_class { get };
-
-allow audio_server privacy_service:binder { call transfer };
-allow audio_server sa_privacy_service:samgr_class { get };
-
-allow audio_server persist_audio_param:parameter_service { set };
-allow domain persist_audio_param:file { map open read };
-
-allow audio_server paramservice_socket:sock_file { write };
-allow audio_server kernel:unix_stream_socket { connectto };
-
-allow audio_server persist_param:parameter_service { set };
+allow audio_server vendor_file:file { execute getattr map open read };
 
 allow audio_server vendor_bin_file:dir { search };
 
-allow audio_server sa_foundation_devicemanager_service:samgr_class { get };
+allow audio_server vendor_etc_file:dir { search };
+allow audio_server vendor_etc_file:file { getattr read open };
 
-allow audio_server device_manager:binder { transfer call };
-
-allow audio_server sa_foundation_bms:samgr_class { get };
+allow audio_server vendor_lib_file:file { read open getattr map execute };
+allow audio_server vendor_lib_file:dir { search };
 
 allow audio_server musl_param:file { open map read };
 
-allow audio_server distributeddata:fd { use };
-
-allow audio_server sa_dataobs_mgr_service_service:samgr_class { get };
-
-allow audio_server sa_foundation_abilityms:samgr_class { get };
-
-allow audio_server foundation:binder { call transfer };
-
-binder_call(audio_server, powermgr);
-
-allow audio_server a2dp_host:binder { call };
-
-allow audio_server hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
-
 allow audio_server dev_ashmem_file:chr_file { open };
-
-debug_only(`
-    allow audio_server sh:binder { call transfer };
-')
 
 # /dev/input/
 allow audio_server dev_input_file:dir { search };
 allow audio_server dev_input_file:chr_file { read open };
-
-# netsys_socket
-allow audio_server audio_server:netlink_kobject_uevent_socket { getattr read bind create setopt };
 
 # /dev/bus/
 allow audio_server dev_bus:dir { search };
@@ -189,118 +87,108 @@ allow audio_server dev_bus_usb_file:chr_file { getattr read open };
 # /sys/class/switch/
 allow audio_server sysfs_switch:file { open read getattr };
 
-#pulseaudio => audio_server
-#avc:  denied  { call } for  pid=304 comm="hdi-sink-playba" scontext=u:r:audio_server:s0 tcontext=u:r:audio_host:s0 tclass=binder permissive=1
+# for application call
+
+allow audio_server normal_hap_attr:binder { call transfer };
+
+allow audio_server system_core_hap_attr:binder { call transfer };
+
+allow audio_server system_basic_hap_attr:binder { call transfer };
+
+# for audio hdf
+
+allow audio_server hdf_audio_hdi_service:hdf_devmgr_class { get };
+
+allow audio_server hdf_audio_hdi_usb_service:hdf_devmgr_class { get };
+
+allow audio_server hdf_audio_hdi_a2dp_service:hdf_devmgr_class { get };
+
+allow audio_server hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
+
+allow audio_server hdf_audio_manager_service:hdf_devmgr_class { get };
+
+allow audio_server hdf_effect_model_service:hdf_devmgr_class { get };
+
 allow audio_server audio_host:binder { call transfer };
 allow audio_server audio_host:fd { use };
 
-allow audio_server normal_hap_attr:binder { call transfer };
-allow audio_server system_core_hap_attr:binder { call transfer };
+allow audio_server a2dp_host:binder { call };
 
-#avc:  denied  { add_name } for  pid=285 comm="audio_server" name="pipe_sink.pcm" scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-#avc:  denied  { getattr } for  pid=285 comm="audio_server" path="/data/data/.pulse_dir/runtime" dev="mmcblk0p7" ino=1436166 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-#avc:  denied  { open } for  pid=285 comm="audio_server" path="/data/data/.pulse_dir/runtime" dev="mmcblk0p7" ino=1436166 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-#avc:  denied  { read } for  pid=285 comm="audio_server" name="runtime" dev="mmcblk0p7" ino=1436166 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-#avc:  denied  { remove_name } for  pid=284 comm="audio_server" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-#avc:  denied  { search } for  pid=285 comm="audio_server" name=".pulse_dir" dev="mmcblk0p7" ino=1436165 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-#avc:  denied  { setattr } for  pid=284 comm="audio_server" name="state" dev="mmcblk0p7" ino=1436167 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-#avc:  denied  { write } for  pid=285 comm="audio_server" name=".pulse_dir" dev="mmcblk0p7" ino=1436165 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-allow audio_server data_data_pulse_dir:dir { add_name getattr open read remove_name search setattr write };
+allow audio_server hdf_devmgr:binder { call transfer };
 
-#avc:  denied  { create } for  pid=285 comm="audio_server" name="pipe_sink.pcm" scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
-#avc:  denied  { getattr } for  pid=285 comm="audio_server" path="/data/data/.pulse_dir/pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=
-#avc:  denied  { open } for  pid=285 comm="audio_server" path="/data/data/.pulse_dir/pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
-#avc:  denied  { read write } for  pid=285 comm="audio_server" name="pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
-#avc:  denied  { setattr } for  pid=285 comm="audio_server" name="pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
-allow audio_server data_data_pulse_dir:fifo_file { create getattr open read write setattr unlink };
-
-#avc:  denied  { create } for  pid=284 comm="audio_server" name="pid" scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-#avc:  denied  { getattr } for  pid=287 comm="audio_server" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-#avc:  denied  { ioctl } for  pid=287 comm="audio_server" path="/data/data/.pulse_dir/file_sink.pcm" dev="mmcblk0p11" ino=652819 ioctlcmd=0x5413 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-#avc:  denied  { read write open } for  pid=284 comm="audio_server" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-#avc:  denied  { lock } for  pid=284 comm="audio_server" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-#avc:  denied  { setattr } for  pid=285 comm="audio_server" name="cookie" dev="mmcblk0p7" ino=1436170 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-allow audio_server data_data_pulse_dir:file { create getattr ioctl read write open lock setattr unlink };
-
-#avc:  denied  { create } for  pid=284 comm="audio_server" name="cli" scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
-#avc:  denied  { setattr } for  pid=284 comm="audio_server" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
-#avc:  denied  { unlink } for  pid=284 comm="audio_server" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
-#avc:  denied  { write } for  pid=284 comm="audio_server" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
-allow audio_server data_data_pulse_dir:sock_file { create setattr unlink write };
-
-#avc:  denied  { get } for service=audio_hdi_a2dp_service pid=316 scontext=u:r:audio_server:s0 tcontext=u:object_r:hdf_audio_hdi_a2dp_service:s0 tclass=hdf_devmgr_class permissive=1
-allow audio_server hdf_audio_hdi_a2dp_service:hdf_devmgr_class { get };
-
-#avc:  denied  { get } for service=audio_hdi_service pid=288 scontext=u:r:audio_server:s0 tcontext=u:object_r:hdf_audio_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
-allow audio_server hdf_audio_hdi_service:hdf_devmgr_class { get };
-
-#avc:  denied  { get } for service=audio_hdi_usb_service pid=283 scontext=u:r:audio_server:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1i
-allow audio_server hdf_audio_hdi_usb_service:hdf_devmgr_class { get };
-
-#avc:  denied  { accept } for  pid=292 comm="audio_server" path="/dev/unix/socket/native" scontext=u:r:audio_server:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
-#avc:  denied  { getattr } for  pid=295 comm="audio_server" path="socket:[25323]" dev="sockfs" ino=25323 scontext=u:r:audio_server:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
-#avc:  denied  { getopt } for  pid=295 comm="audio_server" path="/dev/unix/socket/native" scontext=u:r:audio_server:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
-#avc:  denied  { listen } for  pid=287 comm="audio_server" path="/dev/unix/socket/native" scontext=u:r:audio_server:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
-#avc:  denied  { setopt } for  pid=292 comm="audio_server" path="/dev/unix/socket/native" scontext=u:r:audio_server:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
-allow audio_server init:unix_stream_socket { accept connectto getattr getopt listen setopt };
-
-#avc:  denied  { add } for service=3001 pid=308 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
-allow audio_server sa_pulseaudio_audio_service:samgr_class { get add };
-
-#avc:  denied  { getattr } for  pid=294 comm="audio_server" path="/system/bin" dev="mmcblk0p5" ino=101 scontext=u:r:audio_server:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
-#avc:  denied  { search } for  pid=329 comm="sa_main" name="bin" dev="mmcblk0p6" ino=103 scontext=u:r:audio_server:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
-allow audio_server system_bin_file:dir { getattr search };
-
-#avc:  denied  { getattr } for  pid=304 comm="audio_server" path="/vendor/etc/hdfconfig/audio_adapter_config.json" dev="mmcblk0p6" ino=28 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
-#avc:  denied  { read } for  pid=304 comm="audio_server" name="audio_adapter_config.json" dev="mmcblk0p6" ino=28 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=304 comm="audio_server" path="/vendor/etc/hdfconfig/audio_adapter_config.json" dev="mmcblk0p6" ino=28 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
-allow audio_server vendor_etc_file:file { getattr read open };
-
-#avc:  denied  { execute } for  pid=305 comm="audio_server" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
-#avc:  denied  { getattr } for  pid=297 comm="audio_server" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
-#avc:  denied  { map } for  pid=305 comm="audio_server" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=297 comm="audio_server" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
-#avc:  denied  { read } for  pid=292 comm="audio_server" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
-allow audio_server vendor_file:file { execute getattr map open read };
-
-#avc:  denied  { search } for  pid=294 comm="audio_server" name="lib" dev="mmcblk0p6" ino=44 scontext=u:r:audio_server:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
-allow audio_server vendor_lib_file:dir { search };
-
-#avc:  denied  { ioctl } for  pid=284 comm="audio_server" path="/data/data/.pulse_dir/file_sink.pcm" dev="mmcblk0p11" ino=652819 ioctlcmd=0x5413 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-allowxperm audio_server data_data_pulse_dir:file ioctl { 0x5413 };
-
-allow foundation audio_server:binder { call transfer };
-
-allow audio_server hdf_audio_manager_service:hdf_devmgr_class { get };
-allow audio_server sa_audio_policy_service:samgr_class { add get };
-
-allow audio_server audio_server:fd { use };
-
-allow audio_server sa_resource_schedule:samgr_class { get };
-
-#avc:  denied  { get } for service=3601 pid=387 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=1
-allow audio_server sa_sensor_service:samgr_class { get };
-
-# avc:  denied  { call } for  pid=356 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
-# avc:  denied  { transfer } for  pid=356 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
-allow audio_server sensors:binder { call transfer };
+# interact with others
 
 allow audio_server media_service:binder { call transfer };
 
-allow audio_server system_basic_hap_attr:binder { call transfer };
-# avc:  denied  { get } for service=effect_model_service pid=387 scontext=u:r:audio_server:s0 tcontext=u:object_r:hdf_effect_model_service:s0 tclass=hdf_devmgr_class permissive=1
-allow audio_server hdf_effect_model_service:hdf_devmgr_class { get };
+allow audio_server sa_media_monitor:samgr_class { get };
+allow audio_server media_monitor:binder { call };
+
+allow audio_server bluetooth_service:binder { call transfer };
 
 allow audio_server intell_voice_service:binder { call transfer };
 
+allow audio_server sa_distributeddata_service:samgr_class { get };
+allow audio_server distributeddata:binder { call transfer };
+allow audio_server distributeddata:fd { use };
+
+allow audio_server hdcd:binder { call };
+
+allow audio_server hidumper_service:fd { use };
+allow audio_server hidumper_service:fifo_file { write };
+
+allow audio_server sa_multimodalinput_service:samgr_class { get };
+allow audio_server multimodalinput:binder { call };
+allow audio_server multimodalinput:fd { use };
+allow audio_server multimodalinput:unix_stream_socket { read write };
+
+allow audio_server sa_param_watcher:samgr_class { get };
+allow audio_server param_watcher:binder { call transfer };
+
+allow audio_server sa_accesstoken_manager_service:samgr_class { get };
+
+allow audio_server sa_powermgr_powermgr_service:samgr_class { get };
+binder_call(audio_server, powermgr);
+
+allow audio_server sa_device_service_manager:samgr_class { get };
+
+allow audio_server accesstoken_service:binder { call transfer };
+
+allow audio_server sa_accessibleabilityms:samgr_class { get };
+allow audio_server accessibility:binder { call transfer };
+allow audio_server accessibility_param:file { map open read };
+
+allow audio_server privacy_service:binder { call transfer };
+allow audio_server sa_privacy_service:samgr_class { get };
+
+allow audio_server persist_audio_param:parameter_service { set };
+allow audio_server persist_param:parameter_service { set };
+
+allow audio_server paramservice_socket:sock_file { write };
+
+allow audio_server sa_foundation_devicemanager_service:samgr_class { get };
+allow audio_server foundation:binder { call transfer };
+
+allow audio_server sa_foundation_abilityms:samgr_class { get };
+
+allow audio_server sa_foundation_bms:samgr_class { get };
+
 allow audio_server sa_foundation_dms:samgr_class { get };
 
-#denied  { get } for service=200 pid=341 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow audio_server sa_dataobs_mgr_service_service:samgr_class { get };
+
+allow audio_server device_manager:binder { transfer call };
+
+allow audio_server sa_resource_schedule:samgr_class { get };
+
+allow audio_server sa_sensor_service:samgr_class { get };
+allow audio_server sensors:binder { call transfer };
+
 allow audio_server sa_accountmgr:samgr_class { get };
 allow audio_server accountmgr:binder { call transfer };
 
-#avc:  denied  { get } for service=3013 pid=356 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_media_monitor:s0 tclass=samgr_class permissive=0
-allow audio_server sa_media_monitor:samgr_class { get };
+# others
+allow domain persist_audio_param:file { map open read };
 
-#avc:  denied  { call } for  pid=367 comm="audio_server" scontext=u:r:audio_server:s0 tcontext=u:r:media_monitor:s0 tclass=binder permissive=0
-allow audio_server media_monitor:binder { call };
+allow foundation audio_server:binder { call transfer };
+
+allow audio_server camera_service:binder { call };

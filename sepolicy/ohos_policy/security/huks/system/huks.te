@@ -17,12 +17,13 @@ binder_call(huks_service, samgr);
 #allow huks_service default_service:samgr_class { get add };
 allow huks_service data_file:dir { search };
 allow huks_service data_service_file:dir { search };
-allow huks_service data_service_el1_file:dir { search };
-allow huks_service data_service_el1_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow huks_service data_service_el1_file:dir { search create write open read add_name remove_name };
+allow huks_service data_service_el1_file:file { create write open read unlink getattr setattr };
+allow huks_service data_service_el1_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr rename };
 allow huks_service data_service_el1_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allow huks_service data_service_el2_file:dir { search create write open read add_name remove_name };
 allow huks_service data_service_el2_file:file { create write open read unlink getattr setattr };
-allow huks_service data_service_el2_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow huks_service data_service_el2_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr rename };
 allow huks_service data_service_el2_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allow huks_service data_service_el4_file:dir { search create write open read add_name remove_name };
 allow huks_service data_service_el4_file:file { create write open read unlink getattr setattr };
@@ -43,6 +44,7 @@ allow huks_service faultloggerd:unix_stream_socket { connectto };
 allow huks_service hiview:binder { call };
 allow huks_service system_bin_file:dir { search };
 allow huks_service system_bin_file:file { execute execute_no_trans map read open};
+allow huks_service toybox_exec:file { execute execute_no_trans getattr map read open };
 allow huks_service dev_unix_socket:dir { search };
 allow huks_service sa_huks_service:samgr_class { get add };
 allow huks_service sa_foundation_cesfwk_service:samgr_class { get };
@@ -79,7 +81,7 @@ allow huks_service system_core_hap:binder { call transfer };
 allow normal_hap huks_service:binder { call transfer };
 allow huks_service normal_hap:binder { call transfer };
 
-developer_only(`
+debug_only(`
     allow debug_hap huks_service:binder { call transfer };
     allow huks_service debug_hap:binder { call transfer };
 ')
