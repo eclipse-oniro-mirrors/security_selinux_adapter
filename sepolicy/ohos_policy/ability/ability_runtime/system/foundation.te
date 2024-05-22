@@ -71,6 +71,7 @@ allow foundation sa_multimodalinput_service:samgr_class { get };
 allow foundation sa_param_watcher:samgr_class { get };
 allow foundation sa_softbus_service:samgr_class { get };
 allow foundation sa_telephony_tel_cellular_call:samgr_class { get };
+allow foundation sa_useriam_useridm_service:samgr_class { get };
 allow foundation screenlock_server:binder { call transfer };
 allow foundation softbus_server:binder { call };
 allow foundation sys_file:file { ioctl write };
