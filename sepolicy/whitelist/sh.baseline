@@ -39,6 +39,8 @@ developer_only(`
 (allow sh domain (dir (getattr search)))
 (allow sh domain (file (read open)))
 (allow sh domain (process (getattr)))
+(allow sh edm (process (transition getattr siginh rlimitinh)))
+(allow sh edm_exec (file (getattr read ioctl open map execute)))
 (allow sh etc_file (lnk_file (read)))
 (allow sh hdcd (fd (use)))
 (allow sh hdcd (fifo_file (ioctl read write)))

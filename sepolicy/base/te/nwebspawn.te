@@ -70,3 +70,9 @@ allow nwebspawn vendor_lib_file:dir { mounton };
 # avc: denied { map } for pid=2795 comm="appspawn" path="/system/bin/appspawn" dev="mmcblk0p7" ino=136 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:appspawn_exec:s0 tclass=file permissive=0  
 allow nwebspawn appspawn_exec:file { execute execute_no_trans open read map };
 allowxperm nwebspawn dev_at_file:chr_file ioctl { 0x4102 };
+
+debug_only(`
+    allow nwebspawn dev_pts_file:dir { search };
+    allow nwebspawn devpts:chr_file { write open ioctl getattr };
+    allowxperm nwebspawn devpts:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
+')
