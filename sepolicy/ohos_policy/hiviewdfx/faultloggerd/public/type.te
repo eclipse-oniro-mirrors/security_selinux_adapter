@@ -33,3 +33,11 @@ type processdump, native_system_domain, domain;
 type processdump_exec, exec_attr, file_attr, system_file_attr;
 
 domain_auto_transition_pattern(domain, processdump_exec, processdump);
+
+type dumpcatcher, native_system_domain, domain;
+
+type dumpcatcher_exec, exec_attr, file_attr, system_file_attr;
+
+debug_only(`
+    domain_auto_transition_pattern(su, dumpcatcher_exec, dumpcatcher);
+')
