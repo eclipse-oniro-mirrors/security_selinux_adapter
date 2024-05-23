@@ -81,7 +81,6 @@
                 "installs system_bin_file",
                 "installs toybox_exec",
                 "multimodalinput system_bin_file",
-                "multimodalinput toybox_exec",
                 "native_daemon system_bin_file",
                 "native_daemon toybox_exec",
                 "netmanager system_bin_file",
