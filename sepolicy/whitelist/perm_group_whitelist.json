@@ -80,7 +80,6 @@
                 "input_user_host system_bin_file",
                 "installs system_bin_file",
                 "multimodalinput system_bin_file",
-                "multimodalinput toybox_exec",
                 "native_daemon system_bin_file",
                 "native_daemon toybox_exec",
                 "netmanager system_bin_file",
