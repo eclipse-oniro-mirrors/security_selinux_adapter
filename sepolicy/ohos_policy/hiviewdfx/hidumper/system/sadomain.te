@@ -14,7 +14,9 @@
 developer_only(`
     allow sadomain devpts:chr_file { read write };
     allow sadomain hdcd:fd { use };
+    allow sadomain hdcd:fifo_file { write };
     debug_only(`
         allow sadomain su:fd { use };
+        allow sadomain su:fifo_file { write };
     ')
 ')
