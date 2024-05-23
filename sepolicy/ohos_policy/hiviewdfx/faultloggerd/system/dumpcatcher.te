@@ -14,12 +14,17 @@
 debug_only(`
     allow dumpcatcher debug_param:file { map open read };
     allow dumpcatcher dev_kmsg_file:chr_file { write };
+    allow dumpcatcher dev_ptmx:chr_file { read write };
     allow dumpcatcher dev_unix_socket:dir  { search };
     allow dumpcatcher devpts:chr_file { read write };
     allow dumpcatcher faultloggerd:fifo_file { read };
     allow dumpcatcher faultloggerd_socket_sdkdump:sock_file { write };
+    allow dumpcatcher su:dir { search read open };
     allow dumpcatcher su:fd { use };
+    allow dumpcatcher su:file { getattr open read };
+    allow dumpcatcher su:fifo_file { write };
     allow dumpcatcher su:unix_stream_socket { read write };
     allow dumpcatcher tty_device:chr_file { read write };
+    allowxperm dumpcatcher dev_bbox:chr_file ioctl 0xab09;
     allowxperm dumpcatcher tty_device:chr_file ioctl 0x5413;
 ')
