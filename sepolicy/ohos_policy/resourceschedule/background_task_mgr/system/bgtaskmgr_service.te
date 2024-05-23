@@ -41,8 +41,6 @@ allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
 #avc: denied { open } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 #avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
-#avc:  denied  { add } for service=1904 pid=1059 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_work_schedule_service:samgr_class { get };
 
 # device_usage_stats database read/write, Record events,bgtask info persistence
 #avc: denied { search } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
