@@ -123,3 +123,6 @@ allow installs sa_el5_filekey_manager:samgr_class { get };
 allow installs el5_filekey_manager:binder { call };
 allow installs data_app_el5_file:dir { ioctl };
 allowxperm installs data_app_el5_file:dir ioctl { 0xf554 };
+allow installs data_app_el1_file:lnk_file { create getattr };
+allow installs sh_exec:file { execute execute_no_trans map open read };
+allow installs system_bin_file:lnk_file { read getattr };
