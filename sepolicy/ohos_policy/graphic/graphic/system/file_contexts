@@ -12,3 +12,7 @@
 # limitations under the License.
 
 /system/bin/render_service      u:object_r:render_service_exec:s0
+
+/system/bin/drawing_engine_sample      u:object_r:drawing_engine_sample:s0
+
+/system/bin/drawing_sample_replayer      u:object_r:drawing_sample_replayer:s0
