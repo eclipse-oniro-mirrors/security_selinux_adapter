@@ -20,5 +20,3 @@ allow medialibrary_hap privacy_service:binder call;
 allow medialibrary_hap media_library_param:parameter_service { set };
 allow medialibrary_hap paramservice_socket:sock_file { write };
 allow medialibrary_hap kernel:unix_stream_socket { connectto };
-allow medialibrary_hap hmdfs:dir { ioctl };
-allowxperm medialibrary_hap hmdfs:dir ioctl { 0xf554 0xf555 };
