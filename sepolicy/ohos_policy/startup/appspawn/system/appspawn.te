@@ -208,3 +208,11 @@ allow appspawn system_etc_file:lnk_file { read };
 
 #avc:  denied  { sigkill } for  pid=282 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow nwebspawn isolated_render:process { sigkill };
+
+# for enable net namespace
+# avc:  denied  { net_admin } for  pid=262 comm="appspawn" capability=12  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=1
+allow appspawn appspawn:capability { net_admin };
+allow appspawn sysfs_net:file { write open };
+
+#avc:  denied  { remount } for  pid=22332 comm="example.demo100" scontext=u:r:appspawn:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=1
+allow appspawn labeledfs:filesystem { remount };
