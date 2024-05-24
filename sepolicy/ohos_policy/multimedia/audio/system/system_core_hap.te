@@ -13,14 +13,10 @@
 
 binder_call(system_core_hap_attr, audio_server);
 
-#avc:  denied  { get } for service=3009 pid=1741 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
 allow system_core_hap_attr sa_audio_policy_service:samgr_class { get };
 
-#avc:  denied  { get } for service=3001 pid=1741 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
 allow system_core_hap_attr sa_pulseaudio_audio_service:samgr_class { get };
 
-#avc:  denied  { append } for  pid=2582 comm="jsThread-2" name="capture_CB_js-44100-2C-16B.pcm" dev="mmcblk0p11" ino=1437412 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=0
 allow system_core_hap_attr system_core_hap_data_file_attr:file { append };
 
-#avc:  denied  { get } for service=4801 pid=9025 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=0
 allow system_core_hap sa_dhardware_service:samgr_class { get };
