@@ -95,12 +95,44 @@ neverallow hap_domain vendor_file_attr:dir never_write_dir;
 neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file }:{ file fifo_file lnk_file sock_file } *;
 
 #hap never access blk_file.
-neverallow hap_domain dev_attr:blk_file { read write };
+neverallow hap_domain dev_attr:blk_file open;
+neverallow hap_domain dev_attr:blk_file read;
+neverallow hap_domain dev_attr:blk_file write;
+neverallow hap_domain dev_attr:blk_file ioctl;
 
 #limit hap access dev file.
 neverallow hap_domain { dev_attr -dev_ucollection -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
                       -dev_zero_file -dev_unix_socket_file -dev_mali -tty_device -dev_fuse_file -dev_bbox
                       -dev_tun_file -dev_attr_violator_chr_file_rw }:chr_file { open ioctl read write};
+
+neverallow normal_hap { dev_attr -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file -dev_ucollection
+                      -dev_attr_violator_chr_file_rw -dev_ashmem_file -dev_dri_file -dev_mali }:chr_file open;
+
+neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali }:chr_file read;
+
+neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali }:chr_file write;
+
+neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali }:chr_file ioctl;
+
+neverallow normal_hap dev_attr:sock_file open;
+
+neverallow normal_hap { dev_attr -dnsproxy_service -fwmark_service }:sock_file read;
+
+neverallow normal_hap { dev_attr -dev_unix_file -dev_unix_socket -dev_unix_socket_file -dnsproxy_service -faultloggerd_socket -fwmark_service -hiprofiler_socket
+                      -hilog_output_socket -hilog_input_socket -hisysevent_socket -dev_file -native_socket }:sock_file write;
+
+neverallow normal_hap dev_attr:sock_file ioctl;
+
+neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file open;
+
+neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file read;
+
+neverallow normal_hap { dev_attr -dev_asanlog_file }:file write;
+
+neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file ioctl;
 
 neverallow { hap_domain -system_basic_hap_attr } dev_tun_file:chr_file { open ioctl };
 
