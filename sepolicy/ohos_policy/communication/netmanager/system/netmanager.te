@@ -10,8 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-type fwmark_service, dev_attr, file_attr;
-type dnsproxy_service, dev_attr, file_attr;
 
 allow netmanager accesstoken_service:binder { call };
 allow netmanager fs_bpf:dir { search };
