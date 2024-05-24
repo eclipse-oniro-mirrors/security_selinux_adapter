@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#audio_policy => audio_server
 allow audio_server cast_engine_service:binder { call };
 allow audio_server normal_hap_attr:fd { use };
