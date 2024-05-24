@@ -13,3 +13,4 @@
 
 allow normal_hap_attr normal_hap_attr:file { ioctl open read write };
 allow normal_hap_attr self:icmp_socket { create };
+allow normal_hap_attr self:icmp_socket { create write read };
