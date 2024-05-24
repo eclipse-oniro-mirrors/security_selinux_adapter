@@ -41,6 +41,9 @@ allow drm_service normal_hap_attr:binder { call transfer};
 
 allow drm_service accesstoken_service:binder { call transfer };
 
+allow drm_service sa_memory_manager_service:samgr_class { get };
+allow drm_service hdf_device_manager:hdf_devmgr_class { get };
+
 allow drm_service privacy_service:binder { call transfer };
 allow privacy_service drm_service:binder { call transfer };
 allow drm_service sa_privacy_service:samgr_class { get };
