@@ -210,6 +210,8 @@ allow init data_service_el1_file:file { getattr setattr relabelto };
 allow init data_service_el1_public_deviceauthService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el1_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el2_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_service_el2_userId_huksService_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init data_service_el4_userId_huksService_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_data_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_data_file:file { getattr setattr relabelto };
 allow init data_data_huksService_file:dir { add_name create getattr open read relabelto search setattr write };

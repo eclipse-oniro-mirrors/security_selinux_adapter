@@ -27,10 +27,16 @@ allow huks_service data_service_el2_public_huksService_file:dir { add_name creat
 allow huks_service data_service_el2_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allow huks_service data_service_el4_file:dir { search create write open read add_name remove_name };
 allow huks_service data_service_el4_file:file { create write open read unlink getattr setattr };
+allow huks_service data_service_el2_userId_huksService_file:dir { add_name create open read remove_name search write };
+allow huks_service data_service_el2_userId_huksService_file:file { create getattr ioctl open read setattr unlink write };
+allow huks_service data_service_el4_userId_huksService_file:dir { add_name create open read remove_name search write };
+allow huks_service data_service_el4_userId_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allow huks_service data_data_file:dir { search };
 allow huks_service data_data_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
 allow huks_service data_data_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allowxperm huks_service data_data_huksService_file:file ioctl { 0x5705 };
+allowxperm huks_service data_service_el2_userId_huksService_file:file ioctl { 0x5413 };
+allowxperm huks_service data_service_el4_userId_huksService_file:file ioctl { 0x5413 };
 allow huks_service foundation:binder { call transfer };
 allow huks_service vendor_lib_file:dir { search };
 allow huks_service samain_exec:file { entrypoint execute map read };
