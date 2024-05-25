@@ -14,26 +14,8 @@
 #moke test
 #avc:  denied  { search } for  pid=488 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
 allow bgtaskmgr_service data_file:dir { search };
-#avc:  denied  { get } for service=501 pid=473 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_foundation_appms:samgr_class { get };
-#avc:  denied  { get } for service=401 pid=473 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_foundation_bms:samgr_class { get };
-#avc:  denied  { add } for service=1903 pid=471 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_bgtaskmgr:samgr_class { add };
 
 #device startup
-#avc:  denied  { get } for service=401 pid=473 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_accountmgr:samgr_class { get };
-#avc:  denied  { get } for service=3299 pid=1173 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_foundation_cesfwk_service:samgr_class { get };
-#avc:  denied  { get } for service=3203 pid=1173 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_foundation_ans:samgr_class { get };
-#avc:  denied  { add } for service=1904 pid=1059 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_work_schedule_service:samgr_class { add };
-#avc: denied { search } for pid=1059, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_storage:s0 tclass=dir permissive=0
-allow bgtaskmgr_service data_storage:dir { search };
-#avc: denied { read } for pid=1059, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
-allow bgtaskmgr_service persist_param:file { read };
 #avc: denied { search } for pid=1067, ino=171 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 #avc: denied { search } for pid=1067, ino=4022 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
