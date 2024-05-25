@@ -103,3 +103,5 @@ allow usb_service sa_foundation_ans:samgr_class { get };
 allow usb_service sa_accountmgr:samgr_class { get };
 allow usb_service accountmgr:binder { call transfer };
 allow usb_service system_basic_hap:binder { call transfer };
+allow usb_service sa_memory_manager_service:samgr_class { get };
+allow usb_service memmgrservice:binder { call };
