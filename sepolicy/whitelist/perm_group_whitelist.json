@@ -135,8 +135,7 @@
                 "sh data_local_tmp",
                 "SP_daemon uinput_exec",
                 "SP_daemon aa_exec",
-                "SP_daemon snapshot_display_exec",
-                "appspawn data_local_tmp"
+                "SP_daemon snapshot_display_exec"
             ]
         }
     ]

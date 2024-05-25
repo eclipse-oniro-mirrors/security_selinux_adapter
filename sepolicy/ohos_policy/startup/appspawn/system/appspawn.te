@@ -204,15 +204,3 @@ debug_only(`
 
 #avc:  denied  { sigkill } for  pid=282 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow nwebspawn isolated_render:process { sigkill };
-
-# for bftpd
-developer_only(`
-    allow appspawn appspawn:tcp_socket { accept bind create listen setopt };
-    allow appspawn node:tcp_socket { node_bind };
-    allow appspawn port:tcp_socket { name_bind };
-    allow appspawn data_service_el1_utd_file:dir { getattr mounton };
-    allow appspawn data_user_file:dir { getattr };
-    allow appspawn vendor_etc_vulkan_file:dir { getattr mounton };
-    allow appspawn data_local_tmp:file { execute execute_no_trans map read open };
-    allow appspawn sa_privacy_service:samgr_class { get };
-')
