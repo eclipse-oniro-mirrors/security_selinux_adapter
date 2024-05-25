@@ -12,3 +12,5 @@
 # limitations under the License.
 
 /dev/block(/^vol.*)?                u:object_r:dev_block_volfile:s0
+/data/service/el1/public/storage_daemon/sd(/.*)?                u:object_r:data_service_storage_daemon_sd_file:s0
+/data/service/el0/storage_daemon/sd(/.*)?                u:object_r:data_service_storage_daemon_sd_file:s0

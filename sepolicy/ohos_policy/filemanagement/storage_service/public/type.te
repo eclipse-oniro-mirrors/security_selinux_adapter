@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type proc_drop_caches_file, fs_attr, proc_attr;
+type data_service_storage_daemon_sd_file, file_attr, data_file_attr;
