@@ -44,3 +44,9 @@ allow resource_schedule_executor system_core_hap_attr:process { sigkill };
 allow resource_schedule_executor system_basic_hap_attr:process { sigkill };
 allow resource_schedule_executor sadomain:process { sigkill };
 allow resource_schedule_executor resource_schedule_executor:capability { kill };
+
+# socperf_executor
+allow resource_schedule_executor sysfs_devices_system_cpu:file { getattr open read write };
+allow resource_schedule_executor sysfs_devices_system_cpu:dir { open read search };
+allow resource_schedule_service cgroup:dir { search };
+allow resource_schedule_service cgroup:file { open read write };
