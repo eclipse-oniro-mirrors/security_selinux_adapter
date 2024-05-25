@@ -48,5 +48,5 @@ allow resource_schedule_executor resource_schedule_executor:capability { kill };
 # socperf_executor
 allow resource_schedule_executor sysfs_devices_system_cpu:file { getattr open read write };
 allow resource_schedule_executor sysfs_devices_system_cpu:dir { open read search };
-allow resource_schedule_service cgroup:dir { search };
-allow resource_schedule_service cgroup:file { open read write };
+allow resource_schedule_executor cgroup:dir { search };
+allow resource_schedule_executor cgroup:file { open read write };

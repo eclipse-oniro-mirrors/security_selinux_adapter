@@ -86,8 +86,6 @@ allow resource_schedule_service sys_file:dir { open read search };
 allow resource_schedule_service system_file:file { open read };
 allow resource_schedule_service sys_prod_file:dir { search };
 allow resource_schedule_service sys_prod_file:file { open read };
-allow resource_schedule_service sysfs_devices_system_cpu:file { getattr write open ioctl create read };
-allow resource_schedule_service sysfs_devices_system_cpu:dir { open read search };
 allow resource_schedule_service storage_daemon:file { read };
 allow resource_schedule_service storage_manager:file { read };
 allow resource_schedule_service tty_device:chr_file { open read write };
