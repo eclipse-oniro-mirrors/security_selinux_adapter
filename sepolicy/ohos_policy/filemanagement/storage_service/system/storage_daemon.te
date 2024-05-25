@@ -334,3 +334,7 @@ allow storage_daemon data_app_el2_file:file { unlink };
 allow storage_daemon data_chipset_el2_file:file { unlink };
 allow storage_daemon data_app_el5_file:file { unlink };
 
+allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };
+allow storage_daemon el5_filekey_manager:binder { call };
+allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
+
