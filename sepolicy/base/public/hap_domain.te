@@ -126,11 +126,11 @@ neverallow normal_hap { dev_attr -dev_unix_file -dev_unix_socket -dev_unix_socke
 
 neverallow normal_hap dev_attr:sock_file ioctl;
 
-neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file open;
+neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file -dev_attr_violator_file_rw }:file open;
 
-neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file read;
+neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file -dev_attr_violator_file_rw }:file read;
 
-neverallow normal_hap { dev_attr -dev_asanlog_file }:file write;
+neverallow normal_hap { dev_attr -dev_asanlog_file -dev_attr_violator_file_rw }:file write;
 
 neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file ioctl;
 

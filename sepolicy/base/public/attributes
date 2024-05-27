@@ -187,6 +187,7 @@ attribute module_update_file_attr;
 attribute dev_attr_violator;
 attribute dev_file_violator;
 attribute dev_attr_violator_chr_file_rw;
+attribute dev_attr_violator_file_rw;
 attribute samgr_binder_violator;
 attribute installs_binder_violator;
 attribute binder_call_installs_violators;
