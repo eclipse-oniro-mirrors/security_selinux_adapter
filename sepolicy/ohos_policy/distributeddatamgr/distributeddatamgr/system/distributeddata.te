@@ -199,3 +199,5 @@ allow distributeddata time_service:binder { call transfer };
 binder_call(distributeddata, powermgr);
 allow distributeddata powermgr:dir { search };
 allow distributeddata powermgr:file { getattr open read };
+allow distributeddata sa_manager_service:samgr { get };
+allow distributeddata memmgrservice:binder { call };
