@@ -34,6 +34,7 @@ const.product.devUdid       u:object_r:devinfo_private_param:s0
 persist.appspawn.           u:object_r:startup_appspawn_param:s0
 
 sys.                                    u:object_r:sys_param:s0
+sys.usb                                 u:object_r:sys_usb_param:s0
 net.                                    u:object_r:net_param:s0
 net.tcp.                                u:object_r:net_tcp_param:s0
 const.postinstall.                      u:object_r:const_postinstall_param:s0
