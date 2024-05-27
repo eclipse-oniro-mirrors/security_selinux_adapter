@@ -15,7 +15,7 @@
 #avc:  denied  { search } for  pid=488 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
 allow bgtaskmgr_service data_file:dir { search };
 
-#device startup
+# device start-up
 #avc: denied { search } for pid=1067, ino=171 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 #avc: denied { search } for pid=1067, ino=4022 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
