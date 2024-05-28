@@ -17,4 +17,5 @@ typeattribute hiviewdfx_hiview_param param_set_allow_attr;
 
 
 neverallow normal_hap_attr { parameter_attr -param_set_allow_attr }:parameter_service { set };
+neverallow normal_hap paramservice_socket:sock_file { write };
 
