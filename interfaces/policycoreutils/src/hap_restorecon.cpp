@@ -58,6 +58,7 @@ static const std::string DEBUGGABLE_PREFIX = "debuggable=";
 static const std::string EXTRA_PREFIX = "extra=";
 static const std::string DEBUGGABLE = "debuggable";
 static const std::string DLPSANDBOX = "dlp_sandbox";
+static const std::string INPUT_ISOLATE = "input_isolate";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -125,6 +126,8 @@ static struct SehapInfo DecodeString(std::string &line)
             std::string extra = tmp.substr(tmp.find(EXTRA_PREFIX) + EXTRA_PREFIX.size());
             if (extra == DLPSANDBOX) {
                 contextBuff.extra |= SELINUX_HAP_DLP;
+            } else if (extra == INPUT_ISOLATE) {
+                contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
             }
             extraVisit = true;
         }
@@ -157,7 +160,13 @@ static std::string GetHapContextKey(struct SehapInfo *hapInfo)
 {
     std::string keyPara;
 
-    if (hapInfo->extra & SELINUX_HAP_DLP) {
+    if (hapInfo->extra & SELINUX_HAP_INPUT_ISOLATE) {
+        if (hapInfo->debuggable) {
+            keyPara = hapInfo->apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
+        } else {
+            keyPara = hapInfo->apl + "." + INPUT_ISOLATE;
+        }
+    } else if (hapInfo->extra & SELINUX_HAP_DLP) {
         keyPara = hapInfo->apl + "." + DLPSANDBOX;
     } else if (hapInfo->debuggable) {
         keyPara = hapInfo->apl + "." + DEBUGGABLE;
@@ -507,7 +516,15 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     }
 
     std::string keyPara;
-    if (hapFlags & SELINUX_HAP_DLP) {
+    if (hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
+        if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
+            selinux_log(SELINUX_INFO, "input_isolate debug  hap, keyPara: %s", keyPara.c_str());
+        } else {
+            keyPara = apl + "." + INPUT_ISOLATE;
+            selinux_log(SELINUX_INFO, "input_isolate isolate hap, keyPara: %s", keyPara.c_str());
+        }
+    } else if (hapFlags & SELINUX_HAP_DLP) {
         keyPara = apl + "." + DLPSANDBOX;
         selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
     } else if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
