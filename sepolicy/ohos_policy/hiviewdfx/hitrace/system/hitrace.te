@@ -88,3 +88,5 @@ allow hitrace hiviewdfx_profiler_param:parameter_service { set };
 debug_only(`
 	allow hitrace sh:fifo_file { read write };
 ')
+
+neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor} tracefs:file write_file_perms;
