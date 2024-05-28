@@ -265,4 +265,3 @@ attribute system_bin_file_quickfix;
 
 #define some rgm_violator_ohos attribute for neverallows
 attribute rgm_violator_ohos_filesystem_unmount;
-attribute rgm_violator_ohos_sh_exec;
