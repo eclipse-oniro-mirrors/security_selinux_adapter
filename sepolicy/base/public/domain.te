@@ -273,7 +273,7 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 #limit domain access to sh_exec
 neverallow { domain developer_only(`-wukong -SP_daemon -aa') -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa') -hidumper_service -netsysnative
-    -wifi_hal_service -sh_exec_violator -installs -rgm_violator_ohos_sh_exec } sh_exec:file execute;
+    -wifi_hal_service -sh_exec_violator -installs } sh_exec:file execute;
 
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
