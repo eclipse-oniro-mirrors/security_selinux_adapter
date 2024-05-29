@@ -202,5 +202,9 @@ debug_only(`
     allow appspawn tmpfs:lnk_file { getattr };
 ')
 
+# avc:  denied  { read } for  pid=2685 comm="OS_FFRT_5_2" name="appdata-sandbox.json" dev="mmcblk0p7" ino=996 scontext=u:r:foundation:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=0
+allow foundation system_etc_file:lnk_file { read };
+allow appspawn system_etc_file:lnk_file { read };
+
 #avc:  denied  { sigkill } for  pid=282 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow nwebspawn isolated_render:process { sigkill };
