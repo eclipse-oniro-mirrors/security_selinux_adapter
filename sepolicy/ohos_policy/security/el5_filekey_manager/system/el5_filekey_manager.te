@@ -15,13 +15,14 @@ allow el5_filekey_manager sa_accesstoken_manager_service:samgr_class { get };
 allow el5_filekey_manager sa_foundation_cesfwk_service:samgr_class { get };
 allow el5_filekey_manager sa_screenlock_service:samgr_class { get };
 allow el5_filekey_manager sa_el5_filekey_manager:samgr_class { add };
-
 allow hap_domain sa_el5_filekey_manager:samgr_class { get };
 
-allow init el5_filekey_manager:process { rlimitinh siginh transition };
+binder_call(hap_domain, el5_filekey_manager);
+binder_call(el5_filekey_manager, accesstoken_service);
+binder_call(el5_filekey_manager, foundation);
+binder_call(foundation, el5_filekey_manager);
 
-# avc:  denied  { call } for  pid=563 comm="OS_FFRT_1_0" scontext=u:r:foundation:s0 tcontext=u:r:el5_filekey_manager:s0 tclass=binder permissive=1
-allow foundation el5_filekey_manager:binder { call };
+allow init el5_filekey_manager:process { rlimitinh siginh transition };
 
 # avc:  denied  { map } for  pid=2030 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=2030 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=73 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
@@ -48,10 +49,3 @@ allow el5_filekey_manager sysfs_devices_system_cpu:file { read getattr open };
 
 # avc:  denied  { search } for  pid=2030 comm="el5_filekey_man" name="/" dev="tracefs" ino=1 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow el5_filekey_manager tracefs:dir { search };
-
-# avc:  denied  { call } for  pid=1626 comm="el5_filekey_man" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
-allow el5_filekey_manager accesstoken_service:binder { call };
-
-# avc:  denied  { call } for  pid=2285 comm="SaInit0" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
-# avc:  denied  { transfer } for  pid=2285 comm="SaInit0" scontext=u:r:el5_filekey_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
-allow el5_filekey_manager foundation:binder { call transfer };
