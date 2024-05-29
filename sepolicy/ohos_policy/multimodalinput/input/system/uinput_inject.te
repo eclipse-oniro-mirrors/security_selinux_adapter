@@ -14,3 +14,5 @@
 domain_auto_transition_pattern(init, uinput_inject_exec, uinput_inject);
 
 allow mmi_uinput_service dev_hdf_file:chr_file { ioctl };
+allow mmi_uinput_service sa_memory_manager_service:samgr_class { get };
+allow mmi_uinput_service memmgrservice:binder { call };
