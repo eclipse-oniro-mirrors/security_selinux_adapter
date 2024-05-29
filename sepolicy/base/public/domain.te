@@ -213,7 +213,7 @@ neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_bloc
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
 neverallow { domain -init -storage_daemon -appspawn -cjappspawn -netsysnative -rgm_violator_filesystem_mount updater_only(`-updater')} *:filesystem mount;
 neverallow { domain -init } *:filesystem remount;
-neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn updater_only(`-updater')} *:filesystem unmount;
+neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn updater_only(`-updater') -rgm_violator_ohos_filesystem_unmount } *:filesystem unmount;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelfrom;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
 neverallow { domain -storage_daemon -installs } *:filesystem quotaget;
