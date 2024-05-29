@@ -52,6 +52,8 @@ allow wifi_hal_service sys_param:file { map open read };
 allow wifi_hal_service system_bin_file:dir { search };
 allow wifi_hal_service system_bin_file:file { execute execute_no_trans getattr map read read open };
 allow wifi_hal_service system_bin_file:lnk_file { read };
+allow wifi_hal_service toybox_exec:file { execute execute_no_trans getattr map read open };
+allow wifi_hal_service toybox_exec:lnk_file { read };
 allow wifi_hal_service sys_usb_param:file { map open read };
 allow wifi_hal_service tty_device:chr_file { open read write };
 allow wifi_hal_service wifi_hal_service:unix_dgram_socket { ioctl };

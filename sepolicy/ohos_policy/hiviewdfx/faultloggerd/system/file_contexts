@@ -25,3 +25,6 @@
 /dev/unix/socket/faultloggerd.server u:object_r:faultloggerd_socket:s0
 /dev/unix/socket/faultloggerd.crash.server u:object_r:faultloggerd_socket_crash:s0
 /dev/unix/socket/faultloggerd.sdkdump.server u:object_r:faultloggerd_socket_sdkdump:s0
+
+#dumpcatcher
+/system/bin/dumpcatcher             u:object_r:dumpcatcher_exec:s0

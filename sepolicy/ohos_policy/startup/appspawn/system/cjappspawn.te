@@ -65,6 +65,7 @@ allow cjappspawn arkcompiler_param:file { read open };
 allow cjappspawn devinfo_public_param:file { read open };
 allow cjappspawn system_usr_file:file { read open getattr };
 allow cjappspawn system_bin_file:file { execute open execute_no_trans };
+allow cjappspawn toybox_exec:file { execute open execute_no_trans read };
 allow cjappspawn lib_file:lnk_file { read };
 allow cjappspawn system_lib_file:file { execute };
 allow cjappspawn hilog_private_param:file { read open };

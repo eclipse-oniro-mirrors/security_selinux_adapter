@@ -50,6 +50,8 @@ allow native_daemon hilog_param:file read;
 allow native_daemon paramservice_socket:sock_file write;
 allow native_daemon system_bin_file:lnk_file read;
 allow native_daemon system_bin_file:file { execute execute_no_trans getattr map open read };
+allow native_daemon toybox_exec:lnk_file read;
+allow native_daemon toybox_exec:file { execute execute_no_trans getattr map open read };
 
 allow native_daemon domain:dir { open read getattr search };
 allow native_daemon domain:file { open read getattr };

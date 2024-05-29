@@ -14,8 +14,10 @@
 debug_only(`
 allow console system_bin_file:lnk_file { read };
 allow console system_bin_file:file { execute getattr };
+allow console toybox_exec:lnk_file { read };
 allow console tty_device:chr_file { ioctl };
 allow console system_bin_file:file { read open execute_no_trans map };
+allow console toybox_exec:file { execute execute_no_trans getattr map read open };
 allow console rootfs:dir { read open };
 allow console lib_file:lnk_file { getattr };
 allowxperm console tty_device:chr_file ioctl 0x5410;

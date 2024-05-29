@@ -48,8 +48,10 @@ developer_only(`
 
     allow hdcd tty_device:chr_file { ioctl read write open };
     allow hdcd system_bin_file:lnk_file { read };
+    allow hdcd toybox_exec:lnk_file { read };
     allow hdcd system_bin_file:dir { search getattr };
     allow hdcd system_bin_file:file { open };
+    allow hdcd toybox_exec:file { getattr map open read };
 
     allow hdcd lib_file:lnk_file { read };
     allow hdcd dev_kmsg_file:chr_file { read open };
@@ -166,6 +168,7 @@ developer_only(`
 
     allow hdcd sa_param_watcher:samgr_class { get };
     allow hdcd sys_param:parameter_service { set };
+    allow hdcd sys_usb_param:parameter_service { set };
     allow hdcd persist_param:parameter_service { set };
     allow hdcd servicectrl_reboot_param:parameter_service { set };
     #avc: denied { search } for pid=2387 comm="hdcd_user_permi" name="socket" dev="tmpfs" ino=43 scontext=u:r:hdcd_user_permit:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1

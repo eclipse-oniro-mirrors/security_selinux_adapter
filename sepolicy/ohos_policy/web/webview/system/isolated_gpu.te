@@ -42,7 +42,19 @@ allow isolated_gpu sa_render_service:samgr_class { get };
 allow isolated_gpu sa_time_service:samgr_class { get };
 allow isolated_gpu data_app_el1_file:file { execute };
 allow isolated_gpu dev_mali:chr_file { getattr ioctl map read write open };
-allowxperm isolated_gpu dev_mali:chr_file ioctl { 0x8000 0x8001 0x801b };
+# avc:  denied  { ioctl } for  pid=4081 comm="mali-cmar-backe" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8002 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8003 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8005 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8006 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x800c scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x800e scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x800f scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8016 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8019 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x801d scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8026 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8001 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+allowxperm isolated_gpu dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x800c 0x800e 0x800f 0x8016 0x8019 0x801d 0x8026 };
 allow isolated_gpu hap_domain:binder { call transfer };
 allow isolated_gpu hap_domain:fd { use };
 allow isolated_gpu hap_domain:unix_stream_socket { read write shutdown};
@@ -58,3 +70,14 @@ allow isolated_gpu allocator_host:fd { use };
 allow isolated_gpu ohos_boot_param:file { map read open };
 allow isolated_gpu sa_resource_schedule:samgr_class { get };
 allow isolated_gpu web_private_param:file { map open read };
+
+allow isolated_gpu allocator_host:binder { call };
+allow isolated_gpu av_codec_service:binder { call transfer };
+allow isolated_gpu dev_ashmem_file:chr_file { open };
+allow isolated_gpu hdf_allocator_service:hdf_devmgr_class { get };
+allow isolated_gpu hiview:unix_dgram_socket { sendto };
+allow isolated_gpu isolated_gpu:unix_dgram_socket { getopt setopt };
+allow isolated_gpu persist_sys_param:file { map open read };
+allow isolated_gpu sa_av_codec_service:samgr_class { get };
+allow isolated_gpu sa_device_service_manager:samgr_class { get };
+allow isolated_gpu codec_host:fd { use };

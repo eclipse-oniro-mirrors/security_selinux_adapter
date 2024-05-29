@@ -70,3 +70,5 @@ allow camera_service hmdfs:file { read write };
 allow camera_service medialibrary_hap:fd { use };
 #avc: denied { get } for service=180 pid=1480 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
 allow camera_service sa_foundation_abilityms:samgr_class { get };
+#avc:  denied  { get } for service=501 pid=1448 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow camera_service sa_foundation_appms:samgr_class {get};

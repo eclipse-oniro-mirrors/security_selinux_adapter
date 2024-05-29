@@ -22,6 +22,7 @@ allow sdc storage_daemon:binder { call };
 
 #avc:  denied  { read } for  pid=260 comm="sdc" path="/system/bin/sdc" dev="mmcblk0p6" ino=354 scontext=u:r:init:s0 tcontext=u:object_r:sdc_exec:s0 tclass=file permissive=1
 allow sdc system_bin_file:file { read };
+allow sdc toybox_exec:file { getattr map read open };
 
 allow sdc sdc:process { setexec };
 allow sdc hilog_param:file { map open read };

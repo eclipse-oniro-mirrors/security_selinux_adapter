@@ -62,6 +62,7 @@ allowxperm softbus_server softbus_server:socket ioctl { 0x8933 0x8916 0x890B 0x8
 allow softbus_server system_core_hap_attr:binder { call };
 
 binder_call(softbus_server, privacy_service);
+binder_call(softbus_server, accountmgr);
 
 allow softbus_server musl_param:file { open map read };
 

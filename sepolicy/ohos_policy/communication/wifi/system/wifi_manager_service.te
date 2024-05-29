@@ -36,6 +36,7 @@ allow wifi_manager_service sa_wifi_scan_ability:samgr_class { add };
 allow wifi_manager_service softbus_server:binder { call transfer };
 allow wifi_manager_service system_bin_file:dir { search };
 allow wifi_manager_service system_bin_file:file { execute execute_no_trans map read open };
+allow wifi_manager_service toybox_exec:file { execute execute_no_trans getattr map read open };
 allow wifi_manager_service wifi_hal_service:unix_stream_socket { connectto };
 allow wifi_manager_service sa_netsys_native_manager:samgr_class { get };
 allow wifi_manager_service wifi_manager_service:netlink_route_socket { create nlmsg_read read write };
@@ -178,9 +179,11 @@ allow wifi_manager_service data_local:dir { search };
 
 # avc:  denied  { read } for  pid=6535 comm="sh" name="cp" dev="sdd86" ino=375 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file permissive=1
 allow wifi_manager_service system_bin_file:lnk_file { read };
+allow wifi_manager_service toybox_exec:lnk_file { read };
 
 # avc:  denied  { getattr } for  pid=5751 comm="sh" path="/system/bin/toybox" dev="sdd86" ino=647 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow wifi_manager_service system_bin_file:file { getattr };
+allow wifi_manager_service toybox_exec:file { getattr };
 
 # avc:  denied  { getattr } for  pid=6460 comm="cp" path="/data/service/el1/public/wifi/wpa_supplicant" dev="sdd91" ino=3363 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow wifi_manager_service data_service_el1_file:dir { getattr };
@@ -207,3 +210,5 @@ allow wifi_manager_service hdf_devmgr:binder { call };
 allow wifi_manager_service proc_net:file { read write open };
 
 allow wifi_manager_service sa_foundation_ans:samgr_class { get };
+
+allow wifi_manager_service dev_ashmem_file:chr_file { open };

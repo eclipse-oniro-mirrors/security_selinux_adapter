@@ -15,6 +15,8 @@
 ## Type define: ##
 ##################
 
+type toybox_exec, exec_attr, file_attr, system_file_attr;
+
 developer_only(`
 # avc:  denied  { connect } for  pid=6561 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=udp_socket permissive=0
 # avc:  denied  { create } for  pid=6113 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=udp_socket permissive=0

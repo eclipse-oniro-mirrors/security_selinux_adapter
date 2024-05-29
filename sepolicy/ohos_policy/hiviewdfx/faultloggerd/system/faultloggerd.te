@@ -46,6 +46,8 @@ use_faultloggerd_crash({ processdump })
 use_faultloggerd_file({ hiview hidumper })
 use_faultloggerd_sdkdump({ hiview hidumper foundation })
 
+neverallow { domain -processdump } faultloggerd_socket_crash:sock_file { write read ioctl };
+neverallow { domain -processdump -foundation -hidumper -hiview -dumpcatcher } faultloggerd_socket_sdkdump:sock_file { write read ioctl };
 #########################
 ## faultloggerd rules: ##
 #########################
@@ -63,6 +65,8 @@ allow faultloggerd data_log:dir search;
 allow faultloggerd tty_device:chr_file { open read write };
 allow faultloggerd system_bin_file:file { execute execute_no_trans getattr map open read };
 allow faultloggerd system_bin_file:lnk_file read;
+allow faultloggerd toybox_exec:file { execute execute_no_trans getattr map open read };
+allow faultloggerd toybox_exec:lnk_file read;
 
 allow faultloggerd data_init_agent:file { append ioctl open read };
 allow faultloggerd dev_unix_socket:sock_file unlink;

@@ -30,10 +30,13 @@ allow clearplay_host hilog_param:file { open read map };
 allow clearplay_host musl_param:file { open read map };
 allow clearplay_host sa_device_service_manager:samgr_class { get };
 allow clearplay_host samgr:binder { call };
-allow clearplay_host sh:binder { call };
 allow clearplay_host vendor_etc_file:dir { open read getattr search };
 allow clearplay_host vendor_etc_file:file { open read getattr };
 allowxperm clearplay_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6203 };
+debug_only(`
+    allow clearplay_host sh:binder { call };
+')
+
 # avc:  denied  { map } for  pid=491 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=491 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=491 comm="hdf_devhost" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
@@ -68,6 +71,8 @@ allow clearplay_host media_service:fd { use };
 
 # avc:  denied  { ioctl } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 ioctlcmd=0x5413 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
 allowxperm clearplay_host data_local_traces:file ioctl { 0x5413 };
+
+allow clearplay_host hap_domain:fd { use };
 
 #avc:  denied  { get } for service=1151 pid=5890 scontext=u:r:drm_service:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
 allow drm_service sa_net_conn_manager:samgr_class { get };

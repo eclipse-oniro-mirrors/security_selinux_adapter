@@ -11,7 +11,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-#audio_policy => audio_server
 allow audio_server daudio:binder { call transfer };
 allow audio_server daudio_host:binder { call transfer };
 allow audio_server hdf_daudio_primary:hdf_devmgr_class { get };

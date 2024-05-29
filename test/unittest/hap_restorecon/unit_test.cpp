@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -62,6 +62,11 @@ const static std::string TEST_HAP_BUNDLE_NAME_FOR_INVALID_CONTEXTS = "com.hap.se
 const static std::string TEST_HAP_DATA_FILE_LABEL = "u:object_r:selftest_hap_data_file:s0";
 
 const static std::string TEST_HAP_DOMAIN = "u:r:selftest:s0";
+const static std::string TEST_HAP_DATA_TYPE = "u:r:selftest_hap_data_file:s0";
+const static std::string DLP_HAP_DOMAIN = "u:r:dlp_sandbox_hap:s0";
+const static std::string DLP_HAP_DATA_TYPE = "u:r:dlp_sandbox_hap_data_file:s0";
+const static std::string TEST_NORMAL_DOMAIN = "u:r:normal_hap:s0";
+const static std::string TEST_NOMAL_TYPE = "u:r:normal_hap_data_file:s0";
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
@@ -180,7 +185,8 @@ static void GenerateTestFile()
         "apl=system_core domain=selftest type=selftest_hap_data_file",
         "apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file",
         "apl=normal name=com.hap.selftest domain=selftest type=normal_hap_data_file",
-        "apl=normal name=com.hap.selftest_invalid domain=selftest_invalid type=selftest_invalid_hap_data_file"};
+        "apl=normal name=com.hap.selftest_invalid domain=selftest_invalid type=selftest_invalid_hap_data_file",
+        "apl=normal extra=dlp_sandbox domain=dlp_sandbox_hap type=dlp_sandbox_hap_data_file"};
     ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
 }
 
@@ -654,6 +660,73 @@ HWTEST_F(SelinuxUnitTest, HapDomainSetcontext003, TestSize.Level1)
         EXPECT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, test.HapDomainSetcontext(g_hapDomainInfoForInvalidContexts));
         exit(0);
     }
+}
+
+/**
+ * @tc.name: HapContextsLookup001
+ * @tc.desc: test HapContextsLookup must succeed
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup001, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+ 
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(true, SYSTEM_CORE_APL, EMPTY_STRING, con, 0));
+    EXPECT_STREQ(context_str(con), TEST_HAP_DOMAIN.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(true, NORMAL_APL, EMPTY_STRING, con, 0));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(
+        true, NORMAL_APL, TEST_HAP_BUNDLE_NAME, con, SELINUX_HAP_RESTORECON_PREINSTALLED_APP));
+    EXPECT_STREQ(context_str(con), TEST_HAP_DOMAIN.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(true, NORMAL_APL, EMPTY_STRING, con, SELINUX_HAP_DLP));
+    EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(
+        true, NORMAL_APL, EMPTY_STRING, con, SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE));
+    EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup002
+ * @tc.desc: test HapContextsLookup must succeed
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup002, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(false, SYSTEM_CORE_APL, EMPTY_STRING, con, 0));
+    EXPECT_STREQ(context_str(con), TEST_HAP_DATA_TYPE.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(false, NORMAL_APL, EMPTY_STRING, con, 0));
+    EXPECT_STREQ(context_str(con), TEST_NOMAL_TYPE.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(
+        false, NORMAL_APL, TEST_HAP_BUNDLE_NAME, con, SELINUX_HAP_RESTORECON_PREINSTALLED_APP));
+    EXPECT_STREQ(context_str(con), TEST_NOMAL_TYPE.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(false, NORMAL_APL, EMPTY_STRING, con, SELINUX_HAP_DLP));
+    EXPECT_STREQ(context_str(con), DLP_HAP_DATA_TYPE.c_str());
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(
+        false, NORMAL_APL, EMPTY_STRING, con, SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE));
+    EXPECT_STREQ(context_str(con), DLP_HAP_DATA_TYPE.c_str());
+
+
+    freecon(oldTypeContext);
+    context_free(con);
 }
 
 /**

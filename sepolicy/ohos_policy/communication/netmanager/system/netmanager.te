@@ -10,8 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-type fwmark_service, dev_attr, file_attr;
-type dnsproxy_service, dev_attr, file_attr;
 
 allow netmanager accesstoken_service:binder { call };
 allow netmanager fs_bpf:dir { search };
@@ -46,6 +44,7 @@ allow netmanager port:tcp_socket { name_connect };
 allow netmanager port:udp_socket { name_bind };
 allow netmanager system_bin_file:dir { search };
 allow netmanager system_bin_file:file { execute execute_no_trans map read open };
+allow netmanager toybox_exec:file { execute execute_no_trans map read open };
 allow netmanager system_core_hap_attr:binder { call };
 allow netmanager telephony_sa:binder { call };
 allow netmanager time_service:binder { call };

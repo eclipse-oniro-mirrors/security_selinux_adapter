@@ -219,3 +219,6 @@ allow msdp_sa inputmethod_service:binder { call transfer };
 
 #avc:  denied  { get } for service=1912 pid=1070 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_concurrent_task_service:s0 tclass=samgr_class permissive=1
 allow msdp_sa sa_concurrent_task_service:samgr_class { get };
+
+#avc:  denied  { call } for service=1912 pid=1070 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:concurrent_task_service:s0 tclass=binder permissive=1
+allow msdp_sa concurrent_task_service:binder { call };

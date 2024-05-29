@@ -43,6 +43,8 @@ allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
 allow hiview system_bin_file:file { read execute entrypoint };
 allow hiview system_bin_file:lnk_file { read };
+allow hiview toybox_exec:file { read execute entrypoint getattr map open };
+allow hiview toybox_exec:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
 allow hiview dev_bbox:chr_file { ioctl read open };

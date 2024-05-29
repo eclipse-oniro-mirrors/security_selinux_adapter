@@ -82,6 +82,7 @@ allow storage_daemon sys_fs_hmdfs:file { setattr };
 allow storage_daemon sys_param:file { map open read };
 allow storage_daemon system_bin_file:dir { search };
 allow storage_daemon system_bin_file:file { execute execute_no_trans map read open };
+allow storage_daemon toybox_exec:file { execute execute_no_trans map read open };
 allow storage_daemon sys_usb_param:file { map open read };
 allow storage_daemon tmpfs:dir { add_name create mounton open read setattr write };
 

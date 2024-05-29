@@ -86,4 +86,6 @@ allow key_enable sa_foundation_cesfwk_service:samgr_class { get };
 
 allow key_enable sa_screenlock_service:samgr_class {get};
 
+allow key_enable proc_cmdline_file:file { open read };
+
 neverallow { sh normal_hap_attr } key_enable_exec:file never_execute_file;

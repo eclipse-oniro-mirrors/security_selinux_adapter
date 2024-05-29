@@ -93,7 +93,17 @@ allowxperm accesstoken_service data_service_el1_file:file ioctl { 0xf50c };
 
 allow domain dev_at_file:chr_file { ioctl open read write };
 allowxperm domain dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4107 };
-allowxperm { domain -hap_domain } dev_at_file:chr_file ioctl { 0x4104 };
+
+allowxperm accountmgr dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm hiview dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm privacy_service dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm token_sync_service dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm init dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm distributedsche dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm av_session dev_at_file:chr_file ioctl { 0x4104 };
+allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
+
 allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm ~{ accesstoken_service } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };

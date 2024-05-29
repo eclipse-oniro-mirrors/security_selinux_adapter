@@ -164,3 +164,5 @@ allow processdump chip_prod_file:dir { search };
 neverallow processdump self:process ptrace;
 neverallow domain processdump:process noatsecure;
 neverallow domain processdump_exec:file execute_no_trans;
+
+allow processdump hiviewdfx_hiview_param:file { map open read };

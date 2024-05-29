@@ -32,6 +32,18 @@ allow bgtaskmgr_service system_usr_file:dir { search };
 allow bgtaskmgr_service bgtaskmgr_service:unix_dgram_socket { getopt setopt };
 allow bgtaskmgr_service tracefs:dir { search };
 allow bgtaskmgr_service tracefs_trace_marker_file:file { open write };
+#avc:  denied  { get } for service=401 pid=473 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_accountmgr:samgr_class { get };
+#avc:  denied  { get } for service=3299 pid=1173 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_foundation_cesfwk_service:samgr_class { get };
+#avc:  denied  { get } for service=3203 pid=1173 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_foundation_ans:samgr_class { get };
+#avc:  denied  { add } for service=1904 pid=1059 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_work_schedule_service:samgr_class { add };
+#avc: denied { search } for pid=1059, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_storage:s0 tclass=dir permissive=0
+allow bgtaskmgr_service data_storage:dir { search };
+#avc: denied { read } for pid=1059, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+allow bgtaskmgr_service persist_param:file { read };
 
 # workschedule task get cpu info
 #avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
@@ -65,7 +77,7 @@ allowxperm bgtaskmgr_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
 #avc: denied { search } for pid=1114, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
 allow bgtaskmgr_service data_app_file:dir { search };
 
-# audio play apply continous task
+# continous task apply
 #avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_foundation_abilityms:samgr_class { get };
 
@@ -128,7 +140,7 @@ binder_call(bgtaskmgr_service, system_basic_hap_attr);
 binder_call(bgtaskmgr_service, hiview);
 binder_call(bgtaskmgr_service, distributedsche);
 binder_call(bgtaskmgr_service, bluetooth_service);
-binder_call(bgtaskmgr_service, time_service)
+binder_call(bgtaskmgr_service, time_service);
 binder_call(normal_hap_attr, bgtaskmgr_service);
 binder_call(system_core_hap_attr, bgtaskmgr_service);
 binder_call(param_watcher, bgtaskmgr_service);

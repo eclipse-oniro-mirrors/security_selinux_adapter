@@ -112,6 +112,7 @@ allow normal_hap_attr sysfs_hctosys:file { open read };
 allow normal_hap_attr sysfs_rtc:dir { open read };
 allow normal_hap_attr sys_param:file { map open read };
 allow normal_hap_attr system_bin_file:file { execute_no_trans map open };
+allow normal_hap_attr toybox_exec:file { execute_no_trans map open };
 allow normal_hap_attr system_core_hap_attr:binder { transfer };
 allow normal_hap_attr system_core_hap_attr:fd { use };
 allow normal_hap_attr system_lib_file:dir { open read };

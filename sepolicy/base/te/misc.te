@@ -49,6 +49,7 @@ allow misc startup_param:file { map open read };
 allow misc sys_param:file { map open read };
 allow misc system_bin_file:dir { search };
 allow misc system_bin_file:file { entrypoint execute map read };
+allow misc toybox_exec:file { entrypoint execute map read };
 allow misc sys_usb_param:file { map open read };
 allow misc vendor_etc_file:dir { search };
 allow misc vendor_etc_file:file { getattr open read };
