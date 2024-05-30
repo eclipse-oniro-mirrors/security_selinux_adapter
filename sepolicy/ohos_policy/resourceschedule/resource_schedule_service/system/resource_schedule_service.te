@@ -161,3 +161,5 @@ allow resource_schedule_service resourceschedule_writeable_param:parameter_servi
 allow resource_schedule_service normal_hap_attr:binder { call transfer };
 allow resource_schedule_service system_basic_hap_attr:binder { call transfer };
 allow resource_schedule_service system_core_hap_attr:binder { call transfer };
+
+allow resource_schedule_service resource_schedule_service:capability { sys_nice };
