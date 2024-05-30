@@ -144,3 +144,4 @@ debug_only(`
     allow resource_schedule_service sh:file { open };
     allow resource_schedule_service sh:binder { call };
 ')
+allow resource_schedule_service resource_schedule_service:capability { sys_nice };
