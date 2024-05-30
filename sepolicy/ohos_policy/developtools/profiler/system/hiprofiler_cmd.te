@@ -15,7 +15,6 @@ allow hiprofiler_cmd devpts:chr_file { read write };
 allow hiprofiler_cmd hdcd:fd use;
 allow hiprofiler_cmd hdcd:unix_stream_socket { read write };
 allow hiprofiler_cmd proc_cpuinfo_file:file { open read };
-allow hiprofiler_cmd sh:fd use;
 allow hiprofiler_cmd tty_device:chr_file { read write };
 allow hiprofiler_cmd node:tcp_socket node_bind;
 allow hiprofiler_cmd self:netlink_route_socket { create nlmsg_read read write };
@@ -134,6 +133,7 @@ debug_only(`
 	allow hiprofiler_cmd data_local_tmp:dir { add_name write search getattr };
 	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofiler_cmd self:capability { setgid };
+	allow hiprofiler_cmd sh:fd use;
 	allow hiprofiler_cmd sh:fifo_file write;
 	allow hiprofiler_cmd sh:fifo_file ioctl;
 ')

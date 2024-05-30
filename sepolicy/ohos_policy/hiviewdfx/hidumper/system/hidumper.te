@@ -30,8 +30,6 @@ allow hidumper lib_file:lnk_file read;
 
 allow hidumper samgr:binder { call transfer };
 
-allow hidumper sh:fd use;
-
 allow hidumper system_bin_file:dir search;
 allow hidumper system_bin_file:file { execute execute_no_trans map open read };
 allow hidumper toybox_exec:file { execute execute_no_trans getattr map open read };
@@ -79,3 +77,7 @@ allow hidumper sys_file:file { read };
 allow hidumper hdcd:fifo_file {read };
 
 allow hidumper hidumper_file:file { write open read };
+
+debug_only(`
+    allow hidumper sh:fd use;
+')
