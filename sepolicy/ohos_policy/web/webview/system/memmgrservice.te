@@ -13,3 +13,5 @@
 
 # avc:  denied  { write } for  pid=619 comm="ReclaimPriority" name="oom_score_adj" dev="proc" ino=44928 scontext=u:r:memmgrservice:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
 allow memmgrservice isolated_render:file { write };
+
+allow memmgrservice isolated_gpu:file { write };

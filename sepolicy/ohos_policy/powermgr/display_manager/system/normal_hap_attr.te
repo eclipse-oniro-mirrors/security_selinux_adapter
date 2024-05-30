@@ -11,5 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { get } for service=3308 pid=3579 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
-allow normal_hap_attr sa_foundation_displaymgr_service:samgr_class { get };
+#avc:  denied  { get } for service=3308 pid=3579 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
+allow normal_hap_attr sa_powermgr_displaymgr_service:samgr_class { get };
+binder_call(normal_hap_attr, powermgr);
+

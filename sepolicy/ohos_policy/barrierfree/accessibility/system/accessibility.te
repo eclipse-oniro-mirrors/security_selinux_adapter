@@ -39,8 +39,12 @@ allow accessibility kernel:unix_stream_socket { connectto };
 allow accessibility paramservice_socket:sock_file { write };
 allow accessibility accessibility_param:parameter_service { set };
 allow accessibility persist_sys_param:parameter_service { set };
-allow accessibility sa_foundation_displaymgr_service:samgr_class { get };
+allow accessibility sa_powermgr_displaymgr_service:samgr_class { get };
+binder_call(accessibility, powermgr);
 allowxperm accessibility data_service_el1_file:file ioctl { 0x5413 };
 
 allow accessibility accessibility_param:file { map open read };
 allow accessibility audio_server:binder { call transfer };
+
+allow accessibility resource_schedule_service:binder { call };
+allow accessibility sa_resource_schedule:samgr_class { get };

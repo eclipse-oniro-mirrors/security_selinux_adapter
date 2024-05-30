@@ -17,6 +17,8 @@ allow hap_domain data_service_el2_share:dir { read open getattr search };
 allow hap_domain sa_filemanagement_backup_service_service:samgr_class { get };
 allow hap_domain system_bin_file:file { execute execute_no_trans getattr map read open };
 allow hap_domain system_bin_file:lnk_file { read };
+allow hap_domain toybox_exec:file { execute execute_no_trans getattr map read open };
+allow hap_domain toybox_exec:lnk_file { read };
 allow hap_domain backup_sa:binder { call transfer };
 allow hap_domain data_service_el2_file:dir { read write add_name create getattr open remove_name rmdir search setattr };
 allow hap_domain data_service_el2_file:file { getattr create write read open unlink setattr };

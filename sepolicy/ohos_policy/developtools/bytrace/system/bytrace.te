@@ -23,7 +23,6 @@ allow bytrace dev_unix_socket:dir search;
 allow bytrace devpts:chr_file { read write };
 allow bytrace hdcd:fd use;
 allow bytrace hdcd:unix_stream_socket { read write };
-allow bytrace sh:fd use;
 allow bytrace system_bin_file:dir search;
 allow bytrace tracefs:dir search;
 allow bytrace tracefs_trace_marker_file:file { getattr open write };
@@ -65,5 +64,6 @@ allow bytrace const_postinstall_param:file { map open read };
 debug_only(`
 	allow bytrace self:capability { setgid };
 	allow hitrace self:capability { setgid };
+	allow bytrace sh:fd use;
 	allow bytrace sh:fifo_file { read write };
 ')

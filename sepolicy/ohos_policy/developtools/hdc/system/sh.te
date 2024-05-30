@@ -47,10 +47,12 @@ allow sh vendor_lib_file:dir { search };
 allow sh system_etc_file:dir { search };
 allow sh lib_file:lnk_file { read };
 allow sh etc_file:lnk_file { read };
-allow sh system_etc_file:file { read open getattr };
+allow sh system_etc_file:file { read open getattr map };
 
 allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
 allow sh system_bin_file:lnk_file { read };
+allow sh toybox_exec:file { execute execute_no_trans getattr map read open };
+allow sh toybox_exec:lnk_file { read };
 ## for toybox command auto complete, like tab
 allow sh system_bin_file:dir { search getattr open read };
 
@@ -88,7 +90,8 @@ allow sh data_hilogd_file:file read_file_perms;
 
 # for ps -efZ
 allow sh proc_file:dir { search read open getattr };
-allow sh proc_file:lnk_file { read };
+allow sh proc_file:lnk_file { read getattr };
+allow sh proc_net:file { read open getattr };
 allow sh sys_file:dir { search };
 allow sh domain:dir { getattr search };
 allow sh domain:file { open read };
@@ -109,7 +112,7 @@ allow sh debug_hap_data_file:file { getattr read open };
 # for system_fonts_file
 allow sh system_file:dir search;
 allow sh system_fonts_file:dir { getattr search read open };
-allow sh system_fonts_file:file { getattr read open }; 
+allow sh system_fonts_file:file { getattr read open };
 
 # for param_get
 allow sh dev_parameters_file:dir { search };
@@ -136,7 +139,10 @@ domain_auto_transition_pattern(sh, snapshot_display_exec, snapshot_display);
 
 # for sh process crash faultlog
 allow sh processdump:process { share sigchld };
-domain_auto_transition_pattern(sh, processdump_exec, processdump);
+domain_auto_transition_pattern({ domain -sh }, processdump_exec, processdump);
+developer_only(`
+    domain_auto_transition_pattern(sh, processdump_exec, processdump);
+')
 
 # for sh process arkCompiler AOT
 allow sh ark_profile:parameter_service { set };

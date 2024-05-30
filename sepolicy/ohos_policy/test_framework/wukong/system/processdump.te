@@ -22,3 +22,4 @@ allow processdump dev_kmsg_file:chr_file { open write };
 allow processdump distributedsche_param:file { map open read };
 allow processdump input_pointer_device_param:file { map open read };
 allow processdump system_bin_file:file { getattr map open read };
+allow processdump toybox_exec:file { getattr map open read };

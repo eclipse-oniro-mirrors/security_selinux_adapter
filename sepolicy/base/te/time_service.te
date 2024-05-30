@@ -63,4 +63,6 @@ allow time_service sys_usb_param:file { map open read };
 allow time_service time_service:unix_dgram_socket { getopt setopt };
 allow time_service tracefs:dir { search };
 allow time_service tracefs_trace_marker_file:file { open write };
+allow time_service domain:dir { getattr search };
+allow time_service domain:file { open read };
 allowxperm time_service data_service_el1_file:file ioctl { 0x5413 };

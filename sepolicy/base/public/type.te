@@ -32,6 +32,7 @@ type drm_service, sadomain, domain;
 type media_service, sadomain, domain;
 type param_watcher, sadomain, domain;
 type foundation, sadomain, domain;
+type powermgr, sadomain, domain;
 type token_sync_service, sadomain, domain;
 type memmgrservice, sadomain, domain;
 type accessibility, sadomain, domain;
@@ -108,6 +109,8 @@ type aa_exec, exec_attr, file_attr, system_file_attr;
 
 type ark_aot_compiler, native_system_domain, domain;
 type ark_aot_compiler_exec, exec_attr, file_attr, system_file_attr;
+
+type compiler_service, sadomain, domain;
 
 debug_only(`
     type console, sadomain, domain;

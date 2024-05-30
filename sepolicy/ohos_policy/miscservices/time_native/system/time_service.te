@@ -31,7 +31,8 @@ allow domain time_param:file { map open read };
 allow time_service kernel:unix_stream_socket { connectto };
 allow time_service paramservice_socket:sock_file { write };
 allow time_service sa_device_standby:samgr_class { get };
-allow time_service sa_foundation_powermgr_service:samgr_class { get };
+binder_call(time_service, powermgr);
+allow time_service sa_powermgr_powermgr_service:samgr_class { get };
 debug_only(`
     allow time_service sh:binder { call };
     allow time_service su:binder { call transfer };
@@ -50,3 +51,16 @@ allow time_service sysfs_devices_system_cpu:file { read };
 allow time_service data_service_el1_file:file { getattr };
 allow time_service sysfs_devices_system_cpu:file { open };
 allow time_service data_service_el1_file:file { map };
+allow time_service sa_huks_service:samgr_class { get };
+allow bgtaskmgr_service sa_powermgr_powermgr_service:samgr_class { get };
+allow time_service sysfs_devices_system_cpu:file { getattr };
+allow time_service huks_service:binder { call };
+allow time_service data_service_el1_file:dir { read open };
+allow time_service hiviewdfx_hiview_param:file { read };
+allow time_service dev_bbox:chr_file { write };
+allow time_service data_service_el1_file:dir { remove_name unlink };
+allow time_service data_service_el1_file:file { unlink };
+allow time_service distributeddata:binder { call };
+allow time_service sa_memory_manager_service:samgr_class { get };
+allow time_service memmgrservice:binder { call };
+

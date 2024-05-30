@@ -100,3 +100,15 @@ allow distributedfiledaemon hmdfs:file { read open getattr create write setattr 
 allow distributedfiledaemon dev_kmsg_file:chr_file { write };
 
 allow distributedfiledaemon data_service_el2_hmdfs:file { create };
+
+allow distributedfiledaemon sa_uri_permission_mgr_service:samgr_class { get };
+
+#avc:  denied  { get } for service=6001 pid=5338 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=0
+allow distributedfiledaemon sa_device_profile_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=4447 comm="/system/bin/sa_main" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=0
+allow distributedfiledaemon distributedsche:binder { call };
+
+allow distributedfiledaemon sa_storage_manager_service:samgr_class { get };
+
+allow distributedfiledaemon storage_manager:binder { call };

@@ -11,73 +11,60 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# bootdevice rely
 allow resource_schedule_service bootevent_param:file { map open read };
 allow resource_schedule_service bootevent_samgr_param:file { map open read };
-allow resource_schedule_service build_version_param:file { map open read };
-allow resource_schedule_service const_allow_mock_param:file { map open read };
-allow resource_schedule_service const_allow_param:file { map open read };
-allow resource_schedule_service const_build_param:file { map open read };
 allow resource_schedule_service const_display_brightness_param:file { map open read };
-allow resource_schedule_service const_param:file { map open read };
+# install unintsall envent
 allow resource_schedule_service const_postinstall_fstab_param:file { map open read };
 allow resource_schedule_service const_postinstall_param:file { map open read };
-allow resource_schedule_service const_product_param:file { map open read };
+# hilog file open rely
+allow resource_schedule_service hilog_param:file { map open read };
+allow resource_schedule_service hw_sc_build_os_param:file { map open read };
+allow resource_schedule_service hw_sc_build_param:file { map open read };
+allow resource_schedule_service hw_sc_param:file { map open read };
+# boot device rely
+allow resource_schedule_service ohos_boot_param:file { map open read };
+allow resource_schedule_service ohos_param:file { map open read };
+allow resource_schedule_service sa_bgtaskmgr:samgr_class { get };
+allow resource_schedule_service sa_foundation_appms:samgr_class { get };
+allow resource_schedule_service sa_resource_schedule_socperf_server:samgr_class { add get };
+allow resource_schedule_service security_param:file { map open read };
+allow resource_schedule_service startup_param:file { map open read };
+# hdc device recognition
+allow resource_schedule_service sys_param:file { map open read };
+allow resource_schedule_service system_usr_file:file { map open };
+allow resource_schedule_service sys_usb_param:file { map open read };
+allow resource_schedule_service vendor_etc_file:dir { search };
 debug_only(`
     allow resource_schedule_service debug_param:file { map open read };
 ')
 allow resource_schedule_service default_param:file { map open read };
 allow resource_schedule_service dev_file:lnk_file { read };
 allow resource_schedule_service distributedsche_param:file { map open read };
-allow resource_schedule_service hilog_param:file { map open read };
-allow resource_schedule_service hw_sc_build_os_param:file { map open read };
-allow resource_schedule_service hw_sc_build_param:file { map open read };
-allow resource_schedule_service hw_sc_param:file { map open read };
-allow resource_schedule_service init_param:file { map open read };
-allow resource_schedule_service init_svc_param:file { map open read };
-allow resource_schedule_service input_pointer_device_param:file { map open read };
 allow resource_schedule_service net_param:file { map open read };
 allow resource_schedule_service net_tcp_param:file { map open read };
-allow resource_schedule_service ohos_boot_param:file { map open read };
-allow resource_schedule_service ohos_param:file { map open read };
 allow resource_schedule_service persist_param:file { map open read };
 allow resource_schedule_service persist_sys_param:file { map open read };
-allow resource_schedule_service sa_bgtaskmgr:samgr_class { get };
-allow resource_schedule_service sa_foundation_appms:samgr_class { get };
-allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
 allow resource_schedule_service sa_foundation_tel_state_registry:samgr_class { get };
 allow resource_schedule_service sa_foundation_wms:samgr_class { get };
 allow resource_schedule_service sa_param_watcher:samgr_class { get };
 allow resource_schedule_service sa_resource_schedule:samgr_class { add get };
-allow resource_schedule_service sa_resource_schedule_socperf_server:samgr_class { add get };
 allow resource_schedule_service sa_sys_event_service:samgr_class { get };
-allow resource_schedule_service security_param:file { map open read };
-allow resource_schedule_service startup_param:file { map open read };
 allow resource_schedule_service sysfs_devices_system_cpu:file { getattr ioctl open write };
-allow resource_schedule_service sys_param:file { map open read };
-allow resource_schedule_service system_usr_file:file { map open };
-allow resource_schedule_service sys_usb_param:file { map open read };
-allow resource_schedule_service vendor_etc_file:dir { search };
 allowxperm resource_schedule_service sysfs_devices_system_cpu:file ioctl { 0x5413 };
 allow resource_schedule_service sa_multimodalinput_service:samgr_class { get };
 allow resource_schedule_service multimodalinput:unix_stream_socket { read };
 allow resource_schedule_service sa_work_schedule_service:samgr_class { get };
-
-allow resource_schedule_service telephony_sa:binder { call };
-
 allow resource_schedule_service distributeddata:binder { call };
 allow resource_schedule_service distributeddata:fd { use };
 allow distributeddata resource_schedule_service:binder { transfer };
-
 allow resource_schedule_service wifi_manager_service:binder { call };
 allow resource_schedule_service sa_wifi_hotspot_ability:samgr_class { get };
 allow resource_schedule_service sa_wifi_p2p_ability:samgr_class { get };
 allow resource_schedule_service sa_wifi_device_ability:samgr_class { get };
-allow resource_schedule_service sa_telephony_tel_core_service:samgr_class { get };
-allow resource_schedule_service sa_telephony_tel_cellular_data:samgr_class { get };
 allow resource_schedule_service sa_distributeddata_service:samgr_class { get };
-
 allow resource_schedule_service netmanager:binder { call };
-allow resource_schedule_service sa_net_policy_manager:samgr_class { get };
-
+allow resource_schedule_service powermgr:binder {call transfer};
 allow resource_schedule_service proc_net:file { getattr read open };
 

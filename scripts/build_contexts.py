@@ -187,7 +187,7 @@ def sehap_process_line(line, line_index, contexts_write, domain, contexts_file):
         return
 
     pattern = re.compile(
-        r'apl=(system_core|system_basic|normal)\s+((name|debuggable)=\S+\s+)?domain=(\S+)\s+type=(\S+)\s*\n')
+        r'apl=(system_core|system_basic|normal)\s+((name|debuggable|extra)=\S+\s+)*domain=(\S+)\s+type=(\S+)\s*\n')
     match = pattern.match(line_)
     if match:
         if domain:

@@ -15,3 +15,5 @@ type render_service, sadomain, domain;
 type render_service_exec, exec_attr, file_attr, system_file_attr;
 type sa_render_service, sa_service_attr;
 type vendor_etc_vulkan_file, vendor_file_attr, file_attr;
+type drawing_engine_sample, file_attr, system_file_attr;
+type drawing_sample_replayer, file_attr, system_file_attr;

@@ -29,6 +29,8 @@ allow wifi_hal_service sh_exec:file { execute execute_no_trans map read open };
 allow wifi_hal_service system_bin_file:dir { search };
 allow wifi_hal_service system_bin_file:file { execute execute_no_trans getattr map read open };
 allow wifi_hal_service system_bin_file:lnk_file { read };
+allow wifi_hal_service toybox_exec:file { execute execute_no_trans getattr map read open };
+allow wifi_hal_service toybox_exec:lnk_file { read };
 allow wifi_hal_service tty_device:chr_file { open read write };
 allow wifi_hal_service vendor_etc_file:dir { search };
 allow wifi_hal_service vendor_etc_file:file { open read };

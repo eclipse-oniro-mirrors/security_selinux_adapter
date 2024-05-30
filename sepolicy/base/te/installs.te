@@ -27,6 +27,7 @@ allow installs data_app_el1_file:file { create ioctl setattr write open };
 allow installs data_app_el2_file:dir { add_name create getattr open read relabelfrom search setattr write };
 allow installs data_app_el3_file:dir { add_name create getattr open read relabelfrom search setattr write };
 allow installs data_app_el4_file:dir { add_name create getattr open read relabelfrom search setattr write };
+allow installs data_app_el5_file:dir { add_name create getattr open read relabelfrom search setattr write };
 allow installs data_app_file:dir { search };
 allow installs data_file:dir { add_name create getattr open read search setattr write };
 allow installs data_service_el1_file:dir { add_name create getattr open read remove_name search setattr write };
@@ -35,6 +36,7 @@ allow installs data_service_el2_file:dir { add_name create open read search seta
 allow installs data_service_el2_hmdfs:dir { add_name create open read search setattr write };
 allow installs data_service_el3_file:dir { add_name create open read search setattr write };
 allow installs data_service_el4_file:dir { add_name create open read search setattr write };
+allow installs data_service_el5_file:dir { add_name create open read search setattr write };
 allow installs data_service_file:dir { search };
 allow installs debug_param:file { map open read };
 allow installs default_param:file { map open read };

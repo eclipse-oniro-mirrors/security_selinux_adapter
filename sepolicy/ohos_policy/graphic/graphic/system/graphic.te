@@ -26,6 +26,7 @@ allow render_service allocator_host:binder { call };
 allow render_service allocator_host:fd { use };
 allow render_service foundation:binder { call transfer };
 allow render_service foundation:fd { use };
+binder_call(render_service, powermgr);
 allow render_service normal_hap_attr:binder { call };
 allow render_service normal_hap_attr:fd { use };
 allow render_service proc_file:file { open read };
@@ -50,6 +51,9 @@ allow render_service persist_param:parameter_service { set };
 allow render_service sa_sensor_service:samgr_class { get };
 allow render_service sensors:binder { call transfer };
 allow render_service hmdfs:file { map write read };
+allow render_service multimodalinput:fd { use };
+allow render_service drawing_engine_sample:file { getattr map open read };
+allow render_service drawing_sample_replayer:file { getattr map open read };
 
 debug_only(`
     allow render_service sh:fd { use };
@@ -80,3 +84,6 @@ neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };
 neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search } vendor_etc_vulkan_file:dir { open read search };
 neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read } vendor_etc_vulkan_file:file { getattr open read };
 neverallow { domain -init } vendor_etc_vulkan_file:dir { getattr };
+neverallow { domain } dev_graphics_file:file ~{ getattr open read };
+neverallow { domain -render_service } drawing_engine_sample:file { getattr map open read };
+neverallow { domain -render_service } drawing_sample_replayer:file { getattr map open read };

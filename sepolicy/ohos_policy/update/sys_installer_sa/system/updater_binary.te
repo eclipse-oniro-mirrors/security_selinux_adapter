@@ -27,6 +27,7 @@ allow updater_binary dev_unix_socket:dir { search };
 allow updater_binary sys_installer_sa:unix_dgram_socket { connect write };
 allow updater_binary system_bin_file:dir { search };
 allow updater_binary system_bin_file:file { execute execute_no_trans read open map };
+allow updater_binary toybox_exec:file { execute execute_no_trans getattr read open map };
 allow updater_binary vendor_etc_file:dir { search };
 
 # avc:  denied  { read } for  pid=1204 comm="updater_binary" name="u:object_r:debug_param:s0" dev="tmpfs" ino=79 scontext=u:r:updater_binary:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1

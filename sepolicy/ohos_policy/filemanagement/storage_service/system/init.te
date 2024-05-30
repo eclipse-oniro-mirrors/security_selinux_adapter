@@ -24,6 +24,7 @@ allow init samgr:binder { call };
 #avc:  denied  { execute_no_trans } for  pid=260 comm="init" path="/system/bin/sdc" dev="mmcblk0p6" ino=354 scontext=u:r:init:s0 tcontext=u:object_r:sdc_exec:s0 tclass=file permissive=1
 #avc:  denied  { map } for  pid=260 comm="sdc" path="/system/bin/sdc" dev="mmcblk0p6" ino=354 scontext=u:r:init:s0 tcontext=u:object_r:sdc_exec:s0 tclass=file permissive=1
 allow init system_bin_file:file { execute execute_no_trans map read open };
+allow init toybox_exec:file { execute execute_no_trans getattr map read open };
 
 #avc:  denied  { execute } for  pid=250 comm="init" name="sdc" dev="mmcblk0p6" ino=354 scontext=u:r:init:s0 tcontext=u:object_r:sdc_exec:s0 tclass=file permissive=0
 allow init sdc_exec:file { execute execute_no_trans map read open };
@@ -40,3 +41,5 @@ allow init proc_version_file:file { open read };
 #avc:  denied  { module_request } for  pid=1 comm="init" kmod="crypto-cryptd(__cts-cbc-aes-ce)" scontext=u:r:init:s0 tcontext=u:r:kernel:s0 tclass=system permissive=0
 #avc:  denied  { module_request } for  pid=1 comm="init" kmod="crypto-cryptd(__cts-cbc-aes-ce)-all" scontext=u:r:init:s0 tcontext=u:r:kernel:s0 tclass=system permissive=0
 allow init kernel:system { module_request };
+allow init data_service_storage_daemon_sd_file:dir { open read relabelto setattr search write };
+allow init data_service_storage_daemon_sd_file:file { relabelto };

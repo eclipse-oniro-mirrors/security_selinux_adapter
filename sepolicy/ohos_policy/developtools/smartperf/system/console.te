@@ -17,6 +17,8 @@ allow console lib_file:lnk_file { read };
 allow console system_bin_file:dir { search };
 allow console system_bin_file:file { execute execute_no_trans getattr map read open };
 allow console system_bin_file:lnk_file { read };
+allow console toybox_exec:file { execute execute_no_trans getattr map read open };
+allow console toybox_exec:lnk_file { read };
 allow console tty_device:chr_file { ioctl };
 allowxperm console dev_console_file:chr_file ioctl { 0x5413 };
 allowxperm console tty_device:chr_file ioctl { 0x5403 };

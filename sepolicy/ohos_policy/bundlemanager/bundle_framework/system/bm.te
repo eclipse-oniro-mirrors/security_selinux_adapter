@@ -1,0 +1,122 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# add for bm in debug mode
+debug_only(`
+    allow bm samgr:binder { call };
+    allow samgr bm:dir { search };
+    allow samgr bm:file { open read };
+    allow samgr bm:process { getattr };
+    allow samgr bm:binder { call transfer };
+    allow accountmgr bm:binder { transfer };
+    allow hiview bm:dir { search };
+    allow hiview bm:file { read open getattr};
+    allow hiview sa_multimodalinput_service:samgr_class { get };
+    allow bm debug_param:file { map read open };
+    allow bm hilog_param:file { map read open };
+    allow bm sa_foundation_bms:samgr_class { get };
+    allow bm foundation:binder { call transfer };
+    allow bm foundation:fd { use };
+    allow bm data_service_el1_file:file { read write };
+    allow bm hdcd:fd { use };
+    allow bm sh:fd { use };
+    allow bm hdcd:fifo_file { read write ioctl };
+    allowxperm bm hdcd:fifo_file ioctl { 0x5413 };
+    allow bm data_file:dir { search getattr read open };
+    allow bm data_local:dir read_dir_perms;
+    allow bm data_local_tmp:dir read_dir_perms;
+    allow foundation bm:binder { call transfer };
+    allow bm hdcd:unix_stream_socket { read write };
+    allow bm data_local_tmp:file { read_file_perms };
+    allow bm devinfo_private_param:file { read map open };
+    allow bm accountmgr:binder { call transfer };
+
+    allow bm dev_console_file:chr_file { read write };
+    allow bm dev_unix_socket:dir { search };
+    allow bm data_file:file { getattr read open };
+    allow bm sh:fifo_file { write ioctl };
+    allow bm sa_accountmgr:samgr_class { get };
+    allow bm tracefs:dir { search };
+    allow bm data_app_file:dir { search };
+    allow bm devpts:chr_file { read write ioctl };
+    allow bm tty_device:chr_file { read write };
+    allow bm system_file:file { getattr read open };
+    allow bm system_file:dir { open read };
+    allow bm data_app_el2_file:dir { search };
+    allow bm quick_fix:binder { call transfer };
+    allow bm sa_foundation_cesfwk_service:samgr_class { get };
+    allow bm sa_quick_fix_mgr_service:samgr_class { get };
+    allow bm sa_foundation_abilityms:samgr_class { get };
+    allow bm dev_kmsg_file:chr_file { write };
+    allow bm persist_sys_param:file { map open read };
+    allow bm arkcompiler_param:file { map open read };
+    allow bm ark_writeable_param:file { map open read };
+    allowxperm bm devpts:chr_file ioctl { 0x5413 };
+    allowxperm bm sh:fifo_file ioctl { 0x5413 };
+')
+
+# add for bm in developer mode
+developer_only(`
+    allow bm samgr:binder { transfer };
+    allow bm samgr:binder { call };
+    allow samgr bm:dir { search };
+    allow samgr bm:file { open read };
+    allow samgr bm:process { getattr };
+    allow samgr bm:binder { call transfer };
+    allow accountmgr bm:binder { transfer };
+    allow hiview bm:dir { search };
+    allow hiview bm:file { read open getattr};
+    allow hiview sa_multimodalinput_service:samgr_class { get };
+    allow bm debug_param:file { map read open };
+    allow bm hilog_param:file { map read open };
+    allow bm sa_foundation_bms:samgr_class { get };
+    allow bm foundation:binder { call transfer };
+    allow bm foundation:fd { use };
+    allow bm data_service_el1_file:file { read write };
+    allow bm hdcd:fd { use };
+    allow bm sh:fd { use };
+    allow bm hdcd:fifo_file { read write ioctl };
+    allowxperm bm hdcd:fifo_file ioctl { 0x5413 };
+    allow bm data_file:dir { search getattr read open };
+    allow bm data_local:dir read_dir_perms;
+    allow bm data_local_tmp:dir read_dir_perms;
+    allow foundation bm:binder { call transfer };
+    allow foundation sh:binder { call transfer };
+    allow bm hdcd:unix_stream_socket { read write };
+    allow bm data_local_tmp:file { read_file_perms };
+    allow bm devinfo_private_param:file { read map open };
+    allow bm accountmgr:binder { call transfer };
+
+    allow bm dev_console_file:chr_file { read write };
+    allow bm dev_unix_socket:dir { search };
+    allow bm data_file:file { getattr read open };
+    allow bm sh:fifo_file { write ioctl };
+    allow bm sa_accountmgr:samgr_class { get };
+    allow bm tracefs:dir { search };
+    allow bm data_app_file:dir { search };
+    allow bm devpts:chr_file { read write ioctl };
+    allow bm tty_device:chr_file { read write };
+    allow bm system_file:file { getattr read open };
+    allow bm system_file:dir { open read };
+    allow bm data_app_el2_file:dir { search };
+    allow bm quick_fix:binder { call transfer };
+    allow bm sa_foundation_cesfwk_service:samgr_class { get };
+    allow bm sa_quick_fix_mgr_service:samgr_class { get };
+    allow bm sa_foundation_abilityms:samgr_class { get };
+    allow bm dev_kmsg_file:chr_file { write };
+    allow bm persist_sys_param:file { map open read };
+    allow bm arkcompiler_param:file { map open read };
+    allow bm ark_writeable_param:file { map open read };
+    allowxperm bm devpts:chr_file ioctl { 0x5413 };
+    allowxperm bm sh:fifo_file ioctl { 0x5413 };
+')

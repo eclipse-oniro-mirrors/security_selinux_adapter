@@ -27,16 +27,16 @@ allow power_shell dev_unix_socket:dir { search };
 # avc: denied { write } for pid=4337 comm="power-shell" path="/dev/pts/2" dev="devpts" ino=5 scontext=u:r:power_shell:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
 allow power_shell devpts:chr_file { ioctl read write write };
 
-# avc: denied { call } for pid=4337 comm="power-shell" scontext=u:r:power_shell:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
-allow power_shell foundation:binder { call };
+# avc: denied { call } for pid=4337 comm="power-shell" scontext=u:r:power_shell:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+binder_call(power_shell, powermgr);
 
 # avc: denied { map } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
 # avc: denied { read open } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
 # avc: denied { read } for pid=4337 comm="power-shell" path="/dev/parameters/u:object_r:hilog_param:s0" dev="tmpfs" ino=144 scontext=u:r:power_shell:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
 allow power_shell hilog_param:file { map read open read };
 
-# avc: denied { get } for service=3301 pid=4256 scontext=u:r:power_shell:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
-allow power_shell sa_foundation_powermgr_service:samgr_class { get };
+# avc: denied { get } for service=3301 pid=4256 scontext=u:r:power_shell:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow power_shell sa_powermgr_powermgr_service:samgr_class { get };
 
 # avc: denied { call } for pid=4337 comm="power-shell" scontext=u:r:power_shell:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
 allow power_shell samgr:binder { call };
@@ -76,8 +76,8 @@ debug_only(`
     #for power-shell run
     domain_auto_transition_pattern(su, power_shell_exec, power_shell);
 
-    # avc: denied { get } for service=3308 pid=4719 scontext=u:r:power_shell:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
-    allow power_shell sa_foundation_displaymgr_service:samgr_class { get };
+    # avc: denied { get } for service=3308 pid=4719 scontext=u:r:power_shell:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
+    allow power_shell sa_powermgr_displaymgr_service:samgr_class { get };
 
     # avc: denied { getattr } for pid=4346 comm="ps" path="/proc/4337" dev="proc" ino=36480 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=dir permissive=1
     # avc: denied  { search } for  pid=4346 comm="ps" name="4337" dev="proc" ino=36480 scontext=u:r:su:s0 tcontext=u:r:power_shell:s0 tclass=dir permissive=1

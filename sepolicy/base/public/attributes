@@ -163,6 +163,7 @@ attribute accesstoken_data_file_violator_file;
 attribute module_update_file_violator_file_dir;
 attribute module_update_binary_file_violator_file_dir;
 attribute normal_hap_data_file_attr_violator_relabel;
+attribute file_migrate_hap_data_file_attr_violator_opt;
 
 attribute data_user_file_dir_violator;
 attribute data_user_file_file_violator;
@@ -186,6 +187,7 @@ attribute module_update_file_attr;
 attribute dev_attr_violator;
 attribute dev_file_violator;
 attribute dev_attr_violator_chr_file_rw;
+attribute dev_attr_violator_file_rw;
 attribute samgr_binder_violator;
 attribute installs_binder_violator;
 attribute binder_call_installs_violators;
@@ -250,12 +252,17 @@ attribute system_etc_file_violator_dir;
 attribute system_etc_file_violator_file;
 attribute system_etc_file_violator_lnk_file;
 attribute system_profile_file_violator_dir;
+attribute system_fonts_file_violator_dir_mounton;
 
 attribute hdf_service_violators;
 
 attribute binder_call_hdfdomain_violators;
 
 attribute hiview_host;
-debug_only(`
-    attribute process_dyntransition_su_violators;
-')
+
+attribute rgm_violator_filesystem_mount;
+
+attribute system_bin_file_quickfix;
+
+#define some rgm_violator_ohos attribute for neverallows
+attribute rgm_violator_ohos_filesystem_unmount;

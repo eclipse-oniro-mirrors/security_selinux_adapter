@@ -54,6 +54,8 @@ allow hiview ohos_boot_param:file { map open read };
 allow hiview ohos_param:file { map open read };
 allow hiview persist_param:file { map open read };
 allow hiview persist_sys_param:file { map open read };
+allow hiview powermgr:dir { search };
+allow hiview powermgr:file { open read };
 allow hiview proc_file:file { open read };
 allow hiview sa_accesstoken_manager_service:samgr_class { get };
 allow hiview sa_accountmgr:samgr_class { get };

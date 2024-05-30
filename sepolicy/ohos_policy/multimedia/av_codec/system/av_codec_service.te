@@ -50,6 +50,8 @@ allow av_codec_service dev_unix_socket:dir { search };
 allow av_codec_service hilog_param:file { map open read };
 allow av_codec_service musl_param:file { map open read };
 allow av_codec_service sysfs_devices_system_cpu:file { getattr open read };
+allow av_codec_service sa_memory_manager_service:samgr_class { get };
+allow av_codec_service memmgrservice:binder { call };
 
 # avc:  denied  { call } for  pid=564 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
 allow av_codec_service render_service:binder { call };
@@ -127,6 +129,8 @@ allow av_codec_service system_core_hap_attr:binder { call transfer };
 
 # avc_audit_slow:260] avc: denied { call } for pid=1654, comm="/system/bin/sa_main"  scontext=u:r:av_codec_service:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
 allow av_codec_service drm_service:binder { call };
+
+allow av_codec_service camera_service:binder { call transfer };
 
 allow av_codec_service dhardware:binder { call transfer };
 allow av_codec_service dscreen:binder { call transfer };

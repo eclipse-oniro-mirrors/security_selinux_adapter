@@ -28,51 +28,73 @@ ALLOW_TCONTEXT_CLASS_LIST = ["data_log_sanitizer_file file","proc_attr dir","sel
 
 
 class PolicyDb(object):
-    def __init__(self, allowx_set, allow_set):
+    def __init__(self, allowx_set, allow_set, typetransition_set):
         self.allowx_set = allowx_set
         self.allow_set = allow_set
+        self.typetransition_set = typetransition_set
 
 
 def simplify_string(string):
     return string.strip().replace('(', '').replace(')', '')
 
 
-def split_attribute(elem_list, allow_set, allowx_set):
+def split_allow_rule(elem_list, allow_set, allowx_set):
+    if len(elem_list) < 5:
+        print("not an allow/allowx rule: {}".format(elem_list))
+        return
     rulename = elem_list[0]
     scontext = elem_list[1]
     tcontext = elem_list[2]
     tclass = elem_list[3]
     if rulename == 'allow' and 'ioctl' in elem_list[4:]:
-        keycontent = scontext + ' ' + tcontext + ' ' + tclass
+        keycontent = f'{scontext} {tcontext} {tclass}'
         allow_set.add(keycontent)
     if rulename == 'allowx' and 'ioctl' == tclass:
-        keycontent = scontext + ' ' + tcontext + ' ' + elem_list[4]
+        keycontent = f'{scontext} {tcontext} {elem_list[4]}'
         allowx_set.add(keycontent)
 
 
-def deal_with_allow(cil_file, allow_set, allowx_set):
+def split_typetransition(elem_list, typetransition_set):
+    if len(elem_list) < 5:
+        print("not a typetransition rule: {}".format(elem_list))
+        return
+    rulename = elem_list[0]
+    source_t = elem_list[1]
+    target_t = elem_list[2]
+    tclass = elem_list[3]
+    default_t = elem_list[4]
+    if tclass == 'process':
+        keycontent = f'{source_t} {target_t} file'
+        typetransition_set.add(keycontent)
+
+
+def deal_with_allow(cil_file, allow_set, allowx_set, typetransition_set):
     with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
-            if not line.startswith('(allow ') and not line.startswith('(allowx '):
-                continue
-            sub_string = simplify_string(line)
-            elem_list = sub_string.split(' ')
-            # (allow A B (file (ioctl x x x)))
-            # (allowx A B (ioctl file (x x x)))
-            if len(elem_list) < 5:
-                continue
-            split_attribute(elem_list, allow_set, allowx_set)
+            if line.startswith('(typetransition '):
+                # (typetransition A B process C)
+                sub_string = simplify_string(line)
+                elem_list = sub_string.split(' ')
+                split_typetransition(elem_list, typetransition_set)
+
+            if line.startswith('(allow ') or line.startswith('(allowx '):
+                sub_string = simplify_string(line)
+                elem_list = sub_string.split(' ')
+                # (allow A B (file (ioctl x x x)))
+                # (allowx A B (ioctl file (x x x)))
+                split_allow_rule(elem_list, allow_set, allowx_set)
 
 
 def generate_database(args, with_developer):
     allowx_set = set()
     allow_set = set()
+    typetransition_set= set()
     if with_developer:
-        deal_with_allow(args.developer_cil_file, allow_set, allowx_set)
+        deal_with_allow(args.developer_cil_file, allow_set, allowx_set, typetransition_set)
     else:
-        deal_with_allow(args.cil_file, allow_set, allowx_set)
+        deal_with_allow(args.cil_file, allow_set, allowx_set, typetransition_set)
 
-    return PolicyDb(allowx_set, allow_set)
+    return PolicyDb(allowx_set, allow_set, typetransition_set)
 
 
 def get_whitelist(args, with_developer):
@@ -89,7 +111,7 @@ def get_whitelist(args, with_developer):
 def check(args, with_developer):
     policy_db = generate_database(args, with_developer)
     contexts_list = get_whitelist(args, with_developer)
-    diff_set = policy_db.allow_set - policy_db.allowx_set - set(contexts_list)
+    diff_set = policy_db.allow_set - policy_db.allowx_set - policy_db.typetransition_set - set(contexts_list)
     notallow = list()
     for diff in diff_set:
         if not (diff.endswith(tuple(ALLOW_TCONTEXT_CLASS_LIST))) :

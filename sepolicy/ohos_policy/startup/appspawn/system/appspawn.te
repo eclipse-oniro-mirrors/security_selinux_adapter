@@ -105,7 +105,8 @@ allow appspawn system_basic_hap_data_file_attr:dir { mounton getattr };
 allow appspawn system_basic_hap_attr:process { dyntransition sigkill };
 allow appspawn system_bin_file:dir { mounton search getattr };
 allow appspawn system_core_hap_data_file_attr:dir { mounton getattr };
-allow appspawn system_core_hap_attr:process { dyntransition };
+# avc:  denied  { sigkill } for  pid=2375 comm="appspawn" scontext=u:r:appspawn:s0 tcontext=u:r:system_core_hap:s0 tclass=process permissive=1
+allow appspawn system_core_hap_attr:process { dyntransition sigkill };
 allow appspawn system_etc_file:dir { mounton getattr };
 allow appspawn system_file:dir { mounton getattr };
 allow appspawn system_fonts_file:dir { mounton open read search getattr };
@@ -130,7 +131,8 @@ allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 };
 allow appspawn dev_xpm:chr_file { open read write ioctl };
 allow appspawn system_file:file { map };
 allow appspawn nwebspawn:process{ dyntransition };
-allow appspawn nwebspawn:process{ sigkill };
+# avc:  denied  { signal } for  pid=2762 comm="appspawn" scontext=u:r:appspawn:s0 tcontext=u:r:nwebspawn:s0 tclass=process permissive=0
+allow appspawn nwebspawn:process{ sigkill signal };
 allow appspawn dev_asanlog_file:dir { getattr };
 allow appspawn share_public_file:dir { search };
 # avc_audit_slow:260] avc: denied { dyntransition } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=process permissive=1
@@ -143,3 +145,66 @@ allowxperm appspawn cgroup:file ioctl {  0x5413  };
 
 # avc:  denied  { getattr } for  pid=2327 comm="edialibrarydata" path="/data/misc" dev="mmcblk0p15" ino=109 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_misc:s0 tclass=dir permissive=1
 allow appspawn data_misc:dir { getattr };
+
+# avc:  denied  { search } for  pid=274 comm="appspawn" name="648" dev="proc" ino=19134 scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=dir permissive=1
+allow appspawn pid_ns_init:dir { search };
+
+# avc:  denied  { read } for  pid=274 comm="appspawn" scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=file permissive=1
+allow appspawn pid_ns_init:file { open getattr read };
+
+# avc:  denied  { read } for  pid=274 comm="appspawn" name="pid" dev="proc" ino=31171 scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=lnk_file permissive=1
+allow appspawn pid_ns_init:lnk_file { read };
+
+# avc:  denied  { sys_ptrace } for  pid=265 comm="appspawn" capability=19  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=1
+allow appspawn appspawn:capability { sys_ptrace };
+
+# avc:  denied  { open } for  pid=277 comm="appspawn" path="pid:[4026532800]" dev="nsfs" ino=4026532800 scontext=u:r:appspawn:s0 tcontext=u:object_r:unlabeled:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=277 comm="appspawn" dev="nsfs" ino=4026532800 scontext=u:r:appspawn:s0 tcontext=u:object_r:unlabeled:s0 tclass=file permissive=1
+allow appspawn unlabeled:file { open read };
+
+# avc:  denied  { mounton } for  pid=2058 comm="honydataability" path="/mnt/sandbox/100/app-root/data/certificates/user_cacerts" dev="mmcblk0p15" ino=149 scontext=u:r:appspawn:s0 tcontext=u:object_r:cert_manager_service_file:s0 tclass=dir permissive=0
+allow appspawn cert_manager_service_file:dir { mounton };
+# avc:  denied  { getattr } for  pid=2058 comm="honydataability" path="/system/bin/sh" dev="mmcblk0p7" ino=390 scontext=u:r:appspawn:s0 tcontext=u:object_r:sh_exec:s0tclass=file permissive=0
+allow appspawn sh_exec:file { getattr };
+# avc:  denied  { read } for  pid=2058 comm="honydataability" name="bin" dev="mmcblk0p7" ino=129 scontext=u:r:appspawn:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
+allow appspawn system_bin_file:dir { open read };
+# avc:  denied  { read } for  pid=2058 comm="honydataability" name="el1" dev="tmpfs" ino=159 scontext=u:r:appspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=0
+allow appspawn tmpfs:dir { open read };
+
+#allow appspawn normal_hap_data_file:dir { open read search };
+allow appspawn data_misc:dir { open read search };
+allow appspawn data_file:dir { open read search };
+allow appspawn hmdfs:dir { open read search };
+allow appspawn data_app_el2_file:dir { open read search };
+allow appspawn data_app_el1_file:dir { open read search };
+#allow appspawn system_basic_hap_data_file:dir { open read search };
+
+#allow appspawn system_core_hap_data_file:dir { open read search };
+#allow appspawn medialibrary_hap_data_file:dir { open read search };
+#allow appspawn permissionmanager_hap_data_file:dir { open read search };
+#allow appspawn formrenderservice_hap_data_file:dir { open read search };
+allow appspawn data_service_el2_hmdfs:dir { mounton };
+
+allow appspawn normal_hap_data_file_attr:dir { create write add_name setattr };
+
+# avc:  denied  { fsetid } for  pid=274 comm="appspawn" capability=4  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=0
+
+#init extend command, support to enter the application sandbox.
+debug_only(`
+    allow appspawn system_bin_file:lnk_file { read };
+    allow appspawn system_bin_file:file { getattr execute read open execute_no_trans map };
+    allow appspawn toybox_exec:lnk_file { read };
+    allow appspawn toybox_exec:file { getattr execute read open execute_no_trans map };
+    allow appspawn tty_device:chr_file { getattr ioctl open read write };
+    allowxperm appspawn tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
+    allow appspawn devpts:chr_file { read write open getattr ioctl };
+    allow appspawn dev_pts_file:dir { search };
+    allow appspawn tmpfs:lnk_file { getattr };
+')
+
+# avc:  denied  { read } for  pid=2685 comm="OS_FFRT_5_2" name="appdata-sandbox.json" dev="mmcblk0p7" ino=996 scontext=u:r:foundation:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=0
+allow foundation system_etc_file:lnk_file { read };
+allow appspawn system_etc_file:lnk_file { read };
+
+#avc:  denied  { sigkill } for  pid=282 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+allow nwebspawn isolated_render:process { sigkill };

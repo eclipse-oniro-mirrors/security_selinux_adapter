@@ -1,0 +1,21 @@
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { get } for service=battery_interface_service pid=592 scontext=u:r:powermgr:s0 tcontext=u:object_r:hdf_battery_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow powermgr hdf_battery_interface_service:hdf_devmgr_class { get };
+
+#avc:  denied  { call } for service=light_host pid=681 scontext=u:r:powermgr:s0 tcontext=u:object_r:light_host:s0 tclass=binder permissive=1
+allow powermgr light_host:binder { call };
+
+#avc:  denied  { get } for service=hdf_light_interface_service pid=677 scontext=u:r:powermgr:s0 tcontext=u:object_r:hdf_light_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow powermgr hdf_light_interface_service:hdf_devmgr_class { get };

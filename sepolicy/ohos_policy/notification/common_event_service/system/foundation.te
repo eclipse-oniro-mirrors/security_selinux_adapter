@@ -28,7 +28,6 @@ allow foundation sa_time_service:samgr_class { get };
 allow foundation screenlock_server:binder { call };
 allow foundation sys_file:file { ioctl open write };
 allow foundation system_core_hap_attr:process { sigkill };
-allow foundation hiviewdfx_hiview_param:file { open read };
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
 allowxperm foundation sys_file:file ioctl { 0x5413 };
 

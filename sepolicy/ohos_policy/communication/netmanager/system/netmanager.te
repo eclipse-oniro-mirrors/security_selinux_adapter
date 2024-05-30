@@ -10,8 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-type fwmark_service, dev_attr, file_attr;
-type dnsproxy_service, dev_attr, file_attr;
 
 allow netmanager accesstoken_service:binder { call };
 allow netmanager fs_bpf:dir { search };
@@ -38,6 +36,7 @@ allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write 
 allow netmanager netmanager:packet_socket { bind create read write };
 allow netmanager netmanager:tcp_socket { connect create getattr getopt read setopt write };
 allow netmanager netmanager:udp_socket { bind connect create getattr ioctl read write setopt getopt };
+allow netmanager netmanager:rawip_socket { write setopt create read };
 allow netmanager netmanager:unix_dgram_socket { ioctl };
 allow netmanager netsysnative:binder { call };
 allow netmanager node:udp_socket { node_bind };
@@ -45,6 +44,7 @@ allow netmanager port:tcp_socket { name_connect };
 allow netmanager port:udp_socket { name_bind };
 allow netmanager system_bin_file:dir { search };
 allow netmanager system_bin_file:file { execute execute_no_trans map read open };
+allow netmanager toybox_exec:file { execute execute_no_trans map read open };
 allow netmanager system_core_hap_attr:binder { call };
 allow netmanager telephony_sa:binder { call };
 allow netmanager time_service:binder { call };
@@ -107,3 +107,5 @@ allow netmanager sa_dhcp_server:samgr_class { add get };
 allow netmanager sa_huks_service:samgr_class { get };
 allow netmanager huks_service:binder { call };
 allow netmanager dev_ashmem_file:chr_file { open };
+allow netmanager foundation:fd { use };
+allow netmanager proc_net:file { open write };

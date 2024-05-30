@@ -45,7 +45,7 @@ static const std::string DEFAULT_CONTEXT = "u:object_r:default_service:s0";
 static const std::string DEFAULT_HDF_CONTEXT = "u:object_r:default_hdf_service:s0";
 static const int CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const int CONTEXTS_LENGTH_MAX = 1024;
-static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
+static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
 static std::unordered_map<std::string, struct ServiceInfo> g_serviceMap;
 std::mutex g_selinuxLock;
 std::mutex g_loadContextsLock;
@@ -87,7 +87,7 @@ struct AuditMsg {
 
 static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, size_t len)
 {
-    if (data == nullptr || buf == nullptr) {
+    if (data == nullptr || buf == nullptr || len == 0) {
         return -1;
     }
     auto *msg = reinterpret_cast<AuditMsg *>(data);
@@ -195,7 +195,7 @@ ServiceChecker::ServiceChecker(bool isHdf) : isHdf_(isHdf)
     } else {
         serviceClass_ = "samgr_class";
     }
-    __selinux_once(FC_ONCE, SelinuxSetCallback);
+    __selinux_once(g_fcOnce, SelinuxSetCallback);
 }
 
 int ServiceChecker::GetServiceContext(const std::string &serviceName, std::string &context)

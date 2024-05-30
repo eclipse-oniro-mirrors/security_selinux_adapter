@@ -23,6 +23,7 @@ allow charger system_bin_file:dir { search };
 #avc:  denied  { read execute } for  pid=239 comm="charger" name="bin" dev="mmcblk0p6" ino=321 scontext=u:r:charger:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 #avc:  denied  { map } for  pid=233 comm="charger" name="bin" dev="mmcblk0p6" ino=321 scontext=u:r:charger:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow charger system_bin_file:file { entrypoint map read execute };
+allow charger toybox_exec:file { entrypoint map read execute open getattr };
 
 #avc:  denied  { entrypoint } for  pid=235 comm="init" path="/vendor/bin/charger" dev="mmcblk0p6" ino=14 scontext=u:r:charger:s0 tcontext=u:charger_exec:s0 tclass=file permissive=1
 allow charger charger_exec:file { entrypoint };

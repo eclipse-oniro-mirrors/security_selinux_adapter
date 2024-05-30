@@ -15,6 +15,7 @@ init_daemon_domain(cupsd);
 allow cupsd data_file:dir { search };
 allow cupsd system_bin_file:dir { search getattr };
 allow cupsd system_bin_file:file { entrypoint execute execute_no_trans getattr map read open };
+allow cupsd toybox_exec:file { entrypoint execute execute_no_trans getattr map read open };
 allow cupsd cupsd_exec:file { entrypoint execute map read };
 allow cupsd cupsd:tcp_socket { accept bind connect create getattr listen read setopt write };
 allow cupsd data_local:dir { search };

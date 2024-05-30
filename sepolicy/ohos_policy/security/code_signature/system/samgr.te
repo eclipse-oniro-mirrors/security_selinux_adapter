@@ -16,3 +16,5 @@ allow samgr key_enable:dir { search open read getattr };
 allow samgr key_enable:file { open read };
 
 allow samgr key_enable:process { getattr };
+
+allow samgr key_enable:binder { call };

@@ -55,11 +55,13 @@ static const std::string NAME_PREFIX = "name=";
 static const std::string DOMAIN_PREFIX = "domain=";
 static const std::string TYPE_PREFIX = "type=";
 static const std::string DEBUGGABLE_PREFIX = "debuggable=";
+static const std::string EXTRA_PREFIX = "extra=";
 static const std::string DEBUGGABLE = "debuggable";
+static const std::string DLPSANDBOX = "dlp_sandbox";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
-static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
+static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
 std::mutex g_loadContextsLock;
 } // namespace
@@ -100,6 +102,7 @@ static struct SehapInfo DecodeString(std::string &line)
     bool domainVisit = false;
     bool typeVisit = false;
     bool debuggableVisit = false;
+    bool extraVisit = false;
 
     while (input >> tmp) {
         if (!aplVisit && (tmp.find(APL_PREFIX) != tmp.npos)) {
@@ -117,6 +120,13 @@ static struct SehapInfo DecodeString(std::string &line)
         } else if (!debuggableVisit && (tmp.find(DEBUGGABLE_PREFIX) != tmp.npos)) {
             std::string debuggable = tmp.substr(tmp.find(DEBUGGABLE_PREFIX) + DEBUGGABLE_PREFIX.size());
             contextBuff.debuggable = !strcmp(debuggable.c_str(), "true");
+            debuggableVisit = true;
+        } else if (!extraVisit && (tmp.find(EXTRA_PREFIX) != tmp.npos)) {
+            std::string extra = tmp.substr(tmp.find(EXTRA_PREFIX) + EXTRA_PREFIX.size());
+            if (extra == DLPSANDBOX) {
+                contextBuff.extra |= SELINUX_HAP_DLP;
+            }
+            extraVisit = true;
         }
     }
 
@@ -147,7 +157,9 @@ static std::string GetHapContextKey(struct SehapInfo *hapInfo)
 {
     std::string keyPara;
 
-    if (hapInfo->debuggable) {
+    if (hapInfo->extra & SELINUX_HAP_DLP) {
+        keyPara = hapInfo->apl + "." + DLPSANDBOX;
+    } else if (hapInfo->debuggable) {
         keyPara = hapInfo->apl + "." + DEBUGGABLE;
     } else if (!hapInfo->name.empty()) {
         keyPara = hapInfo->apl + "." + hapInfo->name;
@@ -174,7 +186,7 @@ static bool HapContextsInsert(std::string line, int lineNum)
         return false;
     }
 
-    if (tmpInfo.name.empty() && !tmpInfo.debuggable) {
+    if (tmpInfo.name.empty() && !tmpInfo.debuggable && !tmpInfo.extra) {
         keyPara = tmpInfo.apl + ".";
         ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type);
     }
@@ -216,7 +228,7 @@ static bool HapContextsLoad()
 
 HapContext::HapContext()
 {
-    __selinux_once(FC_ONCE, SelinuxSetCallback);
+    __selinux_once(g_fcOnce, SelinuxSetCallback);
 }
 
 HapContext::~HapContext() {}
@@ -406,10 +418,10 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
     }
     // check whether the context is valid
     if (security_check_context(secontext) < 0) {
+        selinux_log(SELINUX_ERROR, "context: %s, %s\n", secontext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         freecon(*secontextPtr);
         *secontextPtr = nullptr;
         context_free(con);
-        selinux_log(SELINUX_ERROR, "context: %s, %s\n", secontext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
     freecon(*secontextPtr);
@@ -462,9 +474,9 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         hapDomainInfo.packageName.c_str(), oldTypeContext, typeContext);
 
     if (security_check_context(typeContext) < 0) {
+        selinux_log(SELINUX_ERROR, "context: %s, %s\n", typeContext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         freecon(oldTypeContext);
         context_free(con);
-        selinux_log(SELINUX_ERROR, "context: %s, %s\n", typeContext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 
@@ -498,6 +510,9 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
         keyPara = apl + "." + packageName;
         selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
+    } else if (hapFlags & SELINUX_HAP_DLP) {
+        keyPara = apl + "." + DLPSANDBOX;
+        selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
     } else if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
         keyPara = apl + "." + DEBUGGABLE;
         selinux_log(SELINUX_INFO, "debuggable hap, keyPara: %s", keyPara.c_str());

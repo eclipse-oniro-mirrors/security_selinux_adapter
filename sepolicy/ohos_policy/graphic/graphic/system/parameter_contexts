@@ -12,3 +12,5 @@
 # limitations under the License.
 
 debug.graphic.overdraw                  u:object_r:debug_param:s0
+rosen.dirtyregiondebug.enabled          u:object_r:debug_param:s0
+rosen.drawingCache.enabledDfx           u:object_r:debug_param:s0

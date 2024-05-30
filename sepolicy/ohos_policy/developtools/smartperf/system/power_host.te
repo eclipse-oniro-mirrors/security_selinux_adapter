@@ -15,3 +15,4 @@ allow power_host data_file:dir { search };
 allow power_host dev_unix_socket:dir { search };
 allow power_host foundation:binder { call };
 allow power_host sys_file:file { open read };
+binder_call(power_host, powermgr);

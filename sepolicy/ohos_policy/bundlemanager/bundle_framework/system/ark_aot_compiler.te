@@ -34,9 +34,10 @@ allow ark_aot_compiler sysfs_devices_system_cpu:file { read getattr open };
 allow ark_aot_compiler data_local_arkcache:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow ark_aot_compiler data_local_arkcache:file { create getattr ioctl setattr unlink map read open write };
 allowxperm ark_aot_compiler data_local_arkcache:file ioctl { 0x6685 };
-allow ark_aot_compiler ark_aot_compiler:capability { dac_override };
+
 allow ark_aot_compiler data_app_el1_file:file { map read open read };
 allow ark_aot_compiler data_app_file:dir { search };
 allow ark_aot_compiler data_app_el1_file:dir { search };
 allow ark_aot_compiler sys_prod_file:dir { search };
 allow ark_aot_compiler sys_prod_file:file { map read open };
+allow ark_aot_compiler hiview:unix_dgram_socket { sendto };

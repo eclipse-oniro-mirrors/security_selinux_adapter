@@ -14,6 +14,7 @@
 allow normal_hap_attr dev_unix_socket:dir { search };
 allow normal_hap_attr system_bin_file:dir { search };
 allow normal_hap_attr system_bin_file:file { execute read };
+allow normal_hap_attr toybox_exec:file { execute execute_no_trans getattr map read open };
 allow normal_hap_attr sysfs_devices_system_cpu:file { getattr };
 allow normal_hap_attr sysfs_devices_system_cpu:dir { read open };
 allow normal_hap_attr sa_update_distributed_service:samgr_class { get };

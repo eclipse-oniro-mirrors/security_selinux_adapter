@@ -1,0 +1,42 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { add } for service=3304 pid=469 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_powermgr_batterystats_service:s0 tclass=samgr_class permissive=0
+allow powermgr sa_powermgr_batterystats_service:samgr_class { add get};
+
+#avc:  denied  { read } for  pid=542 comm="powermgr" name="power_average.json" dev="mmcblk0p6" ino=830 scontext=u:r:powermgr:s0 tcontext=u:object_r:system_etc_batterystats_file:s0 tclass=file permissive=0
+allow powermgr system_etc_batterystats_file:file { open read };
+
+#avc:  denied  { create } for  pid=520 comm="CesFwkListener" name="battery_stats.json" scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=520 comm="powermgr" path="/data/service/el0/stats/battery_stats.json" dev="mmcblk0p11" ino=6893 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=520 comm="powermgr" name="battery_stats.json" dev="mmcblk0p11" ino=6893 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+#avc:  denied  { write } for  pid=520 comm="CesFwkListener" name="battery_stats.json" dev="mmcblk0p11" ino=6893 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+allow powermgr data_service_el0_file:file { create ioctl open read write };
+
+#avc:  denied  { add_name } for  pid=520 comm="CesFwkListener" name="battery_stats.json" scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=476 comm="powermgr" name="el0" dev="mmcblk0p11" ino=8 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc:  denied  { write } for  pid=520 comm="CesFwkListener" name="stats" dev="mmcblk0p11" ino=197 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+allow powermgr data_service_el0_file:dir { add_name search write };
+
+#avc:  denied  { get } for service=1203 pid=598 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_sys_event_service:s0 tclass=samgr_class permissive=1
+allow powermgr sa_sys_event_service:samgr_class { get };
+binder_call(powermgr, hisysevent);
+
+#avc:  denied  { ioctl } for  pid=520 comm="CesFwkListener" path="/data/service/el0/stats/battery_stats.json" dev="mmcblk0p11" ino=6893 ioctlcmd=0x5413 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+allowxperm powermgr data_service_el0_file:file ioctl { 0x5413 };
+
+#avc: denied { getattr } for pid=668 comm="SaInit2" path="/system/etc/profile/power_average.json" dev="mmcblk0p7" ino=752 scontext=u:r:powermgr:s0 tcontext=u:object_r:system_etc_batterystats_file:s0 tclass=file permissive=0
+allow powermgr system_etc_batterystats_file:file { getattr };
+
+#avc: denied { search } for pid=668 comm="IPC_6_1023" name="etc" dev="mmcblk0p9" ino=12 scontext=u:r:powermgr:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
+allow powermgr sys_prod_file:dir { search };

@@ -12,6 +12,8 @@
 # limitations under the License.
 
 allow multimodalinput accessibility_param:file { read };
+allow multimodalinput arkcompiler_param:file { read open map };
+allow multimodalinput audio_server:binder { call };
 allow multimodalinput bootanimation:fd { use };
 allow multimodalinput data_file:dir { search };
 allow multimodalinput data_init_agent:dir { search };
@@ -46,13 +48,17 @@ allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind creat
 #allow multimodalinput multimodalinput:process { ptrace };
 allow multimodalinput musl_param:file { map open read };
 allow multimodalinput param_watcher:binder { call transfer };
+binder_call(multimodalinput, powermgr);
 allow multimodalinput render_service:binder { call transfer };
 allow multimodalinput render_service:fd { use };
 allow multimodalinput resource_schedule_service:binder { call };
+allow multimodalinput resource_schedule_service:dir { search };
 allow multimodalinput rootfs:chr_file { write };
+allow multimodalinput sa_audio_policy_service:samgr_class { get };
 allow multimodalinput sa_device_service_manager:samgr_class { get };
 allow multimodalinput sa_distributeddata_service:samgr_class { get };
 allow multimodalinput sa_foundation_dms:samgr_class { get };
+allow multimodalinput sa_foundation_tel_call_manager:samgr_class { get };
 allow multimodalinput sa_foundation_wms:samgr_class { get };
 allow multimodalinput sa_multimodalinput_service:samgr_class { get };
 allow multimodalinput sa_render_service:samgr_class { get };
@@ -63,6 +69,7 @@ allow multimodalinput system_bin_file:file { execute execute_no_trans map read o
 allow multimodalinput tracefs:dir { search };
 allow multimodalinput tracefs:file { open write };
 allow multimodalinput tracefs_trace_marker_file:file { open write };
+allow multimodalinput tty_device:chr_file { read write };
 allow multimodalinput vendor_etc_file:dir { search };
 allow multimodalinput vendor_etc_file:file { getattr open read };
 allow multimodalinput data_file:dir { remove_name };
@@ -74,7 +81,11 @@ allow multimodalinput sa_foundation_cesfwk_service:samgr_class { get };
 allow multimodalinput sa_foundation_appms:samgr_class { get };
 allow multimodalinput normal_hap_attr:binder { call };
 allow multimodalinput normal_hap_attr:fd { use };
-allow multimodalinput sa_foundation_powermgr_service:samgr_class { get };
+allow multimodalinput system_basic_hap:fd { use };
+allow init data_multimodalinput:file { getattr };
+allow multimodalinput system_fonts_file:dir { read open search };
+allow multimodalinput system_fonts_file:file { read open getattr map };
+allow multimodalinput sa_powermgr_powermgr_service:samgr_class { get };
 allow normal_hap_attr multimodalinput:unix_stream_socket { read write };
 allow normal_hap_attr sa_multimodalinput_service:samgr_class { get };
 allow normal_hap_attr multimodalinput:fd { use };

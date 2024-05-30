@@ -56,3 +56,24 @@ allow useriam foundation:binder { call };
 #avc:  denied  { get } for service=501 pid=625 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow useriam sa_foundation_appms:samgr_class { get };
 
+# avc:  denied  { get } for service=4802 pid=592 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=0
+allow useriam sa_foundation_devicemanager_service:samgr_class { get };
+
+# avc:  denied  { call } for  pid=546 comm="SoftBusMagInit" scontext=u:r:useriam:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+# avc:  denied  { transfer } for  pid=546 comm="SoftBusMagInit" scontext=u:r:useriam:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow useriam device_manager:binder { call transfer };
+
+# avc:  denied  { call } for  pid=265 comm="OS_IPC_1_294" scontext=u:r:device_manager:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=0
+allow device_manager useriam:binder { call };
+
+# avc:  denied  { get } for service=4700 pid=519 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=0
+allow useriam sa_softbus_service:samgr_class { get };
+
+# avc:  denied  { call } for  pid=674 comm="SoftBusMagInit" scontext=u:r:useriam:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
+# avc:  denied  { transfer } for  pid=674 comm="SoftBusMagInit" scontext=u:r:useriam:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
+allow useriam softbus_server:binder { call transfer };
+allow useriam softbus_server:fd { use };
+allow useriam softbus_server:tcp_socket { read write setopt shutdown };
+
+# avc:  denied  { call } for  pid=553 comm="OS_IPC_3_1801" scontext=u:r:softbus_server:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=1
+allow softbus_server useriam:binder { call };

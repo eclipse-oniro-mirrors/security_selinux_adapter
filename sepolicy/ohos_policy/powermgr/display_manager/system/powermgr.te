@@ -1,0 +1,23 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { get } for service=3308 pid=597 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
+allow powermgr sa_powermgr_displaymgr_service:samgr_class { get add };
+
+#avc:  denied  { use } for  pid=522 comm="distributeddata" path="/dev/ashmem" dev="tmpfs" ino=183 scontext=u:r:powermgr:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
+allow powermgr distributeddata:fd { use };
+
+#avc: denied { get } for service=1914 pid=1434 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_device_standby:s0 tclass=samger_class permissive=0
+allow powermgr sa_device_standby:samgr_class { get };
+binder_call(powermgr, resource_schedule_service);
+

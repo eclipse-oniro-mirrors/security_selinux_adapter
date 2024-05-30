@@ -43,6 +43,7 @@ allow dhardware ohos_param:file { map open read };
 allow dhardware param_watcher:binder { call transfer };
 allow dhardware persist_param:file { map open read };
 allow dhardware persist_sys_param:file { map open read };
+allow dhardware powermgr:binder { call transfer };
 allow dhardware security_param:file { map open read };
 allow dhardware softbus_server:binder { call transfer };
 allow dhardware softbus_server:tcp_socket { shutdown };

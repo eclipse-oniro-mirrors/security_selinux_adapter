@@ -192,6 +192,7 @@
 /data/app/el2(/.*)?           u:object_r:data_app_el2_file:s0
 /data/app/el3(/.*)?           u:object_r:data_app_el3_file:s0
 /data/app/el4(/.*)?           u:object_r:data_app_el4_file:s0
+/data/app/el5(/.*)?           u:object_r:data_app_el5_file:s0
 /data/service                 u:object_r:data_service_file:s0
 /data/service/(.*)?           u:object_r:data_service_file:s0
 /data/service/el0(/.*)?       u:object_r:data_service_el0_file:s0
@@ -200,6 +201,7 @@
 /data/service/el2(/.*)?       u:object_r:data_service_el2_file:s0
 /data/service/el3(/.*)?       u:object_r:data_service_el3_file:s0
 /data/service/el4(/.*)?       u:object_r:data_service_el4_file:s0
+/data/service/el5(/.*)?       u:object_r:data_service_el5_file:s0
 /data/chipset                 u:object_r:data_chipset_file:s0
 /data/chipset/(.*)?           u:object_r:data_chipset_file:s0
 /data/chipset/el1(/.*)?       u:object_r:data_chipset_el1_file:s0

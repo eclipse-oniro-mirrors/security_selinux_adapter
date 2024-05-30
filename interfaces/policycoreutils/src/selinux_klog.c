@@ -22,7 +22,7 @@
 #define MAX_LEVEL_SIZE 4
 
 static int g_logLevel = SELINUX_KERROR;
-static const char *LOG_LEVEL_STR[] = {"ERROR", "WARNING", "INFO", "AVC"};
+static const char *g_logLevelStr[] = {"ERROR", "WARNING", "INFO", "AVC"};
 
 #ifndef UNLIKELY
 #define UNLIKELY(x) __builtin_expect(!!(x), 0)
@@ -72,7 +72,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
     int res = 0;
     if (logLevel != SELINUX_KAVC) {
         res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "[pid=%d][%s][%s] %s", getpid(), "SELINUX",
-                         LOG_LEVEL_STR[logLevel], tmpFmt);
+                         g_logLevelStr[logLevel], tmpFmt);
     } else {
         res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "%s", tmpFmt);
     }

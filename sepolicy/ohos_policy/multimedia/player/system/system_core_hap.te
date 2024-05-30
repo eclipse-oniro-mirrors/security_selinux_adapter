@@ -21,3 +21,5 @@ allow system_core_hap_attr data_user_file:file { read };
 allow system_core_hap_attr hmdfs:file { getattr };
 #avc:  denied  { call } for  pid=11801 comm="AVRecorderNapi" scontext=u:r:system_core_hap:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=0
 allow system_core_hap_attr av_codec_service:binder {call};
+
+allow system_core_hap system_basic_hap_data_file:file { read write };

@@ -19,6 +19,3 @@
 
 # for bm tool
 /system/bin/bm u:object_r:bm_exec:s0
-
-# for ark_aot_compiler
-/system/bin/ark_aot_compiler u:object_r:ark_aot_compiler_exec:s0

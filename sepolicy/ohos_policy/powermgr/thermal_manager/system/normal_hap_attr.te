@@ -12,4 +12,5 @@
 # limitations under the License.
 
 #avc:  denied  { get } for service=3303 pid=10482 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
-allow normal_hap_attr sa_foundation_thermal_service:samgr_class { get };
+allow normal_hap_attr sa_powermgr_thermal_service:samgr_class { get };
+binder_call(normal_hap_attr, powermgr);

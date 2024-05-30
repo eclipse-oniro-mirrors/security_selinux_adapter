@@ -121,3 +121,12 @@ allow download_server download_server:unix_dgram_socket { shutdown sendto read }
 allow download_server hmdfs:file { read getattr };
 #avc:  denied  { read } for  pid=1956 comm="example.mytest" ... scontext=u:r:download_server:s0 tcontext=u:object_r：data_user_file:s0 tclass=file permissive=0
 allow download_server data_user_file:file { read getattr };
+allow download_server sys_prod_file:dir { search };
+allow download_server chip_prod_file:dir { search };
+allow download_server dev_kmsg_file:chr_file { write };
+#avc:  denied  { call } for  pid=3596 comm="async-3" ... scontext=u:r:download_server:s0 tcontext=u:r:cert_manager_service:s0 tclass=binder permissive=1
+allow download_server cert_manager_service:binder { call };
+#avc:  denied  { get } for  service=3512 pid=3596 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_cert_manager_service:s0 tclass=samgr_class permissive=1
+allow download_server sa_cert_manager_service:samgr_class { get };
+allow download_server sa_accountmgr:samgr_class { get };
+allow download_server accountmgr:binder { call transfer };

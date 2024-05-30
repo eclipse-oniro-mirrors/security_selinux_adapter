@@ -1,0 +1,217 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow powermgr arkcompiler_param:file { read open getattr map };
+allow powermgr bootevent_param:file { map open read };
+allow powermgr bootevent_param:parameter_service { set };
+allow powermgr bootevent_samgr_param:file { map open read };
+allow powermgr bootevent_wms_param:parameter_service { set };
+allow powermgr build_version_param:file { map open read };
+allow powermgr chip_prod_file:dir { search };
+allow powermgr configfs:dir { add_name create open read remove_name rmdir search write };
+allow powermgr configfs:file { open write };
+allow powermgr const_allow_mock_param:file { map open read };
+allow powermgr const_allow_param:file { map open read };
+allow powermgr const_build_param:file { map open read };
+allow powermgr const_display_brightness_param:file { map open read };
+allow powermgr const_param:file { map open read };
+allow powermgr const_postinstall_fstab_param:file { map open read };
+allow powermgr const_postinstall_param:file { map open read };
+allow powermgr const_product_param:file { map open read };
+allow powermgr data_app_el1_file:dir { search };
+allow powermgr data_app_el1_file:file { getattr map read open };
+allow powermgr data_app_file:dir { search };
+allow powermgr data_data_file:dir { search };
+allow powermgr data_data_pulse_dir:dir { getattr open read search };
+allow powermgr data_data_pulse_dir:file { lock open read write };
+allow powermgr data_file:dir { getattr open read search };
+allow powermgr data_file:file { getattr map read open };
+allow powermgr data_init_agent:dir { search };
+allow powermgr data_service_el1_file:dir { add_name create remove_name search open write getattr rmdir setattr };
+allow powermgr data_service_el1_file:file { create getattr setattr ioctl open read write append lock map unlink };
+allow powermgr data_service_file:dir { search };
+allow powermgr data_service_el0_file:file { getattr };
+allow powermgr data_storage:dir { search };
+allow powermgr debug_param:file { map open read };
+allow powermgr default_param:file { map open read };
+allow powermgr default_param:file { map open read };
+allow powermgr dev_ashmem_file:chr_file { open };
+allow powermgr dev_kmsg_file:chr_file { open write };
+allow powermgr dev_console_file:chr_file { read write };
+allow powermgr dev_unix_socket:dir { search };
+allow powermgr dev_unix_socket:sock_file { write };
+allow powermgr devinfo_private_param:file { map open read };
+allow powermgr exfat:file { read write };
+allow powermgr faultloggerd:fifo_file { read };
+allow powermgr ffrt_param:file { read open map };
+allow powermgr powermgr:binder { call transfer };
+allow powermgr powermgr:unix_dgram_socket { getopt setopt };
+allow powermgr fuse_file:file { read write };
+allow powermgr hdf_ext_devmgr:dir { search };
+allow powermgr hdf_ext_devmgr:file { getattr open read };
+allow powermgr hidumper_service:fd { use };
+allow powermgr hidumper_service:fifo_file { write };
+allow powermgr hilog_param:file { map open read };
+allow powermgr hiview:unix_dgram_socket { sendto };
+allow powermgr hiviewdfx_hiview_param:file { open read };
+allow powermgr hmdfs:file { read write };
+allow powermgr hw_sc_build_os_param:file { map open read };
+allow powermgr hw_sc_build_param:file { map open read };
+allow powermgr hw_sc_param:file { map open read };
+allow powermgr init:unix_stream_socket { connectto };
+allow powermgr init_param:file { map open read };
+allow powermgr init_svc_param:file { map open read };
+allow powermgr input_pointer_device_param:file { map open read };
+allow powermgr kernel:unix_stream_socket { connectto };
+allow powermgr key_enable:key { search };
+allow powermgr multimodalinput:unix_stream_socket { read write };
+allow powermgr musl_param:file { map open open};
+allow powermgr native_socket:sock_file { write };
+allow powermgr net_param:file { map open read };
+allow powermgr net_tcp_param:file { map open read };
+allow powermgr ntfs:file { read write };
+allow powermgr ohos_boot_param:file { map open read };
+allow powermgr ohos_param:file { map open read };
+allow powermgr ohos_param:parameter_service { set };
+allow powermgr paramservice_socket:sock_file { write };
+allow powermgr persist_param:file { map open read };
+allow powermgr persist_param:parameter_service { set };
+allow powermgr persist_sys_param:file { map open read };
+allow powermgr proc_file:file { open read getattr };
+allow powermgr servicectrl_reboot_param:parameter_service { set };
+allow powermgr devinfo_private_param:file { map open read };
+allow powermgr sa_privacy_service:samgr_class { get };
+allow powermgr security_param:file { map open read };
+allow powermgr servicectrl_param:parameter_service { set };
+allow powermgr startup_param:file { map open read };
+allow powermgr startup_param:parameter_service { set };
+allow powermgr sys_file:dir { open read };
+allow powermgr sys_file:file { ioctl open read write getattr };
+allow powermgr sys_param:file { map open read };
+allow powermgr sys_usb_param:file { map open read };
+allow powermgr sysfs_devices_system_cpu:file { open read getattr };
+allow powermgr sysfs_hctosys:file { open read };
+allow powermgr sysfs_hungtask_userlist:file { open write ioctl getattr };
+allow powermgr sysfs_leds:dir { open read };
+allow powermgr sysfs_rtc:dir { open read };
+allow powermgr system_bin_file:dir { search };
+allow powermgr system_etc_power_mode_config_file:file { getattr open read };
+allow powermgr system_file:dir { getattr open read };
+allow powermgr system_file:file { getattr map open read };
+allow powermgr system_lib_file:dir { getattr };
+allow powermgr system_usr_file:dir { search };
+allow powermgr system_usr_file:file { getattr map open read };
+allow powermgr system_basic_hap_attr:fd { use };
+allow powermgr system_basic_hap_attr:process { sigkill signal };
+allow powermgr system_basic_hap_data_file_attr:file { read };
+allow powermgr system_core_hap_attr:dir { search };
+allow powermgr system_core_hap_attr:file { getattr open read };
+allow powermgr system_core_hap_attr:process { sigkill signal };
+allow powermgr system_core_hap_data_file_attr:file { read };
+allow powermgr system_core_hap_attr:unix_stream_socket { read write };
+allow powermgr system_core_hap_attr:fd { use };
+allow powermgr tracefs:dir { search };
+allow powermgr tracefs_trace_marker_file:file { open write };
+allow powermgr vendor_etc_file:dir { search };
+allow powermgr vendor_etc_file:file { getattr open read };
+allow powermgr vendor_lib_file:dir { search };
+allow powermgr vendor_lib_file:file { read };
+allow powermgr vfat:file { read write };
+allowxperm powermgr data_service_el1_file:file ioctl { 0x5413 0xf50c };
+allowxperm powermgr sys_file:file ioctl { 0x5413 };
+
+allow powermgr sa_media_service:samgr_class { get };
+binder_call(powermgr, media_service);
+
+allow powermgr sa_bgtaskmgr:samgr_class { get };
+binder_call(powermgr, bgtaskmgr_service);
+
+allow powermgr sa_render_service:samgr_class { get };
+binder_call(powermgr, render_service);
+
+allow powermgr sa_net_conn_manager:samgr_class { get };
+binder_call(powermgr, netmanager);
+
+allow powermgr sa_accesstoken_manager_service:samgr_class { get };
+binder_call(powermgr, accesstoken_service);
+
+allow powermgr sa_accountmgr:samgr_class { get };
+binder_call(powermgr, accountmgr);
+
+allow powermgr sa_distributeddata_service:samgr_class { get };
+binder_call(powermgr, distributeddata);
+
+allow powermgr sa_multimodalinput_service:samgr_class { get };
+binder_call(powermgr, multimodalinput);
+
+allow powermgr sa_param_watcher:samgr_class { get };
+binder_call(powermgr, param_watcher);
+
+allow powermgr sa_privacy_service:samgr_class { get };
+
+allow powermgr sa_sensor_service:samgr_class { get };
+binder_call(powermgr, sensors);
+
+allow powermgr sa_time_service:samgr_class { get };
+binder_call(powermgr, time_service);
+
+allow powermgr sa_device_service_manager:samgr_class { get };
+binder_call(powermgr, hdf_devmgr);
+
+allow powermgr sa_foundation_abilityms:samgr_class { get };
+allow powermgr sa_foundation_appms:samgr_class { get };
+allow powermgr sa_foundation_bms:samgr_class { get };
+allow powermgr sa_foundation_cesfwk_service:samgr_class { get };
+allow powermgr sa_foundation_devicemanager_service:samgr_class { get };
+allow powermgr sa_foundation_dms:samgr_class { get };
+allow powermgr sa_foundation_tel_call_manager:samgr_class { get };
+allow powermgr sa_foundation_tel_state_registry:samgr_class { get };
+allow powermgr sa_foundation_wms:samgr_class { get };
+allow powermgr sa_uri_permission_mgr_service:samgr_class { get };
+binder_call(powermgr, foundation);
+
+allow powermgr sa_accessibleabilityms:samgr_class { get };
+binder_call(powermgr, accessibility);
+
+allow powermgr sa_bluetooth_server:samgr_class { get };
+binder_call(powermgr, bluetooth_service);
+
+allow powermgr sa_camera_service:samgr_class { get };
+binder_call(powermgr, camera_service);
+
+allow powermgr sa_telephony_tel_core_service:samgr_class { get };
+binder_call(powermgr, telephony_sa);
+
+allow foundation sa_memory_manager_service:samgr_class { get };
+binder_call(powermgr, memmgrservice);
+
+binder_call(powermgr, hdcd);
+binder_call(powermgr, hdf_ext_devmgr);
+binder_call(powermgr, hiview);
+binder_call(powermgr, power_host);
+binder_call(powermgr, samgr);
+binder_call(powermgr, system_basic_hap_attr);
+binder_call(powermgr, system_core_hap_attr);
+binder_call(powermgr, normal_hap_attr);
+binder_call(powermgr, wifi_manager_service);
+binder_call(powermgr, riladapter_host);
+binder_call(powermgr, pasteboard_service);
+binder_call(powermgr, dhardware);
+binder_call(powermgr, ui_service);
+binder_call(powermgr, useriam);
+binder_call(powermgr, drm_service);
+binder_call(powermgr, dscreen);
+binder_call(powermgr, edm_sa);
+binder_call(powermgr, inputmethod_service);
+binder_call(powermgr, memmgrservice);
+

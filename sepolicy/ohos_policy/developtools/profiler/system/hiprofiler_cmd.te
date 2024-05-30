@@ -15,7 +15,6 @@ allow hiprofiler_cmd devpts:chr_file { read write };
 allow hiprofiler_cmd hdcd:fd use;
 allow hiprofiler_cmd hdcd:unix_stream_socket { read write };
 allow hiprofiler_cmd proc_cpuinfo_file:file { open read };
-allow hiprofiler_cmd sh:fd use;
 allow hiprofiler_cmd tty_device:chr_file { read write };
 allow hiprofiler_cmd node:tcp_socket node_bind;
 allow hiprofiler_cmd self:netlink_route_socket { create nlmsg_read read write };
@@ -90,10 +89,12 @@ allow hiprofiler_cmd tty_device:chr_file { ioctl open };
 
 allow hiprofiler_cmd rootfs:file getattr;
 allow hiprofiler_cmd system_bin_file:lnk_file read;
+allow hiprofiler_cmd toybox_exec:lnk_file read;
 
 allow hiprofiler_cmd init:file read;
 allow hiprofiler_cmd kernel:file read;
 allow hiprofiler_cmd system_bin_file:file { execute execute_no_trans getattr map open read };
+allow hiprofiler_cmd toybox_exec:file { execute execute_no_trans getattr map open read };
 
 allow hiprofiler_cmd dev_unix_socket:dir remove_name;
 allow hiprofiler_cmd dev_unix_socket:sock_file unlink;
@@ -132,6 +133,7 @@ debug_only(`
 	allow hiprofiler_cmd data_local_tmp:dir { add_name write search getattr };
 	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofiler_cmd self:capability { setgid };
+	allow hiprofiler_cmd sh:fd use;
 	allow hiprofiler_cmd sh:fifo_file write;
 	allow hiprofiler_cmd sh:fifo_file ioctl;
 ')
@@ -169,4 +171,4 @@ allow hiprofiler_cmd vendor_bin_file:dir search;
 allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };
 allow hiprofiler_cmd dev_file:dir getattr;
 allow hiprofiler_cmd dev_ashmem_file:chr_file { open };
-allow hiprofiler_cmd hdcd_exec:file { read open getattr };
+allow hiprofiler_cmd hdcd_exec:file { read open getattr map };
