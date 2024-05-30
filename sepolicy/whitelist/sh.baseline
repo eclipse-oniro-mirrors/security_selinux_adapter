@@ -144,4 +144,5 @@ developer_only(`
 (allow sh sh (udp_socket (connect create)))
 (allow sh sh (tcp_socket (connect create setopt getattr read write)))
 (allow sh port (tcp_socket (name_connect)))
+(allow sh kernel (key (search)))
 ')
