@@ -38,6 +38,5 @@ allow hilogd system_etc_file:lnk_file { read };
 #avc: denied { ioctl } for pid=227 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_1.info" dev="rootfs" ino=27542 ioctlcmd=0x5413 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow hilogd rootfs:file { entrypoint map read execute open getattr ioctl };
 allowxperm hilogd rootfs:file ioctl { 0x5413 };
-allow hilogd rootfs:dir { open read };
 
 ')
