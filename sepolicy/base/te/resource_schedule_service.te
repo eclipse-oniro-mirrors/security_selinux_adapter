@@ -66,4 +66,3 @@ allow resource_schedule_service sa_wifi_device_ability:samgr_class { get };
 allow resource_schedule_service sa_distributeddata_service:samgr_class { get };
 allow resource_schedule_service netmanager:binder { call };
 allow resource_schedule_service powermgr:binder {call transfer};
-allow resource_schedule_service proc_net:file { getattr read open };
