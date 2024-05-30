@@ -66,9 +66,6 @@ allow hiperf proc_vmallocinfo_file:file getattr;
 allow hiperf proc_vmstat_file:file getattr;
 allow hiperf proc_zoneinfo_file:file getattr;
 allow hiperf samain_exec:file { getattr map open read };
-allow hiperf sh:dir { getattr open read search };
-allow hiperf sh:fd use;
-allow hiperf sh:fifo_file { read write };
 allow hiperf sys_param:file { map open read };
 allow hiperf sys_usb_param:file { map open read };
 allow hiperf tracefs:dir { open read search };
@@ -92,7 +89,6 @@ allow hiperf persist_sys_param:file { map open read };
 allow hiperf proc_file:file { getattr open read };
 allow hiperf security_param:file { map open read };
 allow hiperf self:perf_event { cpu kernel open read write };
-allow hiperf sh:process signull;
 allow hiperf startup_param:file { map open read };
 allow hiperf wifi_hal_service_exec:file { getattr map open read };
 allow hiperf hiview_exec:file { getattr map open read };
@@ -186,7 +182,12 @@ allow init data_log_hiperf_file:dir relabelto;
 debug_only(`
     allow hiperf self:capability { dac_read_search setgid };
     allow hiperf self:capability2 syslog;
+    allow hiperf sh:dir { getattr open read search };
+    allow hiperf sh:fd use;
+    allow hiperf sh:fifo_file { read write };
+    allow hiperf sh:process signull;
 ')
+
 allow hiperf data_local_tmp:file { open create getattr ioctl read rename unlink write };
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
