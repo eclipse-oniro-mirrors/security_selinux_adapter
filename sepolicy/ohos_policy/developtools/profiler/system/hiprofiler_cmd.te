@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -133,10 +133,15 @@ debug_only(`
 	allow hiprofiler_cmd data_local_tmp:dir { add_name write search getattr };
 	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofiler_cmd self:capability { setgid };
+')
+
+developer_only(`
 	allow hiprofiler_cmd sh:fd use;
 	allow hiprofiler_cmd sh:fifo_file write;
+	allowxperm hiprofiler_cmd sh:fifo_file ioctl { 0x5413 };
 	allow hiprofiler_cmd sh:fifo_file ioctl;
 ')
+
 allow hiprofiler_cmd self:capability sys_ptrace;
 
 allow hiprofiler_cmd domain:process signal;

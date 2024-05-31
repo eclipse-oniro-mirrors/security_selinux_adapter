@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,17 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-debug_only(`
-allow hidumper sh:fd { use };
-allow hidumper sh:fifo_file { read write };
-')
 allow hidumper hiprofilerd:fd { use };
 allow hidumper hiprofiler_plugins:fd { use };
 allow hidumper hiprofiler_plugins:fifo_file { write };
 allow hidumper hiprofiler_plugins:unix_stream_socket { read write };
+
 developer_only(`
-allow hidumper SP_daemon:fd { use };
-allow hidumper SP_daemon:fifo_file { write };
-allow hidumper SP_daemon:tcp_socket {read write };
-allow hidumper SP_daemon:udp_socket {read write };
+    allow hidumper SP_daemon:fd { use };
+    allow hidumper SP_daemon:fifo_file { write };
+    allow hidumper SP_daemon:tcp_socket {read write };
+    allow hidumper SP_daemon:udp_socket {read write };
+    allow hidumper sh:fd { use };
+    allow hidumper sh:fifo_file { read write };
 ')
