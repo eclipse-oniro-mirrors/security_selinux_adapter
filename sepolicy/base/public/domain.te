@@ -132,6 +132,7 @@ neverallow * self:memprotect mmap_zero;
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
     -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file
+    -rgmli_violator_exec_file_attr
     developer_only(`-lldb_server_file') }:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs -ark_aot_compiler -compiler_service updater_only(`-updater') } data_local_arkcache:file { write };
 neverallow { domain -installs -ark_aot_compiler -compiler_service updater_only(`-updater') } data_local_arkcache:dir { write };
@@ -154,6 +155,7 @@ neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr develop_domain 
 # second level for file based label class
 neverallow { domain develop_domain updater_only(`-updater') } ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
     chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain chip_ckm_file_attr
+    rgmli_violator_exec_file_attr
     developer_only(`lldb_server_file') }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
