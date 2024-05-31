@@ -105,3 +105,5 @@ allow usb_service accountmgr:binder { call transfer };
 allow usb_service system_basic_hap:binder { call transfer };
 allow usb_service sa_memory_manager_service:samgr_class { get };
 allow usb_service memmgrservice:binder { call };
+allow usb_service usb_host:fd { use };
+allow usb_service dev_bus_usb_file:chr_file { read write };
