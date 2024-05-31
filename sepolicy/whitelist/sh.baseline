@@ -102,6 +102,7 @@ developer_only(`
 (allow sh hichecker_writable_param (parameter_service (set)))
 (allow sh arkui_param (parameter_service (set)))
 (allow sh devinfo_public_param (file (map open read)))
+(allow sh devinfo_type_param (file (map open read)))
 (allow sh ark_profile (parameter_service (set)))
 (allow sh ark_writeable_param (parameter_service (set)))
 

@@ -10,7 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-attribute param_set_allow_attr;
-attribute devinfo_type_allow_attr;
+const.product.devicetype            u:object_r:devinfo_type_param:s0
+const.build.characteristics         u:object_r:devinfo_type_param:s0
 
