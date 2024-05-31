@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { read write } for  pid=9605 comm="Chrome_ChildIOT" path="2F646174612F73746F726167652F656C322F626173652F63616368652F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E496A504D4C48202864656C6574656429" dev="sdd78" ino=47436 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dlp_sandbox_hap_data_file:s0 tclass=file permission=1
+#avc:  denied  { read write } for  pid=9605 comm="com.example.web" path="2F646174612F73746F726167652F656C322F626173652F63616368652F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E496A504D4C48202864656C6574656429" dev="sdd78" ino=47436 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dlp_sandbox_hap_data_file:s0 tclass=file permission=1
 allow isolated_render dlp_sandbox_hap_data_file:file { read write };
