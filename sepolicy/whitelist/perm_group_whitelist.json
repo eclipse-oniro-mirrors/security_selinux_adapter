@@ -3,6 +3,13 @@
         {
             "name": "execute and execute_no_trans",
             "user": [
+                "hdcd begetctl_exec",
+                "init begetctl_exec",
+                "init prop_migrate_exec",
+                "foundation hnp_exec",
+                "installs hnp_exec",
+                "init hnp_exec",
+                "appspawn hnp_exec",
                 "appspawn appspawn_exec",
                 "cjappspawn cjappspawn_exec",
                 "nwebspawn appspawn_exec",
@@ -111,6 +118,7 @@
                 "compiler_service ark_aot_compiler_exec"
             ],
             "developer": [
+                "sh begetctl_exec",
                 "aa sh_exec",
                 "SP_daemon uitest_exec",
                 "SP_daemon system_bin_file",
