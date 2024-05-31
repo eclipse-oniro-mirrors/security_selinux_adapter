@@ -32,6 +32,7 @@ allow sh sh:lnk_file read_file_perms;
 allow sh sh:unix_dgram_socket { connect create write };
 allow sh sh:unix_stream_socket { connect create write read setopt };
 allow sh devinfo_public_param:file { map open read };
+allow sh devinfo_type_param:file { map open read };
 ## for musl.so
 allow sh system_lib_file:file { map read execute open getattr };
 
