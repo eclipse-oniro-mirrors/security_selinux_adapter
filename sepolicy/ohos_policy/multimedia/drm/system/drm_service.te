@@ -42,7 +42,6 @@ allow drm_service normal_hap_attr:binder { call transfer};
 allow drm_service accesstoken_service:binder { call transfer };
 
 allow drm_service sa_memory_manager_service:samgr_class { get };
-allow drm_service default_hdf_service:hdf_devmgr_class { get };
 allow drm_service hdf_device_manager:hdf_devmgr_class { get };
 
 allow drm_service privacy_service:binder { call transfer };
@@ -122,6 +121,8 @@ allow drm_service sa_net_conn_manager:samgr_class { get };
 allow drm_service codec_host:fd { use };
 
 allow drm_service tty_device:chr_file { read write };
+
+allow drm_service hap_domain:fd { use };
 
 # avc_audit_slow:260] avc: denied { call } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
 # avc_audit_slow:260] avc: denied { transfer } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
