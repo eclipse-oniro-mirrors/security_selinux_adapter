@@ -81,6 +81,9 @@ allow softbus_server sa_foundation_bms:samgr_class { get };
 #avc:  denied  { get } for  service=6001 pid=1248 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=1
 allow softbus_server sa_device_profile_service:samgr_class { get };
 
+#avc:  denied  { get } for service=1157 pid=4046 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_comm_ethernet_manager_service:s0 tclass=samgr_class permissive=0
+allow softbus_server sa_comm_ethernet_manager_service:samgr_class { get };
+
 # avc:  denied  { read write } for  pid=2312 comm="SaInit0" name="btdev0" dev="tmpfs" ino=184 scontext =u:r:softbus_server:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
 debug_only(`
     allow softbus_server dev_file:chr_file { read write open ioctl };
