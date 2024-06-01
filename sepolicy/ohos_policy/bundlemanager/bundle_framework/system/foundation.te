@@ -138,3 +138,5 @@ allow foundation hidumper_service:fifo_file { lock };
 allow foundation app_domain_verify_mgr_service:binder { call };
 allow foundation sa_app_domain_verify_mgr_service:samgr_class { get };
 allow foundation bms_param:file { map open read };
+allow foundation data_service_el1_utd_file:dir { search };
+allow foundation data_service_el1_utd_file:file { getattr open read };
