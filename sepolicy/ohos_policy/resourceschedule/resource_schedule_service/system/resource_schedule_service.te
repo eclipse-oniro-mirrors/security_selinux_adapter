@@ -123,8 +123,6 @@ allow resource_schedule_service sa_sensor_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_battery_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_powermgr_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:samgr_class { get };
-allow resource_schedule_service sa_time_service:binder { transfer };
-allow resource_schedule_service time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
 allow resource_schedule_service sa_task_heartbeat_mgr:samgr_class { add get };
 allow bgtaskmgr_service sa_device_standby:samgr_class { get };
