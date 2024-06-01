@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -29,8 +29,6 @@ allow hidumper hidumper_service:binder { call transfer };
 allow hidumper lib_file:lnk_file read;
 
 allow hidumper samgr:binder { call transfer };
-
-allow hidumper sh:fd use;
 
 allow hidumper system_bin_file:dir search;
 allow hidumper system_bin_file:file { execute execute_no_trans map open read };
@@ -79,3 +77,7 @@ allow hidumper sys_file:file { read };
 allow hidumper hdcd:fifo_file {read };
 
 allow hidumper hidumper_file:file { write open read };
+
+developer_only(`
+    allow hidumper sh:fd use;
+')

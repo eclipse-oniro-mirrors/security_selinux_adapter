@@ -12,3 +12,4 @@
 # limitations under the License.
 
 apl=normal name=com.ohos.dlpmanager domain=dlpmanager_hap type=normal_hap_data_file
+apl=normal extra=dlp_sandbox domain=dlp_sandbox_hap type=dlp_sandbox_hap_data_file

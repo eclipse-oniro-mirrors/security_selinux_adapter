@@ -22,7 +22,6 @@ allow resource_schedule_service audio_server:binder { call transfer };
 allow resource_schedule_service msdp_sa:binder { call transfer };
 allow resource_schedule_service bluetooth_service:binder { call };
 allow resource_schedule_service locationhub:binder { call };
-allow resource_schedule_service time_service:binder { call };
 allow resource_schedule_service av_session:binder { call transfer };
 allow resource_schedule_service appspawn:dir { search };
 allow resource_schedule_service appspawn:file { getattr open read };
@@ -56,7 +55,6 @@ allow resource_schedule_service system_etc_file:file { getattr map open read };
 allow resource_schedule_service tracefs:dir { search };
 allow resource_schedule_service tracefs_trace_marker_file:file { open write };
 allow resource_schedule_service dev_unix_socket:dir { search };
-allow resource_schedule_service dev_unix_socket:sock_file { write };
 allow resource_schedule_service ui_service:process { setsched };
 allow resource_schedule_service normal_hap_attr:dir { open read search };
 allow resource_schedule_service normal_hap_attr:file { getattr open read };
@@ -98,10 +96,6 @@ allow resource_schedule_service ueventd:dir { search };
 allow resource_schedule_service ueventd:file { getattr open read };
 allow resource_schedule_service watchdog_service:dir { search };
 allow resource_schedule_service watchdog_service:file { getattr open read };
-allow resource_schedule_service sa_locationhub_lbsservice_gnss:samgr_class { get };
-allow resource_schedule_service sa_locationhub_lbsservice_network:samgr_class { get };
-allow resource_schedule_service sa_locationhub_lbsservice_passive:samgr_class { get };
-allow resource_schedule_service sa_location_geo_convert_service:samgr_class { get };
 # Subscribing to public events is required.
 # acv: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1 
 allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
@@ -131,6 +125,7 @@ allow resource_schedule_service sa_powermgr_powermgr_service:samgr_class { get }
 allow resource_schedule_service sa_time_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service time_service:binder { transfer };
+allow resource_schedule_service sa_foundation_bms:samgr_class { get };
 allow resource_schedule_service sa_task_heartbeat_mgr:samgr_class { add get };
 allow bgtaskmgr_service sa_device_standby:samgr_class { get };
 allow normal_hap_attr sa_device_standby:samgr_class { get };
@@ -167,3 +162,7 @@ allow resource_schedule_service system_fonts_file:dir { open read search };
 # resource_schedule_service config
 allow resource_schedule_service sys_prod_ressched_file:dir { search };
 allow resource_schedule_service sys_prod_ressched_file:file { getattr open read };
+
+#for os_account_manager binder
+allow resource_schedule_service accountmgr:binder { transfer };
+allow accountmgr resource_schedule_service:binder { call };

@@ -64,6 +64,7 @@ allow netsysnative system_basic_hap_attr:udp_socket { read write getopt setopt }
 
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
 
+allow netsysnative iptables_exec:lnk_file { read };
 allow netsysnative iptables_exec:file { execute read open execute_no_trans map };
 allow netsysnative netsysnative:packet_socket { create ioctl setopt };
 allow netsysnative netsysnative:bpf { map_read prog_load map_create prog_run map_write };

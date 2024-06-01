@@ -1,0 +1,44 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+typeattribute persist_param param_set_allow_attr;
+typeattribute musl_param param_set_allow_attr;
+typeattribute telephony_param param_set_allow_attr;
+typeattribute hiviewdfx_hiview_param param_set_allow_attr;
+
+
+neverallow normal_hap_attr { parameter_attr -param_set_allow_attr }:parameter_service { set };
+neverallow normal_hap paramservice_socket:sock_file { write };
+
+typeattribute accessibility devinfo_type_allow_attr;
+typeattribute bgtaskmgr_service devinfo_type_allow_attr;
+typeattribute distributeddata devinfo_type_allow_attr;
+typeattribute foundation devinfo_type_allow_attr;
+typeattribute hidumper_service devinfo_type_allow_attr;
+typeattribute hiview devinfo_type_allow_attr;
+typeattribute inputmethod_service devinfo_type_allow_attr;
+typeattribute locationhub devinfo_type_allow_attr;
+typeattribute msdp_sa devinfo_type_allow_attr;
+typeattribute netmanager devinfo_type_allow_attr;
+typeattribute render_service devinfo_type_allow_attr;
+typeattribute softbus_server devinfo_type_allow_attr;
+typeattribute wallpaper_service devinfo_type_allow_attr;
+typeattribute param_watcher devinfo_type_allow_attr;
+typeattribute multimodalinput devinfo_type_allow_attr;
+typeattribute bluetooth_service devinfo_type_allow_attr;
+
+neverallow {sadomain -devinfo_type_allow_attr} devinfo_type_param:file {open read map};
+allow {domain -sadomain } devinfo_type_param:file {open read map};
+allow devinfo_type_allow_attr devinfo_type_param:file {open read map};
+
+type devinfo_type_param, parameter_attr;
+

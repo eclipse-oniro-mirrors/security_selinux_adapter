@@ -126,11 +126,11 @@ neverallow normal_hap { dev_attr -dev_unix_file -dev_unix_socket -dev_unix_socke
 
 neverallow normal_hap dev_attr:sock_file ioctl;
 
-neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file open;
+neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file -dev_attr_violator_file_rw }:file open;
 
-neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file read;
+neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file -dev_attr_violator_file_rw }:file read;
 
-neverallow normal_hap { dev_attr -dev_asanlog_file }:file write;
+neverallow normal_hap { dev_attr -dev_asanlog_file -dev_attr_violator_file_rw }:file write;
 
 neverallow normal_hap { dev_attr -dev_parameters_file -dev_asanlog_file }:file ioctl;
 
@@ -213,10 +213,8 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain developer_only(`-appspawn') -nwebspawn -cupsd} { data_file_attr }:file { execute_no_trans };
-neverallow appspawn { data_file_attr developer_only(`-data_local_tmp') }:file { execute_no_trans };
-neverallow { domain -hap_domain developer_only(`-appspawn') -nwebspawn -cupsd developer_only(`-uitest')} data_file_attr:file { execute };
-neverallow appspawn { data_file_attr developer_only(`-data_local_tmp') }:file { execute };
+neverallow { domain -hap_domain -nwebspawn -cupsd} { data_file_attr }:file { execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-uitest')} data_file_attr:file { execute };
 
 neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 

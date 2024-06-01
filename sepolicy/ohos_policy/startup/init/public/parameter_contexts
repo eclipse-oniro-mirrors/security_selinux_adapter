@@ -10,9 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+const.product.devicetype            u:object_r:devinfo_type_param:s0
+const.build.characteristics         u:object_r:devinfo_type_param:s0
 
-# avc: denied { getattr } for pid=1 comm="/system/bin/appspawn" path="/dev/asanlog" dev="" ino=807 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_asanlog_file:s0 tclass=dir permissive=1
-allow nwebspawn dev_asanlog_file:dir { getattr };
-
-# avc: denied { nnp_transition } for pid=21500, comm="/system/bin/appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:object_r:processdump:s0 tclass=process2 permissive=1
-allow nwebspawn processdump:process2 { nnp_transition };

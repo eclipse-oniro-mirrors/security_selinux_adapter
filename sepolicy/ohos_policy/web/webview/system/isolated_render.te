@@ -145,6 +145,11 @@ allow isolated_render isolated_render:process { ptrace };
 
 allow isolated_render web_private_param:file { map open read };
 
+# avc: denied { map } for pid=1, comm="/system/bin/appspawn"  path="/data/themes/a/app/fonts/*.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=16350 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+# avc: denied { read } for pid=1, comm="/system/bin/appspawn"  path="/data/themes/a/app/fonts/*.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17270 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+# avc: denied { getattr } for pid=1, comm="/system/bin/appspawn"  path="/data/themes/a/app/fonts/*.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=18442 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow isolated_render data_service_el1_file:file { getattr map read };
+
 debug_only(`
     allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem_debug };
 ')

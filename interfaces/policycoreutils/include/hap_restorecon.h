@@ -35,7 +35,7 @@ struct SehapInfo {
     std::string domain = "";
     std::string type = "";
     bool debuggable = false;
-    int extra = 0;
+    unsigned int extra = 0;
 };
 
 struct HapFileInfo {

@@ -20,6 +20,7 @@
                 "faultloggerd toybox_exec",
                 "debug_hap hilog_exec",
                 "dlpmanager_hap hilog_exec",
+                "dlp_sandbox_hap hilog_exec",
                 "isolated_gpu hilog_exec",
                 "isolated_render hilog_exec",
                 "medialibrary_hap hilog_exec",
@@ -33,6 +34,8 @@
                 "debug_hap toybox_exec",
                 "dlpmanager_hap system_bin_file",
                 "dlpmanager_hap toybox_exec",
+                "dlp_sandbox_hap system_bin_file",
+                "dlp_sandbox_hap toybox_exec",
                 "isolated_gpu system_bin_file",
                 "isolated_gpu toybox_exec",
                 "isolated_render system_bin_file",
@@ -94,7 +97,6 @@
                 "riladapter_host system_bin_file",
                 "riladapter_host toybox_exec",
                 "softbus_server system_bin_file",
-                "softbus_server toybox_exec",
                 "storage_daemon system_bin_file",
                 "storage_daemon toybox_exec",
                 "updater_binary tmpfs",
@@ -135,8 +137,7 @@
                 "sh data_local_tmp",
                 "SP_daemon uinput_exec",
                 "SP_daemon aa_exec",
-                "SP_daemon snapshot_display_exec",
-                "appspawn data_local_tmp"
+                "SP_daemon snapshot_display_exec"
             ]
         }
     ]
