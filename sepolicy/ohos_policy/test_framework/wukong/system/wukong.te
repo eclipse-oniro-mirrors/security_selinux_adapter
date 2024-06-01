@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# neverallow
+neverallow wukong { sadomain developer_only(` -sa_accessibleabilityms -sa_foundation_abilityms -sa_foundation_bms -sa_foundation_dms -sa_foundation_wms -sa_multimodalinput_service -sa_sys_event_service -sa_param_watcher')}:samgr_class { get };
+
 developer_only(`
 allow wukong accessibility:binder { call transfer };
 allow wukong accessibility:dir { search };
@@ -66,4 +69,5 @@ allow wukong data_local_tmp:dir { add_name create getattr read write open search
 allow wukong hdcd:fifo_file { read write };
 allow wukong hdcd:unix_stream_socket { read write };
 allow wukong hdcd:fd { use };
+
 ')
