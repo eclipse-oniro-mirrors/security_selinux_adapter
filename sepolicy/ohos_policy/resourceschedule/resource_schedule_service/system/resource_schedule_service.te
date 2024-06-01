@@ -13,16 +13,13 @@
 
 #resource_schedule_service
 allow resource_schedule_service accesstoken_service:binder { call };
-allow resource_schedule_service foundation:binder { call transfer };
 binder_call(resource_schedule_service, powermgr);
-allow resource_schedule_service hiview:binder { call transfer };
 allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
 allow resource_schedule_service audio_server:binder { call transfer };
 allow resource_schedule_service msdp_sa:binder { call transfer };
 allow resource_schedule_service bluetooth_service:binder { call };
 allow resource_schedule_service locationhub:binder { call };
-allow resource_schedule_service av_session:binder { call transfer };
 allow resource_schedule_service appspawn:dir { search };
 allow resource_schedule_service appspawn:file { getattr open read };
 allow resource_schedule_service appspawn_exec:file { open read };
@@ -31,23 +28,15 @@ allow resource_schedule_service cgroup:file { append getattr ioctl open read wri
 allow resource_schedule_service chip_prod_file:dir { search };
 allow resource_schedule_service data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search write };
 allow resource_schedule_service data_service_el1_file:file { create getattr ioctl lock open read unlink write };
-allow resource_schedule_service device_manager:file { read };
 # avc: denied { transfer } for pid=892, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:distributeddata:s0 tclass=binder permissive=0
 # Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
 allow resource_schedule_service distributeddata:binder { transfer };
-allow resource_schedule_service hdf_devmgr:file { read };
-allow resource_schedule_service hilogd:file { read };
 allow resource_schedule_service vendor_bin_file:dir { search };
 allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };
 allow resource_schedule_service vendor_etc_file:file { getattr map open read };
-allow resource_schedule_service system_basic_hap_attr:dir { open read search };
-allow resource_schedule_service system_basic_hap_attr:file { getattr open read };
 allow resource_schedule_service system_basic_hap_attr:process { setsched };
-allow resource_schedule_service system_core_hap_attr:dir { open read search };
-allow resource_schedule_service system_core_hap_attr:file { getattr open read };
-allow resource_schedule_service system_core_hap_attr:process { setsched };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
 allow resource_schedule_service system_etc_file:dir { search };
@@ -55,22 +44,13 @@ allow resource_schedule_service system_etc_file:file { getattr map open read };
 allow resource_schedule_service tracefs:dir { search };
 allow resource_schedule_service tracefs_trace_marker_file:file { open write };
 allow resource_schedule_service dev_unix_socket:dir { search };
-allow resource_schedule_service ui_service:process { setsched };
-allow resource_schedule_service normal_hap_attr:dir { open read search };
-allow resource_schedule_service normal_hap_attr:file { getattr open read };
 allow resource_schedule_service normal_hap_attr:process { setsched };
 allow resource_schedule_service resource_schedule_service:unix_dgram_socket { getopt setopt };
 allow resource_schedule_service data_log:file { read write };
 allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
-allow resource_schedule_service init:dir { search };
-allow resource_schedule_service init:file { getattr open read };
-allow resource_schedule_service kernel:dir { search };
-allow resource_schedule_service kernel:file { getattr open read };
-allow resource_schedule_service kernel:key { search };
 allow resource_schedule_service resource_schedule_service:netlink_socket { read };
 allow resource_schedule_service proc_file:file { read open };
-allow resource_schedule_service param_watcher:file { read };
 debug_only(`
     allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
 ')
@@ -81,8 +61,6 @@ allow resource_schedule_service sys_prod_file:dir { search };
 allow resource_schedule_service sys_prod_file:file { open read };
 allow resource_schedule_service sysfs_devices_system_cpu:file { getattr write open ioctl create read };
 allow resource_schedule_service sysfs_devices_system_cpu:dir { open read search };
-allow resource_schedule_service storage_daemon:file { read };
-allow resource_schedule_service storage_manager:file { read };
 allow resource_schedule_service tty_device:chr_file { open read write };
 allow resource_schedule_service dev_sched_rtg_ctrl:chr_file { ioctl open read write };
 allowxperm resource_schedule_service dev_file:chr_file ioctl { 0x7102  0x7104 0x7165 };
@@ -91,11 +69,6 @@ allowxperm resource_schedule_service cgroup:file ioctl { 0x5413 };
 allowxperm resource_schedule_service sys_file:file ioctl { 0x5413 };
 allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c };
 allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };
-allow resource_schedule_service sa_audio_policy_service:samgr_class { get };
-allow resource_schedule_service ueventd:dir { search };
-allow resource_schedule_service ueventd:file { getattr open read };
-allow resource_schedule_service watchdog_service:dir { search };
-allow resource_schedule_service watchdog_service:file { getattr open read };
 # Subscribing to public events is required.
 # acv: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1 
 allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
@@ -156,6 +129,39 @@ allow resource_schedule_service system_core_hap_attr:binder { call transfer };
 allow resource_schedule_service data_service_file:dir { search };
 # avc: denied { open read search } for pid=873, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:system_fonts_file:s0 tclass=dir permissive=0
 allow resource_schedule_service system_fonts_file:dir { open read search };
+
+#for resource_schedule_service cgroup
+# avc: denied { search } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=dir permissive=1
+allow resource_schedule_service kernel:dir { search };
+# avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=file permissive=1
+# avc: denied { open } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=file permissive=1
+allow resource_schedule_service kernel:file { getattr open read };
+# avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:storage_daemon:s0 tclass=file permissive=1
+allow resource_schedule_service storage_daemon:file { read };
+# avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:storage_manager:s0 tclass=file permissive=1
+allow resource_schedule_service storage_manager:file { read };
+allow resource_schedule_service foundation:binder { call transfer };
+allow resource_schedule_service hiview:binder { call transfer };
+allow resource_schedule_service av_session:binder { call transfer };
+allow resource_schedule_service device_manager:file { read };
+# avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:hdf_devmgr:s0 tclass=file permissive=1
+allow resource_schedule_service hdf_devmgr:file { read };
+allow resource_schedule_service hilogd:file { read };
+allow resource_schedule_service system_basic_hap_attr:dir { open read search };
+allow resource_schedule_service system_basic_hap_attr:file { getattr open read };
+allow resource_schedule_service system_core_hap_attr:dir { open read search };
+allow resource_schedule_service system_core_hap_attr:file { getattr open read };
+allow resource_schedule_service system_core_hap_attr:process { setsched };
+allow resource_schedule_service ui_service:process { setsched };
+allow resource_schedule_service param_watcher:file { read };
+allow resource_schedule_service sa_audio_policy_service:samgr_class { get };
+# avc: denied { search } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=dir permissive=1
+allow resource_schedule_service ueventd:dir { search };
+# avc: denied { getattr } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=file permissive=1
+# avc: denied { open } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=file permissive=1
+# avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=file permissive=1
+allow resource_schedule_service ueventd:file { getattr open read };
 
 # resource_schedule_service config
 allow resource_schedule_service sys_prod_ressched_file:dir { search };
