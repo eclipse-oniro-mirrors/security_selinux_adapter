@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,8 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -samgr -foundation -binder_call_installs_violators} installs:binder call;
-
-neverallow installs { domain -el5_filekey_manager -installs_binder_violator -samgr -storage_manager -compiler_service -local_code_sign -accesstoken_service }:binder call;
-
-allow installs data_service_el2_file:dir { relabelfrom };
+allow sadomain sa_accesstoken_manager_service:samgr_class { get };
+allow sadomain accesstoken_service:binder { call };
