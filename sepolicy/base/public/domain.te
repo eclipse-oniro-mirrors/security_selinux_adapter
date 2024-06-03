@@ -134,8 +134,8 @@ neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin
     -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file
     -rgmli_violator_exec_file_attr
     developer_only(`-lldb_server_file') }:file { execute execute_no_trans entrypoint };
-neverallow { domain -installs -ark_aot_compiler -compiler_service updater_only(`-updater') } data_local_arkcache:file { write };
-neverallow { domain -installs -ark_aot_compiler -compiler_service updater_only(`-updater') } data_local_arkcache:dir { write };
+neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:file { write };
+neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:dir { write };
 
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file
     developer_only(`-lldb_server_file') }:file entrypoint;
