@@ -35,6 +35,7 @@ typeattribute wallpaper_service devinfo_type_allow_attr;
 typeattribute param_watcher devinfo_type_allow_attr;
 typeattribute multimodalinput devinfo_type_allow_attr;
 typeattribute bluetooth_service devinfo_type_allow_attr;
+typeattribute telephony_sa devinfo_type_allow_attr;
 
 neverallow {sadomain -devinfo_type_allow_attr} devinfo_type_param:file {open read map};
 allow {domain -sadomain } devinfo_type_param:file {open read map};
