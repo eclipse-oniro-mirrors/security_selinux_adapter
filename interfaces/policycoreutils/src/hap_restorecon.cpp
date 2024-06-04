@@ -507,12 +507,12 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     }
 
     std::string keyPara;
-    if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
-        keyPara = apl + "." + packageName;
-        selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
-    } else if (hapFlags & SELINUX_HAP_DLP) {
+    if (hapFlags & SELINUX_HAP_DLP) {
         keyPara = apl + "." + DLPSANDBOX;
         selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
+    } else if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
+        keyPara = apl + "." + packageName;
+        selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
     } else if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
         keyPara = apl + "." + DEBUGGABLE;
         selinux_log(SELINUX_INFO, "debuggable hap, keyPara: %s", keyPara.c_str());
