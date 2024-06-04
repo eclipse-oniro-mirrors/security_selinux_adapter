@@ -53,8 +53,6 @@ allow module_update_service accesstoken_service:binder { call };
 allow module_update_service sa_accesstoken_manager_service:samgr_class { get };
 allow module_update_service updater_sa:binder { call };
 allow module_update_service vendor_etc_file:dir { search };
-allow module_update_service persist_param:file { read open map };
-allow module_update_service servicectrl_param:parameter_service { set };
 allow module_update_service module_update_service:unix_dgram_socket { getopt setopt };
 allow module_update_service dev_kmsg_file:chr_file { write open };
 allow module_update_service module_update_service:binder { call };
