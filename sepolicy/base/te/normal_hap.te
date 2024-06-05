@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap_attr appspawn_exec:file { getattr map open read };
 allow normal_hap_attr bootevent_param:file { map open read };
 allow normal_hap_attr bootevent_samgr_param:file { map open read };
 allow normal_hap_attr build_version_param:file { map open read };
