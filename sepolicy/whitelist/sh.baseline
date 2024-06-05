@@ -105,7 +105,7 @@ developer_only(`
 (allow sh devinfo_type_param (file (map open read)))
 (allow sh ark_profile (parameter_service (set)))
 (allow sh ark_writeable_param (parameter_service (set)))
-
+(allow sh begetctl_exec (file (execute execute_no_trans)))
 (allow sh SP_daemon (process (transition siginh rlimitinh)))
 (allow sh SP_daemon_exec (file (ioctl read getattr map execute open)))
 (allow sh atm (process (transition siginh rlimitinh)))
