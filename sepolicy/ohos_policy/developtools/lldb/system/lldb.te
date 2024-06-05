@@ -26,7 +26,7 @@ allow lldb_server data_local:dir { search };
 allow lldb_server data_local_tmp:dir { search getattr };
 allow lldb_server lldb_server_file:dir { write create add_name search };
 allow lldb_server lldb_server_file:file { create append map execute execute_no_trans };
-allow lldb_server lldb_server:process { fork };
+allow lldb_server lldb_server:process { fork getsched setsched };
 
 # lldb-server needs to read the procfs of a debuggable app to know runtime
 # information such as what the binary is and the runtime vm address the binary
