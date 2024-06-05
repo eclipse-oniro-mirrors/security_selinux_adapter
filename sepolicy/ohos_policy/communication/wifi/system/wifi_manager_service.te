@@ -212,3 +212,6 @@ allow wifi_manager_service proc_net:file { read write open };
 allow wifi_manager_service sa_foundation_ans:samgr_class { get };
 
 allow wifi_manager_service dev_ashmem_file:chr_file { open };
+
+# avc: denied { get } for service=1153 pid=1544 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_comm_net_stats_manager_service:s0 tclass=samgr_class permissive=0
+allow wifi_manager_service sa_comm_net_stats_manager_service:samgr_class { get }
