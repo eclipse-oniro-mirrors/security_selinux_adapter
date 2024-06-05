@@ -160,3 +160,6 @@ allow media_service sa_media_monitor:samgr_class { get };
 
 #avc:  denied  { call } for  pid=608 comm="PlayerEngine" scontext=u:r:media_service:s0 tcontext=u:r:media_monitor:s0 tclass=binder permissive=0
 allow media_service media_monitor:binder { call };
+
+allow media_service hmdfs:file { ioctl };
+allowxperm media_service hmdfs:file ioctl { 0xf206 };
