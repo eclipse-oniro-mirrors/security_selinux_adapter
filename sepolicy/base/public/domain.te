@@ -331,5 +331,5 @@ neverallow * self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow { domain -hiperf -cap_violator_perfmon debug_only(`-hiebpf') } self:{ capability2 cap2_userns } perfmon;
 
 #limit domain has exec_no_sign and exec_anon_mem permission
-neverallow { domain developer_only(`-debug_hap -normal_hap') debug_only(`-su') } self:xpm { exec_no_sign };
+neverallow { domain developer_only(`-debug_hap -normal_hap') debug_only(`-su') -updater_binary } self:xpm { exec_no_sign };
 neverallow { domain developer_only(`-debug_hap') debug_only(`-su') -isolated_render } self:xpm { exec_anon_mem };
