@@ -268,3 +268,6 @@ attribute system_bin_file_quickfix;
 attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
+
+attribute rgmli_violator_dev_attr;
+attribute rgmli_violator_mknod;
