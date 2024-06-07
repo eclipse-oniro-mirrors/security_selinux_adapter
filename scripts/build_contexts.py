@@ -187,13 +187,18 @@ def sehap_process_line(line, line_index, contexts_write, domain, contexts_file):
         return
 
     pattern = re.compile(
-        r'apl=(system_core|system_basic|normal)\s+((name|debuggable|extra)=\S+\s+)*domain=(\S+)\s+type=(\S+)\s*\n')
+        r'apl=(system_core|system_basic|normal)\s+'
+        r'((name|debuggable)=\S+\s+)?'
+        r'(extra=\S+\s+)?'
+        r'domain=(\S+)\s+'
+        r'type=(\S+)\s*\n'
+    )
     match = pattern.match(line_)
     if match:
         if domain:
-            line = match.group(1) + " u:r:" + match.group(4) + ":s0\n"
+            line = match.group(1) + " u:r:" + match.group(5) + ":s0\n"
         else:
-            line = match.group(1) + " u:object_r:" + match.group(5) + ":s0\n"
+            line = match.group(1) + " u:object_r:" + match.group(6) + ":s0\n"
         contexts_write.write(line)
     else:
         print(contexts_file + ":" + str(line_index) + " format check fail")

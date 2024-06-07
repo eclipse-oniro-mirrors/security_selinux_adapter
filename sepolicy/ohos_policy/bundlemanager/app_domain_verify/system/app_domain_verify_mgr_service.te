@@ -20,7 +20,7 @@ allow app_domain_verify_mgr_service data_service_el1_file:dir { search read writ
 allow app_domain_verify_mgr_service data_service_el1_file:file { read write open getattr create setattr ioctl lock unlink map };
 allowxperm app_domain_verify_mgr_service data_service_el1_file:file ioctl { 0xf50c };
 allow app_domain_verify_mgr_service dev_ashmem_file:chr_file { open };
-allow app_domain_verify_mgr_service app_domain_verify_agent:binder { call };
+allow app_domain_verify_mgr_service app_domain_verify_agent:binder { call transfer };
 allow app_domain_verify_mgr_service sa_app_domain_verify_mgr_service:samgr_class { add get };
 allow app_domain_verify_mgr_service sa_app_domain_verify_agent:samgr_class { add get };
 allow app_domain_verify_mgr_service data_file:dir { search };
@@ -29,3 +29,4 @@ allow app_domain_verify_mgr_service app_domain_verify_mgr_service:unix_dgram_soc
 allow app_domain_verify_mgr_service dev_console_file:chr_file { read write };
 allow app_domain_verify_mgr_service persist_param:file { read };
 allow app_domain_verify_mgr_service tracefs:dir { search };
+allow app_domain_verify_mgr_service foundation:binder { call };

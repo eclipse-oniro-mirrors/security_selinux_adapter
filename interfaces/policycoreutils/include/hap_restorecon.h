@@ -27,6 +27,7 @@
 #define SELINUX_HAP_RESTORECON_PREINSTALLED_APP 1   // whether it is a pre-built app
 #define SELINUX_HAP_DEBUGGABLE 2 // whether it is a debuggable hap
 #define SELINUX_HAP_DLP 4 // whether it is dlp hap
+#define SELINUX_HAP_INPUT_ISOLATE 8 // whether it is input_isolate hap
 
 // parameters of each SehapInfo in file sehap_contexts
 struct SehapInfo {
