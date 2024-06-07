@@ -126,11 +126,14 @@ allow hiprofiler_cmd kernel:unix_stream_socket connectto;
 allow hiprofiler_cmd dev_unix_socket:sock_file { create getattr setattr };
 allow hiprofiler_cmd hook_param:parameter_service set;
 
-allow hiprofiler_cmd data_local_tmp:file { lock read getattr };
+developer_only(`
+	allow hiprofiler_cmd data_local_tmp:file { lock read open getattr };
+	allow hiprofiler_cmd data_local_tmp:dir { open search };
+')
 
 debug_only(`
-	allow hiprofiler_cmd data_local_tmp:file { create read open write };
-	allow hiprofiler_cmd data_local_tmp:dir { add_name write search getattr };
+	allow hiprofiler_cmd data_local_tmp:file { create write };
+	allow hiprofiler_cmd data_local_tmp:dir { add_name write getattr };
 	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofiler_cmd self:capability { setgid };
 ')
