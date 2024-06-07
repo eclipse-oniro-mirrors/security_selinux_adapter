@@ -23,8 +23,9 @@
 #(allow appspawn system_basic_hap_data_file_attr (dir (mounton)))
 #(allow appspawn system_core_hap_data_file_attr (dir (mounton)))
 
-neverallow appspawn { hap_file_attr -data_app_el1_file -data_app_el2_file -data_app_el3_file -data_app_el4_file -data_app_el5_file -data_service_el2_file -normal_hap_data_file_attr }:dir ~{ getattr search mounton };
-neverallow appspawn normal_hap_data_file_attr:dir ~{ getattr search mounton create write add_name setattr };
+neverallow appspawn { hap_file_attr -data_app_el1_file -data_app_el2_file -data_app_el3_file -data_app_el4_file -data_app_el5_file -data_service_el2_file -normal_hap_data_file_attr -system_basic_hap_data_file -system_core_hap_data_file_attr }:dir ~{ getattr search mounton };
+neverallow appspawn normal_hap_data_file_attr:dir ~{ getattr search mounton create write add_name setattr relabelto };
+neverallow appspawn { system_basic_hap_data_file system_core_hap_data_file}:dir ~{ getattr search mounton relabelto };
 
 neverallow appspawn data_cache:dir ~{ read_dir_perms };
 
