@@ -212,3 +212,9 @@ allow wifi_manager_service proc_net:file { read write open };
 allow wifi_manager_service sa_foundation_ans:samgr_class { get };
 
 allow wifi_manager_service dev_ashmem_file:chr_file { open };
+
+# avc:  denied  { create } for  pid=1624 comm="system/bin/sa_main/" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_socket permissive=1
+# avc:  denied  { setopt } for  pid=1624 comm="system/bin/sa_main/" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_socket permissive=1
+# avc:  denied  { write } for  pid=1624 comm="system/bin/sa_main/" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_socket permissive=1
+# avc:  denied  { read } for  pid=1624 comm="system/bin/sa_main/" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_socket permissive=1
+allow wifi_manager_service wifi_manager_service:netlink_socket { create setopt write read };

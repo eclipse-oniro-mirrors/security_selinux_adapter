@@ -118,3 +118,6 @@ allow softbus_server sa_foundation_appms:samgr_class { get };
 allow softbus_server data_service_el1_file:file { map };
 
 allow softbus_server data_service_el1_file:dir { create };
+
+allow softbus_server wifi_manager_service:fd { use };
+

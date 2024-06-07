@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -15,8 +15,6 @@ allow hisysevent hdcd:fd { use };
 allow hisysevent hdcd:fifo_file { read write };
 allow hisysevent hdcd:unix_stream_socket { read write };
 allow hdcd hisysevent:process { signal };
-
-allow hisysevent sh:fd { use };
 
 allow hisysevent hiview:fd { use };
 allow hisysevent hiview:binder { call transfer };
@@ -40,9 +38,12 @@ allowxperm hisysevent devpts:chr_file ioctl { 0x5413 };
 allow hisysevent hiprofiler_plugins:fd { use };
 allow hisysevent hiprofiler_plugins:fifo_file { ioctl write };
 
-allow hisysevent sh:fifo_file { write ioctl };
-allowxperm hisysevent sh:fifo_file ioctl { 0x5413 };
-
 allow hisysevent data_local_tmp:file { write ioctl };
 allowxperm hisysevent data_local_tmp:file ioctl { 0x5413 };
+
+developer_only(`
+allow hisysevent sh:fd { use };
+allow hisysevent sh:fifo_file { write ioctl };
+allowxperm hisysevent sh:fifo_file ioctl { 0x5413 };
+')
 

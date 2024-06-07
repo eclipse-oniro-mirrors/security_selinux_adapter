@@ -143,6 +143,9 @@ allow SP_daemon aa_exec:file { map };
 allow SP_daemon dev_ucollection:chr_file { ioctl };
 allow SP_daemon sh:file { open };
 allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x4 };
+allow SP_daemon sa_multimodalinput_service:samgr_class { get };
+allow SP_daemon sa_foundation_abilityms:samgr_class { get };
+allow SP_daemon sa_accessibleabilityms:samgr_class { get };
 ')
 
 

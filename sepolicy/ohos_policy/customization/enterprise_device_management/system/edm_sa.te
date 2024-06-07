@@ -201,3 +201,6 @@ allow edm_sa pasteboard_service:binder { call };
 
 # avc:  denied  { call } for  pid=1412, comm="/system/bin/sa_main" scontext=u:r:edm_sa:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=0
 allow edm_sa useriam:binder { call };
+
+# avc:  denied  { get } for service=3001 pid=6793 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samar_class permissive=0
+allow edm_sa sa_pulseaudio_audio_service:samgr_class { get };
