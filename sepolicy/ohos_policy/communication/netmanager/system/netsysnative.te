@@ -66,7 +66,7 @@ allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
 
 allow netsysnative iptables_exec:lnk_file { read };
 allow netsysnative iptables_exec:file { execute read open execute_no_trans map };
-allow netsysnative netsysnative:packet_socket { bind create ioctl setopt };
+allow netsysnative netsysnative:packet_socket { read bind create ioctl setopt };
 allow netsysnative netsysnative:bpf { map_read prog_load map_create prog_run map_write };
 allow netsysnative data_file:file { read };
 allow netsysnative sa_netsys_ext_service:samgr_class { add get };
@@ -75,7 +75,7 @@ allow netsysnative sys_file:filesystem { mount };
 allow netsysnative netsysnative:process { rlimitinh transition siginh };
 allow netsysnative netsysnative:capability2 { bpf };
 allow netsysnative netsysnative:capability { net_raw sys_resource sys_admin net_admin };
-allow netsysnative netsysnative:rawip_socket { setopt getopt create };
+allow netsysnative netsysnative:rawip_socket { write setopt getopt create };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
 allow netsysnative debug_param:file { map open read };
 allow netsysnative dev_console_file:chr_file { write read };
