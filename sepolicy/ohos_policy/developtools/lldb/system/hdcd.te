@@ -20,6 +20,7 @@ developer_only(`
 # of dso files loaded by an application, therefore breakpoints cannot be set on
 # any of loaded dso.
 allow hdcd appspawn_exec:file { getattr read open };
+allow hdcd cjappspawn_exec:file { getattr read open };
 
 # Allow users using hdc to upload lldb-server to subdirectories under
 # /data/local/tmp/lldb-server/
