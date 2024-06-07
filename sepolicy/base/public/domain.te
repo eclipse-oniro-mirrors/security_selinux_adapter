@@ -209,7 +209,7 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server'
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -write_updater } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -write_updater -rgm_violator_dev_attr } dev_attr:blk_file { open read write };
 neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
@@ -316,7 +316,7 @@ neverallow { domain -render_service -cap_violator_sysnice -composer_host } self:
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;
 neverallow { domain -time_service updater_only(`-updater') } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
-neverallow { domain -ueventd -kernel -storage_daemon } self:{ capability cap_userns } mknod;
+neverallow { domain -ueventd -kernel -storage_daemon -rgm_violator_mknod } self:{ capability cap_userns } mknod;
 neverallow * self:{ capability cap_userns } lease;
 neverallow * self:{ capability cap_userns } audit_write;
 neverallow * self:{ capability cap_userns } audit_control;
