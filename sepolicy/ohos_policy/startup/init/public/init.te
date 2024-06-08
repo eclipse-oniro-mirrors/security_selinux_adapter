@@ -104,9 +104,7 @@ init_relabel(update_dupdate_engine_file);
 ## add startup exec type
 type begetctl_exec, system_file_attr, exec_attr, file_attr;
 type prop_migrate_exec, system_file_attr, exec_attr, file_attr;
-type hnp_exec, system_file_attr, exec_attr, file_attr;
 
 allow {debug_only(`console') developer_only(`sh') hdcd init} begetctl_exec:file { execute execute_no_trans };
 allow init prop_migrate_exec:file { execute execute_no_trans };
-allow {foundation installs init appspawn} hnp_exec:file { execute execute_no_trans };
 
