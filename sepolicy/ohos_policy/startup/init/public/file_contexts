@@ -19,5 +19,3 @@
 
 /system/bin/prop_migrate       u:object_r:prop_migrate_exec:s0
 
-/system/bin/hnp       u:object_r:hnp_exec:s0
-
