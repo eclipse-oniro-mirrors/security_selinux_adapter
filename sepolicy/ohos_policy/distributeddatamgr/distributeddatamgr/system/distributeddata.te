@@ -188,7 +188,7 @@ allow distributeddata wifi_manager_service:binder { call transfer };
 allow distributeddata bluetooth_service:binder { call transfer };
 allow distributeddata dlp_permission_service:binder { call transfer };
 allow distributeddata sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
-allow distributeddata distributedfiledaemon:binder { call };
+allow distributeddata distributedfiledaemon:binder { call transfer };
 allow distributeddata inputmethod_service:binder { call transfer };
 allow distributeddata data_service_el1_file:dir { relabelfrom };
 allow distributeddata data_service_el1_utd_file:dir { relabelto add_name search write };
