@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow distributeddata cloudfiledaemon:binder { call transfer };
+allow distributeddata distributedfiledaemon:binder { call transfer };
