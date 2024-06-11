@@ -51,6 +51,7 @@ allowxperm resource_schedule_service sysfs_devices_system_cpu:file ioctl { 0x541
 allow resource_schedule_service sa_multimodalinput_service:samgr_class { get };
 allow resource_schedule_service multimodalinput:unix_stream_socket { read };
 allow resource_schedule_service sa_work_schedule_service:samgr_class { get };
+allow resource_schedule_service distributeddata:fd { use };
 allow distributeddata resource_schedule_service:binder { transfer };
 allow resource_schedule_service wifi_manager_service:binder { call };
 allow resource_schedule_service sa_wifi_hotspot_ability:samgr_class { get };
