@@ -342,5 +342,3 @@ allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
 allow storage_daemon sa_useriam_useriam_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 
-
-
