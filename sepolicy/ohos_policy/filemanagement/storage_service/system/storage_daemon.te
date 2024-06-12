@@ -339,7 +339,7 @@ allow storage_daemon el5_filekey_manager:binder { call };
 allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
 
 # avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0: tclass=samgr_class permissive=0
-allow storage_daemon sa_useriam_service:samgr_class { get };
+allow storage_daemon sa_useriam_useriam_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 
 
