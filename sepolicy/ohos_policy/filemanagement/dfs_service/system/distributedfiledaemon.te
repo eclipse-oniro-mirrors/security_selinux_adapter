@@ -95,7 +95,9 @@ allow distributedfiledaemon hap_domain:binder { call };
 
 allow distributedfiledaemon hmdfs:dir { search read open write add_name create setattr remove_name rmdir };
 
-allow distributedfiledaemon hmdfs:file { read open getattr create write setattr rename unlink };
+allow distributedfiledaemon hmdfs:file { read open getattr create write setattr rename unlink ioctl };
+
+allowxperm distributedfiledaemon hmdfs:file ioctl { 0x5413 };
 
 allow distributedfiledaemon dev_kmsg_file:chr_file { write };
 
