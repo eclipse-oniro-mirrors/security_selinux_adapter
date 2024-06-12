@@ -11,9 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute rgm_violator_ohos_cap_setpcap;
-attribute rgm_violator_ohos_cap_setgid;
-attribute rgm_violator_ohos_cap_syschroot;
+attribute rgm_violator_ohos_capability_mknod
+attribute rgm_violator_ohos_capability_setpcap;
+attribute rgm_violator_ohos_capability_setgid;
+attribute rgm_violator_ohos_capability_syschroot;
 attribute rgm_violator_ohos_filesystem_remount;
 attribute rgm_violator_ohos_proc_file_mounton;
 attribute rgm_violator_ohos_cgroup_file_create;
