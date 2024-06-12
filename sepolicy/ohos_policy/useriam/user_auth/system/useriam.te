@@ -91,4 +91,3 @@ allow sensors useriam:binder { call };
 allow useriam devinfo_private_param:file { map open read };
 
 allow useriam storage_daemon:binder { call };
-
