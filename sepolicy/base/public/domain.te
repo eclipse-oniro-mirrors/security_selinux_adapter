@@ -110,7 +110,7 @@ neverallow { domain -init } hdcd:process transition;
 
 neverallow * hdcd:process dyntransition;
 
-neverallow { -rgm_violator_ohos_dev_sock_file_mounton } { file_attr fs_attr dev_attr }:{ lnk_file fifo_file sock_file } mounton;
+neverallow { domain -rgm_violator_ohos_dev_sock_file_mounton } { file_attr fs_attr dev_attr }:{ lnk_file fifo_file sock_file } mounton;
 
 neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 
