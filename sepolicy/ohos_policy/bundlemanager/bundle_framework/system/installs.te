@@ -126,3 +126,4 @@ allowxperm installs data_app_el5_file:dir ioctl { 0xf554 };
 allow installs data_app_el1_file:lnk_file { create getattr };
 allow installs sh_exec:file { execute execute_no_trans map open read };
 allow installs system_bin_file:lnk_file { read getattr };
+allow installs foundation:fd { use };
