@@ -142,3 +142,6 @@ allowxperm security_component_service data_service_el1_file:file ioctl { 0x5413 
 
 # avc:  denied  { get } for service=4606 pid=2034 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
 allow security_component_service sa_foundation_wms:samgr_class { get };
+
+# avc:  denied  { get } for service=401 pid=6860 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
+allow security_component_service sa_foundation_bms:samgr_class { get };
