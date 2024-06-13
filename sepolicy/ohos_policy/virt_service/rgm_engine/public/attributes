@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute rgm_violator_ohos_capability_mknod
+attribute rgm_violator_ohos_capability_mknod;
 attribute rgm_violator_ohos_capability_setpcap;
 attribute rgm_violator_ohos_capability_setgid;
 attribute rgm_violator_ohos_capability_syschroot;
