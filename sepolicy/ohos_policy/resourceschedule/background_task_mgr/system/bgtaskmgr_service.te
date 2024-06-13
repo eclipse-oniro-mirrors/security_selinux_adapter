@@ -80,6 +80,8 @@ allow bgtaskmgr_service data_app_file:dir { search };
 # continous task apply
 #avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_foundation_abilityms:samgr_class { get };
+#avc: denied { search } for scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=0
+allow bgtaskmgr_service data_app_el1_file:dir { search };
 
 # get service from samgr
 #avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1
