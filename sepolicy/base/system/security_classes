@@ -114,3 +114,4 @@ class code_sign
 class hmpsf
 class ced
 class jit_memory
+class hmcap

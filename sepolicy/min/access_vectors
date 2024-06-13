@@ -565,3 +565,10 @@ class jit_memory
 {
     exec_mem_ctrl
 }
+
+class hmcap
+{
+    supervsable
+    pid_mem_read
+    pid_mem_write
+}
