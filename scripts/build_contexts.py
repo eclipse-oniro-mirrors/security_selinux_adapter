@@ -22,6 +22,7 @@ import argparse
 import re
 import shutil
 import subprocess
+import sys, platform
 from collections import defaultdict
 
 
@@ -312,7 +313,10 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
 
 
 def main(args):
-    libpcre2_path = os.path.realpath("./clang_x64/thirdparty/pcre2/")
+    if sys.platform == "linux" and platform.machine().lower() == "aarch64":
+        libpcre2_path = os.path.realpath("./clang_arm64/thirdparty/pcre2/")
+    else:
+        libpcre2_path = os.path.realpath("./clang_x64/thirdparty/pcre2/")
     os.environ['LD_LIBRARY_PATH'] = libpcre2_path
     output_path = args.dst_dir
     policy_path = []
