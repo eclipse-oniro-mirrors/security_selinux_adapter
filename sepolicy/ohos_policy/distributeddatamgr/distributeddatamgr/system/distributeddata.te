@@ -31,6 +31,7 @@ allow distributeddata data_service_el1_file:dir { add_name create getattr open r
 allow distributeddata data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 allow distributeddata data_service_el2_file:dir { search };
 allow distributeddata data_service_file:dir { search };
+allow distributeddata data_user_file:dir { search };
 allow distributeddata deviceauth_service:binder { call };
 allow distributeddata device_manager:binder { call transfer };
 allow distributeddata dev_ashmem_file:chr_file { open };
