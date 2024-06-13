@@ -185,5 +185,7 @@ binder_call(audio_server, accountmgr);
 
 binder_call(audio_server, camera_service);
 
+allow audio_server sa_foundation_cesfwk_service:samgr_class { get };
+
 # others
 allow domain persist_audio_param:file { map open read };
