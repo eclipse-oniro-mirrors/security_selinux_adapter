@@ -46,7 +46,6 @@ allow resource_schedule_service system_etc_file:file { getattr map open read };
 allow resource_schedule_service tracefs:dir { search };
 allow resource_schedule_service tracefs_trace_marker_file:file { open write };
 allow resource_schedule_service dev_unix_socket:dir { search };
-allow resource_schedule_service normal_hap_attr:process { setsched };
 allow resource_schedule_service resource_schedule_service:unix_dgram_socket { getopt setopt };
 allow resource_schedule_service data_log:file { read write };
 allow resource_schedule_service faultloggerd:fd { use };
@@ -141,6 +140,8 @@ allow resource_schedule_service kernel:dir { search };
 # avc: denied { getattr } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=file permissive=1
 # avc: denied { open } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=file permissive=1
 allow resource_schedule_service kernel:file { getattr open read };
+allow resource_schedule_service init:dir { search };
+allow resource_schedule_service init:file { getattr open read };
 # avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:storage_daemon:s0 tclass=file permissive=1
 allow resource_schedule_service storage_daemon:file { read };
 # avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:storage_manager:s0 tclass=file permissive=1
@@ -166,6 +167,10 @@ allow resource_schedule_service ueventd:dir { search };
 # avc: denied { open } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=file permissive=1
 # avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=file permissive=1
 allow resource_schedule_service ueventd:file { getattr open read };
+# Read information about application process nodes of the normal_hap in /proc
+allow resource_schedule_service normal_hap_attr:dir { open read search };
+allow resource_schedule_service normal_hap_attr:file { getattr open read };
+allow resource_schedule_service normal_hap_attr:process { setsched };
 
 # resource_schedule_service config
 allow resource_schedule_service sys_prod_ressched_file:dir { search };
