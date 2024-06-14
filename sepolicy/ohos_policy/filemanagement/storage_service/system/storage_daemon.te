@@ -95,10 +95,10 @@ allow storage_daemon data_service_el1_public_huksService_file:file { getattr rea
 allow storage_daemon data_service_el2_public_huksService_file:dir { search };
 allow storage_daemon data_service_el2_public_huksService_file:file { getattr read open };
 
-allow storage_daemon data_service_el2_userId_huksService_file:dir { getattr open read search };
+allow storage_daemon data_service_el2_userId_huksService_file:dir { getattr open read search rmdir write remove_name };
 allow storage_daemon data_service_el2_userId_huksService_file:file { getattr open read };
 
-allow storage_daemon data_service_el4_userId_huksService_file:dir { getattr open read search };
+allow storage_daemon data_service_el4_userId_huksService_file:dir { getattr open read search rmdir write remove_name };
 allow storage_daemon data_service_el4_userId_huksService_file:file { getattr open read };
 
 #avc:  denied  { search } for  pid=257 comm="storage_daemon" name="huks_service" dev="mmcblk0p11" ino=1044496 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_data_huksService_file:s0 tclass=dir permissive=1
