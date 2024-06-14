@@ -119,4 +119,4 @@ allow distributedfiledaemon distributeddata:binder { call };
 
 allow distributedfiledaemon chip_prod_file:dir { search };
 
-allow distributedfiledaemon tty_device:chr_file { read write }
+allow distributedfiledaemon tty_device:chr_file { read write };
