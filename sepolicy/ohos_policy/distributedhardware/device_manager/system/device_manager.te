@@ -324,3 +324,4 @@ allow device_manager ark_writeable_param:file { read };
 allow device_manager sa_memory_manager_service:samgr_class { get };
 allow device_manager memmgrservice:binder { call };
 allow device_manager accountmgr:fd { use };
+allow device_manager sa_screenlock_service:samgr_class { get };
