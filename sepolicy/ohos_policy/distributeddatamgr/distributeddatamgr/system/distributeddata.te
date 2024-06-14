@@ -31,6 +31,7 @@ allow distributeddata data_service_el1_file:dir { add_name create getattr open r
 allow distributeddata data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 allow distributeddata data_service_el2_file:dir { search };
 allow distributeddata data_service_file:dir { search };
+allow distributeddata data_user_file:dir { search };
 allow distributeddata deviceauth_service:binder { call };
 allow distributeddata device_manager:binder { call transfer };
 allow distributeddata dev_ashmem_file:chr_file { open };
@@ -188,7 +189,7 @@ allow distributeddata wifi_manager_service:binder { call transfer };
 allow distributeddata bluetooth_service:binder { call transfer };
 allow distributeddata dlp_permission_service:binder { call transfer };
 allow distributeddata sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
-allow distributeddata distributedfiledaemon:binder { call };
+allow distributeddata distributedfiledaemon:binder { call transfer };
 allow distributeddata inputmethod_service:binder { call transfer };
 allow distributeddata data_service_el1_file:dir { relabelfrom };
 allow distributeddata data_service_el1_utd_file:dir { relabelto add_name search write };

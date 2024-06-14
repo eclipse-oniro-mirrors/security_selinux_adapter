@@ -99,9 +99,9 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn } proc_file:{ file di
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display -bm') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display -bm -data_local_tmp_violator_dir') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -lldb_server -appspawn -snapshot_display -hiprofiler_cmd -bm -processdump') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -uitest updater_only(`-updater') } data_local_tmp:dir { open search };
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -lldb_server -appspawn -snapshot_display -hiprofiler_cmd -bm -processdump -data_local_tmp_violator_dir') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -uitest updater_only(`-updater') } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -209,12 +209,12 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server'
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -write_updater -rgm_violator_dev_attr } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -write_updater } dev_attr:blk_file { open read write };
 neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
 neverallow { domain -init -storage_daemon -appspawn -cjappspawn -netsysnative -rgm_violator_filesystem_mount updater_only(`-updater')} *:filesystem mount;
-neverallow { domain -init } *:filesystem remount;
+neverallow { domain -init -appspawn } *:filesystem remount;
 neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn updater_only(`-updater') -rgm_violator_ohos_filesystem_unmount } *:filesystem unmount;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelfrom;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
@@ -272,7 +272,7 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
-neverallow { domain developer_only(`-wukong -SP_daemon -aa') -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
+neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh') -init -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa') -hidumper_service -netsysnative
     -wifi_hal_service -sh_exec_violator -installs } sh_exec:file execute;
 
@@ -300,7 +300,7 @@ neverallow { domain -init -chipset_init } self:{ capability cap_userns } setpcap
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow { domain -wifi_manager_service -netsysnative } self:{ capability cap_userns } net_bind_service;
 neverallow * self:{ capability cap_userns } net_broadcast;
-neverallow { domain -init -chipset_init -ueventd -wifi_hal_service -wifi_manager_service -softbus_server -netsysnative -storage_daemon -udevd -blue_host -netmanager -riladapter_host -bluetooth_service -cap_violator_netadmin -wifi_host -resource_schedule_service } self:{ capability cap_userns } net_admin;
+neverallow { domain -init -appspawn -chipset_init -ueventd -wifi_hal_service -wifi_manager_service -softbus_server -netsysnative -storage_daemon -udevd -blue_host -netmanager -riladapter_host -bluetooth_service -cap_violator_netadmin -wifi_host -resource_schedule_service } self:{ capability cap_userns } net_admin;
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -netsysnative -cap_violator_netraw -distributedfiledaemon -wifi_host } self:{ capability cap_userns } net_raw;
 neverallow { domain -hiperf } self:{ capability cap_userns } ipc_lock;
 neverallow * self:{ capability cap_userns } ipc_owner;
@@ -316,7 +316,7 @@ neverallow { domain -render_service -cap_violator_sysnice -composer_host } self:
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;
 neverallow { domain -time_service updater_only(`-updater') } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
-neverallow { domain -ueventd -kernel -storage_daemon -rgm_violator_mknod } self:{ capability cap_userns } mknod;
+neverallow { domain -ueventd -kernel -storage_daemon } self:{ capability cap_userns } mknod;
 neverallow * self:{ capability cap_userns } lease;
 neverallow * self:{ capability cap_userns } audit_write;
 neverallow * self:{ capability cap_userns } audit_control;

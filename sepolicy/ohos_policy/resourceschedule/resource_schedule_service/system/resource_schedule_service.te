@@ -20,6 +20,8 @@ allow resource_schedule_service audio_server:binder { call transfer };
 allow resource_schedule_service msdp_sa:binder { call transfer };
 allow resource_schedule_service bluetooth_service:binder { call };
 allow resource_schedule_service locationhub:binder { call };
+allow resource_schedule_service time_service:binder { call };
+allow resource_schedule_service sa_param_watcher:samgr_class { get };
 allow resource_schedule_service appspawn:dir { search };
 allow resource_schedule_service appspawn:file { getattr open read };
 allow resource_schedule_service appspawn_exec:file { open read };
@@ -96,7 +98,9 @@ allow resource_schedule_service sa_sensor_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_battery_service:samgr_class { get };
 allow resource_schedule_service sa_powermgr_powermgr_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:samgr_class { get };
+allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
+allow resource_schedule_service time_service:binder { transfer };
 allow resource_schedule_service sa_task_heartbeat_mgr:samgr_class { add get };
 allow bgtaskmgr_service sa_device_standby:samgr_class { get };
 allow normal_hap_attr sa_device_standby:samgr_class { get };
@@ -170,3 +174,6 @@ allow resource_schedule_service sys_prod_ressched_file:file { getattr open read 
 #for os_account_manager binder
 allow resource_schedule_service accountmgr:binder { transfer };
 allow accountmgr resource_schedule_service:binder { call };
+
+#for devinfo param
+allow resource_schedule_service devinfo_type_param:file { read open map };

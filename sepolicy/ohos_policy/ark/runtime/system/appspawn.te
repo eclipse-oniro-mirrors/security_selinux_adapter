@@ -30,4 +30,5 @@ allowxperm hap_domain data_local_arkprofile:file ioctl { 0x5413 };
 allow hap_domain data_local_arkprofile:dir { add_name remove_name search write };
 allow hap_domain ark_profile:file { map read open };
 allow appspawn data_local_arkprofile:dir { search mounton getattr };
-
+allow normal_hap appspawn:fifo_file { read };
+allow system_basic_hap appspawn:fifo_file { read };

@@ -33,7 +33,7 @@ allow distributedfiledaemon data_service_el2_file:dir { search };
 
 #avc:  denied  { search } for  pid=182 comm="kworker/u8:5" name="el2" dev="mmcblk0p11" ino=1044488 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=182 comm="kworker/u8:5" name="account_cache" dev="mmcblk0p11" ino=1044562 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
-allow distributedfiledaemon data_service_el2_hmdfs:dir { rw_dir_perms };
+allow distributedfiledaemon data_service_el2_hmdfs:dir { rw_dir_perms rmdir };
 
 #avc:  denied  { read write open } for  pid=183 comm="kworker/u8:4" path=2F646174612F736572766963652F656C322F3130302F686D6466732F63616368652F6163636F756E745F63616368652F23333933303937202864656C6574656429 dev="mmcblk0p11" ino=393097 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=1
 allow distributedfiledaemon data_service_el2_hmdfs:file { rw_file_perms };
@@ -93,13 +93,15 @@ allow distributedfiledaemon data_user_file:file { getattr open read write create
 
 allow distributedfiledaemon hap_domain:binder { call };
 
-allow distributedfiledaemon hmdfs:dir { search read open write add_name create setattr };
+allow distributedfiledaemon hmdfs:dir { search read open write add_name create setattr remove_name rmdir };
 
-allow distributedfiledaemon hmdfs:file { read open getattr create write setattr };
+allow distributedfiledaemon hmdfs:file { read open getattr create write setattr rename unlink ioctl };
+
+allowxperm distributedfiledaemon hmdfs:file ioctl { 0x5413 };
 
 allow distributedfiledaemon dev_kmsg_file:chr_file { write };
 
-allow distributedfiledaemon data_service_el2_hmdfs:file { create };
+allow distributedfiledaemon data_service_el2_hmdfs:file { create rename unlink };
 
 allow distributedfiledaemon sa_uri_permission_mgr_service:samgr_class { get };
 
@@ -112,3 +114,5 @@ allow distributedfiledaemon distributedsche:binder { call };
 allow distributedfiledaemon sa_storage_manager_service:samgr_class { get };
 
 allow distributedfiledaemon storage_manager:binder { call };
+
+allow distributedfiledaemon distributeddata:binder { call };

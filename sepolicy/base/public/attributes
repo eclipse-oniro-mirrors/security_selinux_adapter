@@ -152,6 +152,8 @@ attribute cap_violator_sysmodule;
 attribute cap_violator_syslog;
 attribute cap_violator_sysrawio;
 
+attribute data_file_attr_violator_exec;
+attribute data_local_tmp_violator_dir;
 attribute data_local_tmp_violator_file_open;
 attribute system_core_hap_data_file_attr_violator_dir;
 attribute system_basic_hap_data_file_attr_violator_dir;
@@ -268,6 +270,3 @@ attribute system_bin_file_quickfix;
 attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
-
-attribute rgm_violator_dev_attr;
-attribute rgm_violator_mknod;

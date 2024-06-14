@@ -188,6 +188,22 @@ allow appspawn data_service_el2_hmdfs:dir { mounton };
 
 allow appspawn normal_hap_data_file_attr:dir { create write add_name setattr };
 
+# avc:  denied  { relabelfrom } for pid=5327 comm="/system/bin/appspawn" name="app/el1/100/base/+auid-ohosAnonymousUid0+com.example.myapplication" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=20489 scontext=u:r:appspawn:s0 tcontext=u:r:data_app_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { setattr } for pid=5327 comm="/system/bin/appspawn" name="app/el1/100/base/+auid-ohosAnonymousUid0+com.example.myapplication" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=20489 scontext=u:r:appspawn:s0 tcontext=u:r:data_app_el1_file:s0 tclass=dir permissive=1
+allow appspawn data_app_el1_file:dir { relabelfrom setattr };
+
+# avc:  denied  { relabelfrom } for pid=5327 comm="/system/bin/appspawn" name="app/el2/100/database/+auid-ohosAnonymousUid0+com.example.myapplication" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=20488 scontext=u:r:appspawn:s0 tcontext=u:r:data_app_el2_file:s0 tclass=dir permissive=1
+allow appspawn data_app_el2_file:dir { relabelfrom };
+
+# avc:  denied  { relabelfrom } for pid=5327 comm="/system/bin/appspawn" name="app/el3/100/database/+auid-ohosAnonymousUid0+com.example.myapplication" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=20492 scontext=u:r:appspawn:s0 tcontext=u:r:data_app_el3_file:s0 tclass=dir permissive=1
+allow appspawn data_app_el3_file:dir { relabelfrom };
+
+# avc:  denied  { relabelfrom } for pid=5327 comm="/system/bin/appspawn" name="app/el4/100/database/+auid-ohosAnonymousUid0+com.example.myapplication" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=20496 scontext=u:r:appspawn:s0 tcontext=u:r:data_app_el4_file:s0 tclass=dir permissive=1
+allow appspawn data_app_el4_file:dir { relabelfrom };
+
+# avc:  denied  { relabelto } for pid=5327 comm="/system/bin/appspawn" name="app/el4/100/database/+auid-ohosAnonymousUid0+com.example.myapplication" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=20496 scontext=u:r:appspawn:s0 tcontext=u:r:debug_hap_data_file:s0 tclass=dir permissive=1
+allow appspawn { debug_hap_data_file normal_hap_data_file system_basic_hap_data_file system_core_hap_data_file }:dir { relabelto };
+
 # avc:  denied  { fsetid } for  pid=274 comm="appspawn" capability=4  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=0
 
 #init extend command, support to enter the application sandbox.
@@ -209,3 +225,11 @@ allow appspawn system_etc_file:lnk_file { read };
 
 #avc:  denied  { sigkill } for  pid=282 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow nwebspawn isolated_render:process { sigkill };
+
+# for enable net namespace
+# avc:  denied  { net_admin } for  pid=262 comm="appspawn" capability=12  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=1
+allow appspawn appspawn:capability { net_admin };
+allow appspawn sysfs_net:file { write open };
+
+#avc:  denied  { remount } for  pid=22332 comm="example.demo100" scontext=u:r:appspawn:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=1
+allow appspawn labeledfs:filesystem { remount };
