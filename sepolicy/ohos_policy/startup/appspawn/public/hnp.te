@@ -219,9 +219,6 @@ allow hnp proc_vmallocinfo_file:file { getattr };
  
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/dev/__parameters__/u:object_r:startup_init_param:s0" dev="tmpfs" ino=132 scontext=u:r:hnp:s0 tcontext=u:object_r:startup_init_param:s0 tclass=file permissive=1
 allow hnp startup_init_param:file { getattr };
- 
-# avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/dev/__parameters__/u:object_r:versiontype_param:s0" dev="tmpfs" ino=199 scontext=u:r:hnp:s0 tcontext=u:object_r:versiontype_param:s0 tclass=file permissive=1
-allow hnp versiontype_param:file { getattr };
 
 # avc:  denied  { getattr } for  pid=7385 comm="lsof" path="/proc/partitions" dev="proc" ino=4026532507 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_partitions_file:s0 tclass=file permissive=1
 allow hnp proc_partitions_file:file { getattr };
