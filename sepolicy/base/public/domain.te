@@ -272,9 +272,9 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
-neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh') -init -faultloggerd -riladapter_host -appspawn
+neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh -hnp') -init -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa') -hidumper_service -netsysnative
-    -wifi_hal_service -sh_exec_violator -installs } sh_exec:file execute;
+    -wifi_hal_service -sh_exec_violator } sh_exec:file execute;
 
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
@@ -289,8 +289,8 @@ neverallow { domain -processdump -hap_domain developer_only(`-lldb_server') } do
 neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -distributedfiledaemon } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -cjappspawn -init  -chipset_init -ueventd -memmgrservice -resource_schedule_executor
              -installs updater_only(`-updater')
-             -storage_daemon -usb_host -cap_violator_dacoverride } self:{ capability cap_userns } dac_override;
-neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd') -distributedfiledaemon -memmgrservice } self:{ capability cap_userns } dac_read_search;
+             -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') } self:{ capability cap_userns } dac_override;
+neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd -hnp') -distributedfiledaemon -memmgrservice } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner updater_only(`-updater') } self:{ capability cap_userns } fowner;
 neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid updater_only(`-updater') } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -cjappspawn -compiler_service -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_executor -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;
