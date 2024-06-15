@@ -16,6 +16,7 @@ init_daemon_domain(cjappspawn);
 allow init cjappspawn_exec:file { execute };
 allow cjappspawn appspawn_socket:sock_file { setattr };
 allow normal_hap_attr cjappspawn_exec:file { getattr map open read };
+allow foundation cjappspawn:fd { use };
 
 allow debug_hap cjappspawn:unix_dgram_socket { write };
 allow debug_hap cjappspawn:fd { use };
