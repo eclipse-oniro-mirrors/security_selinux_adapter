@@ -63,6 +63,7 @@ allow softbus_server system_core_hap_attr:binder { call };
 
 binder_call(softbus_server, privacy_service);
 binder_call(softbus_server, accountmgr);
+binder_call(softbus_server, netmanager);
 
 allow softbus_server musl_param:file { open map read };
 
@@ -81,8 +82,8 @@ allow softbus_server sa_foundation_bms:samgr_class { get };
 #avc:  denied  { get } for  service=6001 pid=1248 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=1
 allow softbus_server sa_device_profile_service:samgr_class { get };
 
-#avc:  denied  { get } for service=1157 pid=4046 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_comm_ethernet_manager_service:s0 tclass=samgr_class permissive=0
-allow softbus_server sa_comm_ethernet_manager_service:samgr_class { get };
+#avc:  denied  { get } for service=1151 pid=602 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=0
+allow softbus_server sa_net_conn_manager:samgr_class { get };
 
 # avc:  denied  { read write } for  pid=2312 comm="SaInit0" name="btdev0" dev="tmpfs" ino=184 scontext =u:r:softbus_server:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
 debug_only(`
