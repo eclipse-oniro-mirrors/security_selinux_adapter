@@ -81,7 +81,7 @@ allow distributedfiledaemon port:tcp_socket { name_connect name_bind };
 
 allow distributedfiledaemon sysfs_devices_system_cpu:dir { open read };
 
-allow distributedfiledaemon sysfs_devices_system_cpu:file { read };
+allow distributedfiledaemon sysfs_devices_system_cpu:file { read open };
 
 allow distributedfiledaemon data_file:file { getattr read open };
 
@@ -99,7 +99,7 @@ allow distributedfiledaemon hmdfs:file { read open getattr create write setattr 
 
 allowxperm distributedfiledaemon hmdfs:file ioctl { 0x5413 };
 
-allow distributedfiledaemon dev_kmsg_file:chr_file { write };
+allow distributedfiledaemon dev_kmsg_file:chr_file { write open };
 
 allow distributedfiledaemon data_service_el2_hmdfs:file { create rename unlink };
 
@@ -116,3 +116,7 @@ allow distributedfiledaemon sa_storage_manager_service:samgr_class { get };
 allow distributedfiledaemon storage_manager:binder { call };
 
 allow distributedfiledaemon distributeddata:binder { call };
+
+allow distributedfiledaemon chip_prod_file:dir { search };
+
+allow distributedfiledaemon tty_device:chr_file { read write };
