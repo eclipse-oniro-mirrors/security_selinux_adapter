@@ -99,7 +99,3 @@ allow samgr samgr_perf_param:file { map open read };
 allow samgr samgr_writable_param:parameter_service { set };
 
 allow domain samgr_writable_param:file { map open read };
-
-allow samgr dev_binder_file:chr_file { ioctl };
-
-allowxperm samgr dev_binder_file:chr_file ioctl { 0x620d };
