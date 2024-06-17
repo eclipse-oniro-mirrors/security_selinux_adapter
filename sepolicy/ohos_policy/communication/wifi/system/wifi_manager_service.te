@@ -112,6 +112,7 @@ allow wifi_manager_service sa_dhcp_server:samgr_class { add get };
 
 allow wifi_manager_service normal_hap_attr:fd { use };
 allow wifi_manager_service sa_msdp_movement_service:samgr_class { get };
+allow wifi_manager_service msdp_sa:binder { call };
 
 allow wifi_manager_service sa_device_service_manager:samgr_class { get };
 allow wifi_manager_service hdf_devmgr:binder { call };
