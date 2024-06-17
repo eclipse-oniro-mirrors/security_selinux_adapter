@@ -27,7 +27,6 @@ using namespace Selinux;
 const static std::string TEST_SERVICE_NAME = "test_service";
 const static std::string DEFAULT_SERVICE = "default_service";
 const static std::string DEFAULT_HDF_SERVICE = "default_hdf_service";
-const static std::string invalidSid = "invalid_sid";
 
 void SelinuxUnitTest::SetUpTestCase()
 {
@@ -42,17 +41,6 @@ void SelinuxUnitTest::TearDown() {}
 
 void SelinuxUnitTest::CreateDataFile() const {}
 
-int GetSidForCurrentProcess(std::string &sid)
-{
-    char *con = nullptr;
-    if (getcon(&con) < 0) {
-        return -1;
-    }
-    sid = con;
-    freecon(con);
-    return 0;
-}
-
 /**
  * @tc.name: HdfListServiceCheck001
  * @tc.desc: HdfListServiceCheck test.
@@ -61,14 +49,10 @@ int GetSidForCurrentProcess(std::string &sid)
  */
 HWTEST_F(SelinuxUnitTest, HdfListServiceCheck001, TestSize.Level1)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
-    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, HdfListServiceCheck(invalidSid.c_str()));
-    ASSERT_EQ(SELINUX_SUCC, HdfListServiceCheck(sid.c_str()));
-    std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { list } for service=hdf_devmgr_class sid=" +
-                      sid + "' | grep 'tclass=hdf_devmgr_class'";
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, HdfListServiceCheck(-1));
+    ASSERT_EQ(SELINUX_SUCC, HdfListServiceCheck(getpid()));
+    std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { list } for service=hdf_devmgr_class pid=" +
+                      std::to_string(getpid()) + "' | grep 'tclass=hdf_devmgr_class'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find("hdf_devmgr_class") != std::string::npos);
 }
@@ -81,15 +65,11 @@ HWTEST_F(SelinuxUnitTest, HdfListServiceCheck001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HdfGetServiceCheck001, TestSize.Level1)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
-    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, HdfGetServiceCheck(invalidSid.c_str(), TEST_SERVICE_NAME.c_str()));
-    ASSERT_EQ(-SELINUX_PTR_NULL, HdfGetServiceCheck(sid.c_str(), nullptr));
-    ASSERT_EQ(SELINUX_SUCC, HdfGetServiceCheck(sid.c_str(), TEST_SERVICE_NAME.c_str()));
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, HdfGetServiceCheck(-1, TEST_SERVICE_NAME.c_str()));
+    ASSERT_EQ(-SELINUX_PTR_NULL, HdfGetServiceCheck(getpid(), nullptr));
+    ASSERT_EQ(SELINUX_SUCC, HdfGetServiceCheck(getpid(), TEST_SERVICE_NAME.c_str()));
     std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { get } for service=" + TEST_SERVICE_NAME +
-                      " sid=" + sid + "' | grep 'tclass=hdf_devmgr_class'";
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=hdf_devmgr_class'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
 }
@@ -102,15 +82,11 @@ HWTEST_F(SelinuxUnitTest, HdfGetServiceCheck001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HdfAddServiceCheck001, TestSize.Level1)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
-    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, HdfAddServiceCheck(invalidSid.c_str(), TEST_SERVICE_NAME.c_str()));
-    ASSERT_EQ(-SELINUX_PTR_NULL, HdfAddServiceCheck(sid.c_str(), nullptr));
-    ASSERT_EQ(SELINUX_SUCC, HdfAddServiceCheck(sid.c_str(), TEST_SERVICE_NAME.c_str()));
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, HdfAddServiceCheck(-1, TEST_SERVICE_NAME.c_str()));
+    ASSERT_EQ(-SELINUX_PTR_NULL, HdfAddServiceCheck(getpid(), nullptr));
+    ASSERT_EQ(SELINUX_SUCC, HdfAddServiceCheck(getpid(), TEST_SERVICE_NAME.c_str()));
     std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { add } for service=" + TEST_SERVICE_NAME +
-                      " sid=" + sid + "' | grep 'tclass=hdf_devmgr_class'";
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=hdf_devmgr_class'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
 }
@@ -123,15 +99,11 @@ HWTEST_F(SelinuxUnitTest, HdfAddServiceCheck001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, ListServiceCheck001, TestSize.Level1)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
     ServiceChecker service(false);
-    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, service.ListServiceCheck(invalidSid));
-    ASSERT_EQ(SELINUX_SUCC, service.ListServiceCheck(sid));
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.ListServiceCheck(-1));
+    ASSERT_EQ(SELINUX_SUCC, service.ListServiceCheck(getpid()));
     std::string cmd =
-        "hilog -T Selinux -x | grep 'avc:  denied  { list } for service=samgr_class sid=" + sid +
+        "hilog -T Selinux -x | grep 'avc:  denied  { list } for service=samgr_class pid=" + std::to_string(getpid()) +
         "' | grep 'tclass=samgr_class'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find("samgr_class") != std::string::npos);
@@ -145,16 +117,12 @@ HWTEST_F(SelinuxUnitTest, ListServiceCheck001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, GetServiceCheck001, TestSize.Level1)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
     ServiceChecker service(false);
-    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, service.GetServiceCheck(invalidSid, TEST_SERVICE_NAME));
-    ASSERT_EQ(-SELINUX_ARG_INVALID, service.GetServiceCheck(sid, ""));
-    ASSERT_EQ(SELINUX_SUCC, service.GetServiceCheck(sid, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.GetServiceCheck(-1, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_ARG_INVALID, service.GetServiceCheck(getpid(), ""));
+    ASSERT_EQ(SELINUX_SUCC, service.GetServiceCheck(getpid(), TEST_SERVICE_NAME));
     std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { get } for service=" + TEST_SERVICE_NAME +
-                      " sid=" + sid + "' | grep 'tclass=samgr_class'";
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=samgr_class'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
 }
@@ -167,16 +135,12 @@ HWTEST_F(SelinuxUnitTest, GetServiceCheck001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, GetRemoteServiceCheck001, TestSize.Level1)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
     ServiceChecker service(false);
-    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, service.GetRemoteServiceCheck(invalidSid, TEST_SERVICE_NAME));
-    ASSERT_EQ(-SELINUX_ARG_INVALID, service.GetRemoteServiceCheck(sid, ""));
-    ASSERT_EQ(SELINUX_SUCC, service.GetRemoteServiceCheck(sid, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.GetRemoteServiceCheck(-1, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_ARG_INVALID, service.GetRemoteServiceCheck(getpid(), ""));
+    ASSERT_EQ(SELINUX_SUCC, service.GetRemoteServiceCheck(getpid(), TEST_SERVICE_NAME));
     std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { get_remote } for service=" + TEST_SERVICE_NAME +
-                      " sid=" + sid + "' | grep 'tclass=samgr_class'";
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=samgr_class'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
 }
@@ -189,16 +153,12 @@ HWTEST_F(SelinuxUnitTest, GetRemoteServiceCheck001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, AddServiceCheck001, TestSize.Level1)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
     ServiceChecker service(false);
-    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, service.AddServiceCheck(invalidSid, TEST_SERVICE_NAME));
-    ASSERT_EQ(-SELINUX_ARG_INVALID, service.AddServiceCheck(sid, ""));
-    ASSERT_EQ(SELINUX_SUCC, service.AddServiceCheck(sid, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.AddServiceCheck(-1, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_ARG_INVALID, service.AddServiceCheck(getpid(), ""));
+    ASSERT_EQ(SELINUX_SUCC, service.AddServiceCheck(getpid(), TEST_SERVICE_NAME));
     std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { add } for service=" + TEST_SERVICE_NAME +
-                      " sid=" + sid + "' | grep 'tclass=samgr_class'";
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=samgr_class'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
 }

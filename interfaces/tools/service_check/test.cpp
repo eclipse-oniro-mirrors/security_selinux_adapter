@@ -23,7 +23,6 @@
 #include <string>
 #include <unistd.h>
 
-#include "selinux/avc.h"
 #include "hdf_service_checker.h"
 #include "selinux_error.h"
 #include "service_checker.h"
@@ -105,83 +104,56 @@ static void SetOptions(int argc, char *argv[], const option *options, TestInput 
     }
 }
 
-int GetSidForCurrentProcess(std::string &sid)
-{
-    char *con = nullptr;
-    if (getcon(&con) < 0) {
-        return -1;
-    }
-    sid = con;
-    freecon(con);
-    return 0;
-}
-
 static void TestAddService(bool isHdf, const std::string &serviceName)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
     if (!serviceName.empty()) {
-        std::cout << GetErrStr(isHdf ? HdfAddServiceCheck(sid.c_str(), serviceName.c_str())
-                                     : g_service->AddServiceCheck(sid, serviceName))
+        std::cout << GetErrStr(isHdf ? HdfAddServiceCheck(getpid(), serviceName.c_str())
+                                     : g_service->AddServiceCheck(getpid(), serviceName))
                   << std::endl;
         exit(0);
     }
     std::string serName;
     while (std::cin >> serName) {
-        std::cout << GetErrStr(isHdf ? HdfAddServiceCheck(sid.c_str(), serName.c_str())
-                                     : g_service->AddServiceCheck(sid, serName))
+        std::cout << GetErrStr(isHdf ? HdfAddServiceCheck(getpid(), serName.c_str())
+                                     : g_service->AddServiceCheck(getpid(), serName))
                   << std::endl;
     }
 }
 
 static void TestGetService(bool isHdf, const std::string &serviceName)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
     if (!serviceName.empty()) {
-        std::cout << GetErrStr(isHdf ? HdfGetServiceCheck(sid.c_str(), serviceName.c_str())
-                                     : g_service->GetServiceCheck(sid, serviceName))
+        std::cout << GetErrStr(isHdf ? HdfGetServiceCheck(getpid(), serviceName.c_str())
+                                     : g_service->GetServiceCheck(getpid(), serviceName))
                   << std::endl;
         exit(0);
     }
     std::string serName;
     while (std::cin >> serName) {
-        std::cout << GetErrStr(isHdf ? HdfGetServiceCheck(sid.c_str(), serName.c_str())
-                                     : g_service->GetServiceCheck(sid, serName))
+        std::cout << GetErrStr(isHdf ? HdfGetServiceCheck(getpid(), serName.c_str())
+                                     : g_service->GetServiceCheck(getpid(), serName))
                   << std::endl;
     }
 }
 
 static void TestGetRemoteService(bool isHdf, const std::string &serviceName)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
     if (!serviceName.empty()) {
         std::cout << GetErrStr(isHdf ? SELINUX_PERMISSION_DENY
-                                     : g_service->GetRemoteServiceCheck(sid, serviceName))
+                                     : g_service->GetRemoteServiceCheck(getpid(), serviceName))
                   << std::endl;
         exit(0);
     }
     std::string serName;
     while (std::cin >> serName) {
-        std::cout << GetErrStr(isHdf ? SELINUX_PERMISSION_DENY : g_service->GetRemoteServiceCheck(sid, serName))
+        std::cout << GetErrStr(isHdf ? SELINUX_PERMISSION_DENY : g_service->GetRemoteServiceCheck(getpid(), serName))
                   << std::endl;
     }
 }
 
 static void TestListService(bool isHdf)
 {
-    std::string sid;
-    if (GetSidForCurrentProcess(sid) < 0) {
-        return;
-    }
-    std::cout << GetErrStr(isHdf ? HdfListServiceCheck(sid.c_str()) : g_service->ListServiceCheck(sid)) << std::endl;
+    std::cout << GetErrStr(isHdf ? HdfListServiceCheck(getpid()) : g_service->ListServiceCheck(getpid())) << std::endl;
 }
 
 static void Test(const TestInput &testCmd)
