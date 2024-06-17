@@ -33,7 +33,7 @@ allow distributedfiledaemon data_service_el2_file:dir { search };
 
 #avc:  denied  { search } for  pid=182 comm="kworker/u8:5" name="el2" dev="mmcblk0p11" ino=1044488 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=182 comm="kworker/u8:5" name="account_cache" dev="mmcblk0p11" ino=1044562 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
-allow distributedfiledaemon data_service_el2_hmdfs:dir { rw_dir_perms rmdir };
+allow distributedfiledaemon data_service_el2_hmdfs:dir { rw_dir_perms rmdir create };
 
 #avc:  denied  { read write open } for  pid=183 comm="kworker/u8:4" path=2F646174612F736572766963652F656C322F3130302F686D6466732F63616368652F6163636F756E745F63616368652F23333933303937202864656C6574656429 dev="mmcblk0p11" ino=393097 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=1
 allow distributedfiledaemon data_service_el2_hmdfs:file { rw_file_perms };
@@ -81,7 +81,7 @@ allow distributedfiledaemon port:tcp_socket { name_connect name_bind };
 
 allow distributedfiledaemon sysfs_devices_system_cpu:dir { open read };
 
-allow distributedfiledaemon sysfs_devices_system_cpu:file { read open };
+allow distributedfiledaemon sysfs_devices_system_cpu:file { read open getattr };
 
 allow distributedfiledaemon data_file:file { getattr read open };
 
@@ -120,3 +120,5 @@ allow distributedfiledaemon distributeddata:binder { call };
 allow distributedfiledaemon chip_prod_file:dir { search };
 
 allow distributedfiledaemon tty_device:chr_file { read write };
+
+allow distributedfiledaemon data_service_el1_file:dir { search };
