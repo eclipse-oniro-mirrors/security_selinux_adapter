@@ -93,7 +93,7 @@ static bool CouldSkip(const std::string &line)
     return false;
 }
 
-static struct SehapInfo DecodeString(std::string &line)
+static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
 {
     std::stringstream input(line);
     std::string tmp;
@@ -128,6 +128,10 @@ static struct SehapInfo DecodeString(std::string &line)
                 contextBuff.extra |= SELINUX_HAP_DLP;
             } else if (extra == INPUT_ISOLATE) {
                 contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
+            } else {
+                selinux_log(SELINUX_ERROR, "invalid extra %s\n", extra.c_str());
+                isValid = false;
+                break;
             }
             extraVisit = true;
         }
@@ -156,7 +160,7 @@ static bool CheckApl(const std::string &apl)
     return false;
 }
 
-static std::string GetHapContextKey(struct SehapInfo *hapInfo)
+static std::string GetHapContextKey(const struct SehapInfo *hapInfo)
 {
     std::string keyPara;
 
@@ -179,9 +183,8 @@ static std::string GetHapContextKey(struct SehapInfo *hapInfo)
     return keyPara;
 }
 
-static bool HapContextsInsert(std::string line, int lineNum)
+static bool HapContextsInsert(const SehapInfo &tmpInfo, int lineNum)
 {
-    struct SehapInfo tmpInfo = DecodeString(line);
     std::string keyPara = GetHapContextKey(&tmpInfo);
     if (keyPara.empty()) {
         selinux_log(SELINUX_ERROR, "hap_contexts read fail in line %d\n", lineNum);
@@ -220,7 +223,12 @@ static bool HapContextsLoad()
             if (CouldSkip(line)) {
                 continue;
             }
-            if (!HapContextsInsert(line, lineNum)) {
+            bool isValid = true;
+            struct SehapInfo tmpInfo = DecodeString(line, isValid);
+            if (!isValid) {
+                continue;
+            }
+            if (!HapContextsInsert(tmpInfo, lineNum)) {
                 g_sehapContextsTrie->Clear();
                 g_sehapContextsTrie = nullptr;
                 return false;
