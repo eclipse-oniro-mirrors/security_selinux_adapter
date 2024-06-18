@@ -93,18 +93,18 @@ allow storage_daemon data_service_el1_public_huksService_file:file { getattr rea
 #avc:  denied  { search } for  pid=257 comm="storage_daemon" name="huks_service" dev="mmcblk0p11" ino=1044496 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_public_huksService_file:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=257 comm="storage_daemon" path="/data/service/el2/huks_service/maindata/root_encrypt_key" dev="mmcblk0p11" ino=1044535 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_public_huksService_file:s0 tclass=file permissive=1
 allow storage_daemon data_service_el2_public_huksService_file:dir { search };
-allow storage_daemon data_service_el2_public_huksService_file:file { getattr read open };
+allow storage_daemon data_service_el2_public_huksService_file:file { getattr read open unlink };
 
 allow storage_daemon data_service_el2_userId_huksService_file:dir { getattr open read search rmdir write remove_name };
-allow storage_daemon data_service_el2_userId_huksService_file:file { getattr open read };
+allow storage_daemon data_service_el2_userId_huksService_file:file { getattr open read unlink };
 
 allow storage_daemon data_service_el4_userId_huksService_file:dir { getattr open read search rmdir write remove_name };
-allow storage_daemon data_service_el4_userId_huksService_file:file { getattr open read };
+allow storage_daemon data_service_el4_userId_huksService_file:file { getattr open read unlink };
 
 #avc:  denied  { search } for  pid=257 comm="storage_daemon" name="huks_service" dev="mmcblk0p11" ino=1044496 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_data_huksService_file:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=257 comm="storage_daemon" path="/data/data/huks_service/maindata/root_encrypt_key" dev="mmcblk0p11" ino=1044535 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_data_huksService_file:s0 tclass=file permissive=1
 allow storage_daemon data_data_huksService_file:dir { search };
-allow storage_daemon data_data_huksService_file:file { getattr read open };
+allow storage_daemon data_data_huksService_file:file { getattr read open unlink };
 
 #avc:  denied  { read open } for  pid=1789 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=913996 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
 allow storage_daemon data_user_file:file { create_file_perms };
@@ -278,12 +278,12 @@ allow storage_daemon watchdog_service:file { open };
 allow storage_daemon watchdog_service:lnk_file { read };
 
 #avc:  denied  { read } for  pid=258 comm="storage_daemon" name="com.ohos.launcher" dev="mmcblk0p11" ino=654143 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
-allow storage_daemon normal_hap_data_file_attr:dir { create_dir_perms };
-allow storage_daemon normal_hap_data_file_attr:file { create_file_perms };
-allow storage_daemon system_basic_hap_data_file_attr:dir { create_dir_perms };
-allow storage_daemon system_basic_hap_data_file_attr:file { create_file_perms };
-allow storage_daemon system_core_hap_data_file_attr:dir { create_dir_perms };
-allow storage_daemon system_core_hap_data_file_attr:file { create_file_perms };
+allow storage_daemon normal_hap_data_file_attr:dir { create_dir_perms getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
+allow storage_daemon normal_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink relabelfrom relabelto };
+allow storage_daemon system_basic_hap_data_file_attr:dir { create_dir_perms getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
+allow storage_daemon system_basic_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink relabelfrom relabelto };
+allow storage_daemon system_core_hap_data_file_attr:dir { create_dir_perms getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
+allow storage_daemon system_core_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink relabelfrom relabelto };
 allow storage_daemon labeledfs:filesystem { unmount quotaget quotamod };
 allow storage_daemon sharefs:filesystem { unmount };
 allow storage_daemon sharefs:dir { create_dir_perms mounton };
@@ -327,7 +327,8 @@ allowxperm storage_daemon share_public_file:dir ioctl { 0x581f 0x5820 0x6601 0x6
 # avc:  denied  { open } for pid=544 comm="storage_daemon" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow storage_daemon dev_kmsg_file:chr_file { write open };
 allow storage_daemon medialibrary_hap:fd { use };
-allow storage_daemon hap_file_attr:dir { mounton };
+allow storage_daemon hap_file_attr:dir { mounton getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
+allow storage_daemon hap_file_attr:file { open read getattr setattr unlink relabelfrom relabelto };
 allow storage_daemon proc_drop_caches_file:file { open ioctl getattr write };
 allowxperm storage_daemon proc_drop_caches_file:file ioctl { 0x5413 };
 
@@ -358,3 +359,11 @@ allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
 allow storage_daemon sa_useriam_useridm_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 
+allow storage_daemon normal_hap_data_file_attr
+allow storage_daemon 
+allow storage_daemon 
+allow storage_daemon 
+allow storage_daemon 
+allow storage_daemon 
+allow storage_daemon 
+allow storage_daemon 
