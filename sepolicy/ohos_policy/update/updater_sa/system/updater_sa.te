@@ -71,3 +71,6 @@ allow updater_sa sa_time_service:samgr_class { get };
 #avc: denied  { transfer } for service=3702 pid=472 scontext=u:r:updater_sa:s0 tcontext=u:object_r:time_service:s0 tclass=binder permissive=0
 allow updater_sa time_service:binder { call transfer };
 
+#avc:  denied  { transfer } for  pid=473 comm="OS_IPC_2_1087" scontext=u:r:updater_sa:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow updater_sa foundation:binder { transfer };
+
