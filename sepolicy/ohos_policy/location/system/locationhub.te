@@ -101,3 +101,4 @@ allow locationhub sa_foundation_tel_call_manager:samgr_class { get };
 allow locationhub wifi_manager_service:fd { use };
 
 allow locationhub time_service:binder { call };
+allow locationhub sa_resource_schedule:samgr_class { get };
