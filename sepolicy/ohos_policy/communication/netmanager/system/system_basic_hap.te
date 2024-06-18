@@ -31,3 +31,5 @@ allow system_basic_hap_attr sa_netsys_ext_service:samgr_class { add get };
 allow system_basic_hap_attr sa_distributed_net_service:samgr_class { add get };
 
 allow system_basic_hap_attr sa_net_policy_manager:samgr_class { add get };
+
+allow system_basic_hap_attr self:icmp_socket { create write read connect bind setopt getattr getopt shutdown };
