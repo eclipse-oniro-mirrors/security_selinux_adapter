@@ -12,7 +12,7 @@
 # limitations under the License.
 
 # neverallow
-neverallow wukong { sadomain developer_only(` -sa_accessibleabilityms -sa_foundation_abilityms -sa_foundation_bms -sa_foundation_dms -sa_foundation_wms -sa_multimodalinput_service -sa_sys_event_service -sa_param_watcher')}:samgr_class { get };
+neverallow wukong { sadomain developer_only(` -sa_accessibleabilityms -sa_foundation_abilityms -sa_foundation_bms -sa_foundation_dms -sa_foundation_wms -sa_multimodalinput_service -sa_sys_event_service -sa_param_watcher -sa_powermgr_powermgr_service')}:samgr_class { get };
 
 developer_only(`
 allow wukong accessibility:binder { call transfer };
@@ -36,6 +36,7 @@ allow wukong sh:fd { use };
 allow wukong sh:file { read open };
 allow wukong sh:dir { search };
 allow wukong sh_exec:file { execute_no_trans execute  read open map };
+allow wukong power_shell_exec:file { execute execute_no_trans getattr map read open };
 allow wukong system_bin_file:file { execute execute_no_trans getattr map read open };
 allow wukong system_bin_file:lnk_file { read };
 allow wukong toybox_exec:file { execute execute_no_trans getattr map read open };
@@ -44,6 +45,7 @@ allow wukong system_bin_file:dir { search };
 allow wukong multimodalinput:fd { use };
 allow wukong multimodalinput:unix_stream_socket { write };
 allow wukong dev_unix_socket:dir { search };
+binder_call(wukong, powermgr);
 
 allowxperm wukong data_local_tmp:file ioctl { 0x5413 };
 allowxperm wukong devpts:chr_file ioctl { 0x5413 };
@@ -56,6 +58,7 @@ allow wukong sa_foundation_wms:samgr_class { get };
 allow wukong sa_multimodalinput_service:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
+allow wukong sa_powermgr_powermgr_service:samgr_class { get };
 allow wukong render_service:fd { use };
 
 allow wukong tty_device:chr_file { ioctl open read write };

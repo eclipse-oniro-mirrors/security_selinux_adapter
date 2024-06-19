@@ -134,6 +134,7 @@
                 "SP_daemon sh_exec",
                 "wukong system_bin_file",
                 "wukong toybox_exec",
+                "wukong power_shell_exec",
                 "hdcd hdcd_exec",
                 "hdcd hilogd_exec",
                 "hdcd hisysevent_exec",
