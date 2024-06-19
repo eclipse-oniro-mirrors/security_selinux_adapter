@@ -163,3 +163,6 @@ allow media_service media_monitor:binder { call };
 
 allow media_service hmdfs:file { ioctl };
 allowxperm media_service hmdfs:file ioctl { 0xf206 };
+
+allow media_service normal_hap_data_file:file { ioctl };
+allowxperm media_service normal_hap_data_file:file ioctl { 0xf206 };
