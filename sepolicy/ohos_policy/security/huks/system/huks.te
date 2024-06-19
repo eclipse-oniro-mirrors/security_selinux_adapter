@@ -78,16 +78,5 @@ debug_only(`
 allow dslm_service huks_service:binder { call transfer };
 allow huks_service dslm_service:binder { call transfer };
 
-allow system_basic_hap huks_service:binder { call transfer };
-allow huks_service system_basic_hap:binder { call transfer };
-
-allow system_core_hap huks_service:binder { call transfer };
-allow huks_service system_core_hap:binder { call transfer };
-
-allow normal_hap huks_service:binder { call transfer };
-allow huks_service normal_hap:binder { call transfer };
-
-debug_only(`
-    allow debug_hap huks_service:binder { call transfer };
-    allow huks_service debug_hap:binder { call transfer };
-')
+allow hap_domain huks_service:binder { call transfer };
+allow huks_service hap_domain:binder { call transfer };
