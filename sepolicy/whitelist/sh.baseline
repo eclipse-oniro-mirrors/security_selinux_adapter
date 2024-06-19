@@ -146,4 +146,6 @@ developer_only(`
 (allow sh sh (tcp_socket (connect create setopt getattr read write)))
 (allow sh port (tcp_socket (name_connect)))
 (allow sh kernel (key (search)))
+(allow sh mediatool (process (getattr rlimitinh transition siginh)))
+(allow sh mediatool_exec (file (execute read getattr ioctl map open)))
 ')
