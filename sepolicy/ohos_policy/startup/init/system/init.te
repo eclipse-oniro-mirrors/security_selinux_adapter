@@ -11,6 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+debug_only(`
+    allow system_file tmpfs:filesystem associate;
+    allow vendor_file tmpfs:filesystem associate;
+')
+
 allow init nwebspawn_socket:sock_file { unlink };
 allow init appspawn_socket:sock_file { unlink };
 allow init data_ethernet:dir { getattr };
