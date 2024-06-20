@@ -105,7 +105,7 @@ static void SetOptions(int argc, char *argv[], const option *options, TestInput 
     }
 }
 
-int GetSidForCurrentProcess(std::string &sid)
+static int GetSidForCurrentProcess(std::string &sid)
 {
     char *con = nullptr;
     if (getcon(&con) < 0) {
