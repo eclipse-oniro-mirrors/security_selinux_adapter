@@ -528,3 +528,6 @@ binder_call(powermgr, inputmethod_service);
 # avc:  denied  { call } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:r:memmgrservice:s0 tclass=binder permissive=1
 binder_call(powermgr, memmgrservice);
 
+# avc:  denied  { set } for  parameter=persist.powermgr.stopservice pid=1262 uid=5528 gid=1000 scontext=u:r:powermgr:s0 tcontext=u:object_r:powermgr_param:s0 tclass=parameter_service permissive=1
+allow powermgr powermgr_param:parameter_service { set };
+
