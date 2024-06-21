@@ -10,7 +10,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-typeattribute av_session devinfo_type_allow_attr;
-typeattribute devattest_service devinfo_type_allow_attr;
+type media_library_param, parameter_attr;
 
