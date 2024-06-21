@@ -111,7 +111,6 @@ allow input_isolate_debug_hap sa_work_schedule_service:samgr_class { get };
 binder_call(input_isolate_debug_hap, accessibility);
 binder_call(input_isolate_debug_hap, accesstoken_service);
 binder_call(input_isolate_debug_hap, app_domain_verify_agent);
-binder_call(input_isolate_debug_hap, app_domain_verify_mgr_service);
 binder_call(input_isolate_debug_hap, asset_service);
 binder_call(input_isolate_debug_hap, audio_server);
 binder_call(input_isolate_debug_hap, bgtaskmgr_service);
