@@ -124,6 +124,7 @@ allow distributeddata const_postinstall_fstab_param:file { map open read };
 allow distributeddata const_postinstall_param:file { map open read };
 allow distributeddata const_product_param:file { map open read };
 allow distributeddata data_app_el2_file:dir { search };
+allow distributeddata data_app_el5_file:dir { search };
 allow distributeddata data_service_el0_file:dir { search };
 allow distributeddata debug_param:file { map open read };
 allow distributeddata default_param:file { map open read };

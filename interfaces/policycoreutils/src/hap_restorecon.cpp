@@ -138,9 +138,9 @@ static struct SehapInfo DecodeString(std::string &line)
 
 static bool CheckPath(const std::string &path)
 {
-    std::regex pathPrefix1("^/data/app/el[1-4]/[0-9]+/(base|database)/.*");
+    std::regex pathPrefix1("^/data/app/el[1-5]/[0-9]+/(base|database)/.*");
     std::regex pathPrefix2("^/data/accounts/account_0/appdata/.*");
-    std::regex pathPrefix3("^/data/service/el[1-4]/[0-9]+/backup/bundles/.*");
+    std::regex pathPrefix3("^/data/service/el[1-5]/[0-9]+/backup/bundles/.*");
     if (std::regex_match(path, pathPrefix1) || std::regex_match(path, pathPrefix2) ||
         std::regex_match(path, pathPrefix3)) {
         return true;
