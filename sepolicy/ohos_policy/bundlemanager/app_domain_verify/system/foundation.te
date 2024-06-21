@@ -11,4 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init app_domain_verify_agent:process { rlimitinh siginh transition };
+allow foundation app_domain_verify_agent:binder { call transfer };
+allow foundation sa_app_domain_verify_agent:samgr_class { add get };
+allow foundation sa_app_domain_verify_mgr_service:samgr_class { add };

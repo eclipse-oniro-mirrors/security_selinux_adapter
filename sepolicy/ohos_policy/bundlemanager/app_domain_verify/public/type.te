@@ -14,4 +14,3 @@
 type sa_app_domain_verify_mgr_service, sa_service_attr;
 type sa_app_domain_verify_agent, sa_service_attr;
 type app_domain_verify_agent, sadomain, domain;
-type app_domain_verify_mgr_service, sadomain, domain;
