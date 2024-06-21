@@ -158,7 +158,6 @@ binder_call(input_isolate_debug_hap, wifi_manager_service);
 binder_call(accessibility, input_isolate_debug_hap);
 binder_call(accesstoken_service, input_isolate_debug_hap);
 binder_call(app_domain_verify_agent, input_isolate_debug_hap);
-binder_call(app_domain_verify_mgr_service, input_isolate_debug_hap);
 binder_call(asset_service, input_isolate_debug_hap);
 binder_call(audio_server, input_isolate_debug_hap);
 binder_call(bgtaskmgr_service, input_isolate_debug_hap);
