@@ -19,5 +19,5 @@ developer_only(`
 # avc:  denied  { read } for  pid=12202 comm="hnp" path="/system/lib64/libcode_sign_utils.z.so" dev="sdd74" ino=3320 scontext=u:r:hnp:s0 tcontext=u:object_r:code_sign_utils:s0 tclass=file permissive=1
 allow hnp code_sign_utils:file { getattr map read execute read open read };
 
-allow hnp key_enable:key { search }
+allow hnp key_enable:key { search };
 ')
