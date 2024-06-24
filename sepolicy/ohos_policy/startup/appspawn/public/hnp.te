@@ -284,4 +284,7 @@ allowxperm hnp tty_device:chr_file ioctl { 0x5413 };
 
 # avc_audit_slow:262] avc: denied { unlink } for pid=7534, comm="/system/bin/hnp"  name="/app/el1/bundle/100/hnppublic/bin/hnpsample" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19136 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=lnk_file permissive=1
 allow hnp data_app_el1_file:lnk_file { unlink };
+
+allow hnp installs:fifo_file { ioctl write };
+allowxperm hnp installs:fifo_file ioctl { 0x5413 };
 ')
