@@ -25,6 +25,7 @@ allow multimodalinput data_multimodalinput:file { create open read rename unlink
 allow multimodalinput data_service_file:dir { search };
 allow multimodalinput data_service_el1_file:dir { search };
 allow multimodalinput data_service_el1_file:file { open read };
+allow multimodalinput data_vendor:dir {search };
 allow multimodalinput dev_ashmem_file:chr_file { open };
 allow multimodalinput dev_console_file:chr_file { open read write getattr ioctl };
 allow multimodalinput dev_dri_file:dir { search };
