@@ -287,4 +287,9 @@ allow hnp data_app_el1_file:lnk_file { unlink };
 
 allow hnp installs:fifo_file { ioctl write };
 allowxperm hnp installs:fifo_file ioctl { 0x5413 };
+allow hnp hnp_file:dir { getattr read open remove_name search rmdir write add_name create mounton };
+allow hnp hnp_file:file { getattr unlink create ioctl read open setattr write };
+allowxperm hnp hnp_file:file ioctl { 0x5413 0x66c8 };
+allow hnp hnp_file:lnk_file { getattr unlink create };
+allow hnp proc_ion_process_info:file { getattr }
 ')
