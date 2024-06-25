@@ -148,4 +148,6 @@ developer_only(`
 (allow sh kernel (key (search)))
 (allow sh mediatool (process (getattr rlimitinh transition siginh)))
 (allow sh mediatool_exec (file (execute read getattr ioctl map open)))
+(allow sh cem_exec (file (execute map open getattr ioctl read)))
+(allow sh cem (process (getattr rlimitinh transition siginh)))
 ')
