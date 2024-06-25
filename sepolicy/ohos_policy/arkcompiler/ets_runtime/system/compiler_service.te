@@ -38,4 +38,5 @@ allow compiler_service compiler_service:capability { kill };
 allow compiler_service persist_param:file { map open read };
 allow compiler_service sa_foundation_cesfwk_service:samgr_class { get };
 allow compiler_service foundation:binder { call transfer };
-allow foundation compiler_service:binder { call };
+allow compiler_service data_app_el1_file:dir { search };
+allow compiler_service data_app_file:dir { search };
