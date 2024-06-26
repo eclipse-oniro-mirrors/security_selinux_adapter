@@ -218,8 +218,8 @@ neverallow { domain -init -appspawn -rgm_violator_ohos_filesystem_remount } *:fi
 neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn updater_only(`-updater') -rgm_violator_ohos_filesystem_unmount } *:filesystem unmount;
 neverallow { domain -init -storage_daemon -rgm_violator_filesystem_relabelfrom -appspawn } *:filesystem relabelfrom;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
-neverallow { domain -storage_daemon -installs } *:filesystem quotaget;
-neverallow { domain -storage_daemon } *:filesystem quotamod;
+neverallow { domain -storage_daemon -installs updater_only(`-updater') } *:filesystem quotaget;
+neverallow { domain -storage_daemon updater_only(`-updater') } *:filesystem quotamod;
 
 neverallow { domain updater_only(`-updater -updater_binary -init')} rootfs:file { create write setattr relabelto append unlink link rename };
 
