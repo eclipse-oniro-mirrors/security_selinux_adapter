@@ -13,4 +13,4 @@
 
 attribute param_set_allow_attr;
 attribute devinfo_type_allow_attr;
-
+attribute bms_param_set_allow_attr;
