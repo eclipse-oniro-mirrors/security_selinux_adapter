@@ -291,6 +291,9 @@ allow hnp hnp_file:dir { getattr read open remove_name search rmdir write add_na
 allow hnp hnp_file:file { getattr unlink create ioctl read open setattr write };
 allowxperm hnp hnp_file:file ioctl { 0x5413 0x66c8 };
 allow hnp hnp_file:lnk_file { getattr unlink create };
+allow hnp data_app_el1_file:dir { relabelfrom };
+allow hnp hnp:capability { sys_admin };
+allow hnp hnp_file:dir { relabelto setattr };
 allow appspawn hnp_file:dir { getattr mounton search };
 allow hiperf hnp_exec:file { getattr map read open };
 ')
