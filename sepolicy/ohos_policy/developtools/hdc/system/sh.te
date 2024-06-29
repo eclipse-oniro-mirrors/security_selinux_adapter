@@ -29,7 +29,6 @@ allow sh sh:file rw_file_perms;
 allow sh sh:fifo_file rw_file_perms;
 allow sh sh:dir read_dir_perms;
 allow sh sh:lnk_file read_file_perms;
-
 allow sh sh:udp_socket { ioctl };
 allowxperm sh sh:udp_socket ioctl { 0x8912 0x8913 0x8915 0x891b 0x891d 0x8921 0x8927 0x8942 0x8970 }
 allow sh sh:unix_dgram_socket { connect create write };
