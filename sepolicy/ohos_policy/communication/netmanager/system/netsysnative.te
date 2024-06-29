@@ -16,6 +16,7 @@ allow netsysnative dev_unix_socket:sock_file { write };
 allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service sys_resource sys_admin };
 allow netsysnative netsysnative:netlink_route_socket { create listen nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
+allow netsysnative netsysnative:tcp_socket { connect create getattr getopt read setopt write };
 allow netsysnative sh_exec:file { execute execute_no_trans map open read };
 allow netsysnative netsysnative:bpf { map_create map_read map_write prog_load prog_run };
 allow netsysnative sys_file:dir { mounton };

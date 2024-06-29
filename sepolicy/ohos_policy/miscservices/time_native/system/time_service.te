@@ -22,6 +22,7 @@ allowxperm time_service dev_rtc_file:chr_file ioctl 0x700a;
 allow time_service node:udp_socket { node_bind };
 allow time_service time_service:capability2 { wake_alarm };
 allow time_service time_service:udp_socket { bind connect create read setopt write};
+allow time_service time_service:tcp_socket { connect create getattr getopt read setopt write };
 allow time_service dev_unix_socket:dir { search };
 allow time_service normal_hap_attr:binder { call transfer };
 allow time_service system_core_hap_attr:binder { call transfer };
