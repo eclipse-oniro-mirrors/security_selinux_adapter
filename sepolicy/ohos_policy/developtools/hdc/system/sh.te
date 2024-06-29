@@ -29,6 +29,9 @@ allow sh sh:file rw_file_perms;
 allow sh sh:fifo_file rw_file_perms;
 allow sh sh:dir read_dir_perms;
 allow sh sh:lnk_file read_file_perms;
+
+allow sh sh:udp_socket { ioctl };
+allowxperm sh sh:udp_socket ioctl { 0x8912 0x8913 0x8915 0x891b 0x891d 0x8921 0x8927 0x8942 0x8970 }
 allow sh sh:unix_dgram_socket { connect create write };
 allow sh sh:unix_stream_socket { connect create write read setopt };
 allow sh devinfo_public_param:file { map open read };
@@ -49,6 +52,9 @@ allow sh system_etc_file:dir { search };
 allow sh lib_file:lnk_file { read };
 allow sh etc_file:lnk_file { read };
 allow sh system_etc_file:file { read open getattr map };
+allow sh hiviewdfx_profiler_param:file { read open map }
+allow sh proc_net_if_inet6:file { read open getattr }
+allow sh sysfs_net:dir { search }
 
 allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
 allow sh system_bin_file:lnk_file { read };
@@ -59,7 +65,7 @@ allow sh system_bin_file:dir { search getattr open read };
 
 # for terminal
 allow sh tty_device:chr_file { getattr ioctl open read write };
-allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
+allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5402 0x5403 0x540f 0x5413 0x5410 };
 
 # for reboot
 allow sh servicectrl_reboot_param:parameter_service set;
