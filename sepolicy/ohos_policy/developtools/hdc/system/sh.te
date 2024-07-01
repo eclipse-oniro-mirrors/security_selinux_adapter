@@ -33,6 +33,13 @@ allow sh sh:udp_socket { ioctl };
 allowxperm sh sh:udp_socket ioctl { 0x8912 0x8913 0x8915 0x891b 0x891d 0x8921 0x8927 0x8942 0x8970 };
 allow sh sh:unix_dgram_socket { connect create write };
 allow sh sh:unix_stream_socket { connect create write read setopt };
+allow sh sh:icmp_socket { create setopt write read };
+allow sh sh:rawip_socket { create setopt write read };
+allow sh default_param:file { read open map };
+allow sh dev_random_file:chr_file { read open map};
+allow sh dnsproxy_service:sock_file { read open write };
+allow sh versiontype_param:file { read open map };
+allow sh startup_init_param:file { read open map };
 allow sh devinfo_public_param:file { map open read };
 allow sh devinfo_type_param:file { map open read };
 ## for musl.so
