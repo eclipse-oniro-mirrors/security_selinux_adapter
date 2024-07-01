@@ -102,3 +102,5 @@ allow locationhub wifi_manager_service:fd { use };
 
 allow locationhub time_service:binder { call };
 allow locationhub sa_resource_schedule:samgr_class { get };
+allow locationhub sa_device_standby:samgr_class { get };
+allow locationhub sa_msdp_movement_service:samgr_class { get };
