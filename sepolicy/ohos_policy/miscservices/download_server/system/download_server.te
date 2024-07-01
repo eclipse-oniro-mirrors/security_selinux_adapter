@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow download_server { domain -download_server }:socket_class_set { setattr };
+neverallow download_server { file_attr -data_service_el1_file -data_log_sanitizer_file }:{ file_class_set dir_file_class_set } { setattr };
+
 allow download_server accesstoken_service:binder { call };
 allow download_server download_server:tcp_socket { read };
 allow download_server normal_hap_attr:binder { call };
@@ -20,7 +23,8 @@ allow download_server sa_accesstoken_manager_service:samgr_class { get };
 allow download_server normal_hap_data_file_attr:file { read };
 allow download_server dev_file:sock_file { write };
 allow download_server download_server:udp_socket { bind connect create getattr getopt ioctl read setopt write };
-allow download_server download_server:tcp_socket { accept bind connect create getattr getopt listen read setopt shutdown write };
+allow download_server download_server:tcp_socket { accept bind connect create getattr getopt listen read setopt shutdown write setattr };
+allow download_server download_server:capability { chown };
 allow download_server port:tcp_socket { name_connect };
 allow download_server node:udp_socket { node_bind };
 allow download_server port:udp_socket { name_bind };
