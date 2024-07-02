@@ -154,6 +154,7 @@ developer_only(`
 (allow sh startup_init_param (file (read open map)))
 (allow sh node (udp_socket (node_bind)))
 (allow sh netsysnative (unix_stream_socket (connectto)))
+(allow sh proc_net (lnk_file (read)))
 (allow sh port (tcp_socket (name_connect)))
 (allow sh kernel (key (search)))
 (allow sh mediatool (process (getattr rlimitinh transition siginh)))
