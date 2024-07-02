@@ -186,3 +186,7 @@ allow resource_schedule_service devinfo_type_param:file { read open map };
 #for camera_service
 allow resource_schedule_service sa_camera_service:samgr_class { get };
 allow resource_schedule_service camera_service:binder { call transfer };
+
+#for notify render_service start report events
+allow render_service resource_schedule_service:binder { transfer };
+allow resource_schedule_service render_service:binder { call };
