@@ -40,6 +40,7 @@ allow sh dev_random_file:chr_file { read open map};
 allow sh dnsproxy_service:sock_file { read open write };
 allow sh startup_init_param:file { read open map };
 allow sh node:udp_socket { node_bind };
+allow sh netsysnative:unix_stream_socket { connectto };
 allow sh devinfo_public_param:file { map open read };
 allow sh devinfo_type_param:file { map open read };
 ## for musl.so
