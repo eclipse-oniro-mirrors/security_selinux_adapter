@@ -80,3 +80,5 @@ allow camera_service normal_hap:fd { use };
 allow camera_service sa_distributeddata_service:samgr_class { get };
 allow camera_service distributeddata:fd { use };
 allow camera_service sa_media_monitor:samgr_class { get };
+allow camera_service dev_at_file:chr_file ioctl;
+allowxperm camera_service dev_at_file:chr_file ioctl { 0x4104 };
