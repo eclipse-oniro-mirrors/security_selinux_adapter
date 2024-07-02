@@ -61,7 +61,7 @@ allow distributedfiledaemon distributedfiledaemon:tcp_socket { create setopt bin
 
 allow distributedfiledaemon node:tcp_socket { node_bind };
 
-allow distributedfiledaemon distributedfiledaemon:udp_socket { ioctl shutdown create };
+allow distributedfiledaemon distributedfiledaemon:udp_socket { ioctl shutdown create read write getattr bind connect getopt setopt accept };
 
 allowxperm distributedfiledaemon distributedfiledaemon:udp_socket ioctl { 0x8912 0x8913 0x8915 0x891b };
 
@@ -122,3 +122,5 @@ allow distributedfiledaemon chip_prod_file:dir { search };
 allow distributedfiledaemon tty_device:chr_file { read write };
 
 allow distributedfiledaemon data_service_el1_file:dir { search };
+
+allow distributedfiledaemon node:udp_socket { node_bind };
