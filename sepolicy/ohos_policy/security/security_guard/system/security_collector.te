@@ -107,4 +107,8 @@ allow security_collector sa_camera_service:samgr_class { get };
 # avc:  denied  { get } for service=5003 pid=3415 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=0
 allow security_collector sa_storage_manager_service:samgr_class { get };
 
+# avc:  denied  { call } for  pid=2912 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=1
+allow security_collector security_guard:binder { call };
 
+# avc:  denied  { search } for  pid=2912 comm="security_collec" name="socket" dev="tmpfs" ino=43 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow security_collector dev_unix_socket:dir { search };

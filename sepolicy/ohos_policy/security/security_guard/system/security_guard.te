@@ -63,5 +63,6 @@ allow security_guard hap_domain:binder { call };
 
 allow security_guard sa_sys_event_service:samgr_class { get };
 
-allow security_guard sa_security_collector_service:samgr_class { get };
+allow security_guard sa_security_collector_service:samgr_class { get add };
 
+binder_call(security_guard, security_collector);
