@@ -534,3 +534,6 @@ allow init data_service_file:file {read append};
 # avc:  denied  { read } for  pid=1 comm="init" path="/console" dev="" ino=70 scontext=u:r:init:s0 tcontext=u:object_r:dev_console_file:s0 tclass=lnk_file permissive=0
 allow init dev_console_file:lnk_file { read};
 
+# avc:  denied  { setpcap } for  pid=4977 comm="init" capability=8  scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=capability permissive=0
+allow init init:capability { setpcap };
+
