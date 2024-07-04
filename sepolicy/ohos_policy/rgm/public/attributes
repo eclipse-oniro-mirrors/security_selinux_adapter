@@ -21,4 +21,5 @@ attribute rgm_violator_normal_hap_data_file_attr_file_open;
 attribute rgm_violator_filesystem_relabelfrom;
 attribute rgm_violator_blk_file;
 attribute rgm_violator_normal_hap_data_file_attr_dir_file_create_unlink;
+attribute rgm_violator_ohos_dev_encaps_chr_file;
 
