@@ -13,11 +13,11 @@
 
 type dev_encaps, dev_attr;
 
-allow { domain -hap_domain } dev_encaps:chr_file { ioctl read open };
+allow { domain -hap_domain -rgm_violator_ohos_dev_encaps_chr_file } dev_encaps:chr_file { ioctl read open };
 neverallow { hap_domain } dev_encaps:chr_file { ioctl read open };
 
 allowxperm { appspawn init } dev_encaps:chr_file ioctl { 0x4518 };
 neverallowxperm { domain -appspawn -init } dev_encaps:chr_file ioctl { 0x4518 };
-allowxperm { domain -hap_domain } dev_encaps:chr_file ioctl { 0x4519 };
+allowxperm { domain -hap_domain -rgm_violator_ohos_dev_encaps_chr_file } dev_encaps:chr_file ioctl { 0x4519 };
 neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4518 0x4519 };
 allow appspawn dev_encaps:chr_file { write };
