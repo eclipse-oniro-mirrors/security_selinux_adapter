@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow device_manager d-bms:binder { call };
+allow device_manager camera_service:binder { call transfer };
