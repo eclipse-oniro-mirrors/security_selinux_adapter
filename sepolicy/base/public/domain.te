@@ -277,7 +277,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh -hnp') -ini
     -wifi_hal_service -sh_exec_violator -rgm_violator_ohos_sh_exec_file_execute } sh_exec:file execute;
 
 #limit execmem use
-neverallow { domain -appspawn -hap_domain } self:process execmem;
+neverallow { domain -appspawn -hap_domain -rgm_violator_execmem } self:process execmem;
 
 neverallow { domain -processdump -hap_domain developer_only(`-lldb_server') } domain:process ptrace;
 
@@ -331,5 +331,5 @@ neverallow * self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow { domain -hiperf -cap_violator_perfmon debug_only(`-hiebpf') } self:{ capability2 cap2_userns } perfmon;
 
 #limit domain has exec_no_sign and exec_anon_mem permission
-neverallow { domain developer_only(`-debug_hap -normal_hap') debug_only(`-su') -updater_binary } self:xpm { exec_no_sign };
+neverallow { domain developer_only(`-debug_hap -normal_hap') debug_only(`-su') -updater_binary -rgm_violator_exec_no_sign } self:xpm { exec_no_sign };
 neverallow { domain developer_only(`-debug_hap') debug_only(`-su') -isolated_render } self:xpm { exec_anon_mem };
