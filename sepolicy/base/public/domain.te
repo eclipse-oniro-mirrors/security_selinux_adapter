@@ -133,7 +133,7 @@ neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
     -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file
     -rgmli_violator_exec_file_attr
-    developer_only(`-lldb_server_file') }:file { execute execute_no_trans entrypoint };
+    developer_only(`-lldb_server_file -hnp_file -hnp_file_attr -data_app_el1_file') }:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:file { write };
 neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:dir { write };
 
@@ -272,7 +272,7 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
-neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh -hnp') -init -faultloggerd -riladapter_host -appspawn
+neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh -hnp -hnp_hap_domain_attr') -init -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa') -hidumper_service -netsysnative
     -wifi_hal_service -sh_exec_violator -rgm_violator_ohos_sh_exec_file_execute } sh_exec:file execute;
 
@@ -310,7 +310,7 @@ neverallow { domain -init -chipset_init -appspawn -rgm_violator_ohos_capability_
 neverallow { domain -appspawn -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf
     -foundation -cap_violator_sysptrace debug_only(`-hiebpf') developer_only(`-SP_daemon') -rgm_violator_ohos_capability_sysptrace } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
-neverallow { domain -init -chipset_init -storage_daemon -installs -appspawn -nwebspawn -cjappspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater') -rgm_violator_ohos_capability_sysadmin developer_only(`-hnp') -rgm_violator_cap_sysadmin } self:{ capability cap_userns } sys_admin;
+neverallow { domain -init -chipset_init -storage_daemon -installs -appspawn -nwebspawn -cjappspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater') -rgm_violator_ohos_capability_sysadmin -rgm_violator_cap_sysadmin } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init -chipset_init } self:{ capability cap_userns } sys_boot;
 neverallow { domain -render_service -cap_violator_sysnice -composer_host } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;

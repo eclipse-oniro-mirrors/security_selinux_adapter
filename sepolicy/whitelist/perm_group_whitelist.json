@@ -150,7 +150,9 @@
                 "SP_daemon snapshot_display_exec",
                 "installs hnp_exec",
                 "hnp sh_exec",
-                "hnp toybox_exec"
+                "hnp toybox_exec",
+		"sh hnp_file",
+		"sh data_app_el1_file"
             ]
         }
     ]
