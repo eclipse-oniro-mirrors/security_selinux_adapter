@@ -43,6 +43,7 @@ allow multimodalinput hw_sc_param:file { map open read };
 allow multimodalinput init_param:file { map open read };
 allow multimodalinput init_svc_param:file { map open read };
 allow multimodalinput input_pointer_device_param:file { map open read };
+allow multimodalinput persist_input_switch_param:file { map open read };
 allow multimodalinput kernel:unix_stream_socket { connectto };
 allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind create getattr setopt };
 allow multimodalinput multimodalinput:unix_dgram_socket { getopt setopt };
