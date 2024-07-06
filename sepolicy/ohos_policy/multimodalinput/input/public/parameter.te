@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type input_pointer_device_param, parameter_attr;
+type persist_input_switch_param, parameter_attr;

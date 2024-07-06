@@ -45,6 +45,8 @@ allow multimodalinput faultloggerd:unix_stream_socket { connectto };
 allow multimodalinput foundation:binder { call transfer };
 allow multimodalinput hdf_devmgr:binder { call };
 allow multimodalinput input_pointer_device_param:parameter_service { set };
+allow multimodalinput persist_input_switch_param:parameter_service { set };
+allow multimodalinput persist_input_switch_param:file { map open read };
 allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind create getattr setopt read };
 #allow multimodalinput multimodalinput:process { ptrace };
 allow multimodalinput musl_param:file { map open read };
