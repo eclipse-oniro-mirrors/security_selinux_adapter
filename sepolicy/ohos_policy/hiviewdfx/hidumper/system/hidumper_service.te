@@ -60,6 +60,7 @@ allow hidumper_service hidumper:binder call;
 allow hidumper_service hidumper:dir { getattr open read search };
 allow hidumper_service hidumper:file { getattr open read };
 allow hidumper_service hidumper:lnk_file read;
+allow hidumper_service hidumper:fd use;
 allow hidumper_service hidumper_exec:file { getattr map open read };
 
 allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
