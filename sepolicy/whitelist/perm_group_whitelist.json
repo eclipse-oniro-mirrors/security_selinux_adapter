@@ -129,6 +129,7 @@
                 "aa system_bin_file",
                 "aa toybox_exec",
                 "aa aa_exec",
+                "aa bm_exec",
                 "snapshot_display snapshot_display_exec",
                 "wukong sh_exec",
                 "SP_daemon sh_exec",

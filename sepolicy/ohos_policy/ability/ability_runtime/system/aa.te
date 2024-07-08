@@ -17,7 +17,6 @@ debug_only(`
     allow aa accessibility:binder { call transfer };
     allow aa arkcompiler_param:file { map open read };
     allow aa ark_writeable_param:file { map open read };
-    allow aa bm_exec:file { getattr execute execute_no_trans map read open };
     allow aa data_file:dir { search getattr};
     allow aa data_local:dir { search };
     allow aa data_local_tmp:dir { getattr write search };
@@ -54,8 +53,6 @@ debug_only(`
     allow aa sa_accountmgr:samgr_class { get };
     allow aa sa_foundation_abilityms:samgr_class { get };
     allow aa sa_foundation_appms:samgr_class { get };
-    allow aa sa_foundation_bms:samgr_class { get };
-    allow aa sa_foundation_bms:samgr_class { get };
     allow aa sa_foundation_cesfwk_service:samgr_class { get };
     allow aa sa_foundation_dms:samgr_class { get };
     allow aa samgr:binder { call };
@@ -108,6 +105,7 @@ developer_only(`
     allow aa aa_exec:file { execute_no_trans };
     allow aa arkcompiler_param:file { map open read };
     allow aa ark_writeable_param:file { map open read };
+    allow aa bm_exec:file { getattr execute execute_no_trans map read open };
     allow aa debug_param:file { map read open };
     allow aa dev_console_file:chr_file { read write };
     allow aa devpts:chr_file { ioctl read write };
@@ -122,6 +120,7 @@ developer_only(`
     binder_call(aa, powermgr);
     allow aa sa_foundation_abilityms:samgr_class { get };
     allow aa sa_foundation_appms:samgr_class { get };
+    allow aa sa_foundation_bms:samgr_class { get };
     allow aa samgr:binder { call };
     allow aa samgr:dir { search };
     allow aa samgr:file { read open };
