@@ -43,7 +43,7 @@ allow wukong toybox_exec:file { execute execute_no_trans getattr map read open }
 allow wukong toybox_exec:lnk_file { read };
 allow wukong system_bin_file:dir { search };
 allow wukong multimodalinput:fd { use };
-allow wukong multimodalinput:unix_stream_socket { write };
+allow wukong multimodalinput:unix_stream_socket { write read };
 allow wukong dev_unix_socket:dir { search };
 binder_call(wukong, powermgr);
 
