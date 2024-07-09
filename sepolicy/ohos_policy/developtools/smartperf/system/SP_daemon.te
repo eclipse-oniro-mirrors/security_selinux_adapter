@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+neverallow SP_daemon *:process ptrace;
 developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
@@ -108,7 +109,6 @@ allow SP_daemon sysfs_devices_system_cpu:dir { read open read };
 allow SP_daemon foundation:binder { transfer };
 allow SP_daemon SP_daemon_exec:file { execute_no_trans };
 allow SP_daemon SP_daemon:capability { sys_ptrace };
-neverallow SP_daemon *:process ptrace;
 
 allow SP_daemon hiprofiler_plugins:fd { use };
 allow SP_daemon hiprofiler_plugins:fifo_file { ioctl write };
