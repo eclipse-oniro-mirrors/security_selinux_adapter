@@ -109,8 +109,6 @@ allowxperm updater update_firmware_file:file ioctl { 0x5413 };
 allow updater dev_block_volfile:dir { search };
 
 # avc: denied { set } for process="updater" parameter=updater.hdc.configfs pid=234 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=parameter_service permissive=1
-allow updater update_updater_param:parameter_service { set };
-
 #avc: denied { set } for process="unknown process" parameter=updater.data.configs pid=232 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=parameter_service permissive=0
 allow updater update_updater_param:parameter_service { set };
 
