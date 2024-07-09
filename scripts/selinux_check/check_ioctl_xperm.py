@@ -23,8 +23,8 @@ from check_common import read_json_file, traverse_file_in_each_type
 
 WHITELIST_FILE_NAME = "ioctl_xperm_whitelist.json"
 
-ALLOW_TCONTEXT_CLASS_LIST = ["data_log_sanitizer_file file","proc_attr dir","self dir","self fifo_file",
-                     "self file","self lnk_file","self unix_stream_socket"]
+ALLOW_TCONTEXT_CLASS_LIST = ["data_log_sanitizer_file file", "proc_attr dir", "self dir", "self fifo_file",
+                     "self file", "self lnk_file", "self unix_stream_socket"]
 
 
 class PolicyDb(object):
@@ -88,7 +88,7 @@ def deal_with_allow(cil_file, allow_set, allowx_set, typetransition_set):
 def generate_database(args, with_developer):
     allowx_set = set()
     allow_set = set()
-    typetransition_set= set()
+    typetransition_set = set()
     if with_developer:
         deal_with_allow(args.developer_cil_file, allow_set, allowx_set, typetransition_set)
     else:

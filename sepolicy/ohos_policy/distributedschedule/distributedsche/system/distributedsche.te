@@ -110,5 +110,9 @@ allow distributedsche sa_wifi_device_ability:samgr_class { get };
 allow wifi_manager_service distributedsche:binder { transfer };
 #avc: denied { use } for pid=2445, comm="/system/bin/appspawn" scontext=u:r:distributedsche:s0 tcontext=u:r:filemanager_hap:s0 tclass=fd permissive=1
 allow distributedsche hap_domain:fd { use };
+#avc: denied { read write } for pid=4134, comm="IPC_3_4189" scontext=u:r:distributedsche:s0 tcontext=u:r:hmdfs:s0 tclass=file permissive=1
+allow distributedsche hmdfs:file { read write };
+#avc: denied { get } for service=1901 pid=5366 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_resource_schedule:samgr_class { get };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };

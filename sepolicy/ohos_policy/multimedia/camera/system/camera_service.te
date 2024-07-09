@@ -79,3 +79,9 @@ allow camera_service chip_prod_file:dir { search };
 allow camera_service normal_hap:fd { use };
 allow camera_service sa_distributeddata_service:samgr_class { get };
 allow camera_service distributeddata:fd { use };
+allow camera_service sa_media_monitor:samgr_class { get };
+allow camera_service dev_at_file:chr_file ioctl;
+allowxperm camera_service dev_at_file:chr_file ioctl { 0x4104 };
+#avc:  denied  { get } for service=4802 sid=u:r:camera_service:s0 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=1
+allow camera_service sa_foundation_devicemanager_service:samgr_class { get };
+allow camera_service device_manager:binder { call transfer };

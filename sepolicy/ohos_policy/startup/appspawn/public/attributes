@@ -11,4 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init app_domain_verify_agent:process { rlimitinh siginh transition };
+attribute hnp_hap_domain_attr;
+attribute hnp_file_attr;
+

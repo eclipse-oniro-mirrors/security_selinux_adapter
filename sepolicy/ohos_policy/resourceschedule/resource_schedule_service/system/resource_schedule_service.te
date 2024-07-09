@@ -182,3 +182,7 @@ allow accountmgr resource_schedule_service:binder { call };
 
 #for devinfo param
 allow resource_schedule_service devinfo_type_param:file { read open map };
+
+#for camera_service
+allow resource_schedule_service sa_camera_service:samgr_class { get };
+allow resource_schedule_service camera_service:binder { call transfer };

@@ -71,3 +71,7 @@ allow av_session bgtaskmgr_service:binder { call transfer };
 allow av_session sa_bgtaskmgr:samgr_class { get };
 allow av_session sa_foundation_ans:samgr_class { get };
 allow av_session bootevent_param:file { map open read };
+allow av_session paramservice_socket:sock_file { write };
+allow av_session kernel:unix_stream_socket { connectto };
+allow av_session sa_memory_manager_service:samgr_class { get };
+allow av_session memmgrservice:binder { call };

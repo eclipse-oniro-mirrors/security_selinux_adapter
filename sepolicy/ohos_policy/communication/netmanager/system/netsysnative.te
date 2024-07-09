@@ -16,6 +16,7 @@ allow netsysnative dev_unix_socket:sock_file { write };
 allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service sys_resource sys_admin };
 allow netsysnative netsysnative:netlink_route_socket { create listen nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
+allow netsysnative netsysnative:tcp_socket { connect create getattr getopt read setopt write };
 allow netsysnative sh_exec:file { execute execute_no_trans map open read };
 allow netsysnative netsysnative:bpf { map_create map_read map_write prog_load prog_run };
 allow netsysnative sys_file:dir { mounton };
@@ -135,5 +136,5 @@ allow domain netsysnative:fd { use };
 
 allow netsysnative sa_net_policy_manager:samgr_class { get };
 
-neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call } netsysnative:binder *;
+neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call -security_collector } netsysnative:binder *;
 neverallow { domain -netsysnative -rgm_violator_ohos_iptables_exec_file_execute } iptables_exec:file { execute };

@@ -35,4 +35,5 @@ neverallow appspawn data_file_attr:file never_execute_file;
 
 neverallow { domain -appspawn -foundation -ui_service } appspawn:unix_stream_socket connectto;
 
-neverallow appspawn hap_file_attr:file { rw_file_perms exec_file_perms };
+neverallow appspawn hap_file_attr:file { exec_file_perms };
+

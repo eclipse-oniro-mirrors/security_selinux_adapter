@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init app_domain_verify_agent:process { rlimitinh siginh transition };
+allow foundation compiler_service:binder { call };
+allow foundation sa_ark_aot_compiler:samgr_class { get };
