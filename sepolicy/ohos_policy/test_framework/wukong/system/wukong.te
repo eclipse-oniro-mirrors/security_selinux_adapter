@@ -28,7 +28,8 @@ allow wukong data_service_el0_file:dir { search };
 allow wukong data_service_file:dir { search };
 allow wukong devpts:chr_file { read write ioctl };
 allow wukong foundation:fd { use };
-allow wukong foundation:binder { call transfer };
+allow wukong foundation:binder { call };
+allow wukong foundation:binder { transfer };
 allow wukong hiview:binder { call transfer };
 allow wukong multimodalinput:binder { call };
 allow wukong samgr:binder { call transfer };
@@ -60,9 +61,6 @@ allow wukong sa_sys_event_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_powermgr_powermgr_service:samgr_class { get };
 allow wukong render_service:fd { use };
-
-allow wukong tty_device:chr_file { ioctl open read write };
-allowxperm wukong tty_device:chr_file ioctl { 0x5413 };
 
 # for data_local_tmp
 allow wukong data_local_tmp:file { create getattr read relabelfrom ioctl write open unlink append };
