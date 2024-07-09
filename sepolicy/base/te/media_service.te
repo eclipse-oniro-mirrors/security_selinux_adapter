@@ -67,7 +67,6 @@ allow media_service render_service:binder { call };
 allow media_service sa_accesstoken_manager_service:samgr_class { get };
 allow media_service sa_device_service_manager:samgr_class { get };
 allow media_service sa_media_service:samgr_class { add };
-allow media_service sa_net_conn_manager:samgr_class { get };
 allow media_service sa_param_watcher:samgr_class { get };
 allow media_service security_param:file { map open read };
 allow media_service startup_param:file { map open read };
