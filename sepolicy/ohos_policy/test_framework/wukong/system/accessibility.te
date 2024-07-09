@@ -12,7 +12,6 @@
 # limitations under the License.
 
 developer_only(`
-allow accessibility sh:binder { call transfer };
 allow accessibility wukong:binder { call transfer };
 ')
 
