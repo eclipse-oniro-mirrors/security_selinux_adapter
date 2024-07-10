@@ -22,14 +22,42 @@ allow cem devpts:chr_file { ioctl read write };
 allowxperm cem devpts:chr_file ioctl 0x5413;
 allow cem foundation:binder { call };
 allow cem samgr:binder { call };
-allow samgr cem:binder { transfer };
+allow samgr cem:binder { call transfer };
 allow samgr cem:dir { search };
 allow samgr cem:file { read open };
 allow samgr cem:process { getattr };
+allow cem cem:hmcap { supervsable };
+allow cem chip_prod_file:dir { search };
+allow cem dev_kmsg_file:chr_file { write };
+allow cem dev_ptmx:chr_file { read write };
+allow cem dev_unix_socket:dir { search };
+allow cem tty_device:chr_file { read write };
+allow cem dev_console_file:chr_file { read write };
+allow cem persist_param:file { map read open };
 ')
 
 debug_only(`
 domain_auto_transition_pattern(su, cem_exec, cem);
 allow cem su:fd { use };
 allow cem su:unix_stream_socket { read write };
+allow cem su:fifo_file { ioctl read write };
+allowxperm cem su:fifo_file ioctl { 0x5413 };
+allow cem sa_foundation_cesfwk_service:samgr_class { get };
+allow cem debug_param:file { map read open };
+allow cem devpts:chr_file { ioctl read write };
+allowxperm cem devpts:chr_file ioctl 0x5413;
+allow cem foundation:binder { call };
+allow cem samgr:binder { call };
+allow samgr cem:binder { call transfer };
+allow samgr cem:dir { search };
+allow samgr cem:file { read open };
+allow samgr cem:process { getattr };
+allow cem cem:hmcap { supervsable };
+allow cem chip_prod_file:dir { search };
+allow cem dev_kmsg_file:chr_file { write };
+allow cem dev_ptmx:chr_file { read write };
+allow cem dev_unix_socket:dir { search };
+allow cem tty_device:chr_file { read write };
+allow cem dev_console_file:chr_file { read write };
+allow cem persist_param:file { map read open };
 ')
