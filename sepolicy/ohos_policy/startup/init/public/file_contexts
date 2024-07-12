@@ -11,11 +11,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/bin/begetctl        u:object_r:begetctl_exec:s0
-
-/system/bin/param        u:object_r:begetctl_exec:s0
-
-/system/bin/paramshell       u:object_r:begetctl_exec:s0
-
-/system/bin/prop_migrate       u:object_r:prop_migrate_exec:s0
-
