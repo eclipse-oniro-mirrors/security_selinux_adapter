@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-3523            u:object_r:sa_security_guard_service:s0
-3524            u:object_r:sa_security_guard_service:s0
+3523            u:object_r:sa_sg_classify_service:s0
+3524            u:object_r:sa_sg_collect_service:s0
 3525            u:object_r:sa_security_collector_service:s0
 

@@ -57,7 +57,9 @@ allow security_guard system_bin_file:lnk_file { read };
 
 allow security_guard sa_accountmgr:samgr_class { get };
 
-allow security_guard sa_security_guard_service:samgr_class { get add };
+allow security_guard sa_sg_classify_service:samgr_class { get add };
+
+allow security_guard sa_sg_collect_service:samgr_class { get add };
 
 allow security_guard hap_domain:binder { call };
 
