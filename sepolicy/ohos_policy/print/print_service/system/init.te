@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow init print_service:process { rlimitinh siginh transition };
+allow init scan_service:process { rlimitinh siginh transition };
 allow init cupsd_exec:file { execute getattr read open };
 allow init cupsd:process { rlimitinh siginh transition };
 allow init data_service_el1_public_print_service_file:dir { add_name create write getattr open read relabelto search setattr };

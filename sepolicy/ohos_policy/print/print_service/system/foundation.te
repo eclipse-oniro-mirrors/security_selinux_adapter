@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow foundation print_service:binder { call transfer };
+allow foundation scan_service:binder { call };
