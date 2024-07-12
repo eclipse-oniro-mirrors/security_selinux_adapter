@@ -12,3 +12,4 @@
 # limitations under the License.
 
 input.pointer.device               u:object_r:input_pointer_device_param:s0
+persist.input.switch               u:object_r:input_pointer_device_param:s0
