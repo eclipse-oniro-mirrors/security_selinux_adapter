@@ -50,7 +50,6 @@ allow devinfo_private_param tmpfs:filesystem associate;
 allow devinfo_public_param tmpfs:filesystem associate;
 allow devinfo_type_param tmpfs:filesystem associate;
 allow useriam_fwkready_param tmpfs:filesystem associate;
-allow useriam_enable_writable_param tmpfs:filesystem associate;
 allow bluetooth_param tmpfs:filesystem associate;
 
 allow init servicectrl_param:file { map open read relabelto relabelfrom };
@@ -62,7 +61,6 @@ allow init devinfo_private_param:file { map open read relabelto relabelfrom };
 allow init devinfo_public_param:file { map open read relabelto relabelfrom };
 allow init devinfo_type_param:file { map open read relabelto relabelfrom };
 allow init useriam_fwkready_param:file { map open read relabelto relabelfrom };
-allow init useriam_enable_writable_param:file { map open read relabelto relabelfrom };
 allow init bluetooth_param:file { map open read relabelto relabelfrom };
 
 #for set
@@ -87,7 +85,6 @@ allow domain startup_uevent_param:file { map open read };
 allow domain devinfo_public_param:file { map open read };
 allow domain telephony_param:file { map open read };
 allow domain useriam_fwkready_param:file { map open read };
-allow domain useriam_enable_writable_param:file { map open read };
 allow domain bluetooth_param:file { map open read };
 
 #for udid
