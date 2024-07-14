@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type input_isolate_hap, normal_hap_attr, hap_domain, domain;
-type input_isolate_debug_hap, normal_hap_attr, hap_domain, domain;
-typeattribute input_isolate_hap input_isolate_attr;
-typeattribute input_isolate_debug_hap input_isolate_attr;
+neverallow input_isolate_attr sa_download_service:samgr_class { get };
+neverallow input_isolate_attr download_server:binder { call transfer };
+neverallow input_isolate_attr download_server:fd use;
