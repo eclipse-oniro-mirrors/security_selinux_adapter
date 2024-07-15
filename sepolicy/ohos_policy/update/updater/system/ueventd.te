@@ -86,5 +86,4 @@ allow ueventd tmpfs:blk_file { getattr relabelfrom setattr };
 # avc:  denied  { getattr } for  pid=245 comm="ueventd" path="/dev/block/by-name/misc" dev="tmpfs" ino=37 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
 # avc:  denied  { relabelto } for  pid=231 comm="ueventd" name="misc" dev="tmpfs" ino=149 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=0
 allow ueventd updater_block_file:lnk_file { getattr relabelto };
-
 ')
