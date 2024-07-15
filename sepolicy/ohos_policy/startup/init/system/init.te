@@ -11,6 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+debug_only(`
+    allow system_file tmpfs:filesystem associate;
+    allow vendor_file tmpfs:filesystem associate;
+')
+
 allow init nwebspawn_socket:sock_file { unlink };
 allow init appspawn_socket:sock_file { unlink };
 allow init data_ethernet:dir { getattr };
@@ -43,6 +48,7 @@ allow startup_appspawn_param tmpfs:filesystem associate;
 allow startup_uevent_param tmpfs:filesystem associate;
 allow devinfo_private_param tmpfs:filesystem associate;
 allow devinfo_public_param tmpfs:filesystem associate;
+allow devinfo_type_param tmpfs:filesystem associate;
 allow useriam_fwkready_param tmpfs:filesystem associate;
 allow useriam_enable_writable_param tmpfs:filesystem associate;
 allow bluetooth_param tmpfs:filesystem associate;
@@ -54,6 +60,7 @@ allow init startup_appspawn_param:file { map open read relabelto relabelfrom };
 allow init startup_uevent_param:file { map open read relabelto relabelfrom };
 allow init devinfo_private_param:file { map open read relabelto relabelfrom };
 allow init devinfo_public_param:file { map open read relabelto relabelfrom };
+allow init devinfo_type_param:file { map open read relabelto relabelfrom };
 allow init useriam_fwkready_param:file { map open read relabelto relabelfrom };
 allow init useriam_enable_writable_param:file { map open read relabelto relabelfrom };
 allow init bluetooth_param:file { map open read relabelto relabelfrom };
@@ -66,6 +73,7 @@ allow init devinfo_private_param:parameter_service { set };
 allow { init appspawn } startup_appspawn_param:parameter_service { set };
 allow { init ueventd } startup_uevent_param:parameter_service { set };
 allow init devinfo_public_param:parameter_service { set };
+allow init devinfo_type_param:parameter_service { set };
 allow { sadomain hdfdomain native_system_domain native_chipset_domain } bootevent_param:parameter_service { set };
 allow { useriam } useriam_fwkready_param:parameter_service { set };
 allow { init bluetooth_service } bluetooth_param:parameter_service { set };
@@ -525,4 +533,7 @@ allow init ark_writeable_param:parameter_service { set };
 allow init data_service_file:file {read append};
 # avc:  denied  { read } for  pid=1 comm="init" path="/console" dev="" ino=70 scontext=u:r:init:s0 tcontext=u:object_r:dev_console_file:s0 tclass=lnk_file permissive=0
 allow init dev_console_file:lnk_file { read};
+
+# avc:  denied  { setpcap } for  pid=4977 comm="init" capability=8  scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=capability permissive=0
+allow init init:capability { setpcap };
 

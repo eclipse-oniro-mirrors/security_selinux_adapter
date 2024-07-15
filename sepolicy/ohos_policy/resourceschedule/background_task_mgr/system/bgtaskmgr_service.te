@@ -72,6 +72,10 @@ allow bgtaskmgr_service data_service_file:dir { search };
 #avc: denied { 0x5413 } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
 #avc: denied { 0xf50c } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
+#avc: denied { get } for service=1301 pid=1014 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_distributeddata_service:samgr_class { get };
+#avc: denied { call } for pid=1070, commm="/system/bin/sa_main" scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
+allow bgtaskmgr_service distributeddata:binder { call };
 
 # transient task apply
 #avc: denied { search } for pid=1114, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
@@ -80,6 +84,8 @@ allow bgtaskmgr_service data_app_file:dir { search };
 # continous task apply
 #avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow bgtaskmgr_service sa_foundation_abilityms:samgr_class { get };
+#avc: denied { search } for scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=0
+allow bgtaskmgr_service data_app_el1_file:dir { search };
 
 # get service from samgr
 #avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1

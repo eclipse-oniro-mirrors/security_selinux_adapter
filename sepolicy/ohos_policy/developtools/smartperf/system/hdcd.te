@@ -13,4 +13,7 @@
 
 developer_only(`
 allow hdcd SP_daemon:process { signal };
+
+# for SP_daemon tool
+allow hdcd hdcd:tcp_socket { shutdown };
 ')

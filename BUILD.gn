@@ -427,7 +427,7 @@ action("build_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -529,7 +529,7 @@ action("build_update_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -581,7 +581,7 @@ action("build_contexts") {
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
     "--policy-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--source-root-dir",
@@ -670,7 +670,7 @@ action("build_updater_contexts") {
     "--dst-dir",
     rebase_path(target_out_dir + "/updater"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
     "--policy-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
     "--source-root-dir",
@@ -714,7 +714,7 @@ action("selinux_check") {
     "--developer-policy",
     rebase_path(target_out_dir + "/developer/developer_policy"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
     "--policy-dir-list",
     selinux_build_path,
   ]
@@ -1089,16 +1089,20 @@ if (support_developer_mode) {
 if (build_selinux && !ohos_indep_compiler_enable) {
   ohos_copy("libselinux_toolchain") {
     external_deps = [ "selinux:libselinux($host_toolchain)" ]
-    sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
-    outputs = [ "$root_build_dir/clang_x64/security/selinux/libselinux.so" ]
+    sources =
+        [ "$root_build_dir/clang_${host_cpu}/thirdparty/selinux/libselinux.so" ]
+    outputs =
+        [ "$root_build_dir/clang_${host_cpu}/security/selinux/libselinux.so" ]
     part_name = "selinux_adapter"
     subsystem_name = "security"
   }
 
   ohos_copy("libpcre2_toolchain") {
     external_deps = [ "pcre2:libpcre2($host_toolchain)" ]
-    sources = [ "$root_build_dir/clang_x64/thirdparty/pcre2/libpcre2.so" ]
-    outputs = [ "$root_build_dir/clang_x64/security/selinux/libpcre2.so" ]
+    sources =
+        [ "$root_build_dir/clang_${host_cpu}/thirdparty/pcre2/libpcre2.so" ]
+    outputs =
+        [ "$root_build_dir/clang_${host_cpu}/security/selinux/libpcre2.so" ]
     part_name = "selinux_adapter"
     subsystem_name = "security"
   }

@@ -76,6 +76,8 @@ allow processdump processdump:dir { search };
 allow processdump processdump:lnk_file { read };
 allow processdump processdump:unix_dgram_socket { create connect write };
 allow processdump processdump:unix_stream_socket { create setopt connect write read };
+allow processdump data_local_arkcache:file { getattr open read map };
+allow processdump data_local_arkcache:dir { search };
 allow processdump data_local_tmp:file { getattr map open read };
 
 developer_only(`
@@ -166,3 +168,6 @@ neverallow domain processdump:process noatsecure;
 neverallow domain processdump_exec:file execute_no_trans;
 
 allow processdump hiviewdfx_hiview_param:file { map open read };
+
+allow processdump dev_bbox:chr_file { ioctl open write };
+allowxperm processdump dev_bbox:chr_file ioctl 0xab09;

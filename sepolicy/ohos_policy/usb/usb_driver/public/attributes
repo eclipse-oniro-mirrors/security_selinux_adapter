@@ -13,4 +13,5 @@
 
 debug_only(`
     attribute process_dyntransition_su_violators;
+    attribute ioctl_0x5412_chr_file_devpts_violators;
 ')

@@ -60,10 +60,11 @@ allow hidumper_service hidumper:binder call;
 allow hidumper_service hidumper:dir { getattr open read search };
 allow hidumper_service hidumper:file { getattr open read };
 allow hidumper_service hidumper:lnk_file read;
+allow hidumper_service hidumper:fd use;
 allow hidumper_service hidumper_exec:file { getattr map open read };
 
 allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
-allow hidumper_service hidumper_file:file { create ioctl open unlink write };
+allow hidumper_service hidumper_file:file { create ioctl open unlink write getattr };
 
 allow hidumper_service hilogd_exec:file { getattr map open read };
 allow hidumper_service hiview_exec:file { getattr map open read };
@@ -266,6 +267,7 @@ allow hidumper_service sa_wallpaper_manager_service:samgr_class get;
 allow hidumper_service sa_devattest_service:samgr_class get;
 allow hidumper_service sa_device_standby:samgr_class get;
 allow hidumper_service sa_task_heartbeat_mgr:samgr_class get;
+allow hidumper_service sa_el5_filekey_manager:samgr_class get;
 allow hidumper_service samgr:samgr_class list;
 
 allow hidumper_service hiprofiler_cmd:file getattr;

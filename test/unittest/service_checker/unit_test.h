@@ -17,6 +17,7 @@
 #define SERVICE_CHECKER_SELINUX_UNIT_TEST_H
 
 #include <gtest/gtest.h>
+#include "selinux/avc.h"
 
 namespace OHOS {
 namespace Security {

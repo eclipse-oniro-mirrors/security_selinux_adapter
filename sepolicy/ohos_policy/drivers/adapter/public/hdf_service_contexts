@@ -67,6 +67,7 @@ wlan_hal_c_service                      u:object_r:hdf_wlan_hal_c_service:s0
 audio_hdi_pnp_service                   u:object_r:hdf_audio_hdi_pnp_service:s0
 hdi_media_layer_service                 u:object_r:hdf_hdi_media_layer_service:s0
 allocator_service                       u:object_r:hdf_allocator_service:s0
+safe_location_interface_service         u:object_r:hdf_safe_location_interface_service:s0
 
 usb_interface_service                   u:object_r:hdf_usb_interface_service:s0
 usbfn_mtp_interface_service             u:object_r:hdf_usbfn_mtp_interface_service:s0

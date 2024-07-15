@@ -28,6 +28,8 @@ allow concurrent_task_service system_etc_file:file { getattr map open read };
 allow concurrent_task_service vendor_etc_file:dir { search };
 allow concurrent_task_service vendor_etc_file:file { getattr map open read };
 allow concurrent_task_service sa_concurrent_task_service:samgr_class { add };
+allow concurrent_task_service sys_prod_file:dir { search };
+allow concurrent_task_service sys_prod_file:file { open read };
 #ui_service
 allow concurrent_task_service ui_service:process { setsched };
 #normal_hap

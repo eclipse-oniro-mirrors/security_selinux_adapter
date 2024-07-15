@@ -16,6 +16,7 @@ type init_exec, exec_attr, file_attr, system_file_attr;
 type ueventd, native_system_domain, domain;
 type ueventd_exec, system_file_attr, exec_attr, file_attr;
 
+
 debug_only(`
     allow init console:process { rlimitinh siginh transition getattr };
 ')

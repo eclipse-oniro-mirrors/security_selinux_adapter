@@ -311,6 +311,7 @@ developer_only(`
 
     # for read hdc.version
     allow hdcd debug_param:file { map read open };
+    allow hdcd debug_param:parameter_service { set };
 
     allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
 

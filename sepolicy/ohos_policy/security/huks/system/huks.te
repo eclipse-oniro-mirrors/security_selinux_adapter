@@ -27,9 +27,9 @@ allow huks_service data_service_el2_public_huksService_file:dir { add_name creat
 allow huks_service data_service_el2_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allow huks_service data_service_el4_file:dir { search create write open read add_name remove_name };
 allow huks_service data_service_el4_file:file { create write open read unlink getattr setattr };
-allow huks_service data_service_el2_userId_huksService_file:dir { add_name create open read remove_name search write getattr };
+allow huks_service data_service_el2_userId_huksService_file:dir { add_name create open read remove_name search write getattr rmdir };
 allow huks_service data_service_el2_userId_huksService_file:file { create getattr ioctl open read setattr unlink write };
-allow huks_service data_service_el4_userId_huksService_file:dir { add_name create open read remove_name search write };
+allow huks_service data_service_el4_userId_huksService_file:dir { add_name create open read remove_name search write getattr rmdir };
 allow huks_service data_service_el4_userId_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allow huks_service data_data_file:dir { search };
 allow huks_service data_data_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
@@ -78,16 +78,5 @@ debug_only(`
 allow dslm_service huks_service:binder { call transfer };
 allow huks_service dslm_service:binder { call transfer };
 
-allow system_basic_hap huks_service:binder { call transfer };
-allow huks_service system_basic_hap:binder { call transfer };
-
-allow system_core_hap huks_service:binder { call transfer };
-allow huks_service system_core_hap:binder { call transfer };
-
-allow normal_hap huks_service:binder { call transfer };
-allow huks_service normal_hap:binder { call transfer };
-
-debug_only(`
-    allow debug_hap huks_service:binder { call transfer };
-    allow huks_service debug_hap:binder { call transfer };
-')
+allow hap_domain huks_service:binder { call transfer };
+allow huks_service hap_domain:binder { call transfer };

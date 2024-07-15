@@ -58,6 +58,7 @@ static const std::string DEBUGGABLE_PREFIX = "debuggable=";
 static const std::string EXTRA_PREFIX = "extra=";
 static const std::string DEBUGGABLE = "debuggable";
 static const std::string DLPSANDBOX = "dlp_sandbox";
+static const std::string INPUT_ISOLATE = "input_isolate";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -92,7 +93,7 @@ static bool CouldSkip(const std::string &line)
     return false;
 }
 
-static struct SehapInfo DecodeString(std::string &line)
+static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
 {
     std::stringstream input(line);
     std::string tmp;
@@ -125,6 +126,12 @@ static struct SehapInfo DecodeString(std::string &line)
             std::string extra = tmp.substr(tmp.find(EXTRA_PREFIX) + EXTRA_PREFIX.size());
             if (extra == DLPSANDBOX) {
                 contextBuff.extra |= SELINUX_HAP_DLP;
+            } else if (extra == INPUT_ISOLATE) {
+                contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
+            } else {
+                selinux_log(SELINUX_ERROR, "invalid extra %s\n", extra.c_str());
+                isValid = false;
+                break;
             }
             extraVisit = true;
         }
@@ -135,9 +142,9 @@ static struct SehapInfo DecodeString(std::string &line)
 
 static bool CheckPath(const std::string &path)
 {
-    std::regex pathPrefix1("^/data/app/el[1-4]/[0-9]+/(base|database)/.*");
+    std::regex pathPrefix1("^/data/app/el[1-5]/[0-9]+/(base|database)/.*");
     std::regex pathPrefix2("^/data/accounts/account_0/appdata/.*");
-    std::regex pathPrefix3("^/data/service/el[1-4]/[0-9]+/backup/bundles/.*");
+    std::regex pathPrefix3("^/data/service/el[1-5]/[0-9]+/backup/bundles/.*");
     if (std::regex_match(path, pathPrefix1) || std::regex_match(path, pathPrefix2) ||
         std::regex_match(path, pathPrefix3)) {
         return true;
@@ -153,11 +160,17 @@ static bool CheckApl(const std::string &apl)
     return false;
 }
 
-static std::string GetHapContextKey(struct SehapInfo *hapInfo)
+static std::string GetHapContextKey(const struct SehapInfo *hapInfo)
 {
     std::string keyPara;
 
-    if (hapInfo->extra & SELINUX_HAP_DLP) {
+    if (hapInfo->extra & SELINUX_HAP_INPUT_ISOLATE) {
+        if (hapInfo->debuggable) {
+            keyPara = hapInfo->apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
+        } else {
+            keyPara = hapInfo->apl + "." + INPUT_ISOLATE;
+        }
+    } else if (hapInfo->extra & SELINUX_HAP_DLP) {
         keyPara = hapInfo->apl + "." + DLPSANDBOX;
     } else if (hapInfo->debuggable) {
         keyPara = hapInfo->apl + "." + DEBUGGABLE;
@@ -170,9 +183,8 @@ static std::string GetHapContextKey(struct SehapInfo *hapInfo)
     return keyPara;
 }
 
-static bool HapContextsInsert(std::string line, int lineNum)
+static bool HapContextsInsert(const SehapInfo &tmpInfo, int lineNum)
 {
-    struct SehapInfo tmpInfo = DecodeString(line);
     std::string keyPara = GetHapContextKey(&tmpInfo);
     if (keyPara.empty()) {
         selinux_log(SELINUX_ERROR, "hap_contexts read fail in line %d\n", lineNum);
@@ -211,7 +223,12 @@ static bool HapContextsLoad()
             if (CouldSkip(line)) {
                 continue;
             }
-            if (!HapContextsInsert(line, lineNum)) {
+            bool isValid = true;
+            struct SehapInfo tmpInfo = DecodeString(line, isValid);
+            if (!isValid) {
+                continue;
+            }
+            if (!HapContextsInsert(tmpInfo, lineNum)) {
                 g_sehapContextsTrie->Clear();
                 g_sehapContextsTrie = nullptr;
                 return false;
@@ -507,12 +524,20 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     }
 
     std::string keyPara;
-    if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
-        keyPara = apl + "." + packageName;
-        selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
+    if (hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
+        if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
+            selinux_log(SELINUX_INFO, "input_isolate debug  hap, keyPara: %s", keyPara.c_str());
+        } else {
+            keyPara = apl + "." + INPUT_ISOLATE;
+            selinux_log(SELINUX_INFO, "input_isolate isolate hap, keyPara: %s", keyPara.c_str());
+        }
     } else if (hapFlags & SELINUX_HAP_DLP) {
         keyPara = apl + "." + DLPSANDBOX;
         selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
+    } else if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
+        keyPara = apl + "." + packageName;
+        selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
     } else if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
         keyPara = apl + "." + DEBUGGABLE;
         selinux_log(SELINUX_INFO, "debuggable hap, keyPara: %s", keyPara.c_str());

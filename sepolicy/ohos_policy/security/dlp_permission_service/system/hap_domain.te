@@ -24,6 +24,3 @@ allow hap_domain sa_dlp_permission:samgr_class { get };
 # avc:  denied  { getattr } for  pid=3143 comm="com.example.ohn" path="/data/fuse/com.example.ohnotes182158953018.dlp.link" dev="fuse" ino=547686096896 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
 # avc:  denied  { read write } for  pid=1218 comm="AppMgrService" path="/data/fuse/com.example.ohnotes182158953018.dlp.link" dev="fuse" ino=547686096896 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
 allow hap_domain fuse_file:file { getattr read write open };
-
-# avc:  denied  { getattr } for  pid=4979 comm="xample.ohnotes1" path="/data/service/el2/100/share/com.example.ohnotes_1/rw/com.ohos.dlpmanager/mnt/data/fuse/com.example.ohnotes_1_17033226299272591607175181800.txt.dlp.link" dev="fuse" ino=548126858176 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=file permissive=1
-allow { hap_domain -dlpmanager_hap } dlp_fuse_file:file { getattr read write open };

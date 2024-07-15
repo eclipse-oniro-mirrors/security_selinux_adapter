@@ -59,7 +59,8 @@ allow hdf_ext_devmgr tracefs:dir { search };
 allow hdf_ext_devmgr tracefs_trace_marker_file:file { open write };
 
 # avc:  denied  { call } for  pid=721 comm="SaInit0" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
-allow hdf_ext_devmgr accountmgr:binder { call };
+#avc:  denied  { transfer } for  pid=5472 comm="SaInit0" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
+allow hdf_ext_devmgr accountmgr:binder { call transfer };
 
 # avc:  denied  { getattr } for  pid=721 comm="hdf_ext_devmgr" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4917 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=721 comm="hdf_ext_devmgr" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4917 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1

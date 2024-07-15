@@ -41,30 +41,21 @@ debug_only(`
 ')
 allow resource_schedule_service default_param:file { map open read };
 allow resource_schedule_service dev_file:lnk_file { read };
-allow resource_schedule_service distributedsche_param:file { map open read };
-allow resource_schedule_service net_param:file { map open read };
-allow resource_schedule_service net_tcp_param:file { map open read };
 allow resource_schedule_service persist_param:file { map open read };
 allow resource_schedule_service persist_sys_param:file { map open read };
 allow resource_schedule_service sa_foundation_tel_state_registry:samgr_class { get };
 allow resource_schedule_service sa_foundation_wms:samgr_class { get };
-allow resource_schedule_service sa_param_watcher:samgr_class { get };
 allow resource_schedule_service sa_resource_schedule:samgr_class { add get };
 allow resource_schedule_service sa_sys_event_service:samgr_class { get };
-allow resource_schedule_service sysfs_devices_system_cpu:file { getattr ioctl open write };
 allowxperm resource_schedule_service sysfs_devices_system_cpu:file ioctl { 0x5413 };
 allow resource_schedule_service sa_multimodalinput_service:samgr_class { get };
 allow resource_schedule_service multimodalinput:unix_stream_socket { read };
 allow resource_schedule_service sa_work_schedule_service:samgr_class { get };
-allow resource_schedule_service distributeddata:binder { call };
 allow resource_schedule_service distributeddata:fd { use };
 allow distributeddata resource_schedule_service:binder { transfer };
 allow resource_schedule_service wifi_manager_service:binder { call };
 allow resource_schedule_service sa_wifi_hotspot_ability:samgr_class { get };
 allow resource_schedule_service sa_wifi_p2p_ability:samgr_class { get };
 allow resource_schedule_service sa_wifi_device_ability:samgr_class { get };
-allow resource_schedule_service sa_distributeddata_service:samgr_class { get };
 allow resource_schedule_service netmanager:binder { call };
 allow resource_schedule_service powermgr:binder {call transfer};
-allow resource_schedule_service proc_net:file { getattr read open };
-

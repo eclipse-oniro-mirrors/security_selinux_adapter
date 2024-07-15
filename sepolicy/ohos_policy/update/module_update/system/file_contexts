@@ -21,4 +21,6 @@
 /data/module_update_package         u:object_r:data_module_update_package:s0
 /data/module_update_package/(.*)?   u:object_r:data_module_update_package:s0
 /system/module_update(/.*)?         u:object_r:system_module_update_file:s0
-/system/bin/module_update_service   u:object_r:module_update_service_exec:s0
+/system/bin/module_update_client   u:object_r:module_update_service_exec:s0
+/system/bin/check_module_update   u:object_r:module_update_service_exec:s0
+

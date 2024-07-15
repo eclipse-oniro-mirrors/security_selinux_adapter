@@ -113,7 +113,8 @@ allow normal_hap_attr normal_hap_data_file_attr:dir { search remove_name read op
 #avc:  denied  { map } for  pid=3540 comm="com.example.web" path=2F646174612F73746F726167652F656C322F626173652F63616368652F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E496A504D4C48202864656C6574656429 dev="mmcblk0p11" ino=654428 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=4361 comm="ThreadPoolForeg" path="/data/storage/el2/base/cache/cookie.db" dev="mmcblk0p11" ino=523820 ioctlcmd=0xf50c scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
 #avc:  denied  { lock } for  pid=4361 comm="ThreadPoolForeg" path="/data/storage/el2/base/cache/cookie.db" dev="mmcblk0p11" ino=523820 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
-allow normal_hap_attr normal_hap_data_file_attr:file { create read write open getattr unlink map ioctl lock };
+allow normal_hap_attr normal_hap_data_file_attr:file { create getattr unlink map ioctl lock };
+allow normal_hap_attr { normal_hap_data_file_attr -dlp_sandbox_hap_data_file }:file { read write open };
 allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0xf50c };
 
 #avc:  denied  { call } for  pid=2377 comm="Geolocation" scontext=u:r:normal_hap:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
@@ -127,10 +128,6 @@ allow normal_hap_attr allocator_host:fd { use };
 
 #avc:  denied  { call } for  pid=2169 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:allocator_host:s0 tclass=binder permissive=1
 allow normal_hap_attr allocator_host:binder { call };
-
-#avc:  denied  { getopt } for  pid=3204 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=unix_dgram_socket permissive=1
-#avc:  denied  { setopt } for  pid=3204 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=unix_dgram_socket permissive=1
-allow normal_hap_attr normal_hap_attr:unix_dgram_socket { getopt setopt };
 
 #avc:  denied  { read } for  pid=3965 comm="com.example.web" name="extensionability" dev="mmcblk0p6" ino=1557 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
 #avc:  denied  { open } for  pid=3965 comm="com.example.web" path="/system/lib64/extensionability" dev="mmcblk0p6" ino=1557 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
@@ -152,9 +149,6 @@ allow normal_hap_attr node:udp_socket { node_bind };
 
 #avc:  denied  { use } for  pid=4377 comm="ThreadPoolSingl" path="socket:[52549]" dev="sockfs" ino=52549 scontext=u:r:foundation:s0 tcontext=u:r:normal_hap:s0 tclass=fd permissive=1
 allow normal_hap_attr normal_hap_attr:fd { use };
-
-#avc:  denied  { read write } for  pid=4377 comm="ThreadPoolSingl" path="socket:[52549]" dev="sockfs" ino=52549 scontext=u:r:foundation:s0 tcontext=u:r:normal_hap:s0 tclass=unix_stream_socket permissive=1
-allow normal_hap_attr normal_hap_attr:unix_stream_socket { read write };
 
 #avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/" dev="tmpfs" ino=3 scontext=u:r:normal_hap:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 allow normal_hap_attr tmpfs:dir { mounton };
