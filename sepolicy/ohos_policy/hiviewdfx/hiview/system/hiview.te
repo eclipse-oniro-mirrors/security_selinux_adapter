@@ -262,3 +262,5 @@ neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0x
 
 #avc: denied { get } for service=4607 pid=8375 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
 allow hiview sa_foundation_dms:samgr_class { get };
+
+allow hiview hidumper:fd {use };
