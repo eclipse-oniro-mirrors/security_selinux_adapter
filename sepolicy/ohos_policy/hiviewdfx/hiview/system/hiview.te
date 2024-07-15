@@ -238,7 +238,9 @@ allow hiview hiview:capability kill;
 #avc:  denied  { search } for  pid=251 comm="OS_IPC_3_2826" name="com.example.myapplication" dev="mmcblk0p15" ino=2012 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent" dev="mmcblk0p15" ino=2058 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { add_name } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
-allow hiview normal_hap_data_file_attr:dir { search write add_name };
+#avc:  denied  { read } for  pid=2811 comm="XperfMainThr" name="hiappevent" dev="mmcblk0p15" ino=25209 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=2811 comm="XperfMainThr" name="hiappevent" dev="mmcblk0p15" ino=25209 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+allow hiview normal_hap_data_file_attr:dir { search write add_name read getattr };
 
 #avc:  denied  { create } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { write open } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
