@@ -224,3 +224,4 @@ allow msdp_sa sa_concurrent_task_service:samgr_class { get };
 allow msdp_sa concurrent_task_service:binder { call };
 
 allow msdp_sa wifi_manager_service:binder { call };
+111
