@@ -37,8 +37,6 @@ allow i18n_service data_service_file:dir { search };
 allow i18n_service dev_kmsg_file:chr_file { write };
 allow i18n_service i18n_service:unix_dgram_socket { getopt setopt };
 allow i18n_service persist_sys_param:file { map open read };
-allow i18n_service sys_prod_file:dir { search };
-allow i18n_service update_param_install_file:dir { search };
 allow i18n_service update_param_install_file_system:dir { search };
 allow i18n_service update_param_install_file_system:file { getattr open read };
 allowxperm i18n_service data_service_el1_file:file ioctl 0x5413;
