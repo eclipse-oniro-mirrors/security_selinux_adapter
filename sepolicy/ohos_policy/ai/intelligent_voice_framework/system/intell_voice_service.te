@@ -137,6 +137,10 @@ allow intell_voice_service normal_hap_attr:binder { transfer call };
 # avc:  denied  { get } for service=3009 pid=11437 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_audio_policy_service:samgr_class { get };
 
+# avc:  denied  { transfer } for  pid=23348 comm="IPC_0_23464" scontext=u:r:intell_voice_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=0
+# avc:  denied  { call } for  pid=11529 comm="intell_voice_se" scontext=u:r:intell_voice_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=0
+allow intell_voice_service audio_server:binder { call transfer };
+
 # avc:  denied  { read } for  pid=599 comm="threaded-ml" name="cache" dev="sdd78" ino=4315 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
 # avc:  denied  { add_name } for  pid=627 comm="IPC_2_7260" name="2023_07_16_16_09_16_.pcm" scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=0
 # avc:  denied  { write } for  pid=25639 comm="IPC_1_25766" name="pcm_data" dev="sdd78" ino=4761 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=0
@@ -170,10 +174,6 @@ allow intell_voice_service intell_voice_service:unix_dgram_socket { getopt setop
 
 # avc:  denied  { get } for service=3001 pid=23348 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_pulseaudio_audio_service:samgr_class { get };
-
-# avc:  denied  { call } for  pid=25639 comm="IPC_1_25766" scontext=u:r:intell_voice_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=0
-# avc:  denied  { transfer } for  pid=700 comm="SaOndemand" scontext=u:r:intell_voice_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
-allow intell_voice_service audio_server:binder { call transfer };
 
 # avc:  denied  { get } for service=401 pid=627 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_foundation_bms:samgr_class { get };
@@ -220,4 +220,3 @@ allow intell_voice_service ark_writeable_param:file { map open read };
 
 # avc:  denied  { get } for service=3301 pid=826 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
 allow intell_voice_service sa_powermgr_powermgr_service:samgr_class { get };
-
