@@ -29,7 +29,7 @@ allow wifi_manager_service netsysnative:binder { call };
 allow wifi_manager_service sa_foundation_cesfwk_service:samgr_class { get };
 allow wifi_manager_service sa_net_conn_manager:samgr_class { get };
 allow wifi_manager_service sa_wifi_device_ability:samgr_class { add };
-allow wifi_manager_service sa_wifi_hotspot_ability:samgr_class { add };
+allow wifi_manager_service sa_wifi_hotspot_ability:samgr_class { add get };
 allow wifi_manager_service sa_wifi_p2p_ability:samgr_class { add };
 allow wifi_manager_service sa_wifi_p2p_ability:samgr_class { get };
 allow wifi_manager_service sa_wifi_scan_ability:samgr_class { add };
