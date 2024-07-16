@@ -235,3 +235,7 @@ allow appspawn sysfs_net:file { write open };
 allow appspawn labeledfs:filesystem { remount };
 allow appspawn bootuptrace_file:dir { add_name getattr open read search write relabelto };
 allow appspawn bootuptrace_file:file { create getattr write open relabelto };
+
+# for sudo
+allow appspawn etc_hosts_file:dir { search };
+allow appspawn etc_hosts_file:file { getattr mounton };
