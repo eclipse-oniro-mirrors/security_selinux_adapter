@@ -14,3 +14,4 @@
 allow render_service accesstoken_service:binder call;
 allow render_service sa_accesstoken_manager_service:samgr_class get;
 allow render_service hidumper_service:binder { call transfer };
+allow render_service hidumper:fd { use };

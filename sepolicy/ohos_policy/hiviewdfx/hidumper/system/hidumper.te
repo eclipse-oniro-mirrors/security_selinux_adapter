@@ -41,6 +41,7 @@ allow hidumper vendor_lib_file:dir search;
 allow hidumper bootevent_param:file { map open read };
 allow hidumper bootevent_samgr_param:file { map open read };
 allow hidumper build_version_param:file { map open read };
+allow hidumper chip_prod_file:dir { search };
 allow hidumper const_allow_mock_param:file { map open read };
 allow hidumper const_allow_param:file { map open read };
 allow hidumper const_build_param:file { map open read };
