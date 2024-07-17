@@ -12,6 +12,3 @@
 # limitations under the License.
 
 allow hap_domain sa_dfx_sys_hidumper_cpu_ability:samgr_class { get };
-
-allow hap_domain hidumper_service:fd { use };
-allow hap_domain hidumper_file:file { write };
