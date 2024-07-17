@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow normal_hap { parameter_attr }:parameter_service { set };
-neverallow normal_hap paramservice_socket:sock_file { write };
+neverallow { normal_hap debug_hap } parameter_attr:parameter_service { set };
+neverallow { normal_hap debug_hap } paramservice_socket:sock_file { write };
 
 typeattribute accessibility devinfo_type_allow_attr;
 typeattribute bgtaskmgr_service devinfo_type_allow_attr;
