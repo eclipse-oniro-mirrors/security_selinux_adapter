@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-persist.moduleupdate.bms.        u:object_r:moduleupdate_bms_param:s0
-persist.moduleupdate.bms.install.        u:object_r:moduleupdate_bms_param:s0
+persist.moduleupdate.bms.        u:object_r:update_updater_param:s0
+persist.moduleupdate.bms.install.        u:object_r:update_updater_param:s0
