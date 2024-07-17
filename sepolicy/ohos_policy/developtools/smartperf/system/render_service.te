@@ -15,3 +15,5 @@ allow render_service dev_dri_file:chr_file { ioctl };
 allow render_service hidumper_service:fd { use };
 allow render_service hidumper_service:fifo_file { write };
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x64bc 0x64be };
+allow render_service SP_daemon:fd { use };
+allow render_service SP_daemon:fifo_file { write };
