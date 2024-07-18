@@ -12,6 +12,19 @@
   "component": {
     "name": "selinux_adapter",
     "subsystem": "security",
+    "feature": [
+      "selinux_adapter_build_path",
+      "selinux_adapter_components",
+      "selinux_adapter_enforce",
+      "selinux_adapter_vendor_policy_version",
+      "selinux_adapter_support_developer_mode",
+      "selinux_adapter_special_build_policy_script",
+      "selinux_adapter_extra_args",
+      "selinux_adapter_special_build_contexts_script",
+      "selinux_adapter_contexts_extra_args",
+      "selinux_adapter_special_build_selinux_gni_path",
+      "selinux_adapter_check_extend_list"
+    ],
     "adapted_system_type": [
       "standard"
     ],

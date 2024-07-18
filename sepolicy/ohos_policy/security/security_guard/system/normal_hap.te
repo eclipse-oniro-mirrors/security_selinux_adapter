@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hap_domain sa_security_guard_service:samgr_class { get };
+allow hap_domain sa_sg_classify_service:samgr_class { get };
+allow hap_domain sa_sg_collect_service:samgr_class { get };
 allow hap_domain security_guard:binder { call transfer };
 

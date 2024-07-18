@@ -86,9 +86,7 @@ allow useriam huks_service:binder { call };
 allow useriam sensors:binder { transfer };
 allow sensors useriam:fd { use };
 allow sensors useriam:unix_stream_socket { read write };
-allow sensors useriam:binder { call };
-
 allow useriam devinfo_private_param:file { map open read };
-
+allow sensors useriam:binder { call };
 allow useriam storage_daemon:binder { call };
 

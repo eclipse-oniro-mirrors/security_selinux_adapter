@@ -17,6 +17,7 @@ debug_only(`
     allow aa accessibility:binder { call transfer };
     allow aa arkcompiler_param:file { map open read };
     allow aa ark_writeable_param:file { map open read };
+    allow aa bm_exec:file { getattr execute execute_no_trans map read open };
     allow aa data_file:dir { search getattr};
     allow aa data_local:dir { search };
     allow aa data_local_tmp:dir { getattr write search };
@@ -53,6 +54,7 @@ debug_only(`
     allow aa sa_accountmgr:samgr_class { get };
     allow aa sa_foundation_abilityms:samgr_class { get };
     allow aa sa_foundation_appms:samgr_class { get };
+    allow aa sa_foundation_bms:samgr_class { get };
     allow aa sa_foundation_cesfwk_service:samgr_class { get };
     allow aa sa_foundation_dms:samgr_class { get };
     allow aa samgr:binder { call };
@@ -95,9 +97,6 @@ debug_only(`
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa sh:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
-    # ability_delegator call hidumper --mem $(pidof com.ohos.formrenderservice)
-    allow aa formrenderservice_hap:dir { search };
-    allow aa formrenderservice_hap:file { open read };
 ')
 
 # add for aa in developer mode
@@ -150,7 +149,4 @@ developer_only(`
     allowxperm aa devpts:chr_file ioctl { 0x5413 };
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
-    # ability_delegator call hidumper --mem $(pidof com.ohos.formrenderservice)
-    allow aa formrenderservice_hap:dir { search };
-    allow aa formrenderservice_hap:file { open read };
 ')
