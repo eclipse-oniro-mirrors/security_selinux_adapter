@@ -16,5 +16,6 @@ allow debug_hap system_usr_file:dir { open read getattr };
 allow debug_hap sysfs_devices_system_cpu:file { getattr };
 allow debug_hap sa_i18n_service:samgr_class { get };
 allow debug_hap i18n_service:binder { call };
+allow debug_hap i18n_service:fd { use };
 # avc: denied { getattr } for pid=51567, comm="/system/bin/chrome_crashpad_handler"  path="/dev" dev="" ino=0 scontext=u:r:debug_hap:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
 allow debug_hap dev_file:dir { getattr };
