@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow memmgrservice resource_schedule_service:binder { transfer };
-
 allow memmgrservice data_file:dir { search };
 allow memmgrservice data_init_agent:dir { search };
 allow memmgrservice data_init_agent:file { ioctl open read append };
