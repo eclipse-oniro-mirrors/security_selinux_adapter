@@ -17,3 +17,5 @@ allow ui_service kernel:unix_stream_socket { connectto };
 allow ui_service paramservice_socket:sock_file { write };
 allow ui_service sa_foundation_appms:samgr_class { get };
 allow ui_service sa_ui_appearance:samgr_class { add };
+allow ui_service persist_sys_param:parameter_service { set };
+allow ui_service persist_sys_param:file { open read map };
