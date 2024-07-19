@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-binder_call(bluetooth_service, audio_server);
+binder_call(distributeddata, audio_server);
