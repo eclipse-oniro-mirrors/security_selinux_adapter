@@ -54,6 +54,10 @@ motion_interface_service                u:object_r:hdf_motion_interface_service:
 activity_interface_service              u:object_r:hdf_activity_interface_service:s0
 cellular_radio_ext                      u:object_r:hdf_cellular_radio_ext:s0
 ril_service                             u:object_r:hdf_ril_service:s0
+geofence_intf_service                   u:object_r:hdf_geofence_intf_service:s0
+cellfence_interface_service             u:object_r:hdf_cellfence_interface_service:s0
+cellbatching_interface_service          u:object_r:hdf_cellbatching_interface_service:s0
+wififence_interface_service             u:object_r:hdf_wififence_interface_service:s0
 
 usb_pnp_sample_service                  u:object_r:hdf_usb_pnp_sample_service:s0
 usbhost_acm_pnp_service                 u:object_r:hdf_usbhost_acm_pnp_service:s0
