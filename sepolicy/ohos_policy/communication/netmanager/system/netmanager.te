@@ -111,5 +111,19 @@ allow netmanager foundation:fd { use };
 allow netmanager proc_net:file { open write };
 allow netmanager softbus_server:binder { call transfer };
 
+# avc: denied { relabelto } for pid=1, comm="/bin/init"  name="/service/el1/network/hosts_user/hosts" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1483 scontext=u:r:init:s0 tcontext=u:object_r:etc_hosts_file:s0 tclass=file permissive=0
+# avc: denied { relabelto } for pid=1, comm="/bin/init"  name="/service/el1/network/hosts_user" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1457 scontext=u:r:init:s0 tcontext=u:object_r:etc_hosts_file:s0 tclass=dir permissive=0
 allow init etc_hosts_file:dir { relabelto getattr setattr search read create write add_name open };
 allow init etc_hosts_file:file { relabelto read create write open };
+ 
+allow privilege_app etc_hosts_file:file { read write append open };
+allow privilege_app etc_hosts_file:dir { search };
+ 
+allow privilege_app data_service_el1_file:dir { search };
+allow privilege_app data_service_file:dir { search };
+allow privilege_app system_etc_file:dir { search };
+allow privilege_app system_etc_file:lnk_file { read };
+allow privilege_app sh:fd { use };
+ 
+neverallow { domain -init -appspawn -updater -privilege_app } etc_hosts_file:dir ~{ search };
+neverallow { domain -init -appspawn -updater -privilege_app } etc_hosts_file:file ~{ read };
