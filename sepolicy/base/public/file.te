@@ -166,7 +166,6 @@ type data_vendor, file_attr, data_file_attr;
 type data_vendor_ce, file_attr, data_file_attr;
 type data_vendor_de, file_attr, data_file_attr;
 type data_updater, file_attr, data_file_attr;
-type etc_hosts_file, file_attr, data_file_attr;
 
 type proc_net, fs_attr, proc_attr;
 type proc_net_tcp_udp, fs_attr, proc_attr;
