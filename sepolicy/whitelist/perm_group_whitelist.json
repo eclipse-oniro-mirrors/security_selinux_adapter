@@ -3,15 +3,11 @@
         {
             "name": "execute and execute_no_trans",
             "user": [
-                "hdcd begetctl_exec",
-                "init begetctl_exec",
-                "init prop_migrate_exec",
                 "appspawn appspawn_exec",
                 "cjappspawn cjappspawn_exec",
                 "nwebspawn appspawn_exec",
                 "appspawn sh_exec",
                 "cjappspawn system_bin_file",
-                "cjappspawn toybox_exec",
                 "audio_host system_bin_file",
                 "camera_host system_bin_file",
                 "camera_host toybox_exec",
@@ -111,6 +107,9 @@
                 "updater_binary system_bin_file",
                 "updater_binary toybox_exec",
                 "usb_host system_bin_file",
+                "vpnmanager system_bin_file",
+                "vpnmanager sh_exec",
+                "vpnmanager toybox_exec",
                 "wifi_hal_service sh_exec",
                 "wifi_hal_service system_bin_file",
                 "wifi_hal_service toybox_exec",
@@ -121,7 +120,6 @@
                 "compiler_service ark_aot_compiler_exec"
             ],
             "developer": [
-                "sh begetctl_exec",
                 "aa sh_exec",
                 "SP_daemon uitest_exec",
                 "SP_daemon system_bin_file",
@@ -129,6 +127,7 @@
                 "aa system_bin_file",
                 "aa toybox_exec",
                 "aa aa_exec",
+                "aa bm_exec",
                 "snapshot_display snapshot_display_exec",
                 "wukong sh_exec",
                 "SP_daemon sh_exec",

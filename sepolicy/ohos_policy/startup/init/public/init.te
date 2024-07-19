@@ -101,10 +101,4 @@ init_relabel(accesstoken_data_file);
 init_relabel(data_service_el1_public_deviceauthService_file);
 init_relabel(data_service_el1_public_huksService_file);
 init_relabel(update_dupdate_engine_file);
-## add startup exec type
-type begetctl_exec, system_file_attr, exec_attr, file_attr;
-type prop_migrate_exec, system_file_attr, exec_attr, file_attr;
-
-allow {debug_only(`console') developer_only(`sh') hdcd init} begetctl_exec:file { execute execute_no_trans };
-allow init prop_migrate_exec:file { execute execute_no_trans };
 

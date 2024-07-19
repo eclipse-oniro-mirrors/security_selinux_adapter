@@ -95,7 +95,7 @@ allow distributeddata system_core_hap_data_file_attr:dir { getattr open read sea
 allow distributeddata system_core_hap_data_file_attr:file { getattr ioctl lock map open setattr create unlink };
 allow distributeddata system_etc_file:dir { getattr open read };
 allow distributeddata system_profile_file:dir { search };
-allow distributeddata telephony_sa:binder { transfer };
+allow distributeddata telephony_sa:binder { call transfer };
 allow distributeddata tmpfs:lnk_file { read };
 allow distributeddata vendor_file:file { execute getattr map open read };
 allow distributeddata vendor_lib_file:dir { search };

@@ -66,3 +66,4 @@ allow updater_binary tmpfs:file { execute execute_no_trans open };
 allow updater_binary updater_block_file:blk_file { read write open };
 allow updater_binary updater_block_file:dir { search };
 allow updater_binary updater_block_file:lnk_file { read };
+

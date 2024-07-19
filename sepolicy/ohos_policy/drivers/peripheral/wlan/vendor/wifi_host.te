@@ -169,3 +169,11 @@ allow wifi_host vendor_file:file { open read };
 
 # avc:  denied  { call } for  pid=1293 comm="WpaMainThread" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
 allow wifi_host wifi_manager_service:binder { call };
+
+# avc: denied { write } for pid=1300, comm="/vendor/bin/hdf_devhost"  scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=netlink_socket permissive=1
+allow wifi_host wifi_host:netlink_socket { write };
+
+# avc: denied { sendto } for pid=3765, comm="/vendor/bin/hdf_devhost"  scontext=u:r:wifi_host:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=1
+debug_only(`
+    allow wifi_host su:unix_dgram_socket { sendto };
+')

@@ -13,3 +13,5 @@
 
 type input_isolate_hap, normal_hap_attr, hap_domain, domain;
 type input_isolate_debug_hap, normal_hap_attr, hap_domain, domain;
+typeattribute input_isolate_hap input_isolate_attr;
+typeattribute input_isolate_debug_hap input_isolate_attr;

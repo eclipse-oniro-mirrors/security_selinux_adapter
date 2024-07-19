@@ -13,6 +13,7 @@
 
 init_daemon_domain(render_service);
 
+allow render_service data_log:file { write };
 allow render_service data_file:dir { search };
 allow render_service dev_ashmem_file:chr_file { open };
 allow render_service dev_dri_file:chr_file { ioctl open read write };

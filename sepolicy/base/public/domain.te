@@ -249,7 +249,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -normal_hap_attr -sys
 
 neverallow { domain -init -appspawn -nwebspawn -cjappspawn -normal_hap_attr } vendor_file_attr:dir_file_class_set mounton;
 
-neverallow { domain -kernel -hap_domain -locationhub
+neverallow { domain -init -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
 neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display -hiprofiler_cmd -bm') -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
@@ -274,10 +274,10 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 #limit domain access to sh_exec
 neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh -hnp -hnp_hap_domain_attr') -init -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa') -hidumper_service -netsysnative
-    -wifi_hal_service -sh_exec_violator -rgm_violator_ohos_sh_exec_file_execute } sh_exec:file execute;
+    -wifi_hal_service -sh_exec_violator -rgm_violator_ohos_sh_exec_file_execute -vpnmanager } sh_exec:file execute;
 
 #limit execmem use
-neverallow { domain -appspawn -hap_domain } self:process execmem;
+neverallow { domain -appspawn -hap_domain -rgm_violator_execmem } self:process execmem;
 
 neverallow { domain -processdump -hap_domain developer_only(`-lldb_server') } domain:process ptrace;
 
@@ -298,10 +298,10 @@ neverallow { domain -init -chipset_init -appspawn -compiler_service -nwebspawn -
 neverallow { domain -init -chipset_init -ueventd -appspawn -compiler_service -nwebspawn -cjappspawn -storage_daemon debug_only(`-hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') updater_only(` -updater ') -rgm_violator_ohos_capability_setgid -rgm_violator_cap_setgid } self:{ capability cap_userns } setgid;
 neverallow { domain -init -chipset_init -rgm_violator_ohos_capability_setpcap } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
-neverallow { domain -wifi_manager_service -netsysnative } self:{ capability cap_userns } net_bind_service;
+neverallow { domain -wifi_manager_service -netsysnative -vpnmanager } self:{ capability cap_userns } net_bind_service;
 neverallow * self:{ capability cap_userns } net_broadcast;
-neverallow { domain -init -appspawn -chipset_init -ueventd -wifi_hal_service -wifi_manager_service -softbus_server -netsysnative -storage_daemon -udevd -blue_host -netmanager -riladapter_host -bluetooth_service -cap_violator_netadmin -wifi_host -resource_schedule_service -rgm_violator_ohos_capability_netadmin } self:{ capability cap_userns } net_admin;
-neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -netsysnative -cap_violator_netraw -distributedfiledaemon -wifi_host -rgm_violator_ohos_capability_netraw } self:{ capability cap_userns } net_raw;
+neverallow { domain -init -appspawn -chipset_init -ueventd -wifi_hal_service -wifi_manager_service -softbus_server -netsysnative -storage_daemon -udevd -blue_host -netmanager -vpnmanager -riladapter_host -bluetooth_service -cap_violator_netadmin -wifi_host -resource_schedule_service -rgm_violator_ohos_capability_netadmin } self:{ capability cap_userns } net_admin;
+neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -netsysnative -vpnmanager -cap_violator_netraw -distributedfiledaemon -wifi_host -rgm_violator_ohos_capability_netraw } self:{ capability cap_userns } net_raw;
 neverallow { domain -hiperf } self:{ capability cap_userns } ipc_lock;
 neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -cap_violator_sysmodule } self:{ capability cap_userns } sys_module;
@@ -331,5 +331,5 @@ neverallow * self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow { domain -hiperf -cap_violator_perfmon debug_only(`-hiebpf') } self:{ capability2 cap2_userns } perfmon;
 
 #limit domain has exec_no_sign and exec_anon_mem permission
-neverallow { domain developer_only(`-debug_hap -normal_hap') debug_only(`-su') -updater_binary } self:xpm { exec_no_sign };
+neverallow { domain developer_only(`-debug_hap -normal_hap') debug_only(`-su') -updater_binary -rgm_violator_exec_no_sign } self:xpm { exec_no_sign };
 neverallow { domain developer_only(`-debug_hap') debug_only(`-su') -isolated_render } self:xpm { exec_anon_mem };

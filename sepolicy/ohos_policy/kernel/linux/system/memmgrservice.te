@@ -11,13 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow memmgrservice resource_schedule_service:binder { transfer };
-
 allow memmgrservice data_file:dir { search };
 allow memmgrservice data_init_agent:dir { search };
 allow memmgrservice data_init_agent:file { ioctl open read append };
 allow memmgrservice domain:dir { search };
-allow memmgrservice domain:file { open read getattr write };
+allow memmgrservice domain:file { open read getattr };
 allow memmgrservice accountmgr:binder { call transfer };
 allow memmgrservice dev_unix_socket:dir { search };
 allow memmgrservice bgtaskmgr_service:binder { call transfer };
@@ -27,7 +25,7 @@ allow memmgrservice foundation:binder { call transfer };
 allow memmgrservice data_vendor:dir { search };
 allow memmgrservice hyperhold_sys:dir { search relabelto write add_name getattr setattr remove_name };
 allow memmgrservice hyperhold_sys:file { getattr open read write create rename unlink };
-allow memmgrservice servicectrl_param:parameter_service { set };
+
 allow memmgrservice memmgrservice:capability { kill sys_resource dac_override sys_ptrace };
 neverallow memmgrservice *:process ptrace;
 

@@ -68,6 +68,8 @@ allow module_update_service tmpfs:dir { create mounton open read rmdir setattr w
 allow module_update_service tty_device:chr_file { read write };
 allowxperm module_update_service dev_block_file:blk_file ioctl { 0x1261 0x4c00 0x4c04 0x4c09 0x4c0a };
 allowxperm module_update_service dev_loop_control_file:chr_file ioctl { 0x4c80 0x4c82 };
+
+allow module_update_service update_updater_param:parameter_service { set };
 debug_only(`
     allow module_update_service sh:binder { call transfer };
 ')
