@@ -153,3 +153,7 @@ allow isolated_render data_service_el1_file:file { getattr map read };
 debug_only(`
     allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem_debug };
 ')
+
+
+#avc: denied  { get } for service=1901 pid=3409 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow isolated_render sa_resource_schedule:samgr_class { get };
