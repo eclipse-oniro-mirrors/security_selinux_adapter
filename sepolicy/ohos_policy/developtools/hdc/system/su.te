@@ -182,9 +182,6 @@ debug_only(`
     allow su su:code_sign { add_cert_chain remove_cert_chain };
     # avc:  denied  { call } for  pid=12263 comm="IPC_1_12275" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
     allow dlp_permission_service su:binder { call };
-    # avc:  denied  { call } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
-    # avc:  denied  { transfer } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
-    allow security_component_service su:binder { call transfer };
     #avc:  denied  { getattr } for  pid=1853 comm="ls" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:su:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
     #avc:  denied  { getattr } for  pid=1805 comm="su" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:su:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
     #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
