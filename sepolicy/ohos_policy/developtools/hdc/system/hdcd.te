@@ -168,6 +168,7 @@ developer_only(`
 
     allow hdcd sa_param_watcher:samgr_class { get };
     allow hdcd sys_param:parameter_service { set };
+    # hdcd should set sys.usb.ffs.ready
     allow hdcd sys_usb_param:parameter_service { set };
     allow hdcd persist_param:parameter_service { set };
     allow hdcd servicectrl_reboot_param:parameter_service { set };
