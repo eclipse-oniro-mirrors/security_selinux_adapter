@@ -311,5 +311,7 @@ developer_only(`
     allow hap_domain hiviewdfx_profiler_param:file { map open read };
     allow hap_domain hiprofiler_plugins:unix_stream_socket { connectto read write };
     allow hap_domain hiprofiler_plugins:fd { use };
+    allow hiprofiler_plugins data_hilogd_file:dir { getattr open read search };
+    allow hiprofiler_plugins data_hilogd_file:file { getattr open read };
     allow sadomain hiviewdfx_profiler_param:file { map open read };
 ')
