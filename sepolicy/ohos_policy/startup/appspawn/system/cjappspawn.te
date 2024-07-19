@@ -276,3 +276,4 @@ allow cjappspawn param_watcher:binder { call transfer };
 allow cjappspawn data_service_el1_file:dir { mounton search getattr };
 allow cjappspawn permissions_mount_file_attr:dir { mounton };
 allow cjappspawn data_user_file:dir { add_name create write };
+allow cjappspawn tmpfs:file { create mounton open };
