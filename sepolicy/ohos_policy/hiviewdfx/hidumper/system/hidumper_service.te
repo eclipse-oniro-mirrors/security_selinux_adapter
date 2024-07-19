@@ -177,7 +177,7 @@ allow hidumper_service hilog_exec:file { execute execute_no_trans getattr map op
 allow hidumper_service proc_file:file { open read };
 allow hidumper_service processdump:dir search;
 allow hidumper_service processdump:file { open read };
-allow hidumper_service sysfs_devices_system_cpu:file { getattr open read };
+allow hidumper_service sysfs_devices_system_cpu:file { open read };
 allow hidumper_service tty_device:chr_file getattr;
 allow hidumper_service hdcd:fifo_file write;
 
@@ -292,7 +292,6 @@ allow hidumper_service debugfs_stats:file { getattr open read };
 allow hidumper_service debugfs_state:file { getattr open read };
 allow hidumper_service data_log:file { read write };
 
-allow hidumper_service hiview:binder { transfer };
 allow hidumper_service hiperf:file { getattr };
 
 neverallow hidumper_service *:process ptrace;
