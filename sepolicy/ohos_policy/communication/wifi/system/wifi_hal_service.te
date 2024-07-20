@@ -57,7 +57,7 @@ allow wifi_hal_service sa_device_service_manager:samgr_class { get };
 allow wifi_hal_service cert_manager_service:binder { call };
 allow wifi_hal_service huks_service:binder { call };
 allowxperm wifi_hal_service wifi_hal_service:packet_socket ioctl { 0x8927 0x8933 };
-allowxperm wifi_hal_service wifi_hal_service:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8924 0x8927 0x8b0d 0x8bf7 0x8910 0x8916 0x891c };
+allowxperm wifi_hal_service wifi_hal_service:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8924 0x8927 0x8b0d 0x8bf7 0x8933 0x8910 0x8916 0x891c };
 allowxperm wifi_hal_service wifi_hal_service:unix_dgram_socket ioctl { 0x8933 0x5411 };
 allow wifi_hal_service musl_param:file { read };
 allow wifi_hal_service data_service_el1_file:file { append };
