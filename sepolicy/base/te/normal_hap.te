@@ -89,7 +89,6 @@ allow normal_hap_attr sa_foundation_abilityms:samgr_class { get };
 allow normal_hap_attr sa_foundation_ans:samgr_class { get };
 allow normal_hap_attr sa_foundation_appms:samgr_class { get };
 allow normal_hap_attr sa_foundation_bms:samgr_class { get };
-allow normal_hap_attr sa_foundation_cesfwk_service:samgr_class { get };
 allow normal_hap_attr sa_foundation_devicemanager_service:samgr_class { get };
 allow normal_hap_attr sa_foundation_dms:samgr_class { get };
 allow normal_hap_attr sa_foundation_tel_state_registry:samgr_class { get };
