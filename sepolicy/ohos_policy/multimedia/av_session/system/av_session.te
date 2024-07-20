@@ -75,3 +75,4 @@ allow av_session paramservice_socket:sock_file { write };
 allow av_session kernel:unix_stream_socket { connectto };
 allow av_session sa_memory_manager_service:samgr_class { get };
 allow av_session memmgrservice:binder { call };
+allow av_session sa_foundation_cesfwk_service:samgr_class { get };
