@@ -47,3 +47,4 @@ allow media_monitor sysfs_devices_system_cpu:file { getattr open read };
 allow media_monitor media_monitor:unix_dgram_socket { getopt setopt };
 allow media_monitor foundation:binder { call };
 allow media_monitor persist_param:file { map open read };
+
