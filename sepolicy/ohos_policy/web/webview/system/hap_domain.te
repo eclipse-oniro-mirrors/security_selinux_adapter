@@ -22,6 +22,6 @@ allow hap_domain isolated_render:unix_stream_socket { getopt };
 
 allow hap_domain isolated_gpu:fd { use };
 
-allow hap_domain isolated_gpu:unix_stream_socket { read write shutdown };
+allow hap_domain isolated_gpu:unix_stream_socket { read write shutdown getopt };
 
 allow hap_domain isolated_gpu:binder { call transfer };

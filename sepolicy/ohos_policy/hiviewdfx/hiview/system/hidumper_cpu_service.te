@@ -16,9 +16,6 @@ allow hiview sa_dfx_sys_hidumper_cpu_ability:samgr_class { add get };
 allow hiview appspawn:dir search;
 allow hiview appspawn:file { getattr open read };
 
-allow hiview chipset_init:dir search;
-allow hiview chipset_init:file { getattr open read };
-
 allow hiview hdcd:dir search;
 allow hiview hdcd:file { getattr open read };
 

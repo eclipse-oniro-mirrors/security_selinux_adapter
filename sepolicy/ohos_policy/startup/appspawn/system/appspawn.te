@@ -140,7 +140,7 @@ allow appspawn share_public_file:dir { search };
 allow appspawn pid_ns_init:process { dyntransition };
 allow appspawn share_public_file:dir { search create add_name write };
 # for app cgroup pids
-allow appspawn cgroup:dir { add_name create search open read write };
+allow appspawn cgroup:dir { add_name create search open read write remove_name rmdir };
 allow appspawn cgroup:file { append getattr ioctl open read write };
 allowxperm appspawn cgroup:file ioctl {  0x5413  };
 

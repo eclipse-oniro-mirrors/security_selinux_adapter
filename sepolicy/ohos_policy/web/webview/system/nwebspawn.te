@@ -146,6 +146,9 @@ allow nwebspawn system_lib_file:dir { search open read };
 # avc:  denied  { map } for  pid=2795 comm="appspawn" path="/system/bin/appspawn" dev="mmcblk0p7" ino=136 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:appspawn_exec:s0 tclass=file permissive=0
 allow nwebspawn appspawn_exec:file { map };
 
+allow nwebspawn vendor_etc_vulkan_file:dir { mounton search };
+neverallow nwebspawn vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
+
 debug_only(`
     allow nwebspawn data_storage:dir { mounton getattr };
     allow nwebspawn data_file:dir { mounton getattr };
