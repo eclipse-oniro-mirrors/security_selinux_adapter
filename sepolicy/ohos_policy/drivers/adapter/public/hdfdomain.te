@@ -21,4 +21,4 @@ neverallow { domain -hdfdomain -sadomain -hap_domain -binder_call_hdfdomain_viol
 
 neverallow { hap_domain } { hdfdomain -allocator_host -hdf_public_domain -codec_host -usb_host -input_user_host -image_binder_call_violators -violator_binder_call }:binder call;
 
-neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service -hdf_usb_interface_service -hdf_allocator_service -hdf_codec_image_service -hdf_service_violators -hdf_codec_component_manager_service -image_devmgr_get_violators -violator_hdf_devmgr_class_get }:hdf_devmgr_class { get };
+neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service debug_only(`-hdf_usb_interface_service') -hdf_allocator_service -hdf_codec_image_service -hdf_service_violators -hdf_codec_component_manager_service -image_devmgr_get_violators -violator_hdf_devmgr_class_get }:hdf_devmgr_class { get };
