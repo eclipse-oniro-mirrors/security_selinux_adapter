@@ -50,6 +50,9 @@ allow accessibility sa_resource_schedule:samgr_class { get };
 allow accessibility sys_prod_file:dir { search };
 allow accessibility data_storage:dir { search };
 
+allow accessibility distributeddata:binder { call };
+allow accessibility distributeddata:fd { use };
+allow distributeddata accessibility:binder { transfer };
 allow accessibility sa_distributeddata_service:samgr_class { get };
 allow accessibility render_service:fd { use };
 allow accessibility render_service:unix_stream_socket { read write };
