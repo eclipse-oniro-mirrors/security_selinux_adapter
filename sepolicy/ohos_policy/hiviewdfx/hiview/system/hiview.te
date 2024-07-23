@@ -227,13 +227,13 @@ allowxperm hiview tracefs:file ioctl { 0x5413 };
 #avc:  denied  { getattr } for  pid=3130 comm="plat_shared" path="/proc/diskstats" dev="proc" ino=4026532227 scontext=u:r:hiview:s0 tcontext=u:object_r:proc_diskstats_file:s0 tclass=file permissive=1
 allow hiview proc_diskstats_file:file { read open getattr };
 
-#avc:  denied  { call } for  pid=519 comm="IPC_0_576" scontext=u:r:hiview:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
-allow hiview softbus_server:binder { call };
-
 #avc:  denied  { kill } for pid=7601 comm="hiview" capability=5 scontext=u:r:hiview:s0 tcontext=u:r:hiview:s0 tclass=capability permissive=1
 #avc:  denied  { signal } for pid=7601 comm="hiview" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=process permissive=1
 allow hiview domain:process signal;
 allow hiview hiview:capability kill;
+
+#avc:  denied  { call } for  pid=519 comm="IPC_0_576" scontext=u:r:hiview:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
+allow hiview softbus_server:binder { call };
 
 #avc:  denied  { search } for  pid=251 comm="OS_IPC_3_2826" name="com.example.myapplication" dev="mmcblk0p15" ino=2012 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent" dev="mmcblk0p15" ino=2058 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
@@ -260,7 +260,7 @@ allow hiview distributeddata:fd { use };
 allow sadomain dev_bbox:chr_file { ioctl read open write };
 allowxperm sadomain dev_bbox:chr_file ioctl { 0xab09 };
 
-neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };
+neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0xaf07 0xaf08 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };
 
 #avc: denied { get } for service=4607 pid=8375 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
 allow hiview sa_foundation_dms:samgr_class { get };
