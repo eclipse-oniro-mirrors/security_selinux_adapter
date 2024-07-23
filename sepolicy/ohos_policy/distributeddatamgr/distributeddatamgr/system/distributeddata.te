@@ -203,3 +203,6 @@ allow distributeddata powermgr:dir { search };
 allow distributeddata powermgr:file { getattr open read };
 allow distributeddata sa_memory_manager_service:samgr_class { get };
 allow distributeddata memmgrservice:binder { call };
+allow distributeddata data_service_el3_file:dir { search };
+allow distributeddata data_service_el4_file:dir { search };
+allow distributeddata data_service_el5_file:dir { search };
