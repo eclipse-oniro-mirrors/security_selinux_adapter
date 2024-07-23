@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type isolated_render, domain;
-type isolated_gpu, hap_domain, domain;
-type web_private_param, parameter_attr;
+# avc_audit_slow:262] avc: denied { write } for pid=860, comm="/system/bin/sa_main"  path="/proc/55298/task/55341/cgroup_inherit_flg" dev="" ino=123160 scontext=u:r:resource_schedule_executor:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+allow resource_schedule_executor isolated_render:file { write };
+
