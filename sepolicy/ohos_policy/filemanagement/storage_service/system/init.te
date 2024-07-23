@@ -42,4 +42,4 @@ allow init proc_version_file:file { open read };
 #avc:  denied  { module_request } for  pid=1 comm="init" kmod="crypto-cryptd(__cts-cbc-aes-ce)-all" scontext=u:r:init:s0 tcontext=u:r:kernel:s0 tclass=system permissive=0
 allow init kernel:system { module_request };
 allow init data_service_storage_daemon_sd_file:dir { open read relabelto setattr search write };
-allow init data_service_storage_daemon_sd_file:file { relabelto };
+allow init data_service_storage_daemon_sd_file:file { relabelto getattr read open };
