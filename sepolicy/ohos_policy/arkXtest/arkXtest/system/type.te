@@ -82,4 +82,6 @@ developer_only(`
     allow uitest sa_pasteboard_service:samgr_class { get };
     allow uitest samgr:binder { transfer };
     allow uitest persist_sys_param:file { map read open };
+    allow uitest sa_param_watcher:samgr_class { get };
+    allow uitest param_watcher:binder { call transfer };
 ')
