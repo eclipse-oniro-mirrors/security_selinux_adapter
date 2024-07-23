@@ -18,4 +18,19 @@ developer_only(`
     allow test_server uitest:binder { call };
     allow test_server dev_unix_socket:dir { search };
     allow test_server aa:binder { call };
+
+    allow test_server pasteboard_service:binder { call };
+    allow test_server sa_pasteboard_service:samgr_class { get };
+')
+
+debug_only(`
+    allow test_server sa_test_server:samgr_class { add };
+    allow test_server hilog_param:file { read open };
+    allow test_server samgr:binder { call };
+    allow test_server uitest:binder { call };
+    allow test_server dev_unix_socket:dir { search };
+    allow test_server aa:binder { call };
+
+    allow test_server pasteboard_service:binder { call };
+    allow test_server sa_pasteboard_service:samgr_class { get };
 ')
