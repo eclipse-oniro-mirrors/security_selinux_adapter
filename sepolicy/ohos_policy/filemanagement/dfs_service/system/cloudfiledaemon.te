@@ -69,7 +69,6 @@ allow cloudfiledaemon port:tcp_socket { name_connect name_bind };
 allow cloudfiledaemon system_bin_file:dir { search };
 allow cloudfiledaemon medialibrary_hap_data_file:dir { search read open };
 allow cloudfiledaemon medialibrary_hap_data_file:file { read open getattr write ioctl lock map };
-allow cloudfiledaemon system_core_hap:fd { use };
 allow cloudfiledaemon sa_dataobs_mgr_service_service:samgr_class { get };
 allow cloudfiledaemon sa_distributeddata_service:samgr_class { get };
 allow cloudfiledaemon normal_hap_attr:fd { use };
