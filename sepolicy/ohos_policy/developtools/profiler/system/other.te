@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+allow audio_server audio_server:binder transfer;
+allow audio_server audio_server:binder call;
 allow deviceauth_service paramservice_socket:sock_file write;
 allow deviceauth_service kernel:unix_stream_socket connectto;
 allow foundation data_service_el1_file:file ioctl;
