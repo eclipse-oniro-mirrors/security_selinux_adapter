@@ -204,3 +204,6 @@ allow normal_hap_attr pasteboard_service:fd { use };
 
 allow normal_hap_attr port:tcp_socket { name_bind };
 
+# avc:  denied  { getsched } for  pid=13392 comm="chrome_crashpad" scontext=u:r:normal_hap:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+allow normal_hap_attr isolated_render:process { getsched };
+

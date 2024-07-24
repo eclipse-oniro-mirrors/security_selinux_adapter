@@ -65,6 +65,5 @@ allow wifi_manager_service wifi_manager_service:capability { net_admin net_raw n
 allow wifi_manager_service wifi_manager_service:udp_socket { connect write };
 allow wifi_manager_service wifi_manager_service:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
 allow wifi_manager_service wifi_manager_service:unix_dgram_socket { ioctl };
-allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x8933 0x8910};
 allowxperm wifi_manager_service wifi_manager_service:unix_dgram_socket ioctl { 0x8933 0x8910};
 allowxperm wifi_manager_service data_misc:file ioctl { 0x5413 };

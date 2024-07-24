@@ -11,4 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation wifi_manager_service:fd { use };
+# avc:  denied  { read } for  pid=7731 comm="hidumper" path="/proc/7551/stat" dev="proc" ino=57233 scontext=u:r:hidumper:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+allow hidumper isolated_render:file { read };
+

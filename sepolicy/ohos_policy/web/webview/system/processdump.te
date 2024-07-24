@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-persist.moduleupdate.bms.        u:object_r:update_updater_param:s0
-persist.moduleupdate.bms.install.        u:object_r:update_updater_param:s0
+# avc:  denied  { read write } for  pid=21596 comm="processdump" path="socket:[88840]" dev="sockfs" ino=88840 scontext=u:r:processdump:s0 tcontext=u:r:isolated_render:s0 tclass=unix_stream_socket permissive=1
+allow processdump isolated_render:unix_stream_socket { read write };
+

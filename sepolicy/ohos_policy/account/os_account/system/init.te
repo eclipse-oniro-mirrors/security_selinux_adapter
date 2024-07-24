@@ -18,4 +18,3 @@ dontaudit init accountmgr:process { noatsecure };
 allow init account_data_file:dir { relabelto read open setattr };
 allow init account_data_file:dir { getattr };
 allow init account_data_file:file { getattr };
-

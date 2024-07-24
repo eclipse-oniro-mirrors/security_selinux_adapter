@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow input_isolate_attr sa_download_service:samgr_class { get };
-neverallow input_isolate_attr sa_foundation_cesfwk_service:samgr_class { get };
-neverallow input_isolate_attr download_server:binder { call transfer };
-neverallow input_isolate_attr download_server:fd use;
+# avc_audit_slow:262] avc: denied { write } for pid=860, comm="/system/bin/sa_main"  path="/proc/55298/task/55341/cgroup_inherit_flg" dev="" ino=123160 scontext=u:r:resource_schedule_executor:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+allow resource_schedule_executor isolated_render:file { write };
+
