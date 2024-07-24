@@ -17,7 +17,6 @@ allow input_isolate_hap sa_local_code_sign:samgr_class { get };
 
 # allow input_isolate_hap to interact with sa
 binder_call(input_isolate_hap, cadaemon);
-binder_call(input_isolate_hap, cast_engine_service);
 binder_call(input_isolate_hap, cert_manager_service);
 binder_call(input_isolate_hap, concurrent_task_service);
 binder_call(input_isolate_hap, devattest_service);
@@ -30,7 +29,6 @@ binder_call(input_isolate_hap, quick_fix);
 binder_call(input_isolate_hap, security_component_service);
 
 binder_call(cadaemon, input_isolate_hap);
-binder_call(cast_engine_service, input_isolate_hap);
 binder_call(cert_manager_service, input_isolate_hap);
 binder_call(concurrent_task_service, input_isolate_hap);
 binder_call(devattest_service, input_isolate_hap);
