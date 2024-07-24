@@ -129,8 +129,6 @@ allow media_service concurrent_task_service:binder { call };
 
 allow media_service sa_av_codec_service:samgr_class { get };
 
-allow media_service sa_concurrent_task_service:samgr_class { get };
-
 allow media_service av_codec_service:binder { call transfer };
 
 allow media_service av_codec_service:fd { use };
