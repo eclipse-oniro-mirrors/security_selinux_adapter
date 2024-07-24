@@ -12,16 +12,8 @@
 # limitations under the License.
 
 # allow input_isolate_hap to get sa
-allow input_isolate_hap sa_av_codec_service:samgr_class { get };
-allow input_isolate_hap sa_cert_manager_service:samgr_class { get };
-allow input_isolate_hap sa_dlp_permission:samgr_class { get };
 allow input_isolate_hap sa_ecological_rule_mgr_service:samgr_class { get };
-allow input_isolate_hap sa_el5_filekey_manager:samgr_class { get };
 allow input_isolate_hap sa_local_code_sign:samgr_class { get };
-allow input_isolate_hap sa_media_monitor:samgr_class { get };
-allow input_isolate_hap sa_print_service:samgr_class { get };
-allow input_isolate_hap sa_quick_fix_mgr_service:samgr_class { get };
-allow input_isolate_hap sa_security_component:samgr_class { get };
 
 # allow input_isolate_hap to interact with sa
 binder_call(input_isolate_hap, cadaemon);
