@@ -81,3 +81,6 @@ allow isolated_gpu persist_sys_param:file { map open read };
 allow isolated_gpu sa_av_codec_service:samgr_class { get };
 allow isolated_gpu sa_device_service_manager:samgr_class { get };
 allow isolated_gpu codec_host:fd { use };
+allow isolated_gpu av_codec_service:fd { use };
+
+allow isolated_gpu isolated_gpu:process { ptrace };

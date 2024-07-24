@@ -13,3 +13,4 @@
 
 type fwmark_service, dev_attr, file_attr;
 type dnsproxy_service, dev_attr, file_attr;
+type vpnmanager, sadomain, domain;

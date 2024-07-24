@@ -60,10 +60,11 @@ allow hidumper_service hidumper:binder call;
 allow hidumper_service hidumper:dir { getattr open read search };
 allow hidumper_service hidumper:file { getattr open read };
 allow hidumper_service hidumper:lnk_file read;
+allow hidumper_service hidumper:fd use;
 allow hidumper_service hidumper_exec:file { getattr map open read };
 
 allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
-allow hidumper_service hidumper_file:file { create ioctl open unlink write };
+allow hidumper_service hidumper_file:file { create ioctl open unlink write getattr };
 
 allow hidumper_service hilogd_exec:file { getattr map open read };
 allow hidumper_service hiview_exec:file { getattr map open read };
@@ -176,7 +177,7 @@ allow hidumper_service hilog_exec:file { execute execute_no_trans getattr map op
 allow hidumper_service proc_file:file { open read };
 allow hidumper_service processdump:dir search;
 allow hidumper_service processdump:file { open read };
-allow hidumper_service sysfs_devices_system_cpu:file { getattr open read };
+allow hidumper_service sysfs_devices_system_cpu:file { open read };
 allow hidumper_service tty_device:chr_file getattr;
 allow hidumper_service hdcd:fifo_file write;
 
@@ -291,7 +292,6 @@ allow hidumper_service debugfs_stats:file { getattr open read };
 allow hidumper_service debugfs_state:file { getattr open read };
 allow hidumper_service data_log:file { read write };
 
-allow hidumper_service hiview:binder { transfer };
 allow hidumper_service hiperf:file { getattr };
 
 neverallow hidumper_service *:process ptrace;
@@ -305,3 +305,5 @@ allow hidumper_service hap_domain:lnk_file { read getattr };
 
 allow hidumper_service isolated_render:file { getattr open read };
 allow hidumper_service isolated_render:dir { search };
+
+allow hidumper_service chip_prod_file:dir { search };

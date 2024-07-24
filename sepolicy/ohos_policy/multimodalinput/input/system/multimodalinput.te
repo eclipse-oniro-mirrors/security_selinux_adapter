@@ -35,7 +35,7 @@ allow multimodalinput dev_input_file:chr_file { ioctl };
 allow multimodalinput dev_input_file:dir { watch open read search getattr };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
-allow multimodalinput distributeddata:binder { call };
+allow multimodalinput distributeddata:binder { call transfer };
 allow multimodalinput distributeddata:fd { use };
 allow multimodalinput allocator_host:binder { call };
 allow multimodalinput allocator_host:fd { use };

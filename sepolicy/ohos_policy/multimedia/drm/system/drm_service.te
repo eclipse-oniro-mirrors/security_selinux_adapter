@@ -29,7 +29,7 @@ allow drm_service dcamera:binder { transfer };
 
 debug_only(`
     allow drm_service sh:binder { call transfer };
-    allow drm_service su:binder { transfer call };
+    allow drm_service su:binder { call transfer };
 ')
 
 #avc:  denied  { get } for service=401 pid=599 scontext=u:r:drm_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1

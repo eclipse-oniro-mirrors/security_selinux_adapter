@@ -338,10 +338,16 @@ allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
 allow storage_daemon data_service_el2_file:file { relabelfrom };
 allow storage_daemon data_service_el4_file:file { relabelfrom };
+allow storage_daemon data_service_el2_hmdfs:file { read open write open };
+
 storage_daemon_relabel(data_service_el2_share);
+
 allow storage_daemon data_app_el2_file:file { unlink };
 allow storage_daemon data_chipset_el2_file:file { unlink };
 allow storage_daemon data_app_el5_file:file { unlink };
+allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };
+allow storage_daemon el5_filekey_manager:binder { call };
+allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
 allowxperm storage_daemon data_service_storage_daemon_sd_file:file ioctl { 0x5413 };
 allowxperm storage_daemon data_service_storage_daemon_sd_file:dir ioctl { 0x5413 };
 allow storage_daemon data_service_storage_daemon_sd_file:dir { add_name search create remove_name rename rmdir getattr open read write relabelto };
@@ -351,11 +357,9 @@ neverallow { domain -storage_daemon -init updater_only(`-updater') } data_servic
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:file { create ioctl setattr open read write relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:file { unlink getattr };
 
-allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };
-allow storage_daemon el5_filekey_manager:binder { call };
-allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
 
-# avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0: tclass=samgr_class permissive=0
+
+# avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
 allow storage_daemon sa_useriam_useridm_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 

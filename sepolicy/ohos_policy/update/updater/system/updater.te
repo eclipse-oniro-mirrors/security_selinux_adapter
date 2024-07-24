@@ -108,11 +108,9 @@ allowxperm updater update_firmware_file:file ioctl { 0x5413 };
 #avc: denied { search } for pid=228 comm="updater" name="block" dev="tmpfs" ino=99 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=dir permissive=1
 allow updater dev_block_volfile:dir { search };
 
-# avc: denied { set } for process="updater" parameter=updater.hdc.configfs pid=234 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:updater_hdc_param:s0 tclass=parameter_service permissive=1
-allow updater updater_hdc_param:parameter_service { set };
-
-#avc: denied { set } for process="unknown process" parameter=updater.data.configs pid=232 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:updater_data_param:s0 tclass=parameter_service permissive=0
-allow updater updater_data_param:parameter_service { set };
+# avc: denied { set } for process="updater" parameter=updater.hdc.configfs pid=234 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=parameter_service permissive=1
+#avc: denied { set } for process="unknown process" parameter=updater.data.configs pid=232 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=parameter_service permissive=0
+allow updater update_updater_param:parameter_service { set };
 
 #avc: denied { read } for pid=227 comm="updater" name="bin" dev="rootfs" ino=17791 scontext=u:r:updater:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file permissive=1
 allow updater system_bin_file:lnk_file { read };
@@ -376,6 +374,9 @@ allow updater data_file:dir { relabelto setattr };
 # avc: denied { append } for pid=235 comm="updater" path="/data/updater/log/updater_log" dev="mmcblk0p12" ino=9 scontext=u:r:updater:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
 allow updater data_file:file { append };
 
+# avc: denied { getattr } for pid=235 comm="updater" path="/data" dev="mmcblk0p12" ino=3 scontext=u:r:updater:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
+# avc: denied { relabelfrom } for pid=235 comm="updater" name="/" dev="mmcblk0p12" ino=3 scontext=u:r:updater:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
+allow updater unlabeled:dir { getattr relabelfrom };
 allow updater devinfo_private_param:file { map open read };
 
 # avc: denied { relabelto } for pid=232 comm="updater" name="updater_binary" dev="tmpfs" ino=5 scontext=u:r:updater:s0 tcontext=u:object_r:updater_binary_exec:s0 tclass=file permissive=1

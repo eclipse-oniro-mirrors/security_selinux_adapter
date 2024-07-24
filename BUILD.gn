@@ -21,16 +21,17 @@ if (!use_musl) {
 }
 
 special_build_selinux_gni_exist =
-    special_build_selinux_gni_path != "" &&
+    selinux_adapter_special_build_selinux_gni_path != "" &&
     exec_script("/bin/sh",
                 [
                   "-c",
-                  "if [ -f " + rebase_path(special_build_selinux_gni_path) +
+                  "if [ -f " + rebase_path(
+                          selinux_adapter_special_build_selinux_gni_path) +
                       " ]; then echo true; else echo false; fi",
                 ],
                 "value")
 if (special_build_selinux_gni_exist) {
-  import(special_build_selinux_gni_path)
+  import(selinux_adapter_special_build_selinux_gni_path)
 }
 
 config("selinux_core_config") {
@@ -48,7 +49,7 @@ ohos_shared_library("libload_policy") {
     "-Wall",
     "-Werror",
   ]
-  if (support_developer_mode) {
+  if (selinux_adapter_support_developer_mode) {
     cflags += [ "-DWITH_DEVELOPER" ]
   }
   install_enable = true
@@ -404,8 +405,8 @@ action("build_policy") {
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("sepolicy") ],
                        "list lines")
-  if (selinux_build_path != "default") {
-    foreach(src, string_split(selinux_build_path, ":")) {
+  if (selinux_adapter_build_path != "default") {
+    foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
       inputs += exec_script("//build/scripts/find.py",
                             [ rebase_path(src) ],
@@ -413,12 +414,13 @@ action("build_policy") {
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
-      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+      selinux_adapter_build_path =
+          selinux_adapter_build_path + ":" + selinux_build_path_ext
     }
   }
 
-  if (special_build_policy_script != "default") {
-    script = special_build_policy_script
+  if (selinux_adapter_special_build_policy_script != "default") {
+    script = selinux_adapter_special_build_policy_script
   } else {
     script = "scripts/build_policy.py"
   }
@@ -431,24 +433,24 @@ action("build_policy") {
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
-    selinux_build_path,
+    selinux_adapter_build_path,
     "--debug-version",
     debug_version,
     "--updater-version",
     updater_version,
     "--components",
-    components,
+    selinux_adapter_components,
   ]
 
-  if (components != "default") {
+  if (selinux_adapter_components != "default") {
     args += [
       "--vendor-policy-version",
-      "$vendor_policy_version",
+      "$selinux_adapter_vendor_policy_version",
     ]
   }
 
-  if (extra_args != "default") {
-    foreach(arg, string_split(extra_args, " ")) {
+  if (selinux_adapter_extra_args != "default") {
+    foreach(arg, string_split(selinux_adapter_extra_args, " ")) {
       args += [ arg ]
     }
   }
@@ -464,7 +466,7 @@ action("build_policy") {
     target_out_dir + "/prebuild_sepolicy.system.cil.sha256",
     target_out_dir + "/system.cil",
     target_out_dir + "/system.cil.sha256",
-    target_out_dir + "/compatible/$vendor_policy_version.cil",
+    target_out_dir + "/compatible/$selinux_adapter_vendor_policy_version.cil",
     target_out_dir + "/compatible",
     target_out_dir + "/version",
     target_out_dir + "/public.cil",
@@ -473,7 +475,8 @@ action("build_policy") {
   outputs += [
     target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256",
     target_out_dir + "/developer/system.cil.sha256",
-    target_out_dir + "/developer/compatible/$vendor_policy_version.cil",
+    target_out_dir +
+        "/developer/compatible/$selinux_adapter_vendor_policy_version.cil",
     target_out_dir + "/developer/compatible",
     target_out_dir + "/developer/developer_policy",
     target_out_dir + "/developer/policy.31",
@@ -482,7 +485,7 @@ action("build_policy") {
     target_out_dir + "/developer/public.cil",
   ]
 
-  if (components != "default") {
+  if (selinux_adapter_components != "default") {
     outputs += [
       target_out_dir + "/system_common.cil",
       target_out_dir + "/vendor_common.cil",
@@ -501,12 +504,12 @@ action("build_update_policy") {
   }
 
   updater_version = "enable"
-  components = "default"
+  selinux_adapter_components = "default"
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("sepolicy") ],
                        "list lines")
-  if (selinux_build_path != "default") {
-    foreach(src, string_split(selinux_build_path, ":")) {
+  if (selinux_adapter_build_path != "default") {
+    foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
       inputs += exec_script("//build/scripts/find.py",
                             [ rebase_path(src) ],
@@ -514,13 +517,13 @@ action("build_update_policy") {
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext_updater != "default") {
-      selinux_build_path =
-          selinux_build_path + ":" + selinux_build_path_ext_updater
+      selinux_adapter_build_path =
+          selinux_adapter_build_path + ":" + selinux_build_path_ext_updater
     }
   }
 
-  if (special_build_policy_script != "default") {
-    script = special_build_policy_script
+  if (selinux_adapter_special_build_policy_script != "default") {
+    script = selinux_adapter_special_build_policy_script
   } else {
     script = "scripts/build_policy.py"
   }
@@ -533,17 +536,17 @@ action("build_update_policy") {
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
-    selinux_build_path,
+    selinux_adapter_build_path,
     "--debug-version",
     debug_version,
     "--updater-version",
     updater_version,
     "--components",
-    components,
+    selinux_adapter_components,
   ]
 
-  if (extra_args != "default") {
-    foreach(arg, string_split(extra_args, " ")) {
+  if (selinux_adapter_extra_args != "default") {
+    foreach(arg, string_split(selinux_adapter_extra_args, " ")) {
       args += [ arg ]
     }
   }
@@ -559,8 +562,8 @@ action("build_contexts") {
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("sepolicy") ],
                        "list lines")
-  if (selinux_build_path != "default") {
-    foreach(src, string_split(selinux_build_path, ":")) {
+  if (selinux_adapter_build_path != "default") {
+    foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
       inputs += exec_script("//build/scripts/find.py",
                             [ rebase_path(src) ],
@@ -568,12 +571,13 @@ action("build_contexts") {
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
-      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+      selinux_adapter_build_path =
+          selinux_adapter_build_path + ":" + selinux_build_path_ext
     }
   }
 
-  if (special_build_contexts_script != "default") {
-    script = special_build_contexts_script
+  if (selinux_adapter_special_build_contexts_script != "default") {
+    script = selinux_adapter_special_build_contexts_script
   } else {
     script = "scripts/build_contexts.py"
   }
@@ -587,12 +591,12 @@ action("build_contexts") {
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
-    selinux_build_path,
+    selinux_adapter_build_path,
     "--components",
-    components,
+    selinux_adapter_components,
   ]
-  if (contexts_extra_args != "default") {
-    foreach(arg, string_split(contexts_extra_args, " ")) {
+  if (selinux_adapter_contexts_extra_args != "default") {
+    foreach(arg, string_split(selinux_adapter_contexts_extra_args, " ")) {
       args += [ arg ]
     }
   }
@@ -612,8 +616,8 @@ action("build_ignore_cfg") {
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("sepolicy") ],
                        "list lines")
-  if (selinux_build_path != "default") {
-    foreach(src, string_split(selinux_build_path, ":")) {
+  if (selinux_adapter_build_path != "default") {
+    foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
       inputs += exec_script("//build/scripts/find.py",
                             [ rebase_path(src) ],
@@ -621,7 +625,8 @@ action("build_ignore_cfg") {
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
-      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+      selinux_adapter_build_path =
+          selinux_adapter_build_path + ":" + selinux_build_path_ext
     }
   }
 
@@ -636,9 +641,9 @@ action("build_ignore_cfg") {
     "--source-root-dir",
     rebase_path("//"),
     "--policy-dir-list",
-    selinux_build_path,
+    selinux_adapter_build_path,
     "--components",
-    components,
+    selinux_adapter_components,
   ]
   outputs = [ target_out_dir + "/ignore_cfg" ]
 }
@@ -647,8 +652,8 @@ action("build_updater_contexts") {
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("sepolicy") ],
                        "list lines")
-  if (selinux_build_path != "default") {
-    foreach(src, string_split(selinux_build_path, ":")) {
+  if (selinux_adapter_build_path != "default") {
+    foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
       inputs += exec_script("//build/scripts/find.py",
                             [ rebase_path(src) ],
@@ -656,13 +661,13 @@ action("build_updater_contexts") {
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext_updater != "default") {
-      selinux_build_path =
-          selinux_build_path + ":" + selinux_build_path_ext_updater
+      selinux_adapter_build_path =
+          selinux_adapter_build_path + ":" + selinux_build_path_ext_updater
     }
   }
 
-  if (special_build_contexts_script != "default") {
-    script = special_build_contexts_script
+  if (selinux_adapter_special_build_contexts_script != "default") {
+    script = selinux_adapter_special_build_contexts_script
   } else {
     script = "scripts/build_contexts.py"
   }
@@ -676,12 +681,12 @@ action("build_updater_contexts") {
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
-    selinux_build_path,
+    selinux_adapter_build_path,
     "--components",
-    components,
+    selinux_adapter_components,
   ]
-  if (contexts_extra_args != "default") {
-    foreach(arg, string_split(contexts_extra_args, " ")) {
+  if (selinux_adapter_contexts_extra_args != "default") {
+    foreach(arg, string_split(selinux_adapter_contexts_extra_args, " ")) {
       args += [ arg ]
     }
   }
@@ -700,8 +705,9 @@ action("build_updater_contexts") {
 action("selinux_check") {
   script = "scripts/selinux_check/selinux_check_main.py"
 
-  if (selinux_check_extend_list != "default") {
-    selinux_build_path = selinux_build_path + ":" + selinux_check_extend_list
+  if (selinux_adapter_check_extend_list != "default") {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + selinux_adapter_check_extend_list
   }
 
   args = [
@@ -716,7 +722,7 @@ action("selinux_check") {
     "--tool-path",
     rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
     "--policy-dir-list",
-    selinux_build_path,
+    selinux_adapter_build_path,
   ]
 
   if (special_selinux_check_config != "default") {
@@ -740,7 +746,7 @@ action("selinux_check") {
 }
 
 copy("selinux_config") {
-  if (selinux_enforce) {
+  if (selinux_adapter_enforce) {
     sources = [ "config/config.enforce" ]
   } else {
     sources = [ "config/config.permissive" ]
@@ -759,11 +765,11 @@ ohos_prebuilt_etc("build_sepolicy") {
   license_file = "LICENSE"
   part_name = "selinux_adapter"
   subsystem_name = "security"
-  if (components == "vendor") {
+  if (selinux_adapter_components == "vendor") {
     relative_install_dir = "selinux/prebuild_sepolicy/"
     install_images = [ "vendor" ]
-  } else if (components == "default") {
-    if (!support_developer_mode) {
+  } else if (selinux_adapter_components == "default") {
+    if (!selinux_adapter_support_developer_mode) {
       source = target_out_dir + "/developer/policy.31"
     }
     relative_install_dir = "selinux/targeted/policy/"
@@ -827,7 +833,7 @@ ohos_prebuilt_etc("parameter_contexts") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
-  if (components == "vendor") {
+  if (selinux_adapter_components == "vendor") {
     install_images = [ "vendor" ]
   } else {
     install_images = [
@@ -844,7 +850,7 @@ ohos_prebuilt_etc("service_contexts") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
-  if (components == "vendor") {
+  if (selinux_adapter_components == "vendor") {
     install_images = [ "vendor" ]
   } else {
     install_images = [ "system" ]
@@ -858,7 +864,7 @@ ohos_prebuilt_etc("hdf_service_contexts") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
-  if (components == "vendor") {
+  if (selinux_adapter_components == "vendor") {
     install_images = [ "vendor" ]
   } else {
     install_images = [ "system" ]
@@ -872,7 +878,7 @@ ohos_prebuilt_etc("file_contexts") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
-  if (components == "vendor") {
+  if (selinux_adapter_components == "vendor") {
     install_images = [ "vendor" ]
   } else {
     install_images = [ "system" ]
@@ -886,7 +892,7 @@ ohos_prebuilt_etc("ignore_cfg") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
-  if (components == "vendor") {
+  if (selinux_adapter_components == "vendor") {
     install_images = [ "vendor" ]
   } else {
     install_images = [ "system" ]
@@ -900,7 +906,7 @@ ohos_prebuilt_etc("file_contexts_updater") {
   part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
-  if (components == "vendor") {
+  if (selinux_adapter_components == "vendor") {
     install_images = [ "updater_vendor" ]
   } else {
     install_images = [ "updater" ]
@@ -917,7 +923,7 @@ ohos_prebuilt_etc("vendor_cil") {
   install_images = [ "vendor" ]
 }
 
-if (components == "vendor") {
+if (selinux_adapter_components == "vendor") {
   ohos_prebuilt_etc("vendor_common_cil") {
     deps = [ ":build_policy" ]
     source = target_out_dir + "/vendor_common.cil"
@@ -939,7 +945,7 @@ ohos_prebuilt_etc("public_cil") {
   install_images = [ "vendor" ]
 }
 
-if (components == "vendor") {
+if (selinux_adapter_components == "vendor") {
   ohos_prebuilt_etc("public_common_cil") {
     deps = [ ":build_policy" ]
     source = target_out_dir + "/public_common.cil"
@@ -953,7 +959,8 @@ if (components == "vendor") {
 
 ohos_prebuilt_etc("version_cil") {
   deps = [ ":build_policy" ]
-  source = target_out_dir + "/compatible/$vendor_policy_version.cil"
+  source =
+      target_out_dir + "/compatible/$selinux_adapter_vendor_policy_version.cil"
   license_file = "LICENSE"
   part_name = "selinux_adapter"
   subsystem_name = "security"
@@ -981,7 +988,7 @@ ohos_prebuilt_etc("system_cil") {
   install_images = [ "system" ]
 }
 
-if (components == "system") {
+if (selinux_adapter_components == "system") {
   ohos_prebuilt_etc("system_common_cil") {
     deps = [ ":build_policy" ]
     source = target_out_dir + "/system_common.cil"
@@ -1003,7 +1010,7 @@ ohos_prebuilt_etc("system_cil_sha256") {
   install_images = [ "system" ]
 }
 
-if (support_developer_mode) {
+if (selinux_adapter_support_developer_mode) {
   ohos_prebuilt_etc("system_developer_cil") {
     deps = [ ":build_policy" ]
     source = target_out_dir + "/developer/system.cil"
@@ -1039,7 +1046,8 @@ if (support_developer_mode) {
 
   ohos_prebuilt_etc("version_developer_cil") {
     deps = [ ":build_policy" ]
-    source = target_out_dir + "/developer/compatible/$vendor_policy_version.cil"
+    source = target_out_dir +
+             "/developer/compatible/$selinux_adapter_vendor_policy_version.cil"
     license_file = "LICENSE"
     part_name = "selinux_adapter"
     subsystem_name = "security"
@@ -1054,10 +1062,10 @@ if (support_developer_mode) {
     license_file = "LICENSE"
     part_name = "selinux_adapter"
     subsystem_name = "security"
-    if (components == "vendor") {
+    if (selinux_adapter_components == "vendor") {
       relative_install_dir = "selinux/prebuild_sepolicy/"
       install_images = [ "vendor" ]
-    } else if (components == "default") {
+    } else if (selinux_adapter_components == "default") {
       relative_install_dir = "selinux/targeted/policy/"
       install_images = [ "system" ]
     }
@@ -1116,7 +1124,7 @@ ohos_copy("filecontexts_toolchain") {
   subsystem_name = "security"
 }
 
-if (components != "default") {
+if (selinux_adapter_components != "default") {
   copy("eng_system_compatible") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/compatible" ]
@@ -1300,21 +1308,21 @@ group("selinux_group") {
         "selinux:setenforce",
         "selinux:setfilecon",
       ]
-      if (components == "system") {
+      if (selinux_adapter_components == "system") {
         deps += [
           ":system_cil",
           ":system_cil_sha256",
           ":system_common_cil",
           ":version_cil",
         ]
-        if (support_developer_mode) {
+        if (selinux_adapter_support_developer_mode) {
           deps += [
             ":system_developer_cil",
             ":system_developer_cil_sha256",
             ":version_developer_cil",
           ]
         }
-      } else if (components == "vendor") {
+      } else if (selinux_adapter_components == "vendor") {
         deps += [
           ":build_sepolicy",
           ":prebuild_sepolicy_system_cil_sha256",
@@ -1324,7 +1332,7 @@ group("selinux_group") {
           ":vendor_cil",
           ":vendor_common_cil",
         ]
-        if (support_developer_mode) {
+        if (selinux_adapter_support_developer_mode) {
           deps += [
             ":developer_policy",
             ":prebuild_sepolicy_system_developer_cil_sha256",
@@ -1334,7 +1342,7 @@ group("selinux_group") {
         }
       } else {
         deps += [ ":build_sepolicy" ]
-        if (support_developer_mode) {
+        if (selinux_adapter_support_developer_mode) {
           deps += [ ":developer_policy" ]
         }
       }

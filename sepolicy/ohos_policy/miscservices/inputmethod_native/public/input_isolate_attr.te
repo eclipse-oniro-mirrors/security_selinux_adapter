@@ -11,4 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow render_service wifi_manager_service:fd { use };
+neverallow input_isolate_attr sa_download_service:samgr_class { get };
+neverallow input_isolate_attr sa_foundation_cesfwk_service:samgr_class { get };
+neverallow input_isolate_attr download_server:binder { call transfer };
+neverallow input_isolate_attr download_server:fd use;

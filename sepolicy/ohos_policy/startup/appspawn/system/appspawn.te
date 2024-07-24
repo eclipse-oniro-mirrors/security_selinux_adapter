@@ -140,7 +140,7 @@ allow appspawn share_public_file:dir { search };
 allow appspawn pid_ns_init:process { dyntransition };
 allow appspawn share_public_file:dir { search create add_name write };
 # for app cgroup pids
-allow appspawn cgroup:dir { add_name create search open read write };
+allow appspawn cgroup:dir { add_name create search open read write remove_name rmdir };
 allow appspawn cgroup:file { append getattr ioctl open read write };
 allowxperm appspawn cgroup:file ioctl {  0x5413  };
 
@@ -233,3 +233,9 @@ allow appspawn sysfs_net:file { write open };
 
 #avc:  denied  { remount } for  pid=22332 comm="example.demo100" scontext=u:r:appspawn:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=1
 allow appspawn labeledfs:filesystem { remount };
+allow appspawn bootuptrace_file:dir { add_name getattr open read search write relabelto };
+allow appspawn bootuptrace_file:file { create getattr write open relabelto };
+
+# for sudo
+allow appspawn etc_hosts_file:dir { search };
+allow appspawn etc_hosts_file:file { getattr mounton };

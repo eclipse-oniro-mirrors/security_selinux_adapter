@@ -19,3 +19,4 @@
 /system/bin/ip6tables             u:object_r:iptables_exec:s0
 /system/bin/ip6tables-restore     u:object_r:iptables_exec:s0
 /system/bin/ip6tables-save        u:object_r:iptables_exec:s0
+/data/service/el1/network/hosts_user(/.*)?   u:object_r:etc_hosts_file:s0
