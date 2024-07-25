@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow audio_server sharing_service:binder { call };
+#audio_policy => audio_server
+allow audio_server sharing_service:binder { call transfer };

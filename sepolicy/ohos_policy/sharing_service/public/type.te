@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type sa_sharing_service, sa_service_attr;
+type sa_sharing_service_domain, sa_service_attr;
