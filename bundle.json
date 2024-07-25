@@ -12,7 +12,7 @@
   "component": {
     "name": "selinux_adapter",
     "subsystem": "security",
-    "feature": [
+    "features": [
       "selinux_adapter_build_path",
       "selinux_adapter_components",
       "selinux_adapter_enforce",
@@ -23,7 +23,9 @@
       "selinux_adapter_special_build_contexts_script",
       "selinux_adapter_contexts_extra_args",
       "selinux_adapter_special_build_selinux_gni_path",
-      "selinux_adapter_check_extend_list"
+      "selinux_adapter_check_extend_list",
+      "selinux_adapter_seharmony_build_path",
+      "selinux_adapter_seharmony_build_path_updater"
     ],
     "adapted_system_type": [
       "standard"
