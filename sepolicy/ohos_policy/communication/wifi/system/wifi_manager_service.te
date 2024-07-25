@@ -142,8 +142,13 @@ allow wifi_manager_service dev_block_volfile:dir { search };
 allow wifi_manager_service kernel:unix_stream_socket { connectto };
 allow wifi_manager_service data_vendor:dir { search };
 
+# avc:  denied  { set } for parameter=persist.wifi_country_code.dynamic_update pid=3941 uid=1010 gid=1010 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=0
 allow wifi_manager_service persist_param:parameter_service { set };
+
+# avc:  denied  { search } for  pid=3925 comm="RunHandleThread" name="by-name" dev="tmpfs" ino=13 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=0
 allow wifi_manager_service dev_block_file:dir { search };
+ 
+# avc:  denied  { read } for  pid=3927 comm="RunHandleThread" name="conn_calidata" dev="tmpfs" ino=379 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=0
 allow wifi_manager_service dev_block_file:lnk_file { read };
 
 # avc:  denied  { getattr } for  pid=1419 comm="RunHandleThread" laddr=7.246.161.199 lport=52412 faddr=121.14.84.231 fport=80 scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=tcp_socket permissive=1
