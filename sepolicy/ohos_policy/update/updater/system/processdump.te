@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 updater_only(`
-# avc_audit_slow:267] avc: denied { append } for pid=796, comm="/bin/processdump"  path="/log/updater/updater_log" dev="/dev/block/by-name/log" ino=40 scontext=u:r:processdump:s0 tcontext=u:object_r:log_updater_file:s0 tclass=file permissive=1
-allow processdump log_updater_file:file { append };
 
 # avc_audit_slow:267] avc: denied { supervsable } for pid=796, comm="/bin/updater_binary"  scontext=u:r:processdump:s0 tcontext=u:r:processdump:s0 tclass=hmcap permissive=1
 allow processdump processdump:hmcap { supervsable };
