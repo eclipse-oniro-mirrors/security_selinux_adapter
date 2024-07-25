@@ -13,6 +13,10 @@
 
 updater_only(`
 
+# avc_audit_slow:267] avc: denied { map } for pid=793, comm="/bin/updater_binary"  path="/dev/__parameters__/u:object_r:persist_param:s0" dev="" ino=179 scontext=u:r:updater_binary:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+# avc_audit_slow:267] avc: denied { open } for pid=793, comm="/bin/updater_binary"  path="/dev/__parameters__/u:object_r:persist_param:s0" dev="" ino=179 scontext=u:r:updater_binary:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+allow updater_binary persist_param:file { map open };
+
 #avc: denied { search } for pid=281 comm="updater" name="/" dev="rootfs" ino=1 scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
 # avc:  denied  { read write } for  pid=273 comm="updater_binary" name="updater" dev="rootfs" ino=20121 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
 # avc:  denied  { add_name } for  pid=269 comm="updater_binary" name="loadScript.us" scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
