@@ -132,6 +132,8 @@ allow resource_schedule_service system_core_hap_attr:binder { call transfer };
 allow resource_schedule_service data_service_file:dir { search };
 # avc: denied { open read search } for pid=873, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:system_fonts_file:s0 tclass=dir permissive=0
 allow resource_schedule_service system_fonts_file:dir { open read search };
+allow resource_schedule_service data_service_el2_file:dir { search };
+allow resource_schedule_service data_service_el2_hmdfs:dir { search };
 
 #for resource_schedule_service cgroup
 # avc: denied { search } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=dir permissive=1
