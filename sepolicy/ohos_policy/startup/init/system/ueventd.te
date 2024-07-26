@@ -50,6 +50,7 @@ allow ueventd dev_dma_heap_file:dir { add_name getattr relabelto search write };
 allow ueventd dev_dri_file:chr_file { create getattr relabelto setattr };
 allow ueventd dev_dri_file:dir { add_name getattr relabelto search write };
 allow ueventd dev_file:chr_file { create getattr relabelfrom setattr unlink };
+allow ueventd dev_mapper_control_file:chr_file { create getattr relabelfrom setattr unlink };
 allow ueventd dev_file:dir { add_name create getattr relabelfrom write remove_name };
 allow ueventd dev_file:file { create read write open };
 allow ueventd dev_full:chr_file { relabelto };
