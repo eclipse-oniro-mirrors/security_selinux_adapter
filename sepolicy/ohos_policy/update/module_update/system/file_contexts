@@ -23,4 +23,4 @@
 /system/module_update(/.*)?         u:object_r:system_module_update_file:s0
 /system/bin/module_update_client   u:object_r:module_update_service_exec:s0
 /system/bin/check_module_update   u:object_r:module_update_service_exec:s0
-
+/dev/mapper/control       u:object_r:dev_mapper_control_file:s0

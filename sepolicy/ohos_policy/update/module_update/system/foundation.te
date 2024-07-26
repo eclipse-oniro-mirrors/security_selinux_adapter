@@ -17,3 +17,6 @@ allow foundation module_update_file:dir { search };
 allow foundation module_update_file:file { open read getattr };
 allow foundation module_update_lib_file:dir { search };
 allow foundation module_update_lib_file:file { open read getattr map execute };
+
+#avc:  denied  { transfer } for  pid=1378 comm="/system/bin/sa_main" scontext=u:r:foundation:s0 tcontext=u:r:module_update_service:s0 tclass=binder permissive=1
+allow foundation module_update_service:binder { transfer };
