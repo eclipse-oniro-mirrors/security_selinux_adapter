@@ -64,6 +64,7 @@ allow hiperf proc_version_file:file getattr;
 allow hiperf proc_vmallocinfo_file:file getattr;
 allow hiperf proc_vmstat_file:file getattr;
 allow hiperf proc_zoneinfo_file:file getattr;
+allow hiperf samain_exec:file { getattr map open read };
 allow hiperf sys_param:file { map open read };
 allow hiperf sys_usb_param:file { map open read };
 allow hiperf tracefs:dir { open read search };
@@ -71,7 +72,7 @@ allow hiperf tracefs:file { getattr open read write ioctl };
 allowxperm hiperf tracefs:file ioctl { 0x5413 };
 allow hiperf tty_device:chr_file { read write };
 
-
+allow hiperf appspawn_exec:file { getattr map open read };
 allow hiperf bootevent_param:file { map open read };
 allow hiperf bootevent_samgr_param:file { map open read };
 allow hiperf build_version_param:file { map open read };
@@ -81,12 +82,17 @@ allow hiperf debug_param:file { map open read };
 allow hiperf devpts:chr_file { read write };
 allow hiperf hdcd:unix_stream_socket { read write };
 allow hiperf hilog_param:file { map open read };
+allow hiperf hilogd_exec:file { getattr map open read };
 allow hiperf persist_param:file { map open read };
 allow hiperf persist_sys_param:file { map open read };
 allow hiperf proc_file:file { getattr open read };
 allow hiperf security_param:file { map open read };
 allow hiperf self:perf_event { cpu kernel open read write };
 allow hiperf startup_param:file { map open read };
+allow hiperf wifi_hal_service_exec:file { getattr map open read };
+allow hiperf hiview_exec:file { getattr map open read };
+allow hiperf storage_daemon_exec:file { getattr map open read };
+
 allow hiperf data_file:dir search;
 allow hiperf dev_unix_socket:dir search;
 allow hiperf system_bin_file:dir search;
@@ -103,10 +109,13 @@ allow hiperf tmpfs:file { read write };
 allow hiperf hiprofiler_plugins:fd use;
 allow hiperf hiprofilerd:fd use;
 allow hiperf hiprofiler_plugins:fifo_file { ioctl write };
+allow hiperf watchdog_service_exec:file { getattr map open read };
 
 allow hiperf data_local_tmp:fifo_file { create open read unlink write };
+allow hiperf hdf_devmgr_exec:file { getattr map open read };
 allow hiperf proc_cpuinfo_file:file { open read };
 allow hiperf sysfs_devices_system_cpu:file { open read };
+allow hiperf uinput_inject_exec:file { getattr map open read };
 allow hiperf vendor_bin_file:dir search;
 
 allow hiperf domain:dir { add_name getattr search open read write };
@@ -127,6 +136,7 @@ allow hiperf init:dir { open read };
 allow hiperf init:process signull;
 allow hiperf render_service:dir { open read };
 allow hiperf render_service:process signull;
+allow hiperf render_service_exec:file { getattr map open read };
 allow hiperf rootfs:dir read;
 allow hiperf self:perf_event tracepoint;
 allow hiperf system_basic_hap_attr:dir { open read };
@@ -158,6 +168,7 @@ allow hiperf chip_prod_file:dir search;
 allow hiperf chip_prod_file:file { getattr map open read };
 allow hiperf sys_file:file { getattr open read };
 allow hiperf sysfs_devices_system_cpu:file getattr;
+allow hiperf udevd_exec:file { getattr map open read };
 allow hiperf ueventd_exec:file read;
 allow hiperf vendor_bin_file:file { getattr map open read };
 
@@ -203,7 +214,9 @@ allow hiperf samgr:binder { call };
 
 allow hiperf param_watcher:binder { call transfer };
 allow hiperf tracefs_trace_marker_file:file { open write };
+allow hiperf hilog_exec:file { getattr map open read };
 allow hiperf rootfs:file { ioctl };
+allow hiperf ueventd_exec:file { getattr map open };
 allow hiperf dev_file:dir getattr;
 
 allow samgr hiperf:file { read open };
@@ -225,12 +238,21 @@ allow hiview proc_file:file { getattr };
 allow hiview debug_param:parameter_service { set };
 
 allow hiperf system_file:file { getattr open read };
+allow hiperf SP_daemon_exec:file { getattr open read };
 allow hiperf data_local_arkcache:dir { search };
 allow hiperf data_local_arkcache:file { getattr open read };
 allow hiperf app_el1_bundle_public:dir { getattr open read search };
 allow hiperf app_el1_bundle_public:file { getattr map open read };
+allow hiperf deviceauth_service_exec:file { getattr map open read };
+allow hiperf faultloggerd_exec:file { getattr map open read };
+allow hiperf hidumper_exec:file { getattr map open read };
+allow hiperf hiprofiler_cmd_exec:file { getattr map open read };
+allow hiperf hiprofiler_plugins_exec:file { getattr map open read };
+allow hiperf hiprofilerd_exec:file { getattr map open read };
+allow hiperf hisysevent_exec:file { getattr map open read };
+allow hiperf hitrace_exec:file { getattr map open read };
+allow hiperf init_exec:file { getattr map open read };
 allow hiperf sys_prod_file:dir { search };
 allow hiperf sys_prod_file:file { getattr map open read };
 allow hiperf system_usr_file:file { getattr map open read };
 allow hiperf data_service_el1_file:file { getattr map open read };
-allow hiperf exec_attr:file { getattr map open read };
