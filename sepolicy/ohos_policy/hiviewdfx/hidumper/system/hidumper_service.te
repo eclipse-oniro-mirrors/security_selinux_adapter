@@ -102,6 +102,11 @@ allow hidumper_service render_service_exec:file { getattr map open read };
 
 allow hidumper_service self:udp_socket { create ioctl };
 
+# avc:  denied  { use } for  pid=1994 comm="hidumper" path="pipe:[39192]" dev="pipefs" ino=39192 scontext=u:r:hidumper_service:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
+allow hidumper_service sh:fd { use };
+# avc:  denied  { write } for  pid=1994 comm="hidumper" path="pipe:[39192]" dev="pipefs" ino=39192 scontext=u:r:hidumper_service:s0 tcontext=u:r:sh:s0 tclass=fifo_file permissive=1
+allow hidumper_service sh:fifo_file { write };
+
 allow hidumper_service sh_exec:file { execute execute_no_trans getattr map open read };
 allow hidumper_service storage_daemon_exec:file { getattr map open read };
 
