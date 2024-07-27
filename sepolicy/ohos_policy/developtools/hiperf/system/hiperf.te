@@ -22,6 +22,7 @@ allow hiperf data_file:file { getattr ioctl map open read };
 allow hiperf default_param:file { map open read };
 allow hiperf distributedsche_param:file { map open read };
 allow hiperf hdcd:fd use;
+allow hiperf hdcd_exec:file { getattr map open read };
 allow hiperf hw_sc_build_os_param:file { map open read };
 allow hiperf hw_sc_build_param:file { map open read };
 allow hiperf hw_sc_param:file { map open read };
