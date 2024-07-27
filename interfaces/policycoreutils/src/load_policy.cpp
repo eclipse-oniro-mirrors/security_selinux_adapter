@@ -356,6 +356,10 @@ static bool CompilePolicy(bool devMode)
 static bool IsDeveloperMode()
 {
 #ifdef WITH_DEVELOPER
+    if ((access(SYSTEM_DEVELOPER_CIL, R_OK) != 0) || (access(VENDOR_DEVELOPER_CIL, R_OK) != 0)) {
+        selinux_log(SELINUX_ERROR, "No developer cil file found, fallback to normal mode\n");
+        return false;
+    }
     std::string devMode;
     if (!ReadFileFirstLine(PROC_DSMM_DEVELOPER, devMode)) {
         return false;
