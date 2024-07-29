@@ -270,3 +270,8 @@ attribute system_bin_file_quickfix;
 attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
+
+# define some hap_domain violator attribute for neverallows
+attribute hap_domain_dev_ptmx_violators;
+attribute hap_domain_cgroup_violators;
+attribute hap_domain_proc_stat_file_violators;
