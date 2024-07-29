@@ -199,6 +199,7 @@ def sehap_process_line(line, line_index, contexts_write, domain, contexts_file):
         print(contexts_file + ":" + str(line_index) + " format check fail")
         raise Exception(1)
 
+
 def check_sehap_contexts(args, contexts_file, domain):
     """
     check domain or type defined in sehap_contexts.
@@ -233,6 +234,7 @@ def check_sehap_contexts(args, contexts_file, domain):
 
     if os.path.exists(contexts_file + ".bin"):
         os.unlink(contexts_file + ".bin")
+
 
 def build_file_contexts(args, output_path, policy_path, all_policy_path):
     if args.components == "default":
