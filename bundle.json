@@ -37,14 +37,9 @@
         "hilog",
         "bounds_checking_function",
         "selinux",
-        "pcre2",
-        "FreeBSD"
+        "pcre2"
       ],
-      "third_party": [
-        "pcre2",
-        "selinux",
-        "bounds_checking_function"
-      ]
+      "third_party": []
     },
     "build": {
       "sub_component": [
