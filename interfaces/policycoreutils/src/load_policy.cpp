@@ -127,6 +127,8 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
         return false;
     }
     if (sb.st_size < 0) {
+        close(fd);
+        DeleteTmpPolicyFile(policyFile);
         return false;
     }
     size = static_cast<size_t>(sb.st_size);
