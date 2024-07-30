@@ -53,6 +53,8 @@ allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
 #avc: denied { open } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 #avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
+#avc: denied { get } for service=5300 sid=u:r:bgtaskmgr_service:s0 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_ark_aot_compiler:s0 tclass=samgr_class
+allow bgtaskmgr_service sa_ark_aot_compiler:samgr_class { get };
 
 # device_usage_stats database read/write, Record events,bgtask info persistence
 #avc: denied { search } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
@@ -78,6 +80,8 @@ allow bgtaskmgr_service sa_distributeddata_service:samgr_class { get };
 allow bgtaskmgr_service distributeddata:binder { call };
 #avc: denied { transfer } for pid=1594, commm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:r:bgtaskmgr_service:s0 tclass=binder permissive=0
 allow distributeddata bgtaskmgr_service:binder { transfer };
+#avc: denied { use } for pid=1417, comm="/system/bin/sa_main" path="/dev/ashmen" dev="" ino=1 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=0
+allow bgtaskmgr_service distributeddata:fd { use };
 
 # transient task apply
 #avc: denied { search } for pid=1114, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
