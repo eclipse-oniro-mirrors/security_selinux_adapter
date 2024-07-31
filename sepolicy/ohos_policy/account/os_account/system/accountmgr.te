@@ -133,6 +133,7 @@ allow accountmgr system_etc_file:file { lock };
 allow accountmgr sa_asset_service:samgr_class { get };
 allow accountmgr asset_service:binder { call transfer };
 allow accountmgr audio_server:binder { call transfer };
+allow accountmgr media_service:binder { call transfer };
 
 # avc: denied { open } for  pid=541 comm="IPC_0_735" path="/dev/ashmem" dev="tmpfs" ino=170 scontext=u:r:accountmgr:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow accountmgr dev_ashmem_file:chr_file { open };
