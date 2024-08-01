@@ -283,7 +283,6 @@ static bool CompilePolicyWithFork(std::vector<const char *> &compileCmd)
             return false;
         }
         _exit(1);
-        return false;
     }
     (void)close(pipeFd[1]);
 
@@ -303,9 +302,10 @@ static bool CompilePolicyWithFork(std::vector<const char *> &compileCmd)
             }
         }
         fclose(fp);
+    } else {
+        selinux_log(SELINUX_ERROR, "Fopen pipe failed, %d, %s\n", errno, strerror(errno));
+        (void)close(pipeFd[0]);
     }
-
-    (void)close(pipeFd[0]);
 
     return WaitForChild(pid);
 }
