@@ -36,7 +36,7 @@ allow distributeddata data_service_el3_database_file:file { ioctl };
 allow distributeddata data_service_el4_database_file:file { ioctl };
 allow distributeddata data_service_el5_database_file:file { ioctl };
 allow distributeddata data_service_file:dir { search };
-allow distributeddata data_user_file:dir { search };
+allow distributeddata data_user_file:dir { getattr search };
 allow distributeddata deviceauth_service:binder { call };
 allow distributeddata device_manager:binder { call transfer };
 allow distributeddata dev_ashmem_file:chr_file { open };
