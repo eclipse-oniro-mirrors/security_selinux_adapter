@@ -59,7 +59,6 @@ ohos_unittest("paraperm_checker_unittest") {
     "unittest/common/test_common.cpp",
     "unittest/paraperm_checker/unit_test.cpp",
   ]
-  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
   external_deps = [
     "c_utils:utils",
     "googletest:gtest",
