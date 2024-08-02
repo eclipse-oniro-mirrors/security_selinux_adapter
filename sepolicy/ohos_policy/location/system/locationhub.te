@@ -105,3 +105,7 @@ allow locationhub sa_resource_schedule:samgr_class { get };
 allow locationhub sa_device_standby:samgr_class { get };
 allow locationhub sa_msdp_movement_service:samgr_class { get };
 allow locationhub sa_net_conn_manager:samgr_class { get };
+
+allow locationhub paramservice_socket:sock_file { write };
+allow locationhub kernel:unix_stream_socket { connectto };
+allow locationhub persist_param:parameter_service { set };
