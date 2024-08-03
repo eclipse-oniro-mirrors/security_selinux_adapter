@@ -111,21 +111,17 @@ allow netmanager foundation:fd { use };
 allow netmanager proc_net:file { open write };
 allow netmanager softbus_server:binder { call transfer };
 
-allow init etc_hosts_file:dir { relabelto getattr setattr search read create write add_name open };
-allow init etc_hosts_file:file { relabelto read create write open };
+allow domain etc_hosts_file:lnk_file { read };
+allow domain etc_hosts_file:file { read open read };
+allow domain etc_hosts_file:dir { search };
 
-allow netsysnative system_etc_file:lnk_file { read };
-allow netsysnative etc_hosts_file:file { open read };
-allow netsysnative etc_hosts_file:dir { search };
- 
-allow hap_domain system_etc_file:lnk_file { getattr read };
-allow hap_domain etc_hosts_file:file { getattr read open read };
-allow hap_domain etc_hosts_file:dir { search };
- 
+allow init etc_hosts_file:dir { relabelto getattr setattr read create write add_name open };
+allow init etc_hosts_file:file { relabelto create write };
+
 developer_only(`
-allow sh etc_hosts_file:file { read open read getattr };
-allow sh etc_hosts_file:dir { search };
-allow sh system_etc_file:lnk_file { read getattr };
-allow sh data_service_el1_file:dir { search };
-allow sh data_service_file:dir { search };
+    allow sh data_service_el1_file:dir { search };
+    allow sh data_service_file:dir { search };
+    allow sh etc_hosts_file:file { read open };
+    allow sh etc_hosts_file:dir { search };
+    allow sh etc_hosts_file:lnk_file { read };
 ')
