@@ -130,6 +130,7 @@ allow cjappspawn data_app_el2_file:dir { search mounton write add_name create se
 allow cjappspawn data_app_el3_file:dir { search mounton write add_name create setattr getattr};
 allow cjappspawn data_app_el4_file:dir { search mounton write add_name create setattr getattr};
 allow cjappspawn sharefs:dir { getattr mounton };
+allow cjappspawn sharefs_file_attr:dir { getattr mounton };
 allow cjappspawn sharefs:filesystem { mount };
 allow cjappspawn data_service_el2_share:dir { mounton };
 
