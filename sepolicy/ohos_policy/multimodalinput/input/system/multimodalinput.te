@@ -36,10 +36,16 @@ allow multimodalinput dev_input_file:dir { watch open read search getattr };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
 allow multimodalinput distributeddata:binder { call };
+allow multimodalinput ui_service:binder { call transfer };
+allow multimodalinput ui_service:fd { use };
 allow multimodalinput distributeddata:fd { use };
 allow multimodalinput allocator_host:binder { call };
 allow multimodalinput allocator_host:fd { use };
+allow multimodalinput composer_host:binder { call transfer };
+allow multimodalinput composer_host:fd { use };
 allow multimodalinput hdf_allocator_service:hdf_devmgr_class { get };
+allow multimodalinput hdf_display_composer_service:hdf_devmgr_class { get };
+hdi_call(multimodalinput, hdf_allocator_service)
 allow multimodalinput faultloggerd_socket:sock_file { write };
 allow multimodalinput faultloggerd:unix_stream_socket { connectto };
 allow multimodalinput foundation:binder { call transfer };
