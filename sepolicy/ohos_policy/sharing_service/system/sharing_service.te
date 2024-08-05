@@ -72,7 +72,6 @@ allow sharing_service sa_media_monitor:samgr_class { get };
 allow sharing_service sa_foundation_bms:samgr_class { get };
 allow sharing_service audio_server:fd { use };
 allow sharing_service audio_server:binder { call transfer };
-allow sharing_service sa_audio_policy_ext:samgr_class { get };
 allow sharing_service sa_render_service:samgr_class { get };
 allow sharing_service sa_powermgr_powermgr_service:samgr_class { get };
 allow sharing_service powermgr:binder { call };
