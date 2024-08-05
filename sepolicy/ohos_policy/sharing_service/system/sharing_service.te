@@ -80,4 +80,3 @@ allow sharing_service render_service:fd { use };
 allow sharing_service render_service:binder { transfer };
 allow render_service sharing_service:binder { call };
 allow render_service sharing_service:binder { transfer };
-allow sharing_service  cast_engine_service:binder { call transfer };
