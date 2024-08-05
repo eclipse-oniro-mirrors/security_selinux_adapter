@@ -18,3 +18,7 @@ allow powermgr sa_powermgr_battery_service:samgr_class { add get};
 allow powermgr sa_miscdevice_service:samgr_class { get };
 allow powermgr devpts:chr_file { write };
 binder_call(powermgr, sensors);
+
+debug_only(`
+    allow powermgr su:fd { use };
+')
