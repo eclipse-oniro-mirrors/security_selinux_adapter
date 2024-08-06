@@ -236,11 +236,6 @@ allow appspawn labeledfs:filesystem { remount };
 allow appspawn bootuptrace_file:dir { add_name getattr open read search write relabelto };
 allow appspawn bootuptrace_file:file { create getattr write open relabelto };
 
-# for sudo
-allow appspawn etc_hosts_file:dir { search };
-allow appspawn etc_hosts_file:file { getattr mounton };
-
-
 #avc:  denied  { write } for  pid=4946 comm="appspawn" name="faultloggerd.sdkdump.server" dev="tmpfs" ino=395 scontext=u:r:appspawn:s0 tcontext=u:object_r:faultloggerd_socket_sdkdump:s0 tclass=sock_file permissive=1
 allow appspawn faultloggerd_socket_sdkdump:sock_file { write };
 # avc:  denied  { read } for  pid=4946 comm="appspawn" path="pipe:[43284]" dev="pipefs" ino=43284 scontext=u:r:appspawn:s0 tcontext=u:r:faultloggerd:s0 tclass=fifo_file permissive=1
