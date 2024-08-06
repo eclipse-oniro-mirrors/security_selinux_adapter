@@ -43,7 +43,7 @@ debug_only(`
 allow time_service dev_unix_file:sock_file { write };
 allow time_service wifi_manager_service:binder { call transfer };
 allow time_service data_service_el1_file:file { ioctl lock };
-allowxperm time_service data_service_el1_file:file ioctl { 0xf50c };
+allowxperm time_service data_service_el1_file:file ioctl { 0xf50c 0xf546 0xf547 };
 allow time_service dev_ashmem_file:chr_file { open };
 allow time_service dev_kmsg_file:chr_file { write };
 allow time_service tty_device:chr_file { read write };

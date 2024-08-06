@@ -69,7 +69,7 @@ allowxperm resource_schedule_service dev_file:chr_file ioctl { 0x7102  0x7104 0x
 allowxperm resource_schedule_service dev_sched_rtg_ctrl:chr_file ioctl { 0xab01 0xab02 };
 allowxperm resource_schedule_service cgroup:file ioctl { 0x5413 };
 allowxperm resource_schedule_service sys_file:file ioctl { 0x5413 };
-allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c };
+allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c 0xf546 0xf547 };
 allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };
 # Subscribing to public events is required.
 # acv: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1 

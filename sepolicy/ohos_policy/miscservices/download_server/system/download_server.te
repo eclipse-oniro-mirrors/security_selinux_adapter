@@ -79,7 +79,7 @@ allow download_server data_service_el1_file:file { create lock ioctl map getattr
 #avc:  denied  { search } for  pid=1574 comm="IPC_2_1581" name="service" dev="mmcblk0p14" ino=7 scontext=u:r:download_server:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
 allow download_server data_service_file:dir { search };
 #avc:  denied  { ioctl } for  pid=1574 comm="IPC_2_1581" path="/data/service/el1/public/database/request/request.db" dev="mmcblk0p14" ino=3889 ioctlcmd=0xf50c scontext=u:r:download_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allowxperm download_server data_service_el1_file:file ioctl { 0xf50c 0x5413 };
+allowxperm download_server data_service_el1_file:file ioctl { 0xf50c 0x5413 0xf546 0xf547 };
 #avc:  denied  { open } for  pid=1574 comm="download_server" path="/dev/ashmem" dev="tmpfs" ino=230 scontext=u:r:download_server:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
 allow download_server dev_ashmem_file:chr_file { open };
 #avc:  denied  { call } for  pid=1524 comm="IPC_1_1526" scontext=u:r:download_server:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
