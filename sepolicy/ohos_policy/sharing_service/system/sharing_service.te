@@ -82,4 +82,3 @@ allow sharing_service render_service:binder { transfer };
 allow render_service sharing_service:binder { call };
 allow render_service sharing_service:binder { transfer };
 allow sharing_service data_service_el1_file:file { create write open getattr ioctl read lock unlink append };
-allow sharing_service sa_foundation_powermgr_service:samgr_class { get };
