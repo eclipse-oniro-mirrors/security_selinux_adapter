@@ -38,7 +38,7 @@ allow cert_manager_service sa_huks_service:samgr_class { get add };
 allow cert_manager_service sa_param_watcher:samgr_class { get };
 allow cert_manager_service tracefs:dir { search };
 allow cert_manager_service tracefs_trace_marker_file:file { open write };
-allowxperm cert_manager_service cert_manager_service_file:file ioctl { 0x5413 };
+allowxperm cert_manager_service cert_manager_service_file:file ioctl { 0x5413 0xf546 0xf547 };
 
 #avc:  denied  { read } for  pid=6711 comm="cert_manager_se" name="u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=6711 comm="cert_manager_se" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1

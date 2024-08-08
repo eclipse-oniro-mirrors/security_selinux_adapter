@@ -67,7 +67,7 @@ allow netmanager usb_service:binder { call };
 allow netmanager sa_usb_service:samgr_class { get };
 allow netmanager sa_telephony_tel_core_service:samgr_class { get };
 allow init configfs:dir { rmdir };
-allowxperm netmanager data_service_el1_file:file ioctl { 0x5413 };
+allowxperm netmanager data_service_el1_file:file ioctl { 0x5413 0xf546 0xf547 };
 allowxperm netmanager data_init_agent:file ioctl { 0x5413 };
 allowxperm netmanager netmanager:udp_socket ioctl { 0x8910 0x8915 0x8916 0x891b 0x891c 0x8933 };
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 };
