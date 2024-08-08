@@ -41,6 +41,9 @@ allow accountmgr sys_file:file { read open };
 # avc:  denied  { watch } for  pid=4779 comm="SaInit0" path="/data/service/el1/public/account/104/account_info.json" dev="mmcblk0p14" ino=14953 scontext=u:r:accountmgr:s0 tcontext=u:object_r:account_data_file:s0 tclass=file permissive=1
 allow accountmgr account_data_file:file { lock watch };
 
+allow accountmgr account_data_el2_file:file { getattr setattr open create write read relabelto unlink map lock watch };
+allow accountmgr account_data_el2_file:dir { add_name create open setattr remove_name rmdir getattr search read write watch };
+
 allow accountmgr tracefs:dir { search };
 allow accountmgr tracefs_trace_marker_file:file { write open };
 allow accountmgr hilog_input_socket:sock_file { write };
