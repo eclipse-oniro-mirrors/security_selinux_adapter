@@ -37,7 +37,8 @@
         "hilog",
         "bounds_checking_function",
         "selinux",
-        "pcre2"
+        "pcre2",
+        "c_utils"
       ],
       "third_party": []
     },
