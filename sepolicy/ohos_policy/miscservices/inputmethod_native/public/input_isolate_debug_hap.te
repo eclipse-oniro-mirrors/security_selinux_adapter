@@ -56,12 +56,8 @@ debug_only(`
     allow input_isolate_debug_hap input_isolate_debug_hap:unix_dgram_socket { getopt setopt };
     #avc:  denied { supervsable } for pid=6797, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=hmcap permissive=0
     allow input_isolate_debug_hap input_isolate_debug_hap:hmcap { supervsable };
-    #avc:  denied { create } for pid=4262, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=tcp_socket permissive=1
-    allow input_isolate_debug_hap input_isolate_debug_hap:tcp_socket { create };
     #avc:  denied { create } for pid=4262, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=netlink_route_socket permissive=1
     allow input_isolate_debug_hap input_isolate_debug_hap:netlink_route_socket { create bind };
-    #avc:  denied { create } for pid=7384, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=udp_socket permissive=1
-    allow input_isolate_debug_hap input_isolate_debug_hap:udp_socket { create connect };
 
     #avc:  denied { read } for pid=6797, comm="/system/bin/appspawn" path="/dev/__parameters__/u:object_r:hichecker_writable_param:s0" dev="" ino=226 scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=0
     allow input_isolate_debug_hap hichecker_writable_param:file { read open map };
@@ -75,7 +71,7 @@ debug_only(`
     #avc:  denied { search } for pid=7200, comm="/system/bin/appspawn" name="/app/el1/bundle/public/com.example.myowninputmethod" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19085 scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
     allow input_isolate_debug_hap data_app_el1_file:dir { search getattr map open read };
     #avc:  denied { getattr } for pid=7200, comm="/system/bin/appspawn" path="/data/storage/el1/bundle/entry.hap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19124 scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
-    allow input_isolate_debug_hap data_app_el1_file:file { map read open getattr execute create setattr write };
+    allow input_isolate_debug_hap data_app_el1_file:file { map read open getattr execute create setattr };
 
     allow input_isolate_debug_hap data_app_el2_file:dir { add_name search read write create open remove_name setattr getattr };
     allow input_isolate_debug_hap data_app_el2_file:file { create read write open lock unlink map setattr getattr rename };
@@ -143,8 +139,6 @@ debug_only(`
     allow input_isolate_debug_hap samgr:binder { call transfer };
     #avc:  denied { transfer } for pid=611, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=binder permissive=1
     allow samgr input_isolate_debug_hap:binder { call transfer };
-
-    allow input_isolate_debug_hap dev_ashmem_file:chr_file { open };
 
     #avc:  denied { read } for pid=31066, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:render_service:s0 tclass=unix_stream_socket permissive=1
     allow input_isolate_debug_hap render_service:unix_stream_socket { read };
