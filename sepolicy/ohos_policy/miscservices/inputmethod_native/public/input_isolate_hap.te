@@ -65,14 +65,12 @@ allow input_isolate_hap data_app_el1_file:dir { search getattr map open read };
 allow input_isolate_hap data_app_el1_file:file { map read open getattr execute create setattr };
 
 allow input_isolate_hap data_app_el2_file:dir { add_name search read write create open remove_name setattr getattr };
-allow input_isolate_hap data_app_el2_file:file { create read write open lock unlink map setattr getattr rename };
 allow input_isolate_hap data_app_file:dir { search };
 allow input_isolate_hap data_service_el2_file:dir { read write add_name create getattr open remove_name rmdir search setattr };
 allow input_isolate_hap data_service_el2_file:file { getattr create write read open unlink setattr };
 allow input_isolate_hap faultloggerd:fifo_file write;
-allow input_isolate_hap data_app_el5_file:dir { add_name search read write create open remove_name setattr };
-allow input_isolate_hap data_app_el5_file:file { create read write open lock unlink map setattr getattr rename };
-allow input_isolate_hap fuse_file:file { getattr read write open };
+
+allow input_isolate_hap dev_ashmem_file:chr_file { open };
 
 #avc:  denied { search } for pid=7200, comm="/system/bin/appspawn" name="/variant" dev="/dev/block/dm-2" ino=44306556 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
 allow input_isolate_hap sys_prod_file:dir { search };
@@ -101,7 +99,6 @@ allow hiview input_isolate_hap:binder { transfer };
 
 allow input_isolate_hap multimodalinput:unix_stream_socket { read };
 allow input_isolate_hap multimodalinput:binder { call transfer };
-
 
 allow input_isolate_hap normal_hap:binder { call transfer };
 allow normal_hap input_isolate_hap:binder { call };
@@ -145,13 +142,6 @@ allow render_service input_isolate_hap:binder { call transfer };
 allow input_isolate_hap system_basic_hap:binder { call };
 #avc:  denied { call } for pid=32818, comm="/system/bin/appspawn" scontext=u:r:system_basic_hap:s0 tcontext=u:r:input_isolate_hap:s0 tclass=binder permissive=1
 allow system_basic_hap input_isolate_hap:binder { call };
-
-#avc:  denied { read } for pid=33917, comm="/system/bin/appspawn" path="/system/variant/phone/base/etc/system_kits_config.json" dev="overlay" ino=4585 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-#avc:  denied { open } for pid=33917, comm="/system/bin/appspawn" path="/system/variant/phone/base/etc/system_kits_config.json" dev="overlay" ino=4585 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-#avc:  denied { getattr } for pid=33917, comm="/system/bin/appspawn" path="/system/variant/phone/base/etc/system_kits_config.json" dev="overlay" ino=4585 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-allow input_isolate_hap system_file:file { read open getattr };
-
-allow input_isolate_hap dev_unix_socket:dir { search };
 
 allow input_isolate_hap time_service:binder { call };
 
