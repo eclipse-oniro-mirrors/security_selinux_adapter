@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-debug_only(`
+developer_only(`
     # allow input_isolate_debug_hap to get sa
     allow input_isolate_debug_hap sa_accessibleabilityms:samgr_class { get };
     allow input_isolate_debug_hap sa_concurrent_task_service:samgr_class { get };
