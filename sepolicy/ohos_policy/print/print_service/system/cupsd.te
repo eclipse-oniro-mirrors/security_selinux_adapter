@@ -37,3 +37,5 @@ allow cupsd proc_cpuinfo_file:file { getattr open read  };
 allow cupsd dev_console_file:chr_file { read write };
 neverallow cupsd { data_file_attr -data_service_el1_public_print_service_file }:file {execute execute_no_trans entrypoint};
 allow cupsd data_service_el1_public_print_service_file:lnk_file { read };
+allow cupsd sa_usb_service:samgr_class { get };
+allow cupsd usb_service:binder { call };
