@@ -177,7 +177,7 @@ allow normal_hap_attr port:tcp_socket { name_connect };
 #avc:  denied  { search } for  pid=4745 comm="com.example.web" name="bin" dev="mmcblk0p6" ino=108 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
 allow normal_hap_attr system_bin_file:dir { search };
 
-#avc:  denied  { getattr } for  pid=4745 comm="com.example.web" path="/data/storage/el1/bundle/nweb/entry/resources/rawfile" dev="mmcblk0p11" ino=523570 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=4745 comm="com.example.web" path="/data/storage/el1/bundle/arkwebcore/entry/resources/rawfile" dev="mmcblk0p11" ino=523570 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 allow normal_hap_attr data_app_el1_file:dir { getattr };
 
 #avc:  denied  { watch } for  pid=4745 comm="ThreadPoolForeg" path="/system/etc" dev="mmcblk0p6" ino=455 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=1

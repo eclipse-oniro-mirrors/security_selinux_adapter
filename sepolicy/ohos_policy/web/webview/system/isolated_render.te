@@ -16,7 +16,7 @@ allow isolated_render allocator_host:fd { use };
 # avc:  denied  { search } for  pid=5103 comm="ThreadPoolForeg" name="/" dev="cgroup2" ino=1 scontext=u:r:isolated_render:s0 tcontext=u:object_r:cgroup2:s0 tclass=dir permissive=1
 allow isolated_render cgroup2:dir { search };
 
-# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/data/storage/el1/bundle/nweb" dev="sdd78" ino=1840 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/data/storage/el1/bundle/arkwebcore" dev="sdd78" ino=1840 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 allow isolated_render data_app_el1_file:dir { getattr search };
 
 # avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/dev/ashmem" dev="tmpfs" ino=490 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
@@ -92,10 +92,10 @@ allow isolated_render system_core_hap_data_file_attr:file { append read write ge
 
 allow isolated_render system_basic_hap_data_file_attr:file { append read write getattr lock map};
 
-# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
 allow isolated_render system_file:file { getattr map open read };
 
 # avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
@@ -152,43 +152,43 @@ allow isolated_render data_service_el1_file:file { getattr map read };
 
 # avc_audit_slow:262] avc: denied { write } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket permissive=1
 allow isolated_render appspawn:unix_dgram_socket { write connect };
- 
+
 # avc_audit_slow:262] avc: denied { search } for pid=1, comm="/system/bin/appspawn"  name="/service/el1/public/i18n/timezone" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=4054 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow isolated_render data_service_el1_file:dir { search };
- 
+
 # avc_audit_slow:262] avc: denied { map } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=206 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc_audit_slow:262] avc: denied { open } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=206 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc_audit_slow:262] avc: denied { read } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=206 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 allow isolated_render debug_param:file { map open read };
- 
+
 # avc_audit_slow:262] avc: denied { call } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 # avc_audit_slow:262] avc: denied { transfer } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 allow isolated_render foundation:binder { call transfer };
- 
+
 # avc_audit_slow:262] avc: denied { map } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:hichecker_writable_param:s0" dev="" ino=215 scontext=u:r:isolated_render:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=1
 # avc_audit_slow:262] avc: denied { open } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:hichecker_writable_param:s0" dev="" ino=215 scontext=u:r:isolated_render:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=1
 # avc_audit_slow:262] avc: denied { read } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:hichecker_writable_param:s0" dev="" ino=215 scontext=u:r:isolated_render:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=1
 allow isolated_render hichecker_writable_param:file { map open read };
- 
+
 # avc_audit_slow:262] avc: denied { call } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
 # avc_audit_slow:262] avc: denied { transfer } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
 allow isolated_render param_watcher:binder { call transfer };
- 
+
 # avc_audit_slow:262] avc: denied { map } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=205 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
 # avc_audit_slow:262] avc: denied { open } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=205 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
 # avc_audit_slow:262] avc: denied { read } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=205 scontext=u:r:isolated_render:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
 allow isolated_render persist_sys_param:file { map open read };
- 
+
 # avc_audit_slow:262] avc: denied { call } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
 # avc_audit_slow:262] avc: denied { transfer } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:isolated_render:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
 allow isolated_render samgr:binder { call transfer };
- 
+
 # avc:  denied  { use } for  pid=21118 comm=".browser:render" path="socket:[14595]" dev="sockfs" ino=14595 scontext=u:r:isolated_render:s0 tcontext=u:r:appspawn:s0 tclass=fd permissive=1
 allow isolated_render appspawn:fd { use };
- 
+
 # avc:  denied  { search } for  pid=8252 comm=".browser:render" scontext=u:r:isolated_render:s0 tcontext=u:r:key_enable:s0 tclass=key permissive=1
 allow isolated_render key_enable:key { search };
- 
+
 # avc:  denied  { read } for  pid=16659 comm="top.main:render" name="Roboto-Regular.ttf" dev="sdd74" ino=2851 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=lnk_file permissive=1
 allow isolated_render system_fonts_file:lnk_file { read };
 
