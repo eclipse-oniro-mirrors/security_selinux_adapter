@@ -55,6 +55,8 @@ allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
 #avc: denied { get } for service=5300 sid=u:r:bgtaskmgr_service:s0 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_ark_aot_compiler:s0 tclass=samgr_class
 allow bgtaskmgr_service sa_ark_aot_compiler:samgr_class { get };
+# workschedule use reportData
+allow bgtaskmgr_service sa_resource_schedule:samgr_class { get };
 
 # device_usage_stats database read/write, Record events,bgtask info persistence
 #avc: denied { search } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
