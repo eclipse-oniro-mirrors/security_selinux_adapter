@@ -67,7 +67,6 @@ allow input_isolate_hap data_app_el1_file:file { map read open getattr execute c
 allow input_isolate_hap data_app_el2_file:dir { add_name search read write create open remove_name setattr getattr };
 allow input_isolate_hap data_app_file:dir { search };
 allow input_isolate_hap data_service_el2_file:dir { read write add_name create getattr open remove_name rmdir search setattr };
-allow input_isolate_hap data_service_el2_file:file { getattr create write read open unlink setattr };
 allow input_isolate_hap faultloggerd:fifo_file write;
 
 allow input_isolate_hap dev_ashmem_file:chr_file { open };
