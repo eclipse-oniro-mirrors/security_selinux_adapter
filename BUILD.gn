@@ -49,6 +49,9 @@ ohos_shared_library("libload_policy") {
     "-Wall",
     "-Werror",
   ]
+  if (is_emulator) {
+    cflags += [ "-DEMULATOR_MODE" ]
+  }
   if (selinux_adapter_support_developer_mode) {
     cflags += [ "-DWITH_DEVELOPER" ]
   }
