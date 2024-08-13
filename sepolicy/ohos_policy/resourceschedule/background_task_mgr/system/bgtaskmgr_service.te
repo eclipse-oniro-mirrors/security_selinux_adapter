@@ -44,8 +44,9 @@ allow bgtaskmgr_service sa_work_schedule_service:samgr_class { add };
 allow bgtaskmgr_service data_storage:dir { search };
 #avc: denied { read } for pid=1059, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
 allow bgtaskmgr_service persist_param:file { read };
-
+#avc: denied { read write } for pid=53703, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
 allow bgtaskmgr_service tty_device:chr_file { read write };
+#avc: denied { write } for pid=53703, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
 allow bgtaskmgr_service dev_kmsg_file:chr_file { write };
 
 # workschedule task get cpu info
@@ -93,6 +94,7 @@ allow bgtaskmgr_service distributeddata:fd { use };
 allow bgtaskmgr_service data_app_file:dir { search };
 
 # transient task set/get param
+#avc: denied { read } for pid=53703, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
 allow bgtaskmgr_service persist_sys_param:file { read open map };
 
 # continous task apply
