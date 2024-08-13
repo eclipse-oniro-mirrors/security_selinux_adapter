@@ -53,8 +53,10 @@ constexpr const char PRECOMPILED_DEVELOPER_POLICY[] = "/vendor/etc/selinux/prebu
 constexpr const char VERSION_POLICY_PATH[] = "/vendor/etc/selinux/version";
 constexpr const char COMPATIBLE_CIL_PATH[] = "/system/etc/selinux/compatible/";
 constexpr const char COMPATIBLE_DEVELOPER_CIL_PATH[] = "/system/etc/selinux/compatible_developer/";
+#ifndef EMULATOR_MODE
 #ifdef WITH_DEVELOPER
 constexpr const char PROC_DSMM_DEVELOPER[] = "/proc/dsmm/developer";
+#endif
 #endif
 } // namespace
 
