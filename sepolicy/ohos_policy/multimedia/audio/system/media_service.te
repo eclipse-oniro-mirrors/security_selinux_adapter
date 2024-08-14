@@ -37,6 +37,3 @@ allow media_service sa_pulseaudio_audio_service:samgr_class { get };
 allow media_service dcamera:binder { call transfer };
 
 allow media_service audio_server:fd { use };
-
-#avc denied { get } for service=1901 pid=1427 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
-allow media_service sa_resource_schedule:samgr_class { get };
