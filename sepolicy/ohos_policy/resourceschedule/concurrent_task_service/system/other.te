@@ -41,7 +41,7 @@ allow udevd dev_auth_ctrl:chr_file { getattr write };
 allow ueventd dev_auth_ctrl:chr_file { relabelto };
 #never_allow
 neverallow { domain -concurrent_task_service -resource_schedule_service -udevd } dev_sched_rtg_ctrl:chr_file { write };
-neverallow { domain -concurrent_task_service -resource_schedule_service -udevd } dev_auth_ctrl:chr_file { write };
+neverallow { domain -concurrent_task_service -resource_schedule_service -udevd -rgm_violator_ohos_dev_auth_ctrl_file_write } dev_auth_ctrl:chr_file { write };
 #ffrt_param
 allow init render_service:file { getattr };
 allow render_service ffrt_param:parameter_service { set };
