@@ -14,4 +14,3 @@
 type cgroup2, fs_attr;
 type fs_bpf, fs_attr, debugfs_attr;
 type iptables_exec, exec_attr, file_attr, system_file_attr;
-type etc_hosts_file, file_attr, data_file_attr;
