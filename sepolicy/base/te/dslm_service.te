@@ -40,6 +40,7 @@ allow dslm_service normal_hap_attr:binder { call };
 allow dslm_service ohos_boot_param:file { map open read };
 allow dslm_service ohos_param:file { map open read };
 allow dslm_service param_watcher:binder { call transfer };
+allow dslm_service pasteboard_service:binder { call };
 allow dslm_service persist_param:file { map open read };
 allow dslm_service persist_sys_param:file { map open read };
 allow dslm_service sa_device_auth_service:samgr_class { get };
