@@ -284,7 +284,7 @@ allow storage_daemon system_basic_hap_data_file_attr:dir { create_dir_perms geta
 allow storage_daemon system_basic_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink };
 allow storage_daemon system_core_hap_data_file_attr:dir { create_dir_perms getattr open read remove_name rmdir search setattr write };
 allow storage_daemon system_core_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink };
-allow storage_daemon labeledfs:filesystem { unmount quotaget quotamod };
+allow storage_daemon labeledfs:filesystem { mount unmount quotaget quotamod };
 allow storage_daemon sharefs:filesystem { unmount };
 allow storage_daemon sharefs:dir { create_dir_perms mounton };
 allow storage_daemon sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton };
@@ -359,8 +359,6 @@ neverallow { domain -storage_daemon -init updater_only(`-updater') } data_servic
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:file { create ioctl setattr open read write relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:file { unlink getattr };
 
-# avc: denied { mount } for pid=1096, comm="/system/bin/storage_daemon"  name="" dev="/dev/block/vol-259-45" ino=3 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=0
-allow storage_daemon labeledfs:filesystem { mount };
 
 
 # avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
