@@ -359,6 +359,8 @@ neverallow { domain -storage_daemon -init updater_only(`-updater') } data_servic
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:file { create ioctl setattr open read write relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:file { unlink getattr };
 
+# avc: denied { mount } for pid=1096, comm="/system/bin/storage_daemon"  name="" dev="/dev/block/vol-259-45" ino=3 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=0
+allow storage_daemon labeledfs:filesystem { mount };
 
 
 # avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
