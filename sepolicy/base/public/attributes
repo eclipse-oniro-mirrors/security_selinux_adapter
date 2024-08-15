@@ -297,3 +297,5 @@ attribute rgmli_violator_exec_file_attr;
 attribute hap_domain_dev_ptmx_violators;
 attribute hap_domain_cgroup_violators;
 attribute hap_domain_proc_stat_file_violators;
+
+attribute hap_domain_lnk_file_operation_viloator;
