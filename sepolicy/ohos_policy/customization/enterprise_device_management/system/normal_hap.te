@@ -14,4 +14,4 @@
 # avc:  denied  { transfer } for  pid=995 comm="IPC_5_1053" scontext=u:r:normal_hap:s0 tcontext=u:r:edm_sa:s0 tclass=binder permissive=0
 allow normal_hap_attr edm_sa:binder { call transfer };
 allow normal_hap_attr sa_enterprise_device_manager_service:samgr_class { get };
-allow system_core_hap_attr edm_sa:fd { use };
+allow normal_hap_attr edm_sa:fd { use };
