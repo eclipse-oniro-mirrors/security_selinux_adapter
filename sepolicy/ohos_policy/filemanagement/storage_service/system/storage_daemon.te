@@ -284,7 +284,7 @@ allow storage_daemon system_basic_hap_data_file_attr:dir { create_dir_perms geta
 allow storage_daemon system_basic_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink };
 allow storage_daemon system_core_hap_data_file_attr:dir { create_dir_perms getattr open read remove_name rmdir search setattr write };
 allow storage_daemon system_core_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink };
-allow storage_daemon labeledfs:filesystem { unmount quotaget quotamod };
+allow storage_daemon labeledfs:filesystem { mount unmount quotaget quotamod };
 allow storage_daemon sharefs:filesystem { unmount };
 allow storage_daemon sharefs:dir { create_dir_perms mounton };
 allow storage_daemon sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton };
