@@ -58,3 +58,6 @@ allow scan_service foundation:binder { call transfer };
 allow scan_service debugfs_usb:dir { search };
 allow scan_service sa_foundation_cesfwk_service:samgr_class { get };
 allow scan_service persist_param:file { read open map };
+allow scan_service data_service_el2_file:dir { add_name remove_name search write };
+allow scan_service data_service_el2_file:file { create getattr ioctl open read write unlink };
+allowxperm scan_service data_service_el2_file:file ioctl { 0x5413 };
