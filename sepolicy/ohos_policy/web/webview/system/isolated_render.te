@@ -16,7 +16,7 @@ allow isolated_render allocator_host:fd { use };
 # avc:  denied  { search } for  pid=5103 comm="ThreadPoolForeg" name="/" dev="cgroup2" ino=1 scontext=u:r:isolated_render:s0 tcontext=u:object_r:cgroup2:s0 tclass=dir permissive=1
 allow isolated_render cgroup2:dir { search };
 
-# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/data/storage/el1/bundle/nweb" dev="sdd78" ino=1840 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/data/storage/el1/bundle/arkwebcore" dev="sdd78" ino=1840 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 allow isolated_render data_app_el1_file:dir { getattr read write create setattr open add_name search };
 
 # avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/dev/ashmem" dev="tmpfs" ino=490 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
@@ -92,10 +92,10 @@ allow isolated_render system_core_hap_data_file_attr:file { append read write ge
 
 allow isolated_render system_basic_hap_data_file_attr:file { append read write getattr lock map};
 
-# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="ArkWebCore.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
 allow isolated_render system_file:file { getattr map open read };
 
 # avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
