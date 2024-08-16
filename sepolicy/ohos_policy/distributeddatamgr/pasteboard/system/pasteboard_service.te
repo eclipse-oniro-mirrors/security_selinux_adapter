@@ -33,3 +33,4 @@ allow pasteboard_service chip_prod_file:dir { search };
 allow pasteboard_service data_user_file:dir { search };
 allow pasteboard_service sa_device_security_level_manager_service:samgr_class { get };
 allow pasteboard_service dslm_service:binder { call transfer };
+allow dslm_service pasteboard_service:binder { call };
