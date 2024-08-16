@@ -166,3 +166,5 @@ allow media_service normal_hap_data_file:file { ioctl };
 allowxperm media_service normal_hap_data_file:file ioctl { 0xf206 };
 
 allow media_service sa_camera_service:samgr_class { get };
+
+allow media_service camera_service:binder { call };
