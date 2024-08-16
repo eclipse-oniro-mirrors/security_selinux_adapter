@@ -43,7 +43,6 @@ ohos_unittest("hap_restorecon_unittest") {
   ]
   cflags = [ "-DSELINUX_TEST" ]
   external_deps = [
-    "c_utils:utils",
     "googletest:gtest",
     "hilog:libhilog",
     "selinux:libselinux",
@@ -60,7 +59,6 @@ ohos_unittest("paraperm_checker_unittest") {
     "unittest/paraperm_checker/unit_test.cpp",
   ]
   external_deps = [
-    "c_utils:utils",
     "googletest:gtest",
     "selinux:libselinux",
     "selinux_adapter:libparaperm_checker",
@@ -77,7 +75,6 @@ ohos_unittest("service_checker_unittest") {
     "unittest/service_checker/unit_test.cpp",
   ]
   external_deps = [
-    "c_utils:utils",
     "googletest:gtest",
     "selinux_adapter:libservice_checker",
   ]
@@ -95,7 +92,6 @@ ohos_unittest("parameter_static_unittest") {
     "unittest/parameter_static/unit_test.cpp",
   ]
   external_deps = [
-    "c_utils:utils",
     "googletest:gtest",
     "selinux:libselinux",
   ]
