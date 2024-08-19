@@ -220,3 +220,8 @@ allow intell_voice_service ark_writeable_param:file { map open read };
 
 # avc:  denied  { get } for service=3301 pid=826 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
 allow intell_voice_service sa_powermgr_powermgr_service:samgr_class { get };
+
+# avc: denied { open } for pid=882, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=209 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+# avc: denied { read } for pid=864, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=208 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+# avc: denied { map } for pid=896, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=209 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+allow intell_voice_service sys_param:file { open read map };
