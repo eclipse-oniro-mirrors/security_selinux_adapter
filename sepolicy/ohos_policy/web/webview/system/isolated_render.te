@@ -17,7 +17,7 @@ allow isolated_render allocator_host:fd { use };
 allow isolated_render cgroup2:dir { search };
 
 # avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/data/storage/el1/bundle/arkwebcore" dev="sdd78" ino=1840 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
-allow isolated_render data_app_el1_file:dir { getattr read write create setattr open add_name search };
+allow isolated_render data_app_el1_file:dir { getattr search };
 
 # avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/dev/ashmem" dev="tmpfs" ino=490 scontext=u:r:isolated_render:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
 allow isolated_render dev_ashmem_file:chr_file { open };

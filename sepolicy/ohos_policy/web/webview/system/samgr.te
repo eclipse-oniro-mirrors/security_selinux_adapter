@@ -27,4 +27,6 @@ allow samgr isolated_render:binder { call transfer };
 allow samgr isolated_gpu:dir { search };
 allow samgr isolated_gpu:file { open read };
 allow samgr isolated_gpu:process { getattr };
-allow samgr isolated_gpu:binder { call };
+
+# avc_audit_slow:267] avc: denied { transfer } for pid=633, comm="/system/bin/samgr"  scontext=u:r:samgr:s0 tcontext=u:r:isolated_gpu:s0 tclass=binder permissive=1
+allow samgr isolated_gpu:binder { call transfer };
