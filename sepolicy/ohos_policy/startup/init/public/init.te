@@ -101,4 +101,4 @@ init_relabel(accesstoken_data_file);
 init_relabel(data_service_el1_public_deviceauthService_file);
 init_relabel(data_service_el1_public_huksService_file);
 init_relabel(update_dupdate_engine_file);
-
+init_relabel(update_update_service_file);
