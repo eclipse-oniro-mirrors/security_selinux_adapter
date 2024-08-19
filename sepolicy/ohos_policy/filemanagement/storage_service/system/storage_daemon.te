@@ -359,6 +359,7 @@ neverallow { domain -storage_daemon -init updater_only(`-updater') } data_servic
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:file { create ioctl setattr open read write relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:file { unlink getattr };
 
+neverallow storage_daemon *:process ptrace;
 
 
 # avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
