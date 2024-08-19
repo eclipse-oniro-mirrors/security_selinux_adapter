@@ -1,0 +1,61 @@
+# Copyright (c) 2024-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type nativespawn, native_system_domain, domain;
+type nativespawn_exec, system_file_attr, exec_attr, file_attr;
+
+allow nativespawn appspawn:unix_dgram_socket { connect write };
+allow nativespawn appspawn:unix_stream_socket { getopt setopt getattr listen accept read write };
+allow nativespawn nativespawn:hmcap { supervsable };
+allow nativespawn nativespawn:capability { setuid setgid sys_admin net_admin };
+allow nativespawn chip_prod_file:dir { search };
+allow nativespawn sys_prod_file:dir { search };
+allow nativespawn system_lib_file:dir { read open };
+allow nativespawn dev_unix_socket:dir { search };
+allow nativespawn system_file:file { getattr read open };
+allow nativespawn dev_unix_file:sock_file {setattr};
+
+allow nativespawn data_app_el1_file:dir { getattr mounton search };
+allow nativespawn dev_xpm:chr_file { ioctl read write open };
+allow nativespawn nativespawn:process { setcurrent };
+allow nativespawn samgr:binder { call };
+allow nativespawn security:security { check_context };
+allow nativespawn selinuxfs:dir { search };
+allow nativespawn selinuxfs:file { read write open };
+allow nativespawn system_bin_file:dir { getattr mounton };
+allow nativespawn system_lib_file:dir { getattr mounton };
+allow nativespawn vendor_lib_file:dir { getattr mounton };
+allow nativespawn data_app_el2_file:dir { search };
+allow nativespawn data_app_file:dir { search };
+allow nativespawn data_file:dir { search };
+allow nativespawn data_service_el1_file:dir { search };
+allow nativespawn data_service_file:dir { search };
+allow nativespawn dev_at_file:chr_file { ioctl };
+allow nativespawn dev_file:dir { getattr mounton };
+allow nativespawn labeledfs:filesystem { unmount };
+allow nativespawn proc_file:dir { mounton };
+allow nativespawn rootfs:dir { mounton };
+allow nativespawn sys_file:dir { mounton };
+allow nativespawn system_etc_file:dir { mounton };
+allow nativespawn system_fonts_file:dir { getattr mounton };
+allow nativespawn tmpfs:dir { mounton add_name create write };
+allow nativespawn tmpfs:file { mounton };
+allowxperm nativespawn dev_at_file:chr_file ioctl { 0x4102 };
+allow nativespawn appspawn:fd { use };
+allow debug_hap nativespawn:fd { use };
+allow debug_hap nativespawn:fifo_file { write };
+allow nativespawn debug_hap:process { dyntransition };
+allow nativespawn cgroup:dir { add_name search create remove_name rmdir write };
+allow nativespawn cgroup:file { getattr read append open };
+allow nativespawn sysfs_net:file { open write };
+
