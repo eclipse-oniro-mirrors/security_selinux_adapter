@@ -102,7 +102,7 @@ allow telephony_sa sysfs_devices_system_cpu:file { getattr open read };
 
 allow telephony_sa netsysnative:bpf { map_read };
 allow telephony_sa netsysnative:unix_stream_socket { connectto read write };
-allow telephony_sa telephony_sa:netlink_route_socket { connect getopt setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
+allow telephony_sa telephony_sa:netlink_route_socket { connect getopt setopt bind setattr getattr listen read nlmsg_read nlmsg_readpriv nlmsg_write create write };
 allow telephony_sa sa_av_codec_service:samgr_class { get };
 allow telephony_sa av_codec_service:binder { call transfer };
 allow telephony_sa av_codec_service:fd { use };

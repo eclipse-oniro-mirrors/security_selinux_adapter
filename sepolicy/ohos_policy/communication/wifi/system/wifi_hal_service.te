@@ -98,7 +98,7 @@ allow wifi_hal_service wifi_host:unix_dgram_socket { sendto };
 allow wifi_hal_service wifi_manager_service:binder { call };
 
 # avc:  denied  { nlmsg_read } for  pid=1006 comm="IPC_0_1130" scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_hal_service:s0 tclass=netlink_route_socket permissive=1
-allow wifi_hal_service wifi_hal_service:netlink_route_socket { nlmsg_read setopt };
+allow wifi_hal_service wifi_hal_service:netlink_route_socket { nlmsg_read nlmsg_readpriv setopt };
 
 allow wifi_hal_service netmanager:binder { call };
 allow wifi_hal_service sa_dhcp_client:samgr_class { add get };
