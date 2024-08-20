@@ -25,7 +25,7 @@ neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
-neverallow normal_hap_attr { domain -normal_hap_attr }:netlink_route_socket { bind nlmsg_readpriv };
+neverallow normal_hap_attr { domain }:netlink_route_socket { bind nlmsg_readpriv };
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
