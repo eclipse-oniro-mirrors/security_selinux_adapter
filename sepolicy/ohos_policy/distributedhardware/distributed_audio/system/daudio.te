@@ -45,7 +45,7 @@ allow daudio daudio:udp_socket { create setopt };
 
 allow daudio daudio:udp_socket { read write connect };
 
-allow daudio daudio:netlink_route_socket { create write nlmsg_read read };
+allow daudio daudio:netlink_route_socket { create write nlmsg_read nlmsg_readpriv read };
 
 allow daudio daudio_host:binder { call transfer };
 

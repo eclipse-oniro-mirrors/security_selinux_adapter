@@ -33,5 +33,5 @@ allow wifi_host paramservice_socket:sock_file { write };
 allow wifi_host kernel:unix_stream_socket { connectto };
 
 # avc:  denied  { nlmsg_read } for scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=netlink_route_socket permissive=1
-allow wifi_host wifi_host:netlink_route_socket { nlmsg_read };
+allow wifi_host wifi_host:netlink_route_socket { nlmsg_read nlmsg_readpriv };
 
