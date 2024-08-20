@@ -12,6 +12,6 @@
 # limitations under the License.
 
 type isolated_render, domain;
-type isolated_gpu, hap_domain, domain;
+type isolated_gpu, domain;
 type web_private_param, parameter_attr;
 type app_fwk_update_service, sadomain, domain;

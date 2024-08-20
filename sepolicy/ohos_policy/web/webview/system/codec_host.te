@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (C) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,10 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-allow render_service accessibility:binder { call transfer };
-
-# avc_audit_slow:267] avc: denied { transfer } for pid=1390, comm="/system/bin/render_service"  scontext=u:r:render_service:s0 tcontext=u:r:isolated_gpu:s0 tclass=binder permissive=1
-
-allow render_service isolated_gpu:binder { call transfer };
-allow render_service isolated_gpu:fd { use };
+ 
+# avc_audit_slow:267] avc: denied { call } for pid=1297, comm="/vendor/bin/hdf_devhost"  scontext=u:r:codec_host:s0 tcontext=u:r:isolated_gpu:s0 tclass=binder permissive=1
+# avc_audit_slow:267] avc: denied { transfer } for pid=1297, comm="/vendor/bin/hdf_devhost"  scontext=u:r:codec_host:s0 tcontext=u:r:isolated_gpu:s0 tclass=binder permissive=1
+allow codec_host isolated_gpu:binder { call transfer };
