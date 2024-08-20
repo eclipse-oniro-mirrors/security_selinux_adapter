@@ -17,7 +17,7 @@ allow hiprofiler_cmd hdcd:unix_stream_socket { read write };
 allow hiprofiler_cmd proc_cpuinfo_file:file { open read };
 allow hiprofiler_cmd tty_device:chr_file { read write };
 allow hiprofiler_cmd node:tcp_socket node_bind;
-allow hiprofiler_cmd self:netlink_route_socket { create nlmsg_read read write };
+allow hiprofiler_cmd self:netlink_route_socket { create nlmsg_read nlmsg_readpriv read write };
 allow hiprofiler_cmd self:tcp_socket { bind create setopt };
 allow hiprofiler_cmd port:tcp_socket name_connect;
 allow hiprofiler_cmd self:tcp_socket { connect getattr getopt read write };

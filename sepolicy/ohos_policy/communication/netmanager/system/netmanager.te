@@ -32,7 +32,7 @@ allow netmanager kernel:unix_stream_socket { connectto };
 allow netmanager musl_param:file { read };
 allow netmanager netmanager:capability { net_admin };
 allow netmanager netmanager:capability { net_raw };
-allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write };
+allow netmanager netmanager:netlink_route_socket { create nlmsg_read nlmsg_readpriv read write };
 allow netmanager netmanager:packet_socket { bind create read write };
 allow netmanager netmanager:tcp_socket { connect create getattr getopt read setopt write };
 allow netmanager netmanager:udp_socket { bind connect create getattr ioctl read write setopt getopt };

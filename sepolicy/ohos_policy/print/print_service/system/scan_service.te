@@ -45,7 +45,7 @@ allow scan_service system_basic_hap:binder { call };
 allow scan_service system_basic_hap:fd { use };
 allow scan_service sys_file:dir { open read };
 allow scan_service system_bin_file:dir { search };
-allow scan_service scan_service:netlink_route_socket { create nlmsg_read write };
+allow scan_service scan_service:netlink_route_socket { create nlmsg_read nlmsg_readpriv write };
 allow scan_service sys_file:file { read open };
 allow scan_service usb_service:binder { call };
 allow scan_service sa_usb_service:samgr_class { get };
