@@ -142,7 +142,6 @@
             "msdp_sa dev_input_file chr_file",
             "multimodalinput data_init_agent file",
             "multimodalinput dev_console_file chr_file",
-            "nativespawn dev_xpm chr_file",
             "native_daemon data_local_tmp file",
             "native_daemon self unix_dgram_socket",
             "native_daemon tty_device chr_file",
