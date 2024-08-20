@@ -225,5 +225,5 @@ allow msdp_sa concurrent_task_service:binder { call };
 
 allow msdp_sa wifi_manager_service:binder { call };
 
-#avc: denied { call } for pid=871, comm="OS_Cooperate"  scontext=u:r:msdp_sa:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+#avc:  denied  { call } for  pid=871 comm="OS_Cooperate" scontext=u:r:msdp_sa:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
 allow msdp_sa accountmgr:binder { call };
