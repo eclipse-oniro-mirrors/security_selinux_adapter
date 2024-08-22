@@ -32,7 +32,7 @@ allow storage_manager storage_daemon:binder { call };
 # avc:  denied  { search } for  pid=263 comm="storage_manager" name="external" dev="tmpfs" ino=2 scontext=u:r:storage_manager:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
 allow storage_manager permissions_mount_file_attr:dir { search };
 
-avc: denied { get } for service=3704 sid=u:r:storage_manager:s0 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
+# avc: denied { get } for service=3704 sid=u:r:storage_manager:s0 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
 allow storage_manager sa_screenlock_service:samgr_class { get };
 
 # avc:  denied  { get } for  service=200 pid=574 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
