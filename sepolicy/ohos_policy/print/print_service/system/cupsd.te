@@ -39,4 +39,3 @@ neverallow cupsd { data_file_attr -data_service_el1_public_print_service_file }:
 allow cupsd data_service_el1_public_print_service_file:lnk_file { read };
 allow cupsd sa_usb_service:samgr_class { get };
 allow cupsd usb_service:binder { call };
-allow cupsd data_app_el1_file:file { execute execute_no_trans };
