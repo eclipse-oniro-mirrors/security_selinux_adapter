@@ -51,6 +51,7 @@ allow foundation huks_service:binder { call transfer };
 allow foundation hw_sc_build_os_param:file { map open read };
 allow foundation hw_sc_build_param:file { map open read };
 allow foundation hw_sc_param:file { map open read };
+allow foundation i18n_service:binder { call };
 allow foundation init_param:file { map open read };
 allow foundation init_svc_param:file { map open read };
 allow foundation init:unix_stream_socket { connectto };
