@@ -90,3 +90,5 @@ allow print_service sa_wifi_device_ability:samgr_class { get };
 allow print_service sa_wifi_p2p_ability:samgr_class { get };
 allow print_service wifi_manager_service:binder { call };
 allow print_service data_service_el1_public_print_service_file:lnk_file { create };
+allow print_service data_service_el2_file:dir { add_name search write create read };
+allow print_service data_service_el2_file:file { create getattr read open write };
