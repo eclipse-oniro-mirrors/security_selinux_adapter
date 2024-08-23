@@ -62,4 +62,10 @@ allowxperm nativespawn dev_xpm:chr_file ioctl { 0x7801 0x7802 };
 allow nativespawn normal_hap_data_file_attr:dir { getattr mounton };
 allow nativespawn hap_domain:fd { use };
 allow nativespawn normal_hap_data_file_attr:file { read write };
+allow nativespawn system_bin_file:file { entrypoint execute map open read };
+allow nativespawn init:unix_stream_socket { accept getattr getopt listen };
+allow nativespawn nativespawn:unix_dgram_socket { getopt setopt };
+allow init nativespawn:process { rlimitinh siginh transition };
+allow hap_domain nativespawn:unix_dgram_socket { write };
+allow nativespawn cgroup:file { write };
 
