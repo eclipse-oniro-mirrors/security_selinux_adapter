@@ -121,10 +121,10 @@ allow appspawn system_profile_file:dir { mounton getattr };
 allow appspawn system_usr_file:dir { mounton search getattr };
 allow appspawn system_usr_file:file { getattr map open read };
 allow appspawn sys_usb_param:file { map open read };
-allow appspawn tmpfs:dir { add_name create mounton write getattr };
+allow appspawn tmpfs:dir { add_name create mounton write getattr remove_name};
 
 # avc:  denied  { create } for  pid=1604 comm="amples.etsclock" name="ld-musl-arm.so.1" scontext=u:r:appspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
-allow appspawn tmpfs:file { create mounton open };
+allow appspawn tmpfs:file { create mounton open unlink};
 
 allow appspawn tmpfs:lnk_file { create };
 allow appspawn vendor_lib_file:dir { mounton getattr };

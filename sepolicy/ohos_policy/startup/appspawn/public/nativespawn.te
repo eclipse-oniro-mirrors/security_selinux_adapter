@@ -61,3 +61,4 @@ allow nativespawn dev_xpm:chr_file { ioctl read write open };
 allowxperm nativespawn dev_xpm:chr_file ioctl { 0x7801 0x7802 };
 allow nativespawn debug_hap_data_file:dir { getattr mounton };
 
+neverallow nativespawn *:process ptrace;
