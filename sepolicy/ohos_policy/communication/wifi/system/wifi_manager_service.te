@@ -228,3 +228,6 @@ allow wifi_manager_service sa_comm_net_stats_manager_service:samgr_class { get }
 # avc:  denied  { write } for  pid=1624 comm="system/bin/sa_main/" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_socket permissive=1
 # avc:  denied  { read } for  pid=1624 comm="system/bin/sa_main/" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=netlink_socket permissive=1
 allow wifi_manager_service wifi_manager_service:netlink_socket { create setopt write read };
+
+allow wifi_manager_service sa_asset_service:samgr_class { get };
+allow wifi_manager_service asset_service:binder { call };
