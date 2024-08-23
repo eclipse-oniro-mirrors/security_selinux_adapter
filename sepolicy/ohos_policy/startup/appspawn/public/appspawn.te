@@ -23,4 +23,5 @@ allow appspawn hap_domain:fd { use };
 allow appspawn hap_file_attr:file { read write } ;
 
 allow appspawn nativespawn:process { dyntransition sigkill };
+neverallow appspawn *:process ptrace;
 

@@ -299,9 +299,6 @@ allow hiperf hnp_exec:file { getattr map read open };
 allow sh hnp_file:dir { search getattr read open };
 allow sh hnp_file:file { execute execute_no_trans getattr map read open };
 allow sh hnp_file:lnk_file { read };
-allow sh data_app_el1_file:dir { search getattr read open };
-allow sh data_app_el1_file:file { execute execute_no_trans getattr map read open };
-allow sh data_app_el1_file:lnk_file { read };
 allow sh key_enable:key { search };
 allow sh storage_daemon:key { search };
 ')

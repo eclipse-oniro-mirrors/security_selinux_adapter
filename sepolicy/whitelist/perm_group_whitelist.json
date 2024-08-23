@@ -145,8 +145,7 @@
                 "installs hnp_exec",
                 "hnp sh_exec",
                 "hnp toybox_exec",
-		"sh hnp_file",
-		"sh data_app_el1_file"
+                "sh hnp_file"
             ]
         }
     ]
