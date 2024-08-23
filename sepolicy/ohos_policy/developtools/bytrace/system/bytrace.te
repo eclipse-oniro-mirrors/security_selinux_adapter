@@ -61,11 +61,6 @@ allow bytrace const_param:file { map open read };
 allow bytrace const_postinstall_fstab_param:file { map open read };
 allow bytrace const_postinstall_param:file { map open read };
 
-debug_only(`
-	allow bytrace self:capability { setgid };
-	allow hitrace self:capability { setgid };
-')
-
 developer_only(`
 	allow bytrace sh:fd use;
 	allow bytrace sh:fifo_file { read write };
