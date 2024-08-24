@@ -83,7 +83,6 @@ allow { domain -hap_domain } kernel:fd use;
 
 allow domain init:unix_dgram_socket { sendto };
 allow { domain -hap_domain } init:unix_stream_socket { read write };
-allow { domain -hap_domain } init:netlink_kobject_uevent_socket { read write };
 
 # deny access for noatsecure
 dontaudit domain domain:process noatsecure;
