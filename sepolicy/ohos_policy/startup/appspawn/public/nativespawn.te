@@ -69,3 +69,5 @@ allow init nativespawn:process { rlimitinh siginh transition };
 allow hap_domain nativespawn:unix_dgram_socket { write };
 allow nativespawn cgroup:file { write };
 allow nativespawn tmpfs:lnk_file { create };
+
+neverallow nativespawn *:process ptrace;
