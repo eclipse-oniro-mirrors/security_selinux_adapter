@@ -203,6 +203,7 @@ allow distributeddata data_service_el1_utd_file:dir { relabelto add_name search 
 allow distributeddata data_service_el1_utd_file:file { create ioctl getattr read write open };
 allowxperm distributeddata data_service_el1_utd_file:file ioctl { 0x5413 };
 allow distributeddata sa_time_service:samgr_class { get };
+allow distributeddata sa_screenlock_service:samgr_class { get };
 allow distributeddata time_service:binder { call transfer };
 binder_call(distributeddata, powermgr);
 allow distributeddata powermgr:dir { search };
