@@ -18,3 +18,5 @@
 /system/bin/pid_ns_init       u:object_r:pid_ns_init_exec:s0
 
 /dev/unix/socket/CJAppSpawn       u:object_r:appspawn_socket:s0
+
+/dev/unix/socket/NativeSpawn       u:object_r:appspawn_socket:s0
