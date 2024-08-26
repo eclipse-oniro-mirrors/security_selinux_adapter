@@ -12,3 +12,10 @@
 # limitations under the License.
 
 attribute sharefs_file_attr;
+attribute hmcap_supervsable_common_attr;
+attribute hmcap_supervsable_osr_attr;
+# used in base/security/selinux_adapter/sepolicy
+attribute hmcap_supervsable_container_attr;
+# used in vendor/huawei/base/security/sepolicy_ext/sepolicy/container_sepolicy
+attribute hmcap_supervsable_platform_attr;
+# used in device/hisi/sepolicy/ohos/vendor

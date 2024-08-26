@@ -13,6 +13,7 @@
 updater_only(`
 
 # avc_audit_slow:267] avc: denied { supervsable } for pid=796, comm="/bin/updater_binary"  scontext=u:r:processdump:s0 tcontext=u:r:processdump:s0 tclass=hmcap permissive=1
+typeattribute processdump hmcap_supervsable_osr_attr;
 allow processdump processdump:hmcap { supervsable };
 
 # avc_audit_slow:267] avc: denied { getattr } for pid=796, comm="/bin/processdump"  path="/etc/ld-musl-namespace-aarch64.ini" dev="tmpfs" ino=323 scontext=u:r:processdump:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1

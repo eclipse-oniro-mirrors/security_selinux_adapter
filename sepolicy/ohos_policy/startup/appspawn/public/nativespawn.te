@@ -16,6 +16,7 @@ type nativespawn_exec, system_file_attr, exec_attr, file_attr;
 
 allow nativespawn appspawn:unix_dgram_socket { connect write };
 allow nativespawn appspawn:unix_stream_socket { getopt setopt getattr listen accept read write };
+typeattribute nativespawn hmcap_supervsable_osr_attr;
 allow nativespawn nativespawn:hmcap { supervsable };
 allow nativespawn nativespawn:capability { setuid setgid sys_admin net_admin };
 allow nativespawn chip_prod_file:dir { search };
