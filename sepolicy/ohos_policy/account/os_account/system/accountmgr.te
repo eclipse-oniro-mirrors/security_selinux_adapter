@@ -153,6 +153,8 @@ allow accountmgr persist_param:parameter_service { set };
 allow accountmgr account_data_file:dir { ioctl };
 allowxperm accountmgr account_data_file:dir ioctl { 0xf546 0xf547 };
 
+allow accountmgr msdp_sa:binder { call transfer };
+
 # add for test
 debug_only(`
     allow accountmgr sh:binder { call };
