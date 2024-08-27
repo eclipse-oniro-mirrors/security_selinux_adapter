@@ -44,3 +44,8 @@ allowxperm accessibility data_service_el1_file:file ioctl { 0x5413 };
 
 allow accessibility accessibility_param:file { map open read };
 allow accessibility audio_server:binder { call transfer };
+
+allow accessibility distributeddata:binder { call };
+allow accessibility distributeddata:fd { use };
+allow distributeddata accessibility:binder { transfer };
+allow accessibility sa_distributeddata_service:samgr_class { get };
