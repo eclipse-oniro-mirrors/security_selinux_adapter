@@ -22,3 +22,4 @@ allow ui_service persist_sys_param:file { open read map };
 allow ui_service sa_accountmgr:samgr_class { get };
 allow ui_service accountmgr:binder { call };
 allow accountmgr ui_service:binder { transfer };
+allow ui_service sa_foundation_cesfwk_service:samgr_class { get };
