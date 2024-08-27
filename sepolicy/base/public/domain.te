@@ -254,6 +254,7 @@ neverallow { domain -init -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
 neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display -hiprofiler_cmd -bm') -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
+neverallow { -hiprofiler_cmd -hiprofilerd -hiprofiler_plugins -native_daemon -hitrace -hiview -bytrace -hiperf } hiviewdfx_profiler_param:parameter_service { set };
 
 #forbid root process access network;
 #
