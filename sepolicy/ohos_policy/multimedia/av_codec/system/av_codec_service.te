@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type av_codec_service, sadomain, domain;
-type sa_av_codec_service, sa_service_attr;
-
 debug_only(`
     allow av_codec_service sh:binder { call transfer };
     allow av_codec_service sh:fd { use };
