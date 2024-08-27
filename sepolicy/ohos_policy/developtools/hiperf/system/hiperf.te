@@ -191,7 +191,7 @@ developer_only(`
     allow hiperf sh:process signull;
 ')
 
-allow hiperf data_local_tmp:file { open create getattr ioctl read rename unlink write };
+allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
 allow hiperf self:capability { sys_ptrace ipc_lock };
