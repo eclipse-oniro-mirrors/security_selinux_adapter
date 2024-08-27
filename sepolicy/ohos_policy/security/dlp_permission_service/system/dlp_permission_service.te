@@ -12,13 +12,13 @@
 # limitations under the License.
 
 # avc:  denied  { call } for  pid=14376 comm="dlp_permission_" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
-allow dlp_permission_service accesstoken_service:binder { call };
+binder_call(dlp_permission_service, accesstoken_service);
 
 # avc:  denied  { search } for  pid=14085 comm="sa_main" name="socket" dev="tmpfs" ino=44 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow dlp_permission_service dev_unix_socket:dir { search };
 
 # avc:  denied  { call } for  pid=14376 comm="IPC_2_14413" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
-allow dlp_permission_service foundation:binder { call };
+binder_call(dlp_permission_service, foundation);
 
 # avc:  denied  { map } for  pid=14085 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=69 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=14085 comm="sa_main" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=69 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
@@ -36,7 +36,7 @@ allow dlp_permission_service debug_param:file { map open read };
 allow dlp_permission_service musl_param:file { map open read };
 
 # avc:  denied  { call } for  pid=14376 comm="dlp_permission_" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
-allow dlp_permission_service hap_domain:binder { call };
+binder_call(dlp_permission_service, hap_domain);
 
 # avc:  denied  { open } for  pid=14376 comm="sa_main" path="/proc/sys/vm/overcommit_memory" dev="proc" ino=113 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=14376 comm="sa_main" name="overcommit_memory" dev="proc" ino=113 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
@@ -49,7 +49,7 @@ allow dlp_permission_service sa_accesstoken_manager_service:samgr_class { get };
 allow dlp_permission_service sa_accountmgr:samgr_class { get };
 
 # avc:  denied  { call } for  pid=3544 comm="dlp_permission_" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
-allow dlp_permission_service accountmgr:binder { call };
+binder_call(dlp_permission_service, accountmgr);
 
 # avc:  denied  { add } for service=3521 pid=5063 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:sa_dlp_permission:s0 tclass=samgr_class permissive=1
 allow dlp_permission_service sa_dlp_permission:samgr_class { add };
@@ -69,7 +69,7 @@ allow dlp_permission_service sa_param_watcher:samgr_class { get };
 
 # avc:  denied  { call } for  pid=3614 comm="dlp_permission_" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=3614 comm="dlp_permission_" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
-allow dlp_permission_service param_watcher:binder { call transfer };
+binder_call(dlp_permission_service, param_watcher);
 
 # avc:  denied  { search } for  pid=13601 comm="dlp_permission_" name="/" dev="tracefs" ino=1 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow dlp_permission_service tracefs:dir { search };
@@ -119,4 +119,4 @@ allow dlp_permission_service sa_installd_service:samgr_class { get };
 allow dlp_permission_service { vendor_etc_file sys_prod_file chip_prod_file }:dir { search };
 
 allow dlp_permission_service sa_distributeddata_service:samgr_class { get };
-allow dlp_permission_service distributeddata:binder { call transfer };
+binder_call(dlp_permission_service, distributeddata);
