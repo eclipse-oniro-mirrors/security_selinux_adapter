@@ -90,5 +90,3 @@ allow media_service system_file:file { map open read getattr };
 allow media_service data_app_el1_file:file { map open read getattr };
 allow media_service sa_memory_manager_service:samgr_class { get };
 allow media_service memmgrservice:binder { call transfer };
-allow media_service media_service:tcp_socket { accept bind connect create listen read setopt getopt shutdown write setattr getattr };
-allow media_service media_service:capability { chown };
