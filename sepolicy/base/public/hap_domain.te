@@ -141,7 +141,7 @@ neverallow { hap_domain -system_basic_hap_attr } dev_tun_file:chr_file { open io
 neverallow hap_domain dev_bbox:chr_file { read };
 #avc denied {ioctl} ino=71 ioctlcmd=0x426a 0x426d scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
 neverallowxperm hap_domain dev_bbox:chr_file ioctl ~{ 0xab01 0xab04 0xab09 0xad01 0xaf04 0xaf06 0xaf08 0x426a 0x426d };
-neverallowxperm hap_domain dev_bus_usb_file:chr_file ioctl ~{ 0x5500 0x5504 0x5505 0x5508 0x550a 0x550b 0x550d 0x550f 0x5510 0x5511 0x5512 0x5514
+neverallowxperm hap_domain dev_bus_usb_file:chr_file ioctl { 0x5500 0x5504 0x5505 0x5508 0x550a 0x550b 0x550d 0x550f 0x5510 0x5511 0x5512 0x5514
                                                         0x5515 0x5516 0x5517 0x551a 0x551b 0x551c 0x551d 0x551e 0x551f };
 neverallow { hap_domain -dev_fuse_file_violator -dlpmanager_hap } dev_fuse_file:chr_file { open ioctl read write};
 
