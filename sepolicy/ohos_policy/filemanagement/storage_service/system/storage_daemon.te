@@ -363,6 +363,12 @@ neverallow storage_daemon *:process ptrace;
 
 allow storage_daemon proc_cmdline_file:file { getattr open read };
 
+# avc: denied { get } for service=3704 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
+allow storage_daemon sa_screenlock_service:samgr_class { get };
+
+# avc:  denied  { get } for service=200 pid=574 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
+allow storage_daemon sa_accountmgr:samgr_class { get };
+
 # avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
 allow storage_daemon sa_useriam_useridm_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
