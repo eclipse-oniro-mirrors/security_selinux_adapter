@@ -86,3 +86,5 @@ allowxperm camera_service dev_at_file:chr_file ioctl { 0x4104 };
 allow camera_service sa_foundation_devicemanager_service:samgr_class { get };
 allow camera_service device_manager:binder { call transfer };
 allow camera_service av_codec_service:fd { use };
+
+allow camera_service resource_schedule_service:binder { call };
