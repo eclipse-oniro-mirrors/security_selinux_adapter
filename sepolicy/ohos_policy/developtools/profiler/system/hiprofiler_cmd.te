@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hiprofiler_cmd system_bin_file:file { execute execute_no_trans };
-allow hiprofiler_cmd toybox_exec:file { execute execute_no_trans };
 neverallow hiprofiler_cmd *:process ptrace;
 
 developer_only(`
@@ -98,8 +96,8 @@ developer_only(`
 
 	allow hiprofiler_cmd init:file read;
 	allow hiprofiler_cmd kernel:file read;
-	allow hiprofiler_cmd system_bin_file:file { getattr map open read };
-	allow hiprofiler_cmd toybox_exec:file { getattr map open read };
+	allow hiprofiler_cmd system_bin_file:file { getattr map open read execute execute_no_trans };
+	allow hiprofiler_cmd toybox_exec:file { getattr map open read execute execute_no_trans };
 
 	allow hiprofiler_cmd dev_unix_socket:dir remove_name;
 	allow hiprofiler_cmd dev_unix_socket:sock_file unlink;

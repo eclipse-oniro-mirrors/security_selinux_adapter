@@ -11,11 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hiprofiler_plugins system_bin_file:file execute;
-allow hiprofiler_plugins hilog_exec:file { execute execute_no_trans };
 neverallow hiprofiler_plugins *:process ptrace;
-allow hiprofiler_plugins SP_daemon_exec:file { execute execute_no_trans };
-allow hiprofiler_plugins hisysevent_exec:file { execute execute_no_trans };
 
 developer_only(`
     allow hiprofiler_plugins data_file:dir search;
@@ -32,6 +28,7 @@ developer_only(`
     allow hiprofiler_plugins data_local:dir search;
     allow hiprofiler_plugins hiprofilerd:unix_stream_socket connectto;
     allow hiprofiler_plugins hiprofilerd:fd { use };
+    allow hiprofiler_plugins system_bin_file:file execute;
 
     allow hiprofiler_plugins appspawn:file read;
     allow hiprofiler_plugins hdcd:fd use;
@@ -115,7 +112,7 @@ developer_only(`
 
     allow hiprofiler_plugins accessibility:file { getattr open read };
     allow hiprofiler_plugins distributeddata:file { getattr read };
-    allow hiprofiler_plugins hilog_exec:file { getattr map open read };
+    allow hiprofiler_plugins hilog_exec:file { getattr map open read execute execute_no_trans };
     allow hiprofiler_plugins init:dir { open read };
     allow hiprofiler_plugins kernel:file { getattr open };
     allow hiprofiler_plugins media_service:dir search;
@@ -256,7 +253,7 @@ developer_only(`
 
     allow hiprofiler_plugins musl_param:file map;
     allow hiprofiler_plugins dev_unix_file:sock_file write;
-    allow hiprofiler_plugins hisysevent_exec:file { open read map };
+    allow hiprofiler_plugins hisysevent_exec:file { open read map execute execute_no_trans };
     allow hiprofiler_plugins samgr:binder call;
     allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
     allow hiprofiler_plugins sa_hiview_service:samgr_class get;
@@ -290,7 +287,7 @@ developer_only(`
     allow accountmgr hiprofiler_plugins:binder { transfer };
     allow hiprofiler_plugins system_bin_file:lnk_file read;
     allow hiprofiler_plugins toybox_exec:lnk_file read;
-    allow hiprofiler_plugins SP_daemon_exec:file { getattr open read map};
+    allow hiprofiler_plugins SP_daemon_exec:file { getattr open read map execute execute_no_trans };
 
     allow hiprofiler_plugins sa_render_service:samgr_class get;
     allow hiprofiler_plugins render_service:binder { call transfer };

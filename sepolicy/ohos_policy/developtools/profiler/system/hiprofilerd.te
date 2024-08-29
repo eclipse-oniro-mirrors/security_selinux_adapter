@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hiprofilerd system_bin_file:file { execute execute_no_trans };
-allow hiprofilerd toybox_exec:file { execute execute_no_trans };
 developer_only(`
 	allow hiprofilerd dev_unix_socket:dir search;
 	allow hiprofilerd devpts:chr_file { read write };
@@ -91,8 +89,8 @@ developer_only(`
 	allow hiprofilerd const_display_brightness_param:file { map open read };
 
 	allow hiprofilerd default_param:file { map open read };
-	allow hiprofilerd system_bin_file:file { map open read };
-	allow hiprofilerd toybox_exec:file { getattr map open read };
+	allow hiprofilerd system_bin_file:file { map open read execute execute_no_trans };
+	allow hiprofilerd toybox_exec:file { getattr map open read execute execute_no_trans };
 	allow hiprofilerd dev_unix_socket:sock_file { getattr setattr };
 
 	allow hiprofilerd hiprofiler_cmd:fd use;
