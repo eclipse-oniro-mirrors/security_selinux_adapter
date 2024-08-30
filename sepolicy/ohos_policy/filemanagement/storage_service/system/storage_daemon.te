@@ -373,3 +373,5 @@ allow storage_daemon sa_accountmgr:samgr_class { get };
 allow storage_daemon sa_useriam_useridm_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 
+allow storage_daemon data_log:file { read append getattr open create };
+allow storage_daemon data_log:dir { write add_name create };
