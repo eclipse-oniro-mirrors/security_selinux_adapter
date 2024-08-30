@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+neverallow { domain -hiprofiler_cmd -hiprofilerd -hiprofiler_plugins -native_daemon -hitrace -hiview -bytrace -hiperf } hiviewdfx_profiler_param:parameter_service { set };
 debug_only(`
 	allow native_daemon self:capability setgid;
         allow domain dev_unix_socket:sock_file write;
