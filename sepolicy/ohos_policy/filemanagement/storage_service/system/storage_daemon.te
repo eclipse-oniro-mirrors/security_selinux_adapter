@@ -321,7 +321,7 @@ allow storage_daemon permissions_mount_file_attr:dir { add_name create mounton s
 # avc:  denied  { ioctl } for  pid=269 comm="IPC_2_822" path="/data/service/el1/public/storage_daemon/share/public" dev="mmcblk0p14" ino=70 ioctlcmd=0x6601 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
 # avc:  denied  { ioctl } for  pid=269 comm="IPC_2_822" path="/data/service/el1/public/storage_daemon/share/public" dev="mmcblk0p14" ino=70 ioctlcmd=0x6602 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
 allow storage_daemon share_public_file:dir { read open ioctl };
-allowxperm storage_daemon share_public_file:dir ioctl { 0x581f 0x5820 0x6601 0x6602 };
+allowxperm storage_daemon share_public_file:dir ioctl { 0xf546 0xf547 0x581f 0x5820 0x6601 0x6602 };
 
 # avc:  denied  { write } for pid=544 comm="storage_daemon" name="kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { open } for pid=544 comm="storage_daemon" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
@@ -348,9 +348,9 @@ allow storage_daemon data_app_el5_file:file { unlink };
 allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };
 allow storage_daemon el5_filekey_manager:binder { call };
 allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
-allowxperm storage_daemon data_service_storage_daemon_sd_file:file ioctl { 0x5413 };
-allowxperm storage_daemon data_service_storage_daemon_sd_file:dir ioctl { 0x5413 };
-allow storage_daemon data_service_storage_daemon_sd_file:dir { add_name search create remove_name rename rmdir getattr open read write relabelto };
+allowxperm storage_daemon data_service_storage_daemon_sd_file:file ioctl { 0x5413 0xf546 0xf547 };
+allowxperm storage_daemon data_service_storage_daemon_sd_file:dir ioctl { 0x5413 0xf546 0xf547 };
+allow storage_daemon data_service_storage_daemon_sd_file:dir { add_name search create remove_name rename rmdir getattr setattr open read write relabelto ioctl };
 allow storage_daemon data_service_storage_daemon_sd_file:file { create ioctl setattr unlink getattr open read write relabelto };
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:dir { create relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:dir { read write getattr rename open add_name remove_name search rmdir };
