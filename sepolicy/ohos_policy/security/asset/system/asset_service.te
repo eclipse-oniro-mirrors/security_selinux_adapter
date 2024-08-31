@@ -13,11 +13,20 @@
 
 allow asset_service sa_asset_service:samgr_class { get add };
 
-allow asset_service data_service_el1_public_asset_service_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow asset_service data_service_el1_public_asset_service_file:dir { add_name create open read remove_name search write rmdir getattr setattr ioctl };
+allowxperm asset_service data_service_el1_public_asset_service_file:dir ioctl { 0xf546 0xf547 };
+
 allow asset_service data_service_el1_public_asset_service_file:file { create getattr open read setattr unlink write lock ioctl };
-allowxperm asset_service data_service_el1_public_asset_service_file:file ioctl { 0xf501 0xf502 0xf50c };
+allowxperm asset_service data_service_el1_public_asset_service_file:file ioctl { 0xf501 0xf502 0xf50c 0xf546 0xf547 };
+
+allow asset_service data_service_el2_user_id_asset_service_file:dir { search write add_name open read remove_name ioctl };
+allowxperm asset_service data_service_el2_user_id_asset_service_file:dir ioctl { 0xf546 0xf547 };
+
+allow asset_service data_service_el2_user_id_asset_service_file:file { create write open read setattr getattr lock unlink ioctl };
+allowxperm asset_service data_service_el2_user_id_asset_service_file:file ioctl { 0xf546 0xf547 0xf50c };
 
 allow asset_service data_service_el1_file:dir { search };
+allow asset_service data_service_el2_file:dir { search };
 allow asset_service data_service_file:dir { search };
 allow asset_service data_file:dir { search };
 allow asset_service dev_unix_socket:dir { search };
