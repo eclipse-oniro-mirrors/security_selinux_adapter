@@ -12,3 +12,4 @@
 # limitations under the License.
 
 neverallow download_server { domain -download_server }:socket_class_set { setattr };
+
