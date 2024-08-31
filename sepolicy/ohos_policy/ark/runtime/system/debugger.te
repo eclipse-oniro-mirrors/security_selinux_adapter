@@ -13,6 +13,7 @@
 
 developer_only(`
     allow hap_domain hdcd:unix_stream_socket { connectto read write };
+    allow hap_domain hdcd:fd { use };
 ')
 
 debug_only(`
