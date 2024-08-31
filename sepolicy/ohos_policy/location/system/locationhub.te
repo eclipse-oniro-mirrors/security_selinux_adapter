@@ -111,3 +111,4 @@ allow locationhub kernel:unix_stream_socket { connectto };
 allow locationhub persist_param:parameter_service { set };
 
 allow locationhub sa_wifi_device_ability:samgr_class {get};
+allow locationhub netmanager:binder { call transfer };
