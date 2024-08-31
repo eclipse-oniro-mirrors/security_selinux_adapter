@@ -63,6 +63,7 @@ allow cjappspawn persist_sys_param:file { read open };
 allow cjappspawn vendor_lib_file:file { read open getattr };
 allow cjappspawn system_etc_file:dir { read open };
 allow cjappspawn arkcompiler_param:file { read open };
+allow cjappspawn arkcompiler_param:file { map };
 allow cjappspawn devinfo_public_param:file { read open };
 allow cjappspawn system_usr_file:file { read open getattr };
 allow cjappspawn system_bin_file:file { execute open execute_no_trans };
