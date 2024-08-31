@@ -266,3 +266,13 @@ neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0x
 allow hiview sa_foundation_dms:samgr_class { get };
 
 allow hiview hidumper:fd {use };
+
+#avc: denied { search } for pid=620, comm="/system/bin/hiview" name="/service/el0" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=10 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc: denied { open } for pid=620, comm="/system/bin/hiview" path="/data/service/el0/render_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=40 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc: denied { read } for pid=623, comm="/system/bin/hiview" path="/data/service/el0/render_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=40 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+allow hiview data_service_el0_file:dir { read open search };
+
+#avc: denied { getattr } for pid=622, comm="/system/bin/hiview" path="/data/service/el0/render_service/file00.ohr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=29695 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+#avc: denied { read } for pid=622, comm="/system/bin/hiview" path="/data/service/el0/render_service/file01.ohr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=30554 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+#avc: denied { open } for pid=622, comm="/system/bin/hiview" path="/data/service/el0/render_service/file01.ohr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=33037 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+allow hiview data_service_el0_file:file { getattr read open };
