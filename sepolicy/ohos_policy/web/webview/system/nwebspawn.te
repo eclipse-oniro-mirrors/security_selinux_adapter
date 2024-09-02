@@ -154,4 +154,4 @@ debug_only(`
     allow nwebspawn data_file:dir { mounton getattr };
 ')
 
-neverallow { domain -nwebspawn -foundation -app_fwk_update_service } nwebspawn_socket:sock_file { read write };
+neverallow { domain -nwebspawn -foundation } nwebspawn_socket:sock_file { read write };
