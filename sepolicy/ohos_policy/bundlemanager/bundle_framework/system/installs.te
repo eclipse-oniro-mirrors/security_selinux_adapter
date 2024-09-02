@@ -28,7 +28,7 @@ allow installs data_app_el5_file:sock_file { unlink };
 allow installs data_app_file:dir { search };
 allow installs data_file:file { getattr open read };
 allow installs data_service_el1_file:dir { remove_name search rmdir getattr setattr};
-allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write ioctl map };
+allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write ioctl map relabelfrom };
 allow installs data_service_el2_file:dir { add_name create open read search setattr write getattr rmdir remove_name };
 allow installs data_service_el2_hmdfs:dir { getattr setattr rmdir remove_name };
 allow installs data_service_el2_hmdfs:file { open read unlink getattr setattr};
