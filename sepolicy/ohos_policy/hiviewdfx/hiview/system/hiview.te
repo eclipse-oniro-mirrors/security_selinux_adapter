@@ -266,3 +266,5 @@ neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0x
 allow hiview sa_foundation_dms:samgr_class { get };
 
 allow hiview hidumper:fd {use };
+
+allow hiview hitrace_param:parameter_service { set };
