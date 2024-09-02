@@ -183,3 +183,6 @@ debug_only(`
 
 #avc: denied  { get } for service=1901 pid=3409 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
 allow isolated_render sa_resource_schedule:samgr_class { get };
+
+# avc_audit_slow:267] avc:denied { write } for pid=1,comm="/system/bin/appspawn"
+allow isolated_render sharefs:file { read write open getattr append };
