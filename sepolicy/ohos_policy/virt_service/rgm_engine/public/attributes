@@ -47,3 +47,5 @@ attribute rgm_violator_data_log_dir_createwrite;
 attribute rgm_violator_system_file_mounton;
 attribute rgm_violator_vendor_file_mounton;
 
+attribute rgm_violator_system_bin_file;
+
