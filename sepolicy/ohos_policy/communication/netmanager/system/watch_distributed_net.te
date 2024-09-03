@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,9 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-1162 u:object_r:sa_netsys_ext_service:s0
-1163 u:object_r:sa_distributed_net_service:s0
-1164 u:object_r:sa_netvirt_ext:s0
-8300 u:object_r:sa_netfirewall_service:s0
-8400 u:object_r:sa_watch_distributed_net_service:s0
-
+# avc:  denied  { get } for service=8400 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_watch_distributed_net_service:s0 tclass=samgr_class permissive=0
+allow netmanager sa_watch_distributed_net_service:samgr_class { get };
+# avc:  denied  { add } for service=8400 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_watch_distributed_net_service:s0 tclass=samgr_class permissive=0
+allow netmanager sa_watch_distributed_net_service:samgr_class { add };
