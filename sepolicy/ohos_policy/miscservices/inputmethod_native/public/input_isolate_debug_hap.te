@@ -172,5 +172,5 @@ developer_only(`
     allow input_isolate_debug_hap msdp_sa:binder { call };
 
     allow hiperf input_isolate_debug_hap:lnk_file { read };
-    allow input_isolate_debug_hap data_app_el2_file:file { create read write open lock unlink map setattr getattr rename };
+    allow input_isolate_debug_hap data_app_el2_file:file { read open getattr };
 ')
