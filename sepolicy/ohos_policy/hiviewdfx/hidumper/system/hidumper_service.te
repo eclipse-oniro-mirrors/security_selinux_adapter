@@ -273,7 +273,6 @@ allow hidumper_service sa_devattest_service:samgr_class get;
 allow hidumper_service sa_device_standby:samgr_class get;
 allow hidumper_service sa_task_heartbeat_mgr:samgr_class get;
 allow hidumper_service sa_el5_filekey_manager:samgr_class get;
-allow hidumper_service sa_app_fwk_update_service:samgr_class get;
 allow hidumper_service samgr:samgr_class list;
 
 allow hidumper_service hiprofiler_cmd:file getattr;
