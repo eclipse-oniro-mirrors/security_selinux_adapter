@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { get } for service=8400 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_watch_distributed_net_service:s0 tclass=samgr_class permissive=0
-allow netmanager sa_watch_distributed_net_service:samgr_class { get };
-# avc:  denied  { add } for service=8400 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_watch_distributed_net_service:s0 tclass=samgr_class permissive=0
-allow netmanager sa_watch_distributed_net_service:samgr_class { add };
+# avc:  denied  { get } for service=8400 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_wearable_distributed_net_service:s0 tclass=samgr_class permissive=0
+allow netmanager sa_wearable_distributed_net_service:samgr_class { get };
+# avc:  denied  { add } for service=8400 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_wearable_distributed_net_service:s0 tclass=samgr_class permissive=0
+allow netmanager sa_wearable_distributed_net_service:samgr_class { add };
