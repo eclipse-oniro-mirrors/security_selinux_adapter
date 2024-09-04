@@ -281,6 +281,7 @@ allow init dev_mpp:chr_file { setattr };
 allow init dev_null_file:chr_file { relabelto };
 allow init dev_parameters_file:dir { add_name open read relabelto write };
 allow init dev_parameters_file:file { create relabelfrom relabelto write };
+allow init dev_ppp_file:chr_file { setattr };
 allow init devpts:chr_file { getattr relabelfrom read write open };
 allow init devpts:dir { relabelfrom };
 allow init dev_pts_file:chr_file { relabelto };

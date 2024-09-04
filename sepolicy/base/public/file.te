@@ -248,6 +248,7 @@ type dev_iio_file, dev_attr;
 type dev_kmsg_file, dev_attr;
 type dev_loop_control_file, dev_attr;
 type dev_media_file, dev_attr;
+type dev_ppp_file, dev_attr;
 type dev_rpmb_file, dev_attr;
 type dev_random_file, dev_attr;
 type dev_rtc_file, dev_attr;
