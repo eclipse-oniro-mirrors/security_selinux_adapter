@@ -16,8 +16,6 @@ type nativespawn_exec, system_file_attr, exec_attr, file_attr;
 
 allow nativespawn appspawn:unix_dgram_socket { connect write };
 allow nativespawn appspawn:unix_stream_socket { getopt setopt getattr listen accept read write };
-typeattribute nativespawn hmcap_supervsable_osr_attr;
-allow nativespawn nativespawn:hmcap { supervsable };
 allow nativespawn nativespawn:capability { setuid setgid sys_admin net_admin };
 allow nativespawn chip_prod_file:dir { search };
 allow nativespawn sys_prod_file:dir { search };
@@ -71,5 +69,13 @@ allow hap_domain nativespawn:unix_dgram_socket { write };
 allow nativespawn cgroup:file { write };
 allow nativespawn tmpfs:lnk_file { create };
 allow nativespawn appspawn_socket:sock_file { setattr };
+allow nativespawn isolated_render:process { dyntransition };
+allow isolated_render nativespawn:fd { use };
+allow isolated_render nativespawn:fifo_file { write };
+allow isolated_render nativespawn:unix_dgram_socket { write connect };
+
+## Before killing the isolated process of nativespawn by ams, it will read the /proc/pid/status.
+allow foundation isolated_render:dir { search };
+allow foundation isolated_render:file { getattr read };
 
 neverallow nativespawn *:process ptrace;
