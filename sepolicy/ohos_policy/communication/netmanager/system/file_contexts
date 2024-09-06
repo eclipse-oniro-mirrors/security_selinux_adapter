@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+/dev/ppp                          u:object_r:dev_ppp_file:s0
 /dev/unix/socket/fwmarkd          u:object_r:fwmark_service:s0
 /dev/unix/socket/dnsproxyd        u:object_r:dnsproxy_service:s0
 /system/bin/iptables              u:object_r:iptables_exec:s0
