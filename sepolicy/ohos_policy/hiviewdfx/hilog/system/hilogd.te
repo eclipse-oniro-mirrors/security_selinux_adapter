@@ -101,3 +101,4 @@ neverallow {
 # shell can read but cannot write hilogd files
 neverallow { domain -hilogd } data_hilogd_file:file { append create rename setattr write };
 
+allow hilogd hilog_private_param:parameter_service { set };
