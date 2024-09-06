@@ -93,7 +93,6 @@ allow ueventd dev_mpp:chr_file { relabelto };
 allow ueventd dev_null_file:chr_file { setattr };
 allow ueventd dev_pm_test:chr_file { relabelto };
 allow ueventd dev_port:chr_file { relabelto };
-allow ueventd dev_ppp_file:chr_file { relabelto };
 allow ueventd dev_ptmx:chr_file { relabelto };
 allow ueventd dev_ptp:chr_file { relabelto };
 allow ueventd dev_random_file:chr_file { setattr };

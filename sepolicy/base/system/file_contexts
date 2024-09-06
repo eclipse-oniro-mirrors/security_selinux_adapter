@@ -83,7 +83,6 @@
 /dev/media[0-9]*          u:object_r:dev_media_file:s0
 /dev/mmcblk0rpmb          u:object_r:dev_rpmb_file:s0
 /dev/null                 u:object_r:dev_null_file:s0
-/dev/ppp          u:object_r:dev_ppp_file:s0
 /dev/random          u:object_r:dev_random_file:s0
 /dev/urandom          u:object_r:dev_random_file:s0
 /dev/rtc          u:object_r:dev_rtc_file:s0
