@@ -169,6 +169,7 @@ allow ueventd dev_block_file:blk_file { relabelfrom };
 allow ueventd dev_block_file:lnk_file { relabelfrom getattr };
 allow ueventd dev_block_file:dir { open read };
 allow ueventd dev_block_volfile:lnk_file { setattr getattr relabelfrom};
+allow ueventd tmpfs:chr_file { create setattr getattr relabelfrom unlink };
 
 # for hyperhold
 allow ueventd zram_device:blk_file { relabelto getattr setattr };
@@ -186,4 +187,5 @@ allow ueventd tmpfs:blk_file { getattr relabelfrom setattr };
 
 # avc:  denied  { getattr } for  pid=245 comm="ueventd" path="/dev/block/by-name/misc" dev="tmpfs" ino=37 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
 allow ueventd updater_block_file:lnk_file { getattr };
+
 
