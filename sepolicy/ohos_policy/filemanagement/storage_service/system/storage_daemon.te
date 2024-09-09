@@ -33,6 +33,7 @@ neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -founda
 allow storage_daemon domain:file { read open };
 allow storage_daemon domain:dir { search read open };
 allow storage_daemon domain:lnk_file { read };
+allow storage_daemon domain:process { sigkill };
 
 #avc:  denied  { call } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow storage_daemon accesstoken_service:binder { call };
@@ -265,7 +266,7 @@ allow storage_daemon storage_daemon:netlink_kobject_uevent_socket { read };
 #avc:  denied  { mknod } for  pid=241 comm="storage_daemon" capability=27  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
 #avc:  denied  { sys_ptrace } for  pid=246 comm="storage_daemon" capability=19  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
 #avc:  denied  { dac_override } for  pid=2028 comm="blkid" capability=1  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
-allow storage_daemon storage_daemon:capability { mknod dac_read_search sys_ptrace dac_override setgid setuid };
+allow storage_daemon storage_daemon:capability { mknod dac_read_search sys_ptrace dac_override setgid setuid kill };
 
 #avc:  denied  { remove_name } for  pid=256 comm="storage_daemon" name="F7BC-FF57" dev="tmpfs" ino=406 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 allow storage_daemon tmpfs:dir { remove_name rmdir };
