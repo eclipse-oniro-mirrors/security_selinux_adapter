@@ -21,3 +21,8 @@
 /bin/processdump     u:object_r:processdump_exec:s0
 # faultloggerd
 /bin/faultloggerd     u:object_r:faultloggerd_exec:s0
+
+/bin/hiview_light     u:object_r:hiview_light_exec:s0
+
+/etc/hiview/hiview_light            u:object_r:hiview_light_file:s0
+/etc/hiview/hiview_light/(.*)?      u:object_r:hiview_light_file:s0
