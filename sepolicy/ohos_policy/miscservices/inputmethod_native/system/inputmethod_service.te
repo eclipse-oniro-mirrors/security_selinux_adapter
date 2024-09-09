@@ -86,3 +86,5 @@ allow inputmethod_service distributeddata:binder { call transfer };
 allow inputmethod_service distributeddata:fd { use };
 allow inputmethod_service sa_memory_manager_service:samgr_class { get };
 allow inputmethod_service memmgrservice:binder { call };
+
+allow inputmethod_service sa_screenlock_service:samgr_class { get };
