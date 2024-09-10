@@ -141,3 +141,7 @@ allow foundation bms_param:file { map open read };
 allow foundation update_updater_param:file { read map open };
 allow foundation data_service_el1_utd_file:dir { search };
 allow foundation data_service_el1_utd_file:file { getattr open read };
+allow foundation data_app_el1_file:dir { getattr search };
+allow foundation data_app_el2_file:dir { getattr search };
+allow foundation data_app_el5_file:dir { getattr search };
+allow foundation data_service_el2_hmdfs:dir { getattr search };
