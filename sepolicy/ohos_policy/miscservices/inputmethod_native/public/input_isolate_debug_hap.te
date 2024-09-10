@@ -63,7 +63,10 @@ developer_only(`
     allow input_isolate_debug_hap hichecker_writable_param:file { read open map };
 
     #avc:  denied { search } for pid=7200, comm="/system/bin/appspawn" name="/app/el2/100/base/com.example.myowninputmethod" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19088 scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
-    allow input_isolate_debug_hap debug_hap_data_file:dir { search read open getattr };
+    allow input_isolate_debug_hap debug_hap_data_file:dir { search read open getattr rmdir create setattr write add_name remove_name rename };
+
+    allow input_isolate_debug_hap debug_hap_data_file:file { create read write open getattr setattr map append rename unlink lock ioctl };
+    allowxperm input_isolate_debug_hap debug_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
 
     #avc:  denied { read } for pid=7200, comm="/system/bin/appspawn" path="/sys/devices/system/cpu/online" dev="" ino=336 scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
     allow input_isolate_debug_hap sysfs_devices_system_cpu:file { read open getattr };
