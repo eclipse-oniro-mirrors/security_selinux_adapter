@@ -135,7 +135,7 @@ allow normal_hap_attr system_lib_file:dir { read open };
 #avc:  denied  { read } for  pid=4361 comm="ThreadPoolForeg" lport=43704 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
 #avc:  denied  { getattr } for  pid=4745 comm="ThreadPoolForeg" laddr=192.168.137.205 lport=43495 faddr=119.176.24.38 fport=65535 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
 allow normal_hap_attr normal_hap_attr:udp_socket { create connect bind write ioctl setopt read getattr };
-allowxperm normal_hap_attr normal_hap_attr:udp_socket ioctl { 0x8910 };
+allowxperm normal_hap_attr normal_hap_attr:udp_socket ioctl { 0x8910 0x8913 };
 
 #avc:  denied  { node_bind } for  pid=4137 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:object_r:node:s0 tclass=udp_socket permissive=1
 allow normal_hap_attr node:udp_socket { node_bind };
