@@ -292,11 +292,11 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
 
     char realPath[PATH_MAX];
     if (realpath(pathNameOrig.c_str(), realPath) == nullptr) {
-        return -SELINUX_PATH_INVAILD;
+        return -SELINUX_PATH_INVALID;
     }
 
     if (!CheckPath(realPath)) {
-        return -SELINUX_PATH_INVAILD;
+        return -SELINUX_PATH_INVALID;
     }
 
     char *newSecontext = nullptr;
