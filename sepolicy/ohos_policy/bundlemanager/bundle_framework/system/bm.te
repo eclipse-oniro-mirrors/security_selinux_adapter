@@ -57,7 +57,6 @@ debug_only(`
     allow bm sa_foundation_cesfwk_service:samgr_class { get };
     allow bm sa_quick_fix_mgr_service:samgr_class { get };
     allow bm sa_foundation_abilityms:samgr_class { get };
-    allow bm sa_foundation_appms:samgr_class { get };
     allow bm dev_kmsg_file:chr_file { write };
     allow bm persist_sys_param:file { map open read };
     allow bm arkcompiler_param:file { map open read };
@@ -114,7 +113,6 @@ developer_only(`
     allow bm sa_foundation_cesfwk_service:samgr_class { get };
     allow bm sa_quick_fix_mgr_service:samgr_class { get };
     allow bm sa_foundation_abilityms:samgr_class { get };
-    allow bm sa_foundation_appms:samgr_class { get };
     allow bm dev_kmsg_file:chr_file { write };
     allow bm persist_sys_param:file { map open read };
     allow bm arkcompiler_param:file { map open read };

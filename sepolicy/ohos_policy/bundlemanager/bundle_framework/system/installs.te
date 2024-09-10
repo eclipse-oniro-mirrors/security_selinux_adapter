@@ -144,4 +144,3 @@ allow installs data_app_el5_file:fifo_file { unlink };
 allow installs data_service_el2_hmdfs:fifo_file { unlink };
 allow installs data_service_el2_share:fifo_file { unlink };
 allow installs data_local_arkprofile:fifo_file { unlink };
-allow installs faultloggerd:fifo_file { write };

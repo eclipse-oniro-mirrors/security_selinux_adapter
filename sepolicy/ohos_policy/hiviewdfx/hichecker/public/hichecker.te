@@ -9,6 +9,7 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.
+# limitations under the License
 
-8350                                   u:object_r:sa_app_fwk_update_service:s0
+#only shell allowed set hichecker param
+neverallow { domain -sh } hichecker_writable_param:parameter_service { set };
