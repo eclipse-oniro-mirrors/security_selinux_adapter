@@ -225,3 +225,30 @@ allow intell_voice_service sa_powermgr_powermgr_service:samgr_class { get };
 # avc: denied { read } for pid=864, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=208 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
 # avc: denied { map } for pid=896, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=209 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
 allow intell_voice_service sys_param:file { open read map };
+
+# avc_audit_slow:267] avc: denied { search } for pid=890, comm="/system/bin/sa_main"  name="/lib64" dev="/dev/block/dm-6" ino=65 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=0
+allow intell_voice_service chip_prod_file:dir { search };
+ 
+# avc_audit_slow:267] avc: denied { write } for pid=890, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=22 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
+allow intell_voice_service dev_kmsg_file:chr_file { write };
+ 
+# avc_audit_slow:267] avc: denied { write } for pid=890, comm="/system/bin/sa_main"  path="pipe:[13]" dev="tmpfs" ino=13 scontext=u:r:intell_voice_service:s0 tcontext=u:r:init:s0 tclass=fifo_file permissive=0
+allow intell_voice_service init:fifo_file { write };
+ 
+# avc_audit_slow:267] avc: denied { supervsable } for pid=890, comm="/bin/init"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:intell_voice_service:s0 tclass=hmcap permissive=0
+allow intell_voice_service intell_voice_service:hmcap { supervsable };
+ 
+# avc_audit_slow:267] avc: denied { call } for pid=890, comm="/system/bin/sa_main"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=0
+allow intell_voice_service powermgr:binder { call };
+ 
+# avc_audit_slow:267] avc: denied { call } for pid=890, comm="/system/bin/sa_main"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=0
+allow intell_voice_service privacy_service:binder { call };
+ 
+# avc:  denied  { get } for service=3505 sid=u:r:intell_voice_service:s0 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
+allow intell_voice_service sa_privacy_service:samgr_class { get };
+ 
+# avc_audit_slow:267] avc: denied { read write } for pid=890, comm="/system/bin/sa_main"  path="/dev/tty0" dev="" ino=50 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+allow intell_voice_service tty_device:chr_file { read write };
+ 
+# avc:  denied  { get } for service=3505 sid=u:r:intell_voice_service:s0 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
+allow intell_voice_service sa_privacy_service:samgr_class { get };
