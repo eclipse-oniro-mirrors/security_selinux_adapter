@@ -43,3 +43,5 @@ allow cupsd sa_usb_service:samgr_class { get };
 allow cupsd usb_service:binder { call };
 allow cupsd tty_device:chr_file { getattr ioctl open read write };
 allowxperm cupsd tty_device:chr_file ioctl { 0x5413 };
+allow cupsd print_service:dir { search getattr };
+allow cupsd print_service:file { open read };
