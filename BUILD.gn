@@ -67,6 +67,8 @@ ohos_shared_library("libload_policy") {
 }
 
 ohos_shared_library("librestorecon") {
+  branch_protector_ret = "pac_ret"
+
   output_name = "librestorecon"
   sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
@@ -181,6 +183,8 @@ ohos_static_library("libselinux_klog_static") {
 }
 
 ohos_static_library("libselinux_hilog_static") {
+  branch_protector_ret = "pac_ret"
+
   output_name = "libselinux_hilog_static"
   sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]

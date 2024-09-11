@@ -12,3 +12,5 @@
 # limitations under the License
 
 neverallow { domain -hitrace -bytrace -hiview -hiprofiler_plugins } hitrace_param:parameter_service set;
+
+allow hitrace_param tmpfs:filesystem { associate };

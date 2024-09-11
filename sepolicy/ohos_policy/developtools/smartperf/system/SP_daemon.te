@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -76,6 +76,7 @@ allow SP_daemon print_param:file { map open read };
 allow SP_daemon arkcompiler_param:file { map open read };
 allow SP_daemon ark_writeable_param:file { map open read };
 allow SP_daemon arkui_param:file { map open read };
+allow SP_daemon hitrace_param:file { map open read };
 allow SP_daemon hiviewdfx_profiler_param:file { map open read };
 allow SP_daemon bms_param:file { map read open};
 allow SP_daemon const_display_brightness_param:file { map read open };
