@@ -254,3 +254,7 @@ allow netsysnative dev_ppp_file:chr_file { open read write };
 # avc:  denied  { ioctl } for  pid=2517 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7454 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
 allow netsysnative dev_ppp_file:chr_file { ioctl };
 allowxperm netsysnative dev_ppp_file:chr_file ioctl { 0x7438 0x743e 0x743a 0x7440 0x745a 0x7459 0x744f 0x7457 0x744b 0x7452 0x7454 };
+
+# avc:  denied  { name_connect } for  pid=2551 comm="openvpn" dest=1194 scontext=u:r:netsysnative:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
+allow netsysnative port:tcp_socket { name_connect };
+
