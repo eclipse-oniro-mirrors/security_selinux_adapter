@@ -109,3 +109,5 @@ allow locationhub sa_net_conn_manager:samgr_class { get };
 allow locationhub paramservice_socket:sock_file { write };
 allow locationhub kernel:unix_stream_socket { connectto };
 allow locationhub persist_param:parameter_service { set };
+
+allow locationhub sa_wifi_device_ability:samgr_class {get};
