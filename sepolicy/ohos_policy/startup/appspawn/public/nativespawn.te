@@ -77,5 +77,7 @@ allow isolated_render nativespawn:unix_dgram_socket { write connect };
 ## Before killing the isolated process of nativespawn by ams, it will read the /proc/pid/status.
 allow foundation isolated_render:dir { search };
 allow foundation isolated_render:file { getattr read };
+allow nativespawn nativespawn_exec:file { entrypoint execute map read open };
+allow init nativespawn_exec:file { execute getattr read open };
 
 neverallow nativespawn *:process ptrace;
