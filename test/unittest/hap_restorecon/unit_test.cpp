@@ -358,7 +358,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon006, TestSize.Level1)
 {
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
 
-    EXPECT_EQ(-SELINUX_PATH_INVAILD, test.HapFileRestorecon(INVALID_PATH, g_hapFileInfoWithoutFlags));
+    EXPECT_EQ(-SELINUX_PATH_INVALID, test.HapFileRestorecon(INVALID_PATH, g_hapFileInfoWithoutFlags));
 
     ASSERT_EQ(true, RemoveDirectory(TEST_HAP_PATH));
 }
