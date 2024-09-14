@@ -173,6 +173,7 @@ allow distributeddata sa_foundation_cesfwk_service:samgr_class { get };
 allow distributeddata sa_huks_service:samgr_class { get };
 allow distributeddata sa_softbus_service:samgr_class { get };
 allow distributeddata sa_uri_permission_mgr_service:samgr_class { get };
+allow distributeddata sa_distributeschedule:samgr_class { get };
 allow distributeddata security_param:file { map open read };
 allow distributeddata softbus_server:fd { use };
 allow distributeddata softbus_server:tcp_socket { shutdown };
