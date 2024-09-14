@@ -66,6 +66,7 @@ allow hilogd domain:file { open read getattr };
 # hilogd is not allowed to write anywhere other than /data/log/hilog
 neverallow hilogd {
     file_attr
+    -hilog_whitelist_file
     -data_hilogd_file
     -data_init_agent
 }:file { create write append };
