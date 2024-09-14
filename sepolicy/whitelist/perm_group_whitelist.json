@@ -12,6 +12,7 @@
                 "camera_host toybox_exec",
                 "cupsd system_bin_file",
                 "cupsd toybox_exec",
+                "cupsd sh_exec",
                 "download_server system_bin_file",
                 "download_server toybox_exec",
                 "faultloggerd system_bin_file",
