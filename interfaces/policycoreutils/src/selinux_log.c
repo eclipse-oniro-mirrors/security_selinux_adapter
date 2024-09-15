@@ -23,7 +23,7 @@
 static const unsigned int LOG_DOMAIN = 0xD005A03;
 static const char* LOG_TAG = "Selinux";
 
-#define MAX_LOG_BUFF_LEN 1024
+#define MAX_LOG_BUFF_LEN 8192
 
 static int g_logLevel = SELINUX_HILOG_ERROR;
 
