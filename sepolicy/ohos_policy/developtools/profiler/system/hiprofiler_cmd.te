@@ -12,7 +12,7 @@
 # limitations under the License
 
 neverallow hiprofiler_cmd *:process ptrace;
-
+allow domain tmpfs:file { map read write };
 developer_only(`
 	allow hiprofiler_cmd devpts:chr_file { read write };
 	allow hiprofiler_cmd hdcd:fd use;
@@ -144,7 +144,6 @@ developer_only(`
 
 	allow domain hiprofiler_cmd:fd use;
 	allow domain hiprofiler_cmd:unix_stream_socket connectto;
-	allow domain tmpfs:file { map read write };
 	allow hiprofiler_cmd ohos_dev_param:file { map open read };
 	allow hiprofiler_cmd dev_unix_file:sock_file unlink;
 	allow hiprofiler_cmd paramservice_socket:sock_file write;
