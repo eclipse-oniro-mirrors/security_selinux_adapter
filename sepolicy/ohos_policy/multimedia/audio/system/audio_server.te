@@ -190,6 +190,10 @@ binder_call(audio_server, camera_service);
 
 allow audio_server sa_foundation_cesfwk_service:samgr_class { get };
 
+allow audio_server sa_memory_manager_service:samgr_class { get };
+
+binder_call(audio_server, memmgrservice);
+
 # others
 allow domain persist_audio_param:file { map open read };
 allow audio_server sa_foundation_ans:samgr_class { get };
