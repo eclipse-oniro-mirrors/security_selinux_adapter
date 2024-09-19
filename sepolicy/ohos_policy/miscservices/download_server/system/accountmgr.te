@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow accountmgr download_server:binder { call transfer };
+binder_call(download_server, accountmgr);
