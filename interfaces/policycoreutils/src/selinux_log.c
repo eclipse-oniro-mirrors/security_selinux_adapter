@@ -23,7 +23,7 @@
 static const unsigned int LOG_DOMAIN = 0xD005A03;
 static const char* LOG_TAG = "Selinux";
 
-#define MAX_LOG_BUFF_LEN 8192
+#define MAX_LOG_BUFF_LEN 4096
 
 static int g_logLevel = SELINUX_HILOG_ERROR;
 
@@ -47,14 +47,15 @@ int SelinuxHilog(int logLevel, const char *fmt, ...)
 
     va_list ap;
     va_start(ap, fmt);
-    if (vsnprintf_s(buf, MAX_LOG_BUFF_LEN, MAX_LOG_BUFF_LEN - 1, fmt, ap) < 0) {
-        HILOG_ERROR(LOG_CORE, "selinux log concatenate error.");
+    int ret = vsnprintf_s(buf, MAX_LOG_BUFF_LEN, MAX_LOG_BUFF_LEN - 1, fmt, ap);
+    va_end(ap);
+
+    if (ret < 0) {
+        HILOG_ERROR(LOG_CORE, "selinux log truncate error: %{public}s", buf);
         free(buf);
         buf = NULL;
-        va_end(ap);
         return -1;
     }
-    va_end(ap);
 
     switch (logLevel) {
         case SELINUX_HILOG_INFO:
