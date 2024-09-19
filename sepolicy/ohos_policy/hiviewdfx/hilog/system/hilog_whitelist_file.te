@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hilogd data_service_el1_file:dir { search };
+allow hilogd data_service_el0_file:dir { search };
 allow hilogd data_service_file:dir { search };
 allow hilogd hilog_whitelist_file:dir { search  write add_name };
 allow hilogd hilog_whitelist_file:file { create getattr ioctl open read write };
