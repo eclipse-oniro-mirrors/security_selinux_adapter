@@ -12,3 +12,4 @@
 # limitations under the License.
 
 multimedia.medialibrary.                u:object_r:media_library_param:s0
+persist.multimedia.medialibrary.        u:object_r:media_library_param:s0
