@@ -257,3 +257,5 @@ allow hiperf sys_prod_file:dir { search };
 allow hiperf sys_prod_file:file { getattr map open read };
 allow hiperf system_usr_file:file { getattr map open read };
 allow hiperf data_service_el1_file:file { getattr map open read };
+
+allow hiperf isolated_render:lnk_file { read };
