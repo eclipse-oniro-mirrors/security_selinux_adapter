@@ -233,4 +233,4 @@ allow msdp_sa sa_wifi_p2p_ability:samgr_class { get };
 
 allow msdp_sa sa_accountmgr:samgr_class { get };
 
-allow msdp_sa sa_accountmgr:fd { use };
+allow msdp_sa accountmgr:fd { use };
