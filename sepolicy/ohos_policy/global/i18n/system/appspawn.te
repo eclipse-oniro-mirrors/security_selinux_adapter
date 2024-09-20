@@ -1,5 +1,5 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
-# Licensed under the Apache License, Version 2.0 (the License);
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init i18n_service:process { transition rlimitinh siginh };
-allow init data_service_el1_i18n_timezone_file:dir { create getattr open read write add_name remove_name rmdir };
-allow init data_service_el1_i18n_timezone_file:file { create getattr map open read write unlink };
+allow appspawn data_service_el1_i18n_timezone_file:dir { search };
+allow appspawn data_service_el1_i18n_timezone_file:file { getattr map open read };
