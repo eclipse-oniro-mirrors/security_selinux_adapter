@@ -45,6 +45,7 @@ allow multimodalinput composer_host:binder { call transfer };
 allow multimodalinput composer_host:fd { use };
 allow multimodalinput hdf_allocator_service:hdf_devmgr_class { get };
 allow multimodalinput hdf_display_composer_service:hdf_devmgr_class { get };
+allow multimodalinput hdf_codec_component_manager_service:hdf_devmgr_class { get };
 hdi_call(multimodalinput, hdf_allocator_service)
 allow multimodalinput faultloggerd_socket:sock_file { write };
 allow multimodalinput faultloggerd:unix_stream_socket { connectto };
