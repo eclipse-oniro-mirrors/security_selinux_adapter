@@ -35,6 +35,7 @@ allow normal_hap_attr debug_param:file { map open read };
 allow normal_hap_attr default_param:file { map open read };
 allow normal_hap_attr dev_ashmem_file:chr_file { open };
 allow normal_hap_attr dev_file:sock_file { write };
+allow normal_hap_attr deviceauth_service:binder { call };
 allow normal_hap_attr dev_mali:chr_file { getattr ioctl map open read write };
 allow normal_hap_attr dev_unix_socket:dir { search };
 allow normal_hap_attr dev_unix_socket:sock_file { write };
