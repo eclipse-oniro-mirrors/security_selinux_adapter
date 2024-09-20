@@ -66,7 +66,6 @@ allow hilogd domain:file { open read getattr };
 # hilogd is not allowed to write anywhere other than /data/log/hilog
 neverallow hilogd {
     file_attr
-    -hilog_whitelist_file
     -data_hilogd_file
     -data_init_agent
 }:file { create write append };
@@ -97,10 +96,14 @@ neverallow {
     -hiview             # write is covered next
     -hdcd               # write is covered next
     updater_only(`-updater')
-    updater_only(`-hiview_light')
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
 neverallow { domain -hilogd } data_hilogd_file:file { append create rename setattr write };
 
-allow hilogd hilog_private_param:parameter_service { set };
+type hilog_remote_param, parameter_attr;
+allow domain hilog_remote_param:file { read map open };
+allow hilogd hilog_remote_param:parameter_service { set };
+neverallow ~{ hilogd } hilog_remote_param:parameter_service { set };
+
+allow domain hilog_param_file:dir { open read search };
