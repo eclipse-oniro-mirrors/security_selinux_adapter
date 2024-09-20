@@ -109,6 +109,7 @@ allow foundation exfat:file { read write };
 allow foundation vfat:file { read write };
 allow foundation ntfs:file { read write };
 allow foundation key_enable:key { search };
+allow foundation accountmgr:fd { use };
 neverallow foundation *:process ptrace;
 
 # add for hiperf
