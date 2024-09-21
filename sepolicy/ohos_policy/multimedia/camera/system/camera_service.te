@@ -88,3 +88,4 @@ allow camera_service device_manager:binder { call transfer };
 allow camera_service av_codec_service:fd { use };
 
 allow camera_service resource_schedule_service:binder { call };
+allow camera_service data_user_file:file { create open read write };
