@@ -17,5 +17,6 @@ allow hilogd hilog_whitelist_file:dir { search  write add_name };
 allow hilogd hilog_whitelist_file:file { create getattr ioctl open read write };
 allow hilogd hiview_file:file { getattr };
 allowxperm hilogd hilog_whitelist_file:file ioctl { 0x5413 };
+allow domain data_service_el0_file:dir { search };
 allow domain hilog_whitelist_file:dir { search };
 allow domain hilog_whitelist_file:file { getattr open read };
