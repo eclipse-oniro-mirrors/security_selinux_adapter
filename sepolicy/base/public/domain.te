@@ -30,10 +30,10 @@ allow domain self:lockdown confidentiality;
 allow domain init:fd use;
 
 allow domain tmpfs:dir { getattr search };
-allow domain tmpfs:lnk_file read;
+allow { domain -hdcd } tmpfs:lnk_file read;
 
-allow { domain -normal_hap_attr } proc_attr:dir read_dir_perms;
-allow { domain -normal_hap_attr } proc_attr:lnk_file { getattr read };
+allow { domain -normal_hap_attr -hdcd } proc_attr:dir read_dir_perms;
+allow { domain -normal_hap_attr -hdcd } proc_attr:lnk_file { getattr read };
 allow normal_hap_attr { proc_attr -proc_net }:dir read_dir_perms;
 allow normal_hap_attr { proc_attr -proc_net }:lnk_file { getattr read };
 
