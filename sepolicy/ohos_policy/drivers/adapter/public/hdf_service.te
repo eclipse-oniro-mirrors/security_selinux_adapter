@@ -40,6 +40,7 @@ type hdf_display_composer_service, hdf_service_attr;
 type hdf_allocator_service, hdf_service_attr;
 type hdf_camera_service, hdf_service_attr;
 type hdf_camera_image_process_service, hdf_service_attr;
+type hdf_camera_video_process_service, hdf_service_attr;
 type hdf_clearplay_service, hdf_service_attr;
 type hdf_face_auth_interface_service, hdf_service_attr;
 type hdf_drm_service, hdf_service_attr;
