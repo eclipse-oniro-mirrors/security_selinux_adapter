@@ -235,8 +235,9 @@ allow intell_voice_service dev_kmsg_file:chr_file { write };
 # avc_audit_slow:267] avc: denied { write } for pid=890, comm="/system/bin/sa_main"  path="pipe:[13]" dev="tmpfs" ino=13 scontext=u:r:intell_voice_service:s0 tcontext=u:r:init:s0 tclass=fifo_file permissive=0
 allow intell_voice_service init:fifo_file { write };
 
-# avc_audit_slow:267] avc: denied { call } for pid=890, comm="/system/bin/sa_main"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=0
-allow intell_voice_service powermgr:binder { call };
+# avc_audit_slow:267] avc: denied { call } for pid=5147, comm="/system/bin/sa_main"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+# avc_audit_slow:267] avc: denied { transfer } for pid=5147, comm="/system/bin/sa_main"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+allow intell_voice_service powermgr:binder { call transfer };
 
 # avc_audit_slow:267] avc: denied { call } for pid=890, comm="/system/bin/sa_main"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=0
 allow intell_voice_service privacy_service:binder { call };
