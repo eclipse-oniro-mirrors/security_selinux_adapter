@@ -25,7 +25,8 @@ allow wifi_manager_service node:udp_socket { node_bind };
 allow wifi_manager_service port:udp_socket { name_bind };
 binder_call(wifi_manager_service, powermgr);
 allow wifi_manager_service sa_accesstoken_manager_service:samgr_class { get };
-allow wifi_manager_service netsysnative:binder { call };
+#avc: denied { transfer } for pid=2168, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:netsysnative:s0 tclass=binder permissive=0
+allow wifi_manager_service netsysnative:binder { call transfer };
 allow wifi_manager_service sa_foundation_cesfwk_service:samgr_class { get };
 allow wifi_manager_service sa_net_conn_manager:samgr_class { get };
 allow wifi_manager_service sa_wifi_device_ability:samgr_class { add };
