@@ -221,3 +221,4 @@ allow distributeddata data_app_el4_file:file { getattr open read };
 allow distributeddata data_app_el5_file:dir { search };
 allow distributeddata data_app_el5_file:file { getattr open read };
 allow distributeddata key_enable:key { search };
+allow distributeddata data_service_el1_file:dir { rename };
