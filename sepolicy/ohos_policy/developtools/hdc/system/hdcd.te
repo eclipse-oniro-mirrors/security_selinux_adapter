@@ -320,7 +320,8 @@ developer_only(`
     allow samgr hdcd:binder { transfer };
     allow param_watcher hdcd:binder { call };
 
-    allow
+    # avc_audit_slow:272] avc: denied { read } for pid=1690, comm="/system/bin/hdcd"  name="/thread-self" dev="" ino=41 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=lnk_file permissive=0
+    allow hdcd proc_file:lnk_file { read };
 ')
 
 neverallow hdcd hmdfs:dir ioctl;
