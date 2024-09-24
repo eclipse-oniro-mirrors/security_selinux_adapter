@@ -319,6 +319,8 @@ developer_only(`
     allow samgr hdcd:process { getattr };
     allow samgr hdcd:binder { transfer };
     allow param_watcher hdcd:binder { call };
+
+    allow
 ')
 
 neverallow hdcd hmdfs:dir ioctl;
