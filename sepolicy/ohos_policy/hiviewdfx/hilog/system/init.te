@@ -19,6 +19,4 @@ allow init hilogd:file { getattr open read relabelto setattr };
 allow init hilogd:dir { getattr open read relabelto setattr search };
 allow init hilogd:process { getattr rlimitinh siginh transition };
 
-allow init hilog_param_file:dir { create write remove_name add_name rmdir getattr setattr };
-
 init_daemon_domain(hilog);
