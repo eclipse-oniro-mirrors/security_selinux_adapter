@@ -93,7 +93,8 @@
                 "cupsd data_service_el1_public_print_service_file",
                 "pid_ns_init pid_ns_init_exec",
                 "compiler_service ark_aot_compiler_exec",
-                "cupsd data_app_el1_file"
+                "cupsd data_app_el1_file",
+                "print_service system_bin_file"
             ],
             "developer": [
                 "aa sh_exec",
