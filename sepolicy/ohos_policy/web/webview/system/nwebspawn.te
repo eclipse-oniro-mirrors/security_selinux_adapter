@@ -158,3 +158,5 @@ debug_only(`
 ')
 
 neverallow { domain -nwebspawn -foundation -app_fwk_update_service } nwebspawn_socket:sock_file { read write };
+
+allow nwebspawn isolated_gpu:process { sigkill };
