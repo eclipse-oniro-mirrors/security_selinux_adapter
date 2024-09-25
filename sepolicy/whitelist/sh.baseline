@@ -180,4 +180,6 @@ developer_only(`
 (allow sh labeledfs (filesystem (getattr)))
 (allow sh hnp_native (process (noatsecure getattr siginh rlimitinh transition)))
 (allow sh hnp_native (process2 (nosuid_transition)))
+(allow sh devicedebug (process (siginh getattr rlimitinh transition)))
+(allow sh devicedebug_exec (file (execute_no_trans open read map getattr execute ioctl)))
 ')
