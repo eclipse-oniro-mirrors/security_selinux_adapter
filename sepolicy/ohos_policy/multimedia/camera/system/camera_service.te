@@ -89,3 +89,23 @@ allow camera_service av_codec_service:fd { use };
 
 allow camera_service resource_schedule_service:binder { call };
 allow camera_service data_user_file:file { create open read write };
+#avc:  denied  { get } for service=3301 sid=u:r:camera_service:s0 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=0
+allow camera_service sa_powermgr_powermgr_service:samgr_class { get };
+#avc: denied { search } for pid=1591, comm="/system/bin/sa_main"  name="/service/el1" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { write remove_name search } for pid=20408, comm="/bin/rm"  name="/service/el1/public/camera_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1473 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { getattr } for pid=20061, comm="/bin/ls"  path="/data/service/el1/public/camera_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1473 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow camera_service data_service_el1_file:dir { search write add_name read getattr remove_name };
+#avc: denied { read } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/VID_9003970_001.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25402 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/VID_9003970_001.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25402 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { create } for pid=1591, comm="/system/bin/sa_main"  name="/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=26635 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { read write } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=26635 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { unlink } for pid=20408, comm="/bin/rm"  name="/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25420 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=20061, comm="/bin/ls"  path="/data/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25420 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow camera_service data_service_el1_file:file { read open create write unlink getattr map rename setattr };
+#avc: denied { search } for pid=1540, comm="/system/bin/sa_main"  name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=58 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+allow camera_service data_service_file:dir { search };
+allow camera_service hdf_camera_video_process_service:hdf_devmgr_class { get };
+#avc: denied { getattr } for pid=9729, comm="/system/bin/sa_main"  path="/storage/cloud/files/Photo/11/VID_9441076_011.mp4" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068499858 scontext=u:r:camera_service:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=0
+allow camera_service hmdfs:file { getattr };
+#avc:  denied  { get } for service=3302 sid=u:r:camera_service:s0 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=0
+allow camera_service sa_powermgr_battery_service:samgr_class { get };
