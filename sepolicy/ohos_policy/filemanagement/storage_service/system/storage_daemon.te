@@ -377,5 +377,7 @@ allow storage_daemon accountmgr:binder { call transfer };
 allow storage_daemon sa_useriam_useridm_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 
+allow storage_daemon data_log:file { read append getattr open create };
+allow storage_daemon data_log:dir { write add_name create };
 allow storage_daemon labeledfs:filesystem { relabelfrom };
 allow storage_daemon mnt_external_file:filesystem { mount unmount relabelfrom relabelto };
