@@ -478,6 +478,8 @@ class nfc_socket
 inherits socket
 class vsock_socket
 inherits socket
+class vsock_host_socket
+inherits socket
 class kcm_socket
 inherits socket
 class qipcrtr_socket
