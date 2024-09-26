@@ -12,5 +12,5 @@
 # limitations under the License.
 
 allow jitfort_lib_attr jitfort_lib_attr:xpm { exec_in_jitfort };
-allow domain jitfort_lib_attr:file { execute getattr map open read };
+allow { domain -hdcd } jitfort_lib_attr:file { execute getattr map open read };
 

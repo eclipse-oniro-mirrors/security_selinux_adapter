@@ -536,3 +536,6 @@ allow powermgr distributedsche_param:file { map open read };
 # avc:  denied  { set } for  parameter=persist.powermgr.stopservice pid=1262 uid=5528 gid=1000 scontext=u:r:powermgr:s0 tcontext=u:object_r:powermgr_param:s0 tclass=parameter_service permissive=1
 allow powermgr powermgr_param:parameter_service { set };
 
+# avc: denied { call } for pid=1374, comm="/system/bin/sa_main"  scontext=u:r:powermgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+allow powermgr intell_voice_service:binder { call };
+

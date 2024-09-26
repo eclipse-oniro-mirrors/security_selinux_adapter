@@ -32,4 +32,4 @@ allow hilog hilog_param:parameter_service { set };
 allow domain hilog_param:file { read map open };
 allow domain hilog_private_param:file { read map open };
 
-neverallow ~{ hilog } hilog_private_param:parameter_service { set };
+neverallow ~{ hilog hilogd } hilog_private_param:parameter_service { set };

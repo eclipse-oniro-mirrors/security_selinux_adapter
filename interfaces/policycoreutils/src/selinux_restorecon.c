@@ -189,14 +189,14 @@ int RestoreconFromParentDir(const char *path)
     // check selinux state, less than 1 is disabled
     if (is_selinux_enabled() < 1) {
         selinux_log(SELINUX_ERROR, "Selinux not enabled\n");
-        return -SELINUX_STAT_INVAILD;
+        return -SELINUX_STAT_INVALID;
     }
 
     char realPath[PATH_MAX + 1] = { 0x00 };
     char parent[PATH_MAX + 1] = { 0x00 };
     if (realpath(path, realPath) == NULL || realpath(path, parent) == NULL) {
         selinux_log(SELINUX_ERROR, "Get real path failed: %s, errno: %s\n", path, strerror(errno));
-        return -SELINUX_PATH_INVAILD;
+        return -SELINUX_PATH_INVALID;
     }
 
     char *parentPath = dirname(parent);

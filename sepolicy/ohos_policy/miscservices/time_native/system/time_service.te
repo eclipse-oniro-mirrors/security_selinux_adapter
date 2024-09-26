@@ -13,6 +13,7 @@
 
 allow time_service sa_foundation_abilityms:samgr_class { get };
 allow time_service foundation:binder { call transfer };
+allow time_service accountmgr:binder { call transfer };
 allow time_service accesstoken_service:binder { call };
 allow time_service time_service:capability { sys_time };
 allow time_service sa_accesstoken_manager_service:samgr_class { get };
@@ -50,6 +51,8 @@ allow time_service tty_device:chr_file { read write };
 allow time_service dev_console_file:chr_file { read write };
 allow time_service sysfs_devices_system_cpu:file { read };
 allow time_service data_service_el1_file:file { getattr };
+#avc: denied { setattr } for name="/service/el1/public/database/time/time.db"
+allow time_service data_service_el1_file:file { setattr };
 allow time_service sysfs_devices_system_cpu:file { open };
 allow time_service data_service_el1_file:file { map };
 allow time_service sa_huks_service:samgr_class { get };

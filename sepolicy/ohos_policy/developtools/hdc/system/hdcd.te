@@ -40,9 +40,7 @@ developer_only(`
 
     allow hdcd vendor_file:dir { getattr };
     allow hdcd tmpfs:dir { open read };
-    allow hdcd tmpfs:file { getattr open read };
-    allow hdcd data_file:dir { read write open create getattr search rmdir add_name };
-    allow hdcd data_file:file { read getattr open };
+    allow hdcd data_file:dir { read write open getattr search };
     allow hdcd system_file:dir { getattr };
     allow hdcd system_file:file { open };
 
@@ -54,14 +52,10 @@ developer_only(`
     allow hdcd toybox_exec:file { getattr map open read };
 
     allow hdcd lib_file:lnk_file { read };
-    allow hdcd dev_kmsg_file:chr_file { read open };
     allow hdcd vendor_lib_file:file { open map execute };
 
     allow hdcd dev_unix_socket:dir { search };
     allow hdcd dev_unix_socket:sock_file { write };
-
-    allow hdcd data_init_agent:dir { search write add_name };
-    allow hdcd data_init_agent:file { create };
 
     allow hdcd dev_ptmx:chr_file { read write open ioctl };
     allow hdcd dev_pts_file:dir { search };
@@ -108,7 +102,6 @@ developer_only(`
     allow hdcd persist_sys_param:file { map open read };
     allow hdcd security_param:file { map open read };
     allow hdcd startup_param:file { map open read };
-    allow hdcd sys_file:file { open read };
     allow hdcd sys_param:file { map open read };
     allow hdcd sys_usb_param:file { map open read };
     allow hdcd tracefs:dir { search };
@@ -163,9 +156,6 @@ developer_only(`
     #avc: denied { transfer } for pid=1492, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:hdcd_user_permit:s0 tclass=binder permissive=0
     allow foundation hdcd_user_permit:binder { call transfer };
 
-    allow hdcd memmgrservice:dir { getattr search };
-    allow hdcd memmgrservice:file { open read };
-
     allow hdcd sa_param_watcher:samgr_class { get };
     allow hdcd sys_param:parameter_service { set };
     # hdcd should set sys.usb.ffs.ready
@@ -195,10 +185,6 @@ developer_only(`
     #avc: denied { map } for pid=623 comm="async-46" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
     #avc: denied { open } for pid=623 comm="async-46" path="/dev/__parameters__/u:object_r:developtools_hdc_auth_param:s0" dev="tmpfs" ino=97 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_auth_param:s0 tclass=file permissive=1
     allow hdcd developtools_hdc_auth_param:file { read map open };
-    #avc: denied { getattr } for pid=641 comm="async-34" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4921 scontext=u:r:hdcd:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
-    #avc: denied { open } for pid=691 comm="async-30" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4921 scontext=u:r:hdcd:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
-    #avc: denied { read } for pid=791 comm="async-0" name="online" dev="sysfs" ino=4921 scontext=u:r:hdcd:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
-    allow hdcd sysfs_devices_system_cpu:file { getattr open read };
     #avc: denied { ioctl } for pid=3677 comm="async-62" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x540e scontext=u:r:hdcd:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
     allow hdcd devpts:chr_file { ioctl };
     allowxperm hdcd devpts:chr_file ioctl { 0x540e 0x5414 };
@@ -321,7 +307,6 @@ developer_only(`
     ## this is to do temporary change for get app file in sandbox
     # access /data/app/el2/100/base/<bundleName>
     allow hdcd data_app_file:dir { search getattr read open };
-    allow hdcd data_app_file:file { getattr read open };
     allow hdcd data_app_el2_file:dir { search getattr read open };
     allow hdcd debug_hap_data_file:dir { search getattr read open };
     allow hdcd debug_hap_data_file:file { getattr read open };
@@ -334,6 +319,9 @@ developer_only(`
     allow samgr hdcd:process { getattr };
     allow samgr hdcd:binder { transfer };
     allow param_watcher hdcd:binder { call };
+
+    # avc_audit_slow:272] avc: denied { read } for pid=1690, comm="/system/bin/hdcd"  name="/thread-self" dev="" ino=41 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=lnk_file permissive=0
+    allow hdcd proc_file:lnk_file { read };
 ')
 
 neverallow hdcd hmdfs:dir ioctl;

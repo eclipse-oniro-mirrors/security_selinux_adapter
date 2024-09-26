@@ -79,7 +79,7 @@ allow hidumper hiprofiler_plugins:fifo_file { read };
 allow hidumper sys_file:file { read };
 allow hidumper hdcd:fifo_file { read };
 
-allow hidumper hidumper_file:file { write open read };
+allow hidumper hidumper_file:file { write open read append };
 
 developer_only(`
     allow hidumper sh:fd use;
