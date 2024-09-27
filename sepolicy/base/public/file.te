@@ -17,6 +17,7 @@ type pipefs, fs_attr;
 type sockfs, fs_attr;
 type rootfs, fs_attr;
 type proc_file, fs_attr, proc_attr;
+type proc_random, fs_attr, proc_attr;
 type proc_panic, fs_attr, proc_attr;
 
 type unlabeled, fs_attr;

@@ -114,6 +114,6 @@ define(`control_hilog', `
     allow $1 hilog_param:parameter_service { set };
 ')
 
-define(`system_domain', `sadomain hap_domain native_system_domain')
+define(`system_domain', `sadomain rgm_violator_sadomain hap_domain native_system_domain')
 
 define(`chipset_domain', `hdfdomain native_chipset_domain')
