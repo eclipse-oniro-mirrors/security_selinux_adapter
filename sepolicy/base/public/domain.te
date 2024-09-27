@@ -246,9 +246,9 @@ neverallow { domain -cgroup_creator -rgm_violator_ohos_cgroup_file_create } cgro
 
 neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 
-neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -system_fonts_file_violator_dir_mounton } system_file_attr:dir_file_class_set mounton;
+neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -system_fonts_file_violator_dir_mounton -rgm_violator_system_file_mounton } system_file_attr:dir_file_class_set mounton;
 
-neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr } vendor_file_attr:dir_file_class_set mounton;
+neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -rgm_violator_vendor_file_mounton } vendor_file_attr:dir_file_class_set mounton;
 
 neverallow { domain -init -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
