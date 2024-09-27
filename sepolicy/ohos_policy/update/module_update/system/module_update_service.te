@@ -69,6 +69,7 @@ debug_only(`
 ')
 
 allow module_update_service update_updater_param:file { map read open};
+allow module_update_service update_updater_param:parameter_service { set };
 
 #avc denied { ioctl open read write getattr setattr unlink } for pid=606, comm="system/bin/check_module_update" path="dev/block/loop0" dev="" ino=426 scontext=u:r:module_update_service:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 allow module_update_service dev_block_file:blk_file { ioctl open read write getattr setattr unlink };

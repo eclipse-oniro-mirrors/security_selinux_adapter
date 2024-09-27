@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type data_updater_file, file_attr, data_file_attr;
-type hiview_light_file, file_attr, data_file_attr;
+persist.moduleupdate.bms.        u:object_r:update_updater_param:s0
+persist.moduleupdate.bms.install.        u:object_r:update_updater_param:s0
