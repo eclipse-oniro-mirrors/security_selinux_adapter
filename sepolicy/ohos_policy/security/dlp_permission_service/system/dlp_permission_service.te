@@ -119,4 +119,4 @@ allow dlp_permission_service sa_installd_service:samgr_class { get };
 allow dlp_permission_service { vendor_etc_file sys_prod_file chip_prod_file }:dir { search };
 
 allow dlp_permission_service sa_distributeddata_service:samgr_class { get };
-allow dlp_permission_service distributeddata:binder { call transfer };
+binder_call(dlp_permission_service, distributeddata);
