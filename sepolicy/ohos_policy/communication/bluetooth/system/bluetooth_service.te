@@ -219,3 +219,6 @@ allow bluetooth_service sa_privacy_service:samgr_class { get };
 
 #avc:  denied  { call } for pid=1612, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
 allow bluetooth_service privacy_service:binder { call };
+
+#avc:  denied  { get } for service=3287 pid=285 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow bluetooth_service sa_resource_schedule:samgr_class { get };
