@@ -173,3 +173,6 @@ allow accountmgr resource_schedule_service:binder { call };
 
 #for devinfo param
 allow resource_schedule_service devinfo_type_param:file { read open map };
+
+#bmm_report
+allow init dev_bmm_file:chr_file { setattr };
