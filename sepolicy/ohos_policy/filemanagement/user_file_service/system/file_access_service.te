@@ -19,6 +19,8 @@ allow file_access_service sa_file_access_service:samgr_class { add get };
 debug_only(`
     allow file_access_service sh:binder { call };
     allow normal_hap_attr su:fd { use };
+    # avc:  denied  { transfer } for  pid=3205 comm="OS_IPC_6_5177" scontext=u:r:file_access_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow file_access_service su:binder { transfer };
 ')
 
 #avc:  denied  { read } for  pid=812 comm="sa_main" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:file_access_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
@@ -102,3 +104,9 @@ allow file_access_service foundation:binder { call transfer };
 allow file_access_service debug_param:file { map };
 # avc:  denied  { call } for  pid=1534 comm="file_access_ser" scontext=u:r:file_access_service:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=0
 allow file_access_service hap_domain:binder { call };
+
+# avc: denied {transfer} for pid=6408, comm="/system/bin/sa_main" scontext=u:r:file:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
+allow file_access_service hap_domain:binder { transfer };
+
+# avc:denied { getopt } for pid=6408,comm="/system/bin/sa_main" scontex=u:r:file_acccess_services:s0 tcontext=u:r:file_access_service:s0 tclass=unix_dgram_socket permissive=1
+allow file_access_service file_access_service:unix_dgram_socket { getopt setopt };
