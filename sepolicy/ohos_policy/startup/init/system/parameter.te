@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-typeattribute media_library_param param_set_allow_attr;
-
 typeattribute av_session devinfo_type_allow_attr;
 typeattribute devattest_service devinfo_type_allow_attr;
 

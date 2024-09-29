@@ -68,15 +68,19 @@ allowxperm key_enable tmpfs:chr_file ioctl { 0x6201 0x6209};
 
 allow key_enable data_file:dir { search };
 
-allow key_enable data_service_el0_file:dir { read search };
+allow key_enable data_service_el0_file:dir { getattr read search };
+
+allow key_enable data_service_el1_file:dir { getattr read search };
 
 allow key_enable data_service_file:dir { search };
 
-allow key_enable trusted_profile_data_file:dir { open read search };
+allow key_enable trusted_profile_data_file:dir { getattr open read search };
 
 allow key_enable trusted_profile_data_file:file { getattr open read };
 
 allow key_enable data_service_el0_file:file { getattr read open };
+
+allow key_enable data_service_el1_file:file { getattr read open };
 
 allow key_enable devinfo_private_param:file { map open read };
 

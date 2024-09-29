@@ -57,7 +57,7 @@ allow wifi_hal_service sa_device_service_manager:samgr_class { get };
 allow wifi_hal_service cert_manager_service:binder { call };
 allow wifi_hal_service huks_service:binder { call };
 allowxperm wifi_hal_service wifi_hal_service:packet_socket ioctl { 0x8927 0x8933 };
-allowxperm wifi_hal_service wifi_hal_service:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8924 0x8927 0x8b0d 0x8bf7 0x8933 0x8910 0x8916 0x891c };
+allowxperm wifi_hal_service wifi_hal_service:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8924 0x8927 0x8b0d 0x8bf7 0x8933 0x8910 0x8916 0x891c 0x891b };
 allowxperm wifi_hal_service wifi_hal_service:unix_dgram_socket ioctl { 0x8933 0x5411 };
 allow wifi_hal_service musl_param:file { read };
 allow wifi_hal_service data_service_el1_file:file { append };
@@ -74,7 +74,7 @@ allow wifi_hal_service data_service_el1_file:sock_file { write setattr getattr u
 allow wifi_hal_service data_service_el1_file:dir { create search write getattr add_name };
 allow wifi_hal_service data_local_tmp:dir { getattr read };
 allow wifi_hal_service sys_file:file { read write open };
-allow wifi_hal_service wifi_hal_service:udp_socket { ioctl setopt };
+allow wifi_hal_service wifi_hal_service:udp_socket { ioctl setopt getopt };
 
 # avc:  denied  { rmdir } for  pid=10994 comm="WpaMainThread" name="wpa" dev="mmcblk0p14" ino=2248 scontext=u:r:wifi_hal_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow wifi_hal_service data_service_el1_file:dir { rmdir };
@@ -85,12 +85,6 @@ allow wifi_hal_service data_service_el1_file:file { unlink };
 # avc:  denied  { read write } for  pid=478 comm="wifi_hal_servic" path="/dev/console" dev="tmpfs" ino=40 scontext=u:r:wifi_hal_service:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
 allow wifi_hal_service dev_console_file:chr_file { read write };
 
-# avc:  denied  { call } for  pid=1009 comm="IPC_0_1136" scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
-allow wifi_hal_service wifi_manager_service:binder { call };
-
-# avc:  denied  { nlmsg_read } for  pid=1006 comm="IPC_0_1130" scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_hal_service:s0 tclass=netlink_route_socket permissive=1
-allow wifi_hal_service wifi_hal_service:netlink_route_socket { nlmsg_read };
-
 #avc:  denied  { get } for service=hdf_device_manager pid=481 scontext=u:r:wifi_hal_service:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=0
 allow wifi_hal_service hdf_device_manager:hdf_devmgr_class { get };
 
@@ -99,6 +93,12 @@ allow wifi_hal_service hdf_wpa_interface_service:hdf_devmgr_class { get };
 
 #avc:  denied  { sendto } for  pid=499 comm="wifi_hal_servic" path=002F646174612F736572766963652F656C312F7075626C69632F776966692F736F636B6574732F7770612F776C616E30000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_host:s0 tclass=unix_dgram_socket permissive=1
 allow wifi_hal_service wifi_host:unix_dgram_socket { sendto };
+
+# avc:  denied  { call } for  pid=1009 comm="IPC_0_1136" scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow wifi_hal_service wifi_manager_service:binder { call };
+
+# avc:  denied  { nlmsg_read } for  pid=1006 comm="IPC_0_1130" scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_hal_service:s0 tclass=netlink_route_socket permissive=1
+allow wifi_hal_service wifi_hal_service:netlink_route_socket { nlmsg_read nlmsg_readpriv setopt };
 
 allow wifi_hal_service netmanager:binder { call };
 allow wifi_hal_service sa_dhcp_client:samgr_class { add get };

@@ -86,3 +86,8 @@ allow inputmethod_service distributeddata:binder { call transfer };
 allow inputmethod_service distributeddata:fd { use };
 allow inputmethod_service sa_memory_manager_service:samgr_class { get };
 allow inputmethod_service memmgrservice:binder { call };
+
+# avc:  denied  { get } for  service=501 sid=u:r:inputmethod_service:s0 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow inputmethod_service sa_foundation_appms:samgr_class { get };
+
+allow inputmethod_service sa_screenlock_service:samgr_class { get };

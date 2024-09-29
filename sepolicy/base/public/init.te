@@ -34,7 +34,7 @@ neverallow init domain:udp_socket ~{ ioctl create };
 
 #todo
 # system_bin_file need to fix
-neverallow init { file_attr fs_attr -system_bin_file -toybox_exec -sdc_exec -hnp_exec -prop_migrate_exec -begetctl_exec updater_only(`-rootfs') -system_bin_file_quickfix }:file execute_no_trans;
+neverallow init { file_attr fs_attr -system_bin_file -toybox_exec -sdc_exec -hnp_exec updater_only(`-rootfs') -system_bin_file_quickfix -rgm_violator_system_bin_file}:file execute_no_trans;
 
 #todo
 #neverallow init sys_file:file { open read write };

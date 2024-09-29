@@ -38,7 +38,7 @@ allow cert_manager_service sa_huks_service:samgr_class { get add };
 allow cert_manager_service sa_param_watcher:samgr_class { get };
 allow cert_manager_service tracefs:dir { search };
 allow cert_manager_service tracefs_trace_marker_file:file { open write };
-allowxperm cert_manager_service cert_manager_service_file:file ioctl { 0x5413 };
+allowxperm cert_manager_service cert_manager_service_file:file ioctl { 0x5413 0xf546 0xf547 };
 
 #avc:  denied  { read } for  pid=6711 comm="cert_manager_se" name="u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=6711 comm="cert_manager_se" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
@@ -56,3 +56,22 @@ allow cert_manager_service cert_manager_service:unix_dgram_socket { getopt setop
 #avc: denied { open } for pid=18044 comm="cert_manager_se" path="/sys/devices/system/cpu/online" dev="sysfs" ino=27674 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 #avc: denied { getattr } for pid=18044 comm="cert_manager_se" path="/sys/devices/system/cpu/online" dev="sysfs" ino=27674 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 allow cert_manager_service sysfs_devices_system_cpu:file { read open getattr };
+
+allow cert_manager_service distributeddata:binder { transfer call };
+allow cert_manager_service distributeddata:fd { use };
+
+#avc:  denied  { get } for service=3524 sid=u:r:cert_manager_service:s0 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow cert_manager_service sa_sg_collect_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=1456 comm="cert_manager_se" scontext=u:r:cert_manager_service:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=0
+allow cert_manager_service security_guard:binder { call };
+
+#avc:  denied  { lock } for  pid=1456 comm="OS_IPC_0_1471" path="/data/service/el1/public/cert_manager_service/rdb/cert_manager.db" dev="mmcblk0p15" ino=3210 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:cert_manager_service_file:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=1462 comm="OS_IPC_2_1490" path="/data/service/el1/public/cert_manager_service/rdb/cert_manager.db-shm" dev="mmcblk0p15" ino=4138 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:cert_manager_service_file:s0 tclass=file permissive=0
+allow cert_manager_service cert_manager_service_file:file { lock map };
+
+#avc:  denied  { ioctl } for  pid=1462 comm="OS_IPC_2_1490" path="/data/service/el1/public/cert_manager_service/rdb/cert_manager.db" dev="mmcblk0p15" ino=3210 ioctlcmd=0xf50c scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:cert_manager_service_file:s0 tclass=file permissive=0
+allowxperm cert_manager_service cert_manager_service_file:file ioctl { 0xf50c };
+
+#avc:  denied  { open } for  pid=1430 comm="OS_IPC_1_1446" path="/dev/ashmem" dev="tmpfs" ino=256 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+allow cert_manager_service dev_ashmem_file:chr_file { open };

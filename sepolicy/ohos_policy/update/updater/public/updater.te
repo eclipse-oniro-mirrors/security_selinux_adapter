@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+domain_auto_transition_pattern(updater, processdump_exec, processdump);
+domain_auto_transition_pattern(updater_binary, processdump_exec, processdump);
+
 type updater_binary, native_system_domain, domain;
 type updater_binary_exec, exec_attr, file_attr, system_file_attr;
 
@@ -19,3 +22,7 @@ type write_updater_exec, exec_attr, file_attr, system_file_attr;
 
 domain_auto_transition_pattern(updater, updater_binary_exec, updater_binary);
 domain_auto_transition_pattern(init, write_updater_exec, write_updater);
+
+type hiview_light, native_system_domain, domain;
+type hiview_light_exec, exec_attr, file_attr, system_file_attr;
+domain_auto_transition_pattern(updater, hiview_light_exec, hiview_light);

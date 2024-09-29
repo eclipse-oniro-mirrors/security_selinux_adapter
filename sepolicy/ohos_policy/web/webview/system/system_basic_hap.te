@@ -39,7 +39,6 @@ allow system_core_hap_attr system_core_hap_attr:tcp_socket { bind };
 allowxperm system_core_hap_attr dev_mali:chr_file ioctl 0x800c;
 allow system_core_hap_attr port:tcp_socket { name_bind };
 allow system_core_hap_attr proc_max_user_watches:file { getattr };
-allow nwebspawn system_core_hap_data_file_attr:dir { mounton };
 allow system_core_hap_attr nwebspawn:fd { use };
 allow system_core_hap_attr nwebspawn:fifo_file { write };
 allow system_core_hap_attr nwebspawn:unix_dgram_socket { write };
@@ -49,7 +48,6 @@ allow system_core_hap_attr system_fonts_file:dir { read };
 
 allow foundation data_service_el0_file:file { getattr };
 allow foundation musl_param:file { read };
-allow nwebspawn system_core_hap_data_file_attr:dir { mounton };
 allow foundation storage_manager:file { read };
 allow system_core_hap_attr port:tcp_socket { name_connect };
 allow system_core_hap_attr system_core_hap_attr:tcp_socket { connect };

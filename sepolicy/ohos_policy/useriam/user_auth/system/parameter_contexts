@@ -12,4 +12,3 @@
 # limitations under the License.
 
 bootevent.useriam.fwkready              u:object_r:useriam_fwkready_param:s0
-persist.useriam.enable.                 u:object_r:useriam_enable_writable_param:s0

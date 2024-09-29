@@ -47,3 +47,7 @@ allow media_monitor sysfs_devices_system_cpu:file { getattr open read };
 allow media_monitor media_monitor:unix_dgram_socket { getopt setopt };
 allow media_monitor foundation:binder { call };
 allow media_monitor persist_param:file { map open read };
+allow media_monitor data_log:dir { open read write add_name write remove_name };
+allow media_monitor data_log:file { append create getattr ioctl open read setattr unlink write };
+allowxperm media_monitor data_log:file ioctl { 0x5413 };
+allow media_monitor dev_ashmem_file:chr_file { open };

@@ -12,4 +12,5 @@
 # limitations under the License.
 const.product.devicetype            u:object_r:devinfo_type_param:s0
 const.build.characteristics         u:object_r:devinfo_type_param:s0
+ohos.boot.time.                     u:object_r:devinfo_public_param:s0
 

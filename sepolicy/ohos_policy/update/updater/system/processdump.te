@@ -1,0 +1,28 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+updater_only(`
+
+# avc_audit_slow:267] avc: denied { supervsable } for pid=796, comm="/bin/updater_binary"  scontext=u:r:processdump:s0 tcontext=u:r:processdump:s0 tclass=hmcap permissive=1
+typeattribute processdump hmcap_supervsable_osr_attr;
+allow processdump processdump:hmcap { supervsable };
+
+# avc_audit_slow:267] avc: denied { getattr } for pid=796, comm="/bin/processdump"  path="/etc/ld-musl-namespace-aarch64.ini" dev="tmpfs" ino=323 scontext=u:r:processdump:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc_audit_slow:267] avc: denied { open } for pid=796, comm="/bin/processdump"  path="/etc/ld-musl-namespace-aarch64.ini" dev="tmpfs" ino=323 scontext=u:r:processdump:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc_audit_slow:267] avc: denied { read execute } for pid=unknown, comm=unknown, cidx=0x0  path="/lib/ld-musl-aarch64.so.1" dev="tmpfs" ino=781 scontext=u:r:processdump:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc_audit_slow:267] avc: denied { read } for pid=unknown, comm=unknown, cidx=0x0  path="/lib/ld-musl-aarch64.so.1" dev="tmpfs" ino=781 scontext=u:r:processdump:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc_audit_slow:267] avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/lib/ld-musl-aarch64.so.1" dev="tmpfs" ino=779 scontext=u:r:processdump:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+allow processdump rootfs:file { getattr open read execute read map};
+
+# avc_audit_slow:267] avc: denied { read } for pid=796, comm="/bin/processdump"  name="/system/etc" dev="tmpfs" ino=997 scontext=u:r:processdump:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+allow processdump system_etc_file:lnk_file { read };
+')

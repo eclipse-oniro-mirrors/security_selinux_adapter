@@ -12,4 +12,5 @@
 # limitations under the License.
 
 # avc:  denied  { transfer } for  pid=521 comm="IPC_1_643" scontext=u:r:accountmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=binder permissive=1
-allow accountmgr hdf_ext_devmgr:binder { transfer };
+# avc:  denied  { call } for  pid=683 comm="OS_IPC_2_949" scontext=u:r:accountmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=binder permissive=0
+allow accountmgr hdf_ext_devmgr:binder { transfer call };

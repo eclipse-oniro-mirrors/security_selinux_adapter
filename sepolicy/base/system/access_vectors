@@ -478,6 +478,8 @@ class nfc_socket
 inherits socket
 class vsock_socket
 inherits socket
+class vsock_host_socket
+inherits socket
 class kcm_socket
 inherits socket
 class qipcrtr_socket
@@ -564,4 +566,11 @@ class ced
 class jit_memory
 {
     exec_mem_ctrl
+}
+
+class hmcap
+{
+    supervsable
+    pid_mem_read
+    pid_mem_write
 }

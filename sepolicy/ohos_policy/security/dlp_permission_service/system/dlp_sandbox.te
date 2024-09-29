@@ -12,7 +12,7 @@
 # limitations under the License.
 
 allow dlp_sandbox_hap dlp_fuse_file:file { open read write getattr };
-
+allow dlp_sandbox_hap dlp_fuse_file:dir { search open read write getattr };
 neverallow { domain -dlp_sandbox_hap } dlp_fuse_file:file { open read write };
 neverallow sh dlp_fuse_file:file { open read write };
 

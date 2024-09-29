@@ -50,6 +50,7 @@ allow ueventd dev_dma_heap_file:dir { add_name getattr relabelto search write };
 allow ueventd dev_dri_file:chr_file { create getattr relabelto setattr };
 allow ueventd dev_dri_file:dir { add_name getattr relabelto search write };
 allow ueventd dev_file:chr_file { create getattr relabelfrom setattr unlink };
+allow ueventd dev_mapper_control_file:chr_file { create getattr relabelfrom setattr unlink };
 allow ueventd dev_file:dir { add_name create getattr relabelfrom write remove_name };
 allow ueventd dev_file:file { create read write open };
 allow ueventd dev_full:chr_file { relabelto };
@@ -168,6 +169,7 @@ allow ueventd dev_block_file:blk_file { relabelfrom };
 allow ueventd dev_block_file:lnk_file { relabelfrom getattr };
 allow ueventd dev_block_file:dir { open read };
 allow ueventd dev_block_volfile:lnk_file { setattr getattr relabelfrom};
+allow ueventd tmpfs:chr_file { create setattr getattr relabelfrom unlink };
 
 # for hyperhold
 allow ueventd zram_device:blk_file { relabelto getattr setattr };
@@ -185,4 +187,5 @@ allow ueventd tmpfs:blk_file { getattr relabelfrom setattr };
 
 # avc:  denied  { getattr } for  pid=245 comm="ueventd" path="/dev/block/by-name/misc" dev="tmpfs" ino=37 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
 allow ueventd updater_block_file:lnk_file { getattr };
+
 

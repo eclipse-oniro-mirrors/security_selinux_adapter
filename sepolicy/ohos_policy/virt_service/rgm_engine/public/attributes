@@ -1,0 +1,51 @@
+# Copyright (c) 2024-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+attribute rgm_violator_ohos_capability_mknod;
+attribute rgm_violator_ohos_capability_setpcap;
+attribute rgm_violator_ohos_capability_setgid;
+attribute rgm_violator_ohos_capability_syschroot;
+attribute rgm_violator_ohos_capability_sysptrace;
+attribute rgm_violator_ohos_capability_netadmin;
+attribute rgm_violator_ohos_capability_netraw;
+attribute rgm_violator_ohos_capability_sysadmin;
+attribute rgm_violator_ohos_capability_dacoverride;
+attribute rgm_violator_ohos_capability_chown;
+attribute rgm_violator_ohos_capability_fowner;
+attribute rgm_violator_ohos_capability_kill;
+attribute rgm_violator_ohos_capability_dacreadsearch;
+attribute rgm_violator_ohos_capability_fsetid;
+attribute rgm_violator_ohos_capability_setuid;
+
+attribute rgm_violator_ohos_filesystem_remount;
+attribute rgm_violator_ohos_proc_file_mounton;
+attribute rgm_violator_ohos_cgroup_file_create;
+attribute rgm_violator_ohos_dev_sock_file_mounton;
+attribute rgm_violator_ohos_dev_char_file;
+attribute rgm_violator_ohos_dev_blk_file;
+attribute rgm_violator_ohos_dev_auth_ctrl_file_write;
+attribute rgm_violator_ohos_unlabeled_file;
+attribute rgm_violator_ohos_vendor_etc_dir_search;
+attribute rgm_violator_ohos_vendor_etc_file_getattr;
+attribute rgm_violator_ohos_vendor_etc_file_read;
+attribute rgm_violator_ohos_vendor_etc_file_open;
+attribute rgm_violator_ohos_iptables_exec_file_execute;
+attribute rgm_violator_ohos_sh_exec_file_execute;
+
+attribute rgm_violator_data_log_file_createwrite;
+attribute rgm_violator_data_log_dir_createwrite;
+attribute rgm_violator_system_file_mounton;
+attribute rgm_violator_vendor_file_mounton;
+
+attribute rgm_violator_system_bin_file;
+

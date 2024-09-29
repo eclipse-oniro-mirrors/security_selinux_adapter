@@ -16,3 +16,4 @@ allow system_core_hap_attr sa_wifi_hotspot_ability:samgr_class { get };
 allow system_core_hap_attr sa_wifi_p2p_ability:samgr_class { get };
 allow system_core_hap_attr sa_wifi_scan_ability:samgr_class { get };
 allow system_core_hap_attr wifi_manager_service:binder { call transfer };
+allow system_core_hap_attr wifi_manager_service:fd { use };

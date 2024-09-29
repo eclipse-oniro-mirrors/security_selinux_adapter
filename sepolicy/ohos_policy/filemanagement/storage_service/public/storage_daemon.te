@@ -20,10 +20,13 @@ define(`storage_daemon_relabel', `
     allow storage_daemon $1:dir { search };
 ')
 storage_daemon_relabel(data_user_file);
+storage_daemon_relabel(data_service_el1_i18n_timezone_file);
 storage_daemon_relabel(data_service_el2_hmdfs);
 storage_daemon_relabel(data_service_el2_public_huksService_file);
 storage_daemon_relabel(data_service_el2_userId_huksService_file);
 storage_daemon_relabel(data_service_el4_userId_huksService_file);
+
+storage_daemon_relabel(account_data_el2_file);
 
 allow storage_daemon data_user_file:lnk_file { relabelto setattr };
 

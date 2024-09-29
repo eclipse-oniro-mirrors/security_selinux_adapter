@@ -21,9 +21,9 @@
 extern "C" {
 #endif
 
-int HdfListServiceCheck(pid_t callingPid);
-int HdfGetServiceCheck(pid_t callingPid, const char *serviceName);
-int HdfAddServiceCheck(pid_t callingPid, const char *serviceName);
+int HdfListServiceCheck(const char *callingSid);
+int HdfGetServiceCheck(const char *callingSid, const char *serviceName);
+int HdfAddServiceCheck(const char *callingSid, const char *serviceName);
 
 #ifdef __cplusplus
 }

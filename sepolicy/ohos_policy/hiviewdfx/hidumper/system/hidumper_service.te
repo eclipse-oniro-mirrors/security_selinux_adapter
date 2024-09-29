@@ -15,7 +15,12 @@ define(`use_hidumper', `
     allow $1 hidumper_service:fd use;
     allow $1 hidumper_service:fifo_file write;
 ')
-
+developer_only(`
+    # avc:  denied  { use } for  pid=1994 comm="hidumper" path="pipe:[39192]" dev="pipefs" ino=39192 scontext=u:r:hidumper_service:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
+    allow hidumper_service sh:fd { use };
+    # avc:  denied  { write } for  pid=1994 comm="hidumper" path="pipe:[39192]" dev="pipefs" ino=39192 scontext=u:r:hidumper_service:s0 tcontext=u:r:sh:s0 tclass=fifo_file permissive=1
+    allow hidumper_service sh:fifo_file { write };
+')
 use_hidumper({ sadomain hdfdomain });
 
 allow hidumper_service appspawn:dir { getattr open read search };
@@ -60,10 +65,11 @@ allow hidumper_service hidumper:binder call;
 allow hidumper_service hidumper:dir { getattr open read search };
 allow hidumper_service hidumper:file { getattr open read };
 allow hidumper_service hidumper:lnk_file read;
+allow hidumper_service hidumper:fd use;
 allow hidumper_service hidumper_exec:file { getattr map open read };
 
 allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
-allow hidumper_service hidumper_file:file { create ioctl open unlink write };
+allow hidumper_service hidumper_file:file { create ioctl open unlink write getattr append };
 
 allow hidumper_service hilogd_exec:file { getattr map open read };
 allow hidumper_service hiview_exec:file { getattr map open read };
@@ -176,7 +182,7 @@ allow hidumper_service hilog_exec:file { execute execute_no_trans getattr map op
 allow hidumper_service proc_file:file { open read };
 allow hidumper_service processdump:dir search;
 allow hidumper_service processdump:file { open read };
-allow hidumper_service sysfs_devices_system_cpu:file { getattr open read };
+allow hidumper_service sysfs_devices_system_cpu:file { open read };
 allow hidumper_service tty_device:chr_file getattr;
 allow hidumper_service hdcd:fifo_file write;
 
@@ -267,6 +273,7 @@ allow hidumper_service sa_devattest_service:samgr_class get;
 allow hidumper_service sa_device_standby:samgr_class get;
 allow hidumper_service sa_task_heartbeat_mgr:samgr_class get;
 allow hidumper_service sa_el5_filekey_manager:samgr_class get;
+allow hidumper_service sa_app_fwk_update_service:samgr_class get;
 allow hidumper_service samgr:samgr_class list;
 
 allow hidumper_service hiprofiler_cmd:file getattr;
@@ -289,9 +296,8 @@ allow hidumper_service debugfs_used:file { getattr open read };
 allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
 allow hidumper_service debugfs_stats:file { getattr open read };
 allow hidumper_service debugfs_state:file { getattr open read };
-allow hidumper_service data_log:file { read write };
+allow hidumper_service data_log:file { read write append };
 
-allow hidumper_service hiview:binder { transfer };
 allow hidumper_service hiperf:file { getattr };
 
 neverallow hidumper_service *:process ptrace;
@@ -305,3 +311,5 @@ allow hidumper_service hap_domain:lnk_file { read getattr };
 
 allow hidumper_service isolated_render:file { getattr open read };
 allow hidumper_service isolated_render:dir { search };
+
+allow hidumper_service chip_prod_file:dir { search };

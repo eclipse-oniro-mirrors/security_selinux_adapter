@@ -19,6 +19,8 @@ allow av_session av_session:unix_dgram_socket { getopt setopt };
 allow av_session data_file:dir { search add_name write };
 allow av_session data_service_el1_file:dir { add_name search write };
 allow av_session data_service_el1_file:file { create ioctl open read write };
+allow av_session data_service_el2_file:dir { add_name create getattr remove_name search write };
+allow av_session data_service_el2_file:file { create ioctl open read unlink write };
 allow av_session data_service_file:dir { search };
 allow av_session default_param:file { read map open };
 allow av_session dev_console_file:chr_file { read write };
@@ -52,6 +54,7 @@ allow av_session sa_param_watcher:samgr_class { get };
 allow av_session system_bin_file:dir { search };
 allowxperm av_session av_session_data_file:file ioctl 0x5413;
 allowxperm av_session data_service_el1_file:file ioctl { 0x5413 };
+allowxperm av_session data_service_el2_file:file ioctl { 0x5413 };
 allow av_session normal_hap_attr:binder { transfer call };
 allow av_session sa_softbus_service:samgr_class { get };
 allow av_session distributeddata:binder { call transfer };
@@ -62,11 +65,18 @@ allow av_session data_log:dir { getattr };
 allow av_session system_basic_hap_attr:binder { transfer call };
 allow av_session sa_foundation_bms:samgr_class { get };
 allow av_session vendor_bin_file:dir { search };
+allow av_session system_usr_file:dir { search };
 allow av_session sa_distributeddata_service:samgr_class { get };
-
 
 allow av_session dev_ashmem_file:chr_file { open };
 
 allow av_session bgtaskmgr_service:binder { call transfer };
 allow av_session sa_bgtaskmgr:samgr_class { get };
 allow av_session sa_foundation_ans:samgr_class { get };
+allow av_session bootevent_param:file { map open read };
+allow av_session paramservice_socket:sock_file { write };
+allow av_session kernel:unix_stream_socket { connectto };
+allow av_session sa_memory_manager_service:samgr_class { get };
+allow av_session memmgrservice:binder { call };
+allow av_session sa_foundation_cesfwk_service:samgr_class { get };
+allow av_session accountmgr:binder { transfer };

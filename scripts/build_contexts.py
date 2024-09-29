@@ -22,6 +22,8 @@ import argparse
 import re
 import shutil
 import subprocess
+import sys
+import platform
 from collections import defaultdict
 
 
@@ -204,6 +206,7 @@ def sehap_process_line(line, line_index, contexts_write, domain, contexts_file):
         print(contexts_file + ":" + str(line_index) + " format check fail")
         raise Exception(1)
 
+
 def check_sehap_contexts(args, contexts_file, domain):
     """
     check domain or type defined in sehap_contexts.
@@ -238,6 +241,7 @@ def check_sehap_contexts(args, contexts_file, domain):
 
     if os.path.exists(contexts_file + ".bin"):
         os.unlink(contexts_file + ".bin")
+
 
 def build_file_contexts(args, output_path, policy_path, all_policy_path):
     if args.components == "default":
@@ -312,7 +316,10 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
 
 
 def main(args):
-    libpcre2_path = os.path.realpath("./clang_x64/thirdparty/pcre2/")
+    if sys.platform == "linux" and platform.machine().lower() == "aarch64":
+        libpcre2_path = os.path.realpath("./clang_arm64/thirdparty/pcre2/")
+    else:
+        libpcre2_path = os.path.realpath("./clang_x64/thirdparty/pcre2/")
     os.environ['LD_LIBRARY_PATH'] = libpcre2_path
     output_path = args.dst_dir
     policy_path = []

@@ -15,3 +15,13 @@ type appspawn, native_system_domain, domain;
 type appspawn_exec, system_file_attr, exec_attr, file_attr;
 type pid_ns_init, native_system_domain, domain;
 type pid_ns_init_exec, system_file_attr, exec_attr, file_attr;
+## audit: type=1400 audit(1501988181.483:2582): avc:  denied  { use } for  pid=280 comm="appspawn" path="/data/storage/el2/base/haps/entry/files/test.txt" 
+## dev="mmcblk0p15"  ino=2554 scontext=u:r:appspawn:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=0
+allow appspawn hap_domain:fd { use };
+## audit: type=1400 audit(1502003391.146:2748): avc:  denied  { read write } for  pid=275 comm="appspawn" path="/data/storage/el2/base/haps/entry/files/test.txt"
+## dev="mmcblk0p15" ino=2483 scontext=u:r:appspawn:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
+allow appspawn hap_file_attr:file { read write } ;
+
+allow appspawn nativespawn:process { dyntransition sigkill };
+neverallow appspawn *:process ptrace;
+

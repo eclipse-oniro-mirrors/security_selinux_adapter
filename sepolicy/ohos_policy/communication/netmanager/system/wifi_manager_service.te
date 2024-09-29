@@ -13,3 +13,4 @@
 
 allow wifi_manager_service netmanager:binder { call };
 allow wifi_manager_service netsysnative:unix_stream_socket { connectto };
+allow wifi_manager_service device_manager:binder { transfer };

@@ -50,7 +50,7 @@ persist.                                u:object_r:persist_param:s0
 persist.sys.                            u:object_r:persist_sys_param:s0
 persist.sys.hilog.                      u:object_r:hilog_param:s0
 debug.                                  u:object_r:debug_param:s0
-debug.hitrace.                          u:object_r:hiviewdfx_profiler_param:s0
+debug.hitrace.                          u:object_r:hitrace_param:s0
 accessibility.config.ready              u:object_r:accessibility_param:s0
 musl.                                   u:object_r:musl_param:s0
 const.telephony.                        u:object_r:const_telephony_param:s0
@@ -67,7 +67,6 @@ persist.distributed_hardware.device_manager.discover_status    u:object_r:dhardw
 persist.multimedia.audio.               u:object_r:persist_audio_param:s0
 persist.ark.                            u:object_r:arkcompiler_param:s0
 persist.ace.                            u:object_r:arkui_param:s0
-persist.ace.trace.inputevent.           u:object_r:arkui_param:s0
 persist.sys.default_ime                 u:object_r:inputmethod_param:s0
 persist.pasteboard.                     u:object_r:pasteboard_param:s0
 persist.time.                           u:object_r:time_param:s0

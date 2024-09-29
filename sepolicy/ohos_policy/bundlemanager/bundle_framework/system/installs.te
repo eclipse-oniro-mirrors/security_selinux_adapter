@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -installs debug_only(` -aa ') -bundle_data_app_el1_file } data_app_el1_file:file { write };
+neverallow { domain -installs debug_only(` -aa ') -bundle_data_app_el1_file developer_only(`-hnp') -appspawn } data_app_el1_file:file { write };
 
 init_daemon_domain(installs);
 
@@ -28,7 +28,7 @@ allow installs data_app_el5_file:sock_file { unlink };
 allow installs data_app_file:dir { search };
 allow installs data_file:file { getattr open read };
 allow installs data_service_el1_file:dir { remove_name search rmdir getattr setattr};
-allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write ioctl map };
+allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write ioctl map relabelfrom };
 allow installs data_service_el2_file:dir { add_name create open read search setattr write getattr rmdir remove_name };
 allow installs data_service_el2_hmdfs:dir { getattr setattr rmdir remove_name };
 allow installs data_service_el2_hmdfs:file { open read unlink getattr setattr};
@@ -121,8 +121,27 @@ allow installs labeledfs:filesystem { quotaget };
 allow installs installs:capability { sys_admin };
 allow installs sa_el5_filekey_manager:samgr_class { get };
 allow installs el5_filekey_manager:binder { call };
+allow installs normal_hap_data_file_attr:dir { ioctl };
+allowxperm installs normal_hap_data_file_attr:dir ioctl { 0xf554 };
+allow installs system_core_hap_data_file_attr:dir { ioctl };
+allowxperm installs system_core_hap_data_file_attr:dir ioctl { 0xf554 };
+allow installs system_basic_hap_data_file_attr:dir { ioctl };
+allowxperm installs system_basic_hap_data_file_attr:dir ioctl { 0xf554 };
 allow installs data_app_el5_file:dir { ioctl };
 allowxperm installs data_app_el5_file:dir ioctl { 0xf554 };
-allow installs data_app_el1_file:lnk_file { create getattr };
-allow installs sh_exec:file { execute execute_no_trans map open read };
-allow installs system_bin_file:lnk_file { read getattr };
+allow installs foundation:fd { use };
+allow installs normal_hap_data_file:fifo_file { getattr setattr relabelfrom relabelto unlink };
+allow installs system_basic_hap_data_file:fifo_file { getattr setattr relabelfrom relabelto unlink };
+allow installs system_core_hap_data_file:fifo_file { getattr setattr relabelfrom relabelto unlink };
+allow installs normal_hap_data_file_attr:fifo_file { unlink };
+allow installs system_basic_hap_data_file_attr:fifo_file { unlink };
+allow installs system_core_hap_data_file_attr:fifo_file { unlink };
+allow installs data_app_el1_file:fifo_file { unlink };
+allow installs data_app_el2_file:fifo_file { unlink };
+allow installs data_app_el3_file:fifo_file { unlink };
+allow installs data_app_el4_file:fifo_file { unlink };
+allow installs data_app_el5_file:fifo_file { unlink };
+allow installs data_service_el2_hmdfs:fifo_file { unlink };
+allow installs data_service_el2_share:fifo_file { unlink };
+allow installs data_local_arkprofile:fifo_file { unlink };
+allow installs faultloggerd:fifo_file { write };

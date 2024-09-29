@@ -97,6 +97,7 @@ class caif_socket
 class alg_socket
 class nfc_socket
 class vsock_socket
+class vsock_host_socket
 class kcm_socket
 class qipcrtr_socket
 class smc_socket
@@ -114,3 +115,4 @@ class code_sign
 class hmpsf
 class ced
 class jit_memory
+class hmcap

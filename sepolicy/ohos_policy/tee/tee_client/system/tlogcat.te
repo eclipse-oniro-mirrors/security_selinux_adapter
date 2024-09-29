@@ -39,5 +39,6 @@ allow tlogcat proc_file:file { open read };
 #avc:  denied  { read } for  pid=677 comm="tlogcat" path="/system/bin/tlogcat" dev="sdd76" ino=428 scontext=u:r:tlogcat:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 #avc:  denied  { execute } for  pid=677 comm="tlogcat" path="/system/bin/tlogcat" dev="sdd76" ino=428 scontext=u:r:tlogcat:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow tlogcat system_bin_file:file { entrypoint execute map read };
-allow tlogcat toybox_exec:file { entrypoint execute getattr map read open };
 
+typeattribute tlogcat public_violator_data_log_dir_createwrite;
+typeattribute tlogcat public_violator_data_log_file_createwrite;

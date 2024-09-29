@@ -14,10 +14,16 @@
 allow foundation system_basic_hap_attr:unix_stream_socket { read write };
 
 # avc:  denied  { call } for  pid=1077 comm="IPC_4_1780" scontext=u:r:foundation:s0 tcontext=u:r:isolated_render:s0 tclass=binder permissive=1
-allow foundation isolated_render:binder { call };
+allow foundation isolated_render:binder { call transfer };
 
 # avc: denied { sigkill } for pid=1101 comm="IPC_10_2173" scontext=u:r:foundation:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow foundation isolated_render:process { sigkill };
 
-allow foundation isolated_gpu:binder { call };
+# avc_audit_slow:267] avc: denied { call } for pid=1475, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:app_fwk_update_service:s0 tclass=binder permissive=1
+# avc_audit_slow:267] avc: denied { transfer } for pid=1475, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:app_fwk_update_service:s0 tclass=binder permissive=1
+allow foundation app_fwk_update_service:binder { call transfer };
+
+# avc_audit_slow:267] avc: denied { transfer } for pid=1394, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:isolated_gpu:s0 tclass=binder permissive=1
+
+allow foundation isolated_gpu:binder { call transfer };
 allow foundation isolated_gpu:process { sigkill };

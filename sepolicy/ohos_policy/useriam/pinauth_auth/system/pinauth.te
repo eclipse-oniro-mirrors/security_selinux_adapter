@@ -78,4 +78,3 @@ allow pinauth tracefs_trace_marker_file:file { open write };
 allow pinauth useriam:binder { call transfer };
 allow pinauth dev_at_file:chr_file { ioctl };
 allowxperm pinauth dev_at_file:chr_file ioctl { 0x4103 };
-

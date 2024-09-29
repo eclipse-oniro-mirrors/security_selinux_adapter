@@ -21,8 +21,8 @@ namespace Selinux {
 static const char *g_selinuxErrMsg[SELINUX_ERROR_MAX] = {
     [SELINUX_SUCC] = "success",
     [SELINUX_ARG_INVALID] = "argument is invalid",
-    [SELINUX_PATH_INVAILD] = "path is invalid",
-    [SELINUX_STAT_INVAILD] = "stat failed",
+    [SELINUX_PATH_INVALID] = "path is invalid",
+    [SELINUX_STAT_INVALID] = "stat failed",
     [SELINUX_PTR_NULL] = "ptr is null",
     [SELINUX_KEY_NOT_FOUND] = "cannot find key in contexts file",
     [SELINUX_GET_CONTEXT_ERROR] = "get context failed",

@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type isolated_render, hap_domain, domain;
-type isolated_gpu, hap_domain, domain;
+type isolated_render, domain;
+type isolated_gpu, domain;
 type web_private_param, parameter_attr;
+type app_fwk_update_service, sadomain, domain;

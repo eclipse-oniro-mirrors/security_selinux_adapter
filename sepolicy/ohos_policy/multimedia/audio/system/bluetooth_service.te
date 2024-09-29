@@ -11,4 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow bluetooth_service audio_server:fd { use };
+binder_call(bluetooth_service, audio_server);
+
+# bluetooth_service use reportData of RSS
+allow bluetooth_service sa_resource_schedule:samgr_class { get };

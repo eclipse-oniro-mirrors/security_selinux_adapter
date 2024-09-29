@@ -1,0 +1,25 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# add sandbox appdata permissions for sharefs
+allow hap_domain sharefs:dir { watch watch_reads create_dir_perms_without_ioctl };
+allow hap_domain sharefs:file { watch watch_reads execute create_file_perms_without_ioctl };
+
+allow hap_domain sharefs_appdata_file:dir { watch watch_reads read_dir_perms_without_ioctl };
+allow hap_domain sharefs_appdata_file:file { watch watch_reads execute read_file_perms_without_ioctl };
+
+allow hap_domain sharefs_appdata_bundle_file:dir { create setattr open read getattr lock search add_name write watch watch_reads };
+allow hap_domain sharefs_appdata_bundle_file:file { watch watch_reads execute create setattr getattr open read lock map write append };
+
+allow sharefs_appdata_file sharefs:filesystem { associate };
+allow sharefs_appdata_bundle_file sharefs:filesystem { associate };

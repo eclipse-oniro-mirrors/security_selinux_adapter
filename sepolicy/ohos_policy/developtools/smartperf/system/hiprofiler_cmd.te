@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hiprofiler_cmd SP_daemon:fd { use };
-allow hiprofiler_cmd SP_daemon:fifo_file { ioctl write };
-allowxperm hiprofiler_cmd SP_daemon:fifo_file ioctl { 0x5413 };
+developer_only(`
+    allow hiprofiler_cmd SP_daemon:fd { use };
+    allow hiprofiler_cmd SP_daemon:fifo_file { ioctl write };
+    allowxperm hiprofiler_cmd SP_daemon:fifo_file ioctl { 0x5413 };
+')

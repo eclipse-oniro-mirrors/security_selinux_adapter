@@ -74,6 +74,9 @@ allow audio_server musl_param:file { open map read };
 
 allow audio_server dev_ashmem_file:chr_file { open };
 
+allow audio_server rootfs:chr_file { ioctl read write };
+allowxperm audio_server rootfs:chr_file ioctl { 0x5413 };
+
 # /dev/input/
 allow audio_server dev_input_file:dir { search };
 allow audio_server dev_input_file:chr_file { read open };
@@ -185,5 +188,12 @@ binder_call(audio_server, accountmgr);
 
 binder_call(audio_server, camera_service);
 
+allow audio_server sa_foundation_cesfwk_service:samgr_class { get };
+
+allow audio_server sa_memory_manager_service:samgr_class { get };
+
+binder_call(audio_server, memmgrservice);
+
 # others
 allow domain persist_audio_param:file { map open read };
+allow audio_server sa_foundation_ans:samgr_class { get };

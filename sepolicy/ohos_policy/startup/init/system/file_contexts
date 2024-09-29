@@ -12,6 +12,7 @@
 # limitations under the License.
 
 /system/bin/ueventd             u:object_r:ueventd_exec:s0
+/system/bin/remount             u:object_r:remount_exec:s0
 
 # for hyperhold
 /data/vendor/hyperhold(/.*)?          u:object_r:hyperhold_sys:s0

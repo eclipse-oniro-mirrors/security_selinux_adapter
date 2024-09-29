@@ -93,7 +93,7 @@ static bool CouldSkip(const std::string &line)
     return false;
 }
 
-static struct SehapInfo DecodeString(std::string &line)
+static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
 {
     std::stringstream input(line);
     std::string tmp;
@@ -128,6 +128,10 @@ static struct SehapInfo DecodeString(std::string &line)
                 contextBuff.extra |= SELINUX_HAP_DLP;
             } else if (extra == INPUT_ISOLATE) {
                 contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
+            } else {
+                selinux_log(SELINUX_ERROR, "invalid extra %s\n", extra.c_str());
+                isValid = false;
+                break;
             }
             extraVisit = true;
         }
@@ -138,9 +142,9 @@ static struct SehapInfo DecodeString(std::string &line)
 
 static bool CheckPath(const std::string &path)
 {
-    std::regex pathPrefix1("^/data/app/el[1-4]/[0-9]+/(base|database)/.*");
+    std::regex pathPrefix1("^/data/app/el[1-5]/[0-9]+/(base|database)/.*");
     std::regex pathPrefix2("^/data/accounts/account_0/appdata/.*");
-    std::regex pathPrefix3("^/data/service/el[1-4]/[0-9]+/backup/bundles/.*");
+    std::regex pathPrefix3("^/data/service/el[1-5]/[0-9]+/backup/bundles/.*");
     if (std::regex_match(path, pathPrefix1) || std::regex_match(path, pathPrefix2) ||
         std::regex_match(path, pathPrefix3)) {
         return true;
@@ -156,7 +160,7 @@ static bool CheckApl(const std::string &apl)
     return false;
 }
 
-static std::string GetHapContextKey(struct SehapInfo *hapInfo)
+static std::string GetHapContextKey(const struct SehapInfo *hapInfo)
 {
     std::string keyPara;
 
@@ -179,9 +183,8 @@ static std::string GetHapContextKey(struct SehapInfo *hapInfo)
     return keyPara;
 }
 
-static bool HapContextsInsert(std::string line, int lineNum)
+static bool HapContextsInsert(const SehapInfo &tmpInfo, int lineNum)
 {
-    struct SehapInfo tmpInfo = DecodeString(line);
     std::string keyPara = GetHapContextKey(&tmpInfo);
     if (keyPara.empty()) {
         selinux_log(SELINUX_ERROR, "hap_contexts read fail in line %d\n", lineNum);
@@ -220,7 +223,12 @@ static bool HapContextsLoad()
             if (CouldSkip(line)) {
                 continue;
             }
-            if (!HapContextsInsert(line, lineNum)) {
+            bool isValid = true;
+            struct SehapInfo tmpInfo = DecodeString(line, isValid);
+            if (!isValid) {
+                continue;
+            }
+            if (!HapContextsInsert(tmpInfo, lineNum)) {
                 g_sehapContextsTrie->Clear();
                 g_sehapContextsTrie = nullptr;
                 return false;
@@ -232,6 +240,20 @@ static bool HapContextsLoad()
     }
     selinux_log(SELINUX_INFO, "Load hap_contexts succes: %s\n", SEHAP_CONTEXTS_FILE.c_str());
     contextsFile.close();
+    return true;
+}
+
+static bool CheckValidCmp(char *oldSecontext, char *newSecontext)
+{
+    if (oldSecontext == nullptr || newSecontext == nullptr) {
+        if (oldSecontext != nullptr) {
+            freecon(oldSecontext);
+        }
+        if (newSecontext != nullptr) {
+            freecon(newSecontext);
+        }
+        return false;
+    }
     return true;
 }
 
@@ -270,11 +292,11 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
 
     char realPath[PATH_MAX];
     if (realpath(pathNameOrig.c_str(), realPath) == nullptr) {
-        return -SELINUX_PATH_INVAILD;
+        return -SELINUX_PATH_INVALID;
     }
 
     if (!CheckPath(realPath)) {
-        return -SELINUX_PATH_INVAILD;
+        return -SELINUX_PATH_INVALID;
     }
 
     char *newSecontext = nullptr;
@@ -282,6 +304,10 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
     int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
     if (res < 0) {
         return res;
+    }
+    if (!CheckValidCmp(oldSecontext, newSecontext)) {
+        selinux_log(SELINUX_ERROR, "oldSecontext or newSecontext is null");
+        return -SELINUX_PTR_NULL;
     }
     if (strcmp(oldSecontext, newSecontext) == 0) {
         freecon(newSecontext);
@@ -361,6 +387,11 @@ int HapContext::RestoreconSb(const std::string &pathNameOrig, HapFileInfo& hapFi
     int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
     if (res < 0) {
         return res;
+    }
+
+    if (!CheckValidCmp(oldSecontext, newSecontext)) {
+        selinux_log(SELINUX_ERROR, "oldSecontext or newSecontext is null");
+        return -SELINUX_PTR_NULL;
     }
 
     if (strcmp(oldSecontext, newSecontext)) {

@@ -30,6 +30,7 @@ allow accountmgr data_service_el1_file:dir { add_name create getattr open read s
 allow accountmgr data_service_el1_file:file { create getattr ioctl relabelfrom setattr write open read unlink map lock watch };
 allowxperm accountmgr data_service_el1_file:file ioctl { 0xf50c };
 allowxperm accountmgr data_service_el1_file:file ioctl { 0x5413 };
+allow accountmgr data_service_el2_file:dir { search };
 allow accountmgr account_data_file:file { getattr setattr open ioctl create write read relabelto unlink map };
 allow accountmgr account_data_file:dir { add_name create open setattr remove_name rmdir getattr search read write watch };
 allow accountmgr vendor_lib_file:file { getattr open read map execute };
@@ -40,6 +41,13 @@ allow accountmgr sys_file:file { read open };
 # avc:  denied  { lock } for  pid=4779 comm="IPC_1_4783" path="/data/service/el1/public/account/100/account_info.json" dev="mmcblk0p14" ino=7594 scontext=u:r:accountmgr:s0 tcontext=u:object_r:account_data_file:s0 tclass=file permissive=1
 # avc:  denied  { watch } for  pid=4779 comm="SaInit0" path="/data/service/el1/public/account/104/account_info.json" dev="mmcblk0p14" ino=14953 scontext=u:r:accountmgr:s0 tcontext=u:object_r:account_data_file:s0 tclass=file permissive=1
 allow accountmgr account_data_file:file { lock watch };
+
+allow accountmgr account_data_el2_file:file { getattr setattr open create write read relabelto unlink map lock watch };
+allow accountmgr account_data_el2_file:dir { add_name create open setattr remove_name rmdir getattr search read write watch };
+# avc:  denied  { ioctl } for  pid=666 comm="OS_IPC_3_955" path="/data/service/el2/100/account/app_account/database/kvdb/5b281d1d619b09bcafed523d8fe64b47c64bec36bee7fa9d64ad21e569894065/single_ver/main/gen_natural_store.db" dev="mmcblk0p15" ino=2591 ioctlcmd=0xf50c scontext=u:r:accountmgr:s0 tcontext=u:object_r:account_data_el2_file:s0 tclass=file permissive=1
+allow accountmgr account_data_el2_file:file { ioctl };
+# avc:  denied  { ioctl } for  pid=666 comm="OS_IPC_3_955" path="/data/service/el2/100/account/app_account/database/kvdb/5b281d1d619b09bcafed523d8fe64b47c64bec36bee7fa9d64ad21e569894065/single_ver/main/gen_natural_store.db" dev="mmcblk0p15" ino=2591 ioctlcmd=0xf50c scontext=u:r:accountmgr:s0 tcontext=u:object_r:account_data_el2_file:s0 tclass=file permissive=1
+allowxperm accountmgr account_data_el2_file:file ioctl { 0xf50c };
 
 allow accountmgr tracefs:dir { search };
 allow accountmgr tracefs_trace_marker_file:file { write open };
@@ -133,12 +141,19 @@ allow accountmgr system_etc_file:file { lock };
 allow accountmgr sa_asset_service:samgr_class { get };
 allow accountmgr asset_service:binder { call transfer };
 allow accountmgr audio_server:binder { call transfer };
+allow accountmgr media_service:binder { call transfer };
+allow accountmgr i18n_service:binder { call transfer };
 
 # avc: denied { open } for  pid=541 comm="IPC_0_735" path="/dev/ashmem" dev="tmpfs" ino=170 scontext=u:r:accountmgr:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow accountmgr dev_ashmem_file:chr_file { open };
 
 # avc:  denied  { set } for parameter=persist.account.login_name_max pid=2208 uid=3058 gid=3058 scontext=u:r:accountmgr:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=0
 allow accountmgr persist_param:parameter_service { set };
+
+allow accountmgr account_data_file:dir { ioctl };
+allowxperm accountmgr account_data_file:dir ioctl { 0xf546 0xf547 };
+
+allow accountmgr msdp_sa:binder { call transfer };
 
 # add for test
 debug_only(`

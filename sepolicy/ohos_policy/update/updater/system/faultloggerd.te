@@ -12,6 +12,10 @@
 # limitations under the License.
 updater_only(`
 
+#avc_audit_slow:267] avc: denied { getopt } for pid=553, comm="/system/bin/faultloggerd" tcontext=u:r:faultloggerd:s0 tclass=unix_dgram_socket permissive=0
+#avc_audit_slow:267] avc: denied { setopt } for pid=553, comm="/system/bin/faultloggerd" tcontext=u:r:faultloggerd:s0 tclass=unix_dgram_socket permissive=0
+allow faultloggerd faultloggerd:unix_dgram_socket { getopt setopt };
+
 #avc: denied { entrypoint } for pid=238 comm="init" path="/bin/faultloggerd" dev="rootfs" ino=17767 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 #avc: denied { map } for pid=238 comm="faultloggerd" path="/bin/faultloggerd" dev="rootfs" ino=17767 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 #avc: denied { read } for pid=238 comm="faultloggerd" path="/bin/faultloggerd" dev="rootfs" ino=17767 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1

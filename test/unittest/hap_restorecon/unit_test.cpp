@@ -186,6 +186,7 @@ static void GenerateTestFile()
         "apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file",
         "apl=normal name=com.hap.selftest domain=selftest type=normal_hap_data_file",
         "apl=normal name=com.hap.selftest_invalid domain=selftest_invalid type=selftest_invalid_hap_data_file",
+        "apl=normal extra=invalid_extra domain=dlp_sandbox_hap type=dlp_sandbox_hap_data_file",
         "apl=normal extra=dlp_sandbox domain=dlp_sandbox_hap type=dlp_sandbox_hap_data_file"};
     ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
 }
@@ -357,7 +358,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon006, TestSize.Level1)
 {
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
 
-    EXPECT_EQ(-SELINUX_PATH_INVAILD, test.HapFileRestorecon(INVALID_PATH, g_hapFileInfoWithoutFlags));
+    EXPECT_EQ(-SELINUX_PATH_INVALID, test.HapFileRestorecon(INVALID_PATH, g_hapFileInfoWithoutFlags));
 
     ASSERT_EQ(true, RemoveDirectory(TEST_HAP_PATH));
 }

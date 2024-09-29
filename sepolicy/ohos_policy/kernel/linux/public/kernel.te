@@ -12,3 +12,12 @@
 # limitations under the License.
 
 type kernel, domain;
+
+# neverallow control for hmcap:supervsable
+# If you add a new authorization "ABC" to hmcap:supervsable, you should:
+#       1) typeattribute      ABC       hmcap_supervsable_xxx_attr;
+#       2) neverallow {hmcap_supervsable_xxx_attr - ABC} ...
+#
+neverallow {domain -hmcap_supervsable_common_attr -hmcap_supervsable_osr_attr
+                   -hmcap_supervsable_container_attr -hmcap_supervsable_platform_attr} self:hmcap {supervsable};
+neverallow {hmcap_supervsable_osr_attr -input_isolate_hap -input_isolate_debug_hap -nativespawn -processdump } self:hmcap {supervsable};

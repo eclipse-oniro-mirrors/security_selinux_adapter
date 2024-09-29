@@ -40,6 +40,7 @@ allow softbus_server sa_param_watcher:samgr_class { get };
 #avc:  denied  { get } for service=3505 pid=532 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_privacy_service:samgr_class { get };
 
+allow softbus_server softbus_server:netlink_route_socket { nlmsg_readpriv };
 allow softbus_server sa_softbus_service:samgr_class { add get };
 allow softbus_server sa_wifi_device_ability:samgr_class { get };
 allow softbus_server sa_wifi_hotspot_ability:samgr_class { get };
@@ -63,6 +64,7 @@ allow softbus_server system_core_hap_attr:binder { call };
 
 binder_call(softbus_server, privacy_service);
 binder_call(softbus_server, accountmgr);
+binder_call(softbus_server, netmanager);
 
 allow softbus_server musl_param:file { open map read };
 
@@ -81,8 +83,8 @@ allow softbus_server sa_foundation_bms:samgr_class { get };
 #avc:  denied  { get } for  service=6001 pid=1248 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=1
 allow softbus_server sa_device_profile_service:samgr_class { get };
 
-#avc:  denied  { get } for service=1157 pid=4046 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_comm_ethernet_manager_service:s0 tclass=samgr_class permissive=0
-allow softbus_server sa_comm_ethernet_manager_service:samgr_class { get };
+#avc:  denied  { get } for service=1151 pid=602 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=0
+allow softbus_server sa_net_conn_manager:samgr_class { get };
 
 # avc:  denied  { read write } for  pid=2312 comm="SaInit0" name="btdev0" dev="tmpfs" ino=184 scontext =u:r:softbus_server:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
 debug_only(`
@@ -115,9 +117,10 @@ allow softbus_server distributeddata:binder { transfer };
 #avc:  denied  { get } for service=501 pid=1448 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_foundation_appms:samgr_class { get };
 
-allow softbus_server data_service_el1_file:file { map };
+#avc:  denied  { setattr } for  pid=4233 comm="IPC_1_4241" name="gen_natural_store.db" dev="sdd78" ino=56915 scontext=u:r:softbus_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow softbus_server data_service_el1_file:file { map setattr };
 
-allow softbus_server data_service_el1_file:dir { create };
+#avc:  denied  { getattr } for  pid=1032 comm="IPC_2_1941" path="/data/service/el1/public/database/dsoftbus/kvdb/4cee433d3b0a6fca315f8eff4d59b13eaa177772d85bde578b7bf9fe1ea3a4dc/single_ver/main" dev="sdd78" ino=5376 scontext=u:r:softbus_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+allow softbus_server data_service_el1_file:dir { create getattr };
 
 allow softbus_server wifi_manager_service:fd { use };
-

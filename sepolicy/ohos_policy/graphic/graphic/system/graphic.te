@@ -13,6 +13,7 @@
 
 init_daemon_domain(render_service);
 
+allow render_service data_log:file { write };
 allow render_service data_file:dir { search };
 allow render_service dev_ashmem_file:chr_file { open };
 allow render_service dev_dri_file:chr_file { ioctl open read write };
@@ -54,6 +55,7 @@ allow render_service hmdfs:file { map write read };
 allow render_service multimodalinput:fd { use };
 allow render_service drawing_engine_sample:file { getattr map open read };
 allow render_service drawing_sample_replayer:file { getattr map open read };
+allow render_service sa_foundation_appms:samgr_class { get };
 
 debug_only(`
     allow render_service sh:fd { use };
@@ -61,6 +63,7 @@ debug_only(`
 
 developer_only(`
     allow sh debug_param:parameter_service { set };
+    allow hdcd render_service:unix_stream_socket { connectto };
 ')
 
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x6409 0x640d 0x641e 0x642e 0x643a 0x64af 0x64b8 0x64bc 0x64bd 0x64be };
@@ -79,11 +82,12 @@ allow hap_domain vendor_etc_file:dir { search };
 allow hap_domain vendor_etc_vulkan_file:dir { open read search };
 allow hap_domain vendor_etc_vulkan_file:file { getattr open read };
 
-neverallow { domain } vendor_etc_vulkan_file:dir ~{ open read search getattr };
+neverallow { domain -nwebspawn } vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
 neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };
-neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search } vendor_etc_vulkan_file:dir { open read search };
+neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search -nwebspawn } vendor_etc_vulkan_file:dir { open read search };
 neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read } vendor_etc_vulkan_file:file { getattr open read };
 neverallow { domain -init } vendor_etc_vulkan_file:dir { getattr };
+neverallow { domain -init -nwebspawn } vendor_etc_vulkan_file:dir { mounton };
 neverallow { domain } dev_graphics_file:file ~{ getattr open read };
 neverallow { domain -render_service } drawing_engine_sample:file { getattr map open read };
 neverallow { domain -render_service } drawing_sample_replayer:file { getattr map open read };

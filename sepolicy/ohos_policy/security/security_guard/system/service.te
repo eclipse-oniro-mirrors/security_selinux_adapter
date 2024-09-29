@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sa_security_guard_service, sa_service_attr;
+type sa_sg_classify_service, sa_service_attr;
+type sa_sg_collect_service, sa_service_attr;
 type sa_security_collector_service, sa_service_attr;
 

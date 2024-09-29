@@ -29,19 +29,19 @@ class ServiceChecker {
 public:
     ServiceChecker(bool isHdf);
 
-    int ListServiceCheck(const pid_t callingPid);
+    int ListServiceCheck(const std::string &callingSid);
 
-    int GetServiceCheck(const pid_t callingPid, const std::string &serviceName);
+    int GetServiceCheck(const std::string &callingSid, const std::string &serviceName);
 
-    int GetRemoteServiceCheck(const pid_t callingPid, const std::string &remoteServiceName);
+    int GetRemoteServiceCheck(const std::string &callingSid, const std::string &remoteServiceName);
 
-    int AddServiceCheck(const pid_t callingPid, const std::string &serviceName);
+    int AddServiceCheck(const std::string &callingSid, const std::string &serviceName);
 
     static ServiceChecker& GetInstance();
 
 protected:
 private:
-    int CheckPerm(const pid_t callingPid, const std::string &serviceName, std::string action);
+    int CheckPerm(const std::string &callingSid, const std::string &serviceName, std::string action);
     int GetServiceContext(const std::string &serviceName, std::string &context);
 
     bool isHdf_ = false;

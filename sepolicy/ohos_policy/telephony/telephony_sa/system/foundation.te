@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow foundation audio_server:binder { call transfer };
 allow foundation camera_service:binder { call transfer };
 allow foundation drm_service:binder { call transfer };
 allow foundation persist_param:parameter_service set;

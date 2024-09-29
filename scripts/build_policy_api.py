@@ -136,6 +136,8 @@ def build_conf(args, output_conf, file_list, with_developer=False):
     m4_args += ["-D", "build_with_updater=" + args.updater_version]
     if with_developer:
         m4_args += ["-D", "build_with_developer=enable"]
+    if getattr(args, "product_args", None):
+        m4_args += ["-D", args.product_args]
     build_conf_cmd = ["m4", "-s", "--fatal-warnings"] + m4_args + file_list
     with open(output_conf, 'w') as fd:
         ret = subprocess.run(build_conf_cmd, shell=False, stdout=fd).returncode
@@ -287,7 +289,7 @@ def add_base_typeattr_prefix(cil_file, prefix):
 def build_binary_policy(tool_path, output_policy, check_neverallow, cil_list):
     build_policy_cmd = [os.path.join(tool_path, "secilc"),
                         " ".join(cil_list),
-                        "-m -M true -G -c 31",
+                        "-m -M true -G -c 31 -O",
                         "-f /dev/null",
                         "-o " + output_policy]
     if not check_neverallow:

@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+neverallow SP_daemon *:process ptrace;
 developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
@@ -75,6 +76,7 @@ allow SP_daemon print_param:file { map open read };
 allow SP_daemon arkcompiler_param:file { map open read };
 allow SP_daemon ark_writeable_param:file { map open read };
 allow SP_daemon arkui_param:file { map open read };
+allow SP_daemon hitrace_param:file { map open read };
 allow SP_daemon hiviewdfx_profiler_param:file { map open read };
 allow SP_daemon bms_param:file { map read open};
 allow SP_daemon const_display_brightness_param:file { map read open };
@@ -82,9 +84,8 @@ allow SP_daemon developtools_hdc_control_param:file { map read open };
 allow SP_daemon distributedsche_param:file { map read open };
 allow SP_daemon samgr_perf_param:file { map read open };
 allow SP_daemon thermal_log_param:file { map read open };
-allow SP_daemon updater_data_param:file { map read open};
+allow SP_daemon update_updater_param:file { map read open};
 allow SP_daemon updater_flashd_param:file { map read open };
-allow SP_daemon updater_hdc_param:file { map read open };
 allow SP_daemon render_service:fd { use };
 allow SP_daemon usb_setting_param:file { read open map };
 allow SP_daemon sh:dir { search };
@@ -108,7 +109,6 @@ allow SP_daemon sysfs_devices_system_cpu:dir { read open read };
 allow SP_daemon foundation:binder { transfer };
 allow SP_daemon SP_daemon_exec:file { execute_no_trans };
 allow SP_daemon SP_daemon:capability { sys_ptrace };
-neverallow SP_daemon *:process ptrace;
 
 allow SP_daemon hiprofiler_plugins:fd { use };
 allow SP_daemon hiprofiler_plugins:fifo_file { ioctl write };
@@ -146,6 +146,7 @@ allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x4 };
 allow SP_daemon sa_multimodalinput_service:samgr_class { get };
 allow SP_daemon sa_foundation_abilityms:samgr_class { get };
 allow SP_daemon sa_accessibleabilityms:samgr_class { get };
+allow SP_daemon chip_prod_file:dir { search };
 ')
 
 
