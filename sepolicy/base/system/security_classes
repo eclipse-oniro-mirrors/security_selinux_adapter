@@ -97,6 +97,7 @@ class caif_socket
 class alg_socket
 class nfc_socket
 class vsock_socket
+class vsock_host_socket
 class kcm_socket
 class qipcrtr_socket
 class smc_socket
