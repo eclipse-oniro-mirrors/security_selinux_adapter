@@ -17,7 +17,6 @@ allow normal_hap_attr print_service:binder { call transfer };
 allow normal_hap_attr scan_service:binder { call transfer };
 allow normal_hap_attr sa_print_service:samgr_class { get };
 allow normal_hap_attr sa_scan_service:samgr_class { get };
-allow normal_hap_attr sharefs:file { lock };
 allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0xf501 0xf502 };
 allow normal_hap_attr print_service:tcp_socket { read write };
 allow normal_hap_attr print_service:fd { use };

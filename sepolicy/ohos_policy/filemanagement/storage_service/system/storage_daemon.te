@@ -288,8 +288,10 @@ allow storage_daemon system_core_hap_data_file_attr:file { create_file_perms ope
 allow storage_daemon labeledfs:filesystem { unmount quotaget quotamod };
 allow storage_daemon sharefs:filesystem { unmount };
 allow storage_daemon sharefs:dir { create_dir_perms mounton };
+allow storage_daemon sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton };
 allow storage_daemon data_service_el2_share:dir { create_dir_perms mounton relabelto };
 allow storage_daemon sharefs:file { create_file_perms };
+allow storage_daemon sharefs_file_attr:file { create_file_perms_without_ioctl };
 allow storage_daemon data_service_el2_share:file { create_file_perms mounton };
 # avc:  denied  { call } for  pid=2153 comm="IPC_1_2158" scontext=u:r:storage_daemon:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=binder permissive=1
 # avc:  denied  { mounton } for  pid=2060 comm="storage_daemon" path="/mnt/hmdfs/100/cloud" dev="fuse" ino=1668 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
