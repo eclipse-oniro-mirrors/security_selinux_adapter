@@ -80,3 +80,7 @@ neverallow normal_hap_attr proc_net:dir ~{ getattr };
 neverallow { sh debug_only(`-sh') normal_hap_attr } *:dir_file_class_set { relabelto relabelfrom };
 
 neverallow normal_hap_attr { dev_block_volfile dev_block_file dev_bus dev_char_file dev_pts_file dev_snd_file dev_unix_file dev_v_file }:file { open read };
+
+neverallow { normal_hap_attr -hap_domain_proc_stat_file_violators -hap_domain_proc_modules_file_violators } { proc_attr -proc_meminfo_file -proc_max_user_watches -proc_boot_id -proc_cpuinfo_file -proc_cmdline_file }:file { open read };
+
+neverallow hap_domain proc_attr:file write;
