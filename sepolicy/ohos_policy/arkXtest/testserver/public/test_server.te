@@ -35,4 +35,5 @@ debug_only(`
     allow test_server sa_pasteboard_service:samgr_class { get };
 
     allow test_server sa_foundation_cesfwk_service:samgr_class { get };
+    allow test_server foundation:binder {call transfer};
 ')
