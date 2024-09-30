@@ -163,4 +163,6 @@ developer_only(`
 (allow sh storage_daemon (key (search)))
 (allow sh cem_exec (file (execute map open getattr ioctl read)))
 (allow sh cem (process (getattr rlimitinh transition siginh)))
+(allow sh devicedebug (process (siginh getattr rlimitinh transition)))
+(allow sh devicedebug_exec (file (execute_no_trans open read map getattr execute ioctl)))
 ')
