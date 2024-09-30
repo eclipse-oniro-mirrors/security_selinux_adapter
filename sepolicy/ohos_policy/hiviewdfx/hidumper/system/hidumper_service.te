@@ -69,7 +69,7 @@ allow hidumper_service hidumper:fd use;
 allow hidumper_service hidumper_exec:file { getattr map open read };
 
 allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
-allow hidumper_service hidumper_file:file { create ioctl open unlink write getattr };
+allow hidumper_service hidumper_file:file { create ioctl open unlink write getattr append };
 
 allow hidumper_service hilogd_exec:file { getattr map open read };
 allow hidumper_service hiview_exec:file { getattr map open read };
@@ -295,7 +295,7 @@ allow hidumper_service debugfs_used:file { getattr open read };
 allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
 allow hidumper_service debugfs_stats:file { getattr open read };
 allow hidumper_service debugfs_state:file { getattr open read };
-allow hidumper_service data_log:file { read write };
+allow hidumper_service data_log:file { read write append };
 
 allow hidumper_service hiperf:file { getattr };
 
