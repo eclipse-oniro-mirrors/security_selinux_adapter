@@ -20,3 +20,9 @@ type hidumper, native_system_domain, sadomain, domain;
 type sa_dfx_sys_hidumper_cpu_ability, sa_service_attr;
 
 domain_auto_transition_pattern({ native_system_domain sadomain }, hidumper_exec, hidumper);
+
+# cannot write hidumper files
+neverallow { domain -sadomain } hidumper_file:file { write };
+
+# cannot execute hidumper
+neverallow { domain -sadomain -native_system_domain -sh } hidumper_exec:file { execute };
