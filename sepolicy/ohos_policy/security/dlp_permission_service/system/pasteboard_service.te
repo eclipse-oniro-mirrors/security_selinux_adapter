@@ -12,7 +12,7 @@
 # limitations under the License.
 
 # avc:  denied  { call } for  pid=1192 comm="pasteboard_serv" scontext=u:r:pasteboard_service:s0 tcontext=u:r:dlp_permission_service:s0 tclass=binder permissive=1
-allow pasteboard_service dlp_permission_service:binder { call };
+binder_call(pasteboard_service, dlp_permission_service);
 
 # avc:  denied  { get } for service=3521 pid=1192 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_dlp_permission:s0 tclass=samgr_class permissive=1
 allow pasteboard_service sa_dlp_permission:samgr_class { get };
