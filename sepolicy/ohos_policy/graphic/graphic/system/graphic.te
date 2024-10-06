@@ -62,6 +62,7 @@ debug_only(`
 
 developer_only(`
     allow sh debug_param:parameter_service { set };
+    allow hdcd render_service:unix_stream_socket { connectto };
 ')
 
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x6409 0x640d 0x641e 0x642e 0x643a 0x64af 0x64b8 0x64bc 0x64bd 0x64be };
