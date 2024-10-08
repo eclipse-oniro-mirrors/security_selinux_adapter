@@ -27,3 +27,7 @@ allow init dev_ucollection:chr_file { setattr };
 allow init data_system:dir { relabelfrom };
 
 allowxperm init dev_bbox:chr_file ioctl { 0x426a 0x4202 0x4203};
+
+#avc:  denied { use } for pid=10540, comm="/bin/init"  ioctlcmd=0x4  scontext=u:r:init:s0 tcontext=u:r:hiview:s0 tclass=fd permissive=1
+allow init hiview:fd { use };
+
