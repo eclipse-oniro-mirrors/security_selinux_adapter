@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,9 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow foundation dev_ashmem_file:chr_file execute;
-
-# forbid ioctl cmd:binder_freeze, binder_get_frozen_info
-neverallowxperm { domain -foundation } dev_binder_file:chr_file ioctl { 0x400c620e 0xc00c620f };
-
-neverallow { domain -foundation -app_fwk_update_service } appspawn_socket:sock_file write;
+type sa_app_fwk_update_service, sa_service_attr;
