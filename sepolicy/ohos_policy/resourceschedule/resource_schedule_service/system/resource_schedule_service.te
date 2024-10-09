@@ -53,9 +53,7 @@ allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
 allow resource_schedule_service resource_schedule_service:netlink_socket { read };
 allow resource_schedule_service proc_file:file { read open };
-debug_only(`
-    allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
-')
+allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
 allow resource_schedule_service sys_file:file { getattr write open ioctl create read };
 allow resource_schedule_service sys_file:dir { open read search };
 allow resource_schedule_service system_file:file { open read };
