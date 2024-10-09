@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { get } for service=usb_ddk_service pid=1442 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:hdf_usb_ddk_service:s0 tclass=hdf_devmgr_class permissive=1
-allow system_core_hap_attr hdf_usb_ddk_service:hdf_devmgr_class { get };
 debug_only(`
 # avc:  denied  { get } for service=usb_interface_service pid=1442 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:hdf_usb_interface_service:s0 tclass=hdf_devmgr_class permissive=1
 allow system_core_hap_attr hdf_usb_interface_service:hdf_devmgr_class { get };
