@@ -27,6 +27,7 @@ allow appspawn data_app_el3_file:dir { search mounton write add_name create seta
 allow appspawn data_app_el4_file:dir { search mounton write add_name create setattr getattr};
 allow appspawn data_app_el5_file:dir { search mounton write add_name create setattr getattr};
 allow appspawn sharefs:dir { create_dir_perms mounton getattr };
+allow appspawn sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton getattr };
 allow appspawn sharefs:filesystem { mount };
 allow appspawn data_service_el2_share:dir { create_dir_perms mounton getattr };
 
