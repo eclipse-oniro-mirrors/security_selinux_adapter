@@ -13,3 +13,4 @@
 
 type cjappspawn, native_system_domain, domain;
 type cjappspawn_exec, system_file_attr, exec_attr, file_attr;
+neverallow cjappspawn *:process ptrace;
