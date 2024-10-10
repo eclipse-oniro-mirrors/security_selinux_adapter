@@ -21,7 +21,7 @@ genfscon sysfs /kernel/mm/transparent_hugepage u:object_r:sysfs_transparent_huge
 
 # for sandbox appdata
 genfscon sharefs /appdata u:object_r:sharefs_appdata_file:s0
-genfscon sharefs /appdata/el1/base u:object_r:sharefs_appdata_bundle_file:s0
-genfscon sharefs /appdata/el2/base u:object_r:sharefs_appdata_bundle_file:s0
-genfscon sharefs /appdata/el2/cloud u:object_r:sharefs_appdata_bundle_file:s0
-genfscon sharefs /appdata/el2/distributedfiles u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /appdata/el1/base/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /appdata/el2/base/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /appdata/el2/cloud/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /appdata/el2/distributedfiles/ u:object_r:sharefs_appdata_bundle_file:s0
