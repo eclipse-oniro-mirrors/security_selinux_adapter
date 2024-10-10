@@ -41,7 +41,7 @@ allow devattest_service port:udp_socket { name_bind };
 #avc:  denied  { connectto } for  pid=320 comm="IPC_1_566" path="/dev/unix/socket/paramservice" scontext=u:r:devattest_service:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
 allow devattest_service kernel:unix_stream_socket { connectto };
 
-allow devattest_service devattest_service:netlink_route_socket { create nlmsg_read read write };
+allow devattest_service devattest_service:netlink_route_socket { create nlmsg_read nlmsg_readpriv read write };
 allow devattest_service devattest_service:packet_socket { bind create read write };
 allow devattest_service devattest_service:udp_socket { bind create ioctl setopt getopt read write };
 allow devattest_service devattest_service:unix_dgram_socket { ioctl getopt setopt };
