@@ -14,3 +14,4 @@
 attribute param_set_allow_attr;
 attribute devinfo_type_allow_attr;
 attribute sys_param_set_allow_attr;
+attribute init_module_system_bin_file;
