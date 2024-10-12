@@ -18,18 +18,16 @@
 type toybox_exec, exec_attr, file_attr, system_file_attr;
 
 developer_only(`
-# avc:  denied  { connect } for  pid=6561 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=udp_socket permissive=0
-# avc:  denied  { create } for  pid=6113 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=udp_socket permissive=0
+# avc_audit_slow:261] avc: denied { connect } for pid=6561, comm="/bin/ftpget"  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=udp_socket permissive=0
+# avc_audit_slow:261] avc: denied { create } for pid=6113, comm="/bin/ftpget"  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=udp_socket permissive=0
 allow sh sh:udp_socket { connect create };
 
-# avc:  denied  { connect } for  pid=5705 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
-# avc:  denied  { create } for  pid=6311 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
-# avc:  denied  { setopt } for  pid=5863 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
-# avc:  denied  { getattr } for  pid=5868 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
-# avc:  denied  { read } for  pid=6361 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
-# avc:  denied  { write } for  pid=6213 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
+# avc_audit_slow:261] avc: denied { create } for pid=5705, comm="/bin/ftpget"  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
+# avc_audit_slow:261] avc: denied { getattr } for pid=6311, comm="/bin/ftpget"  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
+# avc_audit_slow:261] avc: denied { read } for pid=5863, comm="/bin/ftpget"  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
+# avc_audit_slow:261] avc: denied { setopt } for pid=5868, comm="/bin/ftpget"  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=tcp_socket permissive=0
 allow sh sh:tcp_socket { connect create setopt getattr read write };
 
-# avc:  denied  { name_connect } for  pid=6313 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
+# avc_audit_slow:261] avc: denied { name_connect } for pid=6202, comm="/bin/ftpget"  scontext=u:r:sh:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
 allow sh port:tcp_socket { name_connect };
 ')
