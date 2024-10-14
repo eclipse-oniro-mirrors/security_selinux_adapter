@@ -28,6 +28,7 @@ allow resource_schedule_executor persist_param:file { map open read };
 allow resource_schedule_executor persist_sys_param:file { map open read };
 allow resource_schedule_executor ohos_boot_param:file { map open read };
 allow resource_schedule_executor debug_param:file { map open read };
+allow resource_schedule_executor system_basic_hap:process { setsched };
 
 allow foundation resource_schedule_executor:binder { call transfer };
 allow hidumper_service sa_resource_schedule_executor:samgr_class { get };
