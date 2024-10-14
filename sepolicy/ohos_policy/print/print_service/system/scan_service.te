@@ -71,4 +71,4 @@ allow scan_service data_service_scan_service_driver_file:file { execute getattr 
 allow scan_service data_service_scan_service_driver_file:dir { open read search };
 neverallow scan_service { data_file_attr -data_service_scan_service_driver_file }:file { execute };
 neverallow { domain -installs } data_service_scan_service_driver_file:file { write };
-neverallow { domain -installs } data_service_scan_service_driver_file:dir { write };
+neverallow { domain -installs updater_only(`-updater') } data_service_scan_service_driver_file:dir { write };
