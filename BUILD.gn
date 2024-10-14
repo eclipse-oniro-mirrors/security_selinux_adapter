@@ -40,7 +40,7 @@ config("selinux_core_config") {
 
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
-  sources = [ "interfaces/policycoreutils/src/load_policy.cpp" ]
+  sources = [ "framework/policycoreutils/src/load_policy.cpp" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [ ":libselinux_klog_static" ]
   external_deps = [ "selinux:libselinux" ]
@@ -70,7 +70,7 @@ ohos_shared_library("librestorecon") {
   branch_protector_ret = "pac_ret"
 
   output_name = "librestorecon"
-  sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
+  sources = [ "framework/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_hilog_static" ]
   external_deps = [ "hilog:libhilog" ]
@@ -96,7 +96,7 @@ ohos_shared_library("librestorecon") {
 
 ohos_static_library("libselinux_hilog_real_static") {
   output_name = "libselinux_hilog_real_static"
-  sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
+  sources = [ "framework/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   external_deps = [
     "bounds_checking_function:libsec_static",
@@ -113,7 +113,7 @@ ohos_static_library("libselinux_hilog_real_static") {
 
 ohos_static_library("librestorecon_static") {
   output_name = "librestorecon_static"
-  sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
+  sources = [ "framework/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_hilog_real_static" ]
   external_deps = [ "hilog:libhilog_base" ]
@@ -133,8 +133,8 @@ ohos_static_library("librestorecon_static") {
 ohos_shared_library("libhap_restorecon") {
   output_name = "libhap_restorecon"
   sources = [
-    "interfaces/policycoreutils/src/hap_restorecon.cpp",
-    "interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
+    "framework/policycoreutils/src/hap_restorecon.cpp",
+    "framework/policycoreutils/src/sehap_contexts_trie.cpp",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
@@ -158,7 +158,7 @@ ohos_shared_library("libhap_restorecon") {
 
 ohos_static_library("libselinux_error_static") {
   output_name = "libselinux_error_static"
-  sources = [ "interfaces/policycoreutils/src/selinux_error.cpp" ]
+  sources = [ "framework/policycoreutils/src/selinux_error.cpp" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -170,7 +170,7 @@ ohos_static_library("libselinux_error_static") {
 
 ohos_static_library("libselinux_klog_static") {
   output_name = "libselinux_klog_static"
-  sources = [ "interfaces/policycoreutils/src/selinux_klog.c" ]
+  sources = [ "framework/policycoreutils/src/selinux_klog.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   external_deps = [ "bounds_checking_function:libsec_shared" ]
   cflags = [
@@ -186,7 +186,7 @@ ohos_static_library("libselinux_hilog_static") {
   branch_protector_ret = "pac_ret"
 
   output_name = "libselinux_hilog_static"
-  sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
+  sources = [ "framework/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   external_deps = [
     "bounds_checking_function:libsec_shared",
@@ -225,10 +225,10 @@ if (!startup_init_with_param_base) {
 static_library("libselinux_parameter_static") {
   output_name = "libselinux_parameter_static"
   sources = [
-    "interfaces/policycoreutils/src/contexts_trie.c",
-    "interfaces/policycoreutils/src/selinux_map.c",
-    "interfaces/policycoreutils/src/selinux_parameter.c",
-    "interfaces/policycoreutils/src/selinux_share_mem.c",
+    "framework/policycoreutils/src/contexts_trie.c",
+    "framework/policycoreutils/src/selinux_map.c",
+    "framework/policycoreutils/src/selinux_parameter.c",
+    "framework/policycoreutils/src/selinux_share_mem.c",
   ]
   public_configs = [ ":selinux_core_config" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
@@ -246,7 +246,7 @@ static_library("libselinux_parameter_static") {
 
 ohos_shared_library("libparaperm_checker") {
   output_name = "libparaperm_checker"
-  sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
+  sources = [ "framework/policycoreutils/src/param_checker.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_static" ]
   deps += [ ":libselinux_parameter_static" ]
@@ -268,7 +268,7 @@ ohos_shared_library("libparaperm_checker") {
 
 ohos_shared_library("libservice_checker") {
   output_name = "libservice_checker"
-  sources = [ "interfaces/policycoreutils/src/service_checker.cpp" ]
+  sources = [ "framework/policycoreutils/src/service_checker.cpp" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_error_static",
@@ -291,7 +291,7 @@ ohos_shared_library("libservice_checker") {
 
 ohos_executable("load_policy") {
   install_enable = true
-  sources = [ "interfaces/tools/load_policy/load_policy.c" ]
+  sources = [ "framework/tools/load_policy/load_policy.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [ ":libload_policy" ]
   cflags = [
@@ -310,7 +310,7 @@ ohos_executable("load_policy") {
 
 ohos_executable("restorecon") {
   install_enable = true
-  sources = [ "interfaces/tools/restorecon/restorecon.c" ]
+  sources = [ "framework/tools/restorecon/restorecon.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [ ":librestorecon" ]
   external_deps = [
@@ -333,7 +333,7 @@ ohos_executable("restorecon") {
 
 ohos_executable("hap_restorecon") {
   install_enable = false
-  sources = [ "interfaces/tools/hap_restorecon/test.cpp" ]
+  sources = [ "framework/tools/hap_restorecon/test.cpp" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":libhap_restorecon",
@@ -352,7 +352,7 @@ ohos_executable("hap_restorecon") {
 
 ohos_executable("param_check") {
   install_enable = false
-  sources = [ "interfaces/tools/param_check/test.cpp" ]
+  sources = [ "framework/tools/param_check/test.cpp" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":libparaperm_checker",
@@ -379,7 +379,7 @@ ohos_executable("param_check") {
 
 ohos_executable("service_check") {
   install_enable = false
-  sources = [ "interfaces/tools/service_check/test.cpp" ]
+  sources = [ "framework/tools/service_check/test.cpp" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":libselinux_error_static",
