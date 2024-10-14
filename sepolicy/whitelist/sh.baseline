@@ -170,5 +170,6 @@ developer_only(`
 (allow sh proc_stat_file (file (read open)))
 (allow sh proc_meminfo_file (file (read open)))
 (allow sh sysfs_devices_system_cpu (dir (read open)))
-
+(allow sh vdevadm (process (siginh rlimitinh transition getattr)))
+(allow sh vdevadm_exec (file (open read getattr ioctl map execute)))
 ')
