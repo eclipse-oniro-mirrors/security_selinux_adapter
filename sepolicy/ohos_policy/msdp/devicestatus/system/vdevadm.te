@@ -12,11 +12,5 @@
 # limitations under the License.
 
 developer_only(`
-    domain_auto_transition_pattern(sh, vdevadm_exec, vdevadm);
     allow vdevadm vdevadm_exec:file { read map execute entrypoint };
-
-    allow vdevadm sh:fd { use };
-    allow vdevadm sh:fifo_file { ioctl read write };
-    allow vdevadm sh:unix_stream_socket { read write };
-    allowxperm vdevadm sh:fifo_file ioctl { 0x5413 };
 ')
