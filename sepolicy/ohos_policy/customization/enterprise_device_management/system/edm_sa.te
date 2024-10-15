@@ -211,5 +211,3 @@ allow edm_sa render_service:binder { call transfer };
 allow edm_sa sa_render_service:samgr_class { get };
 allow render_service edm_sa:binder { transfer };
 allow render_service edm_sa:fd { use };
-
-allow edm_sa sa_powermgr_battery_service:samgr_class { get };
