@@ -92,7 +92,7 @@ neverallow hap_domain { domain -hap_domain }:file never_rw_file;
 
 neverallow hap_domain vendor_file_attr:dir never_write_dir;
 #limit hap access vendor.
-neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file -vendor_etc_graphic_xengine_file_violator_dir_open_read_serach }:{ file fifo_file lnk_file sock_file } *;
+neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file -vendor_etc_graphic_xengine_file_violator_dir_open_read_search }:{ file fifo_file lnk_file sock_file } *;
 
 #hap never access blk_file.
 neverallow hap_domain dev_attr:blk_file open;
@@ -218,7 +218,7 @@ neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
 neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-data_file_attr_violator_exec')} { data_file_attr }:file { execute_no_trans };
-neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap')} data_file_attr:file { execute };
+neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -scan_service developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap')} data_file_attr:file { execute };
 
 neverallow isolated_gpu { data_file_attr -data_app_el1_file }:file { execute };
 neverallow isolated_render { data_file_attr -data_app_el1_file }:file { execute };

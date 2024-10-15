@@ -1,5 +1,5 @@
-# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute vendor_etc_vulkan_file_violator_dir_open_read_search;
-attribute vendor_etc_vulkan_file_violator_file_getattr_open_read;
-attribute vendor_etc_graphic_xengine_file_violator_dir_open_read_search;
+type i18n_param_tz_override, parameter_attr;

@@ -534,3 +534,6 @@ allow init dev_console_file:lnk_file { read};
 # avc:  denied  { setpcap } for  pid=4977 comm="init" capability=8  scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=capability permissive=0
 allow init init:capability { setpcap };
 
+# avc:  denied  { append } for  pid=1 comm="init" name="private_persist_parameters" dev="mmcblk0p15" ino=2386 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+# avc:  denied  { rename } for  pid=1 comm="init" name="tmp_private_persist_parameters" dev="mmcblk0p15" ino=2703 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow init data_service_el1_file:file { open read append rename map };

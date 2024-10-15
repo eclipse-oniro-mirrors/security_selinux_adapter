@@ -18,7 +18,7 @@ netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket netl
 netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket sctp_socket ax25_socket 
 ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket atmsvc_socket rds_socket 
 irda_socket pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv_socket rxrpc_socket 
-isdn_socket phonet_socket ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket kcm_socket 
+isdn_socket phonet_socket ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket vsock_host_socket kcm_socket 
 qipcrtr_socket smc_socket xdp_socket  } *;
 
 neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;

@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,10 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hap_domain data_service_el2_hmdfs:file { watch watch_reads create_file_perms };
-allow hap_domain data_service_el2_hmdfs:dir { watch watch_reads create_dir_perms };
-allow hap_domain hmdfs:file { watch watch_reads create_file_perms_without_ioctl };
-allow hap_domain hmdfs:dir { watch watch_reads create_dir_perms_without_ioctl };
-neverallow { hap_domain -medialibrary_hap } hmdfs:dir { ioctl };
-allow hap_domain hmdfs:file ioctl;
-allowxperm hap_domain hmdfs:file ioctl { 0xf207 };
+/system/bin/vdevadm        u:object_r:vdevadm_exec:s0
