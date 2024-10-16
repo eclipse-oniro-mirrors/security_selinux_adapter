@@ -41,7 +41,7 @@ allow input_isolate_hap sa_useriam_authexecutormgr_service:samgr_class { get };
 allow input_isolate_hap sa_useriam_faceauth_service:samgr_class { get };
 allow input_isolate_hap sa_useriam_fingerprintauth_service:samgr_class { get };
 allow input_isolate_hap sa_useriam_useridm_service:samgr_class { get };
-allow input_isolate_hap data_app_el2_file:file { read open getattr };
+allow input_isolate_hap data_app_el2_file:file { read open getattr map };
 
 # allow input_isolate_hap to interact with sa
 binder_call(input_isolate_hap, accesstoken_service);
