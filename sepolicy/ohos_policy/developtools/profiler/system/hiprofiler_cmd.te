@@ -12,7 +12,6 @@
 # limitations under the License
 
 neverallow hiprofiler_cmd *:process ptrace;
-allow domain tmpfs:file { map read write };
 developer_only(`
 	allow hiprofiler_cmd devpts:chr_file { read write };
 	allow hiprofiler_cmd hdcd:fd use;
