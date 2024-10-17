@@ -12,7 +12,6 @@
 # limitations under the License.
 
 type print_service, sadomain, domain;
-type scan_service, sadomain, domain;
 type cupsd_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, cupsd_exec, cupsd);
 

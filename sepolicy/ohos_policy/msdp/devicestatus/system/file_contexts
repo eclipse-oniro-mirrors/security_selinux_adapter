@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow pasteboard_service data_service_el1_i18n_timezone_file:dir { search };
-allow pasteboard_service data_service_el1_i18n_timezone_file:file { getattr map open read };
+/system/bin/vdevadm        u:object_r:vdevadm_exec:s0

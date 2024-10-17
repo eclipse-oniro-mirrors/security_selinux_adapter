@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow memmgrservice data_service_el1_i18n_timezone_file:dir { search };
-allow memmgrservice data_service_el1_i18n_timezone_file:file { getattr map open read };
+type bootanimation_exec, exec_attr, file_attr, system_file_attr;
+

@@ -15,5 +15,3 @@ allow system_core_hap_attr system_usr_file:file { open read getattr };
 allow system_core_hap_attr system_usr_file:dir { open read getattr };
 allow system_core_hap_attr sysfs_devices_system_cpu:file { getattr };
 allow system_core_hap_attr persist_param:parameter_service { set };
-allow system_core_hap_attr data_service_el1_i18n_timezone_file:file { getattr map open read };
-allow system_core_hap_attr data_service_el1_i18n_timezone_file:dir { search };
