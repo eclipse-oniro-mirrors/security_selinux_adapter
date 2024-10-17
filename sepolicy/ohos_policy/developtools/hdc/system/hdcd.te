@@ -322,6 +322,8 @@ developer_only(`
 
     # avc_audit_slow:272] avc: denied { read } for pid=1690, comm="/system/bin/hdcd"  name="/thread-self" dev="" ino=41 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=lnk_file permissive=0
     allow hdcd proc_file:lnk_file { read };
+    # avc:  denied  { search } for  pid=5252 comm="OS_FFRT_2_4" name="/" dev="proc" ino=1 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
+    allow hdcd proc_file:dir { search };
 ')
 
 neverallow hdcd hmdfs:dir ioctl;
