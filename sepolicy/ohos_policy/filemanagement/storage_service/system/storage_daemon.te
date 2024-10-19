@@ -381,3 +381,8 @@ allow storage_daemon data_log:file { read append getattr open create write renam
 allow storage_daemon data_log:dir { write add_name create open read getattr remove_name };
 allow storage_daemon labeledfs:filesystem { relabelfrom };
 allow storage_daemon mnt_external_file:filesystem { mount unmount relabelfrom relabelto };
+
+# avc: denied { create } for pid=5685, comm="/bin/mtpfs"  name="/mtp_tmp/simple-mtpfs-cKlLoG/c1166bc18e4d8b99d2a30faaf4f13877f79118ef" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=22988 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+# avc: denied { unlink } for pid=5685, comm="/bin/mtpfs"  name="/mtp_tmp/simple-mtpfs-cKlLoG/c1166bc18e4d8b99d2a30faaf4f13877f79118ef" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=22988 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+# avc: denied { write } for pid=5685, comm="/bin/mtpfs"  path="/data/mtp_tmp/simple-mtpfs-cKlLoG/c1166bc18e4d8b99d2a30faaf4f13877f79118ef" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=22988 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+allow storage_daemon data_file:file { create unlink write };
