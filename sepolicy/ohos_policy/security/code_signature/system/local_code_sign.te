@@ -43,7 +43,9 @@ allow local_code_sign data_file:dir { search };
 
 allow local_code_sign data_local:dir { search };
 
+debug_only(`
 allow local_code_sign data_local:file { getattr open read };
+')
 
 allow local_code_sign local_code_sign:unix_dgram_socket { getopt setopt };
 
