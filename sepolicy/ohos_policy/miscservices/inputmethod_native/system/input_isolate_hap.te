@@ -18,6 +18,8 @@ developer_only(`
     binder_call(debug_hap, input_isolate_hap);
 ')
 
+allow input_isolate_hap system_file:file { open read getattr };
+
 allow input_isolate_hap concurrent_task_service:binder { call };
 
 allow input_isolate_hap normal_hap_data_file_attr:dir { rmdir create setattr getattr write add_name remove_name search open read rename };
