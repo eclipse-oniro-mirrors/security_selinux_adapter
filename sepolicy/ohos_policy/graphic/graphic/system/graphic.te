@@ -27,7 +27,6 @@ allow render_service allocator_host:binder { call };
 allow render_service allocator_host:fd { use };
 allow render_service foundation:binder { call transfer };
 allow render_service foundation:fd { use };
-binder_call(render_service, powermgr);
 allow render_service normal_hap_attr:binder { call };
 allow render_service normal_hap_attr:fd { use };
 allow render_service proc_file:file { open read };
