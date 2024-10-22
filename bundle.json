@@ -112,6 +112,18 @@
             ],
             "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
           }
+        },
+        {
+          "name": "//base/security/selinux_adapter:libselinux_parameter_static_noflto",
+          "header": {
+            "header_files": [
+              "contexts_trie.h",
+              "selinux_map.h",
+              "selinux_parameter.h",
+              "selinux_share_mem.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
         }
       ],
       "test": [
