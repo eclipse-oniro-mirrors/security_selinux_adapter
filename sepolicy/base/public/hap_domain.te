@@ -203,13 +203,13 @@ neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hivi
 
 neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
-neverallow hap_domain { domain -hap_domain -processdump developer_only(`-sudo') }:process transition;
+neverallow hap_domain { domain -hap_domain -processdump developer_only(`-native_system_domain') }:process transition;
 
-neverallow { hap_domain -hap_domain_sudo_violators } sudo:process transition;
+neverallow hap_domain { domain -hap_domain developer_only(`-native_system_domain') }:process dyntransition;
 
-neverallow hap_domain { domain -hap_domain developer_only(`-privilege_app') }:process dyntransition;
+neverallow { hap_domain -hap_domain_native_system_violators } { native_system_domain -processdump }:process transition;
 
-neverallow { hap_domain -hap_domain_privilege_app_violators } privilege_app:process dyntransition;
+neverallow { hap_domain -hap_domain_native_system_violators } native_system_domain:process dyntransition;
 
 neverallow hap_domain domain:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
 
