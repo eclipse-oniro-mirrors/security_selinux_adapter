@@ -17,7 +17,7 @@ allow daudio debug_param:file { open read map };
 
 allow daudio accesstoken_service:binder { call };
 
-allow daudio audio_server:binder { call transfer };
+allow daudio media_service:binder { call transfer};
 
 allow daudio musl_param:file { read open map };
 
@@ -45,7 +45,7 @@ allow daudio daudio:udp_socket { create setopt };
 
 allow daudio daudio:udp_socket { read write connect };
 
-allow daudio daudio:netlink_route_socket { create write nlmsg_read read };
+allow daudio daudio:netlink_route_socket { create write nlmsg_read nlmsg_readpriv read };
 
 allow daudio daudio_host:binder { call transfer };
 
@@ -87,7 +87,7 @@ allow daudio proc_file:file { read open };
 
 allow daudio audio_server:unix_stream_socket { connectto };
 
-allow daudio media_service:binder { call transfer};
+allow daudio audio_server:binder { call transfer };
 
 allow daudio audio_server:fd { use };
 

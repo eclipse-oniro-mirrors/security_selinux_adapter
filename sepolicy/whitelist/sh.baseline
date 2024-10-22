@@ -166,4 +166,8 @@ developer_only(`
 (allow sh cem_exec (file (execute map open getattr ioctl read)))
 (allow sh cem (process (getattr rlimitinh transition siginh)))
 (allow sh i18n_param_tz_override (file (map open read)))
+(allow sh debug_hap (dir (read open)))
+(allow sh proc_stat_file (file (read open)))
+(allow sh proc_meminfo_file (file (read open)))
+(allow sh sysfs_devices_system_cpu (dir (read open)))
 ')
