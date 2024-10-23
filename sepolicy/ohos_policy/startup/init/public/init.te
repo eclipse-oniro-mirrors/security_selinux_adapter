@@ -71,6 +71,9 @@ developer_only(`
 ')
 allow { domain -limit_domain } const_i18n_param:file { map open read };
 
+allow { domain } data_service_el1_i18n_timezone_file:dir { search open read getattr mounton };
+allow { domain } data_service_el1_i18n_timezone_file:file { open read getattr map };
+
 #for bootchart to read
 allow init domain:file { open read };
 allow init domain:dir { search };
@@ -97,6 +100,7 @@ define(`init_relabel', `
     allow init $1:dir { search };
 ')
 init_relabel(data_service_el1_public_print_service_file);
+init_relabel(data_service_el1_i18n_timezone_file);
 init_relabel(data_parameters);
 init_relabel(data_udev);
 init_relabel(data_multimodalinput);
