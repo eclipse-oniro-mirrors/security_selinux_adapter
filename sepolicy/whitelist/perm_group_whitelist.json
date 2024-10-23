@@ -95,6 +95,7 @@
                 "compiler_service ark_aot_compiler_exec",
                 "cupsd data_app_el1_file",
                 "print_service system_bin_uni_print_driver_file",
+                "cupsd system_bin_uni_print_driver_file",
                 "init bootanimation_exec"
             ],
             "developer": [
