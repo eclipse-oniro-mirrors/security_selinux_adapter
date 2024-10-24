@@ -140,3 +140,5 @@ allow usb_host sa_hdf_ext_devmgr:samgr_class { add get };
 allow usb_host hdf_ext_devmgr:binder { call };
 allow usb_host sys_usb_param:parameter_service { set };
 allow usb_host normal_hap_attr:fd { use };
+allow usb_host hmdfs:file { read write };
+allow usb_host data_user_file:file { read write};
