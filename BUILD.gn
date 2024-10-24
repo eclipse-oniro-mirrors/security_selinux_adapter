@@ -421,6 +421,9 @@ action("build_policy") {
       selinux_adapter_build_path =
           selinux_adapter_build_path + ":" + selinux_build_path_ext
     }
+  } else {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
   }
 
   if (selinux_adapter_special_build_policy_script != "default") {
@@ -524,6 +527,9 @@ action("build_update_policy") {
       selinux_adapter_build_path =
           selinux_adapter_build_path + ":" + selinux_build_path_ext_updater
     }
+  } else {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
   }
 
   if (selinux_adapter_special_build_policy_script != "default") {
@@ -578,6 +584,9 @@ action("build_contexts") {
       selinux_adapter_build_path =
           selinux_adapter_build_path + ":" + selinux_build_path_ext
     }
+  } else {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
   }
 
   if (selinux_adapter_special_build_contexts_script != "default") {
@@ -632,6 +641,9 @@ action("build_ignore_cfg") {
       selinux_adapter_build_path =
           selinux_adapter_build_path + ":" + selinux_build_path_ext
     }
+  } else {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
   }
 
   if (special_build_ignore_cfg != "default") {
@@ -668,6 +680,9 @@ action("build_updater_contexts") {
       selinux_adapter_build_path =
           selinux_adapter_build_path + ":" + selinux_build_path_ext_updater
     }
+  } else {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
   }
 
   if (selinux_adapter_special_build_contexts_script != "default") {
@@ -708,6 +723,11 @@ action("build_updater_contexts") {
 
 action("selinux_check") {
   script = "scripts/selinux_check/selinux_check_main.py"
+
+  if (selinux_adapter_build_path == "default") {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
+  }
 
   if (selinux_adapter_check_extend_list != "default") {
     selinux_adapter_build_path =
