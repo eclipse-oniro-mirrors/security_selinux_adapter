@@ -30,7 +30,3 @@ allow system_basic_hap_attr sys_param:file { open read };
 allow system_basic_hap_attr system_bin_file:dir { search };
 allow system_basic_hap_attr system_file:file { getattr };
 allow system_basic_hap_attr sys_usb_param:file { read };
-allow debug_hap data_app_el2_file:dir { rmdir };
-allow system_core_hap data_app_el2_file:dir { rmdir };
-allow system_basic_hap data_app_el2_file:dir { rmdir };
-allow normal_hap data_app_el2_file:dir { rmdir };
