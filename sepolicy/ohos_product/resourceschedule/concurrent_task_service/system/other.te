@@ -19,6 +19,3 @@ neverallow { dev_auth_ctrl_violator_chr_file -resource_schedule_service } dev_au
 
 #allow
 allow resource_schedule_service dev_auth_ctrl:chr_file { read write open ioctl };
-
-
-
