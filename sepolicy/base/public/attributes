@@ -300,4 +300,3 @@ attribute hap_domain_proc_stat_file_violators;
 attribute hap_domain_proc_modules_file_violators;
 
 attribute hap_domain_lnk_file_operation_viloator;
-attribute hap_domain_native_system_violators;
