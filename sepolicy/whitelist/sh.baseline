@@ -169,6 +169,6 @@ developer_only(`
 (allow sh proc_stat_file (file (read open)))
 (allow sh proc_meminfo_file (file (read open)))
 (allow sh sysfs_devices_system_cpu (dir (read open)))
-(allow sh hnp_bin (process (noatsecure getattr siginh rlimitinh transition)))
-(allow sh hnp_bin (process2 (nosuid_transition)))
+(allow sh hnp_native (process (noatsecure getattr siginh rlimitinh transition)))
+(allow sh hnp_native (process2 (nosuid_transition)))
 ')
