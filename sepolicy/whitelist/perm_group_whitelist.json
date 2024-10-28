@@ -59,7 +59,6 @@
                 "hiview hilog_exec",
                 "hiview hitrace_exec",
                 "hiview usage_report_exec",
-                "huks_service system_bin_file",
                 "init sdc_exec",
                 "init system_bin_file",
                 "init toybox_exec",
