@@ -138,7 +138,8 @@
                 "hnp sh_exec",
                 "hnp toybox_exec",
                 "sh hnp_file",
-                "sh devicedebug_exec"
+                "sh devicedebug_exec",
+                "hnp_native hnp_file"
             ]
         }
     ]
