@@ -223,4 +223,7 @@ allow msdp_sa sa_concurrent_task_service:samgr_class { get };
 #avc: denied { call } for service=1912 pid=1024, comm="/system/bin/sa_main"  scontext=u:r:msdp_sa:s0 tcontext=u:object_r:concurrent_task_service:s0 tclass=binder permissive=0
 allow msdp_sa concurrent_task_service:binder { call };
 
+#avc:  denied  { get } for service=1123 sid=u:r:msdp_sa:s0 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_wifi_p2p_ability:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_wifi_p2p_ability:samgr_class { get };
+
 allow msdp_sa wifi_manager_service:binder { call };
