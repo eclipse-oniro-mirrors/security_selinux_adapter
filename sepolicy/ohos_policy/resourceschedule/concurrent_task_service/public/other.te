@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,44 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#init
-allow init concurrent_task_service:process { rlimitinh siginh transition };
-dontaudit init concurrent_task_service:process { noatsecure };
-#normal_hap
-allow normal_hap_attr sa_concurrent_task_service:samgr_class { get };
-allow normal_hap_attr concurrent_task_service:binder { call };
-#system_core_hap
-allow system_core_hap_attr sa_concurrent_task_service:samgr_class { get };
-allow system_core_hap_attr concurrent_task_service:binder { call };
-#system_basic_hap
-allow system_basic_hap_attr sa_concurrent_task_service:samgr_class { get };
-allow system_basic_hap_attr concurrent_task_service:binder { call };
-#resource_schedule_service
-allow resource_schedule_service sa_concurrent_task_service:samgr_class { get };
-allow resource_schedule_service concurrent_task_service:binder { call };
-#hiview
-allow hiview concurrent_task_service:dir { search };
-allow hiview concurrent_task_service:file { open read };
-#ui_service
-allow ui_service sa_concurrent_task_service:samgr_class { get };
-allow ui_service concurrent_task_service:binder { call };
-#foundation
-allow foundation concurrent_task_service:binder { call transfer };
-#dev_auth_ctrl
-allow init dev_auth_ctrl:chr_file { setattr };
-allow udevd dev_auth_ctrl:chr_file { getattr write };
-allow ueventd dev_auth_ctrl:chr_file { relabelto };
 #never_allow
 neverallow { domain -concurrent_task_service -resource_schedule_service -udevd } dev_sched_rtg_ctrl:chr_file { write };
 neverallow { domain -concurrent_task_service -dev_auth_ctrl_violator_chr_file -udevd } dev_auth_ctrl:chr_file { write };
-#ffrt_param
-allow init render_service:file { getattr };
-allow render_service ffrt_param:parameter_service { set };
-allow render_service ffrt_param:file { read open map };
-allow render_service sa_concurrent_task_service:samgr_class { get };
-allow render_service concurrent_task_service:binder { call };
-allow normal_hap_attr ffrt_param:file { read open map };
-allow system_basic_hap_attr ffrt_param:file { read open map };
-allow system_core_hap_attr ffrt_param:file { read open map };
-allow foundation ffrt_param:file { read open map };
-allow foundation sa_concurrent_task_service:samgr_class { get };
