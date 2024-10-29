@@ -21,7 +21,6 @@ allow resource_schedule_service msdp_sa:binder { call transfer };
 allow resource_schedule_service bluetooth_service:binder { call };
 allow resource_schedule_service locationhub:binder { call };
 allow resource_schedule_service time_service:binder { call };
-allow resource_schedule_service sa_param_watcher:samgr_class { get };
 allow resource_schedule_service appspawn:dir { search };
 allow resource_schedule_service appspawn:file { getattr open read };
 allow resource_schedule_service appspawn_exec:file { open read };
