@@ -51,7 +51,7 @@ allow input_isolate_hap input_isolate_hap:unix_dgram_socket { getopt setopt };
 #avc: denied { create } for pid=4262, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:input_isolate_hap:s0 tclass=netlink_route_socket permissive=1
 allow input_isolate_hap input_isolate_hap:netlink_route_socket { create bind };
 
-#avc: denied { read } for pid=6797, comm="/system/bin/appspawn" path="/dev/parameters/u:object_r:hichecker_writable_param:s0" dev="" ino=226 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=0
+#avc: denied { read } for pid=6797, comm="/system/bin/appspawn" path="/dev/__parameters__/u:object_r:hichecker_writable_param:s0" dev="" ino=226 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=0
 allow input_isolate_hap hichecker_writable_param:file { read open map };
 
 #avc: denied { read } for pid=7200, comm="/system/bin/appspawn" path="/sys/devices/system/cpu/online" dev="" ino=336 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
