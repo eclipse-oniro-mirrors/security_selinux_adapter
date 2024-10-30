@@ -53,4 +53,23 @@ allow sh hmdfs:file { unlink };
 allow sh hmdfs:dir { add_name create remove_name rename reparent rmdir write };
 allow sh data_user_file:file { unlink };
 allow sh data_user_file:dir { remove_name reparent rmdir };
+
+#avc: denied { create getattr read unlink } for pid=13532, comm="/bin/mkfifo" scontext=u:r:sh:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=fifo_file permissions=0
+allow sh data_local_tmp:fifo_file { create getattr read unlink };
+
+# avc: denied { search } for pid=32697, comm="bin/tty" scontext=u:r:sh:s0 tcontext=u:object_r:dev_pts_file:s0 tclass=dir permissions=0
+allow sh dev_pts_file:dir { search };
+
+# avc: denied { create getattr read unlink open } for pid=10562, comm="bin/sh" scontext=u:r:sh:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissions=0
+allow sh dev_encaps:chr_file { create getattr read unlink open };
+
+# avc: denied { create getattr read unlink } for pid=45334, comm="bin/ln" scontext=u:r:sh:s0 tcontext=u:object_r:lnk_file:s0 tclass=dir permissions=0
+allow sh data_local_tmp:lnk_file { create getattr read unlink };
+
+# avc: denied { execute_no_trans } for pid=51536, comm="bin/watch" scontext=u:r:sh:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissions=0
+# avc: denied { execute open read getattr unlink } for pid=24239, comm="bin/sh" scontext=u:r:sh:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissions=0
+allow sh sh_exec:file { execute_no_trans execute open read getattr unlink};
+
+# avc: denied { getattr } for pid=25100, comm="bin/stat" scontext=u:r:sh:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissions=0
+allow sh labeledfs:filesystem { getattr };
 ')
