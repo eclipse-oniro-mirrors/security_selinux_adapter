@@ -243,6 +243,20 @@ static bool HapContextsLoad()
     return true;
 }
 
+static bool CheckValidCmp(char *oldSecontext, char *newSecontext)
+{
+    if (oldSecontext == nullptr || newSecontext == nullptr) {
+        if (oldSecontext != nullptr) {
+            freecon(oldSecontext);
+        }
+        if (newSecontext != nullptr) {
+            freecon(newSecontext);
+        }
+        return false;
+    }
+    return true;
+}
+
 HapContext::HapContext()
 {
     __selinux_once(g_fcOnce, SelinuxSetCallback);
@@ -290,6 +304,10 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
     int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
     if (res < 0) {
         return res;
+    }
+    if (!CheckValidCmp(oldSecontext, newSecontext)) {
+        selinux_log(SELINUX_ERROR, "oldSecontext or newSecontext is null");
+        return -SELINUX_PTR_NULL;
     }
     if (strcmp(oldSecontext, newSecontext) == 0) {
         freecon(newSecontext);
@@ -369,6 +387,11 @@ int HapContext::RestoreconSb(const std::string &pathNameOrig, HapFileInfo& hapFi
     int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
     if (res < 0) {
         return res;
+    }
+
+    if (!CheckValidCmp(oldSecontext, newSecontext)) {
+        selinux_log(SELINUX_ERROR, "oldSecontext or newSecontext is null");
+        return -SELINUX_PTR_NULL;
     }
 
     if (strcmp(oldSecontext, newSecontext)) {
