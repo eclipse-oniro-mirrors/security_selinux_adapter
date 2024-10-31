@@ -12,3 +12,4 @@
 # limitations under the License.
 
 /data/service/el1/public/msdp(/.*)?    u:object_r:msdp_data_file:s0
+/system/bin/vdevadm        u:object_r:vdevadm_exec:s0
