@@ -171,4 +171,6 @@ developer_only(`
 (allow sh sysfs_devices_system_cpu (dir (read open)))
 (allow sh hnp_native (process (noatsecure getattr siginh rlimitinh transition)))
 (allow sh hnp_native (process2 (nosuid_transition)))
+(allow sh data_service_el1_i18n_timezone_file (dir (search)))
+(allow sh data_service_el1_i18n_timezone_file (file (open read getattr map)))
 ')
