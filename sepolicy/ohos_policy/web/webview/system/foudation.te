@@ -22,13 +22,6 @@ allow foundation isolated_render:process { sigkill };
 allow foundation isolated_gpu:binder { call };
 allow foundation isolated_gpu:process { sigkill };
 
-# avc_audit_slow:262] avc: denied { search } for pid=1407, comm="/system/bin/sa_main"  name="/7658" dev="" ino=20326 scontext=u:r:foundation:s0 tcontext=u:r:isolated_render:s0 tclass=dir permissive=1
-allow foundation isolated_render:dir { search };
- 
-# avc_audit_slow:262] avc: denied { getattr } for pid=1407, comm="/system/bin/sa_main"  path="/proc/7658/status" dev="" ino=20331 scontext=u:r:foundation:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
-# avc_audit_slow:262] avc: denied { read } for pid=1407, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
-allow foundation isolated_render:file { getattr read };
-
 # avc_audit_slow:267] avc: denied { call } for pid=1475, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:app_fwk_update_service:s0 tclass=binder permissive=1
 # avc_audit_slow:267] avc: denied { transfer } for pid=1475, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:app_fwk_update_service:s0 tclass=binder permissive=1
 allow foundation app_fwk_update_service:binder { call transfer };
