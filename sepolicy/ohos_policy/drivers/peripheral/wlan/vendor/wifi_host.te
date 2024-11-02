@@ -177,3 +177,6 @@ allow wifi_host wifi_host:netlink_socket { write };
 debug_only(`
     allow wifi_host su:unix_dgram_socket { sendto };
 ')
+
+allow wifi_host wifi_host:unix_dgram_socket { setopt };
+allow wifi_host hiview:unix_dgram_socket { sendto };
