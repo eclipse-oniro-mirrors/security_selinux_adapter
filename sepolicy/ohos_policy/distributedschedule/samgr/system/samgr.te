@@ -106,3 +106,6 @@ allowxperm samgr dev_binder_file:chr_file ioctl { 0x620d };
 
 #avc:  denied  { ioctl } for pid=265 comm="RefCountCollect" path="/dev/binder" dev="tmpfs" ino=38 ioctlcmd=0x620c scontext=u:r:samgr:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=0
 allowxperm samgr dev_binder_file:chr_file ioctl { 0x620c };
+
+allowxperm samgr dev_binder_file:chr_file ioctl { 0x6221 };
+neverallowxperm { domain -samgr } dev_binder_file:chr_file ioctl { 0x6221 };
