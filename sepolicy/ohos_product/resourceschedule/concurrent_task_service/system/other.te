@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow app_domain_verify_agent data_service_el1_i18n_timezone_file:dir { search };
-allow app_domain_verify_agent data_service_el1_i18n_timezone_file:file { getattr map open read };
+#allow
+allow resource_schedule_service dev_auth_ctrl:chr_file { read write open ioctl };

@@ -214,4 +214,3 @@ allow render_service edm_sa:fd { use };
 
 allow edm_sa sa_camera_service:samgr_class { get };
 allow edm_sa camera_service:binder { call };
-allow edm_sa sa_powermgr_battery_service:samgr_class { get };

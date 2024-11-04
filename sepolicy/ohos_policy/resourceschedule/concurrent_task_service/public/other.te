@@ -11,5 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow storage_manager data_service_el1_i18n_timezone_file:dir { search };
-allow storage_manager data_service_el1_i18n_timezone_file:file { getattr map open read };
+type concurrent_task_service, sadomain, domain;
+
+#never_allow
+neverallow { domain -concurrent_task_service -resource_schedule_service -udevd } dev_sched_rtg_ctrl:chr_file { write };
+neverallow { domain -concurrent_task_service -dev_auth_ctrl_violator_chr_file -udevd } dev_auth_ctrl:chr_file { write };

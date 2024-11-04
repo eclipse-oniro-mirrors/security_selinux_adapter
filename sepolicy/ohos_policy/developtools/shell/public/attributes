@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow distributeddata data_service_el1_i18n_timezone_file:dir { search };
-allow distributeddata data_service_el1_i18n_timezone_file:file { getattr map open read };
+attribute hap_domain_native_system_violators;

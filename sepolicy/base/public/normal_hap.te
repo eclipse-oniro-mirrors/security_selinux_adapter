@@ -13,15 +13,16 @@
 
 neverallow normal_hap_attr data_local_traces:dir *;
 neverallow normal_hap_attr *:{ socket netlink_socket packet_socket appletalk_socket netlink_tcpdiag_socket
-netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket netlink_iscsi_socket 
+netlink_dnrt_socket tun_socket netlink_iscsi_socket 
 netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket netlink_generic_socket 
 netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket sctp_socket ax25_socket 
 ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket atmsvc_socket rds_socket 
 irda_socket pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv_socket rxrpc_socket 
 isdn_socket phonet_socket ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket vsock_host_socket kcm_socket 
-qipcrtr_socket smc_socket xdp_socket  } *;
+qipcrtr_socket smc_socket xdp_socket } *;
 
-neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
+neverallow { normal_hap_attr developer_only(`-violator_hap_netlink_kobject_uevent_socket') } *:netlink_kobject_uevent_socket *;
+neverallow { normal_hap_attr developer_only(`-violator_hap_netlink_kobject_uevent_socket') } domain:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
@@ -70,8 +71,6 @@ neverallow { normal_hap_attr -hap_domain_cgroup_violators } cgroup:file *;
 neverallow normal_hap_attr debugfs_attr:{ file lnk_file } read;
 
 neverallow normal_hap_attr domain:netlink_socket *;
-
-neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr proc_net:file rw_file_perms;
 neverallow normal_hap_attr proc_net:dir ~{ getattr };

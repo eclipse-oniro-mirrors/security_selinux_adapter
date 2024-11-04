@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type mediatool, native_system_domain, domain;
-type mediatool_exec, exec_attr, file_attr, system_file_attr;
-
 developer_only(`
 allow mediatool sh:fd { use };
 allow mediatool medialibrary_hap:fd { use };
@@ -23,7 +20,7 @@ allow mediatool dev_unix_socket:dir { search };
 allow mediatool hdcd:fd { use };
 allow mediatool persist_param:file { read open map };
 allow mediatool persist_sys_param:file { read open map };
-allow mediatool samgr:binder { call };
+allow mediatool samgr:binder { call transfer };
 allow mediatool sys_prod_file:dir { search };
 allow mediatool system_usr_file:dir { search getattr };
 allow mediatool tty_device:chr_file { read write };
@@ -40,12 +37,20 @@ allow mediatool medialibrary_hap:binder { call transfer };
 allow mediatool mimetype_file:file { read open getattr };
 allow mediatool devpts:chr_file { ioctl };
 allow mediatool hdcd:fifo_file { read write };
+allow mediatool data_file:dir { search };
+allow mediatool data_local:dir { search };
+allow mediatool data_local_tmp:dir { search getattr write add_name create };
+allow mediatool data_local_tmp:file { write create open };
+allow mediatool data_user_file:file { getattr read };
+allow mediatool sys_param:file { read open };
+allow mediatool samgr:file { read open write };
+allow mediatool hmdfs:file { read getattr };
 allowxperm mediatool devpts:chr_file ioctl 0x5413;
 allow foundation mediatool:binder { call transfer };
 allow samgr mediatool:dir { search };
 allow samgr mediatool:file { read open };
 allow samgr mediatool:process { getattr };
-allow samgr mediatool:binder { transfer };
+allow samgr mediatool:binder { call transfer };
 allow medialibrary_hap mediatool:binder { transfer };
 domain_auto_transition_pattern(sh, mediatool_exec, mediatool);
 ')

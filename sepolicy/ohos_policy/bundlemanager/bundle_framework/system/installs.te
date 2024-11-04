@@ -53,7 +53,7 @@ allow installs data_service_el2_share:lnk_file { unlink };
 allow installs data_service_el2_share:sock_file { unlink };
 allow installs data_local:file { create getattr ioctl setattr unlink map read open write };
 allow installs data_local:dir { add_name create setattr getattr open read remove_name rmdir search write };
-allow installs data_local_arkcache:file { create getattr ioctl setattr unlink map read open write };
+allow installs data_local_arkcache:file { create getattr ioctl setattr unlink map read open };
 allow installs data_local_arkcache:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow installs data_local_arkprofile:file { create getattr setattr ioctl map open read rename unlink write };
 allowxperm installs data_local_arkprofile:file ioctl { 0x5413 };
@@ -145,3 +145,7 @@ allow installs data_service_el2_hmdfs:fifo_file { unlink };
 allow installs data_service_el2_share:fifo_file { unlink };
 allow installs data_local_arkprofile:fifo_file { unlink };
 allow installs faultloggerd:fifo_file { write };
+allow installs normal_hap_data_file_attr:lnk_file { getattr read };
+allow installs system_core_hap_data_file_attr:lnk_file { getattr read };
+allow installs system_basic_hap_data_file_attr:lnk_file { getattr read };
+

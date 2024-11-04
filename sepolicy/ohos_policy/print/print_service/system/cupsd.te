@@ -51,3 +51,5 @@ allow cupsd system_fonts_file:dir { open read search };
 allow cupsd system_fonts_file:file { getattr open read };
 allow cupsd system_fonts_file:lnk_file { read };
 allow cupsd system_bin_file:lnk_file { read };
+allow cupsd system_bin_uni_print_driver_file:dir { search };
+allow cupsd system_bin_uni_print_driver_file:file { execute execute_no_trans getattr map read open };

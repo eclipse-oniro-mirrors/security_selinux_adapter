@@ -11,5 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow memmgrservice data_service_el1_i18n_timezone_file:dir { search };
-allow memmgrservice data_service_el1_i18n_timezone_file:file { getattr map open read };
+#type_attribute
+typeattribute resource_schedule_service dev_auth_ctrl_violator_chr_file;
+
+#never_allow
+neverallow { dev_auth_ctrl_violator_chr_file -resource_schedule_service } dev_auth_ctrl:chr_file { write };
+
