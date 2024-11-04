@@ -13,3 +13,6 @@
 
 type medialibrary_hap, normal_hap_attr, hap_domain, domain;
 type medialibrary_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+
+type mediatool, native_system_domain, domain;
+type mediatool_exec, exec_attr, file_attr, system_file_attr;
