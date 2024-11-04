@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type concurrent_task_service, sadomain, domain;
-
 #service_binder
 allow concurrent_task_service foundation:binder { call transfer };
 
