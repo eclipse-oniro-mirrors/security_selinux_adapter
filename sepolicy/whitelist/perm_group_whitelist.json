@@ -137,7 +137,8 @@
                 "installs hnp_exec",
                 "hnp sh_exec",
                 "hnp toybox_exec",
-                "sh hnp_file"
+                "sh hnp_file",
+                "hnp_native hnp_file"
             ]
         }
     ]
