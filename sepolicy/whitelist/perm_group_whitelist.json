@@ -137,6 +137,7 @@
                 "hnp sh_exec",
                 "hnp toybox_exec",
                 "sh hnp_file",
+                "sh sh_exec",
                 "hnp_native hnp_file"
             ]
         }
