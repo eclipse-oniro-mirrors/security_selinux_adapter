@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc_audit_slow:267] avc: denied { transfer } for pid=22236, comm="/system/bin/hiperf"  name="/6714/root" dev="" ino=212373 scontext=u:r:hiperf:s0 tcontext=u:r:isolated_render:s0 tclass=lnk_file permissive=1
-allow hiperf isolated_render:lnk_file {read };
+allow init bootanimation_exec:file { execute execute_no_trans getattr open map read };
 

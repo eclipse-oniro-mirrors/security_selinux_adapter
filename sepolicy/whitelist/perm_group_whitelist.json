@@ -70,7 +70,6 @@
                 "hiview hilog_exec",
                 "hiview hitrace_exec",
                 "hiview usage_report_exec",
-                "huks_service system_bin_file",
                 "init sdc_exec",
                 "init system_bin_file",
                 "init toybox_exec",
@@ -103,7 +102,8 @@
                 "wifi_manager_service toybox_exec",
                 "cupsd data_service_el1_public_print_service_file",
                 "pid_ns_init pid_ns_init_exec",
-                "compiler_service ark_aot_compiler_exec"
+                "compiler_service ark_aot_compiler_exec",
+                "init bootanimation_exec"
             ],
             "developer": [
                 "aa sh_exec",
@@ -137,7 +137,8 @@
                 "hnp sh_exec",
                 "hnp toybox_exec",
                 "sh hnp_file",
-                "sh sh_exec"
+                "sh sh_exec",
+                "hnp_native hnp_file"
             ]
         }
     ]

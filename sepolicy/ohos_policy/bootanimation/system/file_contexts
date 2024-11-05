@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { read } for  pid=7731 comm="hidumper" path="/proc/7551/stat" dev="proc" ino=57233 scontext=u:r:hidumper:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
-allow hidumper isolated_render:file { read };
+/system/bin/bootanimation        u:object_r:bootanimation_exec:s0
 

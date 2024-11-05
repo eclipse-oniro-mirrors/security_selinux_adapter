@@ -34,3 +34,4 @@ allow quick_fix sys_param:file { map open read };
 allow quick_fix sys_usb_param:file { map open read };
 allow quick_fix system_bin_file:dir { search };
 allow quick_fix tmpfs:chr_file { read write };
+allow quick_fix foundation:fd { use };
