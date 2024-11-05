@@ -49,10 +49,6 @@ allow sh proc_meminfo_file:file { read open };
 
 # avc: denied { read open } for pid=6685, comm="/bin/top" path="/sys/devices/system/cpu" scontext=u:r:sh:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
 allow sh sysfs_devices_system_cpu:dir { read open };
-allow sh hmdfs:file { unlink };
-allow sh hmdfs:dir { add_name create remove_name rename reparent rmdir write };
-allow sh data_user_file:file { unlink };
-allow sh data_user_file:dir { remove_name reparent rmdir };
 
 #avc: denied { create getattr read unlink } for pid=13532, comm="/bin/mkfifo" scontext=u:r:sh:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=fifo_file permissions=0
 allow sh data_local_tmp:fifo_file { create getattr read unlink };
