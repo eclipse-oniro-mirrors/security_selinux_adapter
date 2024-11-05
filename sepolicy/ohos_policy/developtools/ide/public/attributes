@@ -11,14 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dev_encaps, dev_attr;
+# define develop tools domain attribute
+attribute violator_chr_file_open;
+attribute violator_chr_file_read;
+attribute violator_chr_file_write;
+attribute violator_chr_file_ioctl;
+attribute violator_hap_netlink_kobject_uevent_socket;
 
-allow { domain -hap_domain -rgm_violator_ohos_dev_encaps_chr_file } dev_encaps:chr_file { read open };
-neverallow { hap_domain } dev_encaps:chr_file { ioctl read open };
-
-allow { appspawn init } dev_encaps:chr_file ioctl;
-allowxperm { appspawn init } dev_encaps:chr_file ioctl { 0x4518 };
-allowxperm appspawn dev_encaps:chr_file ioctl { 0x451a };
-neverallowxperm { domain -appspawn -init } dev_encaps:chr_file ioctl { 0x4518 0x451a };
-neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4518 0x451a };
-allow { appspawn init } dev_encaps:chr_file { write };

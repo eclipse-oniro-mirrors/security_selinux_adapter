@@ -86,3 +86,4 @@ allow nativespawn system_basic_hap_data_file:dir { mounton };
 allow nativespawn normal_hap_data_file:dir { mounton };
 allow nativespawn system_core_hap_data_file:dir { mounton };
 allow nativespawn hap_domain:unix_stream_socket { read write };
+allow nativespawn arkcompiler_param:file { map open read };

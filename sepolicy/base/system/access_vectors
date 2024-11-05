@@ -535,6 +535,7 @@ class xpm
     exec_no_sign
     exec_anon_mem
     exec_in_jitfort
+    exec_allow_debug_id
 }
 
 class hideaddr
@@ -573,4 +574,5 @@ class hmcap
     supervsable
     pid_mem_read
     pid_mem_write
+    exec_non_lsyscall
 }

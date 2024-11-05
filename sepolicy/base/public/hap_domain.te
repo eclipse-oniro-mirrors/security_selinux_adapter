@@ -103,21 +103,21 @@ neverallow hap_domain dev_attr:blk_file ioctl;
 #limit hap access dev file.
 neverallow hap_domain { dev_attr -dev_ptmx -dev_ucollection -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
                       -dev_zero_file -dev_mali -tty_device -dev_fuse_file -dev_bbox
-                      -dev_tun_file -dev_attr_violator_chr_file_rw -dev_bus_usb_file }:chr_file { open ioctl read write};
+                      -dev_tun_file -dev_attr_violator_chr_file_rw -dev_bus_usb_file -dev_usb_accessory_file }:chr_file { open ioctl read write};
 
 neverallow { hap_domain -hap_domain_dev_ptmx_violators } dev_ptmx:chr_file { open ioctl read write};
 
 neverallow normal_hap { dev_attr -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file -dev_ucollection
-                      -dev_attr_violator_chr_file_rw -dev_ashmem_file -dev_dri_file -dev_mali }:chr_file open;
+                      -dev_attr_violator_chr_file_rw -dev_ashmem_file -dev_dri_file -dev_mali developer_only(`-violator_chr_file_open') }:chr_file open;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file }:chr_file read;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file developer_only(`-violator_chr_file_read') }:chr_file read;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file }:chr_file write;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file developer_only(`-violator_chr_file_write') }:chr_file write;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file }:chr_file ioctl;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file developer_only(`-violator_chr_file_ioctl') }:chr_file ioctl;
 
 neverallow normal_hap dev_attr:sock_file open;
 
@@ -203,8 +203,9 @@ neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hivi
 
 neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
-neverallow hap_domain { domain -hap_domain -processdump }:process transition;
-neverallow hap_domain { domain -hap_domain }:process dyntransition;
+neverallow hap_domain { domain -hap_domain -processdump developer_only(`-hap_domain_native_system_violators') }:process transition;
+
+neverallow hap_domain { domain -hap_domain developer_only(`-hap_domain_native_system_violators') }:process dyntransition;
 
 neverallow hap_domain domain:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
 
@@ -217,8 +218,8 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-data_file_attr_violator_exec')} { data_file_attr }:file { execute_no_trans };
-neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -scan_service developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap')} data_file_attr:file { execute };
+neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-data_file_attr_violator_exec -hnp_native')} { data_file_attr }:file { execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -scan_service developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap -hnp_native')} data_file_attr:file { execute };
 
 neverallow isolated_gpu { data_file_attr -data_app_el1_file }:file { execute };
 neverallow isolated_render { data_file_attr -data_app_el1_file }:file { execute };

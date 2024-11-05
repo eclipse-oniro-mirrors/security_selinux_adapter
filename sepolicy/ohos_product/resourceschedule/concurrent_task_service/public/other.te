@@ -11,14 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dev_encaps, dev_attr;
+#type_attribute
+typeattribute resource_schedule_service dev_auth_ctrl_violator_chr_file;
 
-allow { domain -hap_domain -rgm_violator_ohos_dev_encaps_chr_file } dev_encaps:chr_file { read open };
-neverallow { hap_domain } dev_encaps:chr_file { ioctl read open };
+#never_allow
+neverallow { dev_auth_ctrl_violator_chr_file -resource_schedule_service } dev_auth_ctrl:chr_file { write };
 
-allow { appspawn init } dev_encaps:chr_file ioctl;
-allowxperm { appspawn init } dev_encaps:chr_file ioctl { 0x4518 };
-allowxperm appspawn dev_encaps:chr_file ioctl { 0x451a };
-neverallowxperm { domain -appspawn -init } dev_encaps:chr_file ioctl { 0x4518 0x451a };
-neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4518 0x451a };
-allow { appspawn init } dev_encaps:chr_file { write };

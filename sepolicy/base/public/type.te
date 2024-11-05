@@ -106,9 +106,6 @@ type uitest, native_system_domain, domain;
 type aa, native_system_domain, domain;
 type aa_exec, exec_attr, file_attr, system_file_attr;
 
-type mediatool, native_system_domain, domain;
-type mediatool_exec, exec_attr, file_attr, system_file_attr;
-
 type ark_aot_compiler, native_system_domain, domain;
 type ark_aot_compiler_exec, exec_attr, file_attr, system_file_attr;
 
