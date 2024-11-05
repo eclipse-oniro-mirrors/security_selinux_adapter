@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 allow wifi_manager_service dev_unix_file:sock_file write;
 allow wifi_manager_service accesstoken_service:binder { call };
 allow wifi_manager_service data_service_el1_file:dir { add_name remove_name search write create };
