@@ -17,6 +17,7 @@ allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 allow storage_daemon hmdfs:filesystem { unmount };
+allow storage_daemon tmpfs:filesystem { unmount };
 allow storage_daemon hmdfs:file { mounton };
 allow storage_daemon data_service_el2_hmdfs:file { mounton };
 allow storage_daemon data_user_file:file { mounton };
