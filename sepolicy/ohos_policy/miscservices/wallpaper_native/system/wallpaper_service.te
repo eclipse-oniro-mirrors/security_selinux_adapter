@@ -28,6 +28,7 @@ allow wallpaper_service normal_hap_attr:fifo_file { read };
 allow wallpaper_service sa_accountmgr:samgr_class { get };
 allow wallpaper_service accessibility_param:file { map open read };
 allow wallpaper_service accountmgr:binder { call };
+allow wallpaper_service accountmgr:fd { use };
 allow wallpaper_service ohos_dev_param:file { map open read };
 allow wallpaper_service tmpfs:chr_file { read write };
 allow wallpaper_service system_basic_hap_data_file_attr:file { read };
