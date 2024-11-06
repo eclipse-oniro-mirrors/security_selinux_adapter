@@ -349,22 +349,18 @@ int HapContext::HapFileRecurseRestorecon(const std::string &realPath, HapFileInf
     while ((ftsent = fts_read(fts)) != nullptr) {
         switch (ftsent->fts_info) {
             case FTS_DC:
-                selinux_log(SELINUX_ERROR, "%s on %s\n", GetErrStr(SELINUX_FTS_ELOOP), ftsent->fts_path);
                 (void)fts_close(fts);
                 free(paths[0]);
                 return -SELINUX_FTS_ELOOP;
             case FTS_DP:
                 continue;
             case FTS_DNR:
-                selinux_log(SELINUX_ERROR, "Read error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
                 fts_set(fts, ftsent, FTS_SKIP);
                 continue;
             case FTS_ERR:
-                selinux_log(SELINUX_ERROR, "Error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
                 fts_set(fts, ftsent, FTS_SKIP);
                 continue;
             case FTS_NS:
-                selinux_log(SELINUX_ERROR, "stat error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
                 fts_set(fts, ftsent, FTS_SKIP);
                 continue;
             case FTS_D:

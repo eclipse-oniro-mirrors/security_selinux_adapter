@@ -21,7 +21,7 @@
 #include "src/label_internal.h"
 #include "policycoreutils.h"
 #include "selinux_error.h"
-#include "selinux_log.h"
+#include "selinux_klog.h"
 #include "selinux/restorecon.h"
 
 static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
@@ -76,9 +76,9 @@ int RestoreconCommon(const char *path, unsigned int flag, unsigned int nthreads)
 
 static void SelinuxSetCallback(void)
 {
-    SetSelinuxHilogLevel(SELINUX_HILOG_ERROR);
+    SetSelinuxKmsgLevel(SELINUX_KERROR);
     union selinux_callback cb;
-    cb.func_log = SelinuxHilog;
+    cb.func_log = SelinuxKmsg;
     selinux_set_callback(SELINUX_CB_LOG, cb);
 }
 
