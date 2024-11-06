@@ -27,6 +27,7 @@ developer_only(`
 	allow hiprofilerd self:tcp_socket { accept read write };
 	allow hiprofilerd self:tcp_socket shutdown;
 	allow hiprofilerd self:tcp_socket { bind create getattr getopt listen setopt };
+	allow hiprofilerd self:unix_dgram_socket { getopt setopt };
 	allow hiprofilerd dev_unix_socket:dir { add_name remove_name write };
 	allow hiprofilerd dev_unix_socket:sock_file { create unlink };
 	allow hiprofilerd system_bin_file:dir search;
