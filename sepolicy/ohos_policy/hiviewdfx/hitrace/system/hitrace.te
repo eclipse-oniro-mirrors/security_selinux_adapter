@@ -82,6 +82,8 @@ developer_only(`
 
     allow hitrace sh:fd use;
     allow hitrace sh:fifo_file { read write };
+    allow hitrace self:unix_dgram_socket { getopt setopt };
+    allow hitrace hiview:unix_dgram_socket {  read write sendto };
 ')
 
 neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor } tracefs:file write_file_perms;
