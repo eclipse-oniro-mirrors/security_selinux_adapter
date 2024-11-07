@@ -109,7 +109,7 @@ allow resource_schedule_service multimodalinput:binder { call };
 allow resource_schedule_service multimodalinput:fd { use };
 allow resource_schedule_service multimodalinput:unix_stream_socket { write };
 allow resource_schedule_service sa_comm_net_stats_manager_service:samgr_class { get };
-# for RegisterDisplayModeListener on observer_manager.cpp
+#get : allow resource_schedule_service get dms services to mointer fold status on soc_perf
 allow resource_schedule_service sa_foundation_dms:samgr_class { get };
 debug_only(`
     allow resource_schedule_service sh:dir { search };
@@ -182,7 +182,7 @@ allow accountmgr resource_schedule_service:binder { call };
 #for devinfo param
 allow resource_schedule_service devinfo_type_param:file { read open map };
 
-#for camera_service
+# for camera_service
 allow resource_schedule_service sa_camera_service:samgr_class { get };
 allow resource_schedule_service camera_service:binder { call transfer };
 
