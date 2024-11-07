@@ -237,6 +237,7 @@ allow appspawn bootuptrace_file:file { create getattr write open relabelto };
 allow appspawn faultloggerd_socket_sdkdump:sock_file { write };
 # avc:  denied  { read } for  pid=4946 comm="appspawn" path="pipe:[43284]" dev="pipefs" ino=43284 scontext=u:r:appspawn:s0 tcontext=u:r:faultloggerd:s0 tclass=fifo_file permissive=1
 allow appspawn faultloggerd:fifo_file { read };
+allow appspawn appspawn:capability { sys_nice };
 
 # avc: denied { ioctl } for pid=748, comm="/system/bin/appspawn" path="/data/app/el2/100" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=11203 ioctlcmd=0x661a scontext=u:r:appspawn:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 # avc: denied { ioctl } for pid=748, comm="/system/bin/appspawn" path="/data/app/el2/100" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=11203 ioctlcmd=0x6616 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
