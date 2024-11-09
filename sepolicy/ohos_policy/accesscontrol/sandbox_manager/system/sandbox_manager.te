@@ -41,6 +41,8 @@ allow sandbox_manager_service init:fifo_file { write };
 allow sandbox_manager_service chip_prod_file:dir { search };
 allow sandbox_manager_service data_hilogd_file:dir { search };
 allow sandbox_manager_service sa_distributeddata_service:samgr_class { get };
+binder_call(sandbox_manager_service, accountmgr);
+allow sandbox_manager_service sa_accountmgr:samgr_class { get };
 
 debug_only(`
     binder_call(sandbox_manager_service, su);
