@@ -18,7 +18,8 @@ neverallow init data_local_tmp:dir { non_developer_mode(`write add_name') remove
 neverallow { domain -kernel } init:process dyntransition;
 neverallow { domain -kernel } init:process transition;
 
-neverallow init processdump:process {noatsecure};
+neverallow init { domain debug_only(`-domain')}:process {noatsecure};
+debug_only(`neverallow init processdump:process {noatsecure};')
 
 neverallow { domain -processdump } init:process ptrace;
 
