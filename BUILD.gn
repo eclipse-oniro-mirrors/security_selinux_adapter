@@ -93,7 +93,7 @@ ohos_shared_library("librestorecon") {
 
 ohos_static_library("libselinux_klog_real_static") {
   output_name = "libselinux_klog_real_static"
-  sources = [ "framework/policycoreutils/src/selinux_klog.c" ]
+  sources = [ "interfaces/policycoreutils/src/selinux_klog.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   external_deps = [ "bounds_checking_function:libsec_static" ]
   cflags = [
