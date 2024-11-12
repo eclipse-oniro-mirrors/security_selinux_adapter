@@ -24,4 +24,6 @@ developer_only(`
     allow devicedebug sh:fd { use };
     allow devicedebug dev_unix_socket:dir { search };
     allow appspawn hap_domain:process { signal };
+    allow devicedebug hdcd:fd { use };
+    allow devicedebug devpts:chr_file { read write };
 ')
