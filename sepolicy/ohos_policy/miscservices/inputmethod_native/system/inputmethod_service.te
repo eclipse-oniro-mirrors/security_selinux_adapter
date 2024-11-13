@@ -91,3 +91,6 @@ allow inputmethod_service memmgrservice:binder { call };
 allow inputmethod_service sa_foundation_appms:samgr_class { get };
 
 allow inputmethod_service sa_screenlock_service:samgr_class { get };
+
+# avc: denied { use } for pid=4278, comm="/system/bin/appspawn"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:inputmethod_service:s0 tcontext=u:r:normal_hap:s0 tclass=fd permissive=0
+allow inputmethod_service normal_hap:fd { use };
