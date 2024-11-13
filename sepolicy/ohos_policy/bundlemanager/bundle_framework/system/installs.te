@@ -145,3 +145,6 @@ allow installs data_service_el2_hmdfs:fifo_file { unlink };
 allow installs data_service_el2_share:fifo_file { unlink };
 allow installs data_local_arkprofile:fifo_file { unlink };
 allow installs faultloggerd:fifo_file { write };
+allow installs normal_hap_data_file_attr:lnk_file { getattr read };
+allow installs system_core_hap_data_file_attr:lnk_file { getattr read };
+allow installs system_basic_hap_data_file_attr:lnk_file { getattr read };
