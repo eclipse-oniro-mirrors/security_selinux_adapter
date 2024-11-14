@@ -26,6 +26,7 @@ allow deviceauth_service accesstoken_service:binder { call };
 allow deviceauth_service foundation:binder { call transfer};
 allow deviceauth_service softbus_server:binder { call transfer };
 allow deviceauth_service accountmgr:binder { call };
+allow deviceauth_service accountmgr:fd { use };
 allow deviceauth_service huks_service:binder { call };
 allow deviceauth_service devinfo_private_param:file { map open read};
 allow deviceauth_service sa_foundation_cesfwk_service:samgr_class { get };
