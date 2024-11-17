@@ -73,7 +73,7 @@ allow faultloggerd dev_unix_socket:sock_file unlink;
 allow faultloggerd faultloggerd_socket:sock_file unlink;
 allow faultloggerd faultloggerd_socket_crash:sock_file unlink;
 allow faultloggerd faultloggerd_socket_sdkdump:sock_file unlink;
-allow faultloggerd faultloggerd_temp_file:dir { add_name remove_name write open read search };
+allow faultloggerd faultloggerd_temp_file:dir { add_name remove_name write open read search getattr watch create };
 allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write open read unlink };
 
 allow faultloggerd_temp_file labeledfs:filesystem { associate };
