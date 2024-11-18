@@ -342,7 +342,8 @@ allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
 allow storage_daemon data_service_el2_file:file { relabelfrom };
 allow storage_daemon data_service_el4_file:file { relabelfrom };
-allow storage_daemon data_service_el2_hmdfs:file { read open write open unlink };
+allow storage_daemon data_service_el2_hmdfs:file { read open write };
+allow storage_daemon data_service_el2_hmdfs:lnk_file { unlink rename };
 
 storage_daemon_relabel(data_service_el2_share);
 
