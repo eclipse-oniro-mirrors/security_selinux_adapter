@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/bin/cupsd        u:object_r:cupsd_exec:s0
-/system/bin/cupsfilter        u:object_r:cupsd_exec:s0
-/data/service/el1/public/print_service/sane/backend       u:object_r:data_service_scan_service_driver_file:s0
+neverallow scan_service { data_file_attr -data_service_scan_service_driver_file }:file { execute };
+neverallow { domain -installs } data_service_scan_service_driver_file:file { write };
+neverallow { domain -installs updater_only(`-updater') } data_service_scan_service_driver_file:dir { write };
