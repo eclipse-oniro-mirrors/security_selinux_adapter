@@ -39,6 +39,7 @@ struct TestInput {
     bool domain = false;
     std::string recurse = "1";
     bool isPreinstalledApp = false;
+    std::string extension = "";
 };
 
 static void PrintUsage()
@@ -59,32 +60,23 @@ static void PrintUsage()
            "/data/app/el1/100/base/com.ohos.test1 "
            "/data/app/el1/100/base/com.ohos.test2]\n");
     printf(" -i (--preinstalledapp)     setcon preinstalled                     [eg: -i]\n");
+    printf(" -e (--extension)           extension info.                         [eg: -e extension_info]\n");
     printf("\n");
 }
 
 static void SetOptions(int argc, char *argv[], const option *options, TestInput &input)
 {
     int index = 0;
-    const char *optStr = "hda:p:n:r:m:i";
+    const char *optStr = "hda:p:n:r:m:ie:";
     int para = 0;
     while ((para = getopt_long(argc, argv, optStr, options, &index)) != -1) {
         switch (para) {
-            case 'h': {
+            case 'h':
                 PrintUsage();
                 exit(0);
-            }
-            case 'a': {
-                input.apl = optarg;
-                break;
-            }
-            case 'd': {
-                input.domain = true;
-                break;
-            }
-            case 'p': {
-                input.multiPath.emplace_back(optarg);
-                break;
-            }
+            case 'a': input.apl = optarg; break;
+            case 'd': input.domain = true; break;
+            case 'p': input.multiPath.emplace_back(optarg); break;
             case 'm': {
                 std::stringstream str(optarg);
                 std::string tmp;
@@ -93,18 +85,10 @@ static void SetOptions(int argc, char *argv[], const option *options, TestInput 
                 }
                 break;
             }
-            case 'n': {
-                input.name = optarg;
-                break;
-            }
-            case 'r': {
-                input.recurse = optarg;
-                break;
-            }
-            case 'i': {
-                input.isPreinstalledApp = true;
-                break;
-            }
+            case 'n': input.name = optarg; break;
+            case 'r': input.recurse = optarg; break;
+            case 'i': input.isPreinstalledApp = true; break;
+            case 'e': input.extension = optarg; break;
             default:
                 printf("Try 'hap_restorecon -h' for more information.\n");
                 exit(-1);
@@ -119,6 +103,7 @@ int main(int argc, char *argv[])
         {"name", required_argument, nullptr, 'n'},    {"domain", no_argument, nullptr, 'd'},
         {"path", required_argument, nullptr, 'p'},    {"mutilpath", required_argument, nullptr, 'm'},
         {"recurse", required_argument, nullptr, 'r'}, {"preinstalledapp", no_argument, nullptr, 'i'},
+        {"extension", required_argument, nullptr, 'e'},
         {nullptr, no_argument, nullptr, 0},
     };
 
@@ -145,6 +130,7 @@ int main(int argc, char *argv[])
         HapDomainInfo hapDomainInfo {
             .apl = testCmd.apl,
             .packageName = testCmd.name,
+            .extensionType = testCmd.extension,
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0
         };
         res = test.HapDomainSetcontext(hapDomainInfo);
