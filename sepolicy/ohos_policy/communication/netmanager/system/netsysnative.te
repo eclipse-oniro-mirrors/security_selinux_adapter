@@ -262,3 +262,5 @@ allow netsysnative port:tcp_socket { name_connect };
 allow netsysnative sa_cert_manager_service:samgr_class { get };
 # avc:  denied  { call } for  pid=5199 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:cert_manager_service:s0 tclass=binder permissive=1
 allow netsysnative cert_manager_service:binder { call };
+
+allow netsysnative hap_domain:icmp_socket { setopt getopt };
