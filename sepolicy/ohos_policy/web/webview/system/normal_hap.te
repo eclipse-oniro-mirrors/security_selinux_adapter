@@ -97,7 +97,8 @@ allow normal_hap_attr system_fonts_file:file { read open getattr map };
 #avc:  denied  { open } for  pid=3965 comm="com.example.web" path="/data/storage/el2/base/haps/entry/cache" dev="mmcblk0p11" ino=654423 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=dir permissive=1
 #avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/data/storage/el2/base" dev="mmcblk0p11" ino=654353 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=4361 comm="CacheThread_Blo" path="/data/storage/el2/base" dev="mmcblk0p11" ino=523589 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=dir permissive=1
-allow normal_hap_attr normal_hap_data_file_attr:dir { search remove_name read open mounton getattr };
+allow normal_hap_attr normal_hap_data_file_attr:dir { remove_name read open mounton getattr };
+allow { normal_hap_attr -filemanager_hap }  normal_hap_data_file_attr:dir { search };
 
 #avc:  denied  { create } for  pid=2957 comm="com.example.web" name=".org.chromium.Chromium.coKdNG" scontext=u:r:normal_hap:s0 tcontext=u:ect_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
 #avc:  denied  { read write open } for  pid=2957 comm="com.example.web" path="/data/storage/el2/base/cache/.org.chromium.Chromium.coKdNG" ="mmcblk0p11" ino=785176 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
