@@ -51,6 +51,7 @@ allow samgr processdump:process { getattr };
 allow samgr samgr:unix_dgram_socket { getopt setopt };
 allow samgr sa_softbus_service:samgr_class { get };
 allow samgr security_param:file { map open read };
+allow samgr SP_daemon:binder { call };
 allow samgr startup_param:file { map open read };
 allow samgr sys_param:file { map open read };
 allow samgr system_basic_hap_attr:binder { call };
