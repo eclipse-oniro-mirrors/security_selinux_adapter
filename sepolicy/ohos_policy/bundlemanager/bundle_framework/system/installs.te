@@ -15,7 +15,7 @@ neverallow { domain -installs debug_only(` -aa ') -bundle_data_app_el1_file deve
 
 init_daemon_domain(installs);
 
-allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write setattr rename };
+allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write setattr rename reparent };
 allow installs data_app_el1_file:file { create getattr ioctl setattr unlink map read rename relabelfrom relabelto };
 allow installs data_app_el1_file:lnk_file { unlink rename };
 allow installs data_app_el1_file:sock_file { unlink rename };
