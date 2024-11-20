@@ -78,3 +78,6 @@ allow huks_service dslm_service:binder { call transfer };
 
 allow hap_domain huks_service:binder { call transfer };
 allow huks_service hap_domain:binder { call transfer };
+
+allow huks_service kernel:unix_stream_socket { connectto };
+allow huks_service paramservice_socket:sock_file { write };
