@@ -69,4 +69,3 @@ allow installs data_service_scan_service_driver_file:file { relabelto };
 allow installs data_service_scan_service_driver_file:dir { write add_name search getattr remove_name };
 allow scan_service data_service_scan_service_driver_file:file { execute getattr map open read };
 allow scan_service data_service_scan_service_driver_file:dir { open read search };
-allow scan_service dev_bus_usb_file:file { open read };
