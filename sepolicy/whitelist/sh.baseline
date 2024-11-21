@@ -170,6 +170,8 @@ developer_only(`
 (allow sh proc_stat_file (file (read open)))
 (allow sh proc_meminfo_file (file (read open)))
 (allow sh sysfs_devices_system_cpu (dir (read open)))
+(allow sh data_service_el1_i18n_timezone_file (dir (search)))
+(allow sh data_service_el1_i18n_timezone_file (file (open read getattr map)))
 (allow sh data_local_tmp (fifo_file (create getattr read unlink)))
 (allow sh dev_pts_file (dir (search))) 
 (allow sh dev_encaps (chr_file (create getattr read unlink open)))

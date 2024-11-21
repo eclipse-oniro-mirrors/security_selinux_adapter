@@ -73,6 +73,10 @@ allow { domain -limit_domain } const_i18n_param:file { map open read };
 
 allow { domain } data_service_el1_i18n_timezone_file:dir { search open read getattr mounton };
 allow { domain } data_service_el1_i18n_timezone_file:file { open read getattr map };
+developer_only(`
+    allow sh data_service_el1_i18n_timezone_file:dir { search };
+    allow sh data_service_el1_i18n_timezone_file:file { open read getattr map };
+')
 
 #for bootchart to read
 allow init domain:file { open read };
