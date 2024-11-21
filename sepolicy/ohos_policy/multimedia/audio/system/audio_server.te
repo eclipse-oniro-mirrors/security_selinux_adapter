@@ -204,3 +204,4 @@ allow audio_server sa_foundation_ans:samgr_class { get };
 
 # support multi usb device
 allow audio_server sa_usb_service:samgr_class { get };
+allow audio_server usb_service:binder { call };
