@@ -129,8 +129,3 @@ developer_only(`
 	allow hiprofilerd sysfs_devices_system_cpu:file { read open getattr };
 ')
 
-debug_only(`
-	allow hiprofilerd sh_exec:file { execute execute_no_trans map open read };
-	allow hiprofilerd self:capability setgid;
-	allow hiprofilerd sh:fd use;
-')

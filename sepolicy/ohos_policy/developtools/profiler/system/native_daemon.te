@@ -12,12 +12,7 @@
 # limitations under the License
 
 neverallow { domain -hiprofiler_cmd -hiprofilerd -hiprofiler_plugins -native_daemon -hitrace -hiview -bytrace -hiperf } hiviewdfx_profiler_param:parameter_service { set };
-debug_only(`
-	allow native_daemon self:capability setgid;
-        allow native_daemon sh_exec:file execute;
-        allow native_daemon sh:fd use;
-        allow native_daemon sh:file read;
-')
+
 allow domain hiprofiler_socket:sock_file { getattr write unlink };
 allow init hiprofiler_socket:sock_file { relabelto };
 
