@@ -56,9 +56,6 @@ allow render_service multimodalinput:fd { use };
 allow render_service drawing_engine_sample:file { getattr map open read };
 allow render_service drawing_sample_replayer:file { getattr map open read };
 allow render_service sa_foundation_appms:samgr_class { get };
-allow render_service dev_kmsg_file:chr_file { write };
-allow render_service init:fifo_file { read write };
-allow render_service tty_device:chr_file { read write };
 
 debug_only(`
     allow render_service sh:fd { use };
