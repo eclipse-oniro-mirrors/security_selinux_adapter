@@ -30,7 +30,7 @@ allow render_service foundation:fd { use };
 binder_call(render_service, powermgr);
 allow render_service normal_hap_attr:binder { call };
 allow render_service normal_hap_attr:fd { use };
-allow render_service proc_file:file { open read write };
+allow render_service proc_file:file { open read };
 allow render_service render_service:netlink_kobject_uevent_socket { read };
 allow render_service sys_file:file { open read write };
 allow render_service system_basic_hap_attr:binder { call };
