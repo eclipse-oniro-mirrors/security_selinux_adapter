@@ -246,3 +246,6 @@ allowxperm appspawn data_app_el2_file:dir ioctl { 0x6616 0x661a };
 
 # avc: denied { rmdir } for pid=744, comm="/system/bin/appspawn" name="/sandbox/100/com.ohos.sceneboard/Users/currentUser" dev="tmpfs" ino=414 scontext=u:r:appspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=0
 allow appspawn tmpfs:dir { rmdir };
+
+#avc: denied { unmount } for pid=654, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:object_r:sharefs:s0 tclass=filesystem permissive=1
+allow appspawn sharefs:filesystem { unmount };
