@@ -159,6 +159,9 @@ allow processdump debugfs:dir { search };
 #============ chip_prod_file ===================
 allow processdump chip_prod_file:dir { search };
 
+#============ render_service ===================
+allow processdump render_service:fd { use };
+
 ############################
 ## neverallow assertions: ##
 ############################
