@@ -189,6 +189,7 @@ allow resource_schedule_service camera_service:binder { call transfer };
 #for notify render_service start report events
 allow render_service resource_schedule_service:binder { transfer };
 allow resource_schedule_service render_service:binder { call transfer };
+allow resource_schedule_service render_service:fd { use };
 
 allow resource_schedule_service sharing_service:dir { open search read };
 allow resource_schedule_service sharing_service:file { open read getattr };

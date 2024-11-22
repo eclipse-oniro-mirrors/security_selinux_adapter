@@ -30,7 +30,7 @@ allow render_service foundation:fd { use };
 binder_call(render_service, powermgr);
 allow render_service normal_hap_attr:binder { call };
 allow render_service normal_hap_attr:fd { use };
-allow render_service proc_file:file { open read };
+allow render_service proc_file:file { open read write };
 allow render_service render_service:netlink_kobject_uevent_socket { read };
 allow render_service sys_file:file { open read write };
 allow render_service system_basic_hap_attr:binder { call };
@@ -56,6 +56,9 @@ allow render_service multimodalinput:fd { use };
 allow render_service drawing_engine_sample:file { getattr map open read };
 allow render_service drawing_sample_replayer:file { getattr map open read };
 allow render_service sa_foundation_appms:samgr_class { get };
+allow render_service dev_kmsg_file:chr_file { write };
+allow render_service init:fifo_file { read write };
+allow render_service tty_device:chr_file { read write };
 
 # [avc_audit_slow:273] avc: denied { write } for pid=1396, comm="/system/bin/render_service"  path="/dev/kmsg" dev="" ino=21 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow render_service dev_kmsg_file:chr_file { write };
@@ -99,7 +102,7 @@ developer_only(`
 
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x6409 0x640d 0x641e 0x642e 0x643a 0x64af 0x64b8 0x64bc 0x64bd 0x64be };
 allowxperm render_service dev_graphics_file:chr_file ioctl 0x4611;
-allowxperm render_service dev_mali:chr_file ioctl { 0x8002 0x8006 0x8007 0x8016 0x8018 0x8019 0x801b 0x801d 0x801e };
+allowxperm render_service dev_mali:chr_file ioctl { 0x8002 0x8006 0x8007 0x8014 0x8016 0x8018 0x8019 0x801b 0x801d 0x801e 0x8024 0x8025 0x8027 0x802c 0x802a 0x802d 0x802f 0x8030 0x8031 0x8033 0x8034 0x8036 0x803a 0x803b 0x803c };
 allowxperm render_service dev_rga:chr_file ioctl 0x5017;
 
 
