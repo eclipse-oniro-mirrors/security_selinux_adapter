@@ -213,3 +213,4 @@ allow render_service edm_sa:binder { transfer };
 allow render_service edm_sa:fd { use };
 
 allow edm_sa sa_camera_service:samgr_class { get };
+allow edm_sa camera_service:binder { call };

@@ -17,6 +17,7 @@ allow useriam sensors:binder { call };
 
 allow useriam accesstoken_service:binder { call };
 allow useriam accountmgr:binder { call };
+allow useriam accountmgr:fd { use };
 allow useriam bootevent_param:file { map open read };
 allow useriam bootevent_param:parameter_service { set };
 allow useriam bootevent_samgr_param:file { map open read };

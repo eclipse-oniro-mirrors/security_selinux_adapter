@@ -135,3 +135,5 @@ allow telephony_sa huks_service:binder { call transfer };
 
 allow telephony_sa tty_device:chr_file { ioctl };
 allowxperm telephony_sa tty_device:chr_file ioctl { 0x5413 };
+allow telephony_sa sa_sg_collect_service:samgr_class { get };
+allow telephony_sa security_guard:binder { call };

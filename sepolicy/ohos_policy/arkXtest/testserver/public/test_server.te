@@ -24,6 +24,11 @@ developer_only(`
 
     allow test_server sa_foundation_cesfwk_service:samgr_class { get };
     allow test_server foundation:binder {call transfer};
+
+    allow test_server SP_daemon:binder { call };
+    allow test_server sa_resource_schedule_socperf_server:samgr_class { get };
+    allow test_server resource_schedule_service:binder { call transfer };
+    allow test_server samgr:binder { transfer };
 ')
 
 debug_only(`
@@ -39,4 +44,9 @@ debug_only(`
 
     allow test_server sa_foundation_cesfwk_service:samgr_class { get };
     allow test_server foundation:binder {call transfer};
+
+    allow test_server SP_daemon:binder { call };
+    allow test_server sa_resource_schedule_socperf_server:samgr_class { get };
+    allow test_server resource_schedule_service:binder { call transfer };
+    allow test_server samgr:binder { transfer };
 ')

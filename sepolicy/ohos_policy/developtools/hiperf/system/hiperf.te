@@ -196,6 +196,7 @@ allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
 allow hiperf self:capability { sys_ptrace ipc_lock };
 allow hiperf self:perf_event { open read write kernel };
+allow hiperf self:unix_dgram_socket { getopt setopt };
 
 neverallow hiperf *:process ptrace;
 neverallow { domain -hiperf -init -hiebpf } self:perf_event ~{ open read write kernel };
@@ -229,7 +230,7 @@ allow hiperf dev_bbox:chr_file { read };
 allow hiperf sysfs_devices_system_cpu:dir { read open };
 
 allow hiperf hiview:fd { use };
-allow hiperf hiview:unix_dgram_socket { read write };
+allow hiperf hiview:unix_dgram_socket { read write sendto };
 allow hiperf hiview:fifo_file { read write };
 allow hiperf hiview_file:file { read write };
 

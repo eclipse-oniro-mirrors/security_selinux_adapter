@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type vdevadm, native_system_domain, domain;
-type vdevadm_exec, exec_attr, file_attr, system_file_attr;
+type filemanager_hap, normal_hap_attr, hap_domain, domain;

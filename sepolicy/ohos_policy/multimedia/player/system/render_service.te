@@ -27,3 +27,5 @@ allow render_service media_service:binder { call };
 
 # avc: denied { use } for pid=2697, comm="/system/bin/appspawn"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:render_service:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
 allow render_service media_service:fd { use };
+
+allow render_service media_service:binder { transfer };

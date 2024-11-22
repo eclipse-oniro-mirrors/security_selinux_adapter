@@ -17,6 +17,7 @@ allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 allow storage_daemon hmdfs:filesystem { unmount };
+allow storage_daemon tmpfs:filesystem { unmount };
 allow storage_daemon hmdfs:file { mounton };
 allow storage_daemon data_service_el2_hmdfs:file { mounton };
 allow storage_daemon data_user_file:file { mounton };
@@ -341,7 +342,8 @@ allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
 allow storage_daemon data_service_el2_file:file { relabelfrom };
 allow storage_daemon data_service_el4_file:file { relabelfrom };
-allow storage_daemon data_service_el2_hmdfs:file { read open write open };
+allow storage_daemon data_service_el2_hmdfs:file { read open write };
+allow storage_daemon data_service_el2_hmdfs:lnk_file { unlink rename };
 
 storage_daemon_relabel(data_service_el2_share);
 

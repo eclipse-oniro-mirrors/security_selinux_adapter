@@ -34,6 +34,14 @@ allow hidumper_service system_bin_file:file { execute execute_no_trans getattr m
 allow hidumper_service toybox_exec:file { execute execute_no_trans getattr map open read };
 
 binder_call(hidumper_service, { sadomain -installs });
+allow hidumper_service { hdfdomain sadomain }:dir { getattr open read search };
+allow hidumper_service { hdfdomain sadomain }:file { getattr open read };
+allow hidumper_service { hdfdomain sadomain }:lnk_file read;
+allow hidumper_service appspawn:dir { getattr open read search };
+allow hidumper_service appspawn:file { getattr open read };
+allow hidumper_service ueventd:dir { getattr open read search };
+allow hidumper_service ueventd:file { getattr open read };
+allow hidumper_service tty_device:chr_file { open read write getattr };
 
 allow hidumper_service sa_foundation_abilityms:samgr_class get;
 allow hidumper_service sa_foundation_appms:samgr_class get;

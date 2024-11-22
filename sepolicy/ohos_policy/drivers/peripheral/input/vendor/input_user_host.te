@@ -85,3 +85,6 @@ allowxperm input_user_host dev_uinput:chr_file ioctl { 0x5501 0x5502 0x5564 0x55
 debug_only(`
     allow input_user_host sh:binder { call };
 ')
+
+allow input_user_host sa_accesstoken_manager_service:samgr_class { get };
+allow input_user_host accesstoken_service:binder { call };

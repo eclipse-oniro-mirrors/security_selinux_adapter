@@ -231,6 +231,9 @@ developer_only(`
     allow hiprofiler_plugins proc_diskstats_file:file { open read };
     allow hiprofiler_plugins rootfs:file getattr;
 
+    allow hiprofiler_plugins self:unix_dgram_socket { getopt setopt };
+    allow hiprofiler_plugins hiview:unix_dgram_socket { sendto };
+
     allow hiprofiler_plugins hiprofiler_cmd:fd use;
     allow hiprofiler_plugins rootfs:file read;
     allow hiprofiler_plugins tty_device:chr_file ioctl;
