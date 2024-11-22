@@ -60,37 +60,6 @@ allow render_service dev_kmsg_file:chr_file { write };
 allow render_service init:fifo_file { read write };
 allow render_service tty_device:chr_file { read write };
 
-# [avc_audit_slow:273] avc: denied { write } for pid=1396, comm="/system/bin/render_service"  path="/dev/kmsg" dev="" ino=21 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
-allow render_service dev_kmsg_file:chr_file { write };
-# [avc_audit_slow:273] avc: denied { write } for pid=1396, comm="/system/bin/render_service"  path="pipe:[16]" dev="tmpfs" ino=16 scontext=u:r:render_service:s0 tcontext=u:r:init:s0 tclass=fifo_file permissive=1
-allow render_service init:fifo_file { read write };
-# [avc_audit_slow:273] avc: denied { read write } for pid=1396, comm="/system/bin/render_service"  path="/dev/tty0" dev="" ino=43 scontext=u:r:render_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
-allow render_service tty_device:chr_file { read write };
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8034 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8033 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x803b scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8036 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8030 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x803a scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x802d scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8024 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8027 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1396, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8025 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1245, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=104 ioctlcmd=0x802f scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1245, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=104 ioctlcmd=0x803c scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1245, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=104 ioctlcmd=0x802c scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1245, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=104 ioctlcmd=0x8014 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1371, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x802a scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=0
-# [avc_audit_slow:273] avc: denied { ioctl } for pid=1371, comm="/system/bin/render_service"  name="mali0" dev="mali0" major=10 minor=97 ioctlcmd=0x8031 scontext=u:r:render_service:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=0
-allow render_service dev_mali:chr_file { ioctl };
-allowxperm render_service dev_mali:chr_file ioctl { 0x8034 0x8033 0x803b 0x8036 0x8030 0x8031 0x8014 0x8025 0x802f 0x803c 0x802c 0x802a 0x803a 0x802d 0x8024 0x8027 };
-# [avc_audit_slow:273] avc: denied { write } for pid=1396, comm="/system/bin/render_service"  path="/proc/sys/hguard/user_list" dev="" ino=1394 scontext=u:r:render_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
-allow render_service proc_file:file { write };
-# [avc_audit_slow:273] avc: denied { use } for pid=802, comm="/system/bin/sa_main"  ioctlcmd=0x4  scontext=u:r:resource_schedule_service:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
-allow resource_schedule_service render_service:fd { use };
-# avc: denied { supervsable } for pid=2097, comm="/system/bin/render_service"  scontext=u:r:processdump:s0 tcontext=u:r:processdump:s0 tclass=hmcap permissive=0
-allow processdump render_service:fd { use };
-
 debug_only(`
     allow render_service sh:fd { use };
 ')
