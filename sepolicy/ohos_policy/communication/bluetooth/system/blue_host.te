@@ -85,4 +85,5 @@ allow blue_host data_vendor:dir { add_name write };
 #avc:  denied  { read } for  pid=1007 comm="IPC_3_3026" name="btmac.txt" dev="sdd78" ino=8371 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=0
 #avc:  denied  { read write } for  pid=1007 comm="IPC_3_3026" name="btmac.txt" dev="sdd78" ino=8371 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=0
 allow blue_host data_vendor:file { create read write open };
+allow blue_host blue_host:capability { sys_nice };
 
