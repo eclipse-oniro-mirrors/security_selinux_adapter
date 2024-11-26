@@ -427,3 +427,7 @@ allow storage_daemon data_local:file { create getattr open read unlink write };
 allow storage_daemon dev_bus_usb_file:file { open read };
 
 allow storage_daemon data_local:dir { create getattr open read rmdir search write add_name remove_name };
+
+allow storage_daemon sa_foundation_cesfwk_service:samgr_class { get };
+
+allow storage_daemon chip_prod_file:dir { search };
