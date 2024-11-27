@@ -98,7 +98,10 @@
                 "init bootanimation_exec",
                 "filemanager_hap hilog_exec",
                 "filemanager_hap system_bin_file",
-                "filemanager_hap toybox_exec"
+                "filemanager_hap toybox_exec",
+                "hnp_native system_bin_file",
+                "hnp_native toybox_exec",
+                "hnp_native hilog_exec"
             ],
             "developer": [
                 "aa sh_exec",
