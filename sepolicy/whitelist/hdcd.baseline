@@ -12,6 +12,7 @@
 # limitations under the License.
 
 developer_only(`
+(allow hdcd dev_encaps (chr_file (read open)))
 (allow hdcd filemanager_hap (unix_stream_socket (connectto)))
 (allow hdcd lldb_server_file (dir (setattr remove_name search add_name read open create write getattr)))
 (allow hdcd SP_daemon (process (signal)))
@@ -924,3 +925,4 @@ developer_only(`
 (allow hdcd ntfs (dir (getattr)))
 (allow hdcd hmdfs (filesystem (getattr)))
 (allow hdcd hdcd (unix_stream_socket (getopt bind ioctl read connect map shutdown create append accept listen lock write setopt connectto getattr)))
+(allow hdcd dev_encaps (chr_file (read open)))
