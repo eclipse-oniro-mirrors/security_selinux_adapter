@@ -90,6 +90,8 @@ allow accesstoken_service tracefs_trace_marker_file:file { open write };
 allow accesstoken_service tracefs:dir { search };
 allow accesstoken_service sa_bgtaskmgr:samgr_class { get };
 allow accesstoken_service sa_form_mgr_service:samgr_class { get };
+binder_call(hap_domain, accesstoken_service);
+binder_call(accesstoken_service, hap_domain);
 
 # avc:  denied  { get } for service=501 pid=537 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow accesstoken_service sa_foundation_appms:samgr_class { get };
