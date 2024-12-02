@@ -18,3 +18,5 @@ interfaces/ @steven-q
 scripts/ @steven-q
 sepolicy/ @steven-q
 test/ @steven-q
+sh.baseline @code_fighter @kun-chen @bchen90 @faithwang @wise_literature
+hdcd.baseline @code_fighter @kun-chen @bchen90 @faithwang @wise_literature

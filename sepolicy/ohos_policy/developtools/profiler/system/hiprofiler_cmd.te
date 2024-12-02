@@ -171,9 +171,3 @@ developer_only(`
 	allow hiprofiler_cmd hdcd_exec:file { read open getattr map };
 ')
 
-debug_only(`
-	allow hiprofiler_cmd data_local_tmp:file { create write };
-	allow hiprofiler_cmd data_local_tmp:dir { add_name write getattr };
-	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
-	allow hiprofiler_cmd self:capability { setgid };
-')

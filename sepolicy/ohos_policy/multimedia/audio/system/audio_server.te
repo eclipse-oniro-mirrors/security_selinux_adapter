@@ -198,6 +198,10 @@ allow audio_server sa_avsession_service:samgr_class { get };
 
 binder_call(audio_server, av_session);
 
+allow audio_server sa_usb_service:samgr_class { get };
+binder_call(audio_server, usb_service);
+
 # others
 allow domain persist_audio_param:file { map open read };
 allow audio_server sa_foundation_ans:samgr_class { get };
+

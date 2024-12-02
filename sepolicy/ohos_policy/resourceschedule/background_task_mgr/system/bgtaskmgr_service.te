@@ -144,6 +144,8 @@ allow hiview bgtaskmgr_service:file { getattr };
 allow normal_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_basic_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+allow time_service bgtaskmgr_service:file { getattr };
+allow time_service bgtaskmgr_service:binder { call };
 
 debug_only(`
     allow bgtaskmgr_service debug_param:file { map open read };

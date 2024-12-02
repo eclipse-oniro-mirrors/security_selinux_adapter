@@ -130,3 +130,8 @@ allow intell_voice_host dev_kmsg_file:chr_file { write };
 
 # avc_audit_slow:267] avc: denied { read write } for pid=4988, comm="/vendor/bin/hdf_devhost"  path="/dev/tty0" dev="" ino=50 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
 allow intell_voice_host tty_device:chr_file { read write };
+
+# avc: denied { transfer } for pid=4101, comm="/vendor/bin/hdf_devhost"  scontext=u:r:intell_voice_host:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+debug_only(`
+    allow intell_voice_host su:binder { transfer };
+')

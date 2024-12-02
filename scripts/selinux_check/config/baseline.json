@@ -1,5 +1,6 @@
 {
     "baseline": [
-        "sh"
+        "sh",
+        "hdcd"
     ]
 }

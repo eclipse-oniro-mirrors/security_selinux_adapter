@@ -111,6 +111,8 @@ allow foundation ntfs:file { read write };
 allow foundation key_enable:key { search };
 allow foundation accountmgr:fd { use };
 neverallow foundation *:process ptrace;
+allow foundation sa_sandbox_manager_service:samgr_class { get };
+binder_call(foundation, sa_sandbox_manager_service);
 
 # add for hiperf
 allow hiperf multimodalinput:fd { use };

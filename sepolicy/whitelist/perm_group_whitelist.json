@@ -95,7 +95,13 @@
                 "cupsd data_app_el1_file",
                 "print_service system_bin_uni_print_driver_file",
                 "cupsd system_bin_uni_print_driver_file",
-                "init bootanimation_exec"
+                "init bootanimation_exec",
+                "filemanager_hap hilog_exec",
+                "filemanager_hap system_bin_file",
+                "filemanager_hap toybox_exec",
+                "hnp_native system_bin_file",
+                "hnp_native toybox_exec",
+                "hnp_native hilog_exec"
             ],
             "developer": [
                 "aa sh_exec",
