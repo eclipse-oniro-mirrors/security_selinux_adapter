@@ -62,8 +62,8 @@ allow storage_manager kernel:unix_stream_socket { connectto };
 # avc: denied { set } for parameter=persist.storage_manager.timestamp.day pid=638 uid=1090 gid=1090 scontext=u:r:storage_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=0
 allow storage_manager persist_param:parameter_service { set };
 
-# avc:  denied  { connectto } for  pid=632, comm="system/bin/sa_main"  scontext=u:r:storage_manager:s0 tcontext=u:r:appspawn:s0 tclass=unix_stream_socket permissive=1
-allow storage_manager appsapwn:unix_stream_socket { connectto };
-
-# avc:  denied  { write } for  pid=632, comm="system/bin/sa_main"  path="/dev/unix/socket/AppSpawn" dev="" ino=818 scontext=u:r:storage_manager:s0 tcontext=u:object_r:appspawn_socket:s0 tclass=sock_file permissive=1
+# avc: denied { connectto } for pid=632, comm="/system/bin/sa_main"  scontext=u:r:storage_manager:s0 tcontext=u:r:appspawn:s0 tclass=unix_stream_socket permissive=1
+allow storage_manager appspawn:unix_stream_socket { connectto };
+ 
+# avc: denied { write } for pid=632, comm="/system/bin/sa_main"  path="/dev/unix/socket/AppSpawn" dev="" ino=818 scontext=u:r:storage_manager:s0 tcontext=u:object_r:appspawn_socket:s0 tclass=sock_file permissive=1
 allow storage_manager appspawn_socket:sock_file { write };
