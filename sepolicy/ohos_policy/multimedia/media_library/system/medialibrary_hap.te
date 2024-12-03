@@ -11,10 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type medialibrary_hap, normal_hap_attr, hap_domain, domain;
-
-type medialibrary_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
-
 allow medialibrary_hap mimetype_file:file { open read getattr };
 allow medialibrary_hap privacy_service:binder call;
 allow medialibrary_hap media_library_param:parameter_service { set };
@@ -29,3 +25,6 @@ neverallowxperm medialibrary_hap hmdfs:dir ioctl ~{ 0xf547 0xf546 };
 
 #avc: denied { use } for pid=1650, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:medialibrary_hap:s0 tcontext=u:r:camera_service:s0 tclass=fd permissive=0
 allow medialibrary_hap camera_service:fd { use };
+
+# avc:  denied  { get } for service=usbfn_mtp_interface_service sid=u:r:medialibrary_hap:s0 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hdf_usbfn_mtp_interface_service:s0 tclass=hdf_devmgr_class permissive=0
+allow medialibrary_hap hdf_usbfn_mtp_interface_service:hdf_devmgr_class { get };
