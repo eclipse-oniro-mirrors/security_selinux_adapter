@@ -12,3 +12,5 @@
 # limitations under the License.
 
 user u roles { r } level s0 range s0 - s0:c0.c1023;
+
+user o roles { r } level s0 range s0 - s0:x0.x1023;
