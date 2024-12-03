@@ -70,6 +70,13 @@ binder_call(cadaemon, powermgr);
 #avc:  denied  { call } for  pid=1220 comm="IPC_6_1660" scontext=u:r:foundation:s0 tcontext=u:r:cadaemon:s0 tclass=binder permissive=1
 allow foundation cadaemon:binder { call };
 
+# avc: denied { get } for service=401 sid=u:r:cadaemon:s0 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
+allow cadaemon sa_foundation_bms:samgr_class { get };
+
+# avc: denied { get } for service=200 sid=u:r:cadaemon:s0 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow cadaemon sa_accountmgr:samgr_class { get };
+binder_call(cadaemon, accountmgr);
+
 debug_only(`
     allow cadaemon sh:binder { call };
     allow cadaemon sh:dir { search };
