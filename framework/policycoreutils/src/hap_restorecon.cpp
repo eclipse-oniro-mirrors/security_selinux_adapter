@@ -618,7 +618,7 @@ int HapContext::UserAndMCSRangeSet(uint32_t uid, context_t con)
     uint32_t appid = uid % UID_BASE;
     const char *currentType = context_type_get(con);
     if (currentType == nullptr) {
-        selinux_log(SELINUX_ERROR, "Fail to get context type.");
+        selinux_log(SELINUX_ERROR, "Failed to get context type.");
         return -SELINUX_SET_CONTEXT_USER_ERROR;
     }
     std::string typeStr = std::string(currentType);
@@ -626,7 +626,7 @@ int HapContext::UserAndMCSRangeSet(uint32_t uid, context_t con)
         return SELINUX_SUCC;
     }
     int ret = context_user_set(con, NORMAL_HAP_USER);
-    if (ret) {
+    if (ret != 0) {
         selinux_log(SELINUX_ERROR, "Failed to set context user %s\n", NORMAL_HAP_USER);
         return -SELINUX_SET_CONTEXT_USER_ERROR;
     }
@@ -635,7 +635,7 @@ int HapContext::UserAndMCSRangeSet(uint32_t uid, context_t con)
                 ",x" + std::to_string(CATEGORY_SEG2_OFFSET + (userid & CATEGORY_MASK)) +
                 ",x" + std::to_string(CATEGORY_SEG3_OFFSET + ((userid >> 8) & CATEGORY_MASK));
     ret = context_range_set(con, level.c_str());
-    if (ret) {
+    if (ret != 0) {
         selinux_log(SELINUX_ERROR, "Failed to set context range %s\n", level.c_str());
         return -SELINUX_SET_CONTEXT_RANGE_ERROR;
     }
