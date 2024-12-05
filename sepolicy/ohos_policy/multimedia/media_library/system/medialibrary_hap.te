@@ -36,3 +36,9 @@ allow medialibrary_hap hdf_usbfn_mtp_interface_service:hdf_devmgr_class { get };
 
 # avc: denied { read write } for pid=3641, comm="/system/bin/appspawn" path="/dev/fuse" dev="" ino=15 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
 allow medialibrary_hap dev_fuse_file:chr_file { read write };
+
+# avc:  denied  { watch } for  pid=1261 comm="MtpMonitor::Run" path="/storage/External/6342293E7EBCAF49" dev="mmcblk1p2" ino=5 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=0
+# avc:  denied  { watch_reads } for  pid=1257 comm="MtpMonitor::Run" path="/storage/External/0F83-08EF" dev="mmcblk1p1" ino=1 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=0
+allow medialibrary_hap ntfs:dir { watch watch_reads };
+allow medialibrary_hap exfat:dir { watch watch_reads };
+allow medialibrary_hap vfat:dir { watch_reads };
