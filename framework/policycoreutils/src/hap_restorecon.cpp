@@ -628,12 +628,12 @@ int HapContext::UserAndMCSRangeSet(uint32_t uid, context_t con)
         selinux_log(SELINUX_ERROR, "Failed to set context user %s\n", NORMAL_HAP_USER);
         return -SELINUX_SET_CONTEXT_USER_ERROR;
     }
-    uint32_t userid = uid / UID_BASE;
-    uint32_t appid = uid % UID_BASE;
-    std::string level = "s0:x" + std::to_string(CATEGORY_SEG0_OFFSET + (appid & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG1_OFFSET + ((appid >> 8) & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG2_OFFSET + (userid & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG3_OFFSET + ((userid >> 8) & CATEGORY_MASK));
+    uint32_t userId = uid / UID_BASE;
+    uint32_t appId = uid % UID_BASE;
+    std::string level = "s0:x" + std::to_string(CATEGORY_SEG0_OFFSET + (appId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG1_OFFSET + ((appId >> 8) & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG2_OFFSET + (userId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG3_OFFSET + ((userId >> 8) & CATEGORY_MASK));
     ret = context_range_set(con, level.c_str());
     if (ret != 0) {
         selinux_log(SELINUX_ERROR, "Failed to set context range %s\n", level.c_str());
