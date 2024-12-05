@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow system_core_hap_attr sa_foundation_ans:samgr_class { get };
+allow system_core_hap_attr sa_foundation_reminder:samgr_class { get };

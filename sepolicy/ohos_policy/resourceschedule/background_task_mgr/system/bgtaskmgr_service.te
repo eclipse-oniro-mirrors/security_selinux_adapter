@@ -38,6 +38,7 @@ allow bgtaskmgr_service sa_accountmgr:samgr_class { get };
 allow bgtaskmgr_service sa_foundation_cesfwk_service:samgr_class { get };
 #avc:  denied  { get } for service=3203 pid=1173 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
 allow bgtaskmgr_service sa_foundation_ans:samgr_class { get };
+allow bgtaskmgr_service sa_foundation_reminder:samgr_class { get };
 #avc:  denied  { add } for service=1904 pid=1059 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
 #avc:  denied  { get } for service=1904 pid=1059 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
 allow bgtaskmgr_service sa_work_schedule_service:samgr_class { add get };

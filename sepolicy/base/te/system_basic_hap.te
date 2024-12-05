@@ -77,6 +77,7 @@ allow system_basic_hap_attr sa_dataobs_mgr_service_service:samgr_class { get };
 allow system_basic_hap_attr sa_form_mgr_service:samgr_class { get };
 allow system_basic_hap_attr sa_foundation_abilityms:samgr_class { get };
 allow system_basic_hap_attr sa_foundation_ans:samgr_class { get };
+allow system_basic_hap_attr sa_foundation_reminder:samgr_class { get };
 allow system_basic_hap_attr sa_foundation_appms:samgr_class { get };
 allow system_basic_hap_attr sa_foundation_bms:samgr_class { get };
 allow system_basic_hap_attr sa_foundation_cesfwk_service:samgr_class { get };

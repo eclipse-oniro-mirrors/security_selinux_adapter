@@ -85,6 +85,7 @@ allow foundation sa_distributeddata_service:samgr_class { get };
 allow foundation sa_form_mgr_service:samgr_class { add };
 allow foundation sa_foundation_abilityms:samgr_class { add };
 allow foundation sa_foundation_ans:samgr_class { add };
+allow foundation sa_foundation_reminder:samgr_class { add };
 allow foundation sa_foundation_appms:samgr_class { add get };
 allow foundation sa_foundation_bms:samgr_class { add get };
 allow foundation sa_foundation_cesfwk_service:samgr_class { add get };
