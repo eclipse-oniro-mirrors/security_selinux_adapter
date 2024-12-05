@@ -441,3 +441,5 @@ allow storage_daemon mnt_external_file:file { getattr setattr };
 allow storage_daemon mnt_external_file:lnk_file { read };
 
 allow storage_daemon mnt_external_file:sock_file { getattr setattr };
+
+allow storage_daemon dev_bus_usb_file:file { write };
