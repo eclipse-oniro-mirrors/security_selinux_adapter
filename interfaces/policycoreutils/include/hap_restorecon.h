@@ -51,6 +51,7 @@ struct HapDomainInfo {
     std::string apl;
     std::string packageName;
     unsigned int hapFlags = 0;
+    uint32_t uid = 0;
 };
 
 class HapContext {
@@ -72,7 +73,10 @@ protected:
 
     int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
         context_t con, unsigned int hapFlags);
+    int HapContextsLookup(const std::string &apl, const std::string &packageName,
+        context_t con, unsigned int hapFlags, uint32_t uid);
     int TypeSet(const std::string &type, context_t con);
+    int UserAndMCSRangeSet(uint32_t uid, context_t con);
 };
 
 #endif // HAP_RESTORECON_H

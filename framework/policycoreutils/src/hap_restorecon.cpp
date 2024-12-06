@@ -62,6 +62,15 @@ static const std::string INPUT_ISOLATE = "input_isolate";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
+static const uint32_t UID_BASE = 200000;
+static const char *NORMAL_HAP_TYPE = "normal_hap";
+static const char *DEBUG_HAP_TYPE = "debug_hap";
+static const char *NORMAL_HAP_USER = "o";
+static const int CATEGORY_SEG0_OFFSET = 0;
+static const int CATEGORY_SEG1_OFFSET = 256;
+static const int CATEGORY_SEG2_OFFSET = 512;
+static const int CATEGORY_SEG3_OFFSET = 768;
+static const int CATEGORY_MASK = 0xff;
 static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
 std::mutex g_loadContextsLock;
@@ -492,7 +501,8 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         return -SELINUX_PTR_NULL;
     }
 
-    int res = HapContextsLookup(true, hapDomainInfo.apl, hapDomainInfo.packageName, con, hapDomainInfo.hapFlags);
+    int res = HapContextsLookup(hapDomainInfo.apl, hapDomainInfo.packageName,
+        con, hapDomainInfo.hapFlags, hapDomainInfo.uid);
     if (res < 0) {
         freecon(oldTypeContext);
         context_free(con);
@@ -572,6 +582,20 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     return -SELINUX_KEY_NOT_FOUND;
 }
 
+int HapContext::HapContextsLookup(const std::string &apl, const std::string &packageName,
+    context_t con, unsigned int hapFlags, uint32_t uid)
+{
+    int res = HapContextsLookup(true, apl, packageName, con, hapFlags);
+    if (res < 0) {
+        return res;
+    }
+    res = UserAndMCSRangeSet(uid, con);
+    if (res < 0) {
+        return res;
+    }
+    return SELINUX_SUCC;
+}
+
 int HapContext::TypeSet(const std::string &type, context_t con)
 {
     if (type.empty()) {
@@ -581,6 +605,39 @@ int HapContext::TypeSet(const std::string &type, context_t con)
     if (context_type_set(con, type.c_str())) {
         selinux_log(SELINUX_ERROR, "%s %s\n", GetErrStr(SELINUX_SET_CONTEXT_TYPE_ERROR), type.c_str());
         return -SELINUX_SET_CONTEXT_TYPE_ERROR;
+    }
+    return SELINUX_SUCC;
+}
+
+int HapContext::UserAndMCSRangeSet(uint32_t uid, context_t con)
+{
+    if (uid < UID_BASE) {
+        return SELINUX_SUCC;
+    }
+    const char *currentType = context_type_get(con);
+    if (currentType == nullptr) {
+        selinux_log(SELINUX_ERROR, "Failed to get context type.");
+        return -SELINUX_SET_CONTEXT_USER_ERROR;
+    }
+    std::string typeStr = std::string(currentType);
+    if ((typeStr != NORMAL_HAP_TYPE) && (typeStr != DEBUG_HAP_TYPE)) {
+        return SELINUX_SUCC;
+    }
+    int ret = context_user_set(con, NORMAL_HAP_USER);
+    if (ret != 0) {
+        selinux_log(SELINUX_ERROR, "Failed to set context user %s\n", NORMAL_HAP_USER);
+        return -SELINUX_SET_CONTEXT_USER_ERROR;
+    }
+    uint32_t userId = uid / UID_BASE;
+    uint32_t appId = uid % UID_BASE;
+    std::string level = "s0:x" + std::to_string(CATEGORY_SEG0_OFFSET + (appId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG1_OFFSET + ((appId >> 8) & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG2_OFFSET + (userId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG3_OFFSET + ((userId >> 8) & CATEGORY_MASK));
+    ret = context_range_set(con, level.c_str());
+    if (ret != 0) {
+        selinux_log(SELINUX_ERROR, "Failed to set context range %s\n", level.c_str());
+        return -SELINUX_SET_CONTEXT_RANGE_ERROR;
     }
     return SELINUX_SUCC;
 }
