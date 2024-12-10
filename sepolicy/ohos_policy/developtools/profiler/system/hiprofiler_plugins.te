@@ -312,4 +312,7 @@ developer_only(`
     allow hiprofiler_plugins data_hilogd_file:dir { getattr open read search };
     allow hiprofiler_plugins data_hilogd_file:file { getattr open read };
     allow sadomain hiviewdfx_profiler_param:file { map open read };
+
+    allow hiprofiler_plugins netmanager:binder { call };
+    allow hiprofiler_plugins sa_comm_net_stats_manager_service:samgr_class { get };
 ')
