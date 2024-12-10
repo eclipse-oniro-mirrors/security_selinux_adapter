@@ -160,7 +160,6 @@
 3201	                               u:object_r:sa_event_manager_service:s0
 3202	                               u:object_r:sa_common_event_service_ability:s0
 3203                                   u:object_r:sa_foundation_ans:s0
-3204                                   u:object_r:sa_foundation_reminder_agent_service:s0
 3299                                   u:object_r:sa_foundation_cesfwk_service:s0
 3300	                               u:object_r:sa_subsys_powermng_service:s0
 3301                                   u:object_r:sa_powermgr_powermgr_service:s0

@@ -42,7 +42,6 @@ type sa_media_service, sa_service_attr;
 type sa_audio_policy_service, sa_service_attr;
 type sa_multimodalinput_service, sa_service_attr;
 type sa_foundation_ans, sa_service_attr;
-type sa_foundation_reminder_agent_service, sa_service_attr;
 type sa_foundation_cesfwk_service, sa_service_attr;
 type sa_powermgr_powermgr_service, sa_service_attr;
 type sa_powermgr_battery_service, sa_service_attr;

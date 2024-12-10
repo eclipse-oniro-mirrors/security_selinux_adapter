@@ -11,8 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap_attr sa_bluetooth_server:samgr_class { get };
-allow normal_hap_attr sa_time_service:samgr_class { get };
-allow normal_hap_attr time_service:binder { call };
-allow normal_hap_attr sa_foundation_reminder_agent_service:samgr_class { get };
-
+allow system_basic_hap_attr sa_foundation_reminder_agent_service:samgr_class { get };
