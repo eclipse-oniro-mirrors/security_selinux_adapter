@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# avc:  denied  { get } for service=312 pid=2633 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_foundation_reminder_agent_service:s0 tclass=samgr_class permissive=1
 allow system_basic_hap_attr sa_foundation_reminder_agent_service:samgr_class { get };
