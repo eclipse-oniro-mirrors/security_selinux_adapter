@@ -97,7 +97,7 @@ allow telephony_sa chip_prod_file:file { read open };
 allow telephony_sa sys_prod_file:file { read open };
 allow telephony_sa sysfs_net:file { getattr open read };
 allow telephony_sa locationhub:binder { call transfer };
-allow telephony_sa system_usr_file:dir { read open };
+allow telephony_sa system_usr_file:dir { getattr read open };
 allow telephony_sa sysfs_devices_system_cpu:file { getattr open read };
 
 allow telephony_sa netsysnative:bpf { map_read };
