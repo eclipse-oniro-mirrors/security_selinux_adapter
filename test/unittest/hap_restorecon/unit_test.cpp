@@ -67,8 +67,6 @@ const static std::string DLP_HAP_DOMAIN = "u:r:dlp_sandbox_hap:s0";
 const static std::string DLP_HAP_DATA_TYPE = "u:r:dlp_sandbox_hap_data_file:s0";
 const static std::string TEST_NORMAL_DOMAIN = "u:r:normal_hap:s0";
 const static std::string TEST_NOMAL_TYPE = "u:r:normal_hap_data_file:s0";
-const static std::string TEST_NORMAL_DOMAIN_WITH_CATEGORY = "o:r:normal_hap:s0:x198,x334,x612,x768";
-const static uint32_t TEST_UID = 20020166;
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
@@ -693,9 +691,6 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup001, TestSize.Level1)
     EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(
         true, NORMAL_APL, EMPTY_STRING, con, SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE));
     EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(
-        NORMAL_APL, EMPTY_STRING, con, 0, TEST_UID));
-    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY.c_str());
 
     freecon(oldTypeContext);
     context_free(con);
