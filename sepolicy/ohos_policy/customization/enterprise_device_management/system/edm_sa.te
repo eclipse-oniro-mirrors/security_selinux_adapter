@@ -204,3 +204,6 @@ allow edm_sa useriam:binder { call };
 
 # avc:  denied  { get } for service=3001 pid=6793 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samar_class permissive=0
 allow edm_sa sa_pulseaudio_audio_service:samgr_class { get };
+
+allow edm_sa sa_camera_service:samgr_class { get };
+allow edm_sa camera_service:binder { call };
