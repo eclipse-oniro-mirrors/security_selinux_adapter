@@ -19,7 +19,7 @@ type debug_hap, domain, hap_domain, normal_hap_attr;
 typeattribute normal_hap hap_domain;
 typeattribute normal_hap normal_hap_attr;
 
-neverallow normal_hap_attr { domain -normal_hap_attr }:file never_rw_file;
+neverallow { normal_hap_attr -hap_domain_kernel_violators } { domain -normal_hap_attr }:file never_rw_file;
 neverallow { hap_domain -normal_hap_attr } normal_hap_attr:file never_rw_file;
 neverallow { domain -normal_hap_attr -processdump developer_only(`-lldb_server') } normal_hap_attr:process ptrace;
 
@@ -34,10 +34,10 @@ typeattribute system_basic_hap hap_domain;
 typeattribute system_basic_hap system_basic_hap_attr;
 
 neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw_file;
-neverallow { hap_domain -system_basic_hap_attr } system_basic_hap_attr:file never_rw_file;
+neverallow { hap_domain -system_basic_hap_attr -hap_domain_kernel_violators } system_basic_hap_attr:file never_rw_file;
 neverallow { domain -system_basic_hap_attr -processdump } system_basic_hap_attr:process ptrace;
 
-neverallow hap_domain ~{ proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file hap_domain_lnk_file_operation_viloator developer_only(`hnp_file_attr hnp_file') }:lnk_file *;
+neverallow hap_domain ~{ tmpfs_data_file dev_file proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file hap_domain_lnk_file_operation_viloator developer_only(`hnp_file_attr hnp_file') }:lnk_file *;
 neverallow hap_domain { proc_attr tmpfs system_bin_file rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file developer_only(`hnp_file_attr') }:lnk_file ~{ getattr read };
 neverallow hap_domain hap_domain:lnk_file ~{ read_file_perms };
 neverallow { hap_domain -hap_domain_lnk_file_violators } data_user_file:lnk_file *;
@@ -83,12 +83,12 @@ allow hap_domain hdf_devmgr:binder call;
 
 #neverallow
 #never use caps for haps.
-neverallow hap_domain self:{ capability capability2 } *;
+neverallow { hap_domain -hap_domain_kernel_violators } self:{ capability capability2 } *;
 
 #haps can't modify files of other domain.
 neverallow hap_domain { domain -hap_domain }:file never_write_file;
 
-neverallow hap_domain { domain -hap_domain }:file never_rw_file;
+neverallow { hap_domain -hap_domain_kernel_violators } { domain -hap_domain }:file never_rw_file;
 
 neverallow hap_domain vendor_file_attr:dir never_write_dir;
 #limit hap access vendor.
@@ -201,7 +201,7 @@ neverallow { domain -hap_domain -installs -appspawn -nwebspawn -nativespawn -cja
 
 neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -input_isolate_hap -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -rgm_violator_normal_hap_data_file_attr_file_open -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt developer_only(`-hdcd -input_isolate_debug_hap') updater_only(`-updater') } normal_hap_data_file_attr:file_class_set open;
 
-neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
+neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel -hap_domain_sys_file_violators } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
 neverallow hap_domain { domain -hap_domain -processdump developer_only(`-hap_domain_native_system_violators') }:process transition;
 
