@@ -12,3 +12,10 @@
 # limitations under the License.
 
 attribute hap_domain_native_system_violators;
+attribute hap_domain_sys_file_violators;
+attribute hap_domain_socket_violators;
+attribute hap_domain_kernel_violators;
+attribute hap_domain_tmpfs_violators;
+attribute hap_domain_self_violators;
+attribute tmpfs_data_file;
+attribute prerogative_app;
