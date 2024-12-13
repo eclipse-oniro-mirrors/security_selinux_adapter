@@ -53,6 +53,8 @@ developer_only(`
 	allow hiprofilerd security_param:file { map open read };
 	allow hiprofilerd sys_param:file { map open read };
 	allow hiprofilerd sys_usb_param:file { map open read };
+	allow hiprofilerd hiprofiler_plugins:dir { search };
+	allow hiprofilerd hiprofiler_plugins:file { open read getattr };
 
 	allow hiprofilerd const_allow_param:file read;
 	allow hiprofilerd const_param:file read;
