@@ -16,3 +16,4 @@ allow ueventd dev_console_file:dir { search };
 allow ueventd dev_functionfs_file:chr_file { relabelto create unlink };
 allow ueventd dev_functionfs_file:dir { relabelto getattr search write add_name remove_name };
 allow ueventd dev_usbfn_file:chr_file { getattr relabelto setattr unlink };
+allow ueventd init:netlink_kobject_uevent_socket { read write };
