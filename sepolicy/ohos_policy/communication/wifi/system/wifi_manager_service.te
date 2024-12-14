@@ -41,7 +41,7 @@ allow wifi_manager_service toybox_exec:file { execute execute_no_trans getattr m
 allow wifi_manager_service wifi_hal_service:unix_stream_socket { connectto };
 allow wifi_manager_service sa_netsys_native_manager:samgr_class { get };
 allow wifi_manager_service wifi_manager_service:netlink_route_socket { create nlmsg_read nlmsg_readpriv read write };
-allow wifi_manager_service wifi_manager_service:packet_socket { bind create read write };
+allow wifi_manager_service wifi_manager_service:packet_socket { bind create read write setopt };
 allow wifi_manager_service wifi_manager_service:udp_socket { bind create ioctl setopt getopt read write getattr };
 allow wifi_manager_service wifi_manager_service:unix_dgram_socket { ioctl };
 allow wifi_manager_service data_service_file:dir { search };
