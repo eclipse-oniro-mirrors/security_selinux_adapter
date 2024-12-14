@@ -66,4 +66,16 @@ allow sh sh_exec:file { execute_no_trans execute open read getattr unlink};
 
 # avc: denied { getattr } for pid=25100, comm="bin/stat" scontext=u:r:sh:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissions=0
 allow sh labeledfs:filesystem { getattr };
+
+# avc: denied { write remove_name search } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:hmdfs:s0 tclass=dir permissions=0
+allow sh hmdfs:dir { write remove_name search rmdir };
+
+# avc: denied { unlink } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissions=0
+allow sh hmdfs:file { unlink };
+
+# avc: denied { write remove_name search } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissions=0
+allow sh data_user_file:dir { write remove_name search rmdir };
+
+# avc: denied { unlink } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissions=0
+allow sh data_user_file:file { unlink };
 ')
