@@ -199,7 +199,8 @@ allow hiperf self:perf_event { open read write kernel };
 allow hiperf self:unix_dgram_socket { getopt setopt };
 
 neverallow hiperf *:process ptrace;
-neverallow { domain -hiperf -init -hiebpf } self:perf_event ~{ open read write kernel };
+neverallow { domain -hiperf -init -hiebpf -rgm_violator_perf_event_cpu } self:perf_event cpu;
+neverallow { domain -hiperf } self:perf_event tracepoint;
 
 allow hiperf musl_param:file { open map read };
 allow hiperf dev_console_file:chr_file { read write };

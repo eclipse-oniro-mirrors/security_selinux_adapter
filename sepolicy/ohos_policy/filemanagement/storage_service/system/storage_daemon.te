@@ -427,3 +427,19 @@ allow storage_daemon data_local:file { create getattr open read unlink write };
 allow storage_daemon dev_bus_usb_file:file { open read };
 
 allow storage_daemon data_local:dir { create getattr open read rmdir search write add_name remove_name };
+
+allow storage_daemon sa_foundation_cesfwk_service:samgr_class { get };
+
+allow storage_daemon chip_prod_file:dir { search };
+
+allow storage_daemon dev_bus_usb_file:file { getattr };
+
+allow storage_daemon mnt_external_file:fifo_file { getattr };
+
+allow storage_daemon mnt_external_file:file { getattr setattr };
+
+allow storage_daemon mnt_external_file:lnk_file { read };
+
+allow storage_daemon mnt_external_file:sock_file { getattr setattr };
+
+allow storage_daemon dev_bus_usb_file:file { write };

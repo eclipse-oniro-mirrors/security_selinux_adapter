@@ -54,7 +54,29 @@ allow isolated_gpu dev_mali:chr_file { getattr ioctl map read write open };
 # avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x801d scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
 # avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8026 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
 # avc:  denied  { ioctl } for  pid=4081 comm="mos.browser:gpu" path="/dev/mali0" dev="tmpfs" ino=525 ioctlcmd=0x8001 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
-allowxperm isolated_gpu dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x800c 0x800e 0x800f 0x8016 0x8019 0x801d 0x8026 };
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x802f scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x803b scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8025 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x803c scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x801b scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x802c scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x801e scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8018 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8034 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8033 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8036 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8030 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x803a scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x802d scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8024 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8027 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x802d scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x802e scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x802b scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8029 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8031 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=18173 comm="/system/bin/appspawn" path="mali0" dev="mali0" major=10 minor=93  ioctlcmd=0x8036 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+allowxperm isolated_gpu dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800c 0x800e 0x800f 0x8014 0x8016 0x8018 0x8019 0x801b 0x801d 0x801e 0x8024 0x8025 0x8026 0x8027 0x8029 0x802a 0x802b 0x802c 0x802d 0x802e 0x802f 0x8030 0x8031 0x8033 0x8034 0x8036 0x803a 0x803b 0x803c};
 allow isolated_gpu hap_domain:binder { call transfer };
 allow isolated_gpu hap_domain:fd { use };
 allow isolated_gpu hap_domain:unix_stream_socket { read write shutdown};
@@ -133,3 +155,6 @@ allow isolated_gpu samgr:binder { call transfer };
  
 # avc:  denied  { get } for service=codec_component_manager_service sid=u:r:isolated_gpu:s0 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:hdf_codec_component_manager_service:s0 tclass=hdf_devmgr_class permissive=1
 allow isolated_gpu hdf_codec_component_manager_service:hdf_devmgr_class { get };
+allow isolated_gpu data_local_shadercache:dir { mounton search read open write create add_name };
+allow isolated_gpu data_local_shadercache:file { create read open write getattr };
+

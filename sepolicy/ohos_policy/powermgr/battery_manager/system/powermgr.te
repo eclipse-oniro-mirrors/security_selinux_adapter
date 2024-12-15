@@ -19,6 +19,12 @@ allow powermgr sa_miscdevice_service:samgr_class { get };
 allow powermgr devpts:chr_file { write };
 binder_call(powermgr, sensors);
 
+#avc:  denied  { get } for service=3303 sid=u:r:powermgr:s0 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
+allow powermgr sa_foundation_ans:samgr_class { get };
+
+#avc:  denied  { get } for service=3001 sid=u:r:powermgr:s0 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=0
+allow powermgr sa_pulseaudio_audio_service:samgr_class { get };
+
 debug_only(`
     allow powermgr su:fd { use };
 ')
