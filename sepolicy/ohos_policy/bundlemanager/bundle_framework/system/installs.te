@@ -154,3 +154,8 @@ allow installs data_service_el2_file:lnk_file { getattr read rename };
 allow installs data_service_el2_hmdfs:lnk_file { getattr read rename };
 allow installs data_user_file:lnk_file { getattr read rename };
 allow installs data_service_el2_share:lnk_file { getattr read rename };
+allow installs unlabeled:dir { add_name ioctl getattr open read relabelfrom remove_name rmdir search setattr write rename };
+allow installs unlabeled:fifo_file { getattr relabelfrom rename setattr unlink read };
+allow installs unlabeled:file { open read ioctl getattr setattr unlink relabelfrom relabelto rename };
+allow installs unlabeled:lnk_file { getattr relabelfrom rename setattr unlink read };
+allow installs unlabeled:sock_file { getattr relabelfrom rename setattr unlink read };
