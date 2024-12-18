@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow render_service hiview:fd { use };
+
+allow render_service hiview_file:file { write };
