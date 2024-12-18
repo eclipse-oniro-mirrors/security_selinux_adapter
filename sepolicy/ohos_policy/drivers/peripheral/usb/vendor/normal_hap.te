@@ -13,6 +13,7 @@
 
 # avc:  denied  { get } for service=usb_ddk_service pid=1431 scontext=u:r:debug_hap:s0 tcontext=u:object_r:hdf_usb_ddk_service:s0 tclass=hdf_devmgr_class permissive=1
 allow normal_hap_attr hdf_usb_ddk_service:hdf_devmgr_class { get };
+allow normal_hap_attr hdf_usb_serial_ddk_service:hdf_devmgr_class { get };
 
 debug_only(`
 # avc:  denied  { get } for service=usb_interface_service pid=1431 scontext=u:r:debug_hap:s0 tcontext=u:object_r:hdf_usb_interface_service:s0 tclass=hdf_devmgr_class permissive=1

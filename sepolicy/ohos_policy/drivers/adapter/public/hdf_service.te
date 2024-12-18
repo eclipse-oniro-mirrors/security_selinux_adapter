@@ -57,6 +57,7 @@ type hdf_wififence_interface_service, hdf_service_attr;
 type hdf_usb_interface_service, hdf_service_attr;
 type hdf_usbfn_mtp_interface_service, hdf_service_attr;
 type hdf_usb_ddk_service, hdf_service_attr;
+type hdf_usb_serial_ddk_service, hdf_service_attr;
 type hdf_usb_pnp_sample_service, hdf_service_attr;
 type hdf_usbhost_acm_pnp_service, hdf_service_attr;
 type hdf_usbhost_acm_rawapi_service, hdf_service_attr;

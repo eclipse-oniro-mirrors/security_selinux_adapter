@@ -126,3 +126,4 @@ allowxperm hdf_ext_devmgr dev_uinput:chr_file ioctl { 0x5568 };
 
 #avc:  denied  { get } for service=usb_ddk_service pid=742 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:hdf_usb_ddk_service:s0 tclass=hdf_devmgr_class permissive=0
 allow hdf_ext_devmgr hdf_usb_ddk_service:hdf_devmgr_class { get };
+allow hdf_ext_devmgr hdf_usb_serial_ddk_service:hdf_devmgr_class { get };
