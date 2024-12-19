@@ -214,3 +214,4 @@ allow render_service edm_sa:fd { use };
 
 allow edm_sa sa_camera_service:samgr_class { get };
 allow edm_sa camera_service:binder { call };
+neverallow { domain -edm_sa -init } edm_writable_param:parameter_service { set };
