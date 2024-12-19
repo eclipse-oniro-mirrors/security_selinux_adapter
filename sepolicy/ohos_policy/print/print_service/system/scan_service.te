@@ -49,7 +49,7 @@ allow scan_service usb_service:binder { call };
 allow scan_service sa_usb_service:samgr_class { get };
 allowxperm scan_service scan_service:udp_socket ioctl { 0x8912 0x8915 0x891b };
 allowxperm scan_service data_service_el1_public_print_service_file:file ioctl { 0x5413 };
-allowxperm scan_service dev_bus_usb_file:chr_file ioctl { 0x5504 0x550a 0x550d 0x550f 0x5510 0x551a };
+allowxperm scan_service dev_bus_usb_file:chr_file ioctl { 0x5504 0x550a 0x550d 0x550f 0x5510 0x551a 0x5508 0x550b };
 allow scan_service scan_service:unix_dgram_socket { setopt getopt ioctl };
 allowxperm scan_service scan_service:unix_dgram_socket ioctl { 0x8910 };
 allow scan_service foundation:binder { call transfer };
