@@ -155,6 +155,8 @@ allow isolated_gpu samgr:binder { call transfer };
  
 # avc:  denied  { get } for service=codec_component_manager_service sid=u:r:isolated_gpu:s0 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:hdf_codec_component_manager_service:s0 tclass=hdf_devmgr_class permissive=1
 allow isolated_gpu hdf_codec_component_manager_service:hdf_devmgr_class { get };
-allow isolated_gpu data_local_shadercache:dir { mounton search read open write create add_name };
+allow isolated_gpu data_local_shadercache:dir { create open read search write add_name };
 allow isolated_gpu data_local_shadercache:file { create read open write getattr };
+allow isolated_gpu vendor_etc_vulkan_file:dir { open read search };
+allow isolated_gpu vendor_etc_vulkan_file:file { getattr open read };
 
