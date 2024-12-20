@@ -19,10 +19,18 @@
 #include <string>
 #include <unordered_map>
 
+typedef struct ExtensionInfo {
+    std::string domain;
+} ExtensionInfo;
+
 typedef struct NodeTypeInfo {
     bool isEnd = false;
     std::string domain;
     std::string type;
+    std::unordered_map<std::string, ExtensionInfo> extensionMap;
+
+    void Insert(const std::string& domain, const std::string& type, const std::string& extension);
+    std::string Search(bool isDomain, const std::string& extension) const;
 } NodeTypeInfo;
 
 class SehapContextsTrie {
@@ -30,8 +38,9 @@ public:
     SehapContextsTrie() {};
     ~SehapContextsTrie() {};
 
-    bool Insert(const std::string &paraName, const std::string &domain, const std::string &type);
-    std::string Search(const std::string &paraName, bool isDomain);
+    bool Insert(const std::string &paraName, const std::string &domain, const std::string &type,
+        const std::string &extension = "");
+    std::string Search(const std::string &paraName, bool isDomain, const std::string &extension = "");
     void Clear();
 
     NodeTypeInfo prefixInfo;

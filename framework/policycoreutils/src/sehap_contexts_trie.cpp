@@ -18,6 +18,7 @@
 #include "src/callbacks.h"
 #include "selinux/selinux.h"
 #include "selinux_log.h"
+#include <iostream>
 
 std::vector<std::string> SehapContextsTrie::SplitString(const std::string& paraName)
 {
@@ -52,7 +53,21 @@ SehapContextsTrie* SehapContextsTrie::FindChild(const std::string& element)
     return nullptr;
 }
 
-bool SehapContextsTrie::Insert(const std::string& paraName, const std::string& domain, const std::string& type)
+void NodeTypeInfo::Insert(const std::string& domain, const std::string& type, const std::string& extension)
+{
+    if (!extension.empty()) {
+        ExtensionInfo extInfo;
+        extInfo.domain = domain;
+        extensionMap[extension] = extInfo;
+    } else {
+        this->domain = domain;
+        this->type = type;
+    }
+    this->isEnd = true;
+}
+
+bool SehapContextsTrie::Insert(const std::string& paraName, const std::string& domain,
+    const std::string& type, const std::string& extension)
 {
     SehapContextsTrie* node = this;
     std::vector<std::string> words = SplitString(paraName);
@@ -69,19 +84,28 @@ bool SehapContextsTrie::Insert(const std::string& paraName, const std::string& d
         }
         node = node->children[word];
     }
+
     if ((paraName.back() == '.') || (paraName.back() == '*')) {
-        node->prefixInfo.isEnd = true;
-        node->prefixInfo.domain = domain;
-        node->prefixInfo.type = type;
-        return true;
+        node->prefixInfo.Insert(domain, type, extension);
+    } else {
+        node->matchedInfo.Insert(domain, type, extension);
     }
-    node->matchedInfo.isEnd = true;
-    node->matchedInfo.domain = domain;
-    node->matchedInfo.type = type;
+
     return true;
 }
 
-std::string SehapContextsTrie::Search(const std::string& paraName, bool isDomain)
+std::string NodeTypeInfo::Search(bool isDomain, const std::string& extension) const
+{
+    if (isDomain && !extension.empty()) {
+        auto it = extensionMap.find(extension);
+        if (it != extensionMap.end()) {
+            return it->second.domain;
+        }
+    }
+    return isDomain ? domain : type;
+}
+
+std::string SehapContextsTrie::Search(const std::string& paraName, bool isDomain, const std::string& extension)
 {
     std::vector<std::string> words = SplitString(paraName);
     std::string type = "";
@@ -94,18 +118,10 @@ std::string SehapContextsTrie::Search(const std::string& paraName, bool isDomain
         }
         root = child;
         if ((root->prefixInfo.isEnd) && (i != words.size() - 1)) {
-            if (isDomain) {
-                type = root->prefixInfo.domain;
-            } else {
-                type = root->prefixInfo.type;
-            }
+            type = root->prefixInfo.Search(isDomain, extension);
         }
         if ((root->matchedInfo.isEnd) && (i == words.size() - 1)) {
-            if (isDomain) {
-                type = root->matchedInfo.domain;
-            } else {
-                type = root->matchedInfo.type;
-            }
+            type = root->matchedInfo.Search(isDomain, extension);
         }
     }
     return type;

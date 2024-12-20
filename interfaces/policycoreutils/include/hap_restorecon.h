@@ -35,6 +35,7 @@ struct SehapInfo {
     std::string name = "";
     std::string domain = "";
     std::string type = "";
+    std::string extension = "";
     bool debuggable = false;
     unsigned int extra = 0;
 };
@@ -50,7 +51,15 @@ struct HapFileInfo {
 struct HapDomainInfo {
     std::string apl;
     std::string packageName;
+    std::string extensionType;
     unsigned int hapFlags = 0;
+};
+
+struct HapContextParams {
+    std::string apl;
+    std::string packageName;
+    unsigned int hapFlags = 0;
+    std::string extension;
 };
 
 class HapContext {
@@ -70,8 +79,7 @@ protected:
     int HapLabelLookup(const std::string &apl, const std::string &packageName,
         char **secontextPtr, unsigned int hapFlags);
 
-    int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
-        context_t con, unsigned int hapFlags);
+    int HapContextsLookup(const HapContextParams &params, bool isDomain, context_t con);
     int TypeSet(const std::string &type, context_t con);
 };
 

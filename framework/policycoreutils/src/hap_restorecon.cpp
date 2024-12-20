@@ -56,6 +56,7 @@ static const std::string DOMAIN_PREFIX = "domain=";
 static const std::string TYPE_PREFIX = "type=";
 static const std::string DEBUGGABLE_PREFIX = "debuggable=";
 static const std::string EXTRA_PREFIX = "extra=";
+static const std::string EXTENSION_PREFIX = "extension=";
 static const std::string DEBUGGABLE = "debuggable";
 static const std::string DLPSANDBOX = "dlp_sandbox";
 static const std::string INPUT_ISOLATE = "input_isolate";
@@ -104,26 +105,31 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
     bool typeVisit = false;
     bool debuggableVisit = false;
     bool extraVisit = false;
+    bool extensionVisit = false;
 
     while (input >> tmp) {
-        if (!aplVisit && (tmp.find(APL_PREFIX) != tmp.npos)) {
-            contextBuff.apl = tmp.substr(tmp.find(APL_PREFIX) + APL_PREFIX.size());
+        size_t pos;
+        if (!aplVisit && (pos = tmp.find(APL_PREFIX)) != tmp.npos) {
+            contextBuff.apl = tmp.substr(pos + APL_PREFIX.size());
             aplVisit = true;
-        } else if (!nameVisit && (tmp.find(NAME_PREFIX) != tmp.npos)) {
-            contextBuff.name = tmp.substr(tmp.find(NAME_PREFIX) + NAME_PREFIX.size());
+        } else if (!nameVisit && (pos = tmp.find(NAME_PREFIX)) != tmp.npos) {
+            contextBuff.name = tmp.substr(pos + NAME_PREFIX.size());
             nameVisit = true;
-        } else if (!domainVisit && (tmp.find(DOMAIN_PREFIX) != tmp.npos)) {
-            contextBuff.domain = tmp.substr(tmp.find(DOMAIN_PREFIX) + DOMAIN_PREFIX.size());
+        } else if (!domainVisit && (pos = tmp.find(DOMAIN_PREFIX)) != tmp.npos) {
+            contextBuff.domain = tmp.substr(pos + DOMAIN_PREFIX.size());
             domainVisit = true;
-        } else if (!typeVisit && (tmp.find(TYPE_PREFIX) != tmp.npos)) {
-            contextBuff.type = tmp.substr(tmp.find(TYPE_PREFIX) + TYPE_PREFIX.size());
+        } else if (!typeVisit && (pos = tmp.find(TYPE_PREFIX)) != tmp.npos) {
+            contextBuff.type = tmp.substr(pos + TYPE_PREFIX.size());
             typeVisit = true;
-        } else if (!debuggableVisit && (tmp.find(DEBUGGABLE_PREFIX) != tmp.npos)) {
-            std::string debuggable = tmp.substr(tmp.find(DEBUGGABLE_PREFIX) + DEBUGGABLE_PREFIX.size());
+        } else if (!debuggableVisit && (pos = tmp.find(DEBUGGABLE_PREFIX)) != tmp.npos) {
+            std::string debuggable = tmp.substr(pos + DEBUGGABLE_PREFIX.size());
             contextBuff.debuggable = !strcmp(debuggable.c_str(), "true");
             debuggableVisit = true;
-        } else if (!extraVisit && (tmp.find(EXTRA_PREFIX) != tmp.npos)) {
-            std::string extra = tmp.substr(tmp.find(EXTRA_PREFIX) + EXTRA_PREFIX.size());
+        } else if (!extensionVisit && (pos = tmp.find(EXTENSION_PREFIX)) != tmp.npos) {
+            contextBuff.extension = tmp.substr(pos + EXTENSION_PREFIX.size());
+            extensionVisit = true;
+        } else if (!extraVisit && (pos = tmp.find(EXTRA_PREFIX)) != tmp.npos) {
+            std::string extra = tmp.substr(pos + EXTRA_PREFIX.size());
             if (extra == DLPSANDBOX) {
                 contextBuff.extra |= SELINUX_HAP_DLP;
             } else if (extra == INPUT_ISOLATE) {
@@ -136,7 +142,6 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
             extraVisit = true;
         }
     }
-
     return contextBuff;
 }
 
@@ -192,17 +197,15 @@ static bool HapContextsInsert(const SehapInfo &tmpInfo, int lineNum)
     }
 
     selinux_log(SELINUX_INFO, "insert keyPara %s\n", keyPara.c_str());
-    bool ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type);
+    bool ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type, tmpInfo.extension);
     if (!ret) {
         selinux_log(SELINUX_ERROR, "sehap contexts trie insert fail %s\n", keyPara.c_str());
         return false;
     }
-
     if (tmpInfo.name.empty() && !tmpInfo.debuggable && !tmpInfo.extra) {
         keyPara = tmpInfo.apl + ".";
-        ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type);
+        ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type, tmpInfo.extension);
     }
-
     return ret;
 }
 
@@ -255,6 +258,16 @@ static bool CheckValidCmp(char *oldSecontext, char *newSecontext)
         return false;
     }
     return true;
+}
+
+static void FreeContext(char *oldTypeContext, context_t con)
+{
+    if (oldTypeContext != nullptr) {
+        freecon(oldTypeContext);
+    }
+    if (con != nullptr) {
+        context_free(con);
+    }
 }
 
 HapContext::HapContext()
@@ -431,7 +444,8 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
         *secontextPtr = nullptr;
         return -SELINUX_PTR_NULL;
     }
-    int res = HapContextsLookup(false, apl, packageName, con, hapFlags);
+    HapContextParams params = {apl, packageName, hapFlags};
+    int res = HapContextsLookup(params, false, con);
     if (res < 0) {
         freecon(*secontextPtr);
         *secontextPtr = nullptr;
@@ -477,7 +491,7 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
     }
 
     if (is_selinux_enabled() < 1) {
-        selinux_log(SELINUX_INFO, "Selinux not enbaled");
+        selinux_log(SELINUX_INFO, "Selinux not enabled");
         return SELINUX_SUCC;
     }
 
@@ -492,17 +506,17 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         return -SELINUX_PTR_NULL;
     }
 
-    int res = HapContextsLookup(true, hapDomainInfo.apl, hapDomainInfo.packageName, con, hapDomainInfo.hapFlags);
+    HapContextParams params = {hapDomainInfo.apl, hapDomainInfo.packageName,
+        hapDomainInfo.hapFlags, hapDomainInfo.extensionType};
+    int res = HapContextsLookup(params, true, con);
     if (res < 0) {
-        freecon(oldTypeContext);
-        context_free(con);
+        FreeContext(oldTypeContext, con);
         return res;
     }
 
     const char *typeContext = context_str(con);
     if (typeContext == nullptr) {
-        freecon(oldTypeContext);
-        context_free(con);
+        FreeContext(oldTypeContext, con);
         return -SELINUX_PTR_NULL;
     }
 
@@ -511,27 +525,23 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
 
     if (security_check_context(typeContext) < 0) {
         selinux_log(SELINUX_ERROR, "context: %s, %s\n", typeContext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
-        freecon(oldTypeContext);
-        context_free(con);
+        FreeContext(oldTypeContext, con);
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 
     if (strcmp(typeContext, oldTypeContext)) {
         if (setcon(typeContext) < 0) {
-            freecon(oldTypeContext);
-            context_free(con);
+            FreeContext(oldTypeContext, con);
             return -SELINUX_SET_CONTEXT_ERROR;
         }
     }
     selinux_log(SELINUX_INFO, "Hap setcon finish for %s\n", hapDomainInfo.packageName.c_str());
 
-    freecon(oldTypeContext);
-    context_free(con);
+    FreeContext(oldTypeContext, con);
     return SELINUX_SUCC;
 }
 
-int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
-    context_t con, unsigned int hapFlags)
+int HapContext::HapContextsLookup(const HapContextParams &params, bool isDomain, context_t con)
 {
     {
         std::lock_guard<std::mutex> lock(g_loadContextsLock);
@@ -543,29 +553,29 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     }
 
     std::string keyPara;
-    if (hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
-        if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
-            keyPara = apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
-            selinux_log(SELINUX_INFO, "input_isolate debug  hap, keyPara: %s", keyPara.c_str());
+    if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
+        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
+            selinux_log(SELINUX_INFO, "input_isolate debug hap, keyPara: %s", keyPara.c_str());
         } else {
-            keyPara = apl + "." + INPUT_ISOLATE;
+            keyPara = params.apl + "." + INPUT_ISOLATE;
             selinux_log(SELINUX_INFO, "input_isolate isolate hap, keyPara: %s", keyPara.c_str());
         }
-    } else if (hapFlags & SELINUX_HAP_DLP) {
-        keyPara = apl + "." + DLPSANDBOX;
+    } else if (params.hapFlags & SELINUX_HAP_DLP) {
+        keyPara = params.apl + "." + DLPSANDBOX;
         selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
-    } else if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
-        keyPara = apl + "." + packageName;
+    } else if (params.hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
+        keyPara = params.apl + "." + params.packageName;
         selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
-    } else if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
-        keyPara = apl + "." + DEBUGGABLE;
+    } else if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+        keyPara = params.apl + "." + DEBUGGABLE;
         selinux_log(SELINUX_INFO, "debuggable hap, keyPara: %s", keyPara.c_str());
     } else {
-        selinux_log(SELINUX_INFO, "not a preinstall hap, apl: %s", apl.c_str());
-        keyPara = apl;
+        selinux_log(SELINUX_INFO, "not a preinstall hap, apl: %s", params.apl.c_str());
+        keyPara = params.apl;
     }
 
-    std::string type = g_sehapContextsTrie->Search(keyPara, isDomain);
+    std::string type = g_sehapContextsTrie->Search(keyPara, isDomain, params.extension);
     if (!type.empty()) {
         return TypeSet(type, con);
     }
