@@ -142,7 +142,10 @@ allow bluetooth_service default_param:file { map open read };
 allow bluetooth_service dev_unix_socket:dir { search };
 allow bluetooth_service distributedsche_param:file { map open read };
 allow bluetooth_service foundation:binder { call transfer };
-allow bluetooth_service hdf_devmgr:binder { call };
+
+#avc:  denied  { transfer } for  pid=1878 comm="A2dpSrcService" scontext=u:r:bluetooth_service:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=0
+allow bluetooth_service hdf_devmgr:binder { call transfer};
+
 allow bluetooth_service hilog_param:file { map open read };
 allow bluetooth_service hw_sc_build_os_param:file { map open read };
 allow bluetooth_service hw_sc_build_param:file { map open read };

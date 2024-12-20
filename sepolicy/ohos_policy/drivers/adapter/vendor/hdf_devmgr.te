@@ -89,7 +89,10 @@ allow hdf_devmgr blue_host:binder { call transfer };
 allow hdf_devmgr blue_host:dir { search };
 allow hdf_devmgr blue_host:file { open read };
 allow hdf_devmgr blue_host:process { getattr };
-allow hdf_devmgr bluetooth_service:binder { transfer };
+
+#avc:  denied  { call } for  pid=252 comm="OS_IPC_1_265" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=0
+allow hdf_devmgr bluetooth_service:binder { transfer call};
+
 allow hdf_devmgr bluetooth_service:dir { search };
 allow hdf_devmgr bluetooth_service:file { open read };
 allow hdf_devmgr bluetooth_service:process { getattr };
