@@ -181,3 +181,6 @@ allow media_service media_service:capability { chown };
 allow media_service camera_service:binder { call };
 
 allow media_service render_service:binder { transfer };
+
+allow media_service sa_multimodalinput_service:samgr_class { get };
+allow media_service multimodalinput:unix_stream_socket { read };
