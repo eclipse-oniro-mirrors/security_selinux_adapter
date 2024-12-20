@@ -161,4 +161,5 @@ neverallow { domain -nwebspawn -foundation -app_fwk_update_service } nwebspawn_s
 
 allow nwebspawn isolated_gpu:process { sigkill };
 allow nwebspawn data_local_shadercache:dir { mounton search };
+allow nwebspawn data_local:dir { search };
 
