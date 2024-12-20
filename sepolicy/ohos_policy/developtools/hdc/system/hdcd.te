@@ -321,13 +321,9 @@ developer_only(`
     ## this is to do temporary change for get app file in sandbox
     # access /data/app/el2/100/base/<bundleName>
     allow hdcd data_app_file:dir { search getattr read open };
-    allow hdcd data_app_file:file { getattr read open };
     allow hdcd data_app_el2_file:dir { search getattr read open };
     allow hdcd debug_hap_data_file:dir { search getattr read open };
     allow hdcd debug_hap_data_file:file { getattr read open };
-
-    # must have dac_read_search because /data/app/el2/100/base/<bundleName> is 600
-    allow hdcd hdcd:capability { dac_read_search };
 
     allow samgr hdcd:dir { search };
     allow samgr hdcd:file { read open };
