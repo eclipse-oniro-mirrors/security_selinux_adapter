@@ -74,6 +74,8 @@ const static std::string TEST_EXTENSION_PREINSTALL_DOMAIN = "u:r:extension_test_
 const static std::string TEST_EXTENSION = "extension_test_ability";
 const static std::string TEST_SAME_EXTENSION = "extension_same_ability";
 const static std::string TEST_DEBUG_EXTENSION = "extension_test_debug_ability";
+const static std::string TEST_NORMAL_DOMAIN_WITH_CATEGORY = "o:r:normal_hap:s0:x214,x486,x514,x868,x1024";
+const static uint32_t TEST_UID = 20190166;
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
@@ -716,6 +718,12 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup001, TestSize.Level1)
     params.hapFlags = SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE;
     EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
     EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = 0;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con, TEST_UID));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY.c_str());
 
     freecon(oldTypeContext);
     context_free(con);

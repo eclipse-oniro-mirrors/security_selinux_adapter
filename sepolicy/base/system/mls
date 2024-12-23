@@ -16,13 +16,19 @@ category c$1;
 ifelse(`$1',`$2',,`decl_cat(incr($1),$2)')dnl
 ')
 
+define(`decl_category_x',`dnl
+category x$1;
+ifelse(`$1',`$2',,`decl_category_x(incr($1),$2)')dnl
+')
+
 sensitivity s0;
 
 dominance { s0 }
 
 decl_cat(0, 1023)
+decl_category_x(0, 1279)
 
-level s0:c0.c1023;
+level s0:c0.c1023,x0.x1279;
 
 mlsconstrain filesystem relabelto
     ( h1 dom h2 );

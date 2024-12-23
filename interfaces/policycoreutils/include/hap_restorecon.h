@@ -53,6 +53,7 @@ struct HapDomainInfo {
     std::string packageName;
     std::string extensionType;
     unsigned int hapFlags = 0;
+    uint32_t uid = 0;
 };
 
 struct HapContextParams {
@@ -80,7 +81,9 @@ protected:
         char **secontextPtr, unsigned int hapFlags);
 
     int HapContextsLookup(const HapContextParams &params, bool isDomain, context_t con);
+    int HapContextsLookup(const HapContextParams &params, context_t con, uint32_t uid);
     int TypeSet(const std::string &type, context_t con);
+    int UserAndMCSRangeSet(uint32_t uid, context_t con);
 };
 
 #endif // HAP_RESTORECON_H
