@@ -16,7 +16,7 @@
 #type medialibrary_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 
 allow medialibrary_hap mimetype_file:file { open read getattr };
-allow medialibrary_hap privacy_service:binder call;
+binder_call(medialibrary_hap, privacy_service);
 allow medialibrary_hap media_library_param:parameter_service { set };
 allow medialibrary_hap paramservice_socket:sock_file { write };
 allow medialibrary_hap kernel:unix_stream_socket { connectto };
