@@ -18,3 +18,4 @@ sys.usb.ffs.ready                       u:object_r:sys_usb_param:s0
 sys.usb.controller                      u:object_r:sys_usb_param:s0
 sys.usb.configfs                        u:object_r:sys_usb_param:s0
 sys.usb.confighdc                       u:object_r:sys_usb_param:s0
+sys.usb.mtp.ready                       u:object_r:sys_usb_param:s0
