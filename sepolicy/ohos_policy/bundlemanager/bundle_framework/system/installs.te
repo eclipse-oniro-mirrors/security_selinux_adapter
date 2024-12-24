@@ -82,6 +82,8 @@ allow installs sa_storage_manager_service:samgr_class { get };
 allow installs storage_manager:binder { call };
 allow installs data_service_el1_public_print_service_file:dir { remove_name getattr setattr rename };
 allow installs data_service_el1_public_print_service_file:file { unlink rename getattr setattr };
+allow installs print_driver_exec:dir { remove_name getattr setattr rename };
+allow installs print_driver_exec:file { unlink rename getattr setattr };
 allow installs dev_console_file:chr_file { read write };
 allow installs sysfs_devices_system_cpu:file { read };
 allow installs tracefs:dir { search };
