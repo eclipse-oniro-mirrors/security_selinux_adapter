@@ -1,0 +1,18 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { read write } for  pid=1332 comm="MtpMonitor::Run" path="/storage/External/0E3919F70E3919F7/VID_2017818_121206.mp4" dev="mmcblk1p1" ino=319 scontext=u:r:media_service:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=563 comm="AVMetadata" path="/storage/External/0E3919F70E3919F7/VID_2017818_121206.mp4" dev="mmcblk1p1" ino=319 scontext=u:r:media_service:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=0
+allow media_service ntfs:file { read write getattr };
+allow media_service exfat:file { read write getattr };
+allow media_service vfat:file { read write getattr };
