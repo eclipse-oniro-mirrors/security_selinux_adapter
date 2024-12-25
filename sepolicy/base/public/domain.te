@@ -183,7 +183,7 @@ neverallow limit_domain *:file *;
 neverallow domain limit_domain:binder *;
 
 # every file should have a label. The unlabeled file shouldn't be accessed.
-neverallow { domain -appspawn -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators -rgm_violator_ohos_unlabeled_file } unlabeled:dir_file_class_set *;
+neverallow { domain -appspawn -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators -rgm_violator_ohos_unlabeled_file -installs } unlabeled:dir_file_class_set *;
 
 # keep selinuxfs safe.
 neverallow * kernel:security { load_policy setenforce setbool };
