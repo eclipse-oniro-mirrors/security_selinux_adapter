@@ -187,3 +187,10 @@ allow isolated_render sa_resource_schedule:samgr_class { get };
 
 # avc_audit_slow:267] avc: denied { write } for pid=1, comm="/system/bin/appspawn"
 allow isolated_render sharefs:file { read write open getattr append };
+# avc_audit_slow:276] avc: denied { open } for pid=1, comm="/system/bin/appspawn" path="/data/service/el1/public/for-all-app/fonts" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=4469 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc_audit_slow:276] avc: denied { read } for pid=1, comm="/system/bin/appspawn" path="/data/service/el1/public/for-all-app/fonts" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=4469 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc_audit_slow:276] avc: denied { search } for pid=1, comm="/system/bin/appspawn" path="/data/service/el1/public/for-all-app/fonts" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=4469 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow isolated_render data_service_el1_file:dir { open read search };
+
+#avc_audit_slow:276] denied { open } for pid=1, comm="/system/bin/appspawn" path="/data/service/el1/public/for-all-app/fonts/simsun.ttc" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=30667 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow isolated_render data_service_el1_file:file { open };
