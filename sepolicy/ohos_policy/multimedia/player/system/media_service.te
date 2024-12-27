@@ -184,3 +184,4 @@ allow media_service render_service:binder { transfer };
 
 allow media_service sa_multimodalinput_service:samgr_class { get };
 allow media_service multimodalinput:unix_stream_socket { read };
+allow media_service sa_media_service:samgr_class { get };
