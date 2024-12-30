@@ -51,7 +51,6 @@ allow devinfo_public_param tmpfs:filesystem associate;
 allow devinfo_type_param tmpfs:filesystem associate;
 allow useriam_fwkready_param tmpfs:filesystem associate;
 allow bluetooth_param tmpfs:filesystem associate;
-allow useriam_query_param tmpfs:filesystem associate;
 allow useriam_config_param tmpfs:filesystem associate;
 
 allow init servicectrl_param:file { map open read relabelto relabelfrom };
@@ -64,7 +63,6 @@ allow init devinfo_public_param:file { map open read relabelto relabelfrom };
 allow init devinfo_type_param:file { map open read relabelto relabelfrom };
 allow init useriam_fwkready_param:file { map open read relabelto relabelfrom };
 allow init bluetooth_param:file { map open read relabelto relabelfrom };
-allow init useriam_query_param:file { map open read relabelto relabelfrom };
 allow init useriam_config_param:file { map open read relabelto relabelfrom };
 
 #for set
