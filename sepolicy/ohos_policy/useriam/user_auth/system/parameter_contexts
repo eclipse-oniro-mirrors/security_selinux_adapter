@@ -12,3 +12,7 @@
 # limitations under the License.
 
 bootevent.useriam.fwkready              u:object_r:useriam_fwkready_param:s0
+useriam.isCredentialChecked             u:object_r:useriam_query_param:s0
+useriam.isPinEnrolled                   u:object_r:useriam_query_param:s0
+useriam.isStopped                       u:object_r:useriam_query_param:s0
+useriam.isCalled                        u:object_r:useriam_config_param:s0
