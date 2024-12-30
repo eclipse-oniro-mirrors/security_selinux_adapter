@@ -16,7 +16,7 @@ developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
 allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name };
-allow SP_daemon data_local_tmp:file { create getattr ioctl open write unlink read setattr};
+allow SP_daemon data_local_tmp:file { create getattr ioctl open write unlink read setattr append };
 allowxperm SP_daemon data_local_tmp:file ioctl 0x5413;
 
 allow SP_daemon dev_console_file:chr_file { read write };
