@@ -240,7 +240,7 @@ allow intell_voice_service init:fifo_file { write };
 allow intell_voice_service powermgr:binder { call transfer };
 
 # avc_audit_slow:267] avc: denied { call } for pid=890, comm="/system/bin/sa_main"  scontext=u:r:intell_voice_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=0
-allow intell_voice_service privacy_service:binder { call };
+binder_call(intell_voice_service, privacy_service);
 
 # avc:  denied  { get } for service=3505 sid=u:r:intell_voice_service:s0 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_privacy_service:samgr_class { get };

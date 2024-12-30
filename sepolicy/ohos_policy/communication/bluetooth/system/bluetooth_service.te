@@ -218,4 +218,4 @@ allow bluetooth_service device_manager:binder { call transfer };
 allow bluetooth_service sa_privacy_service:samgr_class { get };
 
 #avc:  denied  { call } for pid=1612, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
-allow bluetooth_service privacy_service:binder { call };
+binder_call(bluetooth_service, privacy_service);
