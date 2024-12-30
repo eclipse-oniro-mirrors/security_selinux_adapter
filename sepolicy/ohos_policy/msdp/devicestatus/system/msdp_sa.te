@@ -238,3 +238,18 @@ allow msdp_sa accountmgr:fd { use };
 
 #avc: denied { search } for pid=21846, comm="/system/bin/sa_main"  name="/devices/platform/hiusb/hiusb_port/hiusb-port1/ea200000.hiusbc/xhci-hcd.1.auto" dev="" ino=80325 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=0
 allow msdp_sa dev_bus_usb_file:dir { search };
+
+#avc: denied { supervsable } for pid=1087, comm="/bin/init"  scontext=u:r:msdp_sa:s0 tcontext=u:r:msdp_sa:s0 tclass=hmcap permissive=0
+allow msdp_sa msdp_sa:hmcap { supervsable };
+
+#avc: denied { write } for pid=1087, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=22 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
+allow msdp_sa dev_kmsg_file:chr_file { write };
+
+#avc: denied { read write } for pid=1087, comm="/system/bin/sa_main"  path="/dev/tty0" dev="" ino=50 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+allow msdp_sa tty_device:chr_file { read write };
+
+#avc: denied { write } for pid=1087, comm="/system/bin/sa_main"  path="pipe:[13]" dev="tmpfs" ino=13 scontext=u:r:msdp_sa:s0 tcontext=u:r:init:s0 tclass=fifo_file permissive=0
+allow msdp_sa init:fifo_file { write };
+
+#avc: denied { search } for pid=1087, comm="/system/bin/sa_main"  name="/lib64" dev="/dev/block/dm-3" ino=52 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=0
+allow msdp_sa chip_prod_file:dir { search };
