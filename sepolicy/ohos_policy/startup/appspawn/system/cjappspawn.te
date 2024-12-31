@@ -98,6 +98,8 @@ allow cjappspawn hmdfs:dir { search mounton };
 allow cjappspawn data_local:dir { mounton search };
 allow cjappspawn data_local_arkcache:dir { search };
 allow cjappspawn data_local_arkprofile:dir { search mounton };
+allow cjappspawn data_app_el1_arkcache:dir { search };
+allow cjappspawn data_app_el1_arkprofile:dir { search mounton };
 allow cjappspawn data_service_el2_share:dir { search };
 allow cjappspawn data_service_file:dir { search };
 allow cjappspawn data_service_el1_file:dir { search mounton };

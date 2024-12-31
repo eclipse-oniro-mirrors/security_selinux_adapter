@@ -242,6 +242,8 @@ allow hiperf system_file:file { getattr open read };
 allow hiperf SP_daemon_exec:file { getattr open read };
 allow hiperf data_local_arkcache:dir { search };
 allow hiperf data_local_arkcache:file { getattr open read };
+allow hiperf data_app_el1_arkcache:dir { search };
+allow hiperf data_app_el1_arkcache:file { getattr open read };
 allow hiperf app_el1_bundle_public:dir { getattr open read search };
 allow hiperf app_el1_bundle_public:file { getattr map open read };
 allow hiperf deviceauth_service_exec:file { getattr map open read };

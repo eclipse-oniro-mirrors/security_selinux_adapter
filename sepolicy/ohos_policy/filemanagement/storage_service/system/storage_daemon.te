@@ -24,10 +24,17 @@ allow storage_daemon data_user_file:file { mounton };
 allow storage_daemon data_app_el1_file:file { mounton };
 allow storage_daemon data_local_arkcache:file { mounton };
 allow storage_daemon data_local_arkprofile:file { mounton };
+allow storage_daemon data_app_el1_arkcache:file { mounton };
+allow storage_daemon data_app_el1_arkprofile:file { mounton };
 allow storage_daemon data_local:file { mounton };
 allow storage_daemon normal_hap_data_file_attr:file { mounton };
 allow storage_daemon system_core_hap_data_file_attr:file { mounton };
 allow storage_daemon system_basic_hap_data_file_attr:file { mounton };
+
+allow storage_daemon data_app_el1_arkcache:dir { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el1_arkprofile:dir  { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el1_arkprofile:dir { relabelto };
+allow storage_daemon data_app_el1_file:dir { relabelfrom };
 
 neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam } storage_daemon:{ binder } call;
 

@@ -169,6 +169,7 @@ allow init data_app_el2_file:dir { add_name create getattr open read relabelto s
 allow init data_app_el3_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_app_el4_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_app_el5_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_app_el1_file:dir { relabelfrom };
 allow init data_appephemeral:dir { getattr open read relabelto setattr };
 allow init data_app_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_applib:dir { getattr open read relabelto setattr };
@@ -195,6 +196,8 @@ allow init data_local_tmp:dir { getattr open read relabelto setattr };
 allow init data_local_traces:dir { getattr open read relabelto setattr };
 allow init data_local_arkcache:dir { getattr open read relabelto setattr };
 allow init data_local_arkprofile:dir { getattr open read relabelto setattr };
+allow init data_app_el1_arkcache:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_app_el1_arkprofile:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_log:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_log:file { relabelto };
 allow init data_media:dir { add_name create getattr open read relabelto search setattr write };

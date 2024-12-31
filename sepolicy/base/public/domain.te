@@ -131,11 +131,13 @@ neverallow * self:memprotect mmap_zero;
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
-    -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file -print_driver_exec
+    -module_update_bin_file -data_updater_file -data_local_arkcache -data_app_el1_arkcache -system_file -data_service_el1_public_print_service_file -print_driver_exec
     -rgmli_violator_exec_file_attr -data_service_scan_service_driver_file -system_bin_uni_print_driver_file
     developer_only(`-lldb_server_file -hnp_file -hnp_file_attr -data_app_el1_file') }:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:file { write };
 neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:dir { write };
+neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_app_el1_arkcache:file { write };
+neverallow { domain -installs -ark_aot_compiler -storage_daemon -init updater_only(`-updater') } data_app_el1_arkcache:dir { write };
 
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file
     developer_only(`-lldb_server_file') }:file entrypoint;

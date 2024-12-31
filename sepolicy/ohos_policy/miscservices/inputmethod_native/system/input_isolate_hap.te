@@ -29,6 +29,7 @@ allowxperm input_isolate_hap normal_hap_data_file_attr:file ioctl { 0x5413 0xf50
 allow input_isolate_hap ark_profile:file { read open map };
 
 allow input_isolate_hap data_local_arkprofile:dir { search };
+allow input_isolate_hap data_app_el1_arkprofile:dir { search };
 
 allow input_isolate_hap hisysevent_socket:sock_file { write };
 allow input_isolate_hap hilog_input_socket:sock_file { write };

@@ -78,6 +78,8 @@ allow processdump processdump:unix_dgram_socket { create connect write };
 allow processdump processdump:unix_stream_socket { create setopt connect write read };
 allow processdump data_local_arkcache:file { getattr open read map };
 allow processdump data_local_arkcache:dir { search };
+allow processdump data_app_el1_arkcache:file { getattr open read map };
+allow processdump data_app_el1_arkcache:dir { search };
 allow processdump data_local_tmp:file { getattr map open read };
 
 developer_only(`
