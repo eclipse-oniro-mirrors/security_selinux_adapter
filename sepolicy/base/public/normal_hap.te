@@ -40,7 +40,7 @@ neverallow normal_hap_attr debugfs_attr:file read;
 
 neverallow {normal_hap_attr -hap_domain_tmpfs_violators } { normal_hap_data_file_attr system_core_hap_data_file_attr }:file execute_no_trans; 
 
-neverallow normal_hap_attr file_attr:file link;
+neverallow { normal_hap_attr -hap_attr_link_violators } file_attr:file link;
 
 neverallow normal_hap_attr sysfs_attr:file { never_write_file never_execute_file };
 
