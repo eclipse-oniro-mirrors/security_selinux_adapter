@@ -38,6 +38,8 @@ allow cem sh:fd { use };
 allow cem sh:unix_stream_socket { read write };
 allow cem sh:fifo_file { ioctl read write };
 allowxperm cem sh:fifo_file ioctl { 0x5413 };
+allow cem hdcd:fd { use };
+allow cem hdcd:unix_stream_socket { read write };
 ')
 
 debug_only(`
@@ -63,4 +65,6 @@ allow cem dev_unix_socket:dir { search };
 allow cem tty_device:chr_file { read write };
 allow cem dev_console_file:chr_file { read write };
 allow cem persist_param:file { map read open };
+allow cem hdcd:fd { use };
+allow cem hdcd:unix_stream_socket { read write };
 ')
