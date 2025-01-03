@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+attribute cap_violator_binder_hmc;
+
 allow hdfdomain vendor_bin_file:file { entrypoint execute map read };
 
 #neverallow
