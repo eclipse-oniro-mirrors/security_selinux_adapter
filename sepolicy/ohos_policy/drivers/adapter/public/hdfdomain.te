@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+attribute cap_violator_binder_hmc;
+
 allow hdfdomain vendor_bin_file:file { entrypoint execute map read };
 
 #neverallow
@@ -19,10 +21,10 @@ neverallow { domain -hdfdomain -sadomain -init -hap_domain developer_only(`-inpu
 
 neverallow { domain -hdfdomain -sadomain -hap_domain -binder_call_hdfdomain_violators developer_only(`-input_isolate_debug_hap') -input_isolate_hap } hdfdomain:binder call;
 
-neverallow { hap_domain } { hdfdomain -allocator_host -violator_hdfdomain_binder_call -codec_host -usb_host -input_user_host }:binder call;
+neverallow { hap_domain } { hdfdomain -allocator_host -violator_hdfdomain_binder_call -codec_host -usb_host -input_user_host -cap_violator_binder_hmc }:binder call;
 
 neverallow { input_isolate_debug_hap -input_isolate_hap } { hdfdomain -allocator_host }:binder call;
 
-neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service debug_only(`-hdf_usb_interface_service') -hdf_allocator_service -hdf_codec_image_service -violator_hdf_devmgr_class_get -hdf_codec_component_manager_service -hdf_usbfn_mtp_interface_service }:hdf_devmgr_class { get };
+neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service debug_only(`-hdf_usb_interface_service') -hdf_allocator_service -hdf_codec_image_service -violator_hdf_devmgr_class_get -hdf_codec_component_manager_service -hdf_usbfn_mtp_interface_service -cap_violator_binder_hmc }:hdf_devmgr_class { get };
 
 neverallow { hap_domain -medialibrary_hap } { hdf_usbfn_mtp_interface_service }:hdf_devmgr_class { get };
