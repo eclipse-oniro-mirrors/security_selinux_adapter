@@ -17,3 +17,7 @@ allow init cupsd_exec:file { execute getattr read open };
 allow init cupsd:process { rlimitinh siginh transition };
 allow init data_service_el1_public_print_service_file:dir { add_name create write getattr open read relabelto search setattr };
 allow init data_service_el1_public_print_service_file:file { relabelto };
+allow init print_driver_exec:dir { add_name create write getattr open read relabelto search setattr };
+allow init print_driver_exec:file { relabelto };
+allow init print_driver_read:dir { add_name create write getattr open read relabelto relabelfrom search setattr };
+allow init print_driver_tmp:dir { add_name create write getattr open read relabelto search setattr };

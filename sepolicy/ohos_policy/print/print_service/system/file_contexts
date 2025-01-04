@@ -15,3 +15,9 @@
 /system/bin/cupsfilter        u:object_r:cupsd_exec:s0
 /system/bin/uni_print_driver(/.*)?       u:object_r:system_bin_uni_print_driver_file:s0
 /data/service/el1/public/print_service/sane/backend       u:object_r:data_service_scan_service_driver_file:s0
+/data/service/el1/public/print_service/cups/serverbin/filter    u:object_r:print_driver_exec:s0
+/data/service/el1/public/print_service/cups/serverbin/backend   u:object_r:print_driver_exec:s0
+/data/service/el1/public/print_service/cups/cache               u:object_r:print_driver_tmp:s0
+/data/service/el1/public/print_service/cups/spool/tmp           u:object_r:print_driver_tmp:s0
+/data/service/el1/public/print_service/cups/spool           	u:object_r:print_driver_read:s0
+/data/service/el1/public/print_service/cups/ppd           	    u:object_r:print_driver_read:s0
