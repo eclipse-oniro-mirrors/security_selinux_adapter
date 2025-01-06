@@ -13,3 +13,4 @@
 
 type sa_print_service, sa_service_attr;
 type sa_scan_service, sa_service_attr;
+type sa_sane_service, sa_service_attr;

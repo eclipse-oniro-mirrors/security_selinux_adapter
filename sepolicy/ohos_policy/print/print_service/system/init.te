@@ -21,3 +21,11 @@ allow init print_driver_exec:dir { add_name create write getattr open read relab
 allow init print_driver_exec:file { relabelto };
 allow init print_driver_read:dir { add_name create write getattr open read relabelto relabelfrom search setattr };
 allow init print_driver_tmp:dir { add_name create write getattr open read relabelto search setattr };
+allow init data_service_sane_service_config_file:dir { getattr setattr open read relabelto };
+allow init data_service_sane_service_tmp_file:dir { search setattr };
+allow init data_service_scan_service_driver_file:dir { getattr setattr open read };
+allow init sane_service:dir { getattr };
+allow init scan_service:dir { getattr };
+allow init sane_service:process { rlimitinh siginh transition };
+allow init data_service_sane_service_config_file:dir { open read relabelto };
+allow init data_service_sane_service_tmp_file:dir { create getattr open read relabelto write add_name };
