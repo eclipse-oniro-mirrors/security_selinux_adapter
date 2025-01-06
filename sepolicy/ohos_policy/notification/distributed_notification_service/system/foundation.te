@@ -33,6 +33,8 @@ allow foundation samgr:binder { call transfer };
 allow foundation sa_media_service:samgr_class { get };
 allow foundation system_basic_hap_attr:binder { call };
 allow foundation system_basic_hap_attr:fd { use };
+#avc:  denied  { get } for service=3601 pid=591 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_reminder_agent_service:s0 tclass=samgr_class permissive=1
+allow foundation sa_foundation_reminder_agent_service:samgr_class { add get };
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
 allowxperm foundation dev_mali:chr_file ioctl { 0x801e };
 

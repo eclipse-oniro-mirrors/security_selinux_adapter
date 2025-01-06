@@ -11,4 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-user u roles { r } level s0 range s0 - s0:c0.c1023;
+user u roles { r } level s0 range s0 - s0:c0.x1279;
+
+user o roles { r } level s0 range s0 - s0:c0.x1279;

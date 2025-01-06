@@ -19,7 +19,7 @@ type debug_hap, domain, hap_domain, normal_hap_attr;
 typeattribute normal_hap hap_domain;
 typeattribute normal_hap normal_hap_attr;
 
-neverallow normal_hap_attr { domain -normal_hap_attr }:file never_rw_file;
+neverallow { normal_hap_attr -hap_domain_kernel_violators } { domain -normal_hap_attr }:file never_rw_file;
 neverallow { hap_domain -normal_hap_attr } normal_hap_attr:file never_rw_file;
 neverallow { domain -normal_hap_attr -processdump developer_only(`-lldb_server') } normal_hap_attr:process ptrace;
 
@@ -34,10 +34,10 @@ typeattribute system_basic_hap hap_domain;
 typeattribute system_basic_hap system_basic_hap_attr;
 
 neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw_file;
-neverallow { hap_domain -system_basic_hap_attr } system_basic_hap_attr:file never_rw_file;
+neverallow { hap_domain -system_basic_hap_attr -hap_domain_kernel_violators } system_basic_hap_attr:file never_rw_file;
 neverallow { domain -system_basic_hap_attr -processdump } system_basic_hap_attr:process ptrace;
 
-neverallow hap_domain ~{ proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file hap_domain_lnk_file_operation_viloator developer_only(`hnp_file_attr') }:lnk_file *;
+neverallow hap_domain ~{ tmpfs_data_file dev_file proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file hap_domain_lnk_file_operation_viloator developer_only(`hnp_file_attr hnp_file') }:lnk_file *;
 neverallow hap_domain { proc_attr tmpfs system_bin_file rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file developer_only(`hnp_file_attr') }:lnk_file ~{ getattr read };
 neverallow hap_domain hap_domain:lnk_file ~{ read_file_perms };
 neverallow { hap_domain -hap_domain_lnk_file_violators } data_user_file:lnk_file *;
@@ -56,7 +56,7 @@ allow hap_domain self:process execmem;
 
 allow hap_domain data_app_el1_file:dir { add_name create  open read search setattr write };
 allow hap_domain data_app_el1_file:file { getattr map open read };
-allow hap_domain data_app_el2_file:dir { add_name search read write create open remove_name setattr };
+allow hap_domain data_app_el2_file:dir { add_name search read write create open remove_name setattr rmdir };
 allow hap_domain data_app_el2_file:file { create read write open lock ioctl unlink map setattr getattr rename };
 allow hap_domain data_app_file:dir search;
 allow hap_domain data_file:dir { getattr open read  search };
@@ -83,16 +83,16 @@ allow hap_domain hdf_devmgr:binder call;
 
 #neverallow
 #never use caps for haps.
-neverallow hap_domain self:{ capability capability2 } *;
+neverallow { hap_domain -hap_domain_kernel_violators } self:{ capability capability2 } *;
 
 #haps can't modify files of other domain.
 neverallow hap_domain { domain -hap_domain }:file never_write_file;
 
-neverallow hap_domain { domain -hap_domain }:file never_rw_file;
+neverallow { hap_domain -hap_domain_kernel_violators } { domain -hap_domain }:file never_rw_file;
 
 neverallow hap_domain vendor_file_attr:dir never_write_dir;
 #limit hap access vendor.
-neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file -vendor_etc_graphic_xengine_file_violator_dir_open_read_serach }:{ file fifo_file lnk_file sock_file } *;
+neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file -vendor_etc_graphic_xengine_file_violator_dir_open_read_search }:{ file fifo_file lnk_file sock_file } *;
 
 #hap never access blk_file.
 neverallow hap_domain dev_attr:blk_file open;
@@ -103,21 +103,21 @@ neverallow hap_domain dev_attr:blk_file ioctl;
 #limit hap access dev file.
 neverallow hap_domain { dev_attr -dev_ptmx -dev_ucollection -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
                       -dev_zero_file -dev_mali -tty_device -dev_fuse_file -dev_bbox
-                      -dev_tun_file -dev_attr_violator_chr_file_rw -dev_bus_usb_file }:chr_file { open ioctl read write};
+                      -dev_tun_file -dev_attr_violator_chr_file_rw -dev_bus_usb_file -dev_usb_accessory_file }:chr_file { open ioctl read write};
 
 neverallow { hap_domain -hap_domain_dev_ptmx_violators } dev_ptmx:chr_file { open ioctl read write};
 
 neverallow normal_hap { dev_attr -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file -dev_ucollection
-                      -dev_attr_violator_chr_file_rw -dev_ashmem_file -dev_dri_file -dev_mali }:chr_file open;
+                      -dev_attr_violator_chr_file_rw -dev_ashmem_file -dev_dri_file -dev_mali developer_only(`-violator_chr_file_open') }:chr_file open;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file }:chr_file read;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file developer_only(`-violator_chr_file_read') }:chr_file read;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file }:chr_file write;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file developer_only(`-violator_chr_file_write') }:chr_file write;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file }:chr_file ioctl;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file developer_only(`-violator_chr_file_ioctl') }:chr_file ioctl;
 
 neverallow normal_hap dev_attr:sock_file open;
 
@@ -143,7 +143,7 @@ neverallow hap_domain dev_bbox:chr_file { read };
 neverallowxperm hap_domain dev_bbox:chr_file ioctl ~{ 0xab01 0xab04 0xab09 0xad01 0xaf04 0xaf06 0xaf08 0x426a 0x426d };
 neverallowxperm hap_domain dev_bus_usb_file:chr_file ioctl ~{ 0x5500 0x5504 0x5505 0x5508 0x550a 0x550b 0x550d 0x550f 0x5510 0x5511 0x5512 0x5514
                                                         0x5515 0x5516 0x5517 0x551a 0x551b 0x551c 0x551d 0x551e 0x551f };
-neverallow { hap_domain -dev_fuse_file_violator -dlpmanager_hap } dev_fuse_file:chr_file { open ioctl read write};
+neverallow { hap_domain -dev_fuse_file_violator -dlpmanager_hap -medialibrary_hap } dev_fuse_file:chr_file { open ioctl read write};
 
 #limit hap use kobject netlink.
 neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
@@ -201,10 +201,11 @@ neverallow { domain -hap_domain -installs -appspawn -nwebspawn -nativespawn -cja
 
 neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -input_isolate_hap -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -rgm_violator_normal_hap_data_file_attr_file_open -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt developer_only(`-hdcd -input_isolate_debug_hap') updater_only(`-updater') } normal_hap_data_file_attr:file_class_set open;
 
-neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
+neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel -hap_domain_sys_file_violators } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
-neverallow hap_domain { domain -hap_domain -processdump }:process transition;
-neverallow hap_domain { domain -hap_domain }:process dyntransition;
+neverallow hap_domain { domain -hap_domain -processdump developer_only(`-hap_domain_native_system_violators') }:process transition;
+
+neverallow hap_domain { domain -hap_domain developer_only(`-hap_domain_native_system_violators') }:process dyntransition;
 
 neverallow hap_domain domain:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
 
@@ -217,8 +218,8 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-data_file_attr_violator_exec')} { data_file_attr }:file { execute_no_trans };
-neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap')} data_file_attr:file { execute };
+neverallow { domain -hap_domain -nwebspawn -cupsd -print_driver developer_only(`-data_file_attr_violator_exec -hnp_native')} { data_file_attr }:file { execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -print_driver -scan_service developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap -hnp_native')} data_file_attr:file { execute };
 
 neverallow isolated_gpu { data_file_attr -data_app_el1_file }:file { execute };
 neverallow isolated_render { data_file_attr -data_app_el1_file }:file { execute };

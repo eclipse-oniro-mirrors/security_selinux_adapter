@@ -67,4 +67,5 @@ allow time_service data_service_el1_file:file { unlink };
 allow time_service distributeddata:binder { call };
 allow time_service sa_memory_manager_service:samgr_class { get };
 allow time_service memmgrservice:binder { call };
+allow time_service netmanager:file { getattr };
 

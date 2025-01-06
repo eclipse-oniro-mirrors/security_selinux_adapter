@@ -211,3 +211,13 @@ allow edm_sa render_service:binder { call transfer };
 allow edm_sa sa_render_service:samgr_class { get };
 allow render_service edm_sa:binder { transfer };
 allow render_service edm_sa:fd { use };
+
+allow edm_sa sa_camera_service:samgr_class { get };
+allow edm_sa camera_service:binder { call };
+neverallow { domain -edm_sa -init } edm_writable_param:parameter_service { set };
+
+# avc:  denied  { get } for service=3524 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_sg_collect_service:samgr_class { get };
+
+# avc:  denied  { append } for  pid=445 comm="OS_IPC_2_1213" path="/data/service/el1/public/edm/browser/com.example.edmtest8" dev="mmcblk0p15" ino=10496 scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow edm_sa data_service_el1_file:file { append };

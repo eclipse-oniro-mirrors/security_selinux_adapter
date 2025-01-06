@@ -68,7 +68,7 @@ developer_only(`
 
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x6409 0x640d 0x641e 0x642e 0x643a 0x64af 0x64b8 0x64bc 0x64bd 0x64be };
 allowxperm render_service dev_graphics_file:chr_file ioctl 0x4611;
-allowxperm render_service dev_mali:chr_file ioctl { 0x8002 0x8006 0x8007 0x8016 0x8018 0x8019 0x801b 0x801d 0x801e };
+allowxperm render_service dev_mali:chr_file ioctl { 0x8002 0x8006 0x8007 0x8014 0x8016 0x8018 0x8019 0x801b 0x801d 0x801e 0x8024 0x8025 0x8027 0x802a 0x802c 0x802d 0x802f 0x8030 0x8031 0x8033 0x8034 0x8036 0x803a 0x803b 0x803c };
 allowxperm render_service dev_rga:chr_file ioctl 0x5017;
 
 
@@ -84,8 +84,8 @@ allow hap_domain vendor_etc_vulkan_file:file { getattr open read };
 
 neverallow { domain -nwebspawn } vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
 neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };
-neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search -nwebspawn } vendor_etc_vulkan_file:dir { open read search };
-neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read } vendor_etc_vulkan_file:file { getattr open read };
+neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search -nwebspawn -isolated_gpu } vendor_etc_vulkan_file:dir { open read search };
+neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read -isolated_gpu } vendor_etc_vulkan_file:file { getattr open read };
 neverallow { domain -init } vendor_etc_vulkan_file:dir { getattr };
 neverallow { domain -init -nwebspawn } vendor_etc_vulkan_file:dir { mounton };
 neverallow { domain } dev_graphics_file:file ~{ getattr open read };

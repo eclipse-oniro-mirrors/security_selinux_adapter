@@ -11,6 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+debug_only(`
+    allow input_isolate_debug_hap su:unix_stream_socket { connectto };
+')
+
 developer_only(`
     allow input_isolate_hap concurrent_task_service:binder { call };
 
@@ -24,4 +28,11 @@ developer_only(`
 
     allow input_isolate_debug_hap hisysevent_socket:sock_file { write };
     allow input_isolate_debug_hap hilog_input_socket:sock_file { write };
+
+    binder_call(input_isolate_debug_hap, hap_domain);
+    binder_call(hap_domain, input_isolate_debug_hap);
+
+    allow input_isolate_debug_hap system_file:file { open read getattr };
+
+    allow input_isolate_debug_hap hdcd:unix_stream_socket { connectto };
 ')

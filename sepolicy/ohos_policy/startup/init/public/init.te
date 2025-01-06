@@ -15,6 +15,7 @@ type init, native_system_domain, domain;
 type init_exec, exec_attr, file_attr, system_file_attr;
 type ueventd, native_system_domain, domain;
 type ueventd_exec, system_file_attr, exec_attr, file_attr;
+type remount_exec, system_file_attr, exec_attr, file_attr;
 
 
 debug_only(`
@@ -60,9 +61,23 @@ allow i18n_param tmpfs:filesystem associate;
 allow init i18n_param:file { map open read relabelto relabelfrom };
 allow init i18n_param:parameter_service { set };
 allow { domain -limit_domain } i18n_param:file { map open read };
+allow i18n_param_tz_override tmpfs:filesystem associate;
+allow init i18n_param_tz_override:file { map open read relabelto relabelfrom };
+allow init i18n_param_tz_override:parameter_service { set };
+allow { domain } i18n_param_tz_override:file { map open read };
+developer_only(`
+    allow sh i18n_param_tz_override:file { map open read };
+')
 allow const_i18n_param tmpfs:filesystem associate;
 allow init const_i18n_param:file { map open read relabelto relabelfrom };
 allow { domain -limit_domain } const_i18n_param:file { map open read };
+
+allow { domain } data_service_el1_i18n_timezone_file:dir { search open read getattr mounton };
+allow { domain } data_service_el1_i18n_timezone_file:file { open read getattr map };
+developer_only(`
+    allow sh data_service_el1_i18n_timezone_file:dir { search };
+    allow sh data_service_el1_i18n_timezone_file:file { open read getattr map };
+')
 
 #for bootchart to read
 allow init domain:file { open read };
@@ -90,6 +105,7 @@ define(`init_relabel', `
     allow init $1:dir { search };
 ')
 init_relabel(data_service_el1_public_print_service_file);
+init_relabel(print_driver_exec);
 init_relabel(data_service_el1_i18n_timezone_file);
 init_relabel(data_parameters);
 init_relabel(data_udev);

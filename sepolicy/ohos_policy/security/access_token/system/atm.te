@@ -32,5 +32,5 @@ developer_only(`
     allow atm samgr:binder { call };
     allow atm accesstoken_service:binder { call };
 
-    allow atm privacy_service:binder { call };
+    binder_call(atm, privacy_service);
 ')

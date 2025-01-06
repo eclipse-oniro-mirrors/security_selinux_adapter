@@ -15,3 +15,5 @@ allow ueventd dev_block_file:dir { create remove_name };
 allow ueventd dev_block_file:blk_file { unlink };
 allow ueventd dev_block_file:lnk_file { read unlink };
 allow ueventd dev_block_volfile:dir { remove_name };
+allow ueventd dev_bus_usb_file:dir { open read };
+allow ueventd dev_bus_usb_file:file { open write };

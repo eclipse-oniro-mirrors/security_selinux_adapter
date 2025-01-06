@@ -18,6 +18,7 @@ allow i18n_service sa_accesstoken_manager_service:samgr_class { get };
 allow i18n_service dev_unix_socket:dir { search };
 allow i18n_service accesstoken_service:binder { call };
 allow i18n_service i18n_param:parameter_service { set };
+allow i18n_service i18n_param_tz_override:parameter_service { set };
 allow i18n_service system_usr_file:dir { search getattr };
 allow i18n_service system_usr_file:file { getattr read open map };
 allow i18n_service sysfs_devices_system_cpu:file { getattr read open map };

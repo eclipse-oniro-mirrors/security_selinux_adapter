@@ -113,7 +113,6 @@ allow sh domain:process { getattr };
 allow sh selinuxfs:filesystem { getattr };
 
 # for access debug_hap_data_file
-allow sh sh:capability { dac_read_search };
 allow sh data_file:dir search;
 allow sh data_app_file:dir search;
 allow sh data_app_el1_file:dir search;

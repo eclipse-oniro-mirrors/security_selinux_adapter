@@ -478,6 +478,8 @@ class nfc_socket
 inherits socket
 class vsock_socket
 inherits socket
+class vsock_host_socket
+inherits socket
 class kcm_socket
 inherits socket
 class qipcrtr_socket
@@ -533,6 +535,7 @@ class xpm
     exec_no_sign
     exec_anon_mem
     exec_in_jitfort
+    exec_allow_debug_id
 }
 
 class hideaddr
@@ -571,4 +574,5 @@ class hmcap
     supervsable
     pid_mem_read
     pid_mem_write
+    exec_non_lsyscall
 }

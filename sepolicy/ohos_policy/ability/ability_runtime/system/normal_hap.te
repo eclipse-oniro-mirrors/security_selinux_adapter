@@ -20,3 +20,4 @@ allow normal_hap_attr quick_fix:binder { call };
 allow normal_hap_attr system_file:file { map };
 allow normal_hap_attr sa_service_router_mgr_service:samgr_class { get };
 allow normal_hap_attr service_router:binder { call transfer };
+allow normal_hap_attr data_app_el2_file:file { append };

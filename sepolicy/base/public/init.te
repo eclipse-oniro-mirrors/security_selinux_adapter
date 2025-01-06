@@ -18,7 +18,8 @@ neverallow init data_local_tmp:dir { non_developer_mode(`write add_name') remove
 neverallow { domain -kernel } init:process dyntransition;
 neverallow { domain -kernel } init:process transition;
 
-neverallow init processdump:process {noatsecure};
+neverallow init { domain debug_only(`-domain')}:process {noatsecure};
+debug_only(`neverallow init processdump:process {noatsecure};')
 
 neverallow { domain -processdump } init:process ptrace;
 
@@ -34,7 +35,7 @@ neverallow init domain:udp_socket ~{ ioctl create };
 
 #todo
 # system_bin_file need to fix
-neverallow init { file_attr fs_attr -system_bin_file -toybox_exec -sdc_exec -hnp_exec updater_only(`-rootfs') -system_bin_file_quickfix -rgm_violator_system_bin_file}:file execute_no_trans;
+neverallow init { file_attr fs_attr -system_bin_file -toybox_exec -sdc_exec -hnp_exec updater_only(`-rootfs') -system_bin_file_quickfix -rgm_violator_system_bin_file -init_module_system_bin_file -bootanimation_exec}:file execute_no_trans;
 
 #todo
 #neverallow init sys_file:file { open read write };

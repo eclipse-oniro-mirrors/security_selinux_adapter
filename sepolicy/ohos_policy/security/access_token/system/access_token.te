@@ -69,7 +69,7 @@ allow accesstoken_service paramservice_socket:sock_file { write };
 allow accesstoken_service persist_param:file { map open read };
 allow accesstoken_service persist_sys_param:file { map open read };
 #avc:  denied  { call } for  pid=504 comm="accesstoken_ser" scontext=u:r:accesstoken_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
-allow accesstoken_service privacy_service:binder { call };
+binder_call(accesstoken_service, privacy_service);
 allow accesstoken_service sa_accesstoken_manager_service:samgr_class { add get };
 allow accesstoken_service sa_distributeddata_service:samgr_class { get };
 allow accesstoken_service sa_foundation_devicemanager_service:samgr_class { get };
@@ -90,6 +90,9 @@ allow accesstoken_service tracefs_trace_marker_file:file { open write };
 allow accesstoken_service tracefs:dir { search };
 allow accesstoken_service sa_bgtaskmgr:samgr_class { get };
 allow accesstoken_service sa_form_mgr_service:samgr_class { get };
+binder_call(hap_domain, accesstoken_service);
+binder_call(accesstoken_service, hap_domain);
+allow accesstoken_service sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { get } for service=501 pid=537 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow accesstoken_service sa_foundation_appms:samgr_class { get };

@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -17,6 +17,7 @@ allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 allow storage_daemon hmdfs:filesystem { unmount };
+allow storage_daemon tmpfs:filesystem { unmount };
 allow storage_daemon hmdfs:file { mounton };
 allow storage_daemon data_service_el2_hmdfs:file { mounton };
 allow storage_daemon data_user_file:file { mounton };
@@ -341,7 +342,8 @@ allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
 allow storage_daemon data_service_el2_file:file { relabelfrom };
 allow storage_daemon data_service_el4_file:file { relabelfrom };
-allow storage_daemon data_service_el2_hmdfs:file { read open write open };
+allow storage_daemon data_service_el2_hmdfs:file { read open write };
+allow storage_daemon data_service_el2_hmdfs:lnk_file { unlink rename };
 
 storage_daemon_relabel(data_service_el2_share);
 
@@ -377,5 +379,67 @@ allow storage_daemon accountmgr:binder { call transfer };
 allow storage_daemon sa_useriam_useridm_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 
+allow storage_daemon data_log:file { read append getattr open create write rename unlink };
+allow storage_daemon data_log:dir { write add_name create open read getattr remove_name };
 allow storage_daemon labeledfs:filesystem { relabelfrom };
 allow storage_daemon mnt_external_file:filesystem { mount unmount relabelfrom relabelto };
+
+# avc: denied { rmdir } for pid=5021, comm="/bin/mtpfs"  name="/mtp_tmp/simple-mtpfs-aLAbfL" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=21448 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow storage_daemon data_file:dir { rmdir };
+
+# avc: denied { search } for pid=5021, comm="/bin/mtpfs"  name="/bus" dev="" ino=519 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus:s0 tclass=dir permissive=1
+allow storage_daemon dev_bus:dir { search };
+
+# avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5514 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { open } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb/002/002" dev="" ino=3579 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { read write } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb/002/002" dev="" ino=3579 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+allow storage_daemon dev_bus_usb_file:chr_file { ioctl open read write };
+
+# avc: denied { open } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb" dev="" ino=520 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb" dev="" ino=520 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=5021, comm="/bin/mtpfs"  name="/bus/usb" dev="" ino=520 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+allow storage_daemon dev_bus_usb_file:dir { open read search };
+
+# avc: denied { mount } for pid=5169, comm="/bin/mtpfs"  name="" dev="mtpfs" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
+# avc: denied { unmount } for pid=5206, comm="/bin/umount"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
+allow storage_daemon fuse_file:filesystem { mount };
+
+# avc: denied { read } for pid=5021, comm="/bin/mtpfs"  path="/mnt/data/external/mtp-4817-4221" dev="tmpfs" ino=6 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc: denied { setattr } for pid=676, comm="/system/bin/storage_daemon"  name="/external/mtp-4817-4221" dev="tmpfs" ino=6 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+allow storage_daemon mnt_external_file:dir { read setattr open };
+
+# avc: denied { getattr } for pid=5020, comm="/bin/sh"  path="/system/bin/mtpfs" dev="/dev/block/platform/b0000000.hi_pcie/by-name/system" ino=648 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+allow storage_daemon system_bin_file:file { getattr };
+
+# avc: denied { ioctl } for pid=5169, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5508 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=676, comm="/system/bin/storage_daemon"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x550a scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=676, comm="/system/bin/storage_daemon"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x550d scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=5169, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x550f scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5510 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5514 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=676, comm="/system/bin/storage_daemon"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x551a scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+allowxperm storage_daemon dev_bus_usb_file:chr_file ioctl { 0x5508 0x550a 0x550d 0x550f 0x5510 0x5514 0x551a };
+
+allow storage_daemon data_local:file { create getattr open read unlink write };
+
+# avc: denied { open } for pid=7351, comm="/bin/mtpfs"  path="/sys/devices/platform/usb_proxy_hcd/usb1/busnum" dev="" ino=64531 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=7351, comm="/bin/mtpfs"  path="/sys/devices/platform/usb_proxy_hcd/usb1/busnum" dev="" ino=64531 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+allow storage_daemon dev_bus_usb_file:file { open read };
+
+allow storage_daemon data_local:dir { create getattr open read rmdir search write add_name remove_name };
+
+allow storage_daemon sa_foundation_cesfwk_service:samgr_class { get };
+
+allow storage_daemon chip_prod_file:dir { search };
+
+allow storage_daemon dev_bus_usb_file:file { getattr };
+
+allow storage_daemon mnt_external_file:fifo_file { getattr };
+
+allow storage_daemon mnt_external_file:file { getattr setattr };
+
+allow storage_daemon mnt_external_file:lnk_file { read };
+
+allow storage_daemon mnt_external_file:sock_file { getattr setattr };
+
+allow storage_daemon dev_bus_usb_file:file { write };

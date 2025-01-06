@@ -172,6 +172,8 @@ attribute data_user_file_file_violator;
 
 attribute dev_fuse_file_violator;
 
+attribute nativespawn_mount_filesystem_violator;
+
 attribute proc_violator;
 attribute sh_exec_violator;
 attribute proc_sys_writer;
@@ -300,3 +302,4 @@ attribute hap_domain_proc_stat_file_violators;
 attribute hap_domain_proc_modules_file_violators;
 
 attribute hap_domain_lnk_file_operation_viloator;
+attribute hap_attr_link_violators;

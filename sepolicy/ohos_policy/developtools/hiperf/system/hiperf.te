@@ -180,7 +180,6 @@ allow init data_log_hiperf_file:dir relabelto;
 #allow hiperf devpts:chr_file ioctl;
 
 debug_only(`
-    allow hiperf self:capability { setgid };
     allow hiperf self:capability2 syslog;
 ')
 
@@ -195,10 +194,11 @@ allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unl
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
 allow hiperf self:capability { sys_ptrace ipc_lock };
-allow hiperf self:perf_event { open read write kernel };
+allow hiperf self:unix_dgram_socket { getopt setopt };
 
 neverallow hiperf *:process ptrace;
-neverallow { domain -hiperf -init -hiebpf } self:perf_event ~{ open read write kernel };
+neverallow { domain -hiperf -init -hiebpf -rgm_violator_perf_event_cpu } self:perf_event cpu;
+neverallow { domain -hiperf } self:perf_event tracepoint;
 
 allow hiperf musl_param:file { open map read };
 allow hiperf dev_console_file:chr_file { read write };
@@ -229,7 +229,7 @@ allow hiperf dev_bbox:chr_file { read };
 allow hiperf sysfs_devices_system_cpu:dir { read open };
 
 allow hiperf hiview:fd { use };
-allow hiperf hiview:unix_dgram_socket { read write };
+allow hiperf hiview:unix_dgram_socket { read write sendto };
 allow hiperf hiview:fifo_file { read write };
 allow hiperf hiview_file:file { read write };
 

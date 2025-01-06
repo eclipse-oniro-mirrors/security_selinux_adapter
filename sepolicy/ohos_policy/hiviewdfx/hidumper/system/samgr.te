@@ -16,3 +16,4 @@ allow samgr hidumper:dir search;
 allow samgr hidumper:fd { use };
 allow samgr hidumper:file { open read };
 allow samgr hidumper:process getattr;
+allow samgr data_log:file { write };

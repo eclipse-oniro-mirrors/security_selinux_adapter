@@ -81,7 +81,9 @@ allow print_service print_param:parameter_service { set };
 allow print_service kernel:unix_stream_socket { connectto };
 allow print_service paramservice_socket:sock_file { write };
 allow print_service print_param:file { open read map };
-allow print_service system_bin_file:file { getattr open read map execute execute_no_trans};
+allow print_service system_bin_file:file { getattr open read };
+allow print_service system_bin_uni_print_driver_file:dir { search open read };
+allow print_service system_bin_uni_print_driver_file:file { getattr open read map execute execute_no_trans};
 allow print_service toybox_exec:file { getattr map open read };
 neverallow { domain -print_service } print_param:parameter_service { set };
 allow print_service sa_usb_service:samgr_class { get };
@@ -96,3 +98,5 @@ allow print_service data_service_el1_public_print_service_file:lnk_file { create
 allow print_service data_service_el2_file:dir { add_name search write create read };
 allow print_service data_service_el2_file:file { create getattr read open write };
 allow print_service tty_device:chr_file { read write };
+allow print_service print_driver_exec:dir { search write add_name };
+allow print_service print_driver_exec:lnk_file { create getattr };

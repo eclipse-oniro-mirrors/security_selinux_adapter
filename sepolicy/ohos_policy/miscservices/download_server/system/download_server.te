@@ -136,3 +136,6 @@ allow download_server sa_cert_manager_service:samgr_class { get };
 allow download_server sa_accountmgr:samgr_class { get };
 allow download_server accountmgr:binder { call transfer };
 allow download_server accountmgr:fd { use };
+allow download_server epfs:file { read getattr write };
+#avc:  denied  { get } for  service=401 sid=u:r:download_server:s0 scontext=u:r:download_server:s0 tcontext=u:object_r：sa_foundation_bms:s0 tclass=samgr_class permissive=1
+allow download_server sa_foundation_bms:samgr_class { get };

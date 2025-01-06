@@ -82,7 +82,7 @@ allow oaid_service vendor_etc_file:dir { search };
 allow oaid_service huks_service:binder { call };
 allow oaid_service sa_huks_service:samgr_class { get };
 allow oaid_service sa_privacy_service:samgr_class { get };
-allow oaid_service privacy_service:binder { call };
+binder_call(oaid_service, privacy_service);
 
 debug_only(`
     allow oaid_service sh:binder { call };

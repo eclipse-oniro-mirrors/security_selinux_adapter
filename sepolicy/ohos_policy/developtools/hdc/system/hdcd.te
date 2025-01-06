@@ -311,9 +311,6 @@ developer_only(`
     allow hdcd debug_hap_data_file:dir { search getattr read open };
     allow hdcd debug_hap_data_file:file { getattr read open };
 
-    # must have dac_read_search because /data/app/el2/100/base/<bundleName> is 600
-    allow hdcd hdcd:capability { dac_read_search };
-
     allow samgr hdcd:dir { search };
     allow samgr hdcd:file { read open };
     allow samgr hdcd:process { getattr };
@@ -322,6 +319,8 @@ developer_only(`
 
     # avc_audit_slow:272] avc: denied { read } for pid=1690, comm="/system/bin/hdcd"  name="/thread-self" dev="" ino=41 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=lnk_file permissive=0
     allow hdcd proc_file:lnk_file { read };
+    # avc:  denied  { search } for  pid=5252 comm="OS_FFRT_2_4" name="/" dev="proc" ino=1 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
+    allow hdcd proc_file:dir { search };
 ')
 
 neverallow hdcd hmdfs:dir ioctl;
@@ -330,5 +329,5 @@ neverallow hdcd hmdfs:file ioctl;
 # hdc control
 neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:parameter_service { set };
 neverallow { domain -hdcd_user_permit -hdcd } hdcd_user_permit_exec:file { execute };
-neverallow { domain -hdcd -hdcd_user_permit -system_basic_hap_attr } developtools_hdc_auth_param:parameter_service { set };
+neverallow { domain -hdcd -hdcd_user_permit -system_basic_hap_attr -parent_control_hdc_attr } developtools_hdc_auth_param:parameter_service { set };
 neverallow hdcd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr -debug_hap_data_file }:{ dir file } *;

@@ -222,3 +222,7 @@ allow distributeddata data_app_el5_file:dir { search };
 allow distributeddata data_app_el5_file:file { getattr open read };
 allow distributeddata key_enable:key { search };
 allow distributeddata data_service_el1_file:dir { rename };
+allow distributeddata data_service_el2_pasteboard_service:dir { read write create getattr setattr open add_name remove_name search rmdir ioctl relabelfrom rename };
+allow distributeddata data_service_el2_pasteboard_service:file { read write create getattr setattr lock map unlink rename open ioctl };
+allowxperm distributeddata data_service_el2_pasteboard_service:dir ioctl { 0xf546 };
+allowxperm distributeddata data_service_el2_pasteboard_service:file ioctl { 0xf50c 0xf546 };

@@ -32,8 +32,8 @@ ohos_unittest("hap_restorecon_unittest") {
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
-    "../interfaces/policycoreutils/src/hap_restorecon.cpp",
-    "../interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
+    "../framework/policycoreutils/src/hap_restorecon.cpp",
+    "../framework/policycoreutils/src/sehap_contexts_trie.cpp",
     "unittest/common/test_common.cpp",
     "unittest/hap_restorecon/unit_test.cpp",
   ]
@@ -86,8 +86,8 @@ ohos_unittest("parameter_static_unittest") {
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
-    "../interfaces/policycoreutils/src/selinux_map.c",
-    "../interfaces/policycoreutils/src/selinux_share_mem.c",
+    "../framework/policycoreutils/src/selinux_map.c",
+    "../framework/policycoreutils/src/selinux_share_mem.c",
     "unittest/common/test_common.cpp",
     "unittest/parameter_static/unit_test.cpp",
   ]

@@ -33,7 +33,6 @@ attribute rgm_violator_ohos_cgroup_file_create;
 attribute rgm_violator_ohos_dev_sock_file_mounton;
 attribute rgm_violator_ohos_dev_char_file;
 attribute rgm_violator_ohos_dev_blk_file;
-attribute rgm_violator_ohos_dev_auth_ctrl_file_write;
 attribute rgm_violator_ohos_unlabeled_file;
 attribute rgm_violator_ohos_vendor_etc_dir_search;
 attribute rgm_violator_ohos_vendor_etc_file_getattr;
@@ -48,4 +47,4 @@ attribute rgm_violator_system_file_mounton;
 attribute rgm_violator_vendor_file_mounton;
 
 attribute rgm_violator_system_bin_file;
-
+attribute rgm_violator_perf_event_cpu;

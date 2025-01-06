@@ -133,6 +133,8 @@
             "init cjappspawn_exec file",
             "installs data_local file",
             "installs data_local_arkcache file",
+            "installs unlabeled dir",
+            "installs unlabeled file",
             "kernel data_service_el2_hmdfs dir",
             "kernel data_service_el2_hmdfs file",
             "locationhub data_service_el1_file file",

@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type useriam_fwkready_param, parameter_attr;
+type useriam_config_param, parameter_attr;

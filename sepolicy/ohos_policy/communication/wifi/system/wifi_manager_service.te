@@ -14,7 +14,7 @@
 allow wifi_manager_service dev_unix_file:sock_file write;
 allow wifi_manager_service accesstoken_service:binder { call };
 allow wifi_manager_service data_service_el1_file:dir { add_name remove_name search write create };
-allow wifi_manager_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write };
+allow wifi_manager_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write append };
 allow wifi_manager_service data_file:dir { search };
 allow wifi_manager_service data_service_el1_file:sock_file { write };
 allow wifi_manager_service accessibility_param:file { read };
@@ -41,7 +41,7 @@ allow wifi_manager_service toybox_exec:file { execute execute_no_trans getattr m
 allow wifi_manager_service wifi_hal_service:unix_stream_socket { connectto };
 allow wifi_manager_service sa_netsys_native_manager:samgr_class { get };
 allow wifi_manager_service wifi_manager_service:netlink_route_socket { create nlmsg_read nlmsg_readpriv read write };
-allow wifi_manager_service wifi_manager_service:packet_socket { bind create read write };
+allow wifi_manager_service wifi_manager_service:packet_socket { bind create read write setopt };
 allow wifi_manager_service wifi_manager_service:udp_socket { bind create ioctl setopt getopt read write getattr };
 allow wifi_manager_service wifi_manager_service:unix_dgram_socket { ioctl };
 allow wifi_manager_service data_service_file:dir { search };
@@ -232,3 +232,5 @@ allow wifi_manager_service wifi_manager_service:netlink_socket { create setopt w
 
 allow wifi_manager_service sa_asset_service:samgr_class { get };
 allow wifi_manager_service asset_service:binder { call };
+
+allow wifi_manager_service system_usr_file:file { map };

@@ -11,3 +11,4 @@
 # See the License for the specific
 
 type updater_sa, sadomain, domain;
+typeattribute updater_sa devinfo_type_allow_attr;

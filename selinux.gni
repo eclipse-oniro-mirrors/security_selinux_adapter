@@ -13,6 +13,7 @@
 
 BUILD_CONFIG_DIR = "//build/config"
 THIRD_PARTY_DIR = "//third_party"
+OHOS_PRODUCT_DIR = "base/security/selinux_adapter/sepolicy/ohos_product"
 
 declare_args() {
   selinux_adapter_build_path = "default"

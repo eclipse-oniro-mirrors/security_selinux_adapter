@@ -231,6 +231,9 @@ developer_only(`
     allow hiprofiler_plugins proc_diskstats_file:file { open read };
     allow hiprofiler_plugins rootfs:file getattr;
 
+    allow hiprofiler_plugins self:unix_dgram_socket { getopt setopt };
+    allow hiprofiler_plugins hiview:unix_dgram_socket { sendto };
+
     allow hiprofiler_plugins hiprofiler_cmd:fd use;
     allow hiprofiler_plugins rootfs:file read;
     allow hiprofiler_plugins tty_device:chr_file ioctl;
@@ -309,14 +312,7 @@ developer_only(`
     allow hiprofiler_plugins data_hilogd_file:dir { getattr open read search };
     allow hiprofiler_plugins data_hilogd_file:file { getattr open read };
     allow sadomain hiviewdfx_profiler_param:file { map open read };
-')
 
-debug_only(`
-	allow hiprofiler_plugins self:capability { sys_admin };
-	allow hiprofiler_plugins sh_exec:file { execute execute_no_trans map open read };
-	allow hiprofiler_plugins self:capability setgid;
-	allow hiprofiler_plugins sh:fd use;
-	allow hiprofiler_plugins sh:dir { open read };
-	allow hiprofiler_plugins sh:file { getattr open };
-	allow hiprofiler_plugins console:file read;
+    allow hiprofiler_plugins netmanager:binder { call };
+    allow hiprofiler_plugins sa_comm_net_stats_manager_service:samgr_class { get };
 ')

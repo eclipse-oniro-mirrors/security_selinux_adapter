@@ -16,7 +16,7 @@ developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
 allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name };
-allow SP_daemon data_local_tmp:file { create getattr ioctl open write unlink read};
+allow SP_daemon data_local_tmp:file { create getattr ioctl open write unlink read setattr append };
 allowxperm SP_daemon data_local_tmp:file ioctl 0x5413;
 
 allow SP_daemon dev_console_file:chr_file { read write };
@@ -147,6 +147,14 @@ allow SP_daemon sa_multimodalinput_service:samgr_class { get };
 allow SP_daemon sa_foundation_abilityms:samgr_class { get };
 allow SP_daemon sa_accessibleabilityms:samgr_class { get };
 allow SP_daemon chip_prod_file:dir { search };
+
+allow SP_daemon paramservice_socket:sock_file { write };
+allow SP_daemon kernel:unix_stream_socket { connectto };
+allow SP_daemon debug_param:parameter_service { set };
+
+allow SP_daemon sa_test_server:samgr_class { get };
+allow SP_daemon test_server:binder { call transfer };
+allow SP_daemon samgr:binder { transfer };
 ')
 
 

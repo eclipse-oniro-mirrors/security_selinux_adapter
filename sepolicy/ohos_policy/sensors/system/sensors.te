@@ -95,7 +95,7 @@ allow sensors system_core_hap_attr:binder { call };
 allow sensors sa_privacy_service:samgr_class { get };
 
 #avc:  denied  { call } for  pid=549 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=0
-allow sensors privacy_service:binder { call };
+binder_call(sensors, privacy_service);
 
 #avc:  denied  { read } for  pid=2827 comm="sa_main" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:sensors:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=0
 allow sensors accessibility_param:file { read };

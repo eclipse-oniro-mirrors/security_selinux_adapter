@@ -26,7 +26,6 @@ allow system_basic_hap_attr concurrent_task_service:binder { call };
 #resource_schedule_service
 allow resource_schedule_service sa_concurrent_task_service:samgr_class { get };
 allow resource_schedule_service concurrent_task_service:binder { call };
-allow resource_schedule_service dev_auth_ctrl:chr_file { read write open ioctl };
 #hiview
 allow hiview concurrent_task_service:dir { search };
 allow hiview concurrent_task_service:file { open read };
@@ -39,9 +38,6 @@ allow foundation concurrent_task_service:binder { call transfer };
 allow init dev_auth_ctrl:chr_file { setattr };
 allow udevd dev_auth_ctrl:chr_file { getattr write };
 allow ueventd dev_auth_ctrl:chr_file { relabelto };
-#never_allow
-neverallow { domain -concurrent_task_service -resource_schedule_service -udevd } dev_sched_rtg_ctrl:chr_file { write };
-neverallow { domain -concurrent_task_service -resource_schedule_service -udevd -rgm_violator_ohos_dev_auth_ctrl_file_write } dev_auth_ctrl:chr_file { write };
 #ffrt_param
 allow init render_service:file { getattr };
 allow render_service ffrt_param:parameter_service { set };
