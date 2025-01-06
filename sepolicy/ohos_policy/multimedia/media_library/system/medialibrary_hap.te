@@ -28,3 +28,9 @@ allow medialibrary_hap camera_service:fd { use };
 
 # avc:  denied  { get } for service=usbfn_mtp_interface_service sid=u:r:medialibrary_hap:s0 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hdf_usbfn_mtp_interface_service:s0 tclass=hdf_devmgr_class permissive=0
 allow medialibrary_hap hdf_usbfn_mtp_interface_service:hdf_devmgr_class { get };
+
+# avc:  denied  { watch } for  pid=1261 comm="MtpMonitor::Run" path="/storage/External/6342293E7EBCAF49" dev="mmcblk1p2" ino=5 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=0
+# avc:  denied  { watch_reads } for  pid=1257 comm="MtpMonitor::Run" path="/storage/External/0F83-08EF" dev="mmcblk1p1" ino=1 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=0
+allow medialibrary_hap ntfs:dir { watch watch_reads };
+allow medialibrary_hap exfat:dir { watch watch_reads };
+allow medialibrary_hap vfat:dir { watch_reads };
