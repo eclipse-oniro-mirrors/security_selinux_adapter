@@ -27,7 +27,6 @@ allow foundation const_product_param:file { map open read };
 allow foundation data_app_el1_file:file { open };
 allow foundation data_service_el1_file:dir { getattr rmdir setattr };
 allow foundation data_service_el1_file:file { ioctl lock map read append open setattr };
-allow foundation data_service_el1_utd_file:file { ioctl write };
 allow foundation data_system_ce:dir { create open read remove_name };
 allow foundation data_system_ce:file { unlink };
 allow foundation debug_param:file { map open read };
