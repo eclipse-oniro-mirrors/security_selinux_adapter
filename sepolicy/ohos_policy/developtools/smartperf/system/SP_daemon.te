@@ -15,7 +15,7 @@ neverallow SP_daemon *:process ptrace;
 developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
-allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name };
+allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name rmdir };
 allow SP_daemon data_local_tmp:file { create getattr ioctl open write unlink read setattr append };
 allowxperm SP_daemon data_local_tmp:file ioctl 0x5413;
 
@@ -90,7 +90,8 @@ allow SP_daemon render_service:fd { use };
 allow SP_daemon usb_setting_param:file { read open map };
 allow SP_daemon sh:dir { search };
 allow SP_daemon sh:file { read };
-allow SP_daemon data_hilogd_file:dir { search };
+allow SP_daemon data_hilogd_file:dir { search getattr open read };
+allow SP_daemon data_hilogd_file:file { getattr open read };
 allow SP_daemon hdcd:fd { use };
 allow SP_daemon hdcd:fifo_file { ioctl read write };
 allow SP_daemon hdcd:unix_stream_socket { read write };
