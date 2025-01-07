@@ -18,3 +18,5 @@ allowxperm installs data_service_el1_public_print_service_file:file ioctl { 0x54
 allow installs print_driver_exec:dir { add_name getattr write search };
 allow installs print_driver_exec:file { create getattr ioctl setattr write open relabelto };
 allowxperm installs print_driver_exec:file ioctl { 0x5413 };
+allow installs data_service_sane_service_config_file:dir { getattr search write add_name search remove_name };
+allow installs data_service_sane_service_config_file:file { relabelto getattr unlink };

@@ -13,5 +13,8 @@
 
 type print_service, sadomain, domain;
 type cupsd_exec, exec_attr, file_attr, system_file_attr;
+type scan_service, sadomain, domain;
+type data_service_sane_service_config_file, file_attr, data_file_attr;
+type data_service_sane_service_tmp_file, file_attr, data_file_attr;
 #domain_auto_transition_pattern(init, cupsd_exec, cupsd);
 
