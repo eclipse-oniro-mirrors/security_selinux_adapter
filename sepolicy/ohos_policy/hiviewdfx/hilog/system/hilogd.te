@@ -91,7 +91,6 @@ neverallow * hilogd:process dyntransition;
 neverallow {
     domain
     developer_only(`-wukong')
-    developer_only(`-SP_daemon')
     developer_only(`-hiprofiler_plugins')    
     -init
     -hilogd
