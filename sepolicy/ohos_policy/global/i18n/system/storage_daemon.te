@@ -11,5 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow storage_daemon data_service_el1_i18n_libphonenumber_file:dir { getattr open read search rmdir write remove_name };
+allow storage_daemon data_service_el1_i18n_libphonenumber_file:file { getattr map open read unlink };
+allow storage_daemon data_service_el1_i18n_taboo_file:dir { getattr open read search rmdir write remove_name };
+allow storage_daemon data_service_el1_i18n_taboo_file:file { getattr map open read unlink };
 allow storage_daemon data_service_el1_i18n_timezone_file:dir { getattr open read search rmdir write remove_name };
 allow storage_daemon data_service_el1_i18n_timezone_file:file { getattr map open read unlink };
