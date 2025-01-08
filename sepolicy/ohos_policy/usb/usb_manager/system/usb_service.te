@@ -114,3 +114,7 @@ allowxperm debug_hap dev_bus_usb_file:chr_file ioctl { 0x5500 0x5504 0x5505 0x55
 allow normal_hap dev_usb_accessory_file:chr_file { read write };
 allow debug_hap dev_usb_accessory_file:chr_file { read write };
 allow usb_service distributeddata:fd { use };
+allow usb_service debug_hap:binder { call transfer };
+allow usb_service usb_service:binder { call transfer };
+allow debug_hap usb_service:binder { call transfer };
+allow usb_service debug_hap:fd { use };
