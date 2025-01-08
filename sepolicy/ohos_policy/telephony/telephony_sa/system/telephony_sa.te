@@ -36,7 +36,7 @@ allow telephony_sa normal_hap_attr:binder { call transfer };
 allow telephony_sa normal_hap_attr:fd use;
 allow telephony_sa paramservice_socket:sock_file write;
 allow telephony_sa persist_param:parameter_service set;
-allow telephony_sa privacy_service:binder call;
+binder_call(telephony_sa, privacy_service);
 binder_call(telephony_sa, powermgr);
 allow telephony_sa riladapter_host:binder { call transfer };
 allow telephony_sa sa_accesstoken_manager_service:samgr_class get;

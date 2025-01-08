@@ -111,3 +111,5 @@ allow netmanager foundation:fd { use };
 allow netmanager proc_net:file { open write };
 allow netmanager softbus_server:binder { call transfer };
 allow netmanager locationhub:binder { call };
+allow netmanager sa_time_service:samgr_class { get };
+allow netmanager time_service:binder { transfer };

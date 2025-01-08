@@ -218,8 +218,8 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-data_file_attr_violator_exec -hnp_native')} { data_file_attr }:file { execute_no_trans };
-neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -scan_service developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap -hnp_native')} data_file_attr:file { execute };
+neverallow { domain -hap_domain -nwebspawn -cupsd -print_driver developer_only(`-data_file_attr_violator_exec -hnp_native')} { data_file_attr }:file { execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -print_driver -sane_service developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap -hnp_native')} data_file_attr:file { execute };
 
 neverallow isolated_gpu { data_file_attr -data_app_el1_file }:file { execute };
 neverallow isolated_render { data_file_attr -data_app_el1_file }:file { execute };
