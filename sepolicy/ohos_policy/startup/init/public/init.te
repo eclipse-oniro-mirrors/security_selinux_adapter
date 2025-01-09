@@ -79,11 +79,11 @@ developer_only(`
     allow sh data_service_el1_i18n_timezone_file:file { open read getattr map };
 ')
 
-allow { domain } data_service_el1_i18n_libphonenumber_file:dir { search open read getattr mounton };
-allow { domain } data_service_el1_i18n_libphonenumber_file:file { open read getattr map };
+allow { domain - hdcd } data_service_el1_i18n_libphonenumber_file:dir { search open read getattr mounton };
+allow { domain - hdcd } data_service_el1_i18n_libphonenumber_file:file { open read getattr map };
 
-allow { domain } data_service_el1_i18n_taboo_file:dir { search open read getattr mounton };
-allow { domain } data_service_el1_i18n_taboo_file:file { open read getattr map };
+allow { domain - hdcd } data_service_el1_i18n_taboo_file:dir { search open read getattr mounton };
+allow { domain - hdcd } data_service_el1_i18n_taboo_file:file { open read getattr map };
 
 #for bootchart to read
 allow init domain:file { open read };
