@@ -25,4 +25,5 @@ genfscon sharefs /currentUser/appdata/el1/base/ u:object_r:sharefs_appdata_bundl
 genfscon sharefs /currentUser/appdata/el2/base/ u:object_r:sharefs_appdata_bundle_file:s0
 genfscon sharefs /currentUser/appdata/el2/cloud/ u:object_r:sharefs_appdata_bundle_file:s0
 genfscon sharefs /currentUser/appdata/el2/distributedfiles/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /currentUser/appdata/el5/base/ u:object_r:sharefs_appdata_bundle_file:s0
 
