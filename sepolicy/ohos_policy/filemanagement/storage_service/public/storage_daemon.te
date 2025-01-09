@@ -20,6 +20,8 @@ define(`storage_daemon_relabel', `
     allow storage_daemon $1:dir { search };
 ')
 storage_daemon_relabel(data_user_file);
+storage_daemon_relabel(data_service_el1_i18n_libphonenumber_file);
+storage_daemon_relabel(data_service_el1_i18n_taboo_file);
 storage_daemon_relabel(data_service_el1_i18n_timezone_file);
 storage_daemon_relabel(data_service_el2_hmdfs);
 storage_daemon_relabel(data_service_el2_public_huksService_file);
