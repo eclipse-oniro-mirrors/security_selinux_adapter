@@ -23,9 +23,3 @@ allow system_core_hap_attr hmdfs:file { getattr };
 allow system_core_hap_attr av_codec_service:binder {call};
 
 allow system_core_hap system_basic_hap_data_file:file { read write };
-
-# avc:  denied  { search } for  pid=25995 comm="RSRenderThread" name="etc" dev="mmcblk0p9" ino=12 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
-allow system_core_hap_attr sys_prod_file:dir { search };
-
-# avc:  denied  { transfer } for  pid=25995 comm="ot:sys/commonUI" scontext=u:r:system_core_hap:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
-allow system_core_hap_attr system_basic_hap:binder { transfer };
