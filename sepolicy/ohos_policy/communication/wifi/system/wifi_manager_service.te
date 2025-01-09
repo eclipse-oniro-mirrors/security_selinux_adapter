@@ -232,6 +232,6 @@ allow wifi_manager_service wifi_manager_service:netlink_socket { create setopt w
 
 allow wifi_manager_service sa_asset_service:samgr_class { get };
 allow wifi_manager_service asset_service:binder { call };
+allow wifi_manager_service sa_foundation_dms:samgr_class { get };
 
 allow wifi_manager_service system_usr_file:file { map };
-allow wifi_manager_service sa_foundation_dms:samgr_class { get };
