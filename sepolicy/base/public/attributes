@@ -301,3 +301,4 @@ attribute hap_domain_cgroup_violators;
 attribute hap_domain_proc_stat_file_violators;
 attribute hap_domain_proc_modules_file_violators;
 
+attribute hap_attr_link_violators;
