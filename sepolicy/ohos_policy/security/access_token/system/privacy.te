@@ -14,7 +14,9 @@
 type privacy_service, sadomain, domain;
 
 allow privacy_service accesstoken_data_file:dir { search add_name open read write remove_name };
-allow privacy_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
+# [  324.857258] audit: type=1400 audit(1501923927.060:2293): avc:  denied  { map } for  pid=2232 comm="SaInit1" path="/data/service/el1/public/access_token/permission_used_record.db-shm" dev="mmcblk0p15" ino=3066 scontext=u:r:privacy_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
+# [  324.863783] audit: type=1400 audit(1501923927.066:2294): avc:  denied  { setattr } for  pid=2232 comm="SaInit1" name="permission_used_record.db" dev="mmcblk0p15" ino=3063 scontext=u:r:privacy_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
+allow privacy_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink map setattr };
 allow privacy_service accesstoken_service:binder { call };
 allow privacy_service audio_server:binder { call transfer };
 allow privacy_service bootevent_param:file { map open read };
