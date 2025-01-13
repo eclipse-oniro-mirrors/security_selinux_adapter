@@ -81,3 +81,7 @@ allow sharing_service sa_render_service:samgr_class { get };
 allow sharing_service render_service:binder { transfer };
 allow render_service sharing_service:binder { call };
 allow render_service sharing_service:binder { transfer };
+allow sharing_service sa_wifi_device_ability:samgr_class { get };
+allow sharing_service port:tcp_socket { name_connect };
+allow sharing_service sharing_service:udp_socket { ioctl };
+allowxperm sharing_service sharing_service:udp_socket ioctl { 0x8915 };
