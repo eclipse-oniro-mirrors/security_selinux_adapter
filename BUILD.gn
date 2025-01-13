@@ -108,29 +108,11 @@ ohos_static_library("libselinux_klog_real_static") {
   subsystem_name = "security"
 }
 
-ohos_static_library("libselinux_hilog_real_static") {
-  output_name = "libselinux_hilog_real_static"
-  sources = [ "framework/policycoreutils/src/selinux_log.c" ]
-  include_dirs = [ "interfaces/policycoreutils/include" ]
-  external_deps = [
-    "bounds_checking_function:libsec_static",
-    "hilog:libhilog_base",
-  ]
-  cflags = [
-    "-D_GNU_SOURCE",
-    "-Wall",
-    "-Werror",
-  ]
-  part_name = "selinux_adapter"
-  subsystem_name = "security"
-}
-
 ohos_static_library("librestorecon_static") {
   output_name = "librestorecon_static"
   sources = [ "framework/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_real_static" ]
-  external_deps = [ "hilog:libhilog_base" ]
 
   public_external_deps = [ "selinux:libselinux_static" ]
 
