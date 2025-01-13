@@ -227,3 +227,4 @@ allow distributeddata data_service_el2_pasteboard_service:dir { read write creat
 allow distributeddata data_service_el2_pasteboard_service:file { read write create getattr setattr lock map unlink rename open ioctl };
 allowxperm distributeddata data_service_el2_pasteboard_service:dir ioctl { 0xf546 };
 allowxperm distributeddata data_service_el2_pasteboard_service:file ioctl { 0xf50c 0xf546 };
+allow distributeddata usb_service:binder { transfer };
