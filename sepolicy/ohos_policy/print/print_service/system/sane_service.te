@@ -25,7 +25,7 @@ allow sane_service dev_bus:dir { search };
 allow sane_service dev_bus_usb_file:chr_file { ioctl open read write };
 allow sane_service dev_bus_usb_file:dir { open read search };
 allow sane_service dev_bus_usb_file:file { open read };
-allowxperm sane_service dev_bus_usb_file:chr_file ioctl { 0x551a 0x550a 0x550d 0x5504 0x550f 0x5510 0x5508 0x550b };
+allowxperm sane_service dev_bus_usb_file:chr_file ioctl { 0x551a 0x550a 0x550d 0x5504 0x550f 0x5510 0x5508 0x550b 0x5505 0x5514 };
 allow sane_service dev_unix_socket:dir { search };
 allow sane_service node:udp_socket { node_bind };
 allow sane_service port:tcp_socket { name_connect };
