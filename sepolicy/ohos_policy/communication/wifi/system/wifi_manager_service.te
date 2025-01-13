@@ -235,3 +235,6 @@ allow wifi_manager_service asset_service:binder { call };
 allow wifi_manager_service sa_foundation_dms:samgr_class { get };
 
 allow wifi_manager_service system_usr_file:file { map };
+
+allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0xf50c 0xf546 };
+allow wifi_manager_service data_service_el1_file:file { ioctl map };
