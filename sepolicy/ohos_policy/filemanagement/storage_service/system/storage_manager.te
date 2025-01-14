@@ -70,3 +70,6 @@ allow storage_manager appspawn_socket:sock_file { write };
 
 #avc:  denied  { call } for  pid=125 comm="OS_IPC_1_133" scontext=u:r:storage_manager:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
 allow storage_manager distributeddata:binder { call };
+
+# avc:  denied  { read write } for  pid=130 comm="OS_IPC_1_141" path="/dev/fuse" dev="tmpfs" ino=232 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+allow storage_manager dev_fuse_file:chr_file { read write };
