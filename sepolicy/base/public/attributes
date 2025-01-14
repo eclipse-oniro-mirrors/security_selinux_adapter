@@ -172,6 +172,8 @@ attribute data_user_file_file_violator;
 
 attribute dev_fuse_file_violator;
 
+attribute nativespawn_mount_filesystem_violator;
+
 attribute proc_violator;
 attribute sh_exec_violator;
 attribute proc_sys_writer;
