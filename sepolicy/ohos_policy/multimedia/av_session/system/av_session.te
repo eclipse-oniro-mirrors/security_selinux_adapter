@@ -46,6 +46,7 @@ allow av_session audio_server:binder { call transfer };
 allow av_session device_manager:binder { call transfer };
 allow av_session param_watcher:binder { call transfer };
 allow av_session sa_accesstoken_manager_service:samgr_class { get };
+allow av_session sa_avsession_service:samgr_class { get };
 allow av_session sa_foundation_appms:samgr_class { get };
 allow av_session av_session_data_file:dir { search write add_name read getattr remove_name};
 allow av_session sa_foundation_abilityms:samgr_class { get };
