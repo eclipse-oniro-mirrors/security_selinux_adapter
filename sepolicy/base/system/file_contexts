@@ -92,6 +92,7 @@
 /dev/teepriv[0-9]*          u:object_r:dev_tee_file:s0
 /dev/ubi_ctrl          u:object_r:dev_ubi_file:s0
 /dev/uhid          u:object_r:dev_uhid_file:s0
+/dev/hidraw[0-9]*          u:object_r:dev_input_file:s0
 /dev/tun          u:object_r:dev_tun_file:s0
 /dev/vcs          u:object_r:dev_vcs_file:s0
 /dev/vcs[0-9]*          u:object_r:dev_vcs_file:s0
