@@ -130,7 +130,7 @@ debug_only(`
 
 allow init a2dp_host:process { rlimitinh siginh sigkill transition };
 allow init accessibility:process { rlimitinh siginh transition };
-allow init accesstoken_data_file:file { getattr open read write relabelto setattr };
+allow init accesstoken_data_file:file { getattr open read write relabelto setattr lock };
 allow init accesstoken_service:process { rlimitinh siginh transition };
 allow init appspawn:process { signal };
 allow init appspawn_socket:sock_file { getattr relabelto };
