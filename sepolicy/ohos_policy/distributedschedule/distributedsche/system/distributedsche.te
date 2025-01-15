@@ -125,8 +125,4 @@ allow distributedsche bluetooth_service:binder { call transfer };
 allow distributedsche sa_bluetooth_server:samgr_class { get };
 #avc: denied { get } for service=3704 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
 allow distributedsche sa_screenlock_service:samgr_class { get };
-#avc: denied { supervsable } for pid=6941, comm="/bin/init"  scontext=u:r:distributedsche:s0 tcontext=u:r:distributedsche:s0 tclass=hmcap permissive=0
-allow distributedsche distributedsche:hmcap { supervsable };
-#avc: denied { search } for pid=6941, comm="/system/bin/sa_main"  name="/etc" dev="/dev/block/dm-2" ino=21059540 scontext=u:r:distributedsche:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=0
-allow distributedsche vendor_etc_file:dir { search };
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
