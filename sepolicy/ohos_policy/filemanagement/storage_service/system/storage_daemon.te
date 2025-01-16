@@ -448,3 +448,6 @@ allow storage_daemon dev_bus_usb_file:file { write };
 
 # avc:  denied  { get } for service=501 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow storage_daemon sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { relabelfrom } for  pid=203 comm="OS_IPC_1_229" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=0
+allow storage_daemon fuse_file:filesystem { relabelfrom };
