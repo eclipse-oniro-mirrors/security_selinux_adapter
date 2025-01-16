@@ -311,8 +311,8 @@ allow storage_daemon sa_ca_daemon_service:samgr_class { get };
 # avc:  denied  { relabelfrom } for  pid=253 comm="IPC_1_271" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=filesystem permissive=0
 allow storage_daemon unlabeled:filesystem { relabelfrom };
 allow storage_daemon unlabeled:dir { getattr ioctl lock open read relabelfrom search setattr watch watch_reads write rmdir rename };
-allow storage_daemon unlabeled:file { getattr ioctl lock open read relabelfrom search setattr watch watch_reads write unlink rename };
-allow storage_daemon unlabeled:lnk_file { getattr ioctl lock open read relabelfrom search setattr watch watch_reads write unlink rename };
+allow storage_daemon unlabeled:file { getattr ioctl lock open read relabelfrom setattr watch watch_reads write unlink rename };
+allow storage_daemon unlabeled:lnk_file { getattr ioctl lock open read relabelfrom setattr watch watch_reads write unlink rename };
 allow storage_daemon hmdfs:filesystem { relabelfrom relabelto };
 # avc:  denied  { add_name } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
 # avc:  denied  { create } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
