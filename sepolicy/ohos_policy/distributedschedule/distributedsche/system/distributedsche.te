@@ -123,6 +123,8 @@ allow distributedsche multimodalinput:binder { transfer };
 allow distributedsche bluetooth_service:binder { call transfer };
 #avc: denied { get } for service=1130 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=0
 allow distributedsche sa_bluetooth_server:samgr_class { get };
+# avc_audit_slow:276] avc: denied { call } for pid=10271, comm="/system/bin/sa_main"  scontext=u:r:bluetooth_service:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=0
+allow bluetooth_service distributedsche:binder { call };
 #avc: denied { get } for service=3704 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
 allow distributedsche sa_screenlock_service:samgr_class { get };
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
