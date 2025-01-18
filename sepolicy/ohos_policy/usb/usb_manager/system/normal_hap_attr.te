@@ -18,3 +18,4 @@ debug_only(`
 ')
 allow normal_hap_attr sa_usb_service:samgr_class { get };
 allow normal_hap_attr usb_service:binder { call };
+allow normal_hap_attr usb_service:fd { use };
