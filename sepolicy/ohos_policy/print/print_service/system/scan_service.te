@@ -70,3 +70,4 @@ allow installs data_service_scan_service_driver_file:dir { write add_name search
 allow scan_service dev_bus_usb_file:file { open read };
 allow scan_service sa_sane_service:samgr_class { get };
 allow scan_service sane_service:binder { call };
+allow debug_hap scan_service:fd { use };
