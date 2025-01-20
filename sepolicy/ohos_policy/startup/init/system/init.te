@@ -88,6 +88,7 @@ allow domain devinfo_public_param:file { map open read };
 allow domain telephony_param:file { map open read };
 allow domain useriam_fwkready_param:file { map open read };
 allow domain bluetooth_param:file { map open read };
+allow {init samgr} useriam_config_param:file { map open read };
 
 #for udid
 allow { init deviceinfoservice samgr hdf_devmgr softbus_server } devinfo_private_param:file { map open read };
