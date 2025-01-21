@@ -16,3 +16,4 @@ allow bootanimation persist_update_param:file { read open map };
 allow bootanimation data_service_el1_file:dir { search };
 allow bootanimation data_service_el1_file:file { getattr read open };
 allow bootanimation data_service_file:dir { search };
+
