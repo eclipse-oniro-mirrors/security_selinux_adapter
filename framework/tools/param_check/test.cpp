@@ -40,7 +40,7 @@ const static long USEC_PER_SEC = 1000000L;
 #endif
 
 struct TestInput {
-    std::string paraName;
+    char *paraName;
     char cmd = '\0';
 };
 
@@ -87,14 +87,14 @@ static void TestLoadList()
 #endif
 }
 
-static void TestGetContext(std::string &paraName)
+static void TestGetContext(char *paraName)
 {
 #ifdef TIME_DISPLAY
     struct timeval start, end, diff;
     gettimeofday(&start, nullptr);
 #endif
-    const char *context = GetParamLabel(paraName.c_str());
-    int index = GetParamLabelIndex(paraName.c_str());
+    const char *context = GetParamLabel(paraName);
+    int index = GetParamLabelIndex(paraName);
     std::cout << "paraName: " << paraName << "context: " << context << " index: " << index << std::endl;
 #ifdef TIME_DISPLAY
     gettimeofday(&end, nullptr);
@@ -102,16 +102,16 @@ static void TestGetContext(std::string &paraName)
     int runtime_us = diff.tv_sec * USEC_PER_SEC + diff.tv_usec;
     std::cout << "time use: " << runtime_us << std::endl;
 #endif
-    std::cout << "para " << paraName.c_str() << "'s context is " << context << std::endl;
+    std::cout << "para " << paraName << "'s context is " << context << std::endl;
 }
 
-static void TestReadPara(std::string &paraName)
+static void TestReadPara(char *paraName)
 {
 #ifdef TIME_DISPLAY
     struct timeval start, end, diff;
     gettimeofday(&start, nullptr);
 #endif
-    const char *contexts = GetParamLabel(paraName.c_str());
+    const char *contexts = GetParamLabel(paraName);
     std::string path = "/dev/__parameters__/" + std::string(contexts);
     if (access(path.c_str(), F_OK) != 0) {
         std::cout << "read param: " << paraName << " fail" << std::endl;
@@ -126,13 +126,13 @@ static void TestReadPara(std::string &paraName)
 #endif
 }
 
-static void TestSetPara(std::string &paraName, SrcInfo *info)
+static void TestSetPara(char *paraName, SrcInfo *info)
 {
 #ifdef TIME_DISPLAY
     struct timeval start, end, diff;
     gettimeofday(&start, nullptr);
 #endif
-    std::cout << GetErrStr(SetParamCheck(paraName.c_str(), GetParamLabel(paraName.c_str()), info)) << std::endl;
+    std::cout << GetErrStr(SetParamCheck(paraName, GetParamLabel(paraName), info)) << std::endl;
 #ifdef TIME_DISPLAY
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);
@@ -215,13 +215,13 @@ static void TestWriteParameters(TestInput &testCmd)
     info.uc.uid = getuid();
     info.uc.gid = getgid();
     info.sockFd = fd[0];
-    if (!testCmd.paraName.empty()) {
+    if (!(testCmd.paraName == nullptr && testCmd.paraName[0] == '\0')) {
         TestSetPara(testCmd.paraName, &info);
         close(fd[0]);
         close(fd[1]);
         exit(0);
     }
-    std::string paraName;
+    char *paraName = nullptr;
     while (std::cin >> paraName) {
         TestSetPara(paraName, &info);
     }
@@ -232,10 +232,10 @@ static void TestWriteParameters(TestInput &testCmd)
 
 static void Test(TestInput &testCmd)
 {
-    std::string paraName;
+    char *paraName = nullptr;
     switch (testCmd.cmd) {
         case 'g': {
-            if (!testCmd.paraName.empty()) {
+            if (!(testCmd.paraName == nullptr && testCmd.paraName[0] == '\0')) {
                 TestGetContext(testCmd.paraName);
                 exit(0);
             }
@@ -245,7 +245,7 @@ static void Test(TestInput &testCmd)
             exit(0);
         }
         case 'r': {
-            if (!testCmd.paraName.empty()) {
+            if (!(testCmd.paraName == nullptr && testCmd.paraName[0] == '\0')) {
                 TestReadPara(testCmd.paraName);
                 exit(0);
             }
