@@ -30,6 +30,8 @@ allow appspawn sharefs:dir { create_dir_perms mounton getattr };
 allow appspawn sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton getattr };
 allow appspawn sharefs:filesystem { mount };
 allow appspawn data_service_el2_share:dir { create_dir_perms mounton getattr };
+allow appspawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
+allow appspawn data_service_el1_file:file { read write create map open unlink };
 
 # read cfg from
 #avc:  denied  { getattr } for  pid=1802 comm="appspawn" path="/dev" dev="tmpfs" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0

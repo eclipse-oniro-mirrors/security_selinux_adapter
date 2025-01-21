@@ -227,6 +227,8 @@ allow cjappspawn cgroup:dir { add_name create search open read write };
 allow cjappspawn cgroup:file { append getattr ioctl open read write };
 allowxperm cjappspawn cgroup:file ioctl {  0x5413  };
 
+allow cjappspawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
+allow cjappspawn data_service_el1_file:file { read write create map open unlink };
 
 allow cjappspawn data_misc:dir { getattr };
 

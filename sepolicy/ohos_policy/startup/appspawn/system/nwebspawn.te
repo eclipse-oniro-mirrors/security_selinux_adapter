@@ -16,3 +16,5 @@ allow nwebspawn dev_asanlog_file:dir { getattr };
 
 # avc: denied { nnp_transition } for pid=21500, comm="/system/bin/appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:object_r:processdump:s0 tclass=process2 permissive=1
 allow nwebspawn processdump:process2 { nnp_transition };
+allow nwebspawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
+allow nwebspawn data_service_el1_file:file { read write create map open unlink };
