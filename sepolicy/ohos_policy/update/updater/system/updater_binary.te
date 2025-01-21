@@ -46,7 +46,7 @@ allow updater_binary rootfs:chr_file { ioctl write };
 allowxperm updater_binary rootfs:chr_file ioctl { 0x5413 };
 
 #avc: denied { search } for pid=281 comm="updater" name="/" dev="tmpfs" ino=1 scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
-#avc: denied { remove_name } for pid=725 comm="/tmp/updater_binary" name="" dev="tmpfs" ino=0 scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+#avc: denied { remove_name } for pid=725, comm="/tmp/updater_binary"  name="" dev="tmpfs" ino=0 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=0
 allow updater_binary tmpfs:dir { search remove_name };
 
 #avc: denied { execute } for pid=279 comm="updater" name="updater_binary" dev="tmpfs" ino=6 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
