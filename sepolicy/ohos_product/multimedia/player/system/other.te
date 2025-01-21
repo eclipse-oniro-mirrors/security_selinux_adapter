@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/service/el1/public/i18n/libphonenumber(/.*)?      u:object_r:data_service_el1_i18n_libphonenumber_file:s0
-/data/service/el1/public/i18n/taboo(/.*)?      u:object_r:data_service_el1_i18n_taboo_file:s0
-/data/service/el1/public/i18n/timezone(/.*)?      u:object_r:data_service_el1_i18n_timezone_file:s0
+# avc:  denied  { transfer } for  pid=25995 comm="ot:sys/commonUI" scontext=u:r:system_core_hap:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow system_core_hap_attr system_basic_hap_attr:binder { transfer };

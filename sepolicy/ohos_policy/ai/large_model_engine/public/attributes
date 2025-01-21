@@ -12,3 +12,4 @@
 # limitations under the License.
 
 attribute sys_prod_ai_model_llm_file_attr;
+attribute sys_prod_ai_model_aigc_file_attr;

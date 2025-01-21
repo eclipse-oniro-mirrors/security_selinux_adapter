@@ -13,10 +13,10 @@
 
 allow wifi_manager_service dev_unix_file:sock_file write;
 allow wifi_manager_service accesstoken_service:binder { call };
-allow wifi_manager_service data_service_el1_file:dir { add_name remove_name search write create };
+allow wifi_manager_service data_service_el1_file:dir { add_name remove_name search write create read open };
 allow wifi_manager_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write append };
 allow wifi_manager_service data_file:dir { search };
-allow wifi_manager_service data_service_el1_file:sock_file { write };
+allow wifi_manager_service data_service_el1_file:sock_file { write unlink };
 allow wifi_manager_service accessibility_param:file { read };
 allow wifi_manager_service dev_unix_socket:dir { search };
 allow wifi_manager_service foundation:binder { call transfer };
@@ -232,5 +232,9 @@ allow wifi_manager_service wifi_manager_service:netlink_socket { create setopt w
 
 allow wifi_manager_service sa_asset_service:samgr_class { get };
 allow wifi_manager_service asset_service:binder { call };
+allow wifi_manager_service sa_foundation_dms:samgr_class { get };
 
 allow wifi_manager_service system_usr_file:file { map };
+
+allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0xf50c 0xf546 };
+allow wifi_manager_service data_service_el1_file:file { ioctl map };

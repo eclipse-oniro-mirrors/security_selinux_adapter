@@ -23,4 +23,5 @@ allow print_driver data_service_el1_file:dir { search };
 allow print_driver data_service_file:dir { search };
 allow print_driver data_service_el1_public_print_service_file:dir { search };
 allow print_driver sh_exec:file { execute execute_no_trans map open read };
+allow print_driver self:xpm { exec_allow_sa_plugin };
 neverallow print_driver { data_file_attr -print_driver_exec }:file { execute execute_no_trans };

@@ -75,6 +75,7 @@ allow distributeddata sa_dataobs_mgr_service_service:samgr_class { get };
 allow distributeddata sa_distributeddata_service:samgr_class { add get };
 allow distributeddata sa_foundation_abilityms:samgr_class { get };
 allow distributeddata sa_foundation_devicemanager_service:samgr_class { get };
+allow distributeddata sa_foundation_wms:samgr_class { get };
 allow distributeddata sa_filemanagement_cloud_sync_service:samgr_class { get };
 allow distributeddata sa_net_conn_manager:samgr_class { get };
 allow distributeddata sa_param_watcher:samgr_class { get };
@@ -226,3 +227,4 @@ allow distributeddata data_service_el2_pasteboard_service:dir { read write creat
 allow distributeddata data_service_el2_pasteboard_service:file { read write create getattr setattr lock map unlink rename open ioctl };
 allowxperm distributeddata data_service_el2_pasteboard_service:dir ioctl { 0xf546 };
 allowxperm distributeddata data_service_el2_pasteboard_service:file ioctl { 0xf50c 0xf546 };
+allow distributeddata usb_service:binder { transfer };

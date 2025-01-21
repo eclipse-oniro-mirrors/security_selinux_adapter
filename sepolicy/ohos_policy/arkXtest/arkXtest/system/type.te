@@ -89,4 +89,6 @@ developer_only(`
     allow uitest test_server:binder { call transfer };
     allow uitest samgr:binder { transfer };
     allow uitest system_core_hap:fd { use };
+	allow uitest system_usr_file:dir { search };
+    allow uitest system_usr_file:file { getattr map open read };
 ')

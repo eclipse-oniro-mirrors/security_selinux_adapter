@@ -310,6 +310,9 @@ allow storage_daemon sa_ca_daemon_service:samgr_class { get };
 # avc:  denied  { relabelto } for  pid=250 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=filesystem permissive=1
 # avc:  denied  { relabelfrom } for  pid=253 comm="IPC_1_271" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=filesystem permissive=0
 allow storage_daemon unlabeled:filesystem { relabelfrom };
+allow storage_daemon unlabeled:dir { getattr ioctl lock open read relabelfrom search setattr watch watch_reads write rmdir rename };
+allow storage_daemon unlabeled:file { getattr ioctl lock open read relabelfrom setattr watch watch_reads write unlink rename };
+allow storage_daemon unlabeled:lnk_file { getattr ioctl lock open read relabelfrom setattr watch watch_reads write unlink rename };
 allow storage_daemon hmdfs:filesystem { relabelfrom relabelto };
 # avc:  denied  { add_name } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
 # avc:  denied  { create } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
@@ -347,7 +350,9 @@ allow storage_daemon data_service_el2_hmdfs:lnk_file { unlink rename };
 
 storage_daemon_relabel(data_service_el2_share);
 
-allow storage_daemon data_app_el2_file:file { unlink };
+# avc: denied { create } for pid=648, comm="/system/bin/storage_daemon" name="/app/el2/100/base/el2_tem" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=5640 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
+allow storage_daemon data_app_el2_file:file { unlink create write ioctl open };
+allowxperm storage_daemon data_app_el2_file:file ioctl { 0x5413 };
 allow storage_daemon data_chipset_el2_file:file { unlink };
 allow storage_daemon data_app_el5_file:file { unlink };
 allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };
@@ -443,3 +448,9 @@ allow storage_daemon mnt_external_file:lnk_file { read };
 allow storage_daemon mnt_external_file:sock_file { getattr setattr };
 
 allow storage_daemon dev_bus_usb_file:file { write };
+
+# avc:  denied  { get } for service=501 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow storage_daemon sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { relabelfrom } for  pid=203 comm="OS_IPC_1_229" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=0
+allow storage_daemon fuse_file:filesystem { relabelfrom };

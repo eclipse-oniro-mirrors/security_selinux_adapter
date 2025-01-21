@@ -66,7 +66,7 @@ allow camera_host input_pointer_device_param:file { map open read };
 allow camera_host media_service:binder { call };
 allow camera_host net_param:file { map open read };
 allow camera_host net_tcp_param:file { map open read };
-allow camera_host normal_hap_attr:binder { call };
+allow camera_host normal_hap_attr:binder { call transfer };
 allow camera_host ohos_boot_param:file { map open read };
 allow camera_host ohos_param:file { map open read };
 allow camera_host persist_param:file { map open read };

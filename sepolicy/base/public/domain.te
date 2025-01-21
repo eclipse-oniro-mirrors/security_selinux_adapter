@@ -158,7 +158,7 @@ neverallow * ~{ file_attr domain  rgm_violator_domain rgm_violator_domain_oh_to_
 # second level for file based label class
 neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_violator_domain rgm_violator_domain_oh_to_box fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
     chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain chip_ckm_file_attr
-    rgmli_violator_exec_file_attr sys_prod_ai_model_llm_file_attr
+    rgmli_violator_exec_file_attr sys_prod_ai_model_llm_file_attr sys_prod_ai_model_aigc_file_attr
     developer_only(`lldb_server_file') }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
@@ -186,7 +186,7 @@ neverallow limit_domain *:file *;
 neverallow domain limit_domain:binder *;
 
 # every file should have a label. The unlabeled file shouldn't be accessed.
-neverallow { domain -appspawn -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators -rgm_violator_ohos_unlabeled_file -installs } unlabeled:dir_file_class_set *;
+neverallow { domain -appspawn -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators -rgm_violator_ohos_unlabeled_file -installs -storage_daemon } unlabeled:dir_file_class_set *;
 
 # keep selinuxfs safe.
 neverallow * kernel:security { load_policy setenforce setbool };
