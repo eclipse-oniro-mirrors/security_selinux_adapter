@@ -454,3 +454,5 @@ allow storage_daemon sa_foundation_appms:samgr_class { get };
 
 # avc:  denied  { relabelfrom } for  pid=203 comm="OS_IPC_1_229" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=0
 allow storage_daemon fuse_file:filesystem { relabelfrom };
+#avc:  denied { use } for pid=649 comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_manager:s0 tclass=fd permissive=0
+allow storage_daemon storage_manager:fd { use };
