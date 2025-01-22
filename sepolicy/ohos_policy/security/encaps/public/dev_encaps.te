@@ -16,9 +16,10 @@ type dev_encaps, dev_attr;
 allow { domain -hap_domain -rgm_violator_ohos_dev_encaps_chr_file } dev_encaps:chr_file { ioctl read open };
 neverallow { hap_domain } dev_encaps:chr_file { ioctl read open };
 
-allowxperm { appspawn init } dev_encaps:chr_file ioctl { 0x4518 };
-allowxperm appspawn dev_encaps:chr_file ioctl { 0x451a };
-neverallowxperm { domain -appspawn -init } dev_encaps:chr_file ioctl { 0x4518 0x451a };
+allow { appspawn init nativespawn } dev_encaps:chr_file ioctl;
+allowxperm { appspawn init nativespawn } dev_encaps:chr_file ioctl { 0x4518 };
+allowxperm { appspawn nativespawn } dev_encaps:chr_file ioctl { 0x451a };
+neverallowxperm { domain -appspawn -init -nativespawn } dev_encaps:chr_file ioctl { 0x4518 0x451a };
 allowxperm { domain -hap_domain -rgm_violator_ohos_dev_encaps_chr_file } dev_encaps:chr_file ioctl { 0x4519 };
 neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4518 0x4519 0x451a };
-allow { appspawn init } dev_encaps:chr_file { write };
+allow { appspawn init nativespawn } dev_encaps:chr_file { write };
