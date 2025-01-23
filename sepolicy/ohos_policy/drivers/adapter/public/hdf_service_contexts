@@ -84,6 +84,7 @@ wpa_interface_service                   u:object_r:hdf_wpa_interface_service:s0
 chip_interface_service                  u:object_r:hdf_chip_interface_service:s0
 hostapd_interface_service               u:object_r:hdf_hostapd_interface_service:s0
 hid_ddk_service                         u:object_r:hdf_hid_ddk_service:s0
+scsi_peripheral_ddk_service             u:object_r:hdf_scsi_peripheral_ddk_service:s0
 
 # for testcase start
 sample_driver_service2                  u:object_r:hdf_sample_service:s0

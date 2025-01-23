@@ -20,3 +20,4 @@ allow system_core_hap_attr hdf_usb_interface_service:hdf_devmgr_class { get };
 allow system_core_hap_attr usb_host:fd { use };
 allow system_core_hap_attr usb_host:dir { read open };
 allow system_core_hap_attr hdf_usb_serial_ddk_service:hdf_devmgr_class { get };
+allow system_core_hap_attr hdf_scsi_peripheral_ddk_service:hdf_devmgr_class { get };

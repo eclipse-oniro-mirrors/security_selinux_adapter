@@ -13,3 +13,5 @@
 
 # Filesystem types
 type hidraw_device_file, dev_attr;
+type dev_sg_file, dev_attr;
+
