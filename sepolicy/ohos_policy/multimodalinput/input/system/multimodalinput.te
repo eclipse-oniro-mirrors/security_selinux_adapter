@@ -125,5 +125,3 @@ debug_only(`
 # avc: denied { get } for service=3704 sid=u:r:multimodalinput:s0 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
 allow multimodalinput sa_screenlock_service:samgr_class { get };
 allow multimodalinput sys_prod_file:dir { open read };
-allow multimodalinput input_isolate_debug_hap:unix_stream_socket { read write };
-allow multimodalinput input_isolate_hap:unix_stream_socket { read write };

@@ -108,7 +108,8 @@ developer_only(`
     allow input_isolate_debug_hap hiview:binder { call };
     allow hiview input_isolate_debug_hap:binder { transfer };
 
-    allow input_isolate_debug_hap multimodalinput:unix_stream_socket { read write };
+    allow input_isolate_debug_hap multimodalinput:unix_stream_socket { read };
+    allow input_isolate_debug_hap multimodalinput:binder { call transfer };
 
     allow input_isolate_debug_hap normal_hap:binder { call transfer };
     allow normal_hap input_isolate_debug_hap:binder { call };
@@ -179,7 +180,4 @@ developer_only(`
     allow input_isolate_debug_hap sa_device_service_manager:samgr_class { get };
     allow input_isolate_debug_hap allocator_host:binder { call };
     allow input_isolate_debug_hap allocator_host:fd { use };
-
-    binder_call(input_isolate_debug_hap, multimodalinput);
-    binder_call(multimodalinput, input_isolate_debug_hap);
 ')
