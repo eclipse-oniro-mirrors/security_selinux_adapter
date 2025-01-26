@@ -155,6 +155,8 @@ allow SP_daemon debug_param:parameter_service { set };
 allow SP_daemon sa_test_server:samgr_class { get };
 allow SP_daemon test_server:binder { call transfer };
 allow SP_daemon samgr:binder { transfer };
+allow SP_daemon system_usr_file:dir { search };
+allow SP_daemon system_usr_file:file { getattr map open read };
 ')
 
 
