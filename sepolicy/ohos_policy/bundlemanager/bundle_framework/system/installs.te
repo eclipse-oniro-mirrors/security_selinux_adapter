@@ -161,3 +161,7 @@ allow installs unlabeled:fifo_file { getattr relabelfrom rename setattr unlink r
 allow installs unlabeled:file { open read ioctl getattr setattr unlink relabelfrom relabelto rename };
 allow installs unlabeled:lnk_file { getattr relabelfrom rename setattr unlink read };
 allow installs unlabeled:sock_file { getattr relabelfrom rename setattr unlink read };
+allow installs data_hilogd_file:dir { read_dir_perms_without_ioctl unlink relabelto };
+allow installs data_hilogd_file:file { read_file_perms_without_ioctl };
+allow installs data_log:dir { read_dir_perms_without_ioctl unlink relabelto };
+allow installs data_log:file { read_file_perms_without_ioctl };

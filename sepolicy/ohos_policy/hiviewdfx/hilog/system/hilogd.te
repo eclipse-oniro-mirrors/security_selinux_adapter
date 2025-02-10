@@ -90,6 +90,7 @@ neverallow * hilogd:process dyntransition;
 # protect persist tmp file and info file
 neverallow {
     domain
+    -installs
     developer_only(`-wukong')
     developer_only(`-hiprofiler_plugins')    
     -init
@@ -101,6 +102,6 @@ neverallow {
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
-neverallow { domain -hilogd } data_hilogd_file:file { append create rename setattr write };
+neverallow { domain -hilogd -installs } data_hilogd_file:file { append create rename setattr write };
 
 allow hilogd hilog_private_param:parameter_service { set };
