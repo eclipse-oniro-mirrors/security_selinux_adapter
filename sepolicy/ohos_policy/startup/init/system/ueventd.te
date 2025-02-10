@@ -83,6 +83,8 @@ allow ueventd dev_i2c_test:chr_file { relabelto };
 allow ueventd dev_iio_file:chr_file { relabelto };
 allow ueventd dev_input_file:chr_file { create getattr relabelto setattr unlink };
 allow ueventd dev_input_file:dir { add_name getattr relabelto search write remove_name };
+allow ueventd hidraw_device_file:chr_file { create getattr relabelto setattr unlink };
+allow ueventd hidraw_device_file:dir { add_name getattr relabelto search write remove_name };
 allow ueventd dev_kmsg_file:chr_file { getattr open setattr write };
 allow ueventd dev_loop_control_file:chr_file { relabelto };
 allow ueventd dev_mali:chr_file { relabelto };
