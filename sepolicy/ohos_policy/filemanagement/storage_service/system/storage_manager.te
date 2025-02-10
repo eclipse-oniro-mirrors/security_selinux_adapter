@@ -40,3 +40,6 @@ allow storage_manager sa_accountmgr:samgr_class { get };
 
 # avc:  denied  { call } for  pid=581 comm="OS_cesComLstnr"  scontext=u:r:storage_manager:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 allow storage_manager accountmgr:binder { call };
+
+# avc: denied { open } for pid=647, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+allow storage_manager dev_ashmem_file:chr_file { open };
