@@ -13,6 +13,7 @@
 
 /data/service/el1/public/access_token(/.*)?    u:object_r:accesstoken_data_file:s0
 /data/service/el0/access_token/nativetoken.json u:object_r:accesstoken_data_file:s0
+/data/service/el0/access_token/nativetoken.json.lock u:object_r:accesstoken_data_file:s0
 
 # for atm tool
 /system/bin/atm u:object_r:atm_exec:s0
