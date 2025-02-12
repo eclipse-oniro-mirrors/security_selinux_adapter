@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow { domain developer_only(`-uitest -SP_daemon -wukong') debug_only(`-uitest -SP_daemon -wukong') } sa_test_server:samgr_class { get };
 developer_only(`
     allow test_server sa_test_server:samgr_class { add };
     allow test_server hilog_param:file { read open };
