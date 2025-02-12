@@ -113,7 +113,7 @@ allowxperm av_session dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
 
 allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-neverallowxperm ~{ accesstoken_service -hdcd } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
+neverallowxperm ~{ accesstoken_service hdcd } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };
 
 binder_call(accesstoken_service, bgtaskmgr_service);
