@@ -14,7 +14,7 @@
 allow wifi_manager_service dev_unix_file:sock_file write;
 allow wifi_manager_service accesstoken_service:binder { call };
 allow wifi_manager_service data_service_el1_file:dir { add_name remove_name search write create read open };
-allow wifi_manager_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write append };
+allow wifi_manager_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write append rename };
 allow wifi_manager_service data_file:dir { search };
 allow wifi_manager_service data_service_el1_file:sock_file { write unlink };
 allow wifi_manager_service accessibility_param:file { read };
