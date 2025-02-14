@@ -35,6 +35,8 @@ allow storage_daemon data_app_el1_arkcache:dir { add_name create getattr open re
 allow storage_daemon data_app_el1_arkprofile:dir  { add_name create getattr open read search setattr write };
 allow storage_daemon data_app_el1_arkprofile:dir { relabelto };
 allow storage_daemon data_app_el1_file:dir { relabelfrom };
+allow storage_daemon data_app_el1_arkprofile:dir { rw_dir_perms_without_ioctl rmdir };
+allow storage_daemon data_app_el1_arkprofile:file { unlink };
 
 neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam } storage_daemon:{ binder } call;
 
