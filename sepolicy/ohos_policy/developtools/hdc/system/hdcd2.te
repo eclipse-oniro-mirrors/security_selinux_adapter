@@ -251,7 +251,7 @@ allow hdcd sys_fs_hmdfs:dir { search getattr };
 allow hdcd proc_vmallocinfo_file:dir { getattr };
 allow hdcd proc_partitions_file:dir { getattr };
 allow hdcd hitrace_exec:file { getattr ioctl read execute open map };
-allow hdcd dev_at_file:chr_file { read open write ioctl };
+#allow hdcd dev_at_file:chr_file { read open write ioctl };
 allow hdcd startup_uevent_param:file { read open map };
 allow hdcd xts_devattest_authresult_param:file { read open map };
 allow hdcd sysfs_state:lnk_file { read getattr };
@@ -389,6 +389,8 @@ allow hdcd proc_developer_file:dir { getattr };
 allow hdcd data_service_el0_file:dir { search };
 
 ')
+
+
 
 allow hdcd functionfs:dir { getattr };
 allow hdcd proc_cpuinfo_file:dir { getattr };
@@ -635,7 +637,7 @@ allow hdcd proc_vmallocinfo_file:dir { getattr };
 allow hdcd proc_partitions_file:dir { getattr };
 allow hdcd hitrace_exec:file { getattr ioctl read execute open map };
 allow hdcd system_file:dir { search };
-allow hdcd dev_at_file:chr_file { read open write ioctl };
+#allow hdcd dev_at_file:chr_file { read open write ioctl };
 allow hdcd startup_uevent_param:file { read open map };
 allow hdcd xts_devattest_authresult_param:file { read open map };
 allow hdcd sysfs_state:lnk_file { read getattr };
@@ -776,6 +778,8 @@ allow hdcd vendor_lib_file:lnk_file { read };
 allow hdcd proc_developer_file:dir { getattr };
 allow hdcd data_service_el0_file:dir { search };
 
+
+
 allowxperm hdcd bytrace_exec:file ioctl { 0x4105 0x4106 0x4108 };
 allowxperm hdcd dev_ashmem_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 allowxperm hdcd dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
@@ -794,6 +798,5 @@ allowxperm hdcd hisysevent_exec:file ioctl { 0x4105 0x4106 0x4108 };
 allowxperm hdcd hitrace_exec:file ioctl { 0x4105 0x4106 0x4108 };
 allowxperm hdcd native_daemon_exec:file ioctl { 0x4105 0x4106 0x4108 };
 allowxperm hdcd processdump_exec:file ioctl { 0x4105 0x4106 0x4108 };
-
 
 
