@@ -304,3 +304,5 @@ attribute hap_domain_proc_stat_file_violators;
 attribute hap_domain_proc_modules_file_violators;
 
 attribute hap_attr_link_violators;
+
+attribute normal_hap_system_basic_hap_data_file_violators;
