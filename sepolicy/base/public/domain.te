@@ -207,7 +207,7 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:11230
 #      (allow riladapter_host dev_file (chr_file (ioctl read write open)))
 #    <root>
-neverallow { domain -init -ueventd -usb_service -riladapter_host debug_only(`-softbus_server') -dev_file_violator -rgm_violator_ohos_dev_char_file } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server') -dev_file_violator -rgm_violator_ohos_dev_char_file } dev_file:{ file chr_file blk_file } *;
 
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
