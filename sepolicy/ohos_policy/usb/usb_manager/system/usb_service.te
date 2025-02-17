@@ -133,6 +133,4 @@ allow usb_service dev_bus_usb_file:chr_file { ioctl open read write };
 allow usb_service dev_bus_usb_file:dir { search read open };
 allow usb_service dev_bus:dir { search };
 allow usb_service sysfs_devices_system_cpu:file { getattr open read };
-allow usb_service dev_file:chr_file { ioctl read write open };
-allowxperm usb_service dev_file:chr_file ioctl { 0x5401 0x5402 0x540b };
 allow normal_hap usb_service:binder { transfer };
