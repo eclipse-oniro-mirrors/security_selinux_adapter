@@ -192,7 +192,7 @@ neverallow { system_basic_hap_attr normal_hap_attr } system_core_hap_data_file_a
 #limit access to system_basic_hap_data_file
 neverallow { domain -appspawn -hap_domain -installs -storage_daemon  -distributeddata -hiview -download_server -system_basic_hap_data_file_attr_violator_dir -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt updater_only(`-updater') } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
-neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
+neverallow { normal_hap_attr -normal_hap_system_basic_hap_data_file_violators } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
 neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server developer_only(`-input_isolate_debug_hap') -input_isolate_hap -appspawn -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt -rgm_violator_normal_hap_data_file_attr_dir_file_create_unlink updater_only(`-updater') } normal_hap_data_file_attr:dir_file_class_set { create unlink };
