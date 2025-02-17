@@ -14,3 +14,6 @@
 # please put shorter config ahead;
 # root
 /dev/hidraw[0-9]*          u:object_r:hidraw_device_file:s0
+/dev/ttyUSB[0-9]*             u:object_r:tty_device:s0
+/dev/sg[0-9]*                 u:object_r:dev_sg_file:s0
+

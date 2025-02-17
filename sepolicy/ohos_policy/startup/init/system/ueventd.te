@@ -172,6 +172,8 @@ allow ueventd dev_block_file:lnk_file { relabelfrom getattr };
 allow ueventd dev_block_file:dir { open read };
 allow ueventd dev_block_volfile:lnk_file { setattr getattr relabelfrom};
 allow ueventd tmpfs:chr_file { create setattr getattr relabelfrom unlink };
+allow ueventd dev_sg_file:chr_file { create getattr relabelto setattr unlink };
+allow ueventd dev_sg_file:dir { add_name create getattr relabelto remove_name search write };
 
 # for hyperhold
 allow ueventd zram_device:blk_file { relabelto getattr setattr };
