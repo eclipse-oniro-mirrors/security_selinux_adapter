@@ -560,6 +560,12 @@ class hmpsf
     module_run
 }
 
+class hmprobe
+{
+    event_open
+    event_attach
+}
+
 class ced
 {
     container_escape_check
