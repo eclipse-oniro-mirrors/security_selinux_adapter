@@ -238,3 +238,10 @@ allow wifi_manager_service system_usr_file:file { map };
 
 allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0xf50c 0xf546 };
 allow wifi_manager_service data_service_el1_file:file { ioctl map };
+
+# avc:  denied  { read write } for pid=971 comm="OS_FFRT_2_7" name="accept_ra" dev="proc" info=16841 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for pid=971 comm="OS_FFRT_2_7" path="/proc/sys/net/ipv6/conf/wlan0/accept_ra" dev="proc" info=16841 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for pid=971 comm="OS_FFRT_2_7" path="/proc/sys/net/ipv6/conf/wlan0/accept_ra" dev="proc" info=16841 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for pid=971 comm="OS_FFRT_2_7" path="/proc/sys/net/ipv6/conf/wlan0/accept_ra" dev="proc" info=16841 ioctlcmd=0x5413 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+allow wifi_manager_service proc_file:file { read write open getattr ioctl };
+allowxperm wifi_manager_service proc_file:file ioctl { 0x5413 };
