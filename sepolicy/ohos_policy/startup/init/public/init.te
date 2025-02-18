@@ -104,6 +104,7 @@ define(`init_relabel', `
     allow init $1:dir { search };
 ')
 init_relabel(data_service_el1_public_print_service_file);
+init_relabel(print_driver_exec);
 init_relabel(data_service_el1_i18n_timezone_file);
 init_relabel(data_parameters);
 init_relabel(data_udev);

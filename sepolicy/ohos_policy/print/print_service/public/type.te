@@ -12,4 +12,9 @@
 # limitations under the License.
 
 type data_service_scan_service_driver_file, file_attr, data_file_attr;
-type scan_service, sadomain, domain;
+type print_driver_exec, exec_attr, file_attr, data_file_attr;
+type print_driver_tmp, file_attr, data_file_attr;
+type print_driver_read, file_attr, data_file_attr;
+type sane_service, sadomain, domain;
+type print_driver, sadomain, domain;
+domain_auto_transition_pattern(cupsd, print_driver_exec, print_driver);

@@ -1,0 +1,41 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow sane_service data_service_el1_file:dir { search };
+allow sane_service data_service_el1_public_print_service_file:dir { search };
+allow sane_service data_service_el2_file:dir { search };
+allow sane_service data_service_file:dir { search };
+allow sane_service data_service_sane_service_config_file:dir { open read search };
+allow sane_service data_service_sane_service_config_file:file { getattr open read };
+allow sane_service data_service_sane_service_tmp_file:dir { search write add_name search write remove_name search create getattr open read rmdir };
+allow sane_service data_service_sane_service_tmp_file:file { create getattr ioctl open read write unlink append };
+allow sane_service data_service_scan_service_driver_file:dir { open read search };
+allow sane_service data_service_scan_service_driver_file:file { getattr map open read execute read };
+allow sane_service dev_bus:dir { search };
+allow sane_service dev_bus_usb_file:chr_file { ioctl open read write };
+allow sane_service dev_bus_usb_file:dir { open read search };
+allow sane_service dev_bus_usb_file:file { open read };
+allowxperm sane_service dev_bus_usb_file:chr_file ioctl { 0x551a 0x550a 0x550d 0x5504 0x550f 0x5510 0x5508 0x550b };
+allow sane_service dev_unix_socket:dir { search };
+allow sane_service node:udp_socket { node_bind };
+allow sane_service port:tcp_socket { name_connect };
+allow sane_service sa_sane_service:samgr_class { add };
+allow sane_service sane_service:netlink_kobject_uevent_socket { bind create read setopt };
+allow sane_service sane_service:netlink_route_socket { create nlmsg_read read write };
+allow sane_service sane_service:tcp_socket { connect create getopt read setopt write shutdown };
+allow sane_service sane_service:udp_socket { bind create ioctl read setopt write getattr };
+allow sane_service sane_service:unix_dgram_socket { getopt setopt };
+allowxperm sane_service data_service_sane_service_tmp_file:file ioctl { 0x5413 };
+allowxperm sane_service sane_service:udp_socket ioctl { 0x8912 0x8915 0x891b };
+allow sane_service sys_file:dir { open read };
+allow sane_service self:xpm { exec_allow_sa_plugin };

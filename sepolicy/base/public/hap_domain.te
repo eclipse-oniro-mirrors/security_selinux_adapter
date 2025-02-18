@@ -217,8 +217,8 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-data_file_attr_violator_exec -hnp_native')} { data_file_attr }:file { execute_no_trans };
-neverallow { domain -hap_domain -nwebspawn -isolated_render -input_isolate_hap -cupsd -scan_service developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap -hnp_native')} data_file_attr:file { execute };
+neverallow { domain -hap_domain -nwebspawn -cupsd -print_driver developer_only(`-data_file_attr_violator_exec -hnp_native')} { data_file_attr }:file { execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -isolated_render -cupsd -print_driver -sane_service -input_isolate_hap developer_only(`-data_file_attr_violator_exec -uitest -input_isolate_debug_hap -hnp_native')} data_file_attr:file { execute };
 
 neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
