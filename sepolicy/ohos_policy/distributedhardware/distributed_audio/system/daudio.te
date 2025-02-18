@@ -141,6 +141,10 @@ allow daudio device_manager:binder { call transfer };
 
 allow daudio dev_kmsg_file:chr_file { write open };
 
+allow daudio dev_ashmem_file:chr_file { open };
+
+allow daudio hdf_codec_component_manager_service:hdf_devmgr_class { get };
+
 allow daudio sa_device_security_level_manager_service:samgr_class { get };
 
 allow daudio persist_sys_param:file { read open map };
