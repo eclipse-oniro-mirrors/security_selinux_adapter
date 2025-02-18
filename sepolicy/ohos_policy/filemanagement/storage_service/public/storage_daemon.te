@@ -35,3 +35,10 @@ allow storage_daemon data_user_file:lnk_file { relabelto setattr };
 # avc:  denied  { get } for service=3901 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=0
 allow storage_daemon sa_param_watcher:samgr_class { get };
 
+# avc:  denied  { call } for pid=714, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=0
+# avc:  denied  { transfer } for pid=719, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=0
+allow storage_daemon param_watcher:binder { transfer call };
+
+# avc:  denied  { getattr } for pid=719 comm="/system/bin/storage_daemon" path="/system/bin/storage_daemon" dev="overlay" ino=862 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:storage_daemon_exec:s0 tclass=file permissive=0
+# avc:  denied  { open } for pid=714 comm="/system/bin/storage_daemon" path="/system/bin/storage_daemon" dev="overlay" ino=862 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:storage_daemon_exec:s0 tclass=file permissive=0
+allow storage_daemon storage_daemon_exec:file { getattr open };
