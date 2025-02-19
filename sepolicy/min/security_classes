@@ -113,6 +113,7 @@ class xpm
 class hideaddr
 class code_sign
 class hmpsf
+class hmprobe
 class ced
 class jit_memory
 class hmcap
