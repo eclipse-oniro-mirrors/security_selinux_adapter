@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-3707	                               u:object_r:sa_print_service:s0	                               
-3708	                               u:object_r:sa_scan_service:s0	                               
+3707	                               u:object_r:sa_print_service:s0
+3708	                               u:object_r:sa_scan_service:s0
+3709	                               u:object_r:sa_sane_service:s0

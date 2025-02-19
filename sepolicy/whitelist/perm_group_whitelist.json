@@ -12,6 +12,7 @@
                 "camera_host toybox_exec",
                 "cupsd system_bin_file",
                 "cupsd toybox_exec",
+                "cupsd sh_exec",
                 "download_server system_bin_file",
                 "download_server toybox_exec",
                 "faultloggerd system_bin_file",
@@ -101,8 +102,13 @@
                 "wifi_manager_service system_bin_file",
                 "wifi_manager_service toybox_exec",
                 "cupsd data_service_el1_public_print_service_file",
+                "cupsd print_driver_exec",
+                "print_driver print_driver_exec",
+                "print_driver sh_exec",
                 "pid_ns_init pid_ns_init_exec",
                 "compiler_service ark_aot_compiler_exec",
+                "print_service system_bin_uni_print_driver_file",
+                "cupsd system_bin_uni_print_driver_file",
                 "init bootanimation_exec"
             ],
             "developer": [

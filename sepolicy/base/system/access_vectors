@@ -534,6 +534,7 @@ class xpm
     exec_anon_mem
     exec_in_jitfort
     exec_allow_debug_id
+    exec_allow_sa_plugin
 }
 
 class hideaddr
