@@ -48,6 +48,10 @@ allowxperm audio_server data_data_pulse_dir:file ioctl { 0x5413 };
 
 allow audio_server system_bin_file:dir { getattr search };
 
+allow audio_server data_log:file { write };
+
+allow audio_server hiview:fd { use };
+
 allow audio_server data_file:dir { search };
 
 allow audio_server data_data_file:dir { search };
