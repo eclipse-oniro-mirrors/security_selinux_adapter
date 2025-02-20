@@ -787,24 +787,3 @@ allow hdcd proc_developer_file:dir { getattr };
 allow hdcd data_service_el0_file:dir { search };
 
 
-
-allowxperm hdcd bytrace_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd dev_ashmem_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd dev_binder_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd dev_null_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd dev_parameters_file:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd dev_random_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd dev_zero_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hidumper_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hiebpf_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hiperf_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hiprofiler_cmd_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hiprofiler_plugins_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hiprofilerd_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hisysevent_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd hitrace_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd native_daemon_exec:file ioctl { 0x4105 0x4106 0x4108 };
-allowxperm hdcd processdump_exec:file ioctl { 0x4105 0x4106 0x4108 };
-
-
