@@ -104,7 +104,8 @@
                 "filemanager_hap toybox_exec",
                 "hnp_native system_bin_file",
                 "hnp_native toybox_exec",
-                "hnp_native hilog_exec"
+                "hnp_native hilog_exec",
+                "normal_hap arkweb_crashpad_handler_exec"
             ],
             "developer": [
                 "aa sh_exec",
