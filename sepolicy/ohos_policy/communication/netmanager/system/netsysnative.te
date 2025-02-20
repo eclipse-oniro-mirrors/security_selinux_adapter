@@ -267,3 +267,6 @@ allow netsysnative hap_domain:icmp_socket { setopt getopt };
 
 # avc: denied { ioctl } for pid=6938, comm="/system/bin/appspawn"  ioctlcmd=0x8919  scontext=u:r:debug_hap:s0 tcontext=u:r:debug_hap:s0 tclass=udp_socket permissive=0
 allowxperm hap_domain self:udp_socket ioctl { 0x8919 };
+
+allow netsysnative netsysnative:tcp_socket { ioctl };
+allowxperm hap_domain self:tcp_socket ioctl { 0x5411 };
