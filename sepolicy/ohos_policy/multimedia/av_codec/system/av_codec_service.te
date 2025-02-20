@@ -115,6 +115,7 @@ allow av_codec_service normal_hap_attr:binder { call transfer };
 allow av_codec_service render_service:binder { transfer };
 
 allow av_codec_service render_service:fd { use };
+allow av_codec_service composer_host:fd { use };
 allow av_codec_service dev_mpp:chr_file { open read write ioctl };
 allowxperm av_codec_service dev_mpp:chr_file ioctl { 0x7601 };
 
