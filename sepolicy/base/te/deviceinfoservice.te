@@ -51,3 +51,4 @@ allow deviceinfoservice system_bin_file:dir { search };
 allow deviceinfoservice sys_usb_param:file { map open read };
 allow deviceinfoservice tracefs:dir { search };
 allow deviceinfoservice tracefs_trace_marker_file:file { open write };
+allow deviceinfoservice sys_file:file { open read };
