@@ -13,6 +13,7 @@
 
 #hap_domain: normal_hap, system_basic_hap, system_core_hap
 allow hap_domain self:udp_socket { ioctl };
+allow hap_domain self:tcp_socket { ioctl };
 
 #SIOCGIFADDR
 #SIOCGIFCONF
