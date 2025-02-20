@@ -240,8 +240,6 @@ allow hiview debug_param:parameter_service { set };
 
 allow hiperf system_file:file { getattr open read };
 allow hiperf SP_daemon_exec:file { getattr open read };
-allow hiperf data_local_arkcache:dir { search };
-allow hiperf data_local_arkcache:file { getattr open read };
 allow hiperf data_app_el1_arkcache:dir { search };
 allow hiperf data_app_el1_arkcache:file { getattr open read };
 allow hiperf app_el1_bundle_public:dir { getattr open read search };

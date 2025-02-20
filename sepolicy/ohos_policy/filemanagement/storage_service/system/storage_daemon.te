@@ -22,8 +22,6 @@ allow storage_daemon hmdfs:file { mounton };
 allow storage_daemon data_service_el2_hmdfs:file { mounton };
 allow storage_daemon data_user_file:file { mounton };
 allow storage_daemon data_app_el1_file:file { mounton };
-allow storage_daemon data_local_arkcache:file { mounton };
-allow storage_daemon data_local_arkprofile:file { mounton };
 allow storage_daemon data_app_el1_arkcache:file { mounton };
 allow storage_daemon data_app_el1_arkprofile:file { mounton };
 allow storage_daemon data_local:file { mounton };
