@@ -106,3 +106,5 @@ allow camera_service hdf_camera_video_process_service:hdf_devmgr_class { get };
 allow camera_service hmdfs:file { getattr };
 #avc:  denied  { get } for service=3302 sid=u:r:camera_service:s0 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=0
 allow camera_service sa_powermgr_battery_service:samgr_class { get };
+allow camera_service sa_foundation_ans:samgr_class { get };
+
