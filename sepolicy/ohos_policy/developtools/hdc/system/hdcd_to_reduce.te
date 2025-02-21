@@ -250,4 +250,7 @@ allow hdcd vendor_lib_file:lnk_file { read };
 allow hdcd proc_developer_file:dir { getattr };
 allow hdcd data_service_el0_file:dir { search };
 allow hdcd functionfs:dir { search getattr };
+allowxperm hdcd dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4107 };
+allowxperm hdcd dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208-0x6209 0x621e-0x6220 };
 ')
+
