@@ -75,6 +75,7 @@ allow distributeddata sa_dataobs_mgr_service_service:samgr_class { get };
 allow distributeddata sa_distributeddata_service:samgr_class { add get };
 allow distributeddata sa_foundation_abilityms:samgr_class { get };
 allow distributeddata sa_foundation_devicemanager_service:samgr_class { get };
+allow distributeddata sa_foundation_wms:samgr_class { get };
 allow distributeddata sa_filemanagement_cloud_sync_service:samgr_class { get };
 allow distributeddata sa_net_conn_manager:samgr_class { get };
 allow distributeddata sa_param_watcher:samgr_class { get };
