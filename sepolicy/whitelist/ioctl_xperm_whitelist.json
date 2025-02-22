@@ -132,7 +132,6 @@
             "init tracefs_trace_marker_file file",
             "init cjappspawn_exec file",
             "installs data_local file",
-            "installs data_local_arkcache file",
             "installs data_app_el1_arkcache file",
             "installs unlabeled dir",
             "installs unlabeled file",

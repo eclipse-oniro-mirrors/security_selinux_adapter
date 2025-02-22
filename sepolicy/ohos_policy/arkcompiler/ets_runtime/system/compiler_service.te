@@ -18,15 +18,11 @@ allow compiler_service sa_local_code_sign:samgr_class { get };
 allow compiler_service local_code_sign:binder { call };
 allow compiler_service hilog_param:file { map open read };
 allow compiler_service ark_writeable_param:file { map read open };
-allow compiler_service data_local_arkcache:file { map read open };
 allow compiler_service data_app_el1_arkcache:file { map read open };
 
 allow compiler_service ark_aot_compiler_exec:file { execute execute_no_trans map open read execute read };
 allow compiler_service compiler_service:unix_dgram_socket { getopt setopt };
 allow compiler_service data_local:dir { search };
-allow compiler_service data_local_arkcache:dir { open read search };
-allow compiler_service data_local_arkprofile:dir { search write add_name search write remove_name search };
-allow compiler_service data_local_arkprofile:file { map open read rename };
 allow compiler_service data_app_el1_arkcache:dir { open read search };
 allow compiler_service data_app_el1_arkprofile:dir { search write add_name search write remove_name search };
 allow compiler_service data_app_el1_arkprofile:file { map open read rename };
