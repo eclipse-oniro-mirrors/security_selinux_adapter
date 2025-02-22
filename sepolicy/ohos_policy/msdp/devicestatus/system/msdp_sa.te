@@ -134,6 +134,7 @@ allow msdp_sa render_service:binder { call transfer };
 
 #avc:  denied  { use } for  pid=480 comm="IPC_3_1378" path="socket:[31810]" dev="sockfs" ino=31810 scontext=u:r:msdp_sa:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=0
 allow msdp_sa render_service:fd { use };
+allow msdp_sa composer_host:fd { use };
 
 #avc:  denied  { transfer } for  pid=391 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
 allow msdp_sa foundation:binder { transfer };

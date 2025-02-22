@@ -115,6 +115,7 @@ allow telephony_sa data_log:file { create getattr lock map open read rename seta
 allow telephony_sa device_manager:binder { call transfer };
 allow telephony_sa render_service:binder { call };
 allow telephony_sa render_service:fd { use };
+allow telephony_sa composer_host:fd { use };
 allow telephony_sa hdf_allocator_service:hdf_devmgr_class { get };
 allow telephony_sa sysfs_devices_system_cpu:file { getattr open read };
 allow telephony_sa sysfs_devices_system_cpu:dir { open read };
