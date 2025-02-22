@@ -314,7 +314,6 @@
             "hdcd dev_random_file chr_file",
             "hdcd dev_parameters_file file",
             "hdcd dev_null_file chr_file",
-            "hdcd dev_binder_file chr_file",
             "hdcd dev_ashmem_file chr_file",
             "hdcd bytrace_exec file",
             "hdcd hitrace_exec file"
