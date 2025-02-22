@@ -133,7 +133,7 @@ neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
     -module_update_bin_file -data_updater_file -data_app_el1_arkcache -system_file -data_service_el1_public_print_service_file -print_driver_exec
     -rgmli_violator_exec_file_attr -data_service_scan_service_driver_file -system_bin_uni_print_driver_file
-    developer_only(`-lldb_server_file -hnp_file -hnp_file_attr -data_app_el1_file') }:file { execute execute_no_trans entrypoint };
+    developer_only(`-lldb_server_file -hnp_file -hnp_file_attr -data_app_el1_file') -hnp_file_attr_violator}:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_app_el1_arkcache:file { write };
 neverallow { domain -installs -ark_aot_compiler -storage_daemon -init updater_only(`-updater') } data_app_el1_arkcache:dir { write };
 
@@ -296,8 +296,8 @@ neverallow isolated_render {domain -isolated_render}:process ptrace;
 neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -distributedfiledaemon -rgm_violator_ohos_capability_chown -download_server -media_service -prerogative_app} self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -cjappspawn -init  -chipset_init -ueventd -memmgrservice -resource_schedule_executor
              -installs updater_only(`-updater')
-             -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') -rgm_violator_ohos_capability_dacoverride } self:{ capability cap_userns } dac_override;
-neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch } self:{ capability cap_userns } dac_read_search;
+             -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_capability_dacoverride } self:{ capability cap_userns } dac_override;
+neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -hnp_violator -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner updater_only(`-updater') -rgm_violator_ohos_capability_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid updater_only(`-updater') -rgm_violator_ohos_capability_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nativespawn -cjappspawn -storage_daemon -compiler_service -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_executor -native_daemon -cap_violator_kill -rgm_violator_ohos_capability_kill -kernel } self:{ capability cap_userns } kill;
