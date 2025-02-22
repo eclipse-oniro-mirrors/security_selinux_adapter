@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -installs debug_only(` -aa ') -bundle_data_app_el1_file developer_only(`-hnp') -appspawn } data_app_el1_file:file { write };
+neverallow { domain -installs debug_only(` -aa ') -bundle_data_app_el1_file developer_only(`-hnp') -hnp_violator -appspawn } data_app_el1_file:file { write };
 
 init_daemon_domain(installs);
 
