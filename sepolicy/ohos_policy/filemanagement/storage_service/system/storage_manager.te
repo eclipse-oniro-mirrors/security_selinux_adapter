@@ -43,3 +43,9 @@ allow storage_manager accountmgr:binder { call };
 
 # avc: denied { open } for pid=647, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow storage_manager dev_ashmem_file:chr_file { open };
+
+# avc: denied { connectto } for pid=632, comm="/system/bin/sa_main"  scontext=u:r:storage_manager:s0 tcontext=u:r:appspawn:s0 tclass=unix_stream_socket permissive=1
+allow storage_manager appspawn:unix_stream_socket { connectto };
+
+# avc: denied { write } for pid=632, comm="/system/bin/sa_main"  path="/dev/unix/socket/AppSpawn" dev="" ino=818 scontext=u:r:storage_manager:s0 tcontext=u:object_r:appspawn_socket:s0 tclass=sock_file permissive=1
+allow storage_manager appspawn_socket:sock_file { write };
