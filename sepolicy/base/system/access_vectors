@@ -583,3 +583,8 @@ class hmcap
     pid_mem_write
     exec_non_lsyscall
 }
+
+class dmaheap
+{
+    iris_heap
+}
