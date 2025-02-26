@@ -126,3 +126,15 @@ allow usb_service dev_bus_usb_file:chr_file { open ioctl };
 allowxperm usb_service dev_bus_usb_file:chr_file ioctl { 0x5508 0x5504 0x550f 0x5512 0x551a 0x550a 0x550d 0x5515 0x5510 0x550b 0x5514 };
 allow usb_service dev_bus:dir { search };
 allow normal_hap usb_service:binder { transfer };
+allow usb_service normal_hap_attr :binder { call transfer };
+allow normal_hap_attr usb_service:binder { call transfer };
+allow usb_service normal_hap_attr:fd { use };
+allow normal_hap_attr usb_service:fd { use };
+allow resource_schedule_executor normal_hap_attr:process { setsched };
+allow resource_schedule_executor normal_hap:process { setsched };
+allow appspawn data_data_file:dir { search };
+allow resource_schedule_executor normal_hap:process { setsched };
+allow normal_hap resource_schedule_executor:process { setsched };
+allow normal_hap sys_prod_file:dir { search };
+allow normal_hap_attr sys_prod_file:dir { search };
+
