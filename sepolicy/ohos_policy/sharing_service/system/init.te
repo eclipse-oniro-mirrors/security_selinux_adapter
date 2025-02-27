@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow init sharing_service:process { transition rlimitinh siginh };
+allow init data_service_el1_public_sharing_service_file:dir {  open read write create getattr setattr relabelto add_name search};
