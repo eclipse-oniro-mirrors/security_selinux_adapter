@@ -67,3 +67,5 @@ allow backup_sa persist_param:file { map open read };
 allow backup_sa persist_param:parameter_service { set };
 allow backup_sa paramservice_socket:sock_file { write };
 allow backup_sa kernel:unix_stream_socket { connectto };
+allow backup_sa distributeddata:binder { call };
+allow backup_sa distributeddata:fd { use };
