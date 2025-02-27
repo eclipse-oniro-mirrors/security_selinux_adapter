@@ -117,3 +117,4 @@ class hmprobe
 class ced
 class jit_memory
 class hmcap
+class dmaheap
