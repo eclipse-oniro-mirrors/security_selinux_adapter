@@ -12,7 +12,6 @@
 # limitations under the License
 
 neverallow SP_daemon *:process ptrace;
-developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
 allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name rmdir };
@@ -158,6 +157,11 @@ allow SP_daemon test_server:binder { call transfer };
 allow SP_daemon samgr:binder { transfer };
 allow SP_daemon system_usr_file:dir { search };
 allow SP_daemon system_usr_file:file { getattr map open read };
-')
 
-
+allow SP_daemon test_server:fd { use };
+allow SP_daemon dev_kmsg_file:chr_file { write };
+allow SP_daemon sysfs_attr:file { read open getattr };
+allow SP_daemon sysfs_hisi_power:file { read getattr open };
+allow SP_daemon sys_prod_file:dir { search };
+allow SP_daemon SP_daemon:file { open };
+allow SP_daemon SP_daemon:hmcap { supervsable };

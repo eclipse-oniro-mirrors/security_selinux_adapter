@@ -19,5 +19,6 @@ type kernel, domain;
 #       2) neverallow {hmcap_supervsable_xxx_attr - ABC} ...
 #
 neverallow {domain -hmcap_supervsable_common_attr -hmcap_supervsable_osr_attr
-                   -hmcap_supervsable_container_attr -hmcap_supervsable_platform_attr -hap_domain_kernel_violators } self:hmcap {supervsable};
+                   -hmcap_supervsable_container_attr -hmcap_supervsable_platform_attr -hap_domain_kernel_violators
+                   -SP_daemon -test_server -hidumper } self:hmcap {supervsable};
 neverallow {hmcap_supervsable_osr_attr -input_isolate_hap -input_isolate_debug_hap -nativespawn -processdump } self:hmcap {supervsable};

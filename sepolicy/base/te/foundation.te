@@ -130,3 +130,6 @@ allow foundation useriam:binder { call transfer };
 allowxperm foundation data_service_el1_file:file ioctl { 0xf50c 0xf546 0xf547 };
 allowxperm foundation dev_dri_file:chr_file ioctl { 0x641f };
 allowxperm foundation dev_mali:chr_file ioctl { 0x8000 0x8001 0x8003 0x8018 };
+
+allow foundation SP_daemon:fifo_file { write };
+allow foundation SP_daemon:fd { use };
