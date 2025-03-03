@@ -89,6 +89,6 @@ allowxperm sharing_service sharing_service:udp_socket ioctl { 0x8915 };
 allow sharing_service data_file:dir { search };
 allow sharing_service data_service_file:dir { search };
 allow sharing_service data_service_el1_file:dir { search };
-allow sharing_service data_service_el1_public_sharing_service_file:dir { search write add_name };
-allow sharing_service data_service_el1_public_sharing_service_file:file { create open read write lock getattr setattr ioctl };
+allow sharing_service data_service_el1_public_sharing_service_file:dir { search write add_name remove_name };
+allow sharing_service data_service_el1_public_sharing_service_file:file { create open read write lock getattr setattr ioctl rename unlink };
 allowxperm sharing_service data_service_el1_public_sharing_service_file:file ioctl { 0x5413 };
