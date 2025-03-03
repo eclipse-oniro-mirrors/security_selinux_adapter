@@ -17,10 +17,18 @@ allow hidumper hiprofiler_plugins:fifo_file { write };
 allow hidumper hiprofiler_plugins:unix_stream_socket { read write };
 
 developer_only(`
-    allow hidumper SP_daemon:fd { use };
-    allow hidumper SP_daemon:fifo_file { write };
-    allow hidumper SP_daemon:tcp_socket {read write };
-    allow hidumper SP_daemon:udp_socket {read write };
     allow hidumper sh:fd { use };
     allow hidumper sh:fifo_file { read write };
 ')
+allow hidumper SP_daemon:fd { use };
+allow hidumper SP_daemon:fifo_file { write };
+allow hidumper SP_daemon:tcp_socket { read write };
+allow hidumper SP_daemon:udp_socket { read write };
+allow hidumper dev_ucollection:chr_file { read open };
+allow hidumper test_server:fd { use };
+allow hidumper tty_device:chr_file { read open };
+allow hidumper dev_sysevent:chr_file { read open };
+allow hidumper proc_file:file { read open };
+allow hidumper sysfs_attr:file { read open };
+allow hidumper proc_net:file { read open };
+allow hidumper hidumper:hmcap { supervsable };

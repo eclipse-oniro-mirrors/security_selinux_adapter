@@ -56,8 +56,3 @@ allow hidumper_service sys_usb_param:file { map open read };
 allow hidumper_service tracefs:dir { search };
 allow hidumper_service tracefs_trace_marker_file:file { open write };
 allow hidumper_service hiview_file:file { write };
-
-allow hidumper_service dev_kmsg_file:chr_file { write };
-allow hidumper_service SP_daemon:fd { use };
-allow hidumper_service hidumper_service:unix_dgram_socket { getopt setopt };
-allow hidumper_service SP_daemon:fifo_file { write };
