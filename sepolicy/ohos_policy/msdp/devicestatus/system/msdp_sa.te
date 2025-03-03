@@ -251,3 +251,6 @@ allow msdp_sa init:fifo_file { write };
 
 #avc: denied { search } for pid=1087, comm="/system/bin/sa_main"  name="/lib64" dev="/dev/block/dm-3" ino=52 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=0
 allow msdp_sa chip_prod_file:dir { search };
+
+# avc:  denied  { get } for service=allocator_service sid=u:r:msdp_sa:s0 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
+allow msdp_sa hdf_allocator_service:hdf_devmgr_class { get };
