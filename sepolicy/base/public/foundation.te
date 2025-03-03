@@ -16,4 +16,4 @@ neverallow foundation dev_ashmem_file:chr_file execute;
 # forbid ioctl cmd:binder_freeze, binder_get_frozen_info
 neverallowxperm { domain -foundation } dev_binder_file:chr_file ioctl { 0x400c620e 0xc00c620f };
 
-neverallow { domain -foundation -app_fwk_update_service developer_only(`-devicedebug') } appspawn_socket:sock_file write;
+neverallow { domain -foundation -app_fwk_update_service -storage_manager developer_only(`-devicedebug') } appspawn_socket:sock_file write;
