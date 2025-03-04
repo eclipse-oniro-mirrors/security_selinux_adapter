@@ -54,10 +54,8 @@ type limit_domain, develop_domain;
 type device_usage_statistics_service, sadomain, domain;
 type thermal_sa, sadomain, domain;
 type nfc_service, sadomain, domain;
-
-attribute file_type;
-type sa_dia_service, domain;
-type sa_dia_service_exec, file_type;
+type dia_service, sadomain, domain;
+type sa_dia_service, sa_service_attr;
 
 type watchdog_service, sadomain, domain;
 type watchdog_service_exec, exec_attr, file_attr, system_file_attr;
