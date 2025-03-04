@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -edm_sa -init -updater -edm_config_file_attr } edm_config_file:dir { write };
+attribute edm_config_file_attr;
