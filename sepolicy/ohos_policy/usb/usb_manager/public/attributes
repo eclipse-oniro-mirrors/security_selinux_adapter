@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute usb_setting_param_attr;
+attribute usb_setting_attr;
