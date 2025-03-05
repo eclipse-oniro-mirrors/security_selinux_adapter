@@ -165,18 +165,3 @@ allow nwebspawn data_service_el1_file:dir { mounton search };
 
 #avc_audit_slow:276] avc: denied { search } for pid=1, comm="/system/bin/appspawn" name="service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=9 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
 allow nwebspawn data_service_file:dir { search };
-<<<<<<< HEAD
-=======
-
-allow nwebspawn isolated_gpu:process { sigkill };
-allow nwebspawn data_local_shadercache:dir { mounton search };
-allow nwebspawn data_local:dir { search };
-
-#avc_audit_slow:276] avc: denied { mounton } for pid=1, comm="/system/bin/appspawn" path="/mnt/sandbox/com.ohos.render/com.example.webrender/data/service/el1/public/for-all-app" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=134 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dit permissive=1
-#avc_audit_slow:276] avc: denied { search } for pid=1, comm="/system/bin/appspawn" name="/service/el1/public" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=1298 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allow nwebspawn data_service_el1_file:dir { mounton search };
-
-#avc_audit_slow:276] avc: denied { search } for pid=1, comm="/system/bin/appspawn" name="service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=9 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
-allow nwebspawn data_service_file:dir { search };
-
->>>>>>> eb0be06b6 (提交安装字体的权限)
