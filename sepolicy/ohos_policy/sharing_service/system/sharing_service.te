@@ -92,3 +92,7 @@ allow sharing_service data_service_el1_file:dir { search };
 allow sharing_service data_service_el1_public_sharing_service_file:dir { search write add_name remove_name };
 allow sharing_service data_service_el1_public_sharing_service_file:file { create open read write lock getattr setattr ioctl rename unlink };
 allowxperm sharing_service data_service_el1_public_sharing_service_file:file ioctl { 0x5413 };
+allow sharing_service sa_accountmgr:samgr_class { get };
+allow sharing_service sa_distributeddata_service:samgr_class { get };
+allow sharing_service distributeddata:binder { call };
+allow sharing_service accountmgr:binder { call };
