@@ -49,3 +49,6 @@ allow system_basic_hap_attr ffrt_param:file { read open map };
 allow system_core_hap_attr ffrt_param:file { read open map };
 allow foundation ffrt_param:file { read open map };
 allow foundation sa_concurrent_task_service:samgr_class { get };
+# for dnsmgr set qos
+allow netsysnative sa_concurrent_task_service:samgr_class { get };
+allow netsysnative concurrent_task_service:binder { call transfer };
