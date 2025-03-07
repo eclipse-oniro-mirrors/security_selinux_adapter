@@ -19,4 +19,5 @@ allow netsysnative sa_netfirewall_service:samgr_class { get };
 allow hidumper_service sa_netfirewall_service:samgr_class { get };
 # avc:  denied  { add } for service=8300 pid=2927 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_netfirewall_service:s0 tclass=samgr_class permissive=0
 allow netmanager sa_netfirewall_service:samgr_class { add };
-
+allow system_core_hap_attr sa_netfirewall_service:samgr_class { get };
+allow normal_hap_attr sa_netfirewall_service:samgr_class { get };
