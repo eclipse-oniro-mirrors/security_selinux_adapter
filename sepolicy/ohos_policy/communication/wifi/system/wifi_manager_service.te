@@ -245,3 +245,12 @@ allow wifi_manager_service data_service_el1_file:file { ioctl map };
 # avc:  denied  { ioctl } for pid=971 comm="OS_FFRT_2_7" path="/proc/sys/net/ipv6/conf/wlan0/accept_ra" dev="proc" info=16841 ioctlcmd=0x5413 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
 allow wifi_manager_service proc_file:file { read write open getattr ioctl };
 allowxperm wifi_manager_service proc_file:file ioctl { 0x5413 };
+
+allow wifi_manager_service updater_sa:binder { call };
+
+allow wifi_manager_service hiview:binder { call };
+
+allow wifi_manager_service edm_sa:binder { call };
+
+# avc:  denied  { call } for  pid=2704 comm="/system/bin/sa_main" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
+allow wifi_manager_service device_manager:binder { call };
