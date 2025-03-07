@@ -36,7 +36,7 @@ allow storage_daemon data_app_el1_file:dir { relabelfrom };
 allow storage_daemon data_app_el1_arkprofile:dir { rw_dir_perms_without_ioctl rmdir };
 allow storage_daemon data_app_el1_arkprofile:file { unlink };
 
-neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam } storage_daemon:{ binder } call;
+neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam -param_watcher } storage_daemon:{ binder } call;
 
 allow storage_daemon domain:file { read open };
 allow storage_daemon domain:dir { search read open };
