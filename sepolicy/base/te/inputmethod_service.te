@@ -63,6 +63,4 @@ allow inputmethod_service multimodalinput:binder { call };
 allow inputmethod_service multimodalinput:fd { use };
 allow inputmethod_service multimodalinput:unix_stream_socket { read write };
 allow inputmethod_service sa_multimodalinput_service:samgr_class { get };
-# avc:  denied  { get } for service=4607 sid=u:r:inputmethod_service:s0 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
-allow inputmethod_service sa_foundation_dms:samgr_class { get };
 
