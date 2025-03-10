@@ -389,6 +389,8 @@ class binder
     call
     set_context_mgr
     transfer
+    actv_binder_service
+    actv_binder_call
 }
 class netlink_iscsi_socket
 inherits socket
