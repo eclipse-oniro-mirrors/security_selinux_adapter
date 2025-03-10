@@ -59,3 +59,13 @@ allow powermgr data_service_el0_file:dir { search write add_name };
 
 #avc:  denied  { read } for  pid=458 comm="powermgr" name="charge" dev="mmcblk0p11" ino=4494 scontext=u:r:powermgr:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
 allow powermgr data_service_el0_file:file { create ioctl open read write };
+
+# avc_audit_slow:276] avc: denied { getattr } for pid=1434, comm="/system/bin/sa_main"  path="/sys/devices/virtual/thermal/thermal_zone0/percore_num" dev="" ino=37869 scontext=u:r:powermgr:s0 tcontext=u:object_r:sysfs_pg:s0 tclass=file permissive=1
+# avc_audit_slow:276] avc: denied { ioctl } for pid=1434, comm="/system/bin/sa_main"  path="/sys/devices/virtual/thermal/thermal_zone0/percore_num" dev="" ino=37869 ioctlcmd=0x5413 scontext=u:r:powermgr:s0 tcontext=u:object_r:sysfs_pg:s0 tclass=file permissive=1
+# avc_audit_slow:276] avc: denied { open } for pid=1434, comm="/system/bin/sa_main"  path="/sys/devices/virtual/thermal/thermal_zone0/percore_num" dev="" ino=37869 scontext=u:r:powermgr:s0 tcontext=u:object_r:sysfs_pg:s0 tclass=file permissive=1
+# avc_audit_slow:276] avc: denied { read write } for pid=1434, comm="/system/bin/sa_main"  path="/sys/devices/virtual/thermal/thermal_zone0/percore_num" dev="" ino=37869 scontext=u:r:powermgr:s0 tcontext=u:object_r:sysfs_pg:s0 tclass=file permissive=1
+allow powermgr sysfs_attr:file { getattr ioctl open read write };
+
+# avc_audit_slow:276] avc: denied { ioctl } for pid=1434, comm="/system/bin/sa_main"  path="/sys/devices/virtual/thermal/thermal_zone0/percore_num" dev="" ino=37869 ioctlcmd=0x5413 scontext=u:r:powermgr:s0 tcontext=u:object_r:sysfs_pg:s0 tclass=file permissive=1
+allowxperm powermgr sysfs_attr:file ioctl { 0x5413 };
+
