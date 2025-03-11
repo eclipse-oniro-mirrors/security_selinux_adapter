@@ -254,11 +254,3 @@ allow wifi_manager_service edm_sa:binder { call };
 
 # avc:  denied  { call } for  pid=2704 comm="/system/bin/sa_main" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
 allow wifi_manager_service device_manager:binder { call };
-
-# avc: denied { get } for service=3009 sid=u:r:wifi_manager_service:s0 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=0
-allow wifi_manager_service sa_audio_policy_service:samgr_class { get };
-
-# avc: denied { call } for pid=6759, comm="/system/bin/sa_main" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
-# avc: denied { transfer } for pid=6759, comm="/system/bin/sa_main" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
-binder_call(wifi_manager_service, audio_server);
-binder_call(audio_server, wifi_manager_service);
