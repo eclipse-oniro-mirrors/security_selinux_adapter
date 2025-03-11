@@ -44,15 +44,15 @@ neverallow { normal_hap_attr -hap_attr_link_violators } file_attr:file link;
 
 neverallow normal_hap_attr sysfs_attr:file { never_write_file never_execute_file };
 
-neverallow normal_hap_attr sys_file:file never_rw_file;
+neverallow { normal_hap_attr -hap_domain_sys_file_violators } sys_file:file never_rw_file;
 
 typeattribute system_core_hap proc_violator;
 typeattribute system_basic_hap proc_violator;
 
 neverallow { hap_domain -proc_violator } { proc_asound_file proc_kmsg_file proc_mounts_file proc_pagetypeinfo_file proc_slabinfo_file
-    proc_swaps_file proc_version_file proc_vmallocinfo_file proc_vmstat_file }:file { never_rwx_file };
+    proc_swaps_file proc_version_file proc_vmallocinfo_file }:file { never_rwx_file };
 
-neverallow { hap_domain -proc_violator -hap_domain_proc_stat_file_violators } { proc_file proc_uptime_file proc_loadavg_file proc_stat_file }:file { never_rwx_file };
+neverallow { hap_domain -proc_violator -hap_domain_proc_stat_file_violators } { proc_file proc_uptime_file proc_loadavg_file proc_stat_file proc_vmstat_file }:file { never_rwx_file };
 
 neverallow normal_hap_attr proc_filesystems_file:file { never_rwx_file };
 
