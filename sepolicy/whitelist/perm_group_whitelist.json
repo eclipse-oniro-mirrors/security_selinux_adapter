@@ -107,6 +107,7 @@
                 "hnp_native hilog_exec",
                 "normal_hap arkweb_crashpad_handler_exec",
                 "debug_hap arkweb_crashpad_handler_exec",
+                "system_core_hap arkweb_crashpad_handler_exec",
                 "SP_daemon uitest_exec",
                 "SP_daemon system_bin_file",
                 "SP_daemon toybox_exec",
