@@ -48,13 +48,11 @@ allow huks_service data_log:file { read write };
 allow huks_service faultloggerd:fd { use };
 allow huks_service faultloggerd:unix_stream_socket { connectto };
 allow huks_service hiview:binder { call };
-allow huks_service system_bin_file:dir { search };
-allow huks_service system_bin_file:file { execute execute_no_trans map read open};
-allow huks_service toybox_exec:file { execute execute_no_trans getattr map read open };
 allow huks_service dev_unix_socket:dir { search };
 allow huks_service sa_huks_service:samgr_class { get add };
 allow huks_service sa_foundation_cesfwk_service:samgr_class { get };
 allow huks_service sa_useriam_useridm_service:samgr_class { get };
+allow huks_service telephony_sa:binder { call };
 
 #avc:  denied  { transfer } for  pid=273 comm="huks_service" scontext=u:r:huks_service:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=452 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
@@ -80,3 +78,6 @@ allow huks_service dslm_service:binder { call transfer };
 
 allow hap_domain huks_service:binder { call transfer };
 allow huks_service hap_domain:binder { call transfer };
+
+allow huks_service kernel:unix_stream_socket { connectto };
+allow huks_service paramservice_socket:sock_file { write };

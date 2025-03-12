@@ -33,5 +33,15 @@ allow wifi_host paramservice_socket:sock_file { write };
 allow wifi_host kernel:unix_stream_socket { connectto };
 
 # avc:  denied  { nlmsg_read } for scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=netlink_route_socket permissive=1
-allow wifi_host wifi_host:netlink_route_socket { nlmsg_read };
+allow wifi_host wifi_host:netlink_route_socket { nlmsg_read nlmsg_readpriv };
 
+# avc:  denied  { open read } for scontext=u:r:wifi_host:s0 tcontext=u:object_r:sys_file:s0 tclass=dir permissive=1
+allow wifi_host sys_file:dir { open read };
+
+# avc:  denied  { open read } for scontext=u:r:wifi_host:s0 tcontext=u:object_r:sysfs_net:s0 tclass=dir permissive=1
+allow wifi_host sysfs_net:dir { open read };
+
+# avc:  denied  { ioctl } for pid=460 comm="OS_IPC_3_1123" path="socket:[18791]" dev="sockfs" info=18791 ioctlcmd=0x89f1 scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=udp_socket permissive=1
+# avc:  denied  { ioctl } for pid=460 comm="OS_IPC_3_1123" path="socket:[16812]" dev="sockfs" info=18791 ioctlcmd=0x8924 scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=udp_socket permissive=1
+allow wifi_host wifi_host:udp_socket { ioctl };
+allowxperm wifi_host wifi_host:udp_socket ioctl { 0x89f1 0x8924 };

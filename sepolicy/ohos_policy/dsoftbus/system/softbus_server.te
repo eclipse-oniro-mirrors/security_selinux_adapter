@@ -40,6 +40,7 @@ allow softbus_server sa_param_watcher:samgr_class { get };
 #avc:  denied  { get } for service=3505 pid=532 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_privacy_service:samgr_class { get };
 
+allow softbus_server softbus_server:netlink_route_socket { nlmsg_readpriv };
 allow softbus_server sa_softbus_service:samgr_class { add get };
 allow softbus_server sa_wifi_device_ability:samgr_class { get };
 allow softbus_server sa_wifi_hotspot_ability:samgr_class { get };

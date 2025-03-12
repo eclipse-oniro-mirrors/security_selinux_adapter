@@ -77,4 +77,5 @@ allow a2dp_host bluetooth_service:binder { call transfer };
 
 #avc:  denied  { open } for  a2dp_host dev_ashmem_file tclass=chr_file
 allow a2dp_host dev_ashmem_file:chr_file { open };
+allow a2dp_host a2dp_host:capability { sys_nice };
 

@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+allow audio_server audio_server:binder transfer;
+allow audio_server audio_server:binder call;
 allow deviceauth_service paramservice_socket:sock_file write;
 allow deviceauth_service kernel:unix_stream_socket connectto;
 allow foundation data_service_el1_file:file ioctl;
@@ -45,6 +47,7 @@ allow appspawn normal_hap_attr:fd use;
 allow appspawn normal_hap_data_file_attr:dir search;
 allow appspawn render_service:binder { call transfer };
 allow appspawn render_service:fd use;
+allow appspawn composer_host:fd use;
 allow appspawn resource_schedule_service:binder call;
 allow appspawn samgr:binder call;
 allow appspawn system_file:file { getattr open read };

@@ -13,19 +13,20 @@
 
 neverallow normal_hap_attr data_local_traces:dir *;
 neverallow normal_hap_attr *:{ socket netlink_socket packet_socket appletalk_socket netlink_tcpdiag_socket
-netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket netlink_iscsi_socket 
+netlink_dnrt_socket tun_socket netlink_iscsi_socket 
 netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket netlink_generic_socket 
-netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket sctp_socket ax25_socket 
+netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket ax25_socket 
 ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket atmsvc_socket rds_socket 
 irda_socket pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv_socket rxrpc_socket 
-isdn_socket phonet_socket ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket kcm_socket 
-qipcrtr_socket smc_socket xdp_socket  } *;
+isdn_socket phonet_socket ieee802154_socket caif_socket nfc_socket vsock_socket vsock_host_socket kcm_socket 
+qipcrtr_socket smc_socket xdp_socket } *;
 
-neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
+neverallow { normal_hap_attr developer_only(`-violator_hap_netlink_kobject_uevent_socket') } *:netlink_kobject_uevent_socket *;
+neverallow { normal_hap_attr developer_only(`-violator_hap_netlink_kobject_uevent_socket') } domain:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
-neverallow normal_hap_attr { domain -normal_hap_attr }:netlink_route_socket { bind nlmsg_readpriv };
+neverallow { normal_hap_attr -hap_domain_socket_violators } { domain }:netlink_route_socket { bind nlmsg_readpriv };
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
@@ -33,23 +34,25 @@ neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioc
 
 neverallow normal_hap_attr dev_kmsg_file:chr_file never_rw_file;
 
-neverallow { normal_hap_attr -dev_fuse_file_violator -dlpmanager_hap} dev_fuse_file:chr_file *;
+neverallow { normal_hap_attr -dev_fuse_file_violator -dlpmanager_hap -medialibrary_hap -filemanager_hap} dev_fuse_file:chr_file *;
 
 neverallow normal_hap_attr debugfs_attr:file read;
 
-neverallow normal_hap_attr { normal_hap_data_file_attr system_core_hap_data_file_attr }:file execute_no_trans;
+neverallow {normal_hap_attr -hap_domain_tmpfs_violators } { normal_hap_data_file_attr system_core_hap_data_file_attr }:file execute_no_trans; 
 
-neverallow normal_hap_attr file_attr:file link;
+neverallow { normal_hap_attr -hap_attr_link_violators } file_attr:file link;
 
 neverallow normal_hap_attr sysfs_attr:file { never_write_file never_execute_file };
 
-neverallow normal_hap_attr sys_file:file never_rw_file;
+neverallow { normal_hap_attr -hap_domain_sys_file_violators } sys_file:file never_rw_file;
 
 typeattribute system_core_hap proc_violator;
 typeattribute system_basic_hap proc_violator;
 
-neverallow { hap_domain -proc_violator } { proc_file proc_asound_file proc_kmsg_file proc_loadavg_file proc_mounts_file proc_pagetypeinfo_file proc_slabinfo_file
-    proc_stat_file proc_swaps_file proc_uptime_file proc_version_file proc_vmallocinfo_file proc_vmstat_file }:file { never_rwx_file };
+neverallow { hap_domain -proc_violator } { proc_asound_file proc_kmsg_file proc_mounts_file proc_pagetypeinfo_file proc_slabinfo_file
+    proc_swaps_file proc_version_file proc_vmallocinfo_file }:file { never_rwx_file };
+
+neverallow { hap_domain -proc_violator -hap_domain_proc_stat_file_violators } { proc_file proc_uptime_file proc_loadavg_file proc_stat_file proc_vmstat_file }:file { never_rwx_file };
 
 neverallow normal_hap_attr proc_filesystems_file:file { never_rwx_file };
 
@@ -62,19 +65,21 @@ neverallow normal_hap_attr system_file_attr:file lock;
 neverallow hap_domain selinuxfs:file never_rw_file;
 neverallow sh selinuxfs:file { write };
 
-neverallow normal_hap_attr cgroup:file *;
+neverallow { normal_hap_attr -hap_domain_cgroup_violators } cgroup:file *;
 
 #todo closing for debug building.
 neverallow normal_hap_attr debugfs_attr:{ file lnk_file } read;
 
 neverallow normal_hap_attr domain:netlink_socket *;
 
-neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
-
-neverallow normal_hap_attr proc_net:file rw_file_perms;
+neverallow { normal_hap_attr -hap_domain_proc_stat_file_violators } proc_net:file rw_file_perms;
 neverallow normal_hap_attr proc_net:dir ~{ getattr };
 
 # neverallow normal_hap sh restorecon
-neverallow { sh debug_only(`-sh') normal_hap_attr } *:dir_file_class_set { relabelto relabelfrom };
+neverallow { sh debug_only(`-sh') normal_hap_attr -hap_domain_sys_file_violators } *:dir_file_class_set { relabelto relabelfrom };
 
-neverallow normal_hap_attr { dev_block_volfile dev_block_file dev_bus cgroup dev_char_file dev_pts_file dev_snd_file dev_unix_file dev_v_file }:file { open read };
+neverallow normal_hap_attr { dev_block_volfile dev_block_file dev_bus dev_char_file dev_pts_file dev_snd_file dev_unix_file dev_v_file }:file { open read };
+
+neverallow { normal_hap_attr -hap_domain_proc_stat_file_violators -hap_domain_proc_modules_file_violators } { proc_attr -proc_meminfo_file -proc_max_user_watches -proc_boot_id -proc_cpuinfo_file -proc_cmdline_file }:file { open read };
+
+neverallow hap_domain proc_attr:file write;

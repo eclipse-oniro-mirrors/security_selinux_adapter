@@ -289,7 +289,7 @@ def add_base_typeattr_prefix(cil_file, prefix):
 def build_binary_policy(tool_path, output_policy, check_neverallow, cil_list):
     build_policy_cmd = [os.path.join(tool_path, "secilc"),
                         " ".join(cil_list),
-                        "-m -M true -G -c 31",
+                        "-m -M true -G -c 31 -O",
                         "-f /dev/null",
                         "-o " + output_policy]
     if not check_neverallow:

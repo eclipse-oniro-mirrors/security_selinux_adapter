@@ -53,3 +53,8 @@ allow el5_filekey_manager tracefs:dir { search };
 
 allow hap_domain data_app_el5_file:dir { add_name search read write create open remove_name setattr };
 allow hap_domain data_app_el5_file:file { create read write open lock unlink map setattr getattr rename };
+
+allow el5_filekey_manager devpts:chr_file { write };
+debug_only(`
+    allow el5_filekey_manager su:fd { use };
+')

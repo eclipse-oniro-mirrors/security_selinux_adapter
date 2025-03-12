@@ -20,7 +20,7 @@ allow mdnsmanager debug_param:file { open read map };
 allow mdnsmanager param_watcher:binder  { call transfer };
 allow mdnsmanager mdnsmanager:binder { call };
 allow mdnsmanager musl_param:file { open read map };
-allow mdnsmanager mdnsmanager:netlink_route_socket { create write read nlmsg_read };
+allow mdnsmanager mdnsmanager:netlink_route_socket { create write read nlmsg_read nlmsg_readpriv };
 
 allow param_watcher mdnsmanager:binder { call };
 allow system_basic_hap_attr mdnsmanager:binder { transfer call };

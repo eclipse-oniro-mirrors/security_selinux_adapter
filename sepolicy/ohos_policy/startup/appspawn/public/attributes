@@ -13,4 +13,5 @@
 
 attribute hnp_hap_domain_attr;
 attribute hnp_file_attr;
-
+attribute hnp_violator;
+attribute hnp_file_attr_violator;

@@ -39,11 +39,16 @@ allow bgtaskmgr_service sa_foundation_cesfwk_service:samgr_class { get };
 #avc:  denied  { get } for service=3203 pid=1173 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
 allow bgtaskmgr_service sa_foundation_ans:samgr_class { get };
 #avc:  denied  { add } for service=1904 pid=1059 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
-allow bgtaskmgr_service sa_work_schedule_service:samgr_class { add };
+#avc:  denied  { get } for service=1904 pid=1059 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
+allow bgtaskmgr_service sa_work_schedule_service:samgr_class { add get };
 #avc: denied { search } for pid=1059, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_storage:s0 tclass=dir permissive=0
 allow bgtaskmgr_service data_storage:dir { search };
 #avc: denied { read } for pid=1059, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
 allow bgtaskmgr_service persist_param:file { read };
+#avc: denied { read write } for pid=53703, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+allow bgtaskmgr_service tty_device:chr_file { read write };
+#avc: denied { write } for pid=53703, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
+allow bgtaskmgr_service dev_kmsg_file:chr_file { write };
 
 # workschedule task get cpu info
 #avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
@@ -53,6 +58,10 @@ allow bgtaskmgr_service sa_hiview_service:samgr_class { get };
 #avc: denied { open } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 #avc: denied { read } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
+#avc: denied { get } for service=5300 sid=u:r:bgtaskmgr_service:s0 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_ark_aot_compiler:s0 tclass=samgr_class
+allow bgtaskmgr_service sa_ark_aot_compiler:samgr_class { get };
+# workschedule use reportData
+allow bgtaskmgr_service sa_resource_schedule:samgr_class { get };
 
 # device_usage_stats database read/write, Record events,bgtask info persistence
 #avc: denied { search } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
@@ -71,15 +80,23 @@ allow bgtaskmgr_service data_service_el1_file:file { create getattr ioctl open r
 allow bgtaskmgr_service data_service_file:dir { search };
 #avc: denied { 0x5413 } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
 #avc: denied { 0xf50c } for pid=1067, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
-allowxperm bgtaskmgr_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
+allowxperm bgtaskmgr_service data_service_el1_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
 #avc: denied { get } for service=1301 pid=1014 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=0
 allow bgtaskmgr_service sa_distributeddata_service:samgr_class { get };
 #avc: denied { call } for pid=1070, commm="/system/bin/sa_main" scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
 allow bgtaskmgr_service distributeddata:binder { call };
+#avc: denied { transfer } for pid=1594, commm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:r:bgtaskmgr_service:s0 tclass=binder permissive=0
+allow distributeddata bgtaskmgr_service:binder { transfer };
+#avc: denied { use } for pid=1417, comm="/system/bin/sa_main" path="/dev/ashmen" dev="" ino=1 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=0
+allow bgtaskmgr_service distributeddata:fd { use };
 
 # transient task apply
 #avc: denied { search } for pid=1114, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
 allow bgtaskmgr_service data_app_file:dir { search };
+
+# transient task set/get param
+#avc: denied { read open map } for pid=53703, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+allow bgtaskmgr_service persist_sys_param:file { read open map };
 
 # continous task apply
 #avc: denied { get } for service=1067 scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
@@ -114,6 +131,7 @@ allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class { get };
 allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { get add };
 # device_usage_stats Event timing usage,workschedule task trigger,get device start-up time
 allow bgtaskmgr_service sa_time_service:samgr_class { get };
+allow bgtaskmgr_service data_service_el1_file:file { map };
 
 allow audio_server bgtaskmgr_service:binder { call transfer };
 allow hiview bgtaskmgr_service:dir { getattr open read };
@@ -127,6 +145,8 @@ allow hiview bgtaskmgr_service:file { getattr };
 allow normal_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_basic_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+allow time_service bgtaskmgr_service:file { getattr };
+allow time_service bgtaskmgr_service:binder { call };
 
 debug_only(`
     allow bgtaskmgr_service debug_param:file { map open read };

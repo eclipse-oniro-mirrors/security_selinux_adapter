@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow media_service { file_attr -data_service_el1_file -data_log_sanitizer_file }:{ file_class_set dir_file_class_set } { setattr };
 #avc:  denied  { getattr } for  pid=475 comm="media_service" path="/data/storage/el1/bundle/ohos.acts.multimedia.audio.audioplayer/assets/entry/resources/rawfile/01.mp3" dev="mmcblk0p11" ino=1307144 scontext=u:r:media_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allow media_service data_app_el1_file:file { getattr };
 
@@ -92,6 +93,8 @@ allow media_service dnsproxy_service:sock_file { write };
 
 allow media_service render_service:fd { use };
 
+allow media_service composer_host:fd { use };
+
 allow media_service data_media_log_file:file { create read open getattr write append ioctl };
 
 allowxperm media_service data_media_log_file:file ioctl { 0x5413 };
@@ -129,8 +132,6 @@ allow media_service concurrent_task_service:binder { call };
 
 allow media_service sa_av_codec_service:samgr_class { get };
 
-allow media_service sa_concurrent_task_service:samgr_class { get };
-
 allow media_service av_codec_service:binder { call transfer };
 
 allow media_service av_codec_service:fd { use };
@@ -149,9 +150,17 @@ allow media_service sa_foundation_cesfwk_service:samgr_class { get };
 
 allow media_service sa_foundation_tel_state_registry:samgr_class { get };
 
-allow media_service resource_schedule_service:binder { call };
+allow media_service resource_schedule_service:binder { call transfer };
 
 allow media_service sa_accountmgr:samgr_class { get };
+
+allow media_service dev_kmsg_file:chr_file { write open };
+
+allow media_service system_usr_file:dir { search };
+
+allow media_service system_usr_file:file { getattr read open };
+
+allow media_service tty_device:chr_file { read write };
 
 allow media_service accountmgr:binder { call transfer };
 
@@ -162,7 +171,23 @@ allow media_service sa_media_monitor:samgr_class { get };
 allow media_service media_monitor:binder { call };
 
 allow media_service hmdfs:file { ioctl };
-allowxperm media_service hmdfs:file ioctl { 0xf206 };
+allowxperm media_service hmdfs:file ioctl { 0xf206 0xf207 0xf208 0xf209 };
 
 allow media_service normal_hap_data_file:file { ioctl };
 allowxperm media_service normal_hap_data_file:file ioctl { 0xf206 };
+
+allow media_service sa_camera_service:samgr_class { get };
+allow media_service media_service:tcp_socket { accept bind connect create listen read setopt getopt shutdown write setattr getattr };
+allow media_service media_service:capability { chown };
+
+allow media_service camera_service:binder { call };
+
+allow media_service render_service:binder { transfer };
+
+# avc_audit_slow:277] avc: denied { search } for pid=1649, comm="/system/bin/sa_main"  name="/usr/ohos_icu" dev="overlay" ino=2251 scontext=u:r:media_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+allow media_service system_usr_file:dir { search };
+allow media_service system_usr_file:file { getattr map open read };
+
+allow media_service sa_multimodalinput_service:samgr_class { get };
+allow media_service multimodalinput:unix_stream_socket { read };
+allow media_service sa_media_service:samgr_class { get };

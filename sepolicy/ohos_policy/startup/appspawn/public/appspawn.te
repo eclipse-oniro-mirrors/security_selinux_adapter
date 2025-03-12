@@ -22,5 +22,6 @@ allow appspawn hap_domain:fd { use };
 ## dev="mmcblk0p15" ino=2483 scontext=u:r:appspawn:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
 allow appspawn hap_file_attr:file { read write } ;
 
-
+allow appspawn nativespawn:process { dyntransition sigkill };
+neverallow appspawn *:process ptrace;
 

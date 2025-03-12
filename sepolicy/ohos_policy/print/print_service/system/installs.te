@@ -12,5 +12,11 @@
 # limitations under the License.
 
 allow installs data_service_el1_public_print_service_file:dir { add_name getattr write search };
-allow installs data_service_el1_public_print_service_file:file { create getattr ioctl setattr write open };
+allow installs data_service_el1_public_print_service_file:file { create getattr ioctl setattr write open relabelto };
+allow installs data_service_scan_service_driver_file:file { getattr unlink rename };
 allowxperm installs data_service_el1_public_print_service_file:file ioctl { 0x5413 };
+allow installs print_driver_exec:dir { add_name getattr write search };
+allow installs print_driver_exec:file { create getattr ioctl setattr write open relabelto };
+allowxperm installs print_driver_exec:file ioctl { 0x5413 };
+allow installs data_service_sane_service_config_file:dir { getattr search write add_name search remove_name };
+allow installs data_service_sane_service_config_file:file { relabelto getattr unlink };

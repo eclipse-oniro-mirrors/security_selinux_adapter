@@ -40,6 +40,7 @@ type hdf_display_composer_service, hdf_service_attr;
 type hdf_allocator_service, hdf_service_attr;
 type hdf_camera_service, hdf_service_attr;
 type hdf_camera_image_process_service, hdf_service_attr;
+type hdf_camera_video_process_service, hdf_service_attr;
 type hdf_clearplay_service, hdf_service_attr;
 type hdf_face_auth_interface_service, hdf_service_attr;
 type hdf_drm_service, hdf_service_attr;
@@ -48,10 +49,15 @@ type hdf_user_auth_interface_service, hdf_service_attr;
 type hdf_fingerprint_auth_interface_service, hdf_service_attr;
 type hdf_motion_interface_service, hdf_service_attr;
 type hdf_activity_interface_service, hdf_service_attr;
+type hdf_geofence_intf_service, hdf_service_attr;
+type hdf_cellfence_interface_service, hdf_service_attr;
+type hdf_cellbatching_interface_service, hdf_service_attr;
+type hdf_wififence_interface_service, hdf_service_attr;
 
 type hdf_usb_interface_service, hdf_service_attr;
 type hdf_usbfn_mtp_interface_service, hdf_service_attr;
 type hdf_usb_ddk_service, hdf_service_attr;
+type hdf_usb_serial_ddk_service, hdf_service_attr;
 type hdf_usb_pnp_sample_service, hdf_service_attr;
 type hdf_usbhost_acm_pnp_service, hdf_service_attr;
 type hdf_usbhost_acm_rawapi_service, hdf_service_attr;
@@ -72,6 +78,7 @@ type hdf_chip_interface_service, hdf_service_attr;
 type hdf_wpa_interface_service, hdf_service_attr;
 type hdf_hostapd_interface_service, hdf_service_attr;
 type hdf_hid_ddk_service, hdf_service_attr;
+type hdf_scsi_peripheral_ddk_service, hdf_service_attr;
 type hdf_safe_location_interface_service, hdf_service_attr;
 
 # for testcase start

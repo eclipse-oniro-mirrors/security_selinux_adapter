@@ -16,8 +16,10 @@ allow ark_aot_compiler chip_prod_file:dir { search };
 
 allow ark_aot_compiler ark_writeable_param:file { map open read };
 allow ark_aot_compiler compiler_service:fd { use };
-allow ark_aot_compiler data_local_arkprofile:file { ioctl };
+allow ark_aot_compiler data_app_el1_arkprofile:file { ioctl };
 allow ark_aot_compiler dev_kmsg_file:chr_file { write };
 allow ark_aot_compiler tty_device:chr_file { read write };
-allowxperm ark_aot_compiler data_local_arkcache:file ioctl { 0x5413 };
-allowxperm ark_aot_compiler data_local_arkprofile:file ioctl { 0x5413 };
+allowxperm ark_aot_compiler data_app_el1_arkcache:file ioctl { 0x5413 };
+allowxperm ark_aot_compiler data_app_el1_arkprofile:file ioctl { 0x5413 };
+
+allow ark_aot_compiler arkcompiler_param:file { map open read };

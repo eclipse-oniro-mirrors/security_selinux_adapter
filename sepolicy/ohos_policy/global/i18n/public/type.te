@@ -12,3 +12,6 @@
 # limitations under the License.
 
 type i18n_service, sadomain, domain;
+type data_service_el1_i18n_libphonenumber_file, file_attr, data_file_attr;
+type data_service_el1_i18n_taboo_file, file_attr, data_file_attr;
+type data_service_el1_i18n_timezone_file, file_attr, data_file_attr;

@@ -13,5 +13,7 @@
 
 allow render_service accessibility:binder { call transfer };
 
-allow render_service isolated_gpu:binder { call };
+# avc_audit_slow:267] avc: denied { transfer } for pid=1390, comm="/system/bin/render_service"  scontext=u:r:render_service:s0 tcontext=u:r:isolated_gpu:s0 tclass=binder permissive=1
+
+allow render_service isolated_gpu:binder { call transfer };
 allow render_service isolated_gpu:fd { use };

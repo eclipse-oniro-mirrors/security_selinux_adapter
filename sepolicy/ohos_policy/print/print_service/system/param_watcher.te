@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow param_watcher print_service:binder { call };
+allow param_watcher scan_service:binder { call };
+allow param_watcher dev_kmsg_file:chr_file { write };

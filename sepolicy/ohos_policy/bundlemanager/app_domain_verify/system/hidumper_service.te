@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow hidumper_service sa_app_domain_verify_mgr_service:samgr_class { get };
+allow hidumper_service sa_app_domain_verify_agent:samgr_class { get };

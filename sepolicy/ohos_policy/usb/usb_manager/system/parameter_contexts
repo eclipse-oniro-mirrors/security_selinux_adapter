@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 persist.usb.setting.                    u:object_r:usb_setting_param:s0
+usb.setting.                            u:object_r:usb_setting_param:s0
 persist.sys.usb.                        u:object_r:sys_usb_param:s0
 sys.usb.config                          u:object_r:sys_usb_param:s0
 sys.usb.state                           u:object_r:sys_usb_param:s0
@@ -18,3 +19,4 @@ sys.usb.ffs.ready                       u:object_r:sys_usb_param:s0
 sys.usb.controller                      u:object_r:sys_usb_param:s0
 sys.usb.configfs                        u:object_r:sys_usb_param:s0
 sys.usb.confighdc                       u:object_r:sys_usb_param:s0
+sys.usb.mtp.ready                       u:object_r:sys_usb_param:s0

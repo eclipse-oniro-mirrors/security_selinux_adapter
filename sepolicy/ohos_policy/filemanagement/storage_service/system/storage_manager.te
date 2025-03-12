@@ -32,8 +32,47 @@ allow storage_manager storage_daemon:binder { call };
 # avc:  denied  { search } for  pid=263 comm="storage_manager" name="external" dev="tmpfs" ino=2 scontext=u:r:storage_manager:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
 allow storage_manager permissions_mount_file_attr:dir { search };
 
+# avc: denied { get } for service=3704 sid=u:r:storage_manager:s0 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
+allow storage_manager sa_screenlock_service:samgr_class { get };
+
 # avc:  denied  { get } for  service=200 pid=574 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
 allow storage_manager sa_accountmgr:samgr_class { get };
 
 # avc:  denied  { call } for  pid=581 comm="OS_cesComLstnr"  scontext=u:r:storage_manager:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 allow storage_manager accountmgr:binder { call };
+
+# avc: denied { use } for pid=643, comm="/system/bin/storage_daemon" path="/dev/fuse" dev="" ino=15 scontext=u:r:storage_manager:s0 tcontext=u:r:storage_daemon:s0 tclass=fd permissive=1
+allow storage_manager storage_daemon:fd { use };
+
+# avc: denied { search } for pid=639, comm="/system/bin/sa_main" name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=9 scontext=u:r:storage_manager:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+allow storage_manager data_service_file:dir { search };
+
+# avc: denied { write } for pid=639, comm="/system/bin/sa_main" path="/dev/unix/socket/paramservice" dev="" ino=199 scontext=u:r:storage_manager:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow storage_manager paramservice_socket:sock_file { write };
+
+# avc: denied { get } for service=1301 sid=u:r:storage_manager:s0 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=0
+allow storage_manager sa_distributeddata_service:samgr_class { get };
+
+# avc: denied { getopt } for pid=639, comm="/system/bin/sa_main" scontext=u:r:storage_manager:s0 tcontext=u:r:storage_manager:s0 tclass=unix_dgram_socket permissive=0
+allow storage_manager storage_manager:unix_dgram_socket { getopt setopt };
+
+# avc: denied { connectto } for pid=639, comm="/system/bin/sa_main" scontext=u:r:storage_manager:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
+allow storage_manager kernel:unix_stream_socket { connectto };
+
+# avc: denied { set } for parameter=persist.storage_manager.timestamp.day pid=638 uid=1090 gid=1090 scontext=u:r:storage_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=0
+allow storage_manager persist_param:parameter_service { set };
+
+# avc: denied { connectto } for pid=632, comm="/system/bin/sa_main"  scontext=u:r:storage_manager:s0 tcontext=u:r:appspawn:s0 tclass=unix_stream_socket permissive=1
+allow storage_manager appspawn:unix_stream_socket { connectto };
+ 
+# avc: denied { write } for pid=632, comm="/system/bin/sa_main"  path="/dev/unix/socket/AppSpawn" dev="" ino=818 scontext=u:r:storage_manager:s0 tcontext=u:object_r:appspawn_socket:s0 tclass=sock_file permissive=1
+allow storage_manager appspawn_socket:sock_file { write };
+
+#avc:  denied  { call } for  pid=125 comm="OS_IPC_1_133" scontext=u:r:storage_manager:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
+allow storage_manager distributeddata:binder { call };
+
+# avc:  denied  { read write } for  pid=130 comm="OS_IPC_1_141" path="/dev/fuse" dev="tmpfs" ino=232 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+allow storage_manager dev_fuse_file:chr_file { read write };
+
+# avc: denied { open } for pid=647, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+allow storage_manager dev_ashmem_file:chr_file { open };

@@ -14,3 +14,7 @@
 developer_only(`
     allow init test_server:process { rlimitinh siginh transition };
 ')
+
+debug_only(`
+    allow init test_server:process { rlimitinh siginh transition };
+')

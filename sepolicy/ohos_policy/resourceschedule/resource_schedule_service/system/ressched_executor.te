@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow { domain -resource_schedule_service -hidumper_service } sa_resource_schedule_executor:samgr_class { get };
+
 allow resource_schedule_executor resource_schedule_executor:unix_dgram_socket { getopt setopt };
 allow resource_schedule_executor sa_resource_schedule_executor:samgr_class { add };
 allow resource_schedule_executor chip_prod_file:dir { search };
@@ -41,7 +43,7 @@ allow resource_schedule_executor sys_prod_ressched_file:dir { search };
 allow resource_schedule_executor sys_prod_ressched_file:file { getattr open read };
 allow resource_schedule_executor normal_hap_attr:process { sigkill };
 allow resource_schedule_executor system_core_hap_attr:process { sigkill };
-allow resource_schedule_executor system_basic_hap_attr:process { sigkill };
+allow resource_schedule_executor system_basic_hap_attr:process { sigkill setsched };
 allow resource_schedule_executor sadomain:process { sigkill };
 allow resource_schedule_executor resource_schedule_executor:capability { kill };
 

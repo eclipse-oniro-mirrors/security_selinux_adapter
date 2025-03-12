@@ -19,10 +19,13 @@ allow hidumper_service hiprofiler_plugins:fd { use };
 allow hidumper_service hiprofiler_plugins:fifo_file { write };
 developer_only(`
 allow hidumper_service SP_daemon:dir { search };
-allow hidumper_service SP_daemon:fifo_file { write };
 allow hidumper_service SP_daemon:file { open read getattr };
-allow hidumper_service SP_daemon:fd { use };
 allow hidumper_service arkcompiler_param:file { read };
 allow hidumper_service ark_writeable_param:file { read };
 allow hidumper_service dev_console_file:chr_file { read write };
 ')
+
+allow hidumper_service dev_kmsg_file:chr_file { write };
+allow hidumper_service SP_daemon:fd { use };
+allow hidumper_service hidumper_service:unix_dgram_socket { getopt setopt };
+allow hidumper_service SP_daemon:fifo_file { write };

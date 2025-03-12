@@ -12,12 +12,14 @@
 # limitations under the License.
 
 allow init data_module_update:dir { add_name create getattr link open read relabelto remove_name search setattr unlink write };
-allow init data_module_update_package:dir { getattr open read relabelto search setattr write };
+allow init data_module_update_package:dir { getattr open read relabelto search setattr write rmdir remove_name };
 allow init data_module_update_package:file { getattr link open read map unlink relabelfrom write };
 allow init data_module_update:file { getattr link open read map relabelto unlink write };
 allowxperm init dev_block_file:blk_file ioctl { 0x1261 0x4c00 0x4c01 0x4c04 0x4c09 0x4c0a };
 allow init dev_file:chr_file { ioctl open read write };
 allowxperm init dev_file:chr_file ioctl { 0xfd03 0xfd06 0xfd07 0xfd09 };
+allow init dev_mapper_control_file:chr_file { ioctl open read write relabelto getattr setattr };
+allowxperm init dev_mapper_control_file:chr_file ioctl { 0xfd03 0xfd06 0xfd07 0xfd09 0xfd04 };
 allow init dev_loop_control_file:chr_file { getattr ioctl open read write };
 allowxperm init dev_loop_control_file:chr_file ioctl { 0x4c80 0x4c82 };
 allow init module_update_file:dir { search };
@@ -31,4 +33,5 @@ allow init system_module_update_file:file { getattr open read };
 allow init system_profile_file:file { getattr open read };
 allow init tmpfs:dir { remove_name rmdir };
 allow init tmpfs:filesystem { mount };
-allow init sysfs_block_loop:file { getattr open read write };
+allow init sysfs_block_loop:file { getattr open read write setattr };
+allow init data_module_update:dir { rmdir reparent rename };

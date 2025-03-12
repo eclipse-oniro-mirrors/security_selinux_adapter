@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow normal_hap_attr { parameter_attr -param_set_allow_attr -media_library_param }:parameter_service { set };
-neverallow normal_hap paramservice_socket:sock_file { write };
+neverallow { normal_hap debug_hap } parameter_attr:parameter_service { set };
+neverallow { normal_hap debug_hap } paramservice_socket:sock_file { write };
 
 typeattribute accessibility devinfo_type_allow_attr;
 typeattribute bgtaskmgr_service devinfo_type_allow_attr;
@@ -31,8 +31,8 @@ typeattribute param_watcher devinfo_type_allow_attr;
 typeattribute multimodalinput devinfo_type_allow_attr;
 typeattribute bluetooth_service devinfo_type_allow_attr;
 typeattribute resource_schedule_service devinfo_type_allow_attr;
-
 typeattribute telephony_sa devinfo_type_allow_attr;
+typeattribute wifi_manager_service devinfo_type_allow_attr;
 
 neverallow {sadomain -devinfo_type_allow_attr} devinfo_type_param:file {open read map};
 allow {domain -sadomain } devinfo_type_param:file {open read map};

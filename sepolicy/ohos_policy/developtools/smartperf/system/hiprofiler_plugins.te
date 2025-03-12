@@ -10,9 +10,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-allow hiprofiler_plugins system_bin_file:file { execute_no_trans };
-allow hiprofiler_plugins system_bin_file:file { getattr };
-allow hiprofiler_plugins system_bin_file:file { map };
-allow hiprofiler_plugins system_bin_file:file { read open };
 
-allow hiprofiler_plugins toybox_exec:file { execute execute_no_trans getattr map read open };
+developer_only(`
+    allow hiprofiler_plugins system_bin_file:file { execute_no_trans };
+    allow hiprofiler_plugins system_bin_file:file { getattr };
+    allow hiprofiler_plugins system_bin_file:file { map };
+    allow hiprofiler_plugins system_bin_file:file { read open };
+
+    allow hiprofiler_plugins toybox_exec:file { execute execute_no_trans getattr map read open };
+')

@@ -35,9 +35,9 @@ debug_only(`
     # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/tty" dev="tmpfs" ino=40 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
     allow snapshot_display tty_device:chr_file { read write };
     # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
-    allow snapshot_display arkcompiler_param:file { map read open read };
+    allow snapshot_display arkcompiler_param:file { map read open };
     # avc:  denied  { write search } for  pid=1475 comm="snapshot_displa" name="tmp" dev="mmcblk0p15" ino=115 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
-    allow snapshot_display data_local_tmp:dir { add_name search search write search };
+    allow snapshot_display data_local_tmp:dir { add_name write search };
     # avc:  denied  { write open } for  pid=1475 comm="snapshot_displa" path="/data/local/tmp/snapshot_2017-08-05_17-07-00.jpeg" dev="mmcblk0p15" ino=1924 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
     allow snapshot_display data_local_tmp:file { create getattr ioctl write open };
     # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
@@ -49,11 +49,12 @@ debug_only(`
     # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
     allow snapshot_display foundation:binder { call };
     # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=68 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
-    allow snapshot_display hilog_param:file { map read open read };
+    allow snapshot_display hilog_param:file { map open read };
     # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=71 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
     allow snapshot_display persist_sys_param:file { map open };
     # avc:  denied  { use } for  pid=1475 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=239 scontext=u:r:snapshot_display:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
     allow snapshot_display render_service:fd { use };
+    allow snapshot_display composer_host:fd { use };
     # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
     allow snapshot_display samgr:binder { call };
     # avc:  denied  { search } for  pid=1475 comm="snapshot_displa" name="/" dev="tracefs" ino=1 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
@@ -80,9 +81,16 @@ debug_only(`
     allow snapshot_display dev_kmsg_file:chr_file { write };
     # avc:  denied  { read } for  pid=8117 comm="snapshot_displa" name="u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
     # avc:  denied  { read open } for  pid=8117 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
-    allow snapshot_display persist_param:file { read read open };
+    allow snapshot_display persist_param:file { read open };
     # avc:  denied  { search } for  pid=8117 comm="snapshot_displa" name="bin" dev="sdd74" ino=357 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
     allow snapshot_display system_bin_file:dir { search };
+
+    # avc:  denied  { use } for  pid=15278 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=653 scontext=u:r:snapshot_display:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=1
+    allow snapshot_display foundation:fd { use };
+    # avc:  denied  { getattr } for  pid=15286 comm="snapshot_displa" path="/proc/cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=15286 comm="snapshot_displa" name="cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+    # avc:  denied  { read open } for  pid=15286 comm="snapshot_displa" path="/proc/cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+    allow snapshot_display proc_cpuinfo_file:file { getattr read open };
 ')
 
 developer_only(`
@@ -109,10 +117,10 @@ developer_only(`
     # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/tty" dev="tmpfs" ino=40 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
     allow snapshot_display tty_device:chr_file { read write };
     # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
-    allow snapshot_display arkcompiler_param:file { map read open read };
-    allow snapshot_display ark_writeable_param:file { map read open read };
+    allow snapshot_display arkcompiler_param:file { map open read };
+    allow snapshot_display arkcompiler_param:file { map open read };
     # avc:  denied  { write search } for  pid=1475 comm="snapshot_displa" name="tmp" dev="mmcblk0p15" ino=115 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
-    allow snapshot_display data_local_tmp:dir { add_name search search write search };
+    allow snapshot_display data_local_tmp:dir { add_name write search };
     # avc:  denied  { write open } for  pid=1475 comm="snapshot_displa" path="/data/local/tmp/snapshot_2017-08-05_17-07-00.jpeg" dev="mmcblk0p15" ino=1924 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
     allow snapshot_display data_local_tmp:file { create getattr ioctl write open };
     # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
@@ -124,7 +132,7 @@ developer_only(`
     # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
     allow snapshot_display foundation:binder { call };
     # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=68 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
-    allow snapshot_display hilog_param:file { map read open read };
+    allow snapshot_display hilog_param:file { map read open };
     # avc:  denied  { open } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=71 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
     allow snapshot_display persist_sys_param:file { map open };
     # avc:  denied  { use } for  pid=1475 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=239 scontext=u:r:snapshot_display:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
@@ -155,7 +163,14 @@ developer_only(`
     allow snapshot_display dev_kmsg_file:chr_file { write };
     # avc:  denied  { read } for  pid=8117 comm="snapshot_displa" name="u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
     # avc:  denied  { read open } for  pid=8117 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
-    allow snapshot_display persist_param:file { read read open };
+    allow snapshot_display persist_param:file { read open };
     # avc:  denied  { search } for  pid=8117 comm="snapshot_displa" name="bin" dev="sdd74" ino=357 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
     allow snapshot_display system_bin_file:dir { search };
+
+    # avc:  denied  { use } for  pid=15278 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=653 scontext=u:r:snapshot_display:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=1
+    allow snapshot_display foundation:fd { use };
+    # avc:  denied  { getattr } for  pid=15286 comm="snapshot_displa" path="/proc/cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=15286 comm="snapshot_displa" name="cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+    # avc:  denied  { read open } for  pid=15286 comm="snapshot_displa" path="/proc/cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+    allow snapshot_display proc_cpuinfo_file:file { getattr read open };
 ')

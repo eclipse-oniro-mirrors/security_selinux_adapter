@@ -15,4 +15,5 @@
 1163 u:object_r:sa_distributed_net_service:s0
 1164 u:object_r:sa_netvirt_ext:s0
 8300 u:object_r:sa_netfirewall_service:s0
+8400 u:object_r:sa_wearable_distributed_net_service:s0
 

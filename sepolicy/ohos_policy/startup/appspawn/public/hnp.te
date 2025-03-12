@@ -10,11 +10,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
- 
+
 type hnp, native_system_domain, domain;
 type hnp_exec, system_file_attr, exec_attr, file_attr;
-type hnp_file, file_attr, data_file_attr;
- 
+type hnp_file, exec_attr, file_attr, data_file_attr;
+type hnp_native, hap_domain, domain;
+
 developer_only(`
 # avc:  denied  { search } for  pid=12202 comm="hnp" name="app" dev="sdd78" ino=634 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
 allow hnp data_app_file:dir { search };
@@ -22,10 +23,10 @@ allow hnp data_app_file:dir { search };
 # avc:  denied  { ioctl } for  pid=6695 comm="hnp" path="/data/service/el1/startup/hnp_info.json" dev="sdd78" ino=11577 ioctlcmd=0x5413 scontext=u:r:hnp:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 # avc:  denied  { write } for  pid=6695 comm="hnp" name="hnp_info.json" dev="sdd78" ino=11577 scontext=u:r:hnp:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow hnp data_service_el1_file:file { ioctl write };
- 
+
 # avc:  denied  { map } for  pid=5378 comm="hnp" path="/data/service/el1/public/bms/bundle_manager_service/security_stream_install/606593336461000/6065932/28786a5ac.hap" dev="sdd78" ino=12581 scontext=u:r:hnp:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow hnp data_service_el1_file:file { map };
- 
+
 # avc:  denied  { create } for  pid=8919 comm="hnp" name="hnp_info.json" scontext=u:r:hnp:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow hnp data_service_el1_file:file { create };
 
@@ -48,16 +49,16 @@ allow hnp data_service_el1_file:dir { search };
 # avc:  denied  { write } for  pid=6695 comm="hnp" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:hnp:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:hnp:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow hnp dev_kmsg_file:chr_file { write getattr };
- 
+
 # avc:  denied  { dac_override } for  pid=8158 comm="hnp" capability=1  scontext=u:r:hnp:s0 tcontext=u:r:hnp:s0 tclass=capability permissive=1
 allow hnp hnp:capability { dac_override };
- 
+
 # avc:  denied  { add_name } for  pid=7556 comm="hnp" name="cfg" scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { create } for  pid=7556 comm="hnp" name="cfg" scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { getattr } for  pid=7556 comm="hnp" path="/data/app/el1/bundle/100/hnppublic/hnpsample.org/hnpsample_1.1/lib" dev="sdd78" ino=12153 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { write } for  pid=7556 comm="hnp" name="hnpsample_1.1" dev="sdd78" ino=12152 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 allow hnp data_app_el1_file:dir { add_name create getattr write };
- 
+
 # avc:  denied  { remove_name } for  pid=9178 comm="hnp" name="hnpsample.org" dev="sdd78" ino=12101 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { rmdir } for  pid=9178 comm="hnp" name="hnpsample.org" dev="sdd78" ino=12101 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 allow hnp data_app_el1_file:dir { remove_name rmdir };
@@ -75,16 +76,16 @@ allow hnp data_app_el1_file:file { create ioctl setattr };
 
 # avc:  denied  { unlink } for  pid=9178 comm="hnp" name="hnpsample" dev="sdd78" ino=12109 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allow hnp data_app_el1_file:file { unlink };
- 
+
 # avc:  denied  { ioctl } for  pid=5378 comm="EnableCodeSign0" path="/data/app/el1/bundle/100/hnppublic/hnpsample.org/hnpsample_1.1/lib/libhnpsamplelib.z.so" dev="sdd78" ino=12622 ioctlcmd=0x66c8 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allow hnp data_app_el1_file:file { ioctl };
- 
+
 # avc:  denied  { create } for  pid=5378 comm="hnp" name="hnpsample" scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=lnk_file permissive=1
 allow hnp data_app_el1_file:lnk_file { create };
- 
+
 # avc:  denied  { ioctl } for  pid=7556 comm="hnp" path="/data/app/el1/bundle/100/hnppublic/hnpsample.org/hnpsample_1.1/hnp.json" dev="sdd78" ino=12155 ioctlcmd=0x5413 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allowxperm hnp data_app_el1_file:file ioctl { 0x5413 };
- 
+
 # avc:  denied  { ioctl } for  pid=5378 comm="EnableCodeSign0" path="/data/app/el1/bundle/100/hnppublic/hnpsample.org/hnpsample_1.1/lib/libhnpsamplelib.z.so" dev="sdd78" ino=12622 ioctlcmd=0x66c8 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allowxperm hnp data_app_el1_file:file ioctl { 0x66c8 };
 
@@ -93,73 +94,73 @@ allowxperm hnp data_app_el1_file:file ioctl { 0x66c8 };
 # avc_audit_slow:262] avc: denied { read } for pid=7265, comm="/system/bin/hnp"  path="/data/app/el1/bundle/100/hnppublic/hnpsample.org/hnpsample_1.1/bin/hnpsample" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19111 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 # avc_audit_slow:262] avc: denied { write } for pid=7265, comm="/system/bin/hnp"  path="/data/app/el1/bundle/100/hnppublic/hnpsample.org/hnpsample_1.1/bin/hnpsample" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19111 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allow hnp data_app_el1_file:file { getattr open read write };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/buddyinfo" dev="proc" ino=4026531856 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_buddyinfo_file:s0 tclass=file permissive=1
 allow hnp proc_buddyinfo_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/cgroups" dev="proc" ino=4026531855 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_cgroups_file:s0 tclass=file permissive=1
 allow hnp proc_cgroups_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/cmdline" dev="proc" ino=4026532315 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_cmdline_file:s0 tclass=file permissive=1
 allow hnp proc_cmdline_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/config.gz" dev="proc" ino=4026532479 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_config_gz_file:s0 tclass=file permissive=1
 allow hnp proc_config_gz_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/cpuinfo" dev="proc" ino=4026532317 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 allow hnp proc_cpuinfo_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/diskstats" dev="proc" ino=4026532506 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_diskstats_file:s0 tclass=file permissive=1
 allow hnp proc_diskstats_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/data-ready" dev="proc" ino=4026532862 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
 allow hnp proc_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/iomem" dev="proc" ino=4026532470 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_iomem_file:s0 tclass=file permissive=1
 allow hnp proc_iomem_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/keys" dev="proc" ino=4026532500 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_keys_file:s0 tclass=file permissive=1
 allow hnp proc_keys_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/kmsg" dev="proc" ino=4026532326 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_kmsg_file:s0 tclass=file permissive=1
 allow hnp proc_kmsg_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/loadavg" dev="proc" ino=4026532320 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_loadavg_file:s0 tclass=file permissive=1
 allow hnp proc_loadavg_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/meminfo" dev="proc" ino=4026532321 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 allow hnp proc_meminfo_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/misc" dev="proc" ino=4026532216 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_misc_file:s0 tclass=file permissive=1
 allow hnp proc_misc_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/modules" dev="proc" ino=4026532477 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_modules_file:s0 tclass=file permissive=1
 allow hnp proc_modules_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/slabinfo" dev="proc" ino=4026532480 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_slabinfo_file:s0 tclass=file permissive=1
 allow hnp proc_slabinfo_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/softirqs" dev="proc" ino=4026532325 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_softirqs_file:s0 tclass=file permissive=1
 allow hnp proc_softirqs_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/stat" dev="proc" ino=4026532322 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_stat_file:s0 tclass=file permissive=1
 allow hnp proc_stat_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/swaps" dev="proc" ino=4026532482 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_swaps_file:s0 tclass=file permissive=1
 allow hnp proc_swaps_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/uptime" dev="proc" ino=4026532323 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_uptime_file:s0 tclass=file permissive=1
 allow hnp proc_uptime_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/version" dev="proc" ino=4026532324 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
 allow hnp proc_version_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/vmstat" dev="proc" ino=4026531858 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_vmstat_file:s0 tclass=file permissive=1
 allow hnp proc_vmstat_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9325 comm="lsof" path="/proc/zoneinfo" dev="proc" ino=4026531859 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_zoneinfo_file:s0 tclass=file permissive=1
 allow hnp proc_zoneinfo_file:file { getattr };
- 
+
 # avc:  denied  { execute } for  pid=9325 comm="hnp" name="sh" dev="sdd74" ino=677 scontext=u:r:hnp:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
 # avc:  denied  { execute_no_trans } for  pid=9325 comm="hnp" path="/system/bin/sh" dev="sdd74" ino=677 scontext=u:r:hnp:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
 # avc:  denied  { map } for  pid=9325 comm="sh" path="/system/bin/sh" dev="sdd74" ino=677 scontext=u:r:hnp:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
@@ -167,10 +168,10 @@ allow hnp proc_zoneinfo_file:file { getattr };
 # avc:  denied  { read open } for  pid=9325 comm="hnp" path="/system/bin/sh" dev="sdd74" ino=677 scontext=u:r:hnp:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=9325 comm="sh" path="/system/bin/sh" dev="sdd74" ino=677 scontext=u:r:hnp:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
 allow hnp sh_exec:file { execute execute_no_trans map read execute read open read };
- 
+
 # avc:  denied  { read } for  pid=9325 comm="sh" name="lsof" dev="sdd74" ino=573 scontext=u:r:hnp:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file permissive=1
 allow hnp system_bin_file:lnk_file { read };
- 
+
 # avc:  denied  { execute } for  pid=9325 comm="sh" name="toybox" dev="sdd74" ino=714 scontext=u:r:hnp:s0 tcontext=u:object_r:toybox_exec:s0 tclass=file permissive=1
 # avc:  denied  { execute_no_trans } for  pid=9325 comm="sh" path="/system/bin/toybox" dev="sdd74" ino=714 scontext=u:r:hnp:s0 tcontext=u:object_r:toybox_exec:s0 tclass=file permissive=1
 # avc:  denied  { getattr } for  pid=9325 comm="sh" path="/system/bin/toybox" dev="sdd74" ino=714 scontext=u:r:hnp:s0 tcontext=u:object_r:toybox_exec:s0 tclass=file permissive=1
@@ -179,17 +180,18 @@ allow hnp system_bin_file:lnk_file { read };
 # avc:  denied  { read open } for  pid=9325 comm="sh" path="/system/bin/toybox" dev="sdd74" ino=714 scontext=u:r:hnp:s0 tcontext=u:object_r:toybox_exec:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=9325 comm="lsof" path="/system/bin/toybox" dev="sdd74" ino=714 scontext=u:r:hnp:s0 tcontext=u:object_r:toybox_exec:s0 tclass=file permissive=1
 allow hnp toybox_exec:file { execute execute_no_trans getattr map read execute read open read };
- 
+
 # avc:  denied  { read write open } for  pid=9325 comm="sh" path="/dev/tty" dev="tmpfs" ino=94 scontext=u:r:hnp:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
 # avc:  denied  { read write } for  pid=9325 comm="sh" name="tty" dev="tmpfs" ino=94 scontext=u:r:hnp:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
 allow hnp tty_device:chr_file { read write open read write };
- 
+
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/dev/__parameters__/u:object_r:default_param:s0" dev="tmpfs" ino=275 scontext=u:r:hnp:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=1
 allow hnp default_param:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/dev/__parameters__/u:object_r:hiviewdfx_profiler_param:s0" dev="tmpfs" ino=151 scontext=u:r:hnp:s0 tcontext=u:object_r:hiviewdfx_profiler_param:s0 tclass=file permissive=1
 allow hnp hiviewdfx_profiler_param:file { getattr };
- 
+allow hnp hitrace_param:file { getattr };
+
 # avc:  denied  { dac_read_search } for  pid=9207 comm="lsof" capability=2  scontext=u:r:hnp:s0 tcontext=u:r:hnp:s0 tclass=capability permissive=1
 allow hnp hnp:capability { dac_read_search };
 
@@ -198,25 +200,25 @@ allow hnp hook_param:file { getattr };
 
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=153 scontext=u:r:hnp:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
 allow hnp musl_param:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/proc/filesystems" dev="proc" ino=4026532487 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_filesystems_file:s0 tclass=file permissive=1
 allow hnp proc_filesystems_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/proc/interrupts" dev="proc" ino=4026532319 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_interrupts_file:s0 tclass=file permissive=1
 allow hnp proc_interrupts_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/proc/pagetypeinfo" dev="proc" ino=4026531857 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_pagetypeinfo_file:s0 tclass=file permissive=1
 allow hnp proc_pagetypeinfo_file:file { getattr };
 
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/proc/sysrq-trigger" dev="proc" ino=4026532528 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_sysrq_trigger_file:s0 tclass=file permissive=1
 allow hnp proc_sysrq_trigger_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/proc/timer_list" dev="proc" ino=4026532476 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_timer_list_file:s0 tclass=file permissive=1
 allow hnp proc_timer_list_file:file { getattr };
 
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/proc/vmallocinfo" dev="proc" ino=4026532481 scontext=u:r:hnp:s0 tcontext=u:object_r:proc_vmallocinfo_file:s0 tclass=file permissive=1
 allow hnp proc_vmallocinfo_file:file { getattr };
- 
+
 # avc:  denied  { getattr } for  pid=9207 comm="lsof" path="/dev/__parameters__/u:object_r:startup_init_param:s0" dev="tmpfs" ino=132 scontext=u:r:hnp:s0 tcontext=u:object_r:startup_init_param:s0 tclass=file permissive=1
 allow hnp startup_init_param:file { getattr };
 
@@ -296,12 +298,23 @@ allow hnp hnp_file:dir { relabelto setattr };
 allow appspawn hnp_file:dir { getattr mounton search };
 allow hiperf hnp_exec:file { getattr map read open };
 
+domain_auto_transition_pattern(sh, hnp_file, hnp_native);
 allow sh hnp_file:dir { search getattr read open };
 allow sh hnp_file:file { execute execute_no_trans getattr map read open };
 allow sh hnp_file:lnk_file { read };
-allow sh data_app_el1_file:dir { search getattr read open };
-allow sh data_app_el1_file:file { execute execute_no_trans getattr map read open };
-allow sh data_app_el1_file:lnk_file { read };
 allow sh key_enable:key { search };
 allow sh storage_daemon:key { search };
+allow hnp_native hnp_file:dir { search getattr read open };
+allow hnp_native hnp_file:file { execute execute_no_trans getattr map read open };
+allow hnp_native hnp_file:lnk_file { read };
+allow hnp_native self:xpm { exec_allow_debug_id};
+allow hnp_native data_app_el1_file:dir { search };
+allow hnp_native data_app_file:dir { search };
+allow hnp_native dev_unix_socket:dir { search };
+allow hnp_native devpts:chr_file { read write };
+allow hnp_native sh:fd { use };
+allow hnp_native sh:unix_stream_socket { read write };
+allow hnp_native hdcd:fd { use };
+allow sh hnp_native:process {noatsecure };
+allow sh hnp_native:process2 { nosuid_transition };
 ')

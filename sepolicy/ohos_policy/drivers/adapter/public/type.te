@@ -39,10 +39,6 @@ type vibrator_host, hdfdomain, domain;
 type power_host, hdfdomain, domain;
 type location_host, hdfdomain, domain;
 
-type hdf_geofence_intf_service, hdf_service_attr;
-type hdf_cellfence_interface_service, hdf_service_attr;
-type hdf_cellbatching_interface_service, hdf_service_attr;
-type hdf_wififence_interface_service, hdf_service_attr;
 type debugfs_usb, fs_attr, debugfs_attr;
 type hdf_devmgr_exec, exec_attr, file_attr, system_file_attr;
 type dev_hdf_kevent, dev_attr;

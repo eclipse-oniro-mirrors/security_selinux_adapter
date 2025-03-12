@@ -19,8 +19,6 @@ config("selinux_unittest_config") {
   include_dirs = [
     "../interfaces/policycoreutils/include",
     "unittest/common",
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-    "$THIRD_PARTY_DIR/googletest/include",
   ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -34,20 +32,20 @@ ohos_unittest("hap_restorecon_unittest") {
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
-    "../interfaces/policycoreutils/src/hap_restorecon.cpp",
-    "../interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
+    "../framework/policycoreutils/src/hap_restorecon.cpp",
+    "../framework/policycoreutils/src/sehap_contexts_trie.cpp",
     "unittest/common/test_common.cpp",
     "unittest/hap_restorecon/unit_test.cpp",
   ]
   deps = [
-    "$THIRD_PARTY_DIR/selinux:libselinux",
     "../:libselinux_error_static",
     "../:libselinux_hilog_static",
   ]
   cflags = [ "-DSELINUX_TEST" ]
   external_deps = [
-    "c_utils:utils",
+    "googletest:gtest",
     "hilog:libhilog",
+    "selinux:libselinux",
   ]
 }
 
@@ -60,9 +58,9 @@ ohos_unittest("paraperm_checker_unittest") {
     "unittest/common/test_common.cpp",
     "unittest/paraperm_checker/unit_test.cpp",
   ]
-  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
   external_deps = [
-    "c_utils:utils",
+    "googletest:gtest",
+    "selinux:libselinux",
     "selinux_adapter:libparaperm_checker",
   ]
 }
@@ -77,7 +75,7 @@ ohos_unittest("service_checker_unittest") {
     "unittest/service_checker/unit_test.cpp",
   ]
   external_deps = [
-    "c_utils:utils",
+    "googletest:gtest",
     "selinux_adapter:libservice_checker",
   ]
 }
@@ -88,13 +86,15 @@ ohos_unittest("parameter_static_unittest") {
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
-    "../interfaces/policycoreutils/src/selinux_map.c",
-    "../interfaces/policycoreutils/src/selinux_share_mem.c",
+    "../framework/policycoreutils/src/selinux_map.c",
+    "../framework/policycoreutils/src/selinux_share_mem.c",
     "unittest/common/test_common.cpp",
     "unittest/parameter_static/unit_test.cpp",
   ]
-  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
-  external_deps = [ "c_utils:utils" ]
+  external_deps = [
+    "googletest:gtest",
+    "selinux:libselinux",
+  ]
 }
 
 ohos_unittest("selinux_common_unittest") {
@@ -109,9 +109,12 @@ ohos_unittest("selinux_common_unittest") {
   deps = [
     "../:libselinux_hilog_static",
     "../:libselinux_klog_static",
-    "//third_party/selinux:libselinux",
   ]
-  external_deps = [ "hilog:libhilog" ]
+  external_deps = [
+    "googletest:gtest",
+    "hilog:libhilog",
+    "selinux:libselinux",
+  ]
 }
 
 group("unittest") {

@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -17,22 +17,31 @@ allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 allow storage_daemon hmdfs:filesystem { unmount };
+allow storage_daemon tmpfs:filesystem { unmount };
 allow storage_daemon hmdfs:file { mounton };
 allow storage_daemon data_service_el2_hmdfs:file { mounton };
 allow storage_daemon data_user_file:file { mounton };
 allow storage_daemon data_app_el1_file:file { mounton };
-allow storage_daemon data_local_arkcache:file { mounton };
-allow storage_daemon data_local_arkprofile:file { mounton };
+allow storage_daemon data_app_el1_arkcache:file { mounton };
+allow storage_daemon data_app_el1_arkprofile:file { mounton };
 allow storage_daemon data_local:file { mounton };
 allow storage_daemon normal_hap_data_file_attr:file { mounton };
 allow storage_daemon system_core_hap_data_file_attr:file { mounton };
 allow storage_daemon system_basic_hap_data_file_attr:file { mounton };
 
-neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam } storage_daemon:{ binder } call;
+allow storage_daemon data_app_el1_arkcache:dir { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el1_arkprofile:dir  { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el1_arkprofile:dir { relabelto };
+allow storage_daemon data_app_el1_file:dir { relabelfrom };
+allow storage_daemon data_app_el1_arkprofile:dir { rw_dir_perms_without_ioctl rmdir };
+allow storage_daemon data_app_el1_arkprofile:file { unlink };
+
+neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam -param_watcher } storage_daemon:{ binder } call;
 
 allow storage_daemon domain:file { read open };
 allow storage_daemon domain:dir { search read open };
 allow storage_daemon domain:lnk_file { read };
+allow storage_daemon domain:process { sigkill };
 
 #avc:  denied  { call } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow storage_daemon accesstoken_service:binder { call };
@@ -265,7 +274,7 @@ allow storage_daemon storage_daemon:netlink_kobject_uevent_socket { read };
 #avc:  denied  { mknod } for  pid=241 comm="storage_daemon" capability=27  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
 #avc:  denied  { sys_ptrace } for  pid=246 comm="storage_daemon" capability=19  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
 #avc:  denied  { dac_override } for  pid=2028 comm="blkid" capability=1  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
-allow storage_daemon storage_daemon:capability { mknod dac_read_search sys_ptrace dac_override setgid setuid };
+allow storage_daemon storage_daemon:capability { mknod dac_read_search sys_ptrace dac_override setgid setuid kill };
 
 #avc:  denied  { remove_name } for  pid=256 comm="storage_daemon" name="F7BC-FF57" dev="tmpfs" ino=406 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 allow storage_daemon tmpfs:dir { remove_name rmdir };
@@ -284,11 +293,13 @@ allow storage_daemon system_basic_hap_data_file_attr:dir { create_dir_perms geta
 allow storage_daemon system_basic_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink };
 allow storage_daemon system_core_hap_data_file_attr:dir { create_dir_perms getattr open read remove_name rmdir search setattr write };
 allow storage_daemon system_core_hap_data_file_attr:file { create_file_perms open read getattr setattr unlink };
-allow storage_daemon labeledfs:filesystem { unmount quotaget quotamod };
+allow storage_daemon labeledfs:filesystem { mount unmount quotaget quotamod };
 allow storage_daemon sharefs:filesystem { unmount };
 allow storage_daemon sharefs:dir { create_dir_perms mounton };
+allow storage_daemon sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton };
 allow storage_daemon data_service_el2_share:dir { create_dir_perms mounton relabelto };
 allow storage_daemon sharefs:file { create_file_perms };
+allow storage_daemon sharefs_file_attr:file { create_file_perms_without_ioctl };
 allow storage_daemon data_service_el2_share:file { create_file_perms mounton };
 # avc:  denied  { call } for  pid=2153 comm="IPC_1_2158" scontext=u:r:storage_daemon:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=binder permissive=1
 # avc:  denied  { mounton } for  pid=2060 comm="storage_daemon" path="/mnt/hmdfs/100/cloud" dev="fuse" ino=1668 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
@@ -306,6 +317,9 @@ allow storage_daemon sa_ca_daemon_service:samgr_class { get };
 # avc:  denied  { relabelto } for  pid=250 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=filesystem permissive=1
 # avc:  denied  { relabelfrom } for  pid=253 comm="IPC_1_271" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=filesystem permissive=0
 allow storage_daemon unlabeled:filesystem { relabelfrom };
+allow storage_daemon unlabeled:dir { getattr ioctl lock open read relabelfrom search setattr watch watch_reads write rmdir rename };
+allow storage_daemon unlabeled:file { getattr ioctl lock open read relabelfrom setattr watch watch_reads write unlink rename };
+allow storage_daemon unlabeled:lnk_file { getattr ioctl lock open read relabelfrom setattr watch watch_reads write unlink rename };
 allow storage_daemon hmdfs:filesystem { relabelfrom relabelto };
 # avc:  denied  { add_name } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
 # avc:  denied  { create } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
@@ -321,7 +335,7 @@ allow storage_daemon permissions_mount_file_attr:dir { add_name create mounton s
 # avc:  denied  { ioctl } for  pid=269 comm="IPC_2_822" path="/data/service/el1/public/storage_daemon/share/public" dev="mmcblk0p14" ino=70 ioctlcmd=0x6601 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
 # avc:  denied  { ioctl } for  pid=269 comm="IPC_2_822" path="/data/service/el1/public/storage_daemon/share/public" dev="mmcblk0p14" ino=70 ioctlcmd=0x6602 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:share_public_file:s0 tclass=dir permissive=1
 allow storage_daemon share_public_file:dir { read open ioctl };
-allowxperm storage_daemon share_public_file:dir ioctl { 0x581f 0x5820 0x6601 0x6602 };
+allowxperm storage_daemon share_public_file:dir ioctl { 0xf546 0xf547 0x581f 0x5820 0x6601 0x6602 };
 
 # avc:  denied  { write } for pid=544 comm="storage_daemon" name="kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { open } for pid=544 comm="storage_daemon" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
@@ -338,24 +352,114 @@ allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
 allow storage_daemon data_service_el2_file:file { relabelfrom };
 allow storage_daemon data_service_el4_file:file { relabelfrom };
+allow storage_daemon data_service_el2_hmdfs:file { read open write };
+allow storage_daemon data_service_el2_hmdfs:lnk_file { unlink rename };
+
 storage_daemon_relabel(data_service_el2_share);
-allow storage_daemon data_app_el2_file:file { unlink };
+
+# avc: denied { create } for pid=648, comm="/system/bin/storage_daemon" name="/app/el2/100/base/el2_tem" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=5640 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
+allow storage_daemon data_app_el2_file:file { unlink create write ioctl open };
+allowxperm storage_daemon data_app_el2_file:file ioctl { 0x5413 };
 allow storage_daemon data_chipset_el2_file:file { unlink };
 allow storage_daemon data_app_el5_file:file { unlink };
-allowxperm storage_daemon data_service_storage_daemon_sd_file:file ioctl { 0x5413 };
-allowxperm storage_daemon data_service_storage_daemon_sd_file:dir ioctl { 0x5413 };
-allow storage_daemon data_service_storage_daemon_sd_file:dir { add_name search create remove_name rename rmdir getattr open read write relabelto };
+allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };
+allow storage_daemon el5_filekey_manager:binder { call };
+allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
+allowxperm storage_daemon data_service_storage_daemon_sd_file:file ioctl { 0x5413 0xf546 0xf547 };
+allowxperm storage_daemon data_service_storage_daemon_sd_file:dir ioctl { 0x5413 0xf546 0xf547 };
+allow storage_daemon data_service_storage_daemon_sd_file:dir { add_name search create remove_name rename rmdir getattr setattr open read write relabelto ioctl };
 allow storage_daemon data_service_storage_daemon_sd_file:file { create ioctl setattr unlink getattr open read write relabelto };
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:dir { create relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:dir { read write getattr rename open add_name remove_name search rmdir };
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:file { create ioctl setattr open read write relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:file { unlink getattr };
 
-allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };
-allow storage_daemon el5_filekey_manager:binder { call };
-allow storage_daemon sa_el5_filekey_manager:samgr_class { get };
+neverallow storage_daemon *:process ptrace;
 
-# avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0: tclass=samgr_class permissive=0
+allow storage_daemon proc_cmdline_file:file { getattr open read };
+
+# avc: denied { get } for service=3704 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
+allow storage_daemon sa_screenlock_service:samgr_class { get };
+
+# avc:  denied  { get } for service=200 pid=574 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
+allow storage_daemon sa_accountmgr:samgr_class { get };
+
+# avc:  denied  { call transfer } for pid=616, comm="/system/bin/storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+allow storage_daemon accountmgr:binder { call transfer };
+
+# avc:  denied  { get } for service=901 pid=627 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
 allow storage_daemon sa_useriam_useridm_service:samgr_class { get };
 allow storage_daemon useriam:binder { call transfer };
 
+allow storage_daemon data_log:file { read append getattr open create write rename unlink };
+allow storage_daemon data_log:dir { write add_name create open read getattr remove_name };
+allow storage_daemon labeledfs:filesystem { relabelfrom };
+allow storage_daemon mnt_external_file:filesystem { mount unmount relabelfrom relabelto };
+
+# avc: denied { rmdir } for pid=5021, comm="/bin/mtpfs"  name="/mtp_tmp/simple-mtpfs-aLAbfL" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=21448 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow storage_daemon data_file:dir { rmdir };
+
+# avc: denied { search } for pid=5021, comm="/bin/mtpfs"  name="/bus" dev="" ino=519 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus:s0 tclass=dir permissive=1
+allow storage_daemon dev_bus:dir { search };
+
+# avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5514 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { open } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb/002/002" dev="" ino=3579 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { read write } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb/002/002" dev="" ino=3579 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+allow storage_daemon dev_bus_usb_file:chr_file { ioctl open read write };
+
+# avc: denied { open } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb" dev="" ino=520 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=5021, comm="/bin/mtpfs"  path="/dev/bus/usb" dev="" ino=520 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=5021, comm="/bin/mtpfs"  name="/bus/usb" dev="" ino=520 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+allow storage_daemon dev_bus_usb_file:dir { open read search };
+
+# avc: denied { mount } for pid=5169, comm="/bin/mtpfs"  name="" dev="mtpfs" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
+# avc: denied { unmount } for pid=5206, comm="/bin/umount"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
+allow storage_daemon fuse_file:filesystem { mount };
+
+# avc: denied { read } for pid=5021, comm="/bin/mtpfs"  path="/mnt/data/external/mtp-4817-4221" dev="tmpfs" ino=6 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc: denied { setattr } for pid=676, comm="/system/bin/storage_daemon"  name="/external/mtp-4817-4221" dev="tmpfs" ino=6 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+allow storage_daemon mnt_external_file:dir { read setattr open };
+
+# avc: denied { getattr } for pid=5020, comm="/bin/sh"  path="/system/bin/mtpfs" dev="/dev/block/platform/b0000000.hi_pcie/by-name/system" ino=648 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+allow storage_daemon system_bin_file:file { getattr };
+
+# avc: denied { ioctl } for pid=5169, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5508 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=676, comm="/system/bin/storage_daemon"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x550a scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=676, comm="/system/bin/storage_daemon"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x550d scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=5169, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x550f scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5510 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5514 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=676, comm="/system/bin/storage_daemon"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x551a scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+allowxperm storage_daemon dev_bus_usb_file:chr_file ioctl { 0x5508 0x550a 0x550d 0x550f 0x5510 0x5514 0x551a };
+
+allow storage_daemon data_local:file { create getattr open read unlink write };
+
+# avc: denied { open } for pid=7351, comm="/bin/mtpfs"  path="/sys/devices/platform/usb_proxy_hcd/usb1/busnum" dev="" ino=64531 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=7351, comm="/bin/mtpfs"  path="/sys/devices/platform/usb_proxy_hcd/usb1/busnum" dev="" ino=64531 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+allow storage_daemon dev_bus_usb_file:file { open read };
+
+allow storage_daemon data_local:dir { create getattr open read rmdir search write add_name remove_name };
+
+allow storage_daemon sa_foundation_cesfwk_service:samgr_class { get };
+
+allow storage_daemon chip_prod_file:dir { search };
+
+allow storage_daemon dev_bus_usb_file:file { getattr };
+
+allow storage_daemon mnt_external_file:fifo_file { getattr };
+
+allow storage_daemon mnt_external_file:file { getattr setattr };
+
+allow storage_daemon mnt_external_file:lnk_file { read };
+
+allow storage_daemon mnt_external_file:sock_file { getattr setattr };
+
+allow storage_daemon dev_bus_usb_file:file { write };
+
+# avc:  denied  { get } for service=501 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow storage_daemon sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { relabelfrom } for  pid=203 comm="OS_IPC_1_229" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=0
+allow storage_daemon fuse_file:filesystem { relabelfrom };
+#avc:  denied { use } for pid=649 comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_manager:s0 tclass=fd permissive=0
+allow storage_daemon storage_manager:fd { use };

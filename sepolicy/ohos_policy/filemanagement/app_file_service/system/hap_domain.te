@@ -10,9 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-allow hap_domain sharefs:file { read open getattr write append map create rename };
 allow hap_domain data_service_el2_share:file { read open getattr write append map };
-allow hap_domain sharefs:dir { read open getattr search write add_name remove_name };
 allow hap_domain data_service_el2_share:dir { read open getattr search };
 allow hap_domain sa_filemanagement_backup_service_service:samgr_class { get };
 allow hap_domain system_bin_file:file { execute execute_no_trans getattr map read open };
@@ -23,3 +21,5 @@ allow hap_domain backup_sa:binder { call transfer };
 allow hap_domain data_service_el2_file:dir { read write add_name create getattr open remove_name rmdir search setattr };
 allow hap_domain data_service_el2_file:file { getattr create write read open unlink setattr };
 allow hap_domain backup_sa:fd { use };
+allow hap_domain normal_hap_data_file:dir { search };
+allow hap_domain normal_hap_data_file:file { open };

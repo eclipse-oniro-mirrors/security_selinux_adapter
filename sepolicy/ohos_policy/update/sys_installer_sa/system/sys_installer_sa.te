@@ -86,6 +86,7 @@ allow sys_installer_sa updater_sa:binder { call };
 allow sys_installer_sa vendor_etc_file:dir { search };
 allow sys_installer_sa dev_block_volfile:dir { search };
 allow sys_installer_sa update_firmware_file:file { map };
+
 allow sys_installer_sa system_bin_file:file { getattr };
 allow sys_installer_sa toybox_exec:file { getattr map read open };
 

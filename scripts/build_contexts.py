@@ -174,15 +174,18 @@ def check_common_contexts(args, contexts_file):
 def echo_error():
     print("***********************************************************")
     print("please check whether the format meets the following rules:")
-    print("[required format]: apl=* name=* domain=* type=*")
+    print("[required format]: apl=* [name=*] [debuggable=*] [extension=*] [extra=*] domain=* type=*")
     print("apl=*, apl should be one of system_core|system_basic|normal")
     print("name=*, name is 'optional'")
+    print("debuggable=*, debuggable is 'optional'")
+    print("extension=*, extension is 'optional'")
+    print("extra=*, extra is 'optional'")
     print("domain=*, hapdomain selinux type")
     print("type=*, hapdatafile selinux type")
     print("***********************************************************")
 
 
-def sehap_process_line(line, line_index, contexts_write, domain, contexts_file):
+def sehap_check_line(line, line_index, contexts_write, domain, contexts_file):
     line_ = line.lstrip()
     if line_.startswith('#') or line_.strip() == '':
         contexts_write.write(line)
@@ -192,15 +195,18 @@ def sehap_process_line(line, line_index, contexts_write, domain, contexts_file):
         r'apl=(system_core|system_basic|normal)\s+'
         r'((name|debuggable)=\S+\s+)?'
         r'(extra=\S+\s+)?'
+        r'(extension=\S+\s+)?'
         r'domain=(\S+)\s+'
-        r'type=(\S+)\s*\n'
+        r'type=(\S+)\s*'
+        r'.*\n',
+        re.DOTALL
     )
     match = pattern.match(line_)
     if match:
         if domain:
-            line = match.group(1) + " u:r:" + match.group(5) + ":s0\n"
+            line = match.group(1) + " u:r:" + match.group(6) + ":s0\n"
         else:
-            line = match.group(1) + " u:object_r:" + match.group(6) + ":s0\n"
+            line = match.group(1) + " u:object_r:" + match.group(7) + ":s0\n"
         contexts_write.write(line)
     else:
         print(contexts_file + ":" + str(line_index) + " format check fail")
@@ -221,7 +227,7 @@ def check_sehap_contexts(args, contexts_file, domain):
             line_index = 0
             for line in contexts_read:
                 line_index += 1
-                sehap_process_line(line, line_index, contexts_write, domain, contexts_file)
+                sehap_check_line(line, line_index, contexts_write, domain, contexts_file)
     except Exception as e:
         shutil.move(contexts_file + "_bk", contexts_file)
         echo_error()

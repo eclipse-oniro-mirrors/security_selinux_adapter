@@ -19,4 +19,4 @@
 /dev/unix/socket/hilogInput     u:object_r:hilog_input_socket:s0
 
 /data/log/hilog(/.*)?           u:object_r:data_hilogd_file:s0
-
+/data/service/el0/public/for-all-app/hilog(/.*)?       u:object_r:hilog_whitelist_file:s0

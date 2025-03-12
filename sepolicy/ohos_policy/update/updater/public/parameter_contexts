@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-updater.hdc.configfs        u:object_r:updater_hdc_param:s0
+updater.hdc.configfs        u:object_r:update_updater_param:s0
 updater.flashd.configfs     u:object_r:updater_flashd_param:s0
-updater.data.configs        u:object_r:updater_data_param:s0
-updater.data.ready          u:object_r:updater_data_param:s0
+updater.data.configs        u:object_r:update_updater_param:s0
+updater.data.ready          u:object_r:update_updater_param:s0

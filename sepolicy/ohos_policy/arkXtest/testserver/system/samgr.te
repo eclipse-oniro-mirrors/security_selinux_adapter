@@ -15,3 +15,8 @@ developer_only(`
     allow samgr uitest:binder { call };
     allow samgr sa_test_server:binder { transfer };
 ')
+
+debug_only(`
+    allow samgr uitest:binder { call };
+    allow samgr sa_test_server:binder { transfer };
+')

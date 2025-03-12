@@ -12,6 +12,13 @@
 # limitations under the License.
 updater_only(`
 
+# avc_audit_slow:267] avc: denied { relabelto } for pid=1, comm="/init"  name="/bin/faultloggerd" dev="tmpfs" ino=727 scontext=u:r:init:s0 tcontext=u:object_r:faultloggerd_exec:s0 tclass=file permissive=0
+allow init faultloggerd_exec:file { relabelto };
+# avc_audit_slow:267] avc: denied { relabelto } for pid=1, comm="/init"  name="/bin/processdump" dev="tmpfs" ino=726 scontext=u:r:init:s0 tcontext=u:object_r:processdump_exec:s0 tclass=file permissive=0
+allow init processdump_exec:file { relabelto };
+# avc_audit_slow:267] avc: denied { relabelto } for pid=1, comm="/init"  name="/bin/updater_binary" dev="tmpfs" ino=957 scontext=u:r:init:s0 tcontext=u:object_r:updater_binary_exec:s0 tclass=file permissive=0
+allow init updater_binary_exec:file { relabelto };
+
 #avc: denied { read } for pid=1 comm="init" name="ohos.para.size" dev="rootfs" ino=17448 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
 #avc: denied { getattr } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=17429 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
 #avc: denied { open } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=17429 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0

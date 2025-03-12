@@ -98,7 +98,7 @@ allow netsysnative sys_file:dir { mounton };
 allow netsysnative fs_bpf:dir { getattr search mounton add_name create write };
 allow netsysnative fs_bpf:file { create setattr write read };
 allow netsysnative fs_bpf:filesystem { mount };
-allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
+allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_readpriv nlmsg_write create write };
 allow netsysnative netsysnative:netlink_tcpdiag_socket { create connect write nlmsg_read read nlmsg_write };
 allow netsysnative system_core_hap_attr:fd { use };
 allow netsysnative system_core_hap_attr:tcp_socket { read write getopt setopt };
@@ -138,3 +138,135 @@ allow netsysnative sa_net_policy_manager:samgr_class { get };
 
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call -security_collector } netsysnative:binder *;
 neverallow { domain -netsysnative -rgm_violator_ohos_iptables_exec_file_execute } iptables_exec:file { execute };
+
+# avc:  denied  { getattr } for  pid=4358 comm="xl2tpd" lport=1701 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
+allow netsysnative netsysnative:udp_socket { getattr };
+
+# avc:  denied  { create } for  pid=3827 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=key_socket permissive=1
+# avc:  denied  { read } for  pid=4115 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=key_socket permissive=1
+# avc:  denied  { write } for  pid=4115 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=key_socket permissive=1
+allow netsysnative netsysnative:key_socket { create read write };
+
+#  avc:  denied  { search } for  pid=5628 comm="ipsec" name="local" dev="mmcblk0p15" ino=27 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=0
+allow netsysnative data_local:dir { search };
+
+# avc:  denied  { read } for  pid=499 comm="OS_IPC_2_988" name="hosts" dev="mmcblk0p7" ino=719 scontext=u:r:netsysnative:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+allow netsysnative system_etc_file:lnk_file { read };
+
+# avc:  denied  { open } for  pid=10447 comm="starter" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+allow netsysnative dev_console_file:chr_file { open };
+
+# avc:  denied  { open } for  pid=2154 comm="charon" path="/data/service/el1/public/vpn" dev="mmcblk0p15" ino=235 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { remove_name } for  pid=10447 comm="starter" name="starter.charon.pid" dev="mmcblk0p15" ino=2678 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=10489 comm="charon" name="vpn" dev="mmcblk0p15" ino=221 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow netsysnative data_service_el1_file:dir { remove_name read open };
+
+# avc:  denied  { getattr } for  pid=2144 comm="starter" path="/data/service/el1/public/vpn/strongswan.conf" dev="mmcblk0p15" ino=2864 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=2154 comm="charon" path="/data/service/el1/public/vpn/swanctl.conf" dev="mmcblk0p15" ino=2863 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc:  denied  { unlink } for  pid=10447 comm="starter" name="starter.charon.pid" dev="mmcblk0p15" ino=2678 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc:  denied  { setattr } for  pid=10489 comm="charon" name="charon.log" dev="mmcblk0p15" ino=2837 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc:  denied  { append } for  pid=3148 comm="pppd" path="/data/service/el1/public/vpn/xl2tpd.log" dev="mmcblk0p15" ino=2652 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow netsysnative data_service_el1_file:file { unlink setattr getattr map append };
+
+# avc:  denied  { create } for  pid=10489 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=alg_socket permissive=1
+# avc:  denied  { bind } for  pid=10489 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=alg_socket permissive=1
+allow netsysnative netsysnative:alg_socket { create bind};
+
+# avc:  denied  { getattr } for  pid=2154 comm="charon" path="/proc/sys/net/core/xfrm_acq_expires" dev="proc" ino=28723 scontext=u:r:netsysnative:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=10489 comm="charon" path="/proc/sys/net/core/xfrm_acq_expires" dev="proc" ino=20020 ioctlcmd=0x5413 scontext=u:r:netsysnative:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+allow netsysnative proc_file:file { getattr ioctl };
+allowxperm netsysnative proc_file:file ioctl { 0x5413 };
+
+# avc:  denied  { create } for  pid=3061 comm="charon" name="charon.ctl" scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=sock_file permissive=1
+# avc:  denied  { setattr } for  pid=3061 comm="charon" name="charon.ctl" dev="mmcblk0p15" ino=2648 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=sock_file permissive=1
+# avc:  denied  { write } for  pid=3188 comm="swanctl" name="charon.vici" dev="mmcblk0p15" ino=2649 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=sock_file permissive=1
+# avc:  denied  { unlink } for  pid=2153 comm="starter" name="charon.ctl" dev="mmcblk0p15" ino=2692 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=sock_file permissive=1
+# avc:  denied  { getattr } for  pid=2154 comm="charon" path="/data/service/el1/public/vpn/charon.vici" dev="mmcblk0p15" ino=2693 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=sock_file permissive=1
+allow netsysnative data_service_el1_file:sock_file { unlink getattr create setattr write };
+
+# avc:  denied  { call } for  pid=619 comm="OS_FFRT_2_7" scontext=u:r:netsysnative:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow netsysnative wifi_manager_service:binder { call };
+
+# avc:  denied  { getattr } for  pid=3203 comm="charon" path="/data/service/el1/public/vpn/l2tp-control" dev="mmcblk0p15" ino=2668 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=fifo_file permissive=1
+# avc:  denied  { unlink } for  pid=5924 comm="xl2tpd" name="l2tp-control" dev="mmcblk0p15" ino=2996 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=fifo_file permissive=1
+# avc:  denied  { write } for  pid=7000 comm="touch" name="l2tp-control" dev="mmcblk0p15" ino=3038 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=fifo_file permissive=1
+# avc:  denied  { create } for  pid=4364 comm="xl2tpd" name="l2tp-control" scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=fifo_file permissive=1
+# avc:  denied  { read } for  pid=4364 comm="xl2tpd" name="l2tp-control" dev="mmcblk0p15" ino=2896 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=fifo_file permissive=1
+# avc:  denied  { open } for  pid=4364 comm="xl2tpd" path="/data/service/el1/public/vpn/l2tp-control" dev="mmcblk0p15" ino=2896 scontext=u:r:netsysnative:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=fifo_file permissive=1
+allow netsysnative data_service_el1_file:fifo_file { create read open unlink write getattr };
+
+# avc:  denied  { ioctl } for  pid=4040 comm="xl2tpd" path="/dev/ptmx" dev="tmpfs" ino=301 ioctlcmd=0x5430 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ptmx:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4040 comm="xl2tpd" path="/dev/ptmx" dev="tmpfs" ino=301 ioctlcmd=0x5401 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ptmx:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=4040 comm="xl2tpd" path="/dev/ptmx" dev="tmpfs" ino=301 ioctlcmd=0x5402 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ptmx:s0 tclass=chr_file permissive=1
+# avc:  denied  { read write } for  pid=6960 comm="xl2tpd" name="ptmx" dev="tmpfs" ino=300 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ptmx:s0 tclass=chr_file permissive=1
+# avc:  denied  { open } for  pid=6960 comm="xl2tpd" path="/dev/ptmx" dev="tmpfs" ino=300 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ptmx:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3133 comm="xl2tpd" path="/dev/ptmx" dev="tmpfs" ino=301 ioctlcmd=0x5431 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ptmx:s0 tclass=chr_file permissive=1
+allow netsysnative dev_ptmx:chr_file { read write open ioctl };
+allowxperm netsysnative dev_ptmx:chr_file ioctl { 0x5431 0x5430 0x5401 0x5402 };
+
+# avc:  denied  { open } for  pid=2719 comm="xl2tpd" path="/dev/pts/1" dev="devpts" ino=4 scontext=u:r:vpnmanager:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { getattr } for  pid=2359 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 scontext=u:r:vpnmanager:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+allow netsysnative devpts:chr_file { open  getattr };
+# avc:  denied  { get } for service=1155 sid=u:r:netsysnative:s0 scontext=u:r:netsysnative:s0 tcontext=u:object_r:sa_comm_vpn_manager_service:s0 tclass=samgr_class permissive=0
+allow netsysnative sa_comm_vpn_manager_service:samgr_class { get };
+
+# avc:  denied  { getattr } for  pid=4064 comm="pppd" path="socket:[44876]" dev="sockfs" ino=44876 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=unix_dgram_socket permissive=1
+allow netsysnative netsysnative:unix_dgram_socket { getattr };
+
+# avc:  denied  { ioctl } for  pid=4064 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x5416 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x542a scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x542d scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x540c scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x5423 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x7437 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=2670 comm="pppd" path=2F6465762F7074732F31202864656C6574656429 dev="devpts" ino=4 ioctlcmd=0x5417 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
+allow netsysnative devpts:chr_file { ioctl };
+allowxperm netsysnative devpts:chr_file ioctl { 0x5416 0x542a 0x542d 0x540c 0x5423 0x7437 0x5417};
+
+# avc:  denied  { read } for  pid=3629 comm="pppd" name="route" dev="proc" ino=4026532126 scontext=u:r:netsysnative:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=3629 comm="pppd" path="/proc/3629/net/route" dev="proc" ino=4026532126 scontext=u:r:netsysnative:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=1
+allow netsysnative proc_net:file { read open};
+
+# avc:  denied  { ioctl } for  pid=3185 comm="pppd" path="socket:[40480]" dev="sockfs" ino=40480 ioctlcmd=0x890b scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
+# avc:  denied  { ioctl } for  pid=4065 comm="pppd" path="socket:[43566]" dev="sockfs" ino=43566 ioctlcmd=0x890c scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
+# avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="socket:[44443]" dev="sockfs" ino=44443 ioctlcmd=0x8912 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
+# avc:  denied  { ioctl } for  pid=3629 comm="pppd" path="socket:[43257]" dev="sockfs" ino=43257 ioctlcmd=0x8918 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
+allow netsysnative netsysnative:udp_socket { ioctl };
+allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8912 0x8918 0x890b 0x890c};
+
+# avc:  denied  { search } for  pid=3133 comm="xl2tpd" name="/" dev="devpts" ino=1 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_pts_file:s0 tclass=dir permissive=1
+allow netsysnative dev_pts_file:dir { search };
+
+# avc:  denied  { read write } for  pid=3290 comm="pppd" name="ppp" dev="tmpfs" ino=375 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { open } for  pid=3290 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+allow netsysnative dev_ppp_file:chr_file { open read write };
+
+# avc:  denied  { ioctl } for  pid=3290 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7438 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x743e scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x743a scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7440 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x745a scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7459 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x744f scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7457 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x744b scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=2517 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7452 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=2517 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7454 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+allow netsysnative dev_ppp_file:chr_file { ioctl };
+allowxperm netsysnative dev_ppp_file:chr_file ioctl { 0x7438 0x743e 0x743a 0x7440 0x745a 0x7459 0x744f 0x7457 0x744b 0x7452 0x7454 };
+
+# avc:  denied  { name_connect } for  pid=2551 comm="openvpn" dest=1194 scontext=u:r:netsysnative:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
+allow netsysnative port:tcp_socket { name_connect };
+
+# avc:  denied  { get } for service=3512 sid=u:r:netsysnative:s0 scontext=u:r:netsysnative:s0 tcontext=u:object_r:sa_cert_manager_service:s0 tclass=samgr_class permissive=1
+allow netsysnative sa_cert_manager_service:samgr_class { get };
+# avc:  denied  { call } for  pid=5199 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:cert_manager_service:s0 tclass=binder permissive=1
+allow netsysnative cert_manager_service:binder { call };
+
+allow netsysnative hap_domain:icmp_socket { setopt getopt };
+
+# avc: denied { ioctl } for pid=6938, comm="/system/bin/appspawn"  ioctlcmd=0x8919  scontext=u:r:debug_hap:s0 tcontext=u:r:debug_hap:s0 tclass=udp_socket permissive=0
+allowxperm hap_domain self:udp_socket ioctl { 0x8919 };
+
+# avc: denied { ioctl } for pid=6456, comm="/system/bin/appspawn" ioctlcmd=0x5411 scontext=u:r:debug_hap:s0 tcontext=u:r:debug_hap:s0 tclass=tcp_socket permissive=0
+allowxperm hap_domain self:tcp_socket ioctl { 0x5411 };

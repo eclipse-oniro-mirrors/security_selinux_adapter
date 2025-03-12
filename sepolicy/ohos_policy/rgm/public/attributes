@@ -19,9 +19,12 @@ attribute rgm_violator_cap_chown;
 attribute rgm_violator_normal_hap_data_file_attr_dir;
 attribute rgm_violator_normal_hap_data_file_attr_file_open;
 attribute rgm_violator_filesystem_relabelfrom;
-attribute rgm_violator_blk_file;
 attribute rgm_violator_normal_hap_data_file_attr_dir_file_create_unlink;
 attribute rgm_violator_ohos_dev_encaps_chr_file;
 attribute rgm_violator_exec_no_sign;
 attribute rgm_violator_execmem;
+attribute rgm_violator_su_process_dyntransition;
+attribute rgm_violator_domain;
+attribute rgm_violator_sadomain;
+attribute rgm_violator_domain_oh_to_box;
 

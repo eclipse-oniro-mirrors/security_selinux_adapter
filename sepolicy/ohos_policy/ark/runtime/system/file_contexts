@@ -14,4 +14,5 @@
 /system/lib(64)?/platformsdk/libark_jsruntime.so        u:object_r:ark_lib_file:s0
 /system/lib(64)?/libark_jsoptimizer.so                  u:object_r:ark_lib_file:s0
 /system/lib(64)?/ndk/libjsvm.so                         u:object_r:ark_lib_file:s0
+/system/lib(64)?/libv8_shared.so                    u:object_r:ark_lib_file:s0
 

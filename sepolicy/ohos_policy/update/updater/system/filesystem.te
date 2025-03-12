@@ -18,6 +18,9 @@ allow rootfs tmpfs:filesystem { associate };
 # avc:  denied  { associate } for  pid=233 comm="updater" name="updater_binary" dev="tmpfs" ino=5 scontext=u:object_r:updater_binary_exec:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem permissive=1
 allow updater_binary_exec tmpfs:filesystem { associate };
 
-# avc:  denied  { associate } for  pid=236 comm="updater" name="updater" scontext=u:object_r:unlabeled:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=1
-allow unlabeled labeledfs:filesystem { associate };
+# avc_audit_slow:267] avc: denied { associate } for pid=1, comm="/init"  name="/bin/faultloggerd" dev="tmpfs" ino=718 scontext=u:object_r:faultloggerd_exec:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow faultloggerd_exec rootfs:filesystem { associate };
+
+# avc_audit_slow:267] avc: denied { associate } for pid=1, comm="/init"  name="/bin/processdump" dev="tmpfs" ino=720 scontext=u:object_r:processdump_exec:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow processdump_exec rootfs:filesystem { associate };
 ')

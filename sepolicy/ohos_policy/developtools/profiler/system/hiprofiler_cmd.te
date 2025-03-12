@@ -11,172 +11,163 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hiprofiler_cmd devpts:chr_file { read write };
-allow hiprofiler_cmd hdcd:fd use;
-allow hiprofiler_cmd hdcd:unix_stream_socket { read write };
-allow hiprofiler_cmd proc_cpuinfo_file:file { open read };
-allow hiprofiler_cmd tty_device:chr_file { read write };
-allow hiprofiler_cmd node:tcp_socket node_bind;
-allow hiprofiler_cmd self:netlink_route_socket { create nlmsg_read read write };
-allow hiprofiler_cmd self:tcp_socket { bind create setopt };
-allow hiprofiler_cmd port:tcp_socket name_connect;
-allow hiprofiler_cmd self:tcp_socket { connect getattr getopt read write };
-allow hiprofiler_cmd self:tcp_socket shutdown;
-allow hiprofiler_cmd data_local:dir search;
-
-allow hiprofiler_cmd rootfs:file { read };
-
-allow hiprofiler_cmd dev_unix_socket:dir search;
-allow hiprofiler_cmd hdcd:fifo_file { read write };
-allow hiprofiler_cmd ohos_boot_param:file { map open read };
-allow hiprofiler_cmd ohos_param:file { map open read };
-allow hiprofiler_cmd system_bin_file:dir search;
-
-allow hiprofiler_cmd const_param:file { map open read };
-allow hiprofiler_cmd init_param:file { map open read };
-allow hiprofiler_cmd net_tcp_param:file { open read };
-allow hiprofiler_cmd sys_usb_param:file { map open };
-
-allow hiprofiler_cmd hw_sc_param:file { open read };
-allow hiprofiler_cmd net_param:file { map open read };
-allow hiprofiler_cmd net_tcp_param:file map;
-allow hiprofiler_cmd persist_param:file read;
-allow hiprofiler_cmd security_param:file { map open read };
-
-allow hiprofiler_cmd const_postinstall_param:file { map open read };
-allow hiprofiler_cmd hw_sc_build_param:file { map open read };
-allow hiprofiler_cmd hw_sc_param:file map;
-allow hiprofiler_cmd init_svc_param:file { map open read };
-
-allow hiprofiler_cmd hw_sc_build_os_param:file { open read };
-allow hiprofiler_cmd persist_param:file { map open };
-allow hiprofiler_cmd persist_sys_param:file { open read };
-
-allow hiprofiler_cmd const_postinstall_fstab_param:file { map open read };
-allow hiprofiler_cmd debug_param:file { map open read };
-allow hiprofiler_cmd hw_sc_build_os_param:file map;
-allow hiprofiler_cmd persist_sys_param:file map;
-allow hiprofiler_cmd startup_param:file { open read };
-
-allow hiprofiler_cmd const_postinstall_fstab_param:file { map open read };
-allow hiprofiler_cmd hw_sc_build_os_param:file map;
-allow hiprofiler_cmd persist_sys_param:file map;
-
-allow hiprofiler_cmd bootevent_param:file { map open read };
-allow hiprofiler_cmd const_allow_mock_param:file { map open read };
-allow hiprofiler_cmd const_allow_param:file { map open read };
-allow hiprofiler_cmd startup_param:file map;
-
-allow hiprofiler_cmd build_version_param:file { open read };
-allow hiprofiler_cmd data_file:dir search;
-allow hiprofiler_cmd dev_file:sock_file write;
-allow hiprofiler_cmd netsysnative:unix_stream_socket connectto;
-
-allow hiprofiler_cmd bootevent_samgr_param:file read;
-allow hiprofiler_cmd build_version_param:file map;
-allow hiprofiler_cmd const_display_brightness_param:file read;
-allow hiprofiler_cmd distributedsche_param:file { map open read };
-
-allow hiprofiler_cmd bootevent_samgr_param:file { map open };
-allow hiprofiler_cmd const_build_param:file { map open read };
-allow hiprofiler_cmd const_display_brightness_param:file open;
-allow hiprofiler_cmd input_pointer_device_param:file { map open read };
-
-allow hiprofiler_cmd const_display_brightness_param:file map;
-allow hiprofiler_cmd default_param:file { map open read };
-
-allow hiprofiler_cmd tty_device:chr_file { ioctl open };
-
-allow hiprofiler_cmd rootfs:file getattr;
-allow hiprofiler_cmd system_bin_file:lnk_file read;
-allow hiprofiler_cmd toybox_exec:lnk_file read;
-
-allow hiprofiler_cmd init:file read;
-allow hiprofiler_cmd kernel:file read;
-allow hiprofiler_cmd system_bin_file:file { execute execute_no_trans getattr map open read };
-allow hiprofiler_cmd toybox_exec:file { execute execute_no_trans getattr map open read };
-
-allow hiprofiler_cmd dev_unix_socket:dir remove_name;
-allow hiprofiler_cmd dev_unix_socket:sock_file unlink;
-allow hiprofiler_cmd hdf_devmgr:file read;
-allow hiprofiler_cmd hiprofiler_plugins:process sigkill;
-allow hiprofiler_cmd hiprofilerd:fd use;
-allow hiprofiler_cmd hiprofilerd:process sigkill;
-
-allow hiprofiler_cmd const_product_param:file { map open read };
-allow hiprofiler_cmd hilog_param:file { map open read };
-allow hiprofiler_cmd sys_param:file { map open read };
-allow hiprofiler_cmd sys_usb_param:file read;
-
-allow hiprofiler_cmd hilogd:file read;
-allow hiprofiler_cmd hiprofilerd:process signal;
-
-allow hiprofiler_cmd domain:dir { search open read };
-allow hiprofiler_cmd domain:file { getattr map open read };
-
-allow hiprofiler_cmd dev_unix_socket:dir write;
-allow hiprofiler_cmd dev_unix_socket:sock_file write;
-
-allow hiprofiler_cmd dev_unix_socket:dir add_name;
-allow hiprofiler_cmd hiprofilerd:unix_stream_socket connectto;
-allow hiprofiler_cmd tmpfs:file { map read write };
-
-allow hiprofiler_cmd kernel:unix_stream_socket connectto;
-
-allow hiprofiler_cmd dev_unix_socket:sock_file { create getattr setattr };
-allow hiprofiler_cmd hook_param:parameter_service set;
-
+neverallow hiprofiler_cmd *:process ptrace;
 developer_only(`
+	allow hiprofiler_cmd devpts:chr_file { read write };
+	allow hiprofiler_cmd hdcd:fd use;
+	allow hiprofiler_cmd hdcd:unix_stream_socket { read write };
+	allow hiprofiler_cmd proc_cpuinfo_file:file { open read };
+	allow hiprofiler_cmd tty_device:chr_file { read write };
+	allow hiprofiler_cmd node:tcp_socket node_bind;
+	allow hiprofiler_cmd self:netlink_route_socket { create nlmsg_read nlmsg_readpriv read write };
+	allow hiprofiler_cmd self:tcp_socket { bind create setopt };
+	allow hiprofiler_cmd port:tcp_socket name_connect;
+	allow hiprofiler_cmd self:tcp_socket { connect getattr getopt read write };
+	allow hiprofiler_cmd self:tcp_socket shutdown;
+	allow hiprofiler_cmd data_local:dir search;
+
+	allow hiprofiler_cmd rootfs:file { read };
+
+	allow hiprofiler_cmd dev_unix_socket:dir search;
+	allow hiprofiler_cmd hdcd:fifo_file { read write };
+	allow hiprofiler_cmd ohos_boot_param:file { map open read };
+	allow hiprofiler_cmd ohos_param:file { map open read };
+	allow hiprofiler_cmd system_bin_file:dir search;
+
+	allow hiprofiler_cmd const_param:file { map open read };
+	allow hiprofiler_cmd init_param:file { map open read };
+	allow hiprofiler_cmd net_tcp_param:file { open read };
+	allow hiprofiler_cmd sys_usb_param:file { map open };
+
+	allow hiprofiler_cmd hw_sc_param:file { open read };
+	allow hiprofiler_cmd net_param:file { map open read };
+	allow hiprofiler_cmd net_tcp_param:file map;
+	allow hiprofiler_cmd persist_param:file read;
+	allow hiprofiler_cmd security_param:file { map open read };
+
+	allow hiprofiler_cmd const_postinstall_param:file { map open read };
+	allow hiprofiler_cmd hw_sc_build_param:file { map open read };
+	allow hiprofiler_cmd hw_sc_param:file map;
+	allow hiprofiler_cmd init_svc_param:file { map open read };
+
+	allow hiprofiler_cmd hw_sc_build_os_param:file { open read };
+	allow hiprofiler_cmd persist_param:file { map open };
+	allow hiprofiler_cmd persist_sys_param:file { open read };
+
+	allow hiprofiler_cmd const_postinstall_fstab_param:file { map open read };
+	allow hiprofiler_cmd debug_param:file { map open read };
+	allow hiprofiler_cmd hw_sc_build_os_param:file map;
+	allow hiprofiler_cmd persist_sys_param:file map;
+	allow hiprofiler_cmd startup_param:file { open read };
+
+	allow hiprofiler_cmd const_postinstall_fstab_param:file { map open read };
+	allow hiprofiler_cmd hw_sc_build_os_param:file map;
+	allow hiprofiler_cmd persist_sys_param:file map;
+
+	allow hiprofiler_cmd bootevent_param:file { map open read };
+	allow hiprofiler_cmd const_allow_mock_param:file { map open read };
+	allow hiprofiler_cmd const_allow_param:file { map open read };
+	allow hiprofiler_cmd startup_param:file map;
+
+	allow hiprofiler_cmd build_version_param:file { open read };
+	allow hiprofiler_cmd data_file:dir search;
+	allow hiprofiler_cmd dev_file:sock_file write;
+	allow hiprofiler_cmd netsysnative:unix_stream_socket connectto;
+
+	allow hiprofiler_cmd bootevent_samgr_param:file read;
+	allow hiprofiler_cmd build_version_param:file map;
+	allow hiprofiler_cmd const_display_brightness_param:file read;
+	allow hiprofiler_cmd distributedsche_param:file { map open read };
+
+	allow hiprofiler_cmd bootevent_samgr_param:file { map open };
+	allow hiprofiler_cmd const_build_param:file { map open read };
+	allow hiprofiler_cmd const_display_brightness_param:file open;
+	allow hiprofiler_cmd input_pointer_device_param:file { map open read };
+
+	allow hiprofiler_cmd const_display_brightness_param:file map;
+	allow hiprofiler_cmd default_param:file { map open read };
+
+	allow hiprofiler_cmd tty_device:chr_file { ioctl open };
+
+	allow hiprofiler_cmd rootfs:file getattr;
+	allow hiprofiler_cmd system_bin_file:lnk_file read;
+	allow hiprofiler_cmd toybox_exec:lnk_file read;
+
+	allow hiprofiler_cmd init:file read;
+	allow hiprofiler_cmd kernel:file read;
+	allow hiprofiler_cmd system_bin_file:file { getattr map open read execute execute_no_trans };
+	allow hiprofiler_cmd toybox_exec:file { getattr map open read execute execute_no_trans };
+
+	allow hiprofiler_cmd dev_unix_socket:dir remove_name;
+	allow hiprofiler_cmd dev_unix_socket:sock_file unlink;
+	allow hiprofiler_cmd hdf_devmgr:file read;
+	allow hiprofiler_cmd hiprofiler_plugins:process sigkill;
+	allow hiprofiler_cmd hiprofilerd:fd use;
+	allow hiprofiler_cmd hiprofilerd:process sigkill;
+
+	allow hiprofiler_cmd const_product_param:file { map open read };
+	allow hiprofiler_cmd hilog_param:file { map open read };
+	allow hiprofiler_cmd sys_param:file { map open read };
+	allow hiprofiler_cmd sys_usb_param:file read;
+
+	allow hiprofiler_cmd hilogd:file read;
+	allow hiprofiler_cmd hiprofilerd:process signal;
+
+	allow hiprofiler_cmd domain:dir { search open read };
+	allow hiprofiler_cmd domain:file { getattr map open read };
+
+	allow hiprofiler_cmd dev_unix_socket:dir write;
+	allow hiprofiler_cmd dev_unix_socket:sock_file write;
+
+	allow hiprofiler_cmd dev_unix_socket:dir add_name;
+	allow hiprofiler_cmd hiprofilerd:unix_stream_socket connectto;
+	allow hiprofiler_cmd tmpfs:file { map read write };
+
+	allow hiprofiler_cmd kernel:unix_stream_socket connectto;
+
+	allow hiprofiler_cmd dev_unix_socket:sock_file { create getattr setattr };
+	allow hiprofiler_cmd hook_param:parameter_service set;
+
 	allow hiprofiler_cmd data_local_tmp:file { lock read open getattr };
 	allow hiprofiler_cmd data_local_tmp:dir { open search };
-')
 
-debug_only(`
-	allow hiprofiler_cmd data_local_tmp:file { create write };
-	allow hiprofiler_cmd data_local_tmp:dir { add_name write getattr };
-	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
-	allow hiprofiler_cmd self:capability { setgid };
-')
-
-developer_only(`
 	allow hiprofiler_cmd sh:fd use;
 	allow hiprofiler_cmd sh:fifo_file write;
 	allowxperm hiprofiler_cmd sh:fifo_file ioctl { 0x5413 };
 	allow hiprofiler_cmd sh:fifo_file ioctl;
+
+	allow hiprofiler_cmd self:capability sys_ptrace;
+
+	allow hiprofiler_cmd domain:process signal;
+	allow hiprofiler_cmd hiview_exec:file { getattr map open read };
+
+	allow domain hiprofiler_cmd:fd use;
+	allow domain hiprofiler_cmd:unix_stream_socket connectto;
+	allow hiprofiler_cmd ohos_dev_param:file { map open read };
+	allow hiprofiler_cmd dev_unix_file:sock_file unlink;
+	allow hiprofiler_cmd paramservice_socket:sock_file write;
+
+	allow hiprofiler_cmd appspawn_exec:file { open read };
+	allow hiprofiler_cmd normal_hap_attr:lnk_file read;
+	allow hiprofiler_cmd data_app_el1_file:dir search;
+	allow hiprofiler_cmd data_app_el1_file:file { getattr map open read };
+
+	allow hiprofiler_cmd musl_param:file read;
+	allow hiprofiler_cmd native_daemon:process sigkill;
+	allow hiprofiler_cmd musl_param:file { map open };
+	allow hiprofiler_cmd security_param:parameter_service set;
+	allow hiprofiler_cmd dnsproxy_service:sock_file write;
+	allow hiprofiler_cmd proc_file:file { getattr open read };
+
+	allow hiprofiler_cmd hiviewdfx_profiler_param:parameter_service { set };
+	allow hiprofiler_cmd dev_console_file:chr_file { read write };
+	allowxperm hiprofiler_cmd devpts:chr_file ioctl { 0x5413 };
+	allow hiprofiler_cmd devpts:chr_file { ioctl };
+
+	allow hiprofiler_cmd vendor_bin_file:dir search;
+	allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };
+	allow hiprofiler_cmd dev_file:dir getattr;
+	allow hiprofiler_cmd dev_ashmem_file:chr_file { open };
+	allow hiprofiler_cmd hdcd_exec:file { read open getattr map };
 ')
 
-allow hiprofiler_cmd self:capability sys_ptrace;
-
-allow hiprofiler_cmd domain:process signal;
-allow hiprofiler_cmd hiview_exec:file { getattr map open read };
-
-allow domain hiprofiler_cmd:fd use;
-allow domain hiprofiler_cmd:unix_stream_socket connectto;
-allow domain tmpfs:file { map read write };
-allow hiprofiler_cmd ohos_dev_param:file { map open read };
-allow hiprofiler_cmd dev_unix_file:sock_file unlink;
-allow hiprofiler_cmd paramservice_socket:sock_file write;
-
-allow hiprofiler_cmd appspawn_exec:file { open read };
-allow hiprofiler_cmd normal_hap_attr:lnk_file read;
-allow hiprofiler_cmd data_app_el1_file:dir search;
-allow hiprofiler_cmd data_app_el1_file:file { getattr map open read };
-
-neverallow hiprofiler_cmd *:process ptrace;
-allow hiprofiler_cmd musl_param:file read;
-allow hiprofiler_cmd native_daemon:process sigkill;
-allow hiprofiler_cmd musl_param:file { map open };
-allow hiprofiler_cmd security_param:parameter_service set;
-allow hiprofiler_cmd dnsproxy_service:sock_file write;
-allow hiprofiler_cmd proc_file:file { getattr open read };
-
-allow hiprofiler_cmd hiviewdfx_profiler_param:parameter_service { set };
-allow hiprofiler_cmd dev_console_file:chr_file { read write };
-allowxperm hiprofiler_cmd devpts:chr_file ioctl { 0x5413 };
-allow hiprofiler_cmd devpts:chr_file { ioctl };
-
-allow hiprofiler_cmd vendor_bin_file:dir search;
-allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };
-allow hiprofiler_cmd dev_file:dir getattr;
-allow hiprofiler_cmd dev_ashmem_file:chr_file { open };
-allow hiprofiler_cmd hdcd_exec:file { read open getattr map };

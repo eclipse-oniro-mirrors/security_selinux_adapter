@@ -15,7 +15,7 @@ type ringtonelibrary_hap, normal_hap_attr, hap_domain, domain;
 
 type ringtonelibrary_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 
-allow ringtonelibrary_hap privacy_service:binder call;
+binder_call(ringtonelibrary_hap, privacy_service);
 allow storage_manager system_basic_hap:binder { call };
 allow ringtonelibrary_hap mimetype_file:file { open read getattr };
 allow ringtonelibrary_hap hmdfs:file {open read write getattr };

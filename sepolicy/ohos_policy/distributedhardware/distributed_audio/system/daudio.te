@@ -11,15 +11,11 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
-
 allow daudio hilog_param:file { open read map };
 
 allow daudio debug_param:file { open read map };
 
 allow daudio accesstoken_service:binder { call };
-
-allow daudio audio_server:binder { call transfer };
 
 allow daudio media_service:binder { call transfer};
 
@@ -49,7 +45,7 @@ allow daudio daudio:udp_socket { create setopt };
 
 allow daudio daudio:udp_socket { read write connect };
 
-allow daudio daudio:netlink_route_socket { create write nlmsg_read read };
+allow daudio daudio:netlink_route_socket { create write nlmsg_read nlmsg_readpriv read };
 
 allow daudio daudio_host:binder { call transfer };
 
@@ -90,6 +86,8 @@ allow daudio tracefs_trace_marker_file:file { write open };
 allow daudio proc_file:file { read open };
 
 allow daudio audio_server:unix_stream_socket { connectto };
+
+allow daudio audio_server:binder { call transfer };
 
 allow daudio audio_server:fd { use };
 
@@ -142,6 +140,10 @@ allow daudio dslm_service:binder { call transfer };
 allow daudio device_manager:binder { call transfer };
 
 allow daudio dev_kmsg_file:chr_file { write open };
+
+allow daudio dev_ashmem_file:chr_file { open };
+
+allow daudio hdf_codec_component_manager_service:hdf_devmgr_class { get };
 
 allow daudio sa_device_security_level_manager_service:samgr_class { get };
 

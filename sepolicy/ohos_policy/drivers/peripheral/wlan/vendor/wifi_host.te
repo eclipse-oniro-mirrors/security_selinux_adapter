@@ -107,7 +107,7 @@ allow wifi_host vendor_lib_file:dir { search };
 allow wifi_host vendor_lib_file:file { execute getattr map open read };
 allow wifi_host huks_service:binder { call };
 allowxperm wifi_host wifi_host:packet_socket ioctl { 0x8927 0x8933 };
-allowxperm wifi_host wifi_host:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8927 0x8b0d 0x8bf7 0x8933 0x8910 };
+allowxperm wifi_host wifi_host:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8927 0x8b0d 0x8bf6 0x8bf7 0x8bf8 0x8933 0x8910 };
 allowxperm wifi_host wifi_host:unix_dgram_socket ioctl { 0x8933 0x5411 };
 allow wifi_host wifi_host:unix_dgram_socket { setattr };
 allow wifi_host wifi_host:unix_dgram_socket { sendto };
@@ -177,3 +177,8 @@ allow wifi_host wifi_host:netlink_socket { write };
 debug_only(`
     allow wifi_host su:unix_dgram_socket { sendto };
 ')
+
+# avc: denied { setopt } for pid=3621, comm="/vendor/bin/hdf_devhost"  scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=unix_dgram_socket permissive=0
+# avc: denied { sendto } for pid=3621, comm="/vendor/bin/hdf_devhost"  scontext=u:r:wifi_host:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=0
+allow wifi_host wifi_host:unix_dgram_socket { setopt };
+allow wifi_host hiview:unix_dgram_socket { sendto };

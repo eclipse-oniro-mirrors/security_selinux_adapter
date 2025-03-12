@@ -73,18 +73,11 @@ allow normal_hap_attr system_usr_file:dir { search mounton };
 #avc:  denied  { call } for  pid=1909 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
 allow normal_hap_attr resource_schedule_service:binder { call };
 
-#avc:  denied  { write } for  pid=1980 comm="com.example.web" path="socket:[16372]" dev="sockfs" ino=16372 scontext=u:r:normal_hap:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1
-#avc:  denied  { connect } for  pid=12410 comm="WebRTC_Signalin" scontext=u:r:normal_hap:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1
-allow normal_hap_attr nwebspawn:unix_dgram_socket { write connect };
-
 #avc:  denied  { search } for  pid=2178 comm="com.example.web" name="fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
 #avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/system/fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
 #avc:  denied  { read } for  pid=4433 comm="com.example.web" name="fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
 #avc:  denied  { open } for  pid=4433 comm="com.example.web" path="/system/fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
 allow normal_hap_attr system_fonts_file:dir { search mounton read open };
-
-#avc:  denied  { use } for  pid=2178 comm="com.example.web" path="socket:[16372]" dev="sockfs" ino=16372 scontext=u:r:normal_hap:s0 tcontext=u:r:nwebspawn:s0 tclass=fd permissive=1
-allow normal_hap_attr nwebspawn:fd { use };
 
 #avc:  denied  { getattr } for  pid=2252 comm="com.example.web" path="/dev/dri/renderD128" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
 #avc:  denied  { read write } for  pid=2252 comm="com.example.web" name="renderD128" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
@@ -104,7 +97,8 @@ allow normal_hap_attr system_fonts_file:file { read open getattr map };
 #avc:  denied  { open } for  pid=3965 comm="com.example.web" path="/data/storage/el2/base/haps/entry/cache" dev="mmcblk0p11" ino=654423 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=dir permissive=1
 #avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/data/storage/el2/base" dev="mmcblk0p11" ino=654353 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=4361 comm="CacheThread_Blo" path="/data/storage/el2/base" dev="mmcblk0p11" ino=523589 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=dir permissive=1
-allow normal_hap_attr normal_hap_data_file_attr:dir { search remove_name read open mounton getattr };
+allow normal_hap_attr normal_hap_data_file_attr:dir { remove_name read open mounton getattr };
+allow { normal_hap_attr -filemanager_hap }  normal_hap_data_file_attr:dir { search };
 
 #avc:  denied  { create } for  pid=2957 comm="com.example.web" name=".org.chromium.Chromium.coKdNG" scontext=u:r:normal_hap:s0 tcontext=u:ect_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
 #avc:  denied  { read write open } for  pid=2957 comm="com.example.web" path="/data/storage/el2/base/cache/.org.chromium.Chromium.coKdNG" ="mmcblk0p11" ino=785176 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
@@ -142,7 +136,7 @@ allow normal_hap_attr system_lib_file:dir { read open };
 #avc:  denied  { read } for  pid=4361 comm="ThreadPoolForeg" lport=43704 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
 #avc:  denied  { getattr } for  pid=4745 comm="ThreadPoolForeg" laddr=192.168.137.205 lport=43495 faddr=119.176.24.38 fport=65535 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
 allow normal_hap_attr normal_hap_attr:udp_socket { create connect bind write ioctl setopt read getattr };
-allowxperm normal_hap_attr normal_hap_attr:udp_socket ioctl { 0x8910 };
+allowxperm normal_hap_attr normal_hap_attr:udp_socket ioctl { 0x8910 0x8913 };
 
 #avc:  denied  { node_bind } for  pid=4137 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:object_r:node:s0 tclass=udp_socket permissive=1
 allow normal_hap_attr node:udp_socket { node_bind };
@@ -177,13 +171,8 @@ allow normal_hap_attr port:tcp_socket { name_connect };
 #avc:  denied  { search } for  pid=4745 comm="com.example.web" name="bin" dev="mmcblk0p6" ino=108 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
 allow normal_hap_attr system_bin_file:dir { search };
 
-#avc:  denied  { getattr } for  pid=4745 comm="com.example.web" path="/data/storage/el1/bundle/nweb/entry/resources/rawfile" dev="mmcblk0p11" ino=523570 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=4745 comm="com.example.web" path="/data/storage/el1/bundle/arkwebcore/entry/resources/rawfile" dev="mmcblk0p11" ino=523570 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
 allow normal_hap_attr data_app_el1_file:dir { getattr };
-
-#avc:  denied  { create } for  pid=4745 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=netlink_route_socket permissive=1
-#avc:  denied  { write } for  pid=4745 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=netlink_route_socket permissive=1
-#avc:  denied  { read } for  pid=4745 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=netlink_route_socket permissive=1
-allow normal_hap_attr normal_hap_attr:netlink_route_socket { create write read };
 
 #avc:  denied  { watch } for  pid=4745 comm="ThreadPoolForeg" path="/system/etc" dev="mmcblk0p6" ino=455 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=1
 allow normal_hap_attr system_etc_file:dir { watch };
@@ -203,4 +192,8 @@ allow normal_hap_attr dev_dri_file:dir { search };
 allow normal_hap_attr pasteboard_service:fd { use };
 
 allow normal_hap_attr port:tcp_socket { name_bind };
+
+allow normal_hap arkweb_crashpad_handler_exec:file { execute open read execute_no_trans map };
+
+allowxperm normal_hap_attr dev_mali:chr_file ioctl { 0x800f };
 

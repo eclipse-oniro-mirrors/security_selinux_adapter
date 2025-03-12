@@ -50,8 +50,8 @@ allow devinfo_private_param tmpfs:filesystem associate;
 allow devinfo_public_param tmpfs:filesystem associate;
 allow devinfo_type_param tmpfs:filesystem associate;
 allow useriam_fwkready_param tmpfs:filesystem associate;
-allow useriam_enable_writable_param tmpfs:filesystem associate;
 allow bluetooth_param tmpfs:filesystem associate;
+allow useriam_config_param tmpfs:filesystem associate;
 
 allow init servicectrl_param:file { map open read relabelto relabelfrom };
 allow init servicectrl_reboot_param:file { map open read relabelto relabelfrom };
@@ -62,8 +62,8 @@ allow init devinfo_private_param:file { map open read relabelto relabelfrom };
 allow init devinfo_public_param:file { map open read relabelto relabelfrom };
 allow init devinfo_type_param:file { map open read relabelto relabelfrom };
 allow init useriam_fwkready_param:file { map open read relabelto relabelfrom };
-allow init useriam_enable_writable_param:file { map open read relabelto relabelfrom };
 allow init bluetooth_param:file { map open read relabelto relabelfrom };
+allow init useriam_config_param:file { map open read relabelto relabelfrom };
 
 #for set
 allow { init samgr hdf_devmgr } servicectrl_param:parameter_service { set };
@@ -87,8 +87,8 @@ allow domain startup_uevent_param:file { map open read };
 allow domain devinfo_public_param:file { map open read };
 allow domain telephony_param:file { map open read };
 allow domain useriam_fwkready_param:file { map open read };
-allow domain useriam_enable_writable_param:file { map open read };
 allow domain bluetooth_param:file { map open read };
+allow {init samgr} useriam_config_param:file { map open read };
 
 #for udid
 allow { init deviceinfoservice samgr hdf_devmgr softbus_server } devinfo_private_param:file { map open read };
@@ -131,7 +131,7 @@ debug_only(`
 
 allow init a2dp_host:process { rlimitinh siginh sigkill transition };
 allow init accessibility:process { rlimitinh siginh transition };
-allow init accesstoken_data_file:file { getattr open read write relabelto setattr };
+allow init accesstoken_data_file:file { getattr open read write relabelto setattr lock };
 allow init accesstoken_service:process { rlimitinh siginh transition };
 allow init appspawn:process { signal };
 allow init appspawn_socket:sock_file { getattr relabelto };
@@ -146,10 +146,11 @@ allow init bootevent_samgr_param:file { map open read relabelto };
 allow init build_version_param:file { map open read relabelto };
 allow init camera_service:process { rlimitinh siginh transition };
 allow init mdnsmanager:process { rlimitinh siginh transition };
-allow init cgroup:dir { add_name create open read search setattr write };
-allow init cgroup:file { getattr open setattr };
+allow init cgroup:dir { add_name create open read search setattr write remove_name rmdir };
+allow init cgroup:file { append getattr ioctl open read setattr };
 allow init cgroup:filesystem { mount };
 allow init cgroup:file { write };
+allowxperm init cgroup:file ioctl {  0x5413  };
 allow init config_file:dir { mounton };
 allow init configfs:dir { add_name create mounton open read search setattr write };
 allow init configfs:file { create getattr open };
@@ -170,6 +171,7 @@ allow init data_app_el2_file:dir { add_name create getattr open read relabelto s
 allow init data_app_el3_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_app_el4_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_app_el5_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_app_el1_file:dir { relabelfrom };
 allow init data_appephemeral:dir { getattr open read relabelto setattr };
 allow init data_app_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_applib:dir { getattr open read relabelto setattr };
@@ -194,8 +196,8 @@ allow init data_libinput:file { relabelto };
 allow init data_local:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_local_tmp:dir { getattr open read relabelto setattr };
 allow init data_local_traces:dir { getattr open read relabelto setattr };
-allow init data_local_arkcache:dir { getattr open read relabelto setattr };
-allow init data_local_arkprofile:dir { getattr open read relabelto setattr };
+allow init data_app_el1_arkcache:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_app_el1_arkprofile:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_log:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_log:file { relabelto };
 allow init data_media:dir { add_name create getattr open read relabelto search setattr write };
@@ -537,3 +539,6 @@ allow init dev_console_file:lnk_file { read};
 # avc:  denied  { setpcap } for  pid=4977 comm="init" capability=8  scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=capability permissive=0
 allow init init:capability { setpcap };
 
+# avc:  denied  { append } for  pid=1 comm="init" name="private_persist_parameters" dev="mmcblk0p15" ino=2386 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+# avc:  denied  { rename } for  pid=1 comm="init" name="tmp_private_persist_parameters" dev="mmcblk0p15" ino=2703 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow init data_service_el1_file:file { open read append rename map };

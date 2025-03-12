@@ -17,6 +17,7 @@ type pipefs, fs_attr;
 type sockfs, fs_attr;
 type rootfs, fs_attr;
 type proc_file, fs_attr, proc_attr;
+type proc_random, fs_attr, proc_attr;
 type proc_panic, fs_attr, proc_attr;
 
 type unlabeled, fs_attr;
@@ -226,7 +227,6 @@ type dev_pts_file, dev_attr;
 type dev_snd_file, dev_attr;
 type dev_socket_file, dev_attr;
 type dev_unix_file, dev_attr, file_attr;
-type dev_unix_socket_file, dev_attr, file_attr;
 type dev_unix_socket, dev_attr, file_attr;
 type appspawn_socket, dev_attr, file_attr;
 type nwebspawn_socket, dev_attr, file_attr;

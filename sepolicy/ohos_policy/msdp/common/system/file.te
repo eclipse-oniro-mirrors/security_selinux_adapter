@@ -12,3 +12,9 @@
 # limitations under the License.
 
 type msdp_data_file, file_attr, data_file_attr;
+type vdevadm, native_system_domain, domain;
+type vdevadm_exec, exec_attr, file_attr, system_file_attr;
+
+developer_only(`
+    allow vdevadm vdevadm_exec:file { read map execute entrypoint };
+')

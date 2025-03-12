@@ -85,3 +85,15 @@ allowxperm input_user_host dev_uinput:chr_file ioctl { 0x5501 0x5502 0x5564 0x55
 debug_only(`
     allow input_user_host sh:binder { call };
 ')
+
+allow input_user_host sa_accesstoken_manager_service:samgr_class { get };
+allow input_user_host accesstoken_service:binder { call };
+
+allow input_user_host sys_file:dir { open read search };
+allow input_user_host sys_file:file { open read };
+allow input_user_host sys_file:lnk_file { read };
+allow input_user_host dev_bus_usb_file:dir { open read search getattr };
+allow input_user_host dev_bus_usb_file:file { open read};
+allow input_user_host dev_bus_usb_file:lnk_file { read };
+allow input_user_host hidraw_device_file:chr_file { open read write ioctl };
+allowxperm input_user_host hidraw_device_file:chr_file ioctl { 0x4801-0x480C };

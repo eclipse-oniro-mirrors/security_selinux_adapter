@@ -14,4 +14,12 @@
 allow distributedsche sa_device_profile_service:samgr_class { add get };
 allow distributedsche pasteboard_service:binder { call transfer };
 allow distributedsche sa_dhardware_service:samgr_class { get_remote };
+allow distributedsche data_service_el2_file:dir { ioctl open read };
+allow distributedsche data_service_el2_file:file { getattr ioctl lock map open read write setattr };
+allowxperm distributedsche data_service_el2_file:dir ioctl { 0xf546 };
+allowxperm distributedsche data_service_el2_file:file ioctl { 0xf50c 0xf546 };
+allow distributedsche data_service_el1_file:dir { ioctl };
+allowxperm distributedsche data_service_el1_file:dir ioctl { 0xf546 0xf547 };
+allow distributedsche sa_asset_service:samgr_class { get };
+allow distributedsche asset_service:binder { call transfer };
 

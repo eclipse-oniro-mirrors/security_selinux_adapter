@@ -21,3 +21,6 @@ allow hiview isolated_render:file { getattr open read };
 
 allow hiview isolated_gpu:dir { search };
 allow hiview isolated_gpu:file { getattr open read };
+
+# avc:  denied  { read } for  pid=16985 comm="OS_FFRT_2_17" name="exe" dev="proc" ino=87850 scontext=u:r:hiview:s0 tcontext=u:r:isolated_render:s0 tclass=lnk_file permissive=1
+allow hiview isolated_render:lnk_file { read };

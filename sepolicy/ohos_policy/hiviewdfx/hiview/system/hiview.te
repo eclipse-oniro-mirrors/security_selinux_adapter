@@ -37,7 +37,7 @@ allow hiview data_file:dir { search };
 allow hiview data_log:dir { add_name open read search watch write create remove_name };
 #avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
 allow hiview data_log:file { create getattr lock map open read write unlink rename append ioctl };
-allowxperm hiview data_log:file ioctl { 0x5413 };
+allowxperm hiview data_log:file ioctl { 0x5413 0xf546 0xf547 };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
@@ -227,18 +227,20 @@ allowxperm hiview tracefs:file ioctl { 0x5413 };
 #avc:  denied  { getattr } for  pid=3130 comm="plat_shared" path="/proc/diskstats" dev="proc" ino=4026532227 scontext=u:r:hiview:s0 tcontext=u:object_r:proc_diskstats_file:s0 tclass=file permissive=1
 allow hiview proc_diskstats_file:file { read open getattr };
 
-#avc:  denied  { call } for  pid=519 comm="IPC_0_576" scontext=u:r:hiview:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
-allow hiview softbus_server:binder { call };
-
 #avc:  denied  { kill } for pid=7601 comm="hiview" capability=5 scontext=u:r:hiview:s0 tcontext=u:r:hiview:s0 tclass=capability permissive=1
 #avc:  denied  { signal } for pid=7601 comm="hiview" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=process permissive=1
 allow hiview domain:process signal;
 allow hiview hiview:capability kill;
 
+#avc:  denied  { call } for  pid=519 comm="IPC_0_576" scontext=u:r:hiview:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
+allow hiview softbus_server:binder { call };
+
 #avc:  denied  { search } for  pid=251 comm="OS_IPC_3_2826" name="com.example.myapplication" dev="mmcblk0p15" ino=2012 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent" dev="mmcblk0p15" ino=2058 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { add_name } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
-allow hiview normal_hap_data_file_attr:dir { search write add_name };
+#avc:  denied  { read } for  pid=2811 comm="XperfMainThr" name="hiappevent" dev="mmcblk0p15" ino=25209 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=2811 comm="XperfMainThr" name="hiappevent" dev="mmcblk0p15" ino=25209 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+allow hiview normal_hap_data_file_attr:dir { search write add_name read getattr };
 
 #avc:  denied  { create } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { write open } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
@@ -258,7 +260,27 @@ allow hiview distributeddata:fd { use };
 allow sadomain dev_bbox:chr_file { ioctl read open write };
 allowxperm sadomain dev_bbox:chr_file ioctl { 0xab09 };
 
-neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };
+neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0xaf07 0xaf08 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };
 
 #avc: denied { get } for service=4607 pid=8375 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
 allow hiview sa_foundation_dms:samgr_class { get };
+
+allow hiview hidumper:fd {use };
+
+#avc: denied { search } for pid=620, comm="/system/bin/hiview" name="/service/el0" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=10 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc: denied { open } for pid=620, comm="/system/bin/hiview" path="/data/service/el0/render_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=40 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc: denied { read } for pid=623, comm="/system/bin/hiview" path="/data/service/el0/render_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=40 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+allow hiview data_service_el0_file:dir { read open search };
+
+#avc: denied { getattr } for pid=622, comm="/system/bin/hiview" path="/data/service/el0/render_service/file00.ohr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=29695 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+#avc: denied { read } for pid=622, comm="/system/bin/hiview" path="/data/service/el0/render_service/file01.ohr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=30554 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+#avc: denied { open } for pid=622, comm="/system/bin/hiview" path="/data/service/el0/render_service/file01.ohr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=33037 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+allow hiview data_service_el0_file:file { getattr read open };
+
+allow hiview hitrace_param:parameter_service { set };
+
+# avc: denied { use } for pid=2181, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:hiview:s0 tcontext=u:r:wifi_manager_service:s0 tclass=fd permissive=0
+allow hiview wifi_manager_service:fd { use };
+
+allow hiview pstorefs:dir { open read remove_name search write };
+allow hiview pstorefs:file { open read unlink };

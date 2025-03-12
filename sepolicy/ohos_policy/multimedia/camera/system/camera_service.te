@@ -65,7 +65,8 @@ allow camera_service dev_ashmem_file:chr_file { open };
 #avc: denied { search } for pid=1469, comm="/system/bin/sa_main"  name="/data" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=3615 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=0
 allow camera_service data_data_file:dir { search write add_name };
 allow camera_service data_data_file:file { create open read write };
-allow camera_service hmdfs:file { read write };
+allow camera_service hmdfs:file { read write ioctl };
+allowxperm camera_service hmdfs:file ioctl { 0xf207 };
 #avc: denied { use } for pid=5703, comm="/system/bin/appspawn"  path="/storage/cloud/files/Photo/1/IMG_27156725_001.mp4" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068485401 scontext=u:r:camera_service:s0 tcontext=u:r:medialibrary_hap:s0 tclass=fd permissive=0
 allow camera_service medialibrary_hap:fd { use };
 #avc: denied { get } for service=180 pid=1480 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
@@ -85,3 +86,31 @@ allowxperm camera_service dev_at_file:chr_file ioctl { 0x4104 };
 #avc:  denied  { get } for service=4802 sid=u:r:camera_service:s0 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=1
 allow camera_service sa_foundation_devicemanager_service:samgr_class { get };
 allow camera_service device_manager:binder { call transfer };
+allow camera_service av_codec_service:fd { use };
+
+allow camera_service resource_schedule_service:binder { call };
+allow camera_service data_user_file:file { create open read write };
+#avc:  denied  { get } for service=3301 sid=u:r:camera_service:s0 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=0
+allow camera_service sa_powermgr_powermgr_service:samgr_class { get };
+#avc: denied { search } for pid=1591, comm="/system/bin/sa_main"  name="/service/el1" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { write remove_name search } for pid=20408, comm="/bin/rm"  name="/service/el1/public/camera_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1473 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { getattr } for pid=20061, comm="/bin/ls"  path="/data/service/el1/public/camera_service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1473 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow camera_service data_service_el1_file:dir { search write add_name read getattr remove_name };
+#avc: denied { read } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/VID_9003970_001.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25402 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/VID_9003970_001.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25402 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { create } for pid=1591, comm="/system/bin/sa_main"  name="/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=26635 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { read write } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=26635 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { unlink } for pid=20408, comm="/bin/rm"  name="/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25420 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=20061, comm="/bin/ls"  path="/data/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25420 scontext=u:r:su:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow camera_service data_service_el1_file:file { read open create write unlink getattr map rename setattr };
+#avc: denied { search } for pid=1540, comm="/system/bin/sa_main"  name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=58 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+allow camera_service data_service_file:dir { search };
+allow camera_service hdf_camera_video_process_service:hdf_devmgr_class { get };
+#avc: denied { getattr } for pid=9729, comm="/system/bin/sa_main"  path="/storage/cloud/files/Photo/11/VID_9441076_011.mp4" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068499858 scontext=u:r:camera_service:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=0
+allow camera_service hmdfs:file { getattr };
+#avc:  denied  { get } for service=3302 sid=u:r:camera_service:s0 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=0
+allow camera_service sa_powermgr_battery_service:samgr_class { get };
+allow camera_service sa_foundation_ans:samgr_class { get };
+allow camera_service sa_msdp_motion_service:samgr_class { get };
+allow camera_service msdp_sa:binder { call transfer };
+

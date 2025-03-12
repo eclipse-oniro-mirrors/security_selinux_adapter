@@ -180,7 +180,6 @@ allow init data_log_hiperf_file:dir relabelto;
 #allow hiperf devpts:chr_file ioctl;
 
 debug_only(`
-    allow hiperf self:capability { dac_read_search setgid };
     allow hiperf self:capability2 syslog;
 ')
 
@@ -191,14 +190,15 @@ developer_only(`
     allow hiperf sh:process signull;
 ')
 
-allow hiperf data_local_tmp:file { open create getattr ioctl read rename unlink write };
+allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
 allow hiperf self:capability { sys_ptrace ipc_lock };
-allow hiperf self:perf_event { open read write kernel };
+allow hiperf self:unix_dgram_socket { getopt setopt };
 
 neverallow hiperf *:process ptrace;
-neverallow { domain -hiperf -init -hiebpf } self:perf_event ~{ open read write kernel };
+neverallow { domain -hiperf -init -hiebpf -rgm_violator_perf_event_cpu } self:perf_event cpu;
+neverallow { domain -hiperf } self:perf_event tracepoint;
 
 allow hiperf musl_param:file { open map read };
 allow hiperf dev_console_file:chr_file { read write };
@@ -229,7 +229,7 @@ allow hiperf dev_bbox:chr_file { read };
 allow hiperf sysfs_devices_system_cpu:dir { read open };
 
 allow hiperf hiview:fd { use };
-allow hiperf hiview:unix_dgram_socket { read write };
+allow hiperf hiview:unix_dgram_socket { read write sendto };
 allow hiperf hiview:fifo_file { read write };
 allow hiperf hiview_file:file { read write };
 
@@ -240,8 +240,8 @@ allow hiview debug_param:parameter_service { set };
 
 allow hiperf system_file:file { getattr open read };
 allow hiperf SP_daemon_exec:file { getattr open read };
-allow hiperf data_local_arkcache:dir { search };
-allow hiperf data_local_arkcache:file { getattr open read };
+allow hiperf data_app_el1_arkcache:dir { search };
+allow hiperf data_app_el1_arkcache:file { getattr open read };
 allow hiperf app_el1_bundle_public:dir { getattr open read search };
 allow hiperf app_el1_bundle_public:file { getattr map open read };
 allow hiperf deviceauth_service_exec:file { getattr map open read };
@@ -257,3 +257,8 @@ allow hiperf sys_prod_file:dir { search };
 allow hiperf sys_prod_file:file { getattr map open read };
 allow hiperf system_usr_file:file { getattr map open read };
 allow hiperf data_service_el1_file:file { getattr map open read };
+
+allow hiperf init_exec:file { getattr map open read };
+allow hiperf render_service_exec:file { getattr map open read };
+
+allow hiperf isolated_render:lnk_file { read };

@@ -21,8 +21,12 @@ allow samgr isolated_render:file { open read };
 # avc:  denied  { getattr } for  pid=490 comm="IPC_7_1799" scontext=u:r:samgr:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow samgr isolated_render:process { getattr };
 
-allow samgr isolated_render:binder { call };
+# avc_audit_slow:262] avc: denied { transfer } for pid=630, comm="/system/bin/samgr"  scontext=u:r:samgr:s0 tcontext=u:r:isolated_render:s0 tclass=binder permissive=1
+ 
+allow samgr isolated_render:binder { call transfer };
 allow samgr isolated_gpu:dir { search };
 allow samgr isolated_gpu:file { open read };
 allow samgr isolated_gpu:process { getattr };
-allow samgr isolated_gpu:binder { call };
+
+# avc_audit_slow:267] avc: denied { transfer } for pid=633, comm="/system/bin/samgr"  scontext=u:r:samgr:s0 tcontext=u:r:isolated_gpu:s0 tclass=binder permissive=1
+allow samgr isolated_gpu:binder { call transfer };

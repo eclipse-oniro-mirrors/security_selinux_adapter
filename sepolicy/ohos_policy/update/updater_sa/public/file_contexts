@@ -12,6 +12,8 @@
 
 /data/service/el1/public/update/dupdate_engine          u:object_r:update_dupdate_engine_file:s0
 /data/service/el1/public/update/dupdate_engine(/.*)?    u:object_r:update_dupdate_engine_file:s0
+/data/service/el1/public/update/update_service          u:object_r:update_update_service_file:s0
+/data/service/el1/public/update/update_service(/.*)?    u:object_r:update_update_service_file:s0
 /data/update/ota_package        u:object_r:update_firmware_file:s0
 /data/update/ota_package/(.*)?  u:object_r:update_firmware_file:s0
 

@@ -11,4 +11,5 @@
 # See the License for the specific
 
 type update_dupdate_engine_file, data_file_attr, file_attr;
+type update_update_service_file, data_file_attr, file_attr;
 type update_firmware_file, data_file_attr, file_attr;

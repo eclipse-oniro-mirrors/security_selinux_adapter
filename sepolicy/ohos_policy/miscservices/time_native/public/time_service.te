@@ -12,3 +12,5 @@
 # limitations under the License.
 
 type time_service, sadomain, domain;
+
+neverallow {domain -time_service -edm_sa -violator_time_param_set} time_param:parameter_service { set };

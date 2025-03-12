@@ -11,82 +11,79 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-#allow hitrace data_file:file write;
-allow hitrace data_file:dir search;
-allow hitrace data_local:dir search;
-allow hitrace data_log:dir { add_name search write };
-allow hitrace data_log:file { create getattr open write };
-allow hitrace data_local_tmp:dir { add_name search write create };
-allow hitrace data_local_tmp:file { create getattr open write };
-allow hitrace debug_param:parameter_service set;
-allow hitrace debug_param:file { open read map };
-allow hitrace hilog_param:file { read map open };
-allow hitrace dev_unix_socket:dir search;
-allow hitrace devpts:chr_file { read write };
-allow hitrace hdcd:fd use;
-allow hitrace hdcd:unix_stream_socket { read write };
-allow hitrace system_bin_file:dir search;
-allow hitrace tracefs:dir search;
-allow hitrace tracefs_trace_marker_file:file { getattr open write };
-allow hitrace tty_device:chr_file { read write };
-allow hitrace tracefs:file { getattr ioctl open read write };
-
-allow hitrace ohos_param:file { read map open };
-
-allow hitrace kernel:unix_stream_socket connectto;
-allow hitrace paramservice_socket:sock_file write;
-
-allow hitrace ohos_boot_param:file { map open read };
-allow hitrace sys_param:file { open read map };
-
-allow hitrace net_param:file { map open read };
-allow hitrace net_tcp_param:file read;
-allow hitrace sys_usb_param:file { map open read };
-
-allow hitrace hw_sc_build_param:file { open read map };
-allow hitrace hw_sc_param:file { map open read };
-allow hitrace net_tcp_param:file { map open };
-
-allow hitrace data_local_tmp:file { read write };
-
-allow hitrace domain:dir { getattr search };
-allow hitrace domain:file { open read };
-allow hitrace hw_sc_build_os_param:file { open read map };
-
-allow hitrace hw_sc_build_os_param:file { open read };
-allow hitrace init_param:file { map open read };
-allow hitrace init_svc_param:file { map open read };
-
-allow hitrace hdcd:fifo_file { ioctl write };
-
-allow hitrace const_param:file { map open read };
-allow hitrace const_postinstall_fstab_param:file { map open read };
-allow hitrace const_postinstall_param:file { map open read };
-
-allow hitrace proc_file:file { read open };
-
-allow hitrace sa_hiview_service:samgr_class get;
-allow hitrace dev_console_file:chr_file { read write };
-allow hitrace samgr:binder { call };
-allow hitrace hiview:binder { call transfer };
-
-allow hitrace system_usr_file:file { read open getattr };
-allow hitrace system_usr_file:dir { search };
-
-allow samgr hitrace:dir { search };
-allow samgr hitrace:file { read open };
-allow samgr hitrace:process { getattr };
-allow samgr hitrace:binder { call transfer };
-
-allow domain hiviewdfx_profiler_param:file { map open read };
-allow hiview hiviewdfx_profiler_param:parameter_service { set };
-allow hiprofiler_plugins hiviewdfx_profiler_param:parameter_service { set };
-allow bytrace hiviewdfx_profiler_param:parameter_service { set };
-allow hitrace hiviewdfx_profiler_param:parameter_service { set };
-
 developer_only(`
+    allow hitrace data_file:dir search;
+    allow hitrace data_local:dir search;
+    allow hitrace data_log:dir { add_name search write };
+    allow hitrace data_log:file { create getattr open write };
+    allow hitrace data_local_tmp:dir { add_name search write create };
+    allow hitrace data_local_tmp:file { create getattr open write };
+    allow hitrace debug_param:parameter_service set;
+    allow hitrace debug_param:file { open read map };
+    allow hitrace hilog_param:file { read map open };
+    allow hitrace dev_unix_socket:dir search;
+    allow hitrace devpts:chr_file { read write };
+    allow hitrace hdcd:fd use;
+    allow hitrace hdcd:unix_stream_socket { read write };
+    allow hitrace system_bin_file:dir search;
+    allow hitrace tracefs:dir search;
+    allow hitrace tracefs_trace_marker_file:file { getattr open write };
+    allow hitrace tty_device:chr_file { read write };
+    allow hitrace tracefs:file { getattr ioctl open read write };
+
+    allow hitrace ohos_param:file { read map open };
+
+    allow hitrace kernel:unix_stream_socket connectto;
+    allow hitrace paramservice_socket:sock_file write;
+
+    allow hitrace ohos_boot_param:file { map open read };
+    allow hitrace sys_param:file { open read map };
+
+    allow hitrace net_param:file { map open read };
+    allow hitrace net_tcp_param:file read;
+    allow hitrace sys_usb_param:file { map open read };
+
+    allow hitrace hw_sc_build_param:file { open read map };
+    allow hitrace hw_sc_param:file { map open read };
+    allow hitrace net_tcp_param:file { map open };
+
+    allow hitrace data_local_tmp:file { read write };
+
+    allow hitrace domain:dir { getattr search };
+    allow hitrace domain:file { open read };
+    allow hitrace hw_sc_build_os_param:file { open read map };
+
+    allow hitrace hw_sc_build_os_param:file { open read };
+    allow hitrace init_param:file { map open read };
+    allow hitrace init_svc_param:file { map open read };
+
+    allow hitrace hdcd:fifo_file { ioctl write };
+
+    allow hitrace const_param:file { map open read };
+    allow hitrace const_postinstall_fstab_param:file { map open read };
+    allow hitrace const_postinstall_param:file { map open read };
+
+    allow hitrace proc_file:file { read open };
+
+    allow hitrace sa_hiview_service:samgr_class get;
+    allow hitrace dev_console_file:chr_file { read write };
+    allow hitrace samgr:binder { call };
+    allow hitrace hiview:binder { call transfer };
+
+    allow hitrace system_usr_file:file { read open getattr };
+    allow hitrace system_usr_file:dir { search };
+
+    allow hitrace hitrace_param:parameter_service { set };
+
+    allow samgr hitrace:dir { search };
+    allow samgr hitrace:file { read open };
+    allow samgr hitrace:process { getattr };
+    allow samgr hitrace:binder { call transfer };
+
     allow hitrace sh:fd use;
     allow hitrace sh:fifo_file { read write };
+    allow hitrace self:unix_dgram_socket { getopt setopt };
+    allow hitrace hiview:unix_dgram_socket {  read write sendto };
 ')
 
-neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor} tracefs:file write_file_perms;
+neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor } tracefs:file write_file_perms;

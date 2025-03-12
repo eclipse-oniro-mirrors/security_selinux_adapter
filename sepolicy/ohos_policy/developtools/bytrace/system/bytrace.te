@@ -11,62 +11,63 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-#allow bytrace data_file:file write;
-allow bytrace data_file:dir search;
-allow bytrace data_local:dir search;
-allow bytrace data_log:dir { add_name search write };
-allow bytrace data_log:file { create getattr open write };
-allow bytrace data_local_tmp:dir { add_name search write create };
-allow bytrace data_local_tmp:file { create getattr open write };
-allow bytrace debug_param:parameter_service set;
-allow bytrace dev_unix_socket:dir search;
-allow bytrace devpts:chr_file { read write };
-allow bytrace hdcd:fd use;
-allow bytrace hdcd:unix_stream_socket { read write };
-allow bytrace system_bin_file:dir search;
-allow bytrace tracefs:dir search;
-allow bytrace tracefs_trace_marker_file:file { getattr open write };
-allow bytrace tty_device:chr_file { read write };
-allow bytrace tracefs:file { getattr ioctl open read write };
-
-allow bytrace ohos_param:file { read map open };
-
-allow bytrace kernel:unix_stream_socket connectto;
-allow bytrace paramservice_socket:sock_file write;
-
-allow bytrace ohos_boot_param:file { map open read };
-allow bytrace sys_param:file { open read map };
-
-allow bytrace net_param:file { map open read };
-allow bytrace net_tcp_param:file read;
-allow bytrace sys_usb_param:file { map open read };
-
-allow bytrace hw_sc_build_param:file { open read map };
-allow bytrace hw_sc_param:file { map open read };
-allow bytrace net_tcp_param:file { map open };
-
-allow bytrace data_local_tmp:file { read write };
-
-allow bytrace domain:dir { getattr search };
-allow bytrace domain:file { open read };
-allow bytrace hw_sc_build_os_param:file { open read map };
-
-allow bytrace hw_sc_build_os_param:file { open read };
-allow bytrace init_param:file { map open read };
-allow bytrace init_svc_param:file { map open read };
-
-allow bytrace hdcd:fifo_file { ioctl write };
-
-allow bytrace const_param:file { map open read };
-allow bytrace const_postinstall_fstab_param:file { map open read };
-allow bytrace const_postinstall_param:file { map open read };
-
-debug_only(`
-	allow bytrace self:capability { setgid };
-	allow hitrace self:capability { setgid };
-')
-
 developer_only(`
+    allow bytrace data_file:dir search;
+    allow bytrace data_local:dir search;
+    allow bytrace data_log:dir { add_name search write };
+    allow bytrace data_log:file { create getattr open write };
+    allow bytrace data_local_tmp:dir { add_name search write create };
+    allow bytrace data_local_tmp:file { create getattr open write };
+    allow bytrace debug_param:parameter_service set;
+    allow bytrace dev_unix_socket:dir search;
+    allow bytrace devpts:chr_file { read write };
+    allow bytrace hdcd:fd use;
+    allow bytrace hdcd:unix_stream_socket { read write };
+    allow bytrace system_bin_file:dir search;
+    allow bytrace tracefs:dir search;
+    allow bytrace tracefs_trace_marker_file:file { getattr open write };
+    allow bytrace tty_device:chr_file { read write };
+    allow bytrace tracefs:file { getattr ioctl open read write };
+
+    allow bytrace ohos_param:file { read map open };
+
+    allow bytrace kernel:unix_stream_socket connectto;
+    allow bytrace paramservice_socket:sock_file write;
+
+    allow bytrace ohos_boot_param:file { map open read };
+    allow bytrace sys_param:file { open read map };
+
+    allow bytrace net_param:file { map open read };
+    allow bytrace net_tcp_param:file read;
+    allow bytrace sys_usb_param:file { map open read };
+
+    allow bytrace hw_sc_build_param:file { open read map };
+    allow bytrace hw_sc_param:file { map open read };
+    allow bytrace net_tcp_param:file { map open };
+
+    allow bytrace data_local_tmp:file { read write };
+
+    allow bytrace domain:dir { getattr search };
+    allow bytrace domain:file { open read };
+    allow bytrace hw_sc_build_os_param:file { open read map };
+
+    allow bytrace hw_sc_build_os_param:file { open read };
+    allow bytrace init_param:file { map open read };
+    allow bytrace init_svc_param:file { map open read };
+
+    allow bytrace hdcd:fifo_file { ioctl write };
+
+    allow bytrace const_param:file { map open read };
+    allow bytrace const_postinstall_fstab_param:file { map open read };
+    allow bytrace const_postinstall_param:file { map open read };
+
+    allow bytrace hitrace_param:parameter_service { set };
+
 	allow bytrace sh:fd use;
 	allow bytrace sh:fifo_file { read write };
+
+    allow samgr bytrace:dir { search };
+    allow samgr bytrace:file { read open };
+    allow samgr bytrace:process { getattr };
+    allow samgr bytrace:binder { call transfer };
 ')

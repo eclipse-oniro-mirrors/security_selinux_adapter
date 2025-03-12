@@ -23,7 +23,7 @@ allow write_updater dev_block_file:dir { search };
 allow write_updater dev_block_volfile:dir { search };
 
 # avc:  denied  { read write } for  pid=1449 comm="write_updater" path="/dev/console" dev="tmpfs" ino=39 scontext=u:r:write_updater:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
-allow write_updater dev_console_file:chr_file { read write }; 
+allow write_updater dev_console_file:chr_file { read write };
 
 # avc:  denied  { read } for  pid=1449 comm="write_updater" name="misc" dev="tmpfs" ino=37 scontext=u:r:write_updater:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=1
 allow write_updater updater_block_file:lnk_file { read };

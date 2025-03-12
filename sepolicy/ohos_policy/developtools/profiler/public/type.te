@@ -31,6 +31,8 @@ type hiprofiler_socket, dev_attr, file_attr;
 
 type sa_native_daemon, sa_service_attr;
 
+type hidebug_private_param, parameter_attr;
+
 domain_auto_transition_pattern(native_system_domain, hiprofilerd_exec, hiprofilerd);
 
 domain_auto_transition_pattern(native_system_domain, hiprofiler_cmd_exec, hiprofiler_cmd);
@@ -40,3 +42,5 @@ domain_auto_transition_pattern(native_system_domain, hiprofiler_plugins_exec, hi
 domain_auto_transition_pattern(native_system_domain, native_daemon_exec, native_daemon);
 
 domain_auto_transition_pattern(hiprofiler_plugins, SP_daemon_exec, SP_daemon);
+
+neverallow { domain debug_only(`-su') } hidebug_private_param:parameter_service { set };

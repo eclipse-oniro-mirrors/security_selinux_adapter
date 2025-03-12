@@ -20,13 +20,14 @@ neverallow { chipset_domain } system_file:{ blk_file chr_file fifo_file lnk_file
 # Prohibit chipset component processes from accessing system bin files to achieve access isolation
 neverallow { chipset_domain -system_bin_file_violator_dir } system_bin_file:dir ~{ search getattr };
 neverallow { chipset_domain -camera_host -system_bin_file_violator_dir_getattr } system_bin_file:dir { getattr };
-neverallow { chipset_domain -system_bin_file_violator_file } system_bin_file:file ~{ execute execute_no_trans map read open getattr };
+neverallow { chipset_domain -system_bin_file_violator_file } system_bin_file:file ~{ execute execute_no_trans map read open getattr entrypoint };
 neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -chipset_init -system_bin_file_violator_file_execute } system_bin_file:file { execute };
 neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -system_bin_file_violator_file_execute_no_trans } system_bin_file:file { execute_no_trans };
 neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -system_bin_file_violator_file_map } system_bin_file:file { map };
 neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -chipset_init -system_bin_file_violator_file_read } system_bin_file:file { read };
 neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -chipset_init -system_bin_file_violator_file_open } system_bin_file:file { open };
 neverallow { chipset_domain -camera_host -input_user_host -riladapter_host -chipset_init -system_bin_file_violator_file_getattr } system_bin_file:file { getattr };
+neverallow { chipset_domain -system_bin_file_violator_file_entrypoint } system_bin_file:file { entrypoint };
 neverallow { chipset_domain -system_bin_file_violator_lnk_file } system_bin_file:lnk_file ~{ read };
 neverallow { chipset_domain -camera_host -input_user_host -riladapter_host -system_bin_file_violator_lnk_file_read } system_bin_file:lnk_file { read };
 neverallow { chipset_domain } system_bin_file:{ blk_file chr_file fifo_file sock_file } *;
@@ -35,7 +36,9 @@ neverallow { chipset_domain } system_bin_file:{ blk_file chr_file fifo_file sock
 neverallow { chipset_domain -system_etc_file_violator_dir } system_etc_file:dir ~{ open read search getattr };
 neverallow { chipset_domain -system_etc_file_violator_file } system_etc_file:file ~{ getattr map open read };
 neverallow { chipset_domain -system_etc_file_violator_lnk_file } system_etc_file:lnk_file ~{ relabelto read getattr };
-neverallow { chipset_domain -chipset_init } system_etc_file:lnk_file { relabelto read getattr };
+neverallow { chipset_domain -chipset_init -system_etc_file_violator_lnk_file_relabelto } system_etc_file:lnk_file { relabelto };
+neverallow { chipset_domain -chipset_init -system_etc_file_violator_lnk_file_read } system_etc_file:lnk_file { read };
+neverallow { chipset_domain -chipset_init -system_etc_file_violator_lnk_file_getattr } system_etc_file:lnk_file { getattr };
 neverallow { chipset_domain } system_etc_file:{ blk_file chr_file fifo_file sock_file } *;
 
 # Prohibit chipset component processes from accessing system hap files to achieve access isolation

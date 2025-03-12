@@ -16,5 +16,10 @@ persist.hdc.control                     u:object_r:developtools_hdc_control_para
 
 persist.hdc.daemon.auth_result          u:object_r:developtools_hdc_auth_param:s0
 persist.hdc.client.hostname             u:object_r:developtools_hdc_auth_param:s0
+persist.hdc.client.pubkey_sha256        u:object_r:developtools_hdc_auth_param:s0
 persist.hdc.daemon.auth_cancel          u:object_r:developtools_hdc_auth_param:s0
 persist.hdc.jdwp                        u:object_r:debug_param:s0
+
+persist.hdc.mode.usb                    u:object_r:developtools_hdc_auth_param:s0
+persist.hdc.mode.tcp                    u:object_r:developtools_hdc_auth_param:s0
+persist.hdc.mode.uart                   u:object_r:developtools_hdc_auth_param:s0

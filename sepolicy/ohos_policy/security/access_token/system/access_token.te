@@ -12,9 +12,13 @@
 # limitations under the License.
 
 allow domain accesstoken_perm_param:file { map open read };
-
-allow accesstoken_service accesstoken_data_file:dir { search add_name open read write remove_name };
-allow accesstoken_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
+# [  325.498791] audit: type=1400 audit(1501923927.700:2295): avc:  denied  { ioctl } for  pid=2232 comm="SaInit1" path="/data/service/el1/public/access_token" dev="mmcblk0p15" ino=2902 ioctlcmd=0xf546 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
+#avc: denied { create } for pid=1603, comm="/system/bin/sa_main"  name="/service/el1/public/access_token/lock" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=32814 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=0
+allow accesstoken_service accesstoken_data_file:dir { create search add_name ioctl open read write remove_name };
+allowxperm accesstoken_service accesstoken_data_file:dir ioctl { 0xf546 };
+# [  324.857258] audit: type=1400 audit(1501923927.060:2293): avc:  denied  { map } for  pid=2232 comm="SaInit1" path="/data/service/el1/public/access_token/access_token.db-shm" dev="mmcblk0p15" ino=3066 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
+# [  324.863783] audit: type=1400 audit(1501923927.066:2294): avc:  denied  { setattr } for  pid=2232 comm="SaInit1" name="access_token.db" dev="mmcblk0p15" ino=3063 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
+allow accesstoken_service accesstoken_data_file:file { create open read getattr ioctl lock map setattr unlink write };
 allow accesstoken_service accesstoken_perm_param:parameter_service { set };
 allow accesstoken_service accesstoken_service:unix_dgram_socket { getopt setopt };
 allow accesstoken_service audio_server:binder { call transfer };
@@ -22,7 +26,6 @@ allow accesstoken_service bootevent_param:file { map open read };
 allow accesstoken_service bootevent_samgr_param:file { map open read };
 allow accesstoken_service build_version_param:file { map open read };
 allow accesstoken_service camera_service:binder { call transfer };
-allow accesstoken_service drm_service:binder { call transfer };
 allow accesstoken_service const_allow_mock_param:file { map open read };
 allow accesstoken_service const_allow_param:file { map open read };
 allow accesstoken_service const_build_param:file { map open read };
@@ -40,6 +43,7 @@ allow accesstoken_service data_system:dir { add_name getattr open read remove_na
 allow accesstoken_service data_system:file { create getattr open read unlink write };
 allow accesstoken_service debug_param:file { map open read };
 allow accesstoken_service default_param:file { map open read };
+allow accesstoken_service dev_ashmem_file:chr_file { open };
 allow accesstoken_service dev_unix_socket:dir { search };
 allow accesstoken_service dev_unix_socket:sock_file { write };
 #avc:  denied  { call } for  pid=515 comm="accesstoken_ser" scontext=u:r:accesstoken_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
@@ -47,6 +51,7 @@ allow accesstoken_service dev_unix_socket:sock_file { write };
 allow accesstoken_service device_manager:binder { call transfer };
 allow accesstoken_service devinfo_private_param:file { map open read };
 allow accesstoken_service distributedsche_param:file { map open read };
+allow accesstoken_service drm_service:binder { call transfer };
 allow accesstoken_service hilog_param:file { map open read };
 allow accesstoken_service hw_sc_build_os_param:file { map open read };
 allow accesstoken_service hw_sc_build_param:file { map open read };
@@ -65,8 +70,9 @@ allow accesstoken_service paramservice_socket:sock_file { write };
 allow accesstoken_service persist_param:file { map open read };
 allow accesstoken_service persist_sys_param:file { map open read };
 #avc:  denied  { call } for  pid=504 comm="accesstoken_ser" scontext=u:r:accesstoken_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
-allow accesstoken_service privacy_service:binder { call };
+binder_call(accesstoken_service, privacy_service);
 allow accesstoken_service sa_accesstoken_manager_service:samgr_class { add get };
+allow accesstoken_service sa_distributeddata_service:samgr_class { get };
 allow accesstoken_service sa_foundation_devicemanager_service:samgr_class { get };
 allow accesstoken_service sa_powermgr_powermgr_service:samgr_class { get };
 allow accesstoken_service sa_param_watcher:samgr_class { get };
@@ -85,6 +91,9 @@ allow accesstoken_service tracefs_trace_marker_file:file { open write };
 allow accesstoken_service tracefs:dir { search };
 allow accesstoken_service sa_bgtaskmgr:samgr_class { get };
 allow accesstoken_service sa_form_mgr_service:samgr_class { get };
+binder_call(hap_domain, accesstoken_service);
+binder_call(accesstoken_service, hap_domain);
+allow accesstoken_service sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { get } for service=501 pid=537 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow accesstoken_service sa_foundation_appms:samgr_class { get };
@@ -108,8 +117,9 @@ allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108
 neverallowxperm ~{ accesstoken_service } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };
 
-binder_call(accesstoken_service, foundation);
 binder_call(accesstoken_service, bgtaskmgr_service);
+binder_call(accesstoken_service, distributeddata);
+binder_call(accesstoken_service, foundation);
 binder_call(accesstoken_service, privacy_service);
 binder_call(accesstoken_service, softbus_server);
 

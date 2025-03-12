@@ -33,7 +33,7 @@ neverallow appspawn data_cache:file ~{ read getattr };
 
 neverallow appspawn data_file_attr:file never_execute_file;
 
-neverallow { domain -appspawn -foundation -ui_service } appspawn:unix_stream_socket connectto;
+neverallow { domain -appspawn -foundation -ui_service -app_fwk_update_service -storage_manager developer_only(`-devicedebug') } appspawn:unix_stream_socket connectto;
 
 neverallow appspawn hap_file_attr:file { exec_file_perms };
 

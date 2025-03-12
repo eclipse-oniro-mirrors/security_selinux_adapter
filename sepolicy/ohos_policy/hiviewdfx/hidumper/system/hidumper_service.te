@@ -15,294 +15,229 @@ define(`use_hidumper', `
     allow $1 hidumper_service:fd use;
     allow $1 hidumper_service:fifo_file write;
 ')
-
+developer_only(`
+    # avc:  denied  { use } for  pid=1994 comm="hidumper" path="pipe:[39192]" dev="pipefs" ino=39192 scontext=u:r:hidumper_service:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
+    allow hidumper_service sh:fd { use };
+    # avc:  denied  { write } for  pid=1994 comm="hidumper" path="pipe:[39192]" dev="pipefs" ino=39192 scontext=u:r:hidumper_service:s0 tcontext=u:r:sh:s0 tclass=fifo_file permissive=1
+    allow hidumper_service sh:fifo_file { write };
+')
 use_hidumper({ sadomain hdfdomain });
 
-allow hidumper_service appspawn:dir { getattr open read search };
-allow hidumper_service appspawn:file { getattr open read };
-allow hidumper_service appspawn:lnk_file read;
-allow hidumper_service appspawn_exec:file { getattr map open read };
-
-allow hidumper_service data_file:dir { getattr open read search };
-allow hidumper_service data_init_agent:dir search;
-allow hidumper_service data_init_agent:file { append ioctl open read };
-allow hidumper_service data_log:dir { open read search };
-allow hidumper_service data_log:file { getattr open read };
-allow hidumper_service data_misc:dir search;
-
-allow hidumper_service debugfs:dir { open read };
-
-allow hidumper_service dev_block_file:blk_file getattr;
-allow hidumper_service dev_block_file:dir search;
-allow hidumper_service dev_block_file:lnk_file read;
-allow hidumper_service dev_file:dir getattr;
-allow hidumper_service dev_kmsg_file:chr_file { open read };
-allow hidumper_service dev_pts_file:dir getattr;
-allow hidumper_service dev_unix_socket:dir search;
-allow hidumper_service dev_unix_socket:sock_file write;
-
-allow hidumper_service deviceauth_service_exec:file { getattr map open read };
-allow hidumper_service devpts:chr_file { read write };
-
-allow hidumper_service faultloggerd:fifo_file read;
-allow hidumper_service faultloggerd:unix_stream_socket connectto;
-allow hidumper_service faultloggerd_exec:file { getattr map open read };
-
-allow hidumper_service hdcd:dir { getattr open read search };
-allow hidumper_service hdcd:fd use;
-allow hidumper_service hdcd:file { getattr open read };
-allow hidumper_service hdcd:lnk_file read;
-allow hidumper_service hdcd_exec:file { getattr map open read };
-
-allow hidumper_service hdf_devmgr_exec:file { getattr map open read };
-
-allow hidumper_service hidumper:binder call;
-allow hidumper_service hidumper:dir { getattr open read search };
-allow hidumper_service hidumper:file { getattr open read };
-allow hidumper_service hidumper:lnk_file read;
+neverallow hidumper_service *:process ptrace;
+ 
+allow hidumper_service data_log:file { getattr open read write append };
 allow hidumper_service hidumper:fd use;
-allow hidumper_service hidumper_exec:file { getattr map open read };
-
-allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
-allow hidumper_service hidumper_file:file { create ioctl open unlink write getattr };
-
-allow hidumper_service hilogd_exec:file { getattr map open read };
-allow hidumper_service hiview_exec:file { getattr map open read };
-
-allow hidumper_service init:dir { getattr open read search };
-allow hidumper_service init:file { getattr open read };
-allow hidumper_service init:lnk_file { read getattr };
-allow hidumper_service init:unix_stream_socket connectto;
-
-allow hidumper_service installs_exec:file { getattr map open read };
-
-allow hidumper_service kernel:dir { getattr open read search };
-allow hidumper_service kernel:file { getattr open read };
-allow hidumper_service kernel:lnk_file read;
-allow hidumper_service kernel:system syslog_read;
-
-allow hidumper_service normal_hap_attr:dir { getattr open read search };
-allow hidumper_service normal_hap_attr:file { getattr open read };
-allow hidumper_service normal_hap_attr:lnk_file read;
-
-allow hidumper_service proc_cmdline_file:file { getattr open read };
-allow hidumper_service proc_loadavg_file:file { open read };
-allow hidumper_service proc_meminfo_file:file { open read };
-allow hidumper_service proc_modules_file:file { getattr open read };
-allow hidumper_service proc_net:file { getattr open read };
-allow hidumper_service proc_net_tcp_udp:file { open read };
-allow hidumper_service proc_slabinfo_file:file { getattr open read };
-allow hidumper_service proc_stat_file:file { open read };
-allow hidumper_service proc_version_file:file { getattr open read };
-allow hidumper_service proc_vmallocinfo_file:file { getattr open read };
-allow hidumper_service proc_vmstat_file:file { getattr open read };
-allow hidumper_service proc_zoneinfo_file:file { getattr open read };
-
-allow hidumper_service render_service_exec:file { getattr map open read };
-
-allow hidumper_service self:udp_socket { create ioctl };
-
+ 
+allow hidumper_service hilog_exec:file { execute execute_no_trans getattr map open read };
 allow hidumper_service sh_exec:file { execute execute_no_trans getattr map open read };
-allow hidumper_service storage_daemon_exec:file { getattr map open read };
-
-allow hidumper_service sys_file:dir { open read };
-allow hidumper_service sys_file:file { getattr open read };
-
-allow hidumper_service system_basic_hap_attr:dir { getattr open read search };
-allow hidumper_service system_basic_hap_attr:file { getattr open read };
-allow hidumper_service system_basic_hap_attr:lnk_file read;
-
-allow hidumper_service system_bin_file:dir { getattr search };
 allow hidumper_service system_bin_file:file { execute execute_no_trans getattr map open read };
-allow hidumper_service system_bin_file:lnk_file read;
 allow hidumper_service toybox_exec:file { execute execute_no_trans getattr map open read };
-allow hidumper_service toybox_exec:lnk_file read;
-allow hidumper_service system_file:dir getattr;
-allow hidumper_service system_fonts_file:dir getattr;
-allow hidumper_service system_lib_file:dir getattr;
-allow hidumper_service system_profile_file:dir getattr;
-allow hidumper_service system_usr_file:dir getattr;
 
-allow hidumper_service tty_device:chr_file { open read write };
-
-allow hidumper_service udevd:dir { getattr open read search };
-allow hidumper_service udevd:file { getattr read open };
-allow hidumper_service udevd:lnk_file read;
-allow hidumper_service udevd_exec:file { getattr map open read };
-
-allow hidumper_service ueventd:dir { getattr open read search };
-allow hidumper_service ueventd:file { getattr open read };
-allow hidumper_service ueventd:lnk_file read;
-allow hidumper_service ueventd_exec:file { getattr map open read };
-
-allow hidumper_service uinput_inject_exec:file { getattr map open read };
-
-allow hidumper_service vendor_bin_file:dir search;
-allow hidumper_service vendor_bin_file:file { getattr map open read };
-allow hidumper_service vendor_file:dir getattr;
-allow hidumper_service vendor_lib_file:dir search;
-allow hidumper_service vendor_lib_file:file { getattr map open read };
-
-allow hidumper_service watchdog_service_exec:file { getattr map open read };
-allow hidumper_service wifi_hal_service_exec:file { getattr map open read };
-
-allow hidumper_service { sadomain -installs }:binder call;
+binder_call(hidumper_service, { sadomain -installs });
 allow hidumper_service { hdfdomain sadomain }:dir { getattr open read search };
 allow hidumper_service { hdfdomain sadomain }:file { getattr open read };
 allow hidumper_service { hdfdomain sadomain }:lnk_file read;
+allow hidumper_service appspawn:dir { getattr open read search };
+allow hidumper_service appspawn:file { getattr open read };
+allow hidumper_service ueventd:dir { getattr open read search };
+allow hidumper_service ueventd:file { getattr open read };
+allow hidumper_service tty_device:chr_file { open read write getattr };
 
-#avc:  denied  { get } for service=3301 pid=611 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service sa_powermgr_powermgr_service:samgr_class { get };
-
-binder_call(hidumper_service, powermgr);
-
-#avc:  denied  { get } for service=3302 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service sa_powermgr_battery_service:samgr_class { get };
-
-#avc:  denied  { get } for service=3308 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_powermgr_displaymgr_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service sa_powermgr_displaymgr_service:samgr_class { get };
-
-#avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_powermgr_thermal_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service sa_powermgr_thermal_service:samgr_class { get };
-
-allow hidumper_service sa_dfx_sys_hidumper_cpu_ability:samgr_class get;
-
-allow hidumper_service dev_at_file:chr_file ioctl;
-allow hidumper_service dev_block_volfile:dir search;
-allow hidumper_service dev_console_file:chr_file getattr;
-allow hidumper_service devpts:chr_file getattr;
-allow hidumper_service hidumper_file:dir getattr;
-allow hidumper_service hidumper_file:file read;
-allow hidumper_service hilog_exec:file { execute execute_no_trans getattr map open read };
-allow hidumper_service proc_file:file { open read };
-allow hidumper_service processdump:dir search;
-allow hidumper_service processdump:file { open read };
-allow hidumper_service sysfs_devices_system_cpu:file { getattr open read };
-allow hidumper_service tty_device:chr_file getattr;
-allow hidumper_service hdcd:fifo_file write;
-
-allow hidumper_service sa_samgr_service:samgr_class get;
-allow hidumper_service sa_accessibleabilityms:samgr_class get;
-allow hidumper_service sa_accountmgr:samgr_class get;
-allow hidumper_service sa_bgtaskmgr:samgr_class get;
-allow hidumper_service sa_bluetooth_server:samgr_class get;
-allow hidumper_service sa_comm_dns_manager_service:samgr_class get;
-allow hidumper_service sa_comm_ethernet_manager_service:samgr_class get;
-allow hidumper_service sa_comm_mdns_manager_service:samgr_class get;
-allow hidumper_service sa_comm_net_stats_manager_service:samgr_class get;
-allow hidumper_service sa_dataobs_mgr_service_service:samgr_class get;
-allow hidumper_service sa_device_usage_statistics_service:samgr_class get;
-allow hidumper_service sa_dfx_sys_hidumper_ability:samgr_class get;
-allow hidumper_service sa_distributeddata_service:samgr_class get;
-allow hidumper_service sa_distributeschedule:samgr_class get;
-allow hidumper_service sa_enterprise_device_manager_service:samgr_class get;
-allow hidumper_service sa_form_mgr_service:samgr_class get;
 allow hidumper_service sa_foundation_abilityms:samgr_class get;
 allow hidumper_service sa_foundation_appms:samgr_class get;
 allow hidumper_service sa_foundation_bms:samgr_class get;
-allow hidumper_service sa_hiview_service:samgr_class get;
-allow hidumper_service sa_installd_service:samgr_class get;
-allow hidumper_service sa_net_conn_manager:samgr_class get;
-allow hidumper_service sa_net_policy_manager:samgr_class get;
-allow hidumper_service sa_netsys_native_manager:samgr_class get;
-allow hidumper_service sa_render_service:samgr_class get;
-allow hidumper_service sa_resource_schedule:samgr_class get;
-allow hidumper_service sa_resource_schedule_socperf_server:samgr_class get;
-allow hidumper_service sa_sys_event_service:samgr_class get;
-allow hidumper_service sa_uri_permission_mgr_service:samgr_class get;
-allow hidumper_service sa_useriam_authexecutormgr_service:samgr_class get;
-allow hidumper_service sa_useriam_faceauth_service:samgr_class get;
-allow hidumper_service sa_useriam_userauth_service:samgr_class get;
-allow hidumper_service sa_wifi_device_ability:samgr_class get;
-allow hidumper_service sa_wifi_hotspot_ability:samgr_class get;
-allow hidumper_service sa_wifi_p2p_ability:samgr_class get;
-allow hidumper_service sa_wifi_scan_ability:samgr_class get;
-allow hidumper_service sa_work_schedule_service:samgr_class get;
-allow hidumper_service sa_accesstoken_manager_service:samgr_class get;
-allow hidumper_service sa_audio_policy_service:samgr_class get;
-allow hidumper_service sa_camera_service:samgr_class get;
-allow hidumper_service sa_device_auth_service:samgr_class get;
-allow hidumper_service sa_device_profile_service:samgr_class get;
-allow hidumper_service sa_device_security_level_manager_service:samgr_class get;
-allow hidumper_service sa_drm_service:samgr_class get;
-allow hidumper_service sa_device_service_manager:samgr_class get;
-allow hidumper_service sa_download_service:samgr_class get;
-allow hidumper_service sa_file_access_service:samgr_class get;
-allow hidumper_service sa_filemanagement_distributed_file_daemon_service:samgr_class get;
 allow hidumper_service sa_foundation_ans:samgr_class get;
 allow hidumper_service sa_foundation_cesfwk_service:samgr_class get;
 allow hidumper_service sa_foundation_devicemanager_service:samgr_class get;
 allow hidumper_service sa_foundation_dms:samgr_class get;
 allow hidumper_service sa_foundation_tel_call_manager:samgr_class get;
 allow hidumper_service sa_foundation_tel_state_registry:samgr_class get;
-allow hidumper_service sa_huks_service:samgr_class get;
-allow hidumper_service sa_inputmethod_service:samgr_class get;
-allow hidumper_service sa_location_geo_convert_service:samgr_class get;
-allow hidumper_service sa_location_locator_service:samgr_class get;
-allow hidumper_service sa_locationhub_lbsservice_gnss:samgr_class get;
-allow hidumper_service sa_locationhub_lbsservice_network:samgr_class get;
-allow hidumper_service sa_locationhub_lbsservice_passive:samgr_class get;
-allow hidumper_service sa_media_service:samgr_class get;
-allow hidumper_service sa_memory_manager_service:samgr_class get;
-allow hidumper_service sa_msdp_devicestatus_service:samgr_class get;
+allow hidumper_service sa_render_service:samgr_class get;
 allow hidumper_service sa_multimodalinput_service:samgr_class get;
-allow hidumper_service sa_pasteboard_service:samgr_class get;
-allow hidumper_service sa_privacy_service:samgr_class get;
-allow hidumper_service sa_pulseaudio_audio_service:samgr_class get;
-allow hidumper_service sa_screenlock_service:samgr_class get;
-allow hidumper_service sa_softbus_service:samgr_class get;
-allow hidumper_service sa_storage_manager_daemon:samgr_class get;
-allow hidumper_service sa_storage_manager_service:samgr_class get;
-allow hidumper_service sa_subsys_ace_service:samgr_class get;
-allow hidumper_service sa_telephony_tel_cellular_call:samgr_class get;
-allow hidumper_service sa_telephony_tel_cellular_data:samgr_class get;
-allow hidumper_service sa_telephony_tel_core_service:samgr_class get;
-allow hidumper_service sa_telephony_tel_sms_mms:samgr_class get;
-allow hidumper_service sa_time_service:samgr_class get;
-allow hidumper_service sa_update_distributed_service:samgr_class get;
-allow hidumper_service sa_usb_service:samgr_class get;
-allow hidumper_service sa_useriam_pinauth_service:samgr_class get;
-allow hidumper_service sa_useriam_useridm_service:samgr_class get;
-allow hidumper_service sa_wallpaper_manager_service:samgr_class get;
-allow hidumper_service sa_devattest_service:samgr_class get;
-allow hidumper_service sa_device_standby:samgr_class get;
-allow hidumper_service sa_task_heartbeat_mgr:samgr_class get;
-allow hidumper_service sa_el5_filekey_manager:samgr_class get;
-allow hidumper_service samgr:samgr_class list;
+allow hidumper_service composer_host:fd { use };
 
-allow hidumper_service hiprofiler_cmd:file getattr;
-allow hidumper_service hiprofiler_plugins:file getattr;
-allow hidumper_service hiprofilerd:file getattr;
-allow hidumper_service musl_param:file { map open read };
-allow hidumper_service native_daemon:dir search;
-allow hidumper_service native_daemon:file { getattr open read };
-allow hidumper_service proc_loadavg_file:file getattr;
-allow hidumper_service proc_meminfo_file:file getattr;
-allow hidumper_service proc_net_tcp_udp:file getattr;
-allow hidumper_service proc_stat_file:file getattr;
-allow hidumper_service self:rawip_socket create;
-allow hidumper_service system_etc_file:file lock;
+developer_only(`
+    allow hidumper_service data_file:dir { getattr open read search };
+    allow hidumper_service data_log:dir { open read search };
 
-allow hidumper_service debugfs_failed_transaction_log:file { getattr open read };
-allow hidumper_service debugfs_transactions:file { getattr open read };
-allow hidumper_service debugfs_transaction_log:file { getattr open read };
-allow hidumper_service debugfs_used:file { getattr open read };
-allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
-allow hidumper_service debugfs_stats:file { getattr open read };
-allow hidumper_service debugfs_state:file { getattr open read };
-allow hidumper_service data_log:file { read write };
+    allow hidumper_service dev_block_file:blk_file getattr;
+    allow hidumper_service dev_block_file:dir search;
+    allow hidumper_service dev_block_file:lnk_file read;
+    allow hidumper_service dev_file:dir getattr;
+    allow hidumper_service dev_kmsg_file:chr_file { open read };
+    allow hidumper_service dev_pts_file:dir getattr;
+    allow hidumper_service dev_unix_socket:dir search;
+    allow hidumper_service dev_unix_socket:sock_file write;
 
-allow hidumper_service hiview:binder { transfer };
-allow hidumper_service hiperf:file { getattr };
+    allow hidumper_service devpts:chr_file { read write };
 
-neverallow hidumper_service *:process ptrace;
+    allow hidumper_service hdcd:dir { getattr open read search };
+    allow hidumper_service hdcd:fd use;
+    allow hidumper_service hdcd:file { getattr open read };
+    allow hidumper_service hdcd:lnk_file read;
+    allow hidumper_service hdcd_exec:file { getattr map open read };
 
-allow hidumper_service render_service:binder transfer;
+    allow hidumper_service hdf_devmgr_exec:file { getattr map open read };
 
-allow hidumper_service arkcompiler_param:file { map open read };
-allow hidumper_service ark_writeable_param:file { map open read };
+    allow hidumper_service hidumper:binder call;
+    allow hidumper_service hidumper:dir { getattr open read search };
+    allow hidumper_service hidumper:file { getattr open read };
+    allow hidumper_service hidumper:lnk_file read;
 
-allow hidumper_service hap_domain:lnk_file { read getattr };
+    allow hidumper_service hidumper_file:dir { add_name open read remove_name search write getattr};
+    allow hidumper_service hidumper_file:file { create ioctl open unlink write getattr append read };
 
-allow hidumper_service isolated_render:file { getattr open read };
-allow hidumper_service isolated_render:dir { search };
+    allow hidumper_service hilogd_exec:file { getattr map open read };
+
+    allow hidumper_service init:dir { getattr open read search };
+    allow hidumper_service init:file { getattr open read };
+    allow hidumper_service init:lnk_file { read getattr };
+    allow hidumper_service init:unix_stream_socket connectto;
+
+    allow hidumper_service kernel:dir { getattr open read search };
+    allow hidumper_service kernel:file { getattr open read };
+    allow hidumper_service kernel:lnk_file read;
+    allow hidumper_service kernel:system syslog_read;
+
+    allow hidumper_service hap_domain:dir { getattr open read search };
+    allow hidumper_service hap_domain:file { getattr open read };
+    allow hidumper_service hap_domain:lnk_file { read getattr };
+
+    allow hidumper_service proc_file:file { getattr open read };
+    allow hidumper_service proc_cmdline_file:file { getattr open read };
+    allow hidumper_service proc_loadavg_file:file { getattr open read };
+    allow hidumper_service proc_meminfo_file:file { getattr open read };
+    allow hidumper_service proc_modules_file:file { getattr open read };
+    allow hidumper_service proc_net:file { getattr open read };
+    allow hidumper_service proc_net_tcp_udp:file { getattr open read };
+    allow hidumper_service proc_slabinfo_file:file { getattr open read };
+    allow hidumper_service proc_stat_file:file { getattr open read };
+    allow hidumper_service proc_version_file:file { getattr open read };
+    allow hidumper_service proc_vmallocinfo_file:file { getattr open read };
+    allow hidumper_service proc_vmstat_file:file { getattr open read };
+    allow hidumper_service proc_zoneinfo_file:file { getattr open read };
+
+    allow hidumper_service self:udp_socket { create ioctl };
+
+    allow hidumper_service sys_file:dir { open read };
+    allow hidumper_service sys_file:file { getattr open read };
+
+    allow hidumper_service system_bin_file:dir { getattr search };
+    allow hidumper_service system_bin_file:lnk_file read;
+    allow hidumper_service toybox_exec:lnk_file read;
+
+    allow hidumper_service dev_console_file:chr_file getattr;
+
+    allow hidumper_service processdump:dir search;
+    allow hidumper_service processdump:file { open read };
+    allow hidumper_service sysfs_devices_system_cpu:file { open read };
+    allow hidumper_service hdcd:fifo_file write;
+
+    allow hidumper_service self:rawip_socket create;
+    allow hidumper_service system_etc_file:file lock;
+
+    allow hidumper_service debugfs:dir { open read };
+    allow hidumper_service debugfs_failed_transaction_log:file { getattr open read };
+    allow hidumper_service debugfs_transactions:file { getattr open read };
+    allow hidumper_service debugfs_transaction_log:file { getattr open read };
+    allow hidumper_service debugfs_used:file { getattr open read };
+    allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
+    allow hidumper_service debugfs_stats:file { getattr open read };
+    allow hidumper_service debugfs_state:file { getattr open read };
+
+    allow hidumper_service arkcompiler_param:file { map open read };
+    allow hidumper_service ark_writeable_param:file { map open read };
+
+    allow hidumper_service isolated_render:file { getattr open read };
+    allow hidumper_service isolated_render:dir { search };
+
+    allow hidumper_service chip_prod_file:dir { search };
+
+    allow hidumper_service samgr:samgr_class list;
+
+
+
+#--------------------hidumper_service get sa dump info------------------------
+    allow hidumper_service sa_samgr_service:samgr_class get;
+    allow hidumper_service sa_accessibleabilityms:samgr_class get;
+    allow hidumper_service sa_accountmgr:samgr_class get;
+    allow hidumper_service sa_accesstoken_manager_service:samgr_class get;
+    allow hidumper_service sa_app_fwk_update_service:samgr_class get;
+    allow hidumper_service sa_audio_policy_service:samgr_class get;
+    allow hidumper_service sa_bgtaskmgr:samgr_class get;
+    allow hidumper_service sa_bluetooth_server:samgr_class get;
+    allow hidumper_service sa_camera_service:samgr_class get;
+    allow hidumper_service sa_comm_dns_manager_service:samgr_class get;
+    allow hidumper_service sa_comm_ethernet_manager_service:samgr_class get;
+    allow hidumper_service sa_comm_mdns_manager_service:samgr_class get;
+    allow hidumper_service sa_comm_net_stats_manager_service:samgr_class get;
+    allow hidumper_service sa_dataobs_mgr_service_service:samgr_class get;
+    allow hidumper_service sa_devattest_service:samgr_class get;
+    allow hidumper_service sa_device_auth_service:samgr_class get;
+    allow hidumper_service sa_device_profile_service:samgr_class get;
+    allow hidumper_service sa_device_security_level_manager_service:samgr_class get;
+    allow hidumper_service sa_device_service_manager:samgr_class get;
+    allow hidumper_service sa_device_standby:samgr_class get;
+    allow hidumper_service sa_device_usage_statistics_service:samgr_class get;
+    allow hidumper_service sa_dfx_sys_hidumper_ability:samgr_class get;
+    allow hidumper_service sa_dfx_sys_hidumper_cpu_ability:samgr_class get;
+    allow hidumper_service sa_distributeddata_service:samgr_class get;
+    allow hidumper_service sa_distributeschedule:samgr_class get;
+    allow hidumper_service sa_download_service:samgr_class get;
+    allow hidumper_service sa_drm_service:samgr_class get;
+    allow hidumper_service sa_el5_filekey_manager:samgr_class get;
+    allow hidumper_service sa_enterprise_device_manager_service:samgr_class get;
+    allow hidumper_service sa_file_access_service:samgr_class get;
+    allow hidumper_service sa_filemanagement_distributed_file_daemon_service:samgr_class get;
+    allow hidumper_service sa_form_mgr_service:samgr_class get;
+    allow hidumper_service sa_hiview_service:samgr_class get;
+    allow hidumper_service sa_huks_service:samgr_class get;
+    allow hidumper_service sa_installd_service:samgr_class get;
+    allow hidumper_service sa_inputmethod_service:samgr_class get;
+    allow hidumper_service sa_net_conn_manager:samgr_class get;
+    allow hidumper_service sa_net_policy_manager:samgr_class get;
+    allow hidumper_service sa_netsys_native_manager:samgr_class get;
+    allow hidumper_service sa_resource_schedule:samgr_class get;
+    allow hidumper_service sa_resource_schedule_socperf_server:samgr_class get;
+    allow hidumper_service sa_screenlock_service:samgr_class get;
+    allow hidumper_service sa_softbus_service:samgr_class get;
+    allow hidumper_service sa_storage_manager_daemon:samgr_class get;
+    allow hidumper_service sa_storage_manager_service:samgr_class get;
+    allow hidumper_service sa_subsys_ace_service:samgr_class get;
+    allow hidumper_service sa_sys_event_service:samgr_class get;
+    allow hidumper_service sa_uri_permission_mgr_service:samgr_class get;
+    allow hidumper_service sa_useriam_authexecutormgr_service:samgr_class get;
+    allow hidumper_service sa_useriam_faceauth_service:samgr_class get;
+    allow hidumper_service sa_useriam_userauth_service:samgr_class get;
+    allow hidumper_service sa_useriam_pinauth_service:samgr_class get;
+    allow hidumper_service sa_useriam_useridm_service:samgr_class get;
+    allow hidumper_service sa_update_distributed_service:samgr_class get;
+    allow hidumper_service sa_usb_service:samgr_class get;
+    allow hidumper_service sa_wallpaper_manager_service:samgr_class get;
+    allow hidumper_service sa_wifi_device_ability:samgr_class get;
+    allow hidumper_service sa_wifi_hotspot_ability:samgr_class get;
+    allow hidumper_service sa_wifi_p2p_ability:samgr_class get;
+    allow hidumper_service sa_wifi_scan_ability:samgr_class get;
+    allow hidumper_service sa_work_schedule_service:samgr_class get;
+    allow hidumper_service sa_location_geo_convert_service:samgr_class get;
+    allow hidumper_service sa_location_locator_service:samgr_class get;
+    allow hidumper_service sa_locationhub_lbsservice_gnss:samgr_class get;
+    allow hidumper_service sa_locationhub_lbsservice_network:samgr_class get;
+    allow hidumper_service sa_locationhub_lbsservice_passive:samgr_class get;
+    allow hidumper_service sa_media_service:samgr_class get;
+    allow hidumper_service sa_memory_manager_service:samgr_class get;
+    allow hidumper_service sa_msdp_devicestatus_service:samgr_class get;
+    allow hidumper_service sa_pasteboard_service:samgr_class get;
+    allow hidumper_service sa_task_heartbeat_mgr:samgr_class get;
+    allow hidumper_service sa_powermgr_battery_service:samgr_class get;
+    allow hidumper_service sa_powermgr_displaymgr_service:samgr_class get;
+    allow hidumper_service sa_powermgr_thermal_service:samgr_class get;
+    allow hidumper_service sa_powermgr_powermgr_service:samgr_class get;
+    allow hidumper_service sa_privacy_service:samgr_class get;
+    allow hidumper_service sa_pulseaudio_audio_service:samgr_class get;
+    allow hidumper_service sa_telephony_tel_cellular_call:samgr_class get;
+    allow hidumper_service sa_telephony_tel_cellular_data:samgr_class get;
+    allow hidumper_service sa_telephony_tel_core_service:samgr_class get;
+    allow hidumper_service sa_telephony_tel_sms_mms:samgr_class get;
+    allow hidumper_service sa_time_service:samgr_class get;
+')

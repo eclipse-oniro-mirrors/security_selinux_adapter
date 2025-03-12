@@ -81,6 +81,7 @@ allow param_watcher pasteboard_service:binder { call };
 allow param_watcher persist_param:file { map open read };
 allow param_watcher persist_sys_param:file { map open read };
 allow param_watcher pinauth:binder { call };
+allow param_watcher audio_server:binder { call };
 allow param_watcher render_service:binder { call };
 allow param_watcher resource_schedule_service:binder { call };
 allow param_watcher sa_param_watcher:samgr_class { add get };

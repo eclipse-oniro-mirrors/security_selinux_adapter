@@ -1,0 +1,89 @@
+# Copyright (c) 2024-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type nativespawn, native_system_domain, domain;
+type nativespawn_exec, system_file_attr, exec_attr, file_attr;
+
+allow nativespawn appspawn:unix_dgram_socket { connect write };
+allow nativespawn appspawn:unix_stream_socket { getopt setopt getattr listen accept read write };
+allow nativespawn nativespawn:capability { setuid setgid sys_admin net_admin kill };
+allow nativespawn chip_prod_file:dir { search };
+allow nativespawn sys_prod_file:dir { search };
+allow nativespawn system_lib_file:dir { read open };
+allow nativespawn dev_unix_socket:dir { search };
+allow nativespawn system_file:file { getattr read open };
+allow nativespawn dev_unix_file:sock_file {setattr};
+
+allow nativespawn data_app_el1_file:dir { getattr mounton search };
+allow nativespawn nativespawn:process { setcurrent };
+allow nativespawn samgr:binder { call };
+allow nativespawn security:security { check_context };
+allow nativespawn selinuxfs:dir { search };
+allow nativespawn selinuxfs:file { read write open };
+allow nativespawn system_bin_file:dir { getattr mounton };
+allow nativespawn system_lib_file:dir { getattr mounton };
+allow nativespawn vendor_lib_file:dir { getattr mounton };
+allow nativespawn data_app_el2_file:dir { search };
+allow nativespawn data_app_file:dir { search };
+allow nativespawn data_file:dir { search };
+allow nativespawn data_service_el1_file:dir { search };
+allow nativespawn data_service_file:dir { search };
+allow nativespawn dev_file:dir { getattr mounton };
+allow nativespawn labeledfs:filesystem { unmount };
+allow nativespawn proc_file:dir { mounton };
+allow nativespawn rootfs:dir { mounton };
+allow nativespawn sys_file:dir { mounton };
+allow nativespawn system_etc_file:dir { mounton };
+allow nativespawn system_fonts_file:dir { getattr mounton };
+allow nativespawn tmpfs:dir { mounton add_name create write getattr };
+allow nativespawn tmpfs:file { mounton create open };
+allow nativespawn dev_at_file:chr_file { ioctl };
+allowxperm nativespawn dev_at_file:chr_file ioctl { 0x4102 };
+allow nativespawn appspawn:fd { use };
+allow hap_domain nativespawn:fd { use };
+allow hap_domain nativespawn:fifo_file { write };
+allow nativespawn hap_domain:process { dyntransition sigkill };
+allow nativespawn cgroup:dir { add_name search create remove_name rmdir write };
+allow nativespawn cgroup:file { getattr read append open };
+allow nativespawn sysfs_net:file { open write };
+allow nativespawn dev_xpm:chr_file { ioctl read write open };
+allowxperm nativespawn dev_xpm:chr_file ioctl { 0x7801 0x7802 };
+allow nativespawn normal_hap_data_file_attr:dir { getattr mounton };
+allow nativespawn hap_domain:fd { use };
+allow nativespawn normal_hap_data_file_attr:file { read write };
+allow nativespawn system_bin_file:file { entrypoint execute map open read };
+allow nativespawn init:unix_stream_socket { accept getattr getopt listen };
+allow nativespawn nativespawn:unix_dgram_socket { getopt setopt };
+allow init nativespawn:process { rlimitinh siginh transition };
+allow hap_domain nativespawn:unix_dgram_socket { write };
+allow nativespawn cgroup:file { write };
+allow nativespawn tmpfs:lnk_file { create };
+allow nativespawn appspawn_socket:sock_file { setattr };
+allow nativespawn isolated_render:process { dyntransition sigkill };
+allow isolated_render nativespawn:fd { use };
+allow isolated_render nativespawn:fifo_file { write };
+allow isolated_render nativespawn:unix_dgram_socket { write connect };
+
+## Before killing the isolated process of nativespawn by ams, it will read the /proc/pid/status.
+allow foundation isolated_render:dir { search };
+allow foundation isolated_render:file { getattr read };
+allow nativespawn nativespawn_exec:file { entrypoint execute map read open };
+allow init nativespawn_exec:file { execute getattr read open };
+
+neverallow nativespawn *:process ptrace;
+
+allow nativespawn system_basic_hap_data_file:dir { mounton };
+allow nativespawn normal_hap_data_file:dir { mounton };
+allow nativespawn system_core_hap_data_file:dir { mounton };
+allow nativespawn hap_domain:unix_stream_socket { read write };
+allow nativespawn arkcompiler_param:file { map open read };

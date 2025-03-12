@@ -27,8 +27,11 @@ allow appspawn data_app_el3_file:dir { search mounton write add_name create seta
 allow appspawn data_app_el4_file:dir { search mounton write add_name create setattr getattr};
 allow appspawn data_app_el5_file:dir { search mounton write add_name create setattr getattr};
 allow appspawn sharefs:dir { create_dir_perms mounton getattr };
+allow appspawn sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton getattr };
 allow appspawn sharefs:filesystem { mount };
 allow appspawn data_service_el2_share:dir { create_dir_perms mounton getattr };
+allow appspawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
+allow appspawn data_service_el1_file:file { read write create map open unlink };
 
 # read cfg from
 #avc:  denied  { getattr } for  pid=1802 comm="appspawn" path="/dev" dev="tmpfs" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
@@ -39,10 +42,6 @@ allow appspawn sys_prod_file:dir { open read search getattr };
 allow appspawn sys_prod_file:file { getattr open read map };
 allow appspawn vendor_etc_file:dir { open read search getattr };
 allow appspawn vendor_etc_file:file { getattr open read };
-
-# for appspawn native processor
-#avc:  denied  { execute } for  pid=1762 comm="s.samples.clock" name="sh" dev="mmcblk0p7" ino=358 scontext=u:r:appspawn:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=0
-allow appspawn sh_exec:file { execute execute_no_trans map read open };
 
 allow appspawn appspawn:capability { dac_override kill setgid setuid sys_admin chown dac_read_search };
 allow appspawn appspawn:process { setcurrent };
@@ -120,10 +119,10 @@ allow appspawn system_profile_file:dir { mounton getattr };
 allow appspawn system_usr_file:dir { mounton search getattr };
 allow appspawn system_usr_file:file { getattr map open read };
 allow appspawn sys_usb_param:file { map open read };
-allow appspawn tmpfs:dir { add_name create mounton write getattr };
+allow appspawn tmpfs:dir { add_name create mounton write getattr remove_name};
 
 # avc:  denied  { create } for  pid=1604 comm="amples.etsclock" name="ld-musl-arm.so.1" scontext=u:r:appspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
-allow appspawn tmpfs:file { create mounton open };
+allow appspawn tmpfs:file { create mounton open unlink};
 
 allow appspawn tmpfs:lnk_file { create };
 allow appspawn vendor_lib_file:dir { mounton getattr };
@@ -140,7 +139,7 @@ allow appspawn share_public_file:dir { search };
 allow appspawn pid_ns_init:process { dyntransition };
 allow appspawn share_public_file:dir { search create add_name write };
 # for app cgroup pids
-allow appspawn cgroup:dir { add_name create search open read write };
+allow appspawn cgroup:dir { add_name create search open read write remove_name rmdir };
 allow appspawn cgroup:file { append getattr ioctl open read write };
 allowxperm appspawn cgroup:file ioctl {  0x5413  };
 
@@ -233,3 +232,27 @@ allow appspawn sysfs_net:file { write open };
 
 #avc:  denied  { remount } for  pid=22332 comm="example.demo100" scontext=u:r:appspawn:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=1
 allow appspawn labeledfs:filesystem { remount };
+allow appspawn bootuptrace_file:dir { add_name getattr open read search write relabelto };
+allow appspawn bootuptrace_file:file { create getattr write open relabelto };
+
+#avc:  denied  { write } for  pid=4946 comm="appspawn" name="faultloggerd.sdkdump.server" dev="tmpfs" ino=395 scontext=u:r:appspawn:s0 tcontext=u:object_r:faultloggerd_socket_sdkdump:s0 tclass=sock_file permissive=1
+allow appspawn faultloggerd_socket_sdkdump:sock_file { write };
+# avc:  denied  { read } for  pid=4946 comm="appspawn" path="pipe:[43284]" dev="pipefs" ino=43284 scontext=u:r:appspawn:s0 tcontext=u:r:faultloggerd:s0 tclass=fifo_file permissive=1
+allow appspawn faultloggerd:fifo_file { read };
+allow appspawn appspawn:capability { sys_nice };
+
+# avc: denied { ioctl } for pid=748, comm="/system/bin/appspawn" path="/data/app/el2/100" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=11203 ioctlcmd=0x661a scontext=u:r:appspawn:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+# avc: denied { ioctl } for pid=748, comm="/system/bin/appspawn" path="/data/app/el2/100" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=11203 ioctlcmd=0x6616 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+allow appspawn data_app_el2_file:dir { ioctl };
+allowxperm appspawn data_app_el2_file:dir ioctl { 0x6616 0x661a };
+
+# avc: denied { rmdir } for pid=744, comm="/system/bin/appspawn" name="/sandbox/100/com.ohos.sceneboard/Users/currentUser" dev="tmpfs" ino=414 scontext=u:r:appspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=0
+allow appspawn tmpfs:dir { rmdir };
+
+#avc: denied { unmount } for pid=654, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:object_r:sharefs:s0 tclass=filesystem permissive=1
+allow appspawn { sharefs tmpfs }:filesystem { unmount };
+
+#avc: denied { use } for pid=51347, comm="/system/bin/appspawn" path="pipe:[8763]" dev="tmpfs" ino=8763 scontext=u:r:appspawn:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=1
+allow appspawn foundation:fd { use };
+#avc: denied { write } for pid=51347, comm="/system/bin/appspawn" path="pipe:[8763]" dev="tmpfs" ino=8763 scontext=u:r:appspawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
+allow appspawn foundation:fifo_file { write };

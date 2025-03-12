@@ -12,7 +12,6 @@
 # limitations under the License.
 
 
-type updater_hdc_param, parameter_attr;
+type update_updater_param, parameter_attr;
 type updater_flashd_param, parameter_attr;
-type updater_data_param, parameter_attr;
 

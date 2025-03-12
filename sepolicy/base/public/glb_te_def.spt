@@ -114,12 +114,6 @@ define(`control_hilog', `
     allow $1 hilog_param:parameter_service { set };
 ')
 
-# define(`native_system_domain', `sh hdcd atm bm updater uitest wukong SP_daemon aa su bytrace hiebpf 
-# hiperf hiprofilerd hiprofiler_cmd hiprofiler_plugins native_daemon processdump hidumper hisysevent 
-# write_updater hitrace udevadm udevd key_enable appspawn init ueventd updater_binary hilog')
-
-# define(`native_chipset_domain', `chipset_init')
-
-define(`system_domain', `sadomain hap_domain native_system_domain')
+define(`system_domain', `sadomain rgm_violator_sadomain hap_domain native_system_domain')
 
 define(`chipset_domain', `hdfdomain native_chipset_domain')

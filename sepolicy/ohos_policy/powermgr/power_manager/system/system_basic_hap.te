@@ -15,11 +15,11 @@
 allow system_basic_hap_attr sa_powermgr_powermgr_service:samgr_class { get };
 binder_call(system_basic_hap_attr, powermgr);
 
-#avc:  denied  { ioctl } for pid=4710 comm = "system/bin/appspawn" path="/dev/bbox" dev="" ino=71 ioctlcmd=0x425a scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
-allow system_basic_hap_attr dev_bbox:chr_file { ioctl };
-allowxperm system_basic_hap_attr dev_bbox:chr_file ioctl { 0x426a 0x426d };
-
 debug_only(`
 #avc:  denied  { transfer } for  pid=1529 comm="com.ohos.settin" scontext=u:r:system_basic_hap:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
 allow system_basic_hap_attr sh:binder { transfer };
 ')
+
+#avc:  denied  { ioctl } for pid=4710 comm = "system/bin/appspawn" path="/dev/bbox" dev="" ino=71 ioctlcmd=0x426a scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
+allow system_basic_hap_attr dev_bbox:chr_file { ioctl };
+allowxperm system_basic_hap_attr dev_bbox:chr_file ioctl { 0x426a 0x426d };

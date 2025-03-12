@@ -84,6 +84,7 @@ allow distributedsche sysfs_devices_system_cpu:file { read };
 allow distributedsche data_service_el1_file:file { setattr };
 #avc:  denied  { use } for  pid=2263 comm="IPC_1_2266" path="/dev/ashmem" dev="tmpfs" ino=612 scontext=u:r:distributedsche:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
 allow distributedsche render_service:fd { use };
+allow distributedsche composer_host:fd { use };
 #avc:  denied  { open } for  pid=3435 comm="deviceprofile" path="/sys/devices/system/cpu/online" dev="sysfs" ino=30137 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
 allow distributedsche sysfs_devices_system_cpu:file { open };
 #avc:  denied  { read } for  pid=4101 comm="mmi_EventHdr" scontext=u:r:distributedsche:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
@@ -114,5 +115,17 @@ allow distributedsche hap_domain:fd { use };
 allow distributedsche hmdfs:file { read write };
 #avc: denied { get } for service=1901 pid=5366 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
 allow distributedsche sa_resource_schedule:samgr_class { get };
-
+#avc: denied { use } for pid=5776, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:distributedsche:s0 tcontext=u:r:accountmgr:s0 tclass=fd permissive=1
+allow distributedsche accountmgr:fd { use };
+#avc: denied { transfer } for pid=5776, comm="/system/bin/sa_main"  scontext=u:r:distributedsche:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+allow distributedsche multimodalinput:binder { transfer };
+#avc: denied { call } for pid=4566, comm="/system/bin/sa_main" scontext=u:r:distributedsche:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
+#avc: denied { transfer } for pid=4566, comm="/system/bin/sa_main" scontext=u:r:distributedsche:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
+allow distributedsche bluetooth_service:binder { call transfer };
+#avc: denied { get } for service=1130 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_bluetooth_server:samgr_class { get };
+# avc_audit_slow:276] avc: denied { call } for pid=10271, comm="/system/bin/sa_main"  scontext=u:r:bluetooth_service:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=0
+allow bluetooth_service distributedsche:binder { call };
+#avc: denied { get } for service=3704 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_screenlock_service:samgr_class { get };
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };

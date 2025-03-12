@@ -43,6 +43,7 @@ wlan_hal_service                        u:object_r:hdf_wlan_hal_service:s0
 display_composer_service                u:object_r:hdf_display_composer_service:s0
 camera_service                          u:object_r:hdf_camera_service:s0
 camera_image_process_service            u:object_r:hdf_camera_image_process_service:s0
+camera_video_process_service            u:object_r:hdf_camera_video_process_service:s0
 drm_service                             u:object_r:hdf_drm_service:s0
 clearplay_service                       u:object_r:hdf_clearplay_service:s0
 face_auth_interface_service             u:object_r:hdf_face_auth_interface_service:s0
@@ -54,6 +55,10 @@ motion_interface_service                u:object_r:hdf_motion_interface_service:
 activity_interface_service              u:object_r:hdf_activity_interface_service:s0
 cellular_radio_ext                      u:object_r:hdf_cellular_radio_ext:s0
 ril_service                             u:object_r:hdf_ril_service:s0
+geofence_intf_service                   u:object_r:hdf_geofence_intf_service:s0
+cellfence_interface_service             u:object_r:hdf_cellfence_interface_service:s0
+cellbatching_interface_service          u:object_r:hdf_cellbatching_interface_service:s0
+wififence_interface_service             u:object_r:hdf_wififence_interface_service:s0
 
 usb_pnp_sample_service                  u:object_r:hdf_usb_pnp_sample_service:s0
 usbhost_acm_pnp_service                 u:object_r:hdf_usbhost_acm_pnp_service:s0
@@ -72,12 +77,15 @@ safe_location_interface_service         u:object_r:hdf_safe_location_interface_s
 usb_interface_service                   u:object_r:hdf_usb_interface_service:s0
 usbfn_mtp_interface_service             u:object_r:hdf_usbfn_mtp_interface_service:s0
 usb_ddk_service                         u:object_r:hdf_usb_ddk_service:s0
+usb_serial_ddk_service                  u:object_r:hdf_usb_serial_ddk_service:s0
 partition_slot_service                  u:object_r:hdf_partition_slot_service:s0
 wlan_interface_service                  u:object_r:hdf_wlan_interface_service:s0
 wpa_interface_service                   u:object_r:hdf_wpa_interface_service:s0
 chip_interface_service                  u:object_r:hdf_chip_interface_service:s0
 hostapd_interface_service               u:object_r:hdf_hostapd_interface_service:s0
 hid_ddk_service                         u:object_r:hdf_hid_ddk_service:s0
+scsi_peripheral_ddk_service             u:object_r:hdf_scsi_peripheral_ddk_service:s0
+
 # for testcase start
 sample_driver_service2                  u:object_r:hdf_sample_service:s0
 sample1_driver_service                  u:object_r:hdf_sample1_driver_service:s0

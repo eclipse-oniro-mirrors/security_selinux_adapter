@@ -11,41 +11,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# allow input_isolate_hap to get sa
-allow input_isolate_hap sa_av_codec_service:samgr_class { get };
-allow input_isolate_hap sa_cert_manager_service:samgr_class { get };
-allow input_isolate_hap sa_dlp_permission:samgr_class { get };
-allow input_isolate_hap sa_ecological_rule_mgr_service:samgr_class { get };
-allow input_isolate_hap sa_el5_filekey_manager:samgr_class { get };
-allow input_isolate_hap sa_local_code_sign:samgr_class { get };
-allow input_isolate_hap sa_media_monitor:samgr_class { get };
-allow input_isolate_hap sa_print_service:samgr_class { get };
-allow input_isolate_hap sa_quick_fix_mgr_service:samgr_class { get };
-allow input_isolate_hap sa_security_component:samgr_class { get };
+binder_call(input_isolate_hap, hap_domain);
+binder_call(hap_domain, input_isolate_hap);
+developer_only(`
+    binder_call(input_isolate_hap, debug_hap);
+    binder_call(debug_hap, input_isolate_hap);
+')
 
-# allow input_isolate_hap to interact with sa
-binder_call(input_isolate_hap, cadaemon);
-binder_call(input_isolate_hap, cast_engine_service);
-binder_call(input_isolate_hap, cert_manager_service);
-binder_call(input_isolate_hap, concurrent_task_service);
-binder_call(input_isolate_hap, devattest_service);
-binder_call(input_isolate_hap, file_access_service);
-binder_call(input_isolate_hap, media_monitor);
-binder_call(input_isolate_hap, oaid_service);
-binder_call(input_isolate_hap, print_service);
-binder_call(input_isolate_hap, privacy_service);
-binder_call(input_isolate_hap, quick_fix);
-binder_call(input_isolate_hap, security_component_service);
+allow input_isolate_hap system_file:file { open read getattr };
 
-binder_call(cadaemon, input_isolate_hap);
-binder_call(cast_engine_service, input_isolate_hap);
-binder_call(cert_manager_service, input_isolate_hap);
-binder_call(concurrent_task_service, input_isolate_hap);
-binder_call(devattest_service, input_isolate_hap);
-binder_call(file_access_service, input_isolate_hap);
-binder_call(media_monitor, input_isolate_hap);
-binder_call(oaid_service, input_isolate_hap);
-binder_call(print_service, input_isolate_hap);
-binder_call(privacy_service, input_isolate_hap);
-binder_call(quick_fix, input_isolate_hap);
-binder_call(security_component_service, input_isolate_hap);
+allow input_isolate_hap concurrent_task_service:binder { call };
+
+allow input_isolate_hap normal_hap_data_file_attr:dir { rmdir create setattr getattr write add_name remove_name search open read rename };
+allow input_isolate_hap normal_hap_data_file_attr:file { create read write open getattr setattr map append rename unlink lock ioctl };
+allowxperm input_isolate_hap normal_hap_data_file_attr:file ioctl { 0x5413 0xf50c 0xf546 };
+
+allow input_isolate_hap ark_profile:file { read open map };
+
+allow input_isolate_hap data_app_el1_arkprofile:dir { search };
+
+allow input_isolate_hap hisysevent_socket:sock_file { write };
+allow input_isolate_hap hilog_input_socket:sock_file { write };
+

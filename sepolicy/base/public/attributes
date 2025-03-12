@@ -172,11 +172,13 @@ attribute data_user_file_file_violator;
 
 attribute dev_fuse_file_violator;
 
+attribute nativespawn_mount_filesystem_violator;
+
 attribute proc_violator;
 attribute sh_exec_violator;
 attribute proc_sys_writer;
 
-attribute hdf_public_domain;
+attribute violator_hdfdomain_binder_call;
 
 attribute modem_file_attr;
 
@@ -256,7 +258,29 @@ attribute system_etc_file_violator_lnk_file;
 attribute system_profile_file_violator_dir;
 attribute system_fonts_file_violator_dir_mounton;
 
-attribute hdf_service_violators;
+attribute system_bin_file_violator_file_entrypoint;
+attribute system_etc_file_violator_lnk_file_relabelto;
+attribute system_etc_file_violator_lnk_file_read;
+attribute system_etc_file_violator_lnk_file_getattr;
+
+attribute vendor_file_violator_dir_mounton;
+attribute vendor_file_violator_file_relabelto;
+attribute vendor_file_violator_file_setattr;
+attribute vendor_bin_file_violator_dir_getattr;
+attribute vendor_bin_file_violator_dir_open;
+attribute vendor_bin_file_violator_dir_read;
+attribute vendor_bin_file_violator_dir_mounton;
+attribute vendor_bin_file_violator_dir_relabelto;
+attribute vendor_bin_file_violator_file_execute_no_trans;
+attribute vendor_bin_file_violator_file_relabelto;
+attribute vendor_bin_file_violator_file_setattr;
+attribute vendor_bin_file_violator_file_lnk_file;
+attribute vendor_bin_file_violator_file_lnk_file_read;
+attribute vendor_etc_file_violator_dir_mounton;
+attribute vendor_etc_file_violator_dir_relabelto;
+attribute vendor_etc_file_violator_file_relabelto;
+
+attribute violator_hdf_devmgr_class_get;
 
 attribute binder_call_hdfdomain_violators;
 
@@ -270,3 +294,14 @@ attribute system_bin_file_quickfix;
 attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
+
+# define some hap_domain violator attribute for neverallows
+attribute hap_domain_dev_ptmx_violators;
+attribute hap_domain_cgroup_violators;
+attribute hap_domain_proc_stat_file_violators;
+attribute hap_domain_proc_modules_file_violators;
+
+attribute hap_domain_lnk_file_operation_viloator;
+attribute hap_attr_link_violators;
+
+attribute normal_hap_system_basic_hap_data_file_violators;

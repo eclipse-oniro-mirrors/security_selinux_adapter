@@ -12,3 +12,7 @@
 # limitations under the License.
 
 type f2fs_hc_file, fs_attr, sysfs_attr;
+
+# for sandbox appdata
+type sharefs_appdata_file, sharefs_file_attr, fs_attr;
+type sharefs_appdata_bundle_file, sharefs_file_attr, fs_attr;

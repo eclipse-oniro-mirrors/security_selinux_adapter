@@ -19,5 +19,6 @@
 #avc:  denied  { create } for  pid=227 comm="ueventd" name="=9" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
 allow ueventd dev_file:dir { remove_name };
 allow ueventd dev_file:chr_file { unlink };
+allow ueventd dev_mapper_control_file:chr_file { unlink };
 allow ueventd dev_hdf_test:chr_file { getattr setattr unlink };
 allow ueventd dev_block_file:dir { create };

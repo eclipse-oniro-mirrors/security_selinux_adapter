@@ -26,4 +26,3 @@ allow normal_hap_attr ntfs:file { create read open write unlink getattr rename }
 #avc:  denied  { open } for  pid=1737 comm="ager:fileAccess" path="/mnt/data/external" dev="tmpfs" ino=47 scontext=u:r:normal_hap:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 #avc:  denied  { read } for  pid=1737 comm="ager:fileAccess" name="external" dev="tmpfs" ino=47 scontext=u:r:normal_hap:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 allow normal_hap_attr tmpfs:dir { open read };
-

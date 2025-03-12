@@ -12,3 +12,5 @@
 # limitations under the License.
 
 type sa_sharing_service, sa_service_attr;
+type sa_sharing_service_domain, sa_service_attr;
+type data_service_el1_public_sharing_service_file, file_attr, data_file_attr;

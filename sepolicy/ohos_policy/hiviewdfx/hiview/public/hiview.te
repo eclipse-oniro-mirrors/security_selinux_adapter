@@ -19,3 +19,11 @@ type hiview_file, file_attr, data_file_attr;
 type hisysevent_socket, dev_attr, file_attr;
 type dev_ucollection, dev_attr, file_attr;
 type dev_sysevent, dev_attr;
+
+attribute vendor_violator_data_log_file_createwrite;
+attribute vendor_violator_data_log_dir_createwrite;
+attribute public_violator_data_log_file_createwrite;
+attribute public_violator_data_log_dir_createwrite;
+
+neverallow { domain -vendor_violator_data_log_file_createwrite -public_violator_data_log_file_createwrite -rgm_violator_data_log_file_createwrite -hiview -render_service -foundation -telephony_sa -sh -hidumper_service -hitrace -power_host -usb_host -camera_host -wifi_hal_service -hiperf -bytrace -download_server -faultloggerd -hidumper -netmanager -softbus_server -bluetooth_service -sadomain -hap_domain -multimodalinput -resource_schedule_service -huks_service -init -kernel updater_only(`-hiview_light') } data_log:file {create write};
+neverallow { domain -vendor_violator_data_log_dir_createwrite -public_violator_data_log_dir_createwrite -rgm_violator_data_log_dir_createwrite -hiview -render_service -foundation -telephony_sa -sh -hidumper_service -hitrace -power_host -usb_host -camera_host -wifi_hal_service -hiperf -bytrace -download_server -faultloggerd -hidumper -netmanager -softbus_server -bluetooth_service -sadomain -hap_domain -multimodalinput -resource_schedule_service -huks_service -init -kernel updater_only(`-hiview_light') } data_log:dir {create write};

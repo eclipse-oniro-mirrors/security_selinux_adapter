@@ -21,7 +21,6 @@ allow resource_schedule_service msdp_sa:binder { call transfer };
 allow resource_schedule_service bluetooth_service:binder { call };
 allow resource_schedule_service locationhub:binder { call };
 allow resource_schedule_service time_service:binder { call };
-allow resource_schedule_service sa_param_watcher:samgr_class { get };
 allow resource_schedule_service appspawn:dir { search };
 allow resource_schedule_service appspawn:file { getattr open read };
 allow resource_schedule_service appspawn_exec:file { open read };
@@ -46,6 +45,7 @@ allow resource_schedule_service system_etc_file:file { getattr map open read };
 allow resource_schedule_service tracefs:dir { search };
 allow resource_schedule_service tracefs_trace_marker_file:file { open write };
 allow resource_schedule_service dev_unix_socket:dir { search };
+allow resource_schedule_service normal_hap_attr:process { setsched };
 allow resource_schedule_service resource_schedule_service:unix_dgram_socket { getopt setopt };
 allow resource_schedule_service data_log:file { read write };
 allow resource_schedule_service faultloggerd:fd { use };
@@ -68,7 +68,7 @@ allowxperm resource_schedule_service dev_file:chr_file ioctl { 0x7102  0x7104 0x
 allowxperm resource_schedule_service dev_sched_rtg_ctrl:chr_file ioctl { 0xab01 0xab02 };
 allowxperm resource_schedule_service cgroup:file ioctl { 0x5413 };
 allowxperm resource_schedule_service sys_file:file ioctl { 0x5413 };
-allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c };
+allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c 0xf546 0xf547 };
 allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };
 # Subscribing to public events is required.
 # acv: denied  { get } for service=1152  pid=641 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1 
@@ -108,7 +108,6 @@ allow system_core_hap_attr sa_device_standby:samgr_class { get };
 allow resource_schedule_service multimodalinput:binder { call };
 allow resource_schedule_service multimodalinput:fd { use };
 allow resource_schedule_service multimodalinput:unix_stream_socket { write };
-allow resource_schedule_service memmgrservice:binder { call };
 allow resource_schedule_service sa_comm_net_stats_manager_service:samgr_class { get };
 # for RegisterDisplayModeListener on observer_manager.cpp
 allow resource_schedule_service sa_foundation_dms:samgr_class { get };
@@ -132,6 +131,8 @@ allow resource_schedule_service system_core_hap_attr:binder { call transfer };
 allow resource_schedule_service data_service_file:dir { search };
 # avc: denied { open read search } for pid=873, comm="/system/bin/sa_main" scountext=u:resource_schedule_service:s0 tcountext=u:r:system_fonts_file:s0 tclass=dir permissive=0
 allow resource_schedule_service system_fonts_file:dir { open read search };
+allow resource_schedule_service data_service_el2_file:dir { search };
+allow resource_schedule_service data_service_el2_hmdfs:dir { search };
 
 #for resource_schedule_service cgroup
 # avc: denied { search } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=dir permissive=1
@@ -140,8 +141,6 @@ allow resource_schedule_service kernel:dir { search };
 # avc: denied { getattr } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=file permissive=1
 # avc: denied { open } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:kernel:s0 tclass=file permissive=1
 allow resource_schedule_service kernel:file { getattr open read };
-allow resource_schedule_service init:dir { search };
-allow resource_schedule_service init:file { getattr open read };
 # avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:storage_daemon:s0 tclass=file permissive=1
 allow resource_schedule_service storage_daemon:file { read };
 # avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:storage_manager:s0 tclass=file permissive=1
@@ -159,6 +158,10 @@ allow resource_schedule_service system_core_hap_attr:dir { open read search };
 allow resource_schedule_service system_core_hap_attr:file { getattr open read };
 allow resource_schedule_service system_core_hap_attr:process { setsched };
 allow resource_schedule_service ui_service:process { setsched };
+allow resource_schedule_service normal_hap_attr:dir { open read search };
+allow resource_schedule_service normal_hap_attr:file { getattr open read };
+allow resource_schedule_service init:dir { search };
+allow resource_schedule_service init:file { getattr open read };
 allow resource_schedule_service param_watcher:file { read };
 allow resource_schedule_service sa_audio_policy_service:samgr_class { get };
 # avc: denied { search } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=dir permissive=1
@@ -167,10 +170,6 @@ allow resource_schedule_service ueventd:dir { search };
 # avc: denied { open } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=file permissive=1
 # avc: denied { read } for pid=953, comm="CgroupEventHand" scountext=u:resource_schedule_service:s0 tcountext=u:r:ueventd:s0 tclass=file permissive=1
 allow resource_schedule_service ueventd:file { getattr open read };
-# Read information about application process nodes of the normal_hap in /proc
-allow resource_schedule_service normal_hap_attr:dir { open read search };
-allow resource_schedule_service normal_hap_attr:file { getattr open read };
-allow resource_schedule_service normal_hap_attr:process { setsched };
 
 # resource_schedule_service config
 allow resource_schedule_service sys_prod_ressched_file:dir { search };
@@ -186,3 +185,15 @@ allow resource_schedule_service devinfo_type_param:file { read open map };
 #for camera_service
 allow resource_schedule_service sa_camera_service:samgr_class { get };
 allow resource_schedule_service camera_service:binder { call transfer };
+
+#for notify render_service start report events
+allow render_service resource_schedule_service:binder { transfer };
+allow resource_schedule_service render_service:binder { call transfer };
+
+allow resource_schedule_service sharing_service:dir { open search read };
+allow resource_schedule_service sharing_service:file { open read getattr };
+
+allow resource_schedule_service av_codec_service:dir { open search read };
+allow resource_schedule_service av_codec_service:file { open read getattr };
+
+allow resource_schedule_service media_service:binder { call transfer };

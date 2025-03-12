@@ -59,7 +59,6 @@ allow powermgr const_build_param:file { map open read };
 # avc:  denied  { map open read } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=1
 allow powermgr const_display_brightness_param:file { map open read };
 
-
 # avc:  denied  { map open read } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=1
 allow powermgr const_param:file { map open read };
 
@@ -69,10 +68,8 @@ allow powermgr const_postinstall_fstab_param:file { map open read };
 # avc:  denied  { map open read } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 allow powermgr const_postinstall_param:file { map open read };
 
-
 # avc:  denied  { map open read } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:const_product_param:s0 tclass=file permissive=1
 allow powermgr const_product_param:file { map open read };
-
 
 # avc:  denied  { search } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:r:data_app_el1_file:s0 tclass=dir permissive=1
 allow powermgr data_app_el1_file:dir { search };
@@ -257,6 +254,7 @@ allow powermgr devinfo_private_param:file { map open read };
 
 # avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=1
 allow powermgr sa_privacy_service:samgr_class { get };
+binder_call(powermgr, token_sync_service);
 
 # avc:  denied  { map open read } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=1
 allow powermgr security_param:file { map open read };
@@ -380,6 +378,8 @@ binder_call(powermgr, bgtaskmgr_service);
 # avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_render_service:s0 tclass=samgr_class permissive=1
 allow powermgr sa_render_service:samgr_class { get };
 binder_call(powermgr, render_service);
+binder_call(render_service, powermgr);
+allow powermgr composer_host:fd { use };
 
 # avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
 allow powermgr sa_net_conn_manager:samgr_class { get };
@@ -528,6 +528,18 @@ binder_call(powermgr, inputmethod_service);
 # avc:  denied  { call } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:r:memmgrservice:s0 tclass=binder permissive=1
 binder_call(powermgr, memmgrservice);
 
+# avc:  denied  { call } for  pid=1480 scontext=u:r:powermgr:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=1
+binder_call(powermgr, distributedsche);
+
+# avc:  denied  { map open read } for  pid=1480 scontext=u:r:powermgr:s0 tcontext=u:object_r:distributedsche_param:s0 tclass=file permissive=1
+allow powermgr distributedsche_param:file { map open read };
+
 # avc:  denied  { set } for  parameter=persist.powermgr.stopservice pid=1262 uid=5528 gid=1000 scontext=u:r:powermgr:s0 tcontext=u:object_r:powermgr_param:s0 tclass=parameter_service permissive=1
 allow powermgr powermgr_param:parameter_service { set };
 
+# avc: denied { call } for pid=1374, comm="/system/bin/sa_main"  scontext=u:r:powermgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
+allow powermgr intell_voice_service:binder { call };
+
+# avc: denied { ioctl } for pid=1506, comm="/system/bin/sa_main"  path="/dev/bbox" dev="" ino=54 ioctlcmd=0x4265 scontext=u:r:powermgr:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
+allow powermgr dev_bbox:chr_file { ioctl };
+allowxperm powermgr dev_bbox:chr_file ioctl { 0x4264 0x4265 };

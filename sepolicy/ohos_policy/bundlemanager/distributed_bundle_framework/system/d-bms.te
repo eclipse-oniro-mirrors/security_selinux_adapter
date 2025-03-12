@@ -46,3 +46,4 @@ allow accountmgr d-bms:binder { call transfer };
 allow distributeddata d-bms:binder { call transfer };
 allow foundation d-bms:binder { call transfer };
 allow foundation data_service_el1_file:file { ioctl };
+allow d-bms accountmgr:fd { use };

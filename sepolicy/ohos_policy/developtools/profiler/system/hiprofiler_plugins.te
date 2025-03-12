@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,300 +11,299 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hiprofiler_plugins data_file:dir search;
-allow hiprofiler_plugins data_init_agent:dir search;
-allow hiprofiler_plugins data_init_agent:file { append ioctl open read };
-allow hiprofiler_plugins dev_unix_socket:sock_file { unlink create getattr setattr write };
-allow hiprofiler_plugins devpts:chr_file { read write };
-allow hiprofiler_plugins hdcd:unix_stream_socket { read write };
-allow hiprofiler_plugins hdcd:fifo_file write;
-allow hiprofiler_plugins tty_device:chr_file { read write };
-allow hiprofiler_plugins dev_unix_socket:dir { add_name remove_name write search };
-allow hiprofiler_plugins proc_cpuinfo_file:file { open read };
-allow hiprofiler_plugins system_bin_file:dir search;
-allow hiprofiler_plugins data_local:dir search;
-allow hiprofiler_plugins hiprofilerd:unix_stream_socket connectto;
-allow hiprofiler_plugins hiprofilerd:fd { use };
-
-allow hiprofiler_plugins appspawn:file read;
-allow hiprofiler_plugins hdcd:fd use;
-allow hiprofiler_plugins hdf_devmgr:file read;
-allow hiprofiler_plugins hilog_param:file { map open read };
-allow hiprofiler_plugins init:file { getattr open read };
-allow hiprofiler_plugins kernel:file read;
-allow hiprofiler_plugins net_param:file read;
-allow hiprofiler_plugins net_tcp_param:file read;
-allow hiprofiler_plugins ohos_boot_param:file { map open read };
-allow hiprofiler_plugins ohos_param:file { map open read };
-allow hiprofiler_plugins param_watcher:file read;
-allow hiprofiler_plugins persist_param:file { map open read };
-allow hiprofiler_plugins persist_sys_param:file read;
-allow hiprofiler_plugins proc_stat_file:file { getattr open read };
-allow hiprofiler_plugins samgr:file read;
-allow hiprofiler_plugins security_param:file { map open read };
-allow hiprofiler_plugins storage_manager:file read;
-allow hiprofiler_plugins sys_file:file { getattr open read };
-allow hiprofiler_plugins sys_param:file { map open read };
-allow hiprofiler_plugins sys_usb_param:file read;
-allow hiprofiler_plugins sysfs_devices_system_cpu:dir { open read };
-allow hiprofiler_plugins sysfs_devices_system_cpu:file { getattr read };
-allow hiprofiler_plugins tmpfs:file write;
-allow hiprofiler_plugins udevd:file read;
-allow hiprofiler_plugins watchdog_service:file read;
-
-allow hiprofiler_plugins const_param:file read;
-allow hiprofiler_plugins const_postinstall_param:file read;
-allow hiprofiler_plugins hw_sc_build_os_param:file read;
-allow hiprofiler_plugins hw_sc_build_param:file read;
-allow hiprofiler_plugins hw_sc_param:file { map open read };
-allow hiprofiler_plugins init_param:file read;
-allow hiprofiler_plugins init_svc_param:file read;
-allow hiprofiler_plugins net_param:file { map open };
-allow hiprofiler_plugins net_tcp_param:file { map open };
-allow hiprofiler_plugins sys_usb_param:file { map open };
-
-allow hiprofiler_plugins const_param:file { map open };
-allow hiprofiler_plugins hw_sc_build_os_param:file { map open };
-allow hiprofiler_plugins hw_sc_build_param:file { map open };
-allow hiprofiler_plugins init_param:file { map open };
-allow hiprofiler_plugins init_svc_param:file { map open };
-allow hiprofiler_plugins const_postinstall_param:file open;
-
-allow hiprofiler_plugins const_allow_mock_param:file read;
-allow hiprofiler_plugins const_allow_param:file { open read };
-allow hiprofiler_plugins const_build_param:file read;
-allow hiprofiler_plugins const_postinstall_fstab_param:file { map open read };
-allow hiprofiler_plugins const_postinstall_param:file map;
-allow hiprofiler_plugins const_product_param:file read;
-allow hiprofiler_plugins debug_param:file read;
-allow hiprofiler_plugins persist_sys_param:file open;
-allow hiprofiler_plugins startup_param:file read;
-allow hiprofiler_plugins bootevent_param:file read;
-allow hiprofiler_plugins bootevent_samgr_param:file read;
-allow hiprofiler_plugins build_version_param:file read;
-allow hiprofiler_plugins const_allow_mock_param:file open;
-allow hiprofiler_plugins const_allow_param:file map;
-allow hiprofiler_plugins const_build_param:file open;
-allow hiprofiler_plugins const_product_param:file open;
-allow hiprofiler_plugins debug_param:file open;
-allow hiprofiler_plugins persist_sys_param:file map;
-allow hiprofiler_plugins startup_param:file open;
-
-allow hiprofiler_plugins bootevent_param:file { map open };
-allow hiprofiler_plugins bootevent_samgr_param:file open;
-allow hiprofiler_plugins build_version_param:file { map open };
-allow hiprofiler_plugins const_allow_mock_param:file map;
-allow hiprofiler_plugins const_build_param:file map;
-allow hiprofiler_plugins const_product_param:file map;
-allow hiprofiler_plugins debug_param:file map;
-allow hiprofiler_plugins startup_param:file map;
-
-allow hiprofiler_plugins bootevent_samgr_param:file map;
-allow hiprofiler_plugins const_display_brightness_param:file { map open read };
-allow hiprofiler_plugins distributedsche_param:file { map open read };
-allow hiprofiler_plugins input_pointer_device_param:file { map open read };
-
-allow hiprofiler_plugins default_param:file { map open read };
-
-allow hiprofiler_plugins accessibility:file { getattr open read };
-allow hiprofiler_plugins distributeddata:file { getattr read };
-allow hiprofiler_plugins hilog_exec:file { execute execute_no_trans getattr map open read };
-allow hiprofiler_plugins init:dir { open read };
-allow hiprofiler_plugins kernel:file { getattr open };
-allow hiprofiler_plugins media_service:dir search;
-allow hiprofiler_plugins proc_meminfo_file:file { getattr open read };
-allow hiprofiler_plugins proc_vmstat_file:file { getattr open read };
-allow hiprofiler_plugins sysfs_block_zram:file { getattr open read };
-allow hiprofiler_plugins sysfs_devices_system_cpu:file open;
-
-allow hiprofiler_plugins tracefs:file write;
-
-allow hiprofiler_plugins init:dir search;
-allow hiprofiler_plugins init:unix_stream_socket connectto;
-allow hiprofiler_plugins mmi_uinput_service:file read;
-
-allow hiprofiler_plugins accountmgr:file read;
-allow hiprofiler_plugins deviceauth_service:file read;
-allow hiprofiler_plugins huks_service:file read;
-allow hiprofiler_plugins locationhub:file read;
-allow hiprofiler_plugins memmgrservice:file read;
-allow hiprofiler_plugins multimodalinput:file read;
-allow hiprofiler_plugins resource_schedule_service:file read;
-allow hiprofiler_plugins storage_daemon:file read;
-
-allow hiprofiler_plugins bgtaskmgr_service:file read;
-allow hiprofiler_plugins bluetooth_service:file read;
-allow hiprofiler_plugins device_usage_stats_service:file read;
-allow hiprofiler_plugins pasteboard_service:file read;
-
-allow hiprofiler_plugins download_server:file read;
-allow hiprofiler_plugins edm_sa:file read;
-allow hiprofiler_plugins msdp_sa:file read;
-allow hiprofiler_plugins screenlock_server:file read;
-allow hiprofiler_plugins time_service:file read;
-allow hiprofiler_plugins tty_device:chr_file open;
-allow hiprofiler_plugins wallpaper_service:file read;
-
-allow hiprofiler_plugins codec_host:file read;
-allow hiprofiler_plugins face_auth_host:file read;
-allow hiprofiler_plugins fingerprint_auth_host:file read;
-allow hiprofiler_plugins hdcd:fifo_file ioctl;
-allow hiprofiler_plugins hilog_control_socket:sock_file write;
-allow hiprofiler_plugins light_host:file read;
-allow hiprofiler_plugins location_host:file read;
-allow hiprofiler_plugins pin_auth_host:file read;
-allow hiprofiler_plugins sensor_host:file read;
-allow hiprofiler_plugins user_auth_host:file read;
-allow hiprofiler_plugins vibrator_host:file read;
-
-allow hiprofiler_plugins audio_host:file read;
-allow hiprofiler_plugins blue_host:file read;
-allow hiprofiler_plugins clearplay_host:file read;
-allow hiprofiler_plugins camera_host:file read;
-allow hiprofiler_plugins allocator_host:file read;
-allow hiprofiler_plugins input_user_host:file read;
-allow hiprofiler_plugins power_host:file read;
-allow hiprofiler_plugins usb_host:file read;
-allow hiprofiler_plugins wifi_host:file read;
-
-allow hiprofiler_plugins camera_service:file read;
-allow hiprofiler_plugins faultloggerd:file read;
-allow hiprofiler_plugins drm_service:file read;
-allow hiprofiler_plugins media_service:file read;
-allow hiprofiler_plugins render_service:file read;
-allow hiprofiler_plugins useriam:file read;
-allow hiprofiler_plugins wifi_hal_service:file read;
-
-allow hiprofiler_plugins distributedsche:file read;
-allow hiprofiler_plugins softbus_server:file read;
-allow hiprofiler_plugins ui_service:file read;
-
-allow hiprofiler_plugins hiview:file read;
-allow hiprofiler_plugins installs:file read;
-allow hiprofiler_plugins sensors:file read;
-
-allow hiprofiler_plugins foundation:file read;
-allow hiprofiler_plugins hdcd:file read;
-allow hiprofiler_plugins hidumper_service:file read;
-allow hiprofiler_plugins hiprofilerd:file read;
-allow hiprofiler_plugins kernel:dir search;
-allow hiprofiler_plugins pinauth:file read;
-allow hiprofiler_plugins wifi_manager_service:file read;
-
-allow hiprofiler_plugins proc_file:file write;
-allow hiprofiler_plugins udevd:file { getattr open };
-
-allow hiprofiler_plugins deviceauth_service:dir search;
-allow hiprofiler_plugins deviceauth_service:file { getattr open };
-allow hiprofiler_plugins resource_schedule_service:dir search;
-allow hiprofiler_plugins resource_schedule_service:file { getattr open };
-allow hiprofiler_plugins storage_daemon:dir search;
-allow hiprofiler_plugins storage_daemon:file { getattr open };
-
-allow hiprofiler_plugins hilogd:file getattr;
-allow hiprofiler_plugins system_bin_file:file execute;
-allow hiprofiler_plugins toybox_exec:file { execute execute_no_trans getattr map open read };
-allow hiprofiler_plugins tmpfs:file { map read };
-allow hiprofiler_plugins tracefs:dir search;
-allow hiprofiler_plugins tracefs:file { getattr read };
-
-allow hiprofiler_plugins accountmgr:file getattr;
-allow hiprofiler_plugins bgtaskmgr_service:file getattr;
-allow hiprofiler_plugins bluetooth_service:file getattr;
-allow hiprofiler_plugins device_usage_stats_service:file getattr;
-allow hiprofiler_plugins hiprofiler_cmd:file getattr;
-allow hiprofiler_plugins hiprofilerd:file getattr;
-allow hiprofiler_plugins huks_service:file getattr;
-allow hiprofiler_plugins locationhub:file getattr;
-allow hiprofiler_plugins memmgrservice:file getattr;
-allow hiprofiler_plugins pasteboard_service:file getattr;
-allow hiprofiler_plugins proc_file:file { getattr open read };
-allow hiprofiler_plugins audio_server:file { getattr read };
-allow hiprofiler_plugins tracefs:file open;
-
-allow hiprofiler_plugins proc_diskstats_file:file { open read };
-allow hiprofiler_plugins rootfs:file getattr;
-
-allow hiprofiler_plugins hiprofiler_cmd:fd use;
-allow hiprofiler_plugins rootfs:file read;
-allow hiprofiler_plugins tty_device:chr_file ioctl;
-allow hiprofiler_plugins hilog_output_socket:sock_file write;
-
-allow hiprofiler_plugins proc_uptime_file:file { open read };
-allow hiprofiler_plugins tracefs:dir { open read };
-
-allow hiprofiler_plugins tracefs:file append;
-
-allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads add_name write open search remove_name };
-allow hiprofiler_plugins data_local_tmp:file { create read open write lock getattr unlink };
-allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search };
-
-debug_only(`
-	allow hiprofiler_plugins self:capability { sys_admin };
-	allow hiprofiler_plugins sh_exec:file { execute execute_no_trans map open read };
-	allow hiprofiler_plugins self:capability setgid;
-	allow hiprofiler_plugins sh:fd use;
-	allow hiprofiler_plugins sh:dir { open read };
-	allow hiprofiler_plugins sh:file { getattr open };
-	allow hiprofiler_plugins console:file read;
-')
-
-allow hiprofiler_plugins domain:dir { open read getattr search };
-allow hiprofiler_plugins domain:file { open read getattr };
-
-allow hiprofiler_plugins data_local_tmp:file ioctl;
-allow hiprofiler_plugins hilogd:unix_stream_socket connectto;
-allow hiprofiler_plugins musl_param:file { open read };
-
 neverallow hiprofiler_plugins *:process ptrace;
-allow hiprofiler_plugins musl_param:file map;
-allow hiprofiler_plugins dev_unix_file:sock_file write;
-allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_trans map};
-allow hiprofiler_plugins samgr:binder call;
-allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
-allow hiprofiler_plugins sa_hiview_service:samgr_class get;
-allow hiprofiler_plugins hiview:binder { call transfer };
-allow hiprofiler_plugins dev_console_file:chr_file { read write };
-allow hiprofiler_plugins proc_diskstats_file:file getattr;
-allow hiprofiler_plugins proc_uptime_file:file getattr;
 
-allow hiprofiler_plugins appspawn_exec:file read;
-allow hiprofiler_plugins data_local_tmp:fifo_file { open read unlink write };
-allow hiprofiler_plugins hiview_exec:file { getattr map open read };
-allow hiprofiler_plugins self:perf_event write;
-allow hiprofiler_plugins storage_daemon_exec:file { getattr map open read };
-allow hiprofiler_plugins vendor_bin_file:file { getattr map open read };
-allow hiprofiler_plugins vendor_bin_file:dir search;
-allow hiprofiler_plugins dev_file:dir getattr;
-
-allow hiprofiler_plugins hisysevent:process sigkill;
-allow hiprofiler_plugins sa_accountmgr:samgr_class get;
-allow hiprofiler_plugins sa_foundation_bms:samgr_class get;
-allow hiprofiler_plugins hiview:fd use;
-
-allow samgr hiprofiler_plugins:dir { search };
-allow samgr hiprofiler_plugins:file { read open };
-allow samgr hiprofiler_plugins:process { getattr };
-allow samgr hiprofiler_plugins:binder { call transfer };
-allow hiprofiler_plugins arkcompiler_param:file { read open map };
-allow hiprofiler_plugins ark_writeable_param:file { read open map };
-allow hiprofiler_plugins accountmgr:binder { call };
-allow hiprofiler_plugins foundation:binder { call };
-allow accountmgr hiprofiler_plugins:binder { transfer };
-allow hiprofiler_plugins system_bin_file:lnk_file read;
-allow hiprofiler_plugins toybox_exec:lnk_file read;
-allow hiprofiler_plugins SP_daemon_exec:file { getattr open read execute execute_no_trans map};
-
-allow hiprofiler_plugins sa_render_service:samgr_class get;
-allow hiprofiler_plugins render_service:binder { call transfer };
-allow hiprofiler_plugins normal_hap_attr:unix_stream_socket { connectto };
+allow domain hiviewdfx_profiler_param:file { map open read };
 
 developer_only(`
+    allow hiprofiler_plugins data_file:dir search;
+    allow hiprofiler_plugins data_init_agent:dir search;
+    allow hiprofiler_plugins data_init_agent:file { append ioctl open read };
+    allow hiprofiler_plugins dev_unix_socket:sock_file { unlink create getattr setattr write };
+    allow hiprofiler_plugins devpts:chr_file { read write };
+    allow hiprofiler_plugins hdcd:unix_stream_socket { read write };
+    allow hiprofiler_plugins hdcd:fifo_file write;
+    allow hiprofiler_plugins tty_device:chr_file { read write };
+    allow hiprofiler_plugins dev_unix_socket:dir { add_name remove_name write search };
+    allow hiprofiler_plugins proc_cpuinfo_file:file { open read };
+    allow hiprofiler_plugins system_bin_file:dir search;
+    allow hiprofiler_plugins data_local:dir search;
+    allow hiprofiler_plugins hiprofilerd:unix_stream_socket connectto;
+    allow hiprofiler_plugins hiprofilerd:fd { use };
+    allow hiprofiler_plugins system_bin_file:file execute;
+
+    allow hiprofiler_plugins appspawn:file read;
+    allow hiprofiler_plugins hdcd:fd use;
+    allow hiprofiler_plugins hdf_devmgr:file read;
+    allow hiprofiler_plugins hilog_param:file { map open read };
+    allow hiprofiler_plugins init:file { getattr open read };
+    allow hiprofiler_plugins kernel:file read;
+    allow hiprofiler_plugins net_param:file read;
+    allow hiprofiler_plugins net_tcp_param:file read;
+    allow hiprofiler_plugins ohos_boot_param:file { map open read };
+    allow hiprofiler_plugins ohos_param:file { map open read };
+    allow hiprofiler_plugins param_watcher:file read;
+    allow hiprofiler_plugins persist_param:file { map open read };
+    allow hiprofiler_plugins persist_sys_param:file read;
+    allow hiprofiler_plugins proc_stat_file:file { getattr open read };
+    allow hiprofiler_plugins samgr:file read;
+    allow hiprofiler_plugins security_param:file { map open read };
+    allow hiprofiler_plugins storage_manager:file read;
+    allow hiprofiler_plugins sys_file:file { getattr open read };
+    allow hiprofiler_plugins sys_param:file { map open read };
+    allow hiprofiler_plugins sys_usb_param:file read;
+    allow hiprofiler_plugins sysfs_devices_system_cpu:dir { open read };
+    allow hiprofiler_plugins sysfs_devices_system_cpu:file { getattr read };
+    allow hiprofiler_plugins tmpfs:file write;
+    allow hiprofiler_plugins udevd:file read;
+    allow hiprofiler_plugins watchdog_service:file read;
+
+    allow hiprofiler_plugins const_param:file read;
+    allow hiprofiler_plugins const_postinstall_param:file read;
+    allow hiprofiler_plugins hw_sc_build_os_param:file read;
+    allow hiprofiler_plugins hw_sc_build_param:file read;
+    allow hiprofiler_plugins hw_sc_param:file { map open read };
+    allow hiprofiler_plugins init_param:file read;
+    allow hiprofiler_plugins init_svc_param:file read;
+    allow hiprofiler_plugins net_param:file { map open };
+    allow hiprofiler_plugins net_tcp_param:file { map open };
+    allow hiprofiler_plugins sys_usb_param:file { map open };
+
+    allow hiprofiler_plugins const_param:file { map open };
+    allow hiprofiler_plugins hw_sc_build_os_param:file { map open };
+    allow hiprofiler_plugins hw_sc_build_param:file { map open };
+    allow hiprofiler_plugins init_param:file { map open };
+    allow hiprofiler_plugins init_svc_param:file { map open };
+    allow hiprofiler_plugins const_postinstall_param:file open;
+
+    allow hiprofiler_plugins const_allow_mock_param:file read;
+    allow hiprofiler_plugins const_allow_param:file { open read };
+    allow hiprofiler_plugins const_build_param:file read;
+    allow hiprofiler_plugins const_postinstall_fstab_param:file { map open read };
+    allow hiprofiler_plugins const_postinstall_param:file map;
+    allow hiprofiler_plugins const_product_param:file read;
+    allow hiprofiler_plugins debug_param:file read;
+    allow hiprofiler_plugins persist_sys_param:file open;
+    allow hiprofiler_plugins startup_param:file read;
+    allow hiprofiler_plugins bootevent_param:file read;
+    allow hiprofiler_plugins bootevent_samgr_param:file read;
+    allow hiprofiler_plugins build_version_param:file read;
+    allow hiprofiler_plugins const_allow_mock_param:file open;
+    allow hiprofiler_plugins const_allow_param:file map;
+    allow hiprofiler_plugins const_build_param:file open;
+    allow hiprofiler_plugins const_product_param:file open;
+    allow hiprofiler_plugins debug_param:file open;
+    allow hiprofiler_plugins persist_sys_param:file map;
+    allow hiprofiler_plugins startup_param:file open;
+
+    allow hiprofiler_plugins bootevent_param:file { map open };
+    allow hiprofiler_plugins bootevent_samgr_param:file open;
+    allow hiprofiler_plugins build_version_param:file { map open };
+    allow hiprofiler_plugins const_allow_mock_param:file map;
+    allow hiprofiler_plugins const_build_param:file map;
+    allow hiprofiler_plugins const_product_param:file map;
+    allow hiprofiler_plugins debug_param:file map;
+    allow hiprofiler_plugins startup_param:file map;
+
+    allow hiprofiler_plugins bootevent_samgr_param:file map;
+    allow hiprofiler_plugins const_display_brightness_param:file { map open read };
+    allow hiprofiler_plugins distributedsche_param:file { map open read };
+    allow hiprofiler_plugins input_pointer_device_param:file { map open read };
+
+    allow hiprofiler_plugins default_param:file { map open read };
+
+    allow hiprofiler_plugins accessibility:file { getattr open read };
+    allow hiprofiler_plugins distributeddata:file { getattr read };
+    allow hiprofiler_plugins hilog_exec:file { getattr map open read execute execute_no_trans };
+    allow hiprofiler_plugins init:dir { open read };
+    allow hiprofiler_plugins kernel:file { getattr open };
+    allow hiprofiler_plugins media_service:dir search;
+    allow hiprofiler_plugins proc_meminfo_file:file { getattr open read };
+    allow hiprofiler_plugins proc_vmstat_file:file { getattr open read };
+    allow hiprofiler_plugins sysfs_block_zram:file { getattr open read };
+    allow hiprofiler_plugins sysfs_devices_system_cpu:file open;
+
+    allow hiprofiler_plugins tracefs:file write;
+
+    allow hiprofiler_plugins init:dir search;
+    allow hiprofiler_plugins init:unix_stream_socket connectto;
+    allow hiprofiler_plugins mmi_uinput_service:file read;
+
+    allow hiprofiler_plugins accountmgr:file read;
+    allow hiprofiler_plugins deviceauth_service:file read;
+    allow hiprofiler_plugins huks_service:file read;
+    allow hiprofiler_plugins locationhub:file read;
+    allow hiprofiler_plugins memmgrservice:file read;
+    allow hiprofiler_plugins multimodalinput:file read;
+    allow hiprofiler_plugins resource_schedule_service:file read;
+    allow hiprofiler_plugins storage_daemon:file read;
+
+    allow hiprofiler_plugins bgtaskmgr_service:file read;
+    allow hiprofiler_plugins bluetooth_service:file read;
+    allow hiprofiler_plugins device_usage_stats_service:file read;
+    allow hiprofiler_plugins pasteboard_service:file read;
+
+    allow hiprofiler_plugins audio_server:file read;
+    allow hiprofiler_plugins download_server:file read;
+    allow hiprofiler_plugins edm_sa:file read;
+    allow hiprofiler_plugins msdp_sa:file read;
+    allow hiprofiler_plugins screenlock_server:file read;
+    allow hiprofiler_plugins time_service:file read;
+    allow hiprofiler_plugins tty_device:chr_file open;
+    allow hiprofiler_plugins wallpaper_service:file read;
+
+    allow hiprofiler_plugins codec_host:file read;
+    allow hiprofiler_plugins face_auth_host:file read;
+    allow hiprofiler_plugins fingerprint_auth_host:file read;
+    allow hiprofiler_plugins hdcd:fifo_file ioctl;
+    allow hiprofiler_plugins hilog_control_socket:sock_file write;
+    allow hiprofiler_plugins light_host:file read;
+    allow hiprofiler_plugins location_host:file read;
+    allow hiprofiler_plugins pin_auth_host:file read;
+    allow hiprofiler_plugins sensor_host:file read;
+    allow hiprofiler_plugins user_auth_host:file read;
+    allow hiprofiler_plugins vibrator_host:file read;
+
+    allow hiprofiler_plugins audio_host:file read;
+    allow hiprofiler_plugins blue_host:file read;
+    allow hiprofiler_plugins clearplay_host:file read;
+    allow hiprofiler_plugins camera_host:file read;
+    allow hiprofiler_plugins allocator_host:file read;
+    allow hiprofiler_plugins input_user_host:file read;
+    allow hiprofiler_plugins power_host:file read;
+    allow hiprofiler_plugins usb_host:file read;
+    allow hiprofiler_plugins wifi_host:file read;
+
+    allow hiprofiler_plugins camera_service:file read;
+    allow hiprofiler_plugins faultloggerd:file read;
+    allow hiprofiler_plugins drm_service:file read;
+    allow hiprofiler_plugins media_service:file read;
+    allow hiprofiler_plugins render_service:file read;
+    allow hiprofiler_plugins useriam:file read;
+    allow hiprofiler_plugins wifi_hal_service:file read;
+
+    allow hiprofiler_plugins distributedsche:file read;
+    allow hiprofiler_plugins softbus_server:file read;
+    allow hiprofiler_plugins ui_service:file read;
+
+    allow hiprofiler_plugins hiview:file read;
+    allow hiprofiler_plugins installs:file read;
+    allow hiprofiler_plugins sensors:file read;
+
+    allow hiprofiler_plugins foundation:file read;
+    allow hiprofiler_plugins hdcd:file read;
+    allow hiprofiler_plugins hidumper_service:file read;
+    allow hiprofiler_plugins hiprofilerd:file read;
+    allow hiprofiler_plugins kernel:dir search;
+    allow hiprofiler_plugins pinauth:file read;
+    allow hiprofiler_plugins wifi_manager_service:file read;
+
+    allow hiprofiler_plugins proc_file:file write;
+    allow hiprofiler_plugins udevd:file { getattr open };
+
+    allow hiprofiler_plugins deviceauth_service:dir search;
+    allow hiprofiler_plugins deviceauth_service:file { getattr open };
+    allow hiprofiler_plugins resource_schedule_service:dir search;
+    allow hiprofiler_plugins resource_schedule_service:file { getattr open };
+    allow hiprofiler_plugins storage_daemon:dir search;
+    allow hiprofiler_plugins storage_daemon:file { getattr open };
+
+    allow hiprofiler_plugins hilogd:file getattr;
+    allow hiprofiler_plugins toybox_exec:file { execute execute_no_trans getattr map open read };
+    allow hiprofiler_plugins tmpfs:file { map read };
+    allow hiprofiler_plugins tracefs:dir search;
+    allow hiprofiler_plugins tracefs:file { getattr read };
+
+    allow hiprofiler_plugins accountmgr:file getattr;
+    allow hiprofiler_plugins bgtaskmgr_service:file getattr;
+    allow hiprofiler_plugins bluetooth_service:file getattr;
+    allow hiprofiler_plugins device_usage_stats_service:file getattr;
+    allow hiprofiler_plugins hiprofiler_cmd:file getattr;
+    allow hiprofiler_plugins hiprofilerd:file getattr;
+    allow hiprofiler_plugins huks_service:file getattr;
+    allow hiprofiler_plugins locationhub:file getattr;
+    allow hiprofiler_plugins memmgrservice:file getattr;
+    allow hiprofiler_plugins pasteboard_service:file getattr;
+    allow hiprofiler_plugins proc_file:file { getattr open read };
+    allow hiprofiler_plugins audio_server:file getattr;
+    allow hiprofiler_plugins tracefs:file open;
+
+    allow hiprofiler_plugins proc_diskstats_file:file { open read };
+    allow hiprofiler_plugins rootfs:file getattr;
+
+    allow hiprofiler_plugins self:unix_dgram_socket { getopt setopt };
+    allow hiprofiler_plugins hiview:unix_dgram_socket { sendto };
+
+    allow hiprofiler_plugins hiprofiler_cmd:fd use;
+    allow hiprofiler_plugins rootfs:file read;
+    allow hiprofiler_plugins tty_device:chr_file ioctl;
+    allow hiprofiler_plugins hilog_output_socket:sock_file write;
+
+    allow hiprofiler_plugins proc_uptime_file:file { open read };
+    allow hiprofiler_plugins tracefs:dir { open read };
+
+    allow hiprofiler_plugins tracefs:file append;
+
+    allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads add_name write open search remove_name };
+    allow hiprofiler_plugins data_local_tmp:file { create read open write lock getattr unlink };
+    allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search };
+
+    allow hiprofiler_plugins domain:dir { open read getattr search };
+
+    allow hiprofiler_plugins domain:file { open read getattr };
+
+    allow hiprofiler_plugins data_local_tmp:file ioctl;
+    allow hiprofiler_plugins hilogd:unix_stream_socket connectto;
+    allow hiprofiler_plugins musl_param:file { open read };
+
+    allow hiprofiler_plugins musl_param:file map;
+    allow hiprofiler_plugins dev_unix_file:sock_file write;
+    allow hiprofiler_plugins hisysevent_exec:file { open read map execute execute_no_trans };
+    allow hiprofiler_plugins samgr:binder call;
+    allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
+    allow hiprofiler_plugins sa_hiview_service:samgr_class get;
+    allow hiprofiler_plugins hiview:binder { call transfer };
+    allow hiprofiler_plugins dev_console_file:chr_file { read write };
+    allow hiprofiler_plugins proc_diskstats_file:file getattr;
+    allow hiprofiler_plugins proc_uptime_file:file getattr;
+
+    allow hiprofiler_plugins appspawn_exec:file read;
+    allow hiprofiler_plugins data_local_tmp:fifo_file { open read unlink write };
+    allow hiprofiler_plugins hiview_exec:file { getattr map open read };
+    allow hiprofiler_plugins self:perf_event write;
+    allow hiprofiler_plugins storage_daemon_exec:file { getattr map open read };
+    allow hiprofiler_plugins vendor_bin_file:file { getattr map open read };
+    allow hiprofiler_plugins vendor_bin_file:dir search;
+    allow hiprofiler_plugins dev_file:dir getattr;
+
+    allow hiprofiler_plugins hisysevent:process sigkill;
+    allow hiprofiler_plugins sa_accountmgr:samgr_class get;
+    allow hiprofiler_plugins sa_foundation_bms:samgr_class get;
+    allow hiprofiler_plugins hiview:fd use;
+
+    allow samgr hiprofiler_plugins:dir { search };
+    allow samgr hiprofiler_plugins:file { read open };
+    allow samgr hiprofiler_plugins:process { getattr };
+    allow samgr hiprofiler_plugins:binder { call transfer };
+    allow hiprofiler_plugins arkcompiler_param:file { read open map };
+    allow hiprofiler_plugins ark_writeable_param:file { read open map };
+    allow hiprofiler_plugins accountmgr:binder { call };
+    allow hiprofiler_plugins foundation:binder { call };
+    allow accountmgr hiprofiler_plugins:binder { transfer };
+    allow hiprofiler_plugins system_bin_file:lnk_file read;
+    allow hiprofiler_plugins toybox_exec:lnk_file read;
+    allow hiprofiler_plugins SP_daemon_exec:file { getattr open read map execute execute_no_trans };
+
+    allow hiprofiler_plugins sa_render_service:samgr_class get;
+    allow hiprofiler_plugins render_service:binder { call transfer };
+    allow hiprofiler_plugins normal_hap_attr:unix_stream_socket { connectto };
+    
     allow hiprofiler_plugins system_usr_file:dir { search };
     allow hiprofiler_plugins system_usr_file:file { getattr map open read };
-    allow hiprofiler_plugins SP_daemon:process { rlimitinh siginh sigkill signal };
+    allow hiprofiler_plugins SP_daemon:process { rlimitinh siginh transition sigkill signal };
     allow hiprofiler_plugins dev_ashmem_file:chr_file { open };
     allow hiprofiler_plugins hiviewdfx_profiler_param:parameter_service { set };
+    allow hiprofiler_plugins hitrace_param:parameter_service { set };
     allow hiprofiler_plugins paramservice_socket:sock_file { read write };
     allow hiprofiler_plugins kernel:unix_stream_socket { connectto };
     allow hap_domain hiviewdfx_profiler_param:file { map open read };
@@ -313,6 +312,7 @@ developer_only(`
     allow hiprofiler_plugins data_hilogd_file:dir { getattr open read search };
     allow hiprofiler_plugins data_hilogd_file:file { getattr open read };
     allow sadomain hiviewdfx_profiler_param:file { map open read };
+
+    allow hiprofiler_plugins netmanager:binder { call };
+    allow hiprofiler_plugins sa_comm_net_stats_manager_service:samgr_class { get };
 ')
-
-

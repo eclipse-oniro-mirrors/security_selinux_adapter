@@ -104,6 +104,9 @@ allow chipset_init init:unix_dgram_socket { write connect };
 allow chipset_init proc_file:file { write open };
 allow chipset_init self:capability { net_admin };
 
+# avc:  denied  { write } for  comm="/bin/init" scontext=u:r:chipset_init:s0 tcontext=u:r:sysfs_devices_system_cpu:s0 tclass=file
+allow chipset_init sysfs_devices_system_cpu:file { write open };
+
 # avc:  denied  { getopt } for  pid=245 comm="chipset_init" scontext=u:r:chipset_init:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=0
 allow chipset_init init:unix_stream_socket { getopt };
 # avc:  denied  { rlimitinh } for  pid=491 comm="hdf_devhost" scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
@@ -111,3 +114,5 @@ allow chipset_init init:unix_stream_socket { getopt };
 # avc:  denied  { transition } for  pid=491 comm="init" path="/vendor/bin/hdf_devhost" dev="mmcblk0p8" ino=13 scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
 allow chipset_init clearplay_host:process { rlimitinh siginh transition };
 
+# avc:  denied  { open } for  pid=638 comm="/bin/init" path="/sys/devices/virtual/gadget_usb/gadget0/f_rndis/wceis" dev="" ino=9426 scontext=u:r:chipset_init:s0 tcontext=u:r:object_r:sysfs_gadget_usb:s0 tclass=file permissive=1
+allow chipset_init sysfs_gadget_usb:file { open };

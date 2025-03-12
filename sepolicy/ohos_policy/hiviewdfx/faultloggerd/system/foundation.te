@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow foundation hap_domain:dir { read open };
+allow foundation sadomain:dir { open read getattr search };
+allow foundation sadomain:file { open read getattr };

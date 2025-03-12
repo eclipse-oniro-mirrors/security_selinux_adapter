@@ -17,6 +17,7 @@ allow useriam sensors:binder { call };
 
 allow useriam accesstoken_service:binder { call };
 allow useriam accountmgr:binder { call };
+allow useriam accountmgr:fd { use };
 allow useriam bootevent_param:file { map open read };
 allow useriam bootevent_param:parameter_service { set };
 allow useriam bootevent_samgr_param:file { map open read };
@@ -86,9 +87,10 @@ allow useriam huks_service:binder { call };
 allow useriam sensors:binder { transfer };
 allow sensors useriam:fd { use };
 allow sensors useriam:unix_stream_socket { read write };
-allow sensors useriam:binder { call };
-
 allow useriam devinfo_private_param:file { map open read };
-
+allow sensors useriam:binder { call };
 allow useriam storage_daemon:binder { call };
 
+allow useriam useriam_config_param:parameter_service { set };
+allow useriam useriam_config_param:file { map open read };
+allow useriam hdf_device_manager:hdf_devmgr_class { get };

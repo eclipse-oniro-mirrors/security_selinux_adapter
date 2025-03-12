@@ -32,4 +32,52 @@ allow sh sh:tcp_socket { connect create setopt getattr read write };
 
 # avc:  denied  { name_connect } for  pid=6313 comm="/bin/ftpget" scontext=u:r:sh:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
 allow sh port:tcp_socket { name_connect };
+
+# avc: denied { ioctl } for pid=6685, comm="/bin/top" path="dev/pts/0" ioctlcmd=0x5401 scontext=u:r:sh:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
+# avc: denied { ioctl } for pid=6685, comm="/bin/top" path="dev/pts/0" ioctlcmd=0x5404 scontext=u:r:sh:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
+allow sh devpts:chr_file { ioctl };
+allowxperm sh devpts:chr_file ioctl { 0x5401 0x5404 };
+
+# avc: denied { read open } for pid=6685, comm="/bin/top" path="/proc/6052/task" scontext=u:r:sh:s0 tcontext=u:r:debug_hap:s0 tclass=dir permissive=0
+allow sh debug_hap:dir { read open };
+
+# avc: denied { read open } for pid=6685, comm="/bin/top" path="/proc/stat" scontext=u:r:sh:s0 tcontext=u:object_r:proc_stat_file:s0 tclass=file permissive=0
+allow sh proc_stat_file:file { read open };
+
+# avc: denied { read open } for pid=6685, comm="/bin/top" path="/proc/meminfo" scontext=u:r:sh:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=0
+allow sh proc_meminfo_file:file { read open };
+
+# avc: denied { read open } for pid=6685, comm="/bin/top" path="/sys/devices/system/cpu" scontext=u:r:sh:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
+allow sh sysfs_devices_system_cpu:dir { read open };
+
+#avc: denied { create getattr read unlink } for pid=13532, comm="/bin/mkfifo" scontext=u:r:sh:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=fifo_file permissions=0
+allow sh data_local_tmp:fifo_file { create getattr read unlink };
+
+# avc: denied { search } for pid=32697, comm="bin/tty" scontext=u:r:sh:s0 tcontext=u:object_r:dev_pts_file:s0 tclass=dir permissions=0
+allow sh dev_pts_file:dir { search };
+
+# avc: denied { create getattr read unlink open } for pid=10562, comm="bin/sh" scontext=u:r:sh:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissions=0
+allow sh dev_encaps:chr_file { create getattr read unlink open };
+
+# avc: denied { create getattr read unlink } for pid=45334, comm="bin/ln" scontext=u:r:sh:s0 tcontext=u:object_r:lnk_file:s0 tclass=dir permissions=0
+allow sh data_local_tmp:lnk_file { create getattr read unlink };
+
+# avc: denied { execute_no_trans } for pid=51536, comm="bin/watch" scontext=u:r:sh:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissions=0
+# avc: denied { execute open read getattr unlink } for pid=24239, comm="bin/sh" scontext=u:r:sh:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissions=0
+allow sh sh_exec:file { execute_no_trans execute open read getattr unlink};
+
+# avc: denied { getattr } for pid=25100, comm="bin/stat" scontext=u:r:sh:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissions=0
+allow sh labeledfs:filesystem { getattr };
+
+# avc: denied { write remove_name search } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:hmdfs:s0 tclass=dir permissions=0
+allow sh hmdfs:dir { write remove_name search rmdir };
+
+# avc: denied { unlink } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissions=0
+allow sh hmdfs:file { unlink };
+
+# avc: denied { write remove_name search } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissions=0
+allow sh data_user_file:dir { write remove_name search rmdir };
+
+# avc: denied { unlink } for pid=25100, comm="bin/rm" scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissions=0
+allow sh data_user_file:file { unlink };
 ')

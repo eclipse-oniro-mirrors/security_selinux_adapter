@@ -11,11 +11,61 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-developer_only(`
-    allow test_server sa_test_server:samgr_class { add };
-    allow test_server hilog_param:file { read open };
-    allow test_server samgr:binder { call };
-    allow test_server uitest:binder { call };
-    allow test_server dev_unix_socket:dir { search };
-    allow test_server aa:binder { call };
-')
+neverallow { domain developer_only(`-uitest -wukong') debug_only(`-uitest -wukong') -SP_daemon } sa_test_server:samgr_class { get };
+allow test_server sa_test_server:samgr_class { add };
+allow test_server hilog_param:file { read open };
+allow test_server samgr:binder { call };
+allow test_server uitest:binder { call };
+allow test_server dev_unix_socket:dir { search };
+allow test_server aa:binder { call };
+allow test_server pasteboard_service:binder { call };
+allow test_server sa_pasteboard_service:samgr_class { get };
+allow test_server sa_foundation_cesfwk_service:samgr_class { get };
+allow test_server foundation:binder {call transfer};
+allow test_server SP_daemon:binder { call };
+allow test_server sa_resource_schedule_socperf_server:samgr_class { get };
+allow test_server resource_schedule_service:binder { call transfer };
+allow test_server samgr:binder { transfer };
+allow test_server sa_test_server:samgr_class { add };
+allow test_server hilog_param:file { read open };
+allow test_server samgr:binder { call };
+allow test_server uitest:binder { call };
+allow test_server dev_unix_socket:dir { search };
+allow test_server aa:binder { call };
+allow test_server pasteboard_service:binder { call };
+allow test_server sa_pasteboard_service:samgr_class { get };
+allow test_server sa_foundation_cesfwk_service:samgr_class { get };
+allow test_server foundation:binder {call transfer};
+allow test_server SP_daemon:binder { call };
+allow test_server sa_resource_schedule_socperf_server:samgr_class { get };
+allow test_server resource_schedule_service:binder { call transfer };
+allow test_server samgr:binder { transfer };
+
+allow test_server sh_exec:file { execute_no_trans execute open map read };
+allow test_server test_server:tcp_socket { accept bind listen };
+allow test_server node:tcp_socket { node_bind };
+allow test_server SP_daemon_exec:file { ioctl execute execute_no_trans getattr map open read };
+allow test_server persist_param:file { read open map };
+allow test_server sys_param:file { read open map };
+allow test_server persist_sys_param:file { read open map };
+allow test_server sysfs_devices_system_cpu:file { read open getattr };
+allow test_server tty_device:chr_file { open };
+allow test_server SP_daemon:process { siginh rlimitinh transition };
+allow test_server test_server:unix_dgram_socket { getopt setopt };
+allowxperm test_server SP_daemon_exec:file ioctl { 0x5413 };
+allow test_server SP_daemon:process { signal };
+allow test_server chip_prod_file:dir { search };
+allow test_server tty_device:chr_file { read write };
+allow test_server test_server:hmcap { supervsable };
+allow test_server SP_daemon:dir { getattr search };
+allow test_server SP_daemon:file { read open };
+allow test_server data_local:dir { search };
+allow test_server data_service_file:dir { search };
+allow test_server dev_kmsg_file:chr_file { write };
+allow test_server hidumper:dir { getattr search };
+allow test_server hidumper:file { open read };
+allow test_server proc_file:file { open read };
+allow test_server system_bin_file:lnk_file { read };
+allow test_server toybox_exec:file { execute execute_no_trans getattr map open read execute read };
+dontaudit test_server SP_daemon:process noatsecure;
+type_transition test_server SP_daemon_exec:process SP_daemon;

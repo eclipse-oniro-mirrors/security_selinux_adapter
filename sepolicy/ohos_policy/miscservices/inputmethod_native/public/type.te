@@ -11,5 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type input_isolate_hap, normal_hap_attr, hap_domain, domain;
-type input_isolate_debug_hap, normal_hap_attr, hap_domain, domain;
+type input_isolate_hap, domain;
+type input_isolate_debug_hap, domain;
+typeattribute input_isolate_hap input_isolate_attr;
+typeattribute input_isolate_debug_hap input_isolate_attr;
+
+# Just used for "allow input_isolate_hap supervsable"
+# which in ohos_policy/miscservices/inputmethod_native/public/input_isolate_hap.te
+typeattribute input_isolate_hap hmcap_supervsable_osr_attr;
+typeattribute input_isolate_debug_hap hmcap_supervsable_osr_attr;
+

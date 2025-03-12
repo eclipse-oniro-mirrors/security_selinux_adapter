@@ -13,3 +13,4 @@
 
 # for toybox
 /system/bin/toybox             u:object_r:toybox_exec:s0
+/eng_system/bin/toybox         u:object_r:toybox_exec:s0

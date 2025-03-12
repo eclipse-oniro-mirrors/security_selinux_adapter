@@ -51,7 +51,12 @@ allow updater_sa dev_file:dir { getattr };
 allow updater_sa update_firmware_file:dir { create rmdir setattr };
 allow updater_sa update_dupdate_engine_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow updater_sa update_dupdate_engine_file:file { create getattr ioctl lock map open read rename setattr unlink write };
-allowxperm updater_sa update_dupdate_engine_file:file ioctl { 0x5413 0xf50c };
+allowxperm updater_sa update_dupdate_engine_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
+
+allow updater_sa update_update_service_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
+allow updater_sa update_update_service_file:file { create getattr ioctl lock map open read rename setattr unlink write };
+allowxperm updater_sa update_update_service_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
+
 allow updater_sa servicectrl_param:parameter_service { set };
 allow updater_sa sa_sys_installer_service:samgr_class { get };
 allow updater_sa sys_installer_sa:binder { call transfer };

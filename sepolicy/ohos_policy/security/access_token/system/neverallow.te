@@ -14,11 +14,11 @@
 neverallow { domain -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_dir updater_only(`-updater') } accesstoken_data_file:dir *;
 neverallow { domain -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_file updater_only(`-updater') } accesstoken_data_file:file *;
 
-neverallow accesstoken_service accesstoken_data_file:dir ~{ search add_name open read write remove_name };
-neverallow accesstoken_service accesstoken_data_file:file ~{ open read getattr ioctl lock write create unlink };
+neverallow accesstoken_service accesstoken_data_file:dir ~{ create search add_name open read write remove_name ioctl };
+neverallow accesstoken_service accesstoken_data_file:file ~{ open read getattr ioctl lock write create unlink map setattr };
 
 neverallow init accesstoken_data_file:dir ~{ getattr open read relabelto setattr search };
-neverallow init accesstoken_data_file:file ~{ read write getattr setattr relabelto open };
+neverallow init accesstoken_data_file:file ~{ read write getattr setattr relabelto open lock };
 
-neverallow privacy_service accesstoken_data_file:dir ~{ search add_name open read write remove_name };
+neverallow privacy_service accesstoken_data_file:dir ~{ search add_name open read write remove_name ioctl };
 neverallow privacy_service accesstoken_data_file:file ~{ open read getattr ioctl lock write create unlink map setattr };

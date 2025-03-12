@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow foundation audio_server:binder { call transfer };
 allow foundation camera_service:binder { call transfer };
 allow foundation drm_service:binder { call transfer };
 allow foundation persist_param:parameter_service set;
@@ -34,3 +35,4 @@ allow foundation data_data_pulse_dir:file { lock open read write };
 allow foundation native_socket:sock_file { write };
 allow foundation audio_server:unix_stream_socket { connectto };
 allow foundation sa_miscdevice_service:samgr_class { get };
+allow foundation sa_dia_service:samgr_class { get };

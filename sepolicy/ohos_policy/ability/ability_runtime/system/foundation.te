@@ -50,6 +50,7 @@ allow foundation persist_param:parameter_service { set };
 allow foundation power_host:binder { call };
 allow foundation render_service:binder { call transfer };
 allow foundation render_service:fd { use };
+allow foundation composer_host:fd { use };
 allow foundation resource_schedule_service:binder { call transfer };
 allow foundation sa_accesstoken_manager_service:samgr_class { get };
 allow foundation sa_accountmgr:samgr_class { get };
@@ -109,7 +110,10 @@ allow foundation exfat:file { read write };
 allow foundation vfat:file { read write };
 allow foundation ntfs:file { read write };
 allow foundation key_enable:key { search };
+allow foundation accountmgr:fd { use };
 neverallow foundation *:process ptrace;
+allow foundation sa_sandbox_manager_service:samgr_class { get };
+binder_call(foundation, sa_sandbox_manager_service);
 
 # add for hiperf
 allow hiperf multimodalinput:fd { use };

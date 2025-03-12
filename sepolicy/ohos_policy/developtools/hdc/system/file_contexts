@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/service/el0/hdc               u:object_r:data_hdc_pubkeys:s0
-/data/service/el0/hdc/(.*)?         u:object_r:data_hdc_pubkeys:s0
+/data/service/el1/public/hdc               u:object_r:data_hdc_pubkeys:s0
+/data/service/el1/public/hdc/(.*)?         u:object_r:data_hdc_pubkeys:s0
 /system/bin/hdcd_user_permit        u:object_r:hdcd_user_permit_exec:s0

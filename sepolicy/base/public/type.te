@@ -81,7 +81,7 @@ type sh, develop_domain;
 type sh_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, sh_exec, sh);
 
-type hdcd, native_system_domain, domain;
+type hdcd, develop_domain;
 type hdcd_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, hdcd_exec, hdcd);
 
@@ -90,19 +90,18 @@ type atm_exec, exec_attr, file_attr, system_file_attr;
 
 type bm, native_system_domain, domain;
 type bm_exec, exec_attr, file_attr, system_file_attr;
-
 type updater, native_system_domain, domain;
-type cupsd, sadomain,  domain;
 type file_guard_server, sadomain,  domain;
-
-type uitest_exec, exec_attr, file_attr, system_file_attr;
-type uitest, native_system_domain, domain;
+type cupsd, sadomain, domain;
 
 type wukong, native_system_domain, domain;
 type wukong_exec, exec_attr, file_attr, system_file_attr;
 
 type SP_daemon, native_system_domain, domain;
 type SP_daemon_exec, exec_attr, file_attr, system_file_attr;
+
+type uitest_exec, exec_attr, file_attr, system_file_attr;
+type uitest, native_system_domain, domain;
 
 type aa, native_system_domain, domain;
 type aa_exec, exec_attr, file_attr, system_file_attr;

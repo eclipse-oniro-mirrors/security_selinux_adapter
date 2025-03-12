@@ -389,6 +389,8 @@ class binder
     call
     set_context_mgr
     transfer
+    actv_binder_service
+    actv_binder_call
 }
 class netlink_iscsi_socket
 inherits socket
@@ -478,6 +480,8 @@ class nfc_socket
 inherits socket
 class vsock_socket
 inherits socket
+class vsock_host_socket
+inherits socket
 class kcm_socket
 inherits socket
 class qipcrtr_socket
@@ -533,6 +537,8 @@ class xpm
     exec_no_sign
     exec_anon_mem
     exec_in_jitfort
+    exec_allow_debug_id
+    exec_allow_sa_plugin
 }
 
 class hideaddr
@@ -556,6 +562,12 @@ class hmpsf
     module_run
 }
 
+class hmprobe
+{
+    event_open
+    event_attach
+}
+
 class ced
 {
     container_escape_check
@@ -571,4 +583,10 @@ class hmcap
     supervsable
     pid_mem_read
     pid_mem_write
+    exec_non_lsyscall
+}
+
+class dmaheap
+{
+    iris_heap
 }

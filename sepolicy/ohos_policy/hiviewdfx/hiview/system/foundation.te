@@ -37,3 +37,13 @@ allow foundation data_log:dir { write setattr add_name create open read };
 #avc:  denied { ioctl } for pid=6966 comm="/system/bin/sa_main" path="/data/log/eventlog/freeze" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=17796 ioctlcmd=0x5413 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
 allow foundation data_log:file { ioctl read write create setattr getattr open append };
 allowxperm foundation data_log:file ioctl { 0x5413 };
+
+allow foundation hiview:fd { use };
+#avc:  denied { write } for pid=1431 comm="/system/bin/sa_main" path="pipe:[4036]" dev="tmpfs" ino=4036 scontext=u:r:foundation:s0 tcontext=u:r:hiview:s0 tclass=fifo_file permissive=1
+allow foundation hiview:fifo_file { write };
+
+#avc:  denied { open } for pid=1386 comm="/system/bin/sa_main" path="/proc/meminfo" dev="" ino=5 scontext=u:r:foundation:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+#avc:  denied { getattr } for pid=1386 comm="/system/bin/sa_main" path="/proc/meminfo" dev="" ino=5 ioctlcmd=0x5413 scontext=u:r:foundation:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+allow foundation proc_meminfo_file:file { open getattr read };
+
+allow foundation hiview_file:file { write };

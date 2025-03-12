@@ -39,7 +39,7 @@ allow dcamera dcamera_host:binder { call transfer };
 #avc:  denied  { write } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
 #avc:  denied  { nlmsg_read } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
 #avc:  denied  { read } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
-allow dcamera dcamera:netlink_route_socket { create nlmsg_read read write };
+allow dcamera dcamera:netlink_route_socket { create nlmsg_read nlmsg_readpriv read write };
 
 #avc:  denied  { search } for  pid=2047 comm="dcamera" name="socket" dev="tmpfs" ino=38 scontext=u:r:dcamera:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow dcamera dev_unix_socket:dir { search };
@@ -218,7 +218,6 @@ allow accessibility sa_powermgr_powermgr_service:samgr_class { get };
 allow dcamera dev_ashmem_file:chr_file { read open map };
 allow normal_hap sa_dhardware_service:samgr_class { get };
 allow normal_hap dhardware:binder { call };
-
 
 
 allow dcamera bootevent_param:file { map open read };

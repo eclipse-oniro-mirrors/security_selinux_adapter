@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,58 +11,52 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow bytrace hiprofiler_plugins:fifo_file read;
-allow bytrace hiprofiler_plugins:unix_stream_socket { read write };
-allow bytrace hiprofilerd:fd use;
+developer_only(`
+    allow bytrace hiprofiler_plugins:fifo_file read;
+    allow bytrace hiprofiler_plugins:unix_stream_socket { read write };
+    allow bytrace hiprofilerd:fd use;
 
-allow bytrace hiprofiler_plugins:fd use;
-allow bytrace hiprofiler_plugins:fifo_file write;
+    allow bytrace hiprofiler_plugins:fd use;
+    allow bytrace hiprofiler_plugins:fifo_file write;
 
-allow bytrace domain:file { map open read write };
+    allow bytrace domain:file { map open read write };
 
-allow bytrace data_local_tmp:dir read;
+    allow bytrace data_local_tmp:dir read;
 
-allow bytrace const_param:file { read map open };
-allow bytrace hw_sc_build_os_param:file map;
-allow bytrace init_param:file { map open read };
-allow bytrace init_svc_param:file { map open read };
-allow bytrace ohos_boot_param:file open;
-allow bytrace tmpfs:file { read write };
+    allow bytrace const_param:file { read map open };
+    allow bytrace hw_sc_build_os_param:file map;
+    allow bytrace init_param:file { map open read };
+    allow bytrace init_svc_param:file { map open read };
+    allow bytrace ohos_boot_param:file open;
+    allow bytrace tmpfs:file { read write };
 
-allow bytrace const_postinstall_fstab_param:file { read map open };
-allow bytrace const_postinstall_param:file { read map open };
+    allow bytrace const_postinstall_fstab_param:file { read map open };
+    allow bytrace const_postinstall_param:file { read map open };
 
-allow bytrace bootevent_param:file { read map open };
-allow bytrace build_version_param:file { read map open };
-allow bytrace const_build_param:file { read map open };
-allow bytrace const_product_param:file { read map open };
-allow bytrace debug_param:file { read map open };
-allow bytrace hilog_param:file { read map open };
-allow bytrace persist_param:file { read map open };
-allow bytrace persist_sys_param:file { read map open };
-allow bytrace security_param:file { read map open };
-allow bytrace startup_param:file { read map open };
+    allow bytrace bootevent_param:file { read map open };
+    allow bytrace build_version_param:file { read map open };
+    allow bytrace const_build_param:file { read map open };
+    allow bytrace const_product_param:file { read map open };
+    allow bytrace debug_param:file { read map open };
+    allow bytrace hilog_param:file { read map open };
+    allow bytrace persist_param:file { read map open };
+    allow bytrace persist_sys_param:file { read map open };
+    allow bytrace security_param:file { read map open };
+    allow bytrace startup_param:file { read map open };
 
-allow bytrace bootevent_samgr_param:file { read map open };
-allow bytrace const_display_brightness_param:file { read map open };
-allow bytrace default_param:file { read map open };
-allow bytrace distributedsche_param:file { read map open };
-allow bytrace input_pointer_device_param:file { read map open };
+    allow bytrace bootevent_samgr_param:file { read map open };
+    allow bytrace const_display_brightness_param:file { read map open };
+    allow bytrace default_param:file { read map open };
+    allow bytrace distributedsche_param:file { read map open };
+    allow bytrace input_pointer_device_param:file { read map open };
 
-allow bytrace hiprofiler_plugins:fifo_file ioctl;
+    allow bytrace hiprofiler_plugins:fifo_file ioctl;
 
-allow hiperf init_exec:file { getattr map open read };
-allow hiperf render_service_exec:file { getattr map open read };
+    allow bytrace const_allow_mock_param:file { read map open };
+    allow bytrace const_allow_param:file { read map open };
 
-allow bytrace const_allow_mock_param:file { read map open };
-allow bytrace const_allow_param:file { read map open };
-
-allow bytrace sa_hiview_service:samgr_class get;
-allow bytrace samgr:binder { call };
-allow bytrace dev_console_file:chr_file { read write };
-allow bytrace hiview:binder { call transfer };
-
-allow samgr bytrace:dir { search };
-allow samgr bytrace:file { read open };
-allow samgr bytrace:process { getattr };
-allow samgr bytrace:binder { call transfer };
+    allow bytrace sa_hiview_service:samgr_class get;
+    allow bytrace samgr:binder { call };
+    allow bytrace dev_console_file:chr_file { read write };
+    allow bytrace hiview:binder { call transfer };
+')

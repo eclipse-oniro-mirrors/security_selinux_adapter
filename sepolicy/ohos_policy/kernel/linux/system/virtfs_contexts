@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -18,3 +18,12 @@ genfscon sysfs /fs/f2fs          u:object_r:f2fs_hc_file:s0
 
 # for memory, transparent_hugepage
 genfscon sysfs /kernel/mm/transparent_hugepage u:object_r:sysfs_transparent_hugepage:s0
+
+# for sandbox appdata
+genfscon sharefs /currentUser/appdata u:object_r:sharefs_appdata_file:s0
+genfscon sharefs /currentUser/appdata/el1/base/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /currentUser/appdata/el2/base/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /currentUser/appdata/el2/cloud/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /currentUser/appdata/el2/distributedfiles/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /currentUser/appdata/el5/base/ u:object_r:sharefs_appdata_bundle_file:s0
+

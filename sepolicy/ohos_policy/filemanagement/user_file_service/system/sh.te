@@ -17,7 +17,6 @@ developer_only(`
 allow sh tmpfs:dir { search read open getattr };
 allow sh hmdfs:dir { search read open getattr };
 allow sh hmdfs:file { write read map create rename append open getattr };
-allow sh data_service_el2_hmdfs:dir { search read open getattr };
 allow sh data_user_file:dir { write read add_name create rename open getattr search };
 allow sh data_user_file:file { write read map create rename append open getattr };
 ')

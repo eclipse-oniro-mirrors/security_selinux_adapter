@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow audio_server audio_server:unix_stream_socket { connectto };
 allow audio_server bootevent_param:file { map open read };
 allow audio_server bootevent_samgr_param:file { map open read };
 allow audio_server build_version_param:file { map open read };
@@ -37,10 +38,11 @@ allow audio_server net_param:file { map open read };
 allow audio_server net_tcp_param:file { map open read };
 allow audio_server ohos_boot_param:file { map open read };
 allow audio_server ohos_param:file { map open read };
+allow audio_server param_watcher:binder { call transfer };
 allow audio_server persist_param:file { map open read };
 allow audio_server persist_sys_param:file { map open read };
-allow audio_server audio_server:unix_stream_socket { connectto };
 allow audio_server sa_bluetooth_server:samgr_class { get };
+allow audio_server sa_param_watcher:samgr_class { get };
 allow audio_server security_param:file { map open read };
 allow audio_server startup_param:file { map open read };
 allow audio_server sys_param:file { map open read };

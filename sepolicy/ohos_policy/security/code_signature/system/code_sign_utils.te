@@ -13,4 +13,4 @@
 
 
 type code_sign_utils, exec_attr, system_file_attr, file_attr;
-neverallow {domain -installs -ark_aot_compiler developer_only(`-hnp')} code_sign_utils:file { execute };
+neverallow {domain -installs -ark_aot_compiler developer_only(`-hnp') -hnp_violator} code_sign_utils:file { execute };

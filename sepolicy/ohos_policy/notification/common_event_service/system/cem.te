@@ -26,7 +26,6 @@ allow samgr cem:binder { call transfer };
 allow samgr cem:dir { search };
 allow samgr cem:file { read open };
 allow samgr cem:process { getattr };
-allow cem cem:hmcap { supervsable };
 allow cem chip_prod_file:dir { search };
 allow cem dev_kmsg_file:chr_file { write };
 allow cem dev_ptmx:chr_file { read write };
@@ -34,6 +33,13 @@ allow cem dev_unix_socket:dir { search };
 allow cem tty_device:chr_file { read write };
 allow cem dev_console_file:chr_file { read write };
 allow cem persist_param:file { map read open };
+# avc: denied { use } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/cem" dev="/dev/block/platform/fa500000.ufs/by-name/system" ino=78051464 scontext=u:r:cem:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
+allow cem sh:fd { use };
+allow cem sh:unix_stream_socket { read write };
+allow cem sh:fifo_file { ioctl read write };
+allowxperm cem sh:fifo_file ioctl { 0x5413 };
+allow cem hdcd:fd { use };
+allow cem hdcd:unix_stream_socket { read write };
 ')
 
 debug_only(`
@@ -52,7 +58,6 @@ allow samgr cem:binder { call transfer };
 allow samgr cem:dir { search };
 allow samgr cem:file { read open };
 allow samgr cem:process { getattr };
-allow cem cem:hmcap { supervsable };
 allow cem chip_prod_file:dir { search };
 allow cem dev_kmsg_file:chr_file { write };
 allow cem dev_ptmx:chr_file { read write };
@@ -60,4 +65,6 @@ allow cem dev_unix_socket:dir { search };
 allow cem tty_device:chr_file { read write };
 allow cem dev_console_file:chr_file { read write };
 allow cem persist_param:file { map read open };
+allow cem hdcd:fd { use };
+allow cem hdcd:unix_stream_socket { read write };
 ')

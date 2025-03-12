@@ -94,6 +94,7 @@ allow edm_sa persist_sys_param:file { map open read };
 
 # avc: denied { use } for pid=1072 comm="IPC_5_1858" path="/dev/ashmem" dev="tmpfs" ino=576 scontext=u:r:edm_sa:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
 allow edm_sa render_service:fd { use };
+allow edm_sa composer_host:fd { use };
 
 allow edm_sa sa_accesstoken_manager_service:samgr_class { get };
 allow edm_sa sa_accountmgr:samgr_class { get };
@@ -142,6 +143,10 @@ allow edm_sa startup_param:file { map open read };
 allow edm_sa sa_bluetooth_server:samgr_class { get };
 allow edm_sa bluetooth_service:binder { call };
 allow edm_sa sa_location_locator_service:samgr_class { get };
+
+# avc: denied { get } for service=1152 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_net_policy_manager:s0 tclass=samar_class permissive=0
+allow edm_sa sa_net_policy_manager:samgr_class { get };
+
 allow edm_sa sa_telephony_tel_cellular_data:samgr_class { get };
 allow edm_sa sa_telephony_tel_core_service:samgr_class { get };
 allow edm_sa locationhub:binder { call };
@@ -181,9 +186,6 @@ allow edm_sa edm_writable_param:parameter_service { set };
 allow edm_sa data_service_el1_file:dir { create setattr };
 allow edm_sa foundation:fd { use };
 
-# avc:  denied  { set } for parameter=persist.useriam.enable.fingerprintauth pid=756 uid=3057 gid=3057 scontext=u:r:edm_sa:s0 tcontext=u:object_r:useriam_enable_writable_param:s0 tclass=parameter_service permissive=0
-allow edm_sa useriam_enable_writable_param:parameter_service { set };
-
 # avc:  denied  { ioctl } for  pid=398 comm="edm" path="/data/service/el1/public/edm/edmdb.db" dev="mmcblk0p12" ino=14159 ioctlcmd=0xf50c scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 allowxperm edm_sa data_service_el1_file:file ioctl { 0x5413 0xf50c };
 
@@ -204,3 +206,19 @@ allow edm_sa useriam:binder { call };
 
 # avc:  denied  { get } for service=3001 pid=6793 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samar_class permissive=0
 allow edm_sa sa_pulseaudio_audio_service:samgr_class { get };
+
+allow edm_sa system_core_hap:fd { use };
+allow edm_sa render_service:binder { call transfer };
+allow edm_sa sa_render_service:samgr_class { get };
+allow render_service edm_sa:binder { transfer };
+allow render_service edm_sa:fd { use };
+
+allow edm_sa sa_camera_service:samgr_class { get };
+allow edm_sa camera_service:binder { call };
+neverallow { domain -edm_sa -init } edm_writable_param:parameter_service { set };
+
+# avc:  denied  { get } for service=3524 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_sg_collect_service:samgr_class { get };
+
+# avc:  denied  { append } for  pid=445 comm="OS_IPC_2_1213" path="/data/service/el1/public/edm/browser/com.example.edmtest8" dev="mmcblk0p15" ino=10496 scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow edm_sa data_service_el1_file:file { append };

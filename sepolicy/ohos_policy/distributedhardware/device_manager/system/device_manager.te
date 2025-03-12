@@ -325,3 +325,27 @@ allow device_manager sa_memory_manager_service:samgr_class { get };
 allow device_manager memmgrservice:binder { call };
 allow device_manager accountmgr:fd { use };
 allow device_manager sa_screenlock_service:samgr_class { get };
+allow device_manager sa_powermgr_powermgr_service:samgr_class { get };
+allow device_manager sa_wifi_device_ability:samgr_class { get };
+
+#avc:  denied  { read } for  pid=3850 comm="device_manager" name="online" dev="sysfs" ino=4921 scontext=u:r:device_manager:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=3850 comm="device_manager" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4921 scontext=u:r:device_manager:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=3850 comm="device_manager" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4921 scontext=u:r:device_manager:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow device_manager sysfs_devices_system_cpu:file { read open getattr };
+#avc:  denied  { call } for  pid=3850 comm="OS_IPC_3_3863" scontext=u:r:device_manager:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow device_manager wifi_manager_service:binder { call };
+#avc:  denied  { call } for  pid=3850 comm="OS_IPC_3_3863" scontext=u:r:device_manager:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+allow device_manager powermgr:binder { call };
+#avc:  denied  { get } for service=1301 sid=u:r:device_manager:s0 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=0
+allow device_manager sa_distributeddata_service:samgr_class { get };
+allow device_manager distributeddata:binder { call transfer };
+allow device_manager distributeddata:fd { use };
+allow device_manager data_service_el1_file:dir { search write add_name create getattr read open remove_name };
+allow device_manager data_service_el1_file:dir { relabelfrom };
+allow device_manager data_service_el1_file:file { create write open read getattr ioctl lock unlink map setattr };
+allow device_manager data_service_file:dir { search };
+allow device_manager data_user_file:dir { getattr search };
+allowxperm device_manager data_service_el1_file:file ioctl { 0xf50c 0x5413 0xf546 0xf547 };
+allow device_manager data_file:dir { search };
+allow device_manager chip_prod_file:dir { search };
+allow device_manager foundation:fd { use };

@@ -95,7 +95,7 @@ allow sensors system_core_hap_attr:binder { call };
 allow sensors sa_privacy_service:samgr_class { get };
 
 #avc:  denied  { call } for  pid=549 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=0
-allow sensors privacy_service:binder { call };
+binder_call(sensors, privacy_service);
 
 #avc:  denied  { read } for  pid=2827 comm="sa_main" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:sensors:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=0
 allow sensors accessibility_param:file { read };
@@ -136,6 +136,7 @@ allow sensors data_local_tmp:file { getattr read };
 allow sensors sysfs_devices_system_cpu:file { getattr open read };
 
 allow sensors render_service:fd { use };
+allow sensors composer_host:fd { use };
 allow sensors render_service:unix_stream_socket { read write };
 allow sensors render_service:binder { call };
 
@@ -152,12 +153,16 @@ allow sensors audio_server:unix_stream_socket { read write };
 # avc:  denied  { use } for  pid=356 comm="audio_server" path="socket:[30765]" dev="sockfs" ino=30765 scontext=u:r:sensors:s0 tcontext=u:r:audio_server:s0 tclass=fd permissive=1
 allow sensors audio_server:fd { use };
 
+# avc:  denied  { call } for  pid=580 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
+allow sensors audio_server:binder { call };
+
 #avc:  denied  { call } for  pid=1143 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=1143 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:audio_server:s0 tclass=binder permissive=1
 allow sensors audio_server:binder { call transfer };
 
 #avc:  denied  { call } for  pid=1143 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
-allow sensors distributeddata:binder { call };
+#avc:  denied { transfer } for pid=1447, comm="/system/bin/sa_main"  scontext=u:r:sensors:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
+allow sensors distributeddata:binder { call transfer };
 
 #avc:  denied  { use } for  pid=1143 comm="sensors" path="/dev/ashmem" dev ="tmpfs" ino=619 ioctlcmd=0x7706 scontext=u:r:sensors:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
 allow sensors distributeddata:fd { use };
@@ -192,6 +197,31 @@ allow sensors sa_foundation_cesfwk_service:samgr_class { get };
 
 #avc: denied { getattr } for pid=1373, comm="/system/bin/sa_main" path="/data/themes/a/system/sub_screen/lock/base/resources/rich_tap/charging_2.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=46896 scontext=u:r:sensors:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 allow sensors data_service_el1_file:file { getattr };
+
+#avc: denied { call } for pid=1420, comm="/system/bin/sa_main" scontext=u:r:sensors:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+allow sensors accountmgr:binder { call };
+
+#avc: denied { write } for pid=1489, comm="/system/bin/sa_main" path="pipe:[13]" dev="tmpfs" ino=13 scontext=u:r:sensors:s0 tcontext=u:r:init:s0 tclass=fifo_file permissive=0
+allow sensors init:fifo_file { write };
+
+#avc: denied { get } for service=200 sid=u:r:sensors:s0 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
+allow sensors sa_accountmgr:samgr_class { get };
+
+#avc: denied { get } for service=501 sid=u:r:sensors:s0 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow sensors sa_foundation_appms:samgr_class { get };
+
+#avc: denied { get } for service=401 sid=u:r:sensors:s0 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+allow sensors sa_foundation_bms:samgr_class { get };
+
+#avc: denied { search } for pid=1381, comm="/system/bin/sa_main" name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=9 scontext=u:r:sensors:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow sensors data_service_file:dir { search };
+
+#avc: denied { search } for pid=1381, comm="/system/bin/sa_main" name="/service/el1" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13 scontext=u:r:sensors:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow sensors data_service_el1_file:dir { search };
+
+#avc: denied { getattr } for pid=1381, comm="/system/bin/sa_main" path="/data/storage/el2/base/haps/entry/files/vib.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=22829 scontext=u:r:sensors:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1381, comm="/system/bin/sa_main" path="/data/storage/el2/base/haps/entry/files/vib.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=22829 scontext=u:r:sensors:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
+allow sensors system_basic_hap_data_file:file { read getattr };
 
 debug_only(`
     #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0

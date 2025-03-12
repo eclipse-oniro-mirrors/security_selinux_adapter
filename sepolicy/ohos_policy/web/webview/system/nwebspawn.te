@@ -17,7 +17,7 @@ allow nwebspawn system_bin_file:file { open };
 # avc:  denied  { execute_no_trans } for  pid=1601 comm="nwebspawn" path="/system/bin/nwebspawn" dev="mmcblk0p7" ino=300 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow nwebspawn system_bin_file:file { execute_no_trans };
 
-# avc:  denied  { execute } for  pid=1601 comm="nwebspawn" path="/system/app/com.ohos.nweb/NWeb.hap" dev="mmcblk0p7" ino=78 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+# avc:  denied  { execute } for  pid=1601 comm="nwebspawn" path="/system/app/ArkWeb/ArkWebCore.hap" dev="mmcblk0p7" ino=78 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
 allow nwebspawn system_file:file { execute };
 
 #avc:  denied  { search } for  pid=1852 comm="nwebspawn" name="socket" dev="tmpfs" ino=40 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
@@ -146,9 +146,27 @@ allow nwebspawn system_lib_file:dir { search open read };
 # avc:  denied  { map } for  pid=2795 comm="appspawn" path="/system/bin/appspawn" dev="mmcblk0p7" ino=136 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:appspawn_exec:s0 tclass=file permissive=0
 allow nwebspawn appspawn_exec:file { map };
 
+allow nwebspawn vendor_etc_vulkan_file:dir { mounton search };
+neverallow nwebspawn vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
+
+# avc_audit_slow:267] avc: denied { read } for pid=1, comm="/system/bin/appspawn"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=230 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow nwebspawn arkcompiler_param:file { map open read };
+
 debug_only(`
     allow nwebspawn data_storage:dir { mounton getattr };
     allow nwebspawn data_file:dir { mounton getattr };
 ')
 
-neverallow { domain -nwebspawn -foundation } nwebspawn_socket:sock_file { read write };
+neverallow { domain -nwebspawn -foundation -app_fwk_update_service } nwebspawn_socket:sock_file { read write };
+
+allow nwebspawn isolated_gpu:process { sigkill };
+allow nwebspawn data_local_shadercache:dir { mounton search };
+allow nwebspawn data_local:dir { search };
+
+#avc_audit_slow:276] avc: denied { mounton } for pid=1, comm="/system/bin/appspawn" path="/mnt/sandbox/com.ohos.render/com.example.webrender/data/service/el1/public/for-all-app" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=134 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dit permissive=1
+#avc_audit_slow:276] avc: denied { search } for pid=1, comm="/system/bin/appspawn" name="/service/el1/public" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=1298 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow nwebspawn data_service_el1_file:dir { mounton search };
+
+#avc_audit_slow:276] avc: denied { search } for pid=1, comm="/system/bin/appspawn" name="service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=9 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow nwebspawn data_service_file:dir { search };
+

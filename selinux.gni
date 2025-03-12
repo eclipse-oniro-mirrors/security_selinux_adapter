@@ -13,22 +13,23 @@
 
 BUILD_CONFIG_DIR = "//build/config"
 THIRD_PARTY_DIR = "//third_party"
+OHOS_PRODUCT_DIR = "base/security/selinux_adapter/sepolicy/ohos_product"
 
 declare_args() {
-  selinux_build_path = "default"
-  components = "default"
-  vendor_policy_version = "40"
-  special_build_policy_script = "default"
-  special_build_contexts_script = "default"
+  selinux_adapter_build_path = "default"
+  selinux_adapter_components = "default"
+  selinux_adapter_vendor_policy_version = "40"
+  selinux_adapter_special_build_policy_script = "default"
+  selinux_adapter_special_build_contexts_script = "default"
   special_build_ignore_cfg = "default"
   special_selinux_check_config = "default"
-  extra_args = "default"
-  contexts_extra_args = "default"
-  support_developer_mode = false
-  special_build_selinux_gni_path = ""
-  selinux_check_extend_list = "default"
+  selinux_adapter_extra_args = "default"
+  selinux_adapter_contexts_extra_args = "default"
+  selinux_adapter_support_developer_mode = false
+  selinux_adapter_special_build_selinux_gni_path = ""
+  selinux_adapter_check_extend_list = "default"
 }
 
 declare_args() {
-  selinux_enforce = true
+  selinux_adapter_enforce = true
 }

@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type av_codec_service, sadomain, domain;
-type sa_av_codec_service, sa_service_attr;
-
 debug_only(`
     allow av_codec_service sh:binder { call transfer };
     allow av_codec_service sh:fd { use };
@@ -118,6 +115,7 @@ allow av_codec_service normal_hap_attr:binder { call transfer };
 allow av_codec_service render_service:binder { transfer };
 
 allow av_codec_service render_service:fd { use };
+allow av_codec_service composer_host:fd { use };
 allow av_codec_service dev_mpp:chr_file { open read write ioctl };
 allowxperm av_codec_service dev_mpp:chr_file ioctl { 0x7601 };
 
@@ -134,3 +132,9 @@ allow av_codec_service camera_service:binder { call transfer };
 
 allow av_codec_service dhardware:binder { call transfer };
 allow av_codec_service dscreen:binder { call transfer };
+
+allow av_codec_service sa_memory_manager_service:samgr_class { get };
+allow av_codec_service foundation:binder { call };
+allow av_codec_service dev_kmsg_file:chr_file { open read write };
+allow av_codec_service tty_device:chr_file { open read write };
+allow av_codec_service sys_prod_file:dir { search };

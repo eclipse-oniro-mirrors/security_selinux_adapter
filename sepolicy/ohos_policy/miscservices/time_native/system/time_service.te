@@ -13,6 +13,7 @@
 
 allow time_service sa_foundation_abilityms:samgr_class { get };
 allow time_service foundation:binder { call transfer };
+allow time_service accountmgr:binder { call transfer };
 allow time_service accesstoken_service:binder { call };
 allow time_service time_service:capability { sys_time };
 allow time_service sa_accesstoken_manager_service:samgr_class { get };
@@ -43,13 +44,15 @@ debug_only(`
 allow time_service dev_unix_file:sock_file { write };
 allow time_service wifi_manager_service:binder { call transfer };
 allow time_service data_service_el1_file:file { ioctl lock };
-allowxperm time_service data_service_el1_file:file ioctl { 0xf50c };
+allowxperm time_service data_service_el1_file:file ioctl { 0xf50c 0xf546 0xf547 };
 allow time_service dev_ashmem_file:chr_file { open };
 allow time_service dev_kmsg_file:chr_file { write };
 allow time_service tty_device:chr_file { read write };
 allow time_service dev_console_file:chr_file { read write };
 allow time_service sysfs_devices_system_cpu:file { read };
 allow time_service data_service_el1_file:file { getattr };
+#avc: denied { setattr } for name="/service/el1/public/database/time/time.db"
+allow time_service data_service_el1_file:file { setattr };
 allow time_service sysfs_devices_system_cpu:file { open };
 allow time_service data_service_el1_file:file { map };
 allow time_service sa_huks_service:samgr_class { get };
@@ -64,4 +67,5 @@ allow time_service data_service_el1_file:file { unlink };
 allow time_service distributeddata:binder { call };
 allow time_service sa_memory_manager_service:samgr_class { get };
 allow time_service memmgrservice:binder { call };
+allow time_service netmanager:file { getattr };
 

@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow hidumper data_log:file read;
+allow hidumper data_log:file append;
 allow hidumper data_file:dir search;
 allow hidumper data_init_agent:dir search;
 allow hidumper data_init_agent:file { append ioctl open read };
@@ -41,6 +43,7 @@ allow hidumper vendor_lib_file:dir search;
 allow hidumper bootevent_param:file { map open read };
 allow hidumper bootevent_samgr_param:file { map open read };
 allow hidumper build_version_param:file { map open read };
+allow hidumper chip_prod_file:dir { search };
 allow hidumper const_allow_mock_param:file { map open read };
 allow hidumper const_allow_param:file { map open read };
 allow hidumper const_build_param:file { map open read };
@@ -74,9 +77,9 @@ allow hidumper dev_file:dir { getattr };
 allow hidumper musl_param:file { read open map };
 allow hidumper hiprofiler_plugins:fifo_file { read };
 allow hidumper sys_file:file { read };
-allow hidumper hdcd:fifo_file {read };
+allow hidumper hdcd:fifo_file { read };
 
-allow hidumper hidumper_file:file { write open read };
+allow hidumper hidumper_file:file { write open read append };
 
 developer_only(`
     allow hidumper sh:fd use;

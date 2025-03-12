@@ -11,9 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hitrace hiprofiler_plugins:fifo_file read;
-allow hitrace hiprofiler_plugins:unix_stream_socket { read write };
-allow hitrace hiprofilerd:fd use;
-allow hitrace hiprofiler_plugins:fd use;
-allow hitrace hiprofiler_plugins:fifo_file write;
-allow hitrace hiprofiler_plugins:fifo_file ioctl;
+developer_only(`
+    allow hitrace hiprofiler_plugins:fifo_file read;
+    allow hitrace hiprofiler_plugins:unix_stream_socket { read write };
+    allow hitrace hiprofilerd:fd use;
+    allow hitrace hiprofiler_plugins:fd use;
+    allow hitrace hiprofiler_plugins:fifo_file write;
+    allow hitrace hiprofiler_plugins:fifo_file ioctl;
+')

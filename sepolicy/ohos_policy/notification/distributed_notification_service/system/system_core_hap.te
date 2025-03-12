@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow system_core_hap_attr sa_foundation_ans:samgr_class { get };
+#avc:  denied  { get } for service=1130 pid=8861 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_foundation_reminder_agent_service:s0 tclass=samgr_class permissive=1
+allow system_core_hap_attr sa_foundation_reminder_agent_service:samgr_class { get };
