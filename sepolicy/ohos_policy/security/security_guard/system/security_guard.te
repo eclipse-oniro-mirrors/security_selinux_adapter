@@ -68,3 +68,13 @@ allow security_guard sa_sys_event_service:samgr_class { get };
 allow security_guard sa_security_collector_service:samgr_class { get add };
 
 binder_call(security_guard, security_collector);
+
+# avc:  denied  { add_name } for  pid=506 comm="OS_FFRT_2_0" name="sgevent_20171005095926.gz" scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { open } for  pid=506 comm="OS_FFRT_2_0" path="/data/service/el1/public/database/security_guard_service/file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=506 comm="OS_FFRT_2_0" name="file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=506 comm="OS_FFRT_2_0" name="file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=506 comm="OS_FFRT_2_0" name="file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+allow security_guard security_guard_file_store_file:dir { add_name open read search write };
+
+# avc:  denied  { create } for  pid=506 comm="OS_FFRT_2_0" name="sgevent_20171005095926.gz" scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=file permissive=1
+allow security_guard security_guard_file_store_file:file { create read write append open rename };

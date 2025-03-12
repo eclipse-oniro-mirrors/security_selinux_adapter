@@ -13,4 +13,5 @@
 
 type system_etc_security_guard_file, system_file_attr, file_attr;
 type data_service_el1_public_security_guard_file, data_file_attr, file_attr;
+type security_guard_file_store_file, data_file_attr, file_attr;
 
