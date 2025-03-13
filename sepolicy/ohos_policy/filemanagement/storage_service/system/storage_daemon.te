@@ -463,3 +463,14 @@ allow storage_daemon sa_foundation_appms:samgr_class { get };
 allow storage_daemon fuse_file:filesystem { relabelfrom };
 #avc:  denied { use } for pid=649 comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_manager:s0 tclass=fd permissive=0
 allow storage_daemon storage_manager:fd { use };
+
+allow storage_daemon mnt_external_file:dir { ioctl };
+allowxperm storage_daemon mnt_external_file:dir ioctl { 0xac4d };
+
+allowxperm storage_daemon ntfs:dir ioctl { 0xac4d };
+allowxperm storage_daemon vfat:dir ioctl { 0xac4d };
+allowxperm storage_daemon exfat:dir ioctl { 0xac4d };
+
+allow storage_daemon ntfs:dir { ioctl open read };
+allow storage_daemon vfat:dir { ioctl open read };
+allow storage_daemon exfat:dir { ioctl open read };
