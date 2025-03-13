@@ -179,7 +179,8 @@ neverallow domain default_param:parameter_service *;
 neverallow domain default_service:samgr_class *;
 
 # Please set hdf_service label in hdf_service_contexts
-neverallow domain default_hdf_service:hdf_devmgr_class *;
+neverallow domain default_hdf_service:hdf_devmgr_class ~{ add get };
+neverallow { domain -usb_host -usb_service } default_hdf_service:hdf_devmgr_class { add get };
 
 # Please set secon field service's cfg file, don't use limit_domain!
 neverallow limit_domain *:file *;
