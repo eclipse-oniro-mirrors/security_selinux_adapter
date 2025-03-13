@@ -128,4 +128,5 @@ allow usb_service dev_bus:dir { search };
 allow normal_hap usb_service:binder { transfer };
 allow usb_service normal_hap_attr :binder { call transfer };
 allow usb_service normal_hap_attr:fd { use };
-allow usb_service default_hdf_service:hdf_devmgr_class { get };
+allow usb_service hdf_usb_device_interface_service:hdf_devmgr_class { get };
+allow usb_service hdf_usb_port_interface_service:hdf_devmgr_class { get };

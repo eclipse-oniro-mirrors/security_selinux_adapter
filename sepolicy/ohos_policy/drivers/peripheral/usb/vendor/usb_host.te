@@ -159,4 +159,5 @@ allow usb_host dev_sg_file:chr_file { open read write ioctl };
 allowxperm usb_host dev_sg_file:chr_file ioctl { 0x2285 };
 allow usb_host sys_file:file { open read write };
 allow usb_host sys_file:dir { open read search };
-allow usb_host default_hdf_service:hdf_devmgr_class { add };
+allow usb_host hdf_usb_device_interface_service:hdf_devmgr_class { add };
+allow usb_host hdf_usb_port_interface_service:hdf_devmgr_class { add };
