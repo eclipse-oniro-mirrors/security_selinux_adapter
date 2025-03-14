@@ -254,3 +254,12 @@ allow wifi_manager_service edm_sa:binder { call };
 
 # avc:  denied  { call } for  pid=2704 comm="/system/bin/sa_main" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
 allow wifi_manager_service device_manager:binder { call };
+
+# avc: denied { open } for pid=2504, comm="/system/bin/sa_main"  path="/data/service/el1/public/wifi" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2260 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+# avc: denied { ioctl } for pid=2755, comm="/system/bin/sa_main"  path="/data/service/el1/public/wifi/wifi_history_record.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=30006 ioctlcmd=0xf547 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+# avc: denied { read } for pid=2580, comm="/system/bin/sa_main"  path="/data/service/el1/public/wifi" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2405 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc: denied { ioctl } for pid=2580, comm="/system/bin/sa_main"  path="/data/service/el1/public/wifi" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2405 ioctlcmd=0xf546 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc: denied { ioctl } for pid=2580, comm="/system/bin/sa_main"  path="/data/service/el1/public/wifi" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2405 ioctlcmd=0xf547 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow wifi_manager_service data_service_el1_file:dir { read open ioctl };
+allowxperm wifi_manager_service data_service_el1_file:dir ioctl { 0xf546 0xf547 };
+allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0xf547 };
