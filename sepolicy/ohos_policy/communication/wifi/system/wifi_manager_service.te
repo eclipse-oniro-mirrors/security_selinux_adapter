@@ -254,3 +254,7 @@ allow wifi_manager_service edm_sa:binder { call };
 
 # avc:  denied  { call } for  pid=2704 comm="/system/bin/sa_main" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
 allow wifi_manager_service device_manager:binder { call };
+
+allow wifi_manager_service data_service_el1_file:dir { read open ioctl };
+allowxperm wifi_manager_service data_service_el1_file:dir ioctl { 0xf546 0xf547 };
+allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0xf547 };
