@@ -15,4 +15,5 @@
 /system/etc/security_guard_event.cfg u:object_r:system_etc_security_guard_file:s0
 /system/etc/security_guard.cfg u:object_r:system_etc_security_guard_file:s0
 /data/service/el1/public/security_guard(/.*)? u:object_r:data_service_el1_public_security_guard_file:s0
+/data/service/el1/public/database/security_guard_service/file_store(/.*)? u:object_r:security_guard_file_store_file:s0
 

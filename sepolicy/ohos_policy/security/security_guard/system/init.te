@@ -14,3 +14,4 @@
 allow init security_guard:process { siginh transition rlimitinh };
 allow init data_service_el1_public_security_guard_file:dir { relabelto getattr read setattr open write add_name create search };
 
+allow init security_guard_file_store_file:dir { relabelto getattr read setattr open write add_name create search };
