@@ -193,7 +193,8 @@ def sehap_check_line(line, line_index, contexts_write, domain, contexts_file):
 
     pattern = re.compile(
         r'apl=(system_core|system_basic|normal)\s+'
-        r'((name|debuggable)=\S+\s+)?'
+        r'(debuggable=\S+\s+)?'
+        r'(name=\S+\s+)?'
         r'(extra=\S+\s+)?'
         r'(extension=\S+\s+)?'
         r'domain=(\S+)\s+'
