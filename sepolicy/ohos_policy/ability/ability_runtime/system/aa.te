@@ -98,10 +98,6 @@ debug_only(`
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa sh:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
-    allow aa sa_test_server:samgr_class { get };
-    allow aa samgr:binder { transfer };
-    allow aa test_server:binder { call transfer };
-    allow aa uitest_exec:file { execute_no_trans };
 ')
 
 # add for aa in developer mode
