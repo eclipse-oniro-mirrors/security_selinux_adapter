@@ -113,4 +113,4 @@ allow camera_service sa_powermgr_battery_service:samgr_class { get };
 allow camera_service sa_foundation_ans:samgr_class { get };
 allow camera_service sa_msdp_motion_service:samgr_class { get };
 allow camera_service msdp_sa:binder { call transfer };
-
+allow camera_service sys_prod_file:dir { search };
