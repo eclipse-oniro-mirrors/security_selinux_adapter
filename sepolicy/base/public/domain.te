@@ -13,7 +13,7 @@
 
 
 allow domain init:process sigchld;
-allow init domain:process sigkill;
+allow init domain:process { sigkill signal};
 
 allow { domain -lldb_server } self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 
