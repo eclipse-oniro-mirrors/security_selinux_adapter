@@ -12,8 +12,8 @@
 # limitations under the License.
 
 debug_only(`
-    allow uitest sa_test_server:samgr_class { get };
-    allow uitest samgr:binder { transfer };
-    allow uitest test_server:binder { call transfer };
-    allow uitest uitest_exec:file { execute_no_trans };
+    #allow uitest sa_test_server:samgr_class { get };
+    #allow uitest samgr:binder { transfer };
+    #allow uitest test_server:binder { call transfer };
+    #allow uitest uitest_exec:file { execute_no_trans };
 ')
