@@ -75,6 +75,8 @@ allocator_service                       u:object_r:hdf_allocator_service:s0
 safe_location_interface_service         u:object_r:hdf_safe_location_interface_service:s0
 
 usb_interface_service                   u:object_r:hdf_usb_interface_service:s0
+usb_device_interface_service            u:object_r:hdf_usb_device_interface_service:s0
+usb_port_interface_service              u:object_r:hdf_usb_port_interface_service:s0
 usbfn_mtp_interface_service             u:object_r:hdf_usbfn_mtp_interface_service:s0
 usb_ddk_service                         u:object_r:hdf_usb_ddk_service:s0
 usb_serial_ddk_service                  u:object_r:hdf_usb_serial_ddk_service:s0

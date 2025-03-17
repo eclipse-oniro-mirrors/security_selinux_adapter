@@ -55,6 +55,8 @@ type hdf_cellbatching_interface_service, hdf_service_attr;
 type hdf_wififence_interface_service, hdf_service_attr;
 
 type hdf_usb_interface_service, hdf_service_attr;
+type hdf_usb_device_interface_service, hdf_service_attr;
+type hdf_usb_port_interface_service, hdf_service_attr;
 type hdf_usbfn_mtp_interface_service, hdf_service_attr;
 type hdf_usb_ddk_service, hdf_service_attr;
 type hdf_usb_serial_ddk_service, hdf_service_attr;
