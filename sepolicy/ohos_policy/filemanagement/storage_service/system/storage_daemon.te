@@ -12,7 +12,6 @@
 # limitations under the License.
 
 allow storage_daemon hmdfs:dir { create_dir_perms_without_ioctl mounton };
-neverallow storage_daemon hmdfs:dir ioctl;
 allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
@@ -474,3 +473,6 @@ allowxperm storage_daemon exfat:dir ioctl { 0xac4d };
 allow storage_daemon ntfs:dir { ioctl open read };
 allow storage_daemon vfat:dir { ioctl open read };
 allow storage_daemon exfat:dir { ioctl open read };
+
+allow storage_daemon hmdfs:dir { ioctl };
+allowxperm storage_daemon hmdfs:dir ioctl { 0xac4d 0xf20c }
