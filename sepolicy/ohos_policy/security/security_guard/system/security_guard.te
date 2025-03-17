@@ -69,6 +69,19 @@ allow security_guard sa_security_collector_service:samgr_class { get add };
 
 binder_call(security_guard, security_collector);
 
+# avc:  denied  { add_name } for  pid=506 comm="OS_FFRT_2_0" name="sgevent_20171005095926.gz" scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { open } for  pid=506 comm="OS_FFRT_2_0" path="/data/service/el1/public/database/security_guard_service/file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=506 comm="OS_FFRT_2_0" name="file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=506 comm="OS_FFRT_2_0" name="file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=506 comm="OS_FFRT_2_0" name="file_store" dev="mmcblk0p15" ino=3192 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+# avc:  denied  { remove_name } for  pid=563 comm="OS_FFRT_2_1" name="sgevent_20171006034320.gz" dev="mmcblk0p15" ino=7363 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=dir permissive=1
+allow security_guard security_guard_file_store_file:dir { add_name open read search write remove_name };
+
+# avc:  denied  { create } for  pid=506 comm="OS_FFRT_2_0" name="sgevent_20171005095926.gz" scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=563 comm="OS_FFRT_2_1" path="/data/service/el1/public/database/security_guard_service/file_store/sgevent_20171006034320.gz" dev="mmcblk0p15" ino=7363 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=file permissive=1
+# avc:  denied  { unlink } for  pid=563 comm="OS_FFRT_2_1" name="sgevent_20171006034304_20171006034304.gz" dev="mmcblk0p15" ino=7341 scontext=u:r:security_guard:s0 tcontext=u:object_r:security_guard_file_store_file:s0 tclass=file permissive=1
+allow security_guard security_guard_file_store_file:file { create read write append open rename getattr unlink };
+
 # avc:  denied  { use } for  pid=2037 comm="OS_FFRT_2_1" path="/data/storage/el2/base/files/text.json" dev="mmcblk0p15" ino=2627 scontext=u:r:security_guard:s0 tcontext=u:r:debug_hap:s0 tclass=fd permissive=1
 allow security_guard normal_hap_attr:fd { use };
 

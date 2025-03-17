@@ -193,5 +193,7 @@ allow normal_hap_attr pasteboard_service:fd { use };
 
 allow normal_hap_attr port:tcp_socket { name_bind };
 
+allow normal_hap arkweb_crashpad_handler_exec:file { execute open read execute_no_trans map };
+
 allowxperm normal_hap_attr dev_mali:chr_file ioctl { 0x800f };
 

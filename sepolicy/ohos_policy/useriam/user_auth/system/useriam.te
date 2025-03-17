@@ -93,3 +93,4 @@ allow useriam storage_daemon:binder { call };
 
 allow useriam useriam_config_param:parameter_service { set };
 allow useriam useriam_config_param:file { map open read };
+allow useriam hdf_device_manager:hdf_devmgr_class { get };

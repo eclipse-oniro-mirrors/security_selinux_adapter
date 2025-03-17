@@ -17,7 +17,8 @@ allow hiview hiview_file:file { create };
 developer_only(`
 allow hiview SP_daemon:dir { search };
 allow hiview SP_daemon:file { getattr open read };
-allow hiview SP_daemon:fd { use };
 allow hiview SP_daemon:fifo_file { write };
 ')
 
+allow hiview hidumper:process { sigkill };
+allow hiview SP_daemon:fd { use };

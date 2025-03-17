@@ -95,3 +95,5 @@ allow cloudfiledaemon media_library_param:file { map open read };
 allow cloudfiledaemon resource_schedule_service:binder { call transfer };
 allow cloudfiledaemon sa_resource_schedule:samgr_class { get };
 allow resource_schedule_service cloudfiledaemon:binder { call };
+allow cloudfiledaemon media_service:dir { search };
+allow cloudfiledaemon media_service:file { getattr open read };

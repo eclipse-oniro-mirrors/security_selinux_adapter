@@ -63,6 +63,6 @@ allow local_code_sign tmpfs:sock_file { write };
 
 allowxperm local_code_sign tmpfs:chr_file ioctl { 0x6201 0x6209 0x621f };
 
-allow local_code_sign data_local_arkcache:dir { search };
+allow local_code_sign data_app_el1_arkcache:dir { search };
 
-allow local_code_sign data_local_arkcache:file { getattr open read };
+allow local_code_sign data_app_el1_arkcache:file { getattr open read };

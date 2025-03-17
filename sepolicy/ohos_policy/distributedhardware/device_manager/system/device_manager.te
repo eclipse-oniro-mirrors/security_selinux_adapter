@@ -347,3 +347,5 @@ allow device_manager data_service_file:dir { search };
 allow device_manager data_user_file:dir { getattr search };
 allowxperm device_manager data_service_el1_file:file ioctl { 0xf50c 0x5413 0xf546 0xf547 };
 allow device_manager data_file:dir { search };
+allow device_manager chip_prod_file:dir { search };
+allow device_manager foundation:fd { use };

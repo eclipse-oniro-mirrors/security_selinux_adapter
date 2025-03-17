@@ -30,6 +30,8 @@ allow appspawn sharefs:dir { create_dir_perms mounton getattr };
 allow appspawn sharefs_file_attr:dir { create_dir_perms_without_ioctl mounton getattr };
 allow appspawn sharefs:filesystem { mount };
 allow appspawn data_service_el2_share:dir { create_dir_perms mounton getattr };
+allow appspawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
+allow appspawn data_service_el1_file:file { read write create map open unlink };
 
 # read cfg from
 #avc:  denied  { getattr } for  pid=1802 comm="appspawn" path="/dev" dev="tmpfs" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
@@ -249,3 +251,8 @@ allow appspawn tmpfs:dir { rmdir };
 
 #avc: denied { unmount } for pid=654, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:object_r:sharefs:s0 tclass=filesystem permissive=1
 allow appspawn { sharefs tmpfs }:filesystem { unmount };
+
+#avc: denied { use } for pid=51347, comm="/system/bin/appspawn" path="pipe:[8763]" dev="tmpfs" ino=8763 scontext=u:r:appspawn:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=1
+allow appspawn foundation:fd { use };
+#avc: denied { write } for pid=51347, comm="/system/bin/appspawn" path="pipe:[8763]" dev="tmpfs" ino=8763 scontext=u:r:appspawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
+allow appspawn foundation:fifo_file { write };

@@ -78,7 +78,7 @@ allow render_service sa_memory_manager_service:samgr_class { get };
 allow render_service memmgrservice:binder { call transfer };
 allow render_service data_system:dir { create open read write getattr setattr unlink link remove_name search add_name};
 allow render_service data_system:file { create open read write getattr setattr unlink link};
-allow render_service chip_prod_file:dir { search read };
+allow render_service chip_prod_file:dir { search read getattr open };
 allow render_service chip_prod_file:file { map open read getattr };
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x640d 0x6411 0x641e 0x641f 0x642d 0x64a0 0x64a1 0x64a6 0x64a7 0x64aa 0x64b2 0x64b4 0x64b5 0x64b6 0x64b9 };
 allowxperm render_service dev_mali:chr_file ioctl { 0x8000 0x8001 0x8003 0x8005 0x800e 0x8011 0x8018 0x8024 0x8026 0x8027 0x8029 0x802a 0x802b 0x802c 0x802d 0x802e 0x800f 0x8030 0x8031 0x8033 0x8034 0x8036 };

@@ -18,6 +18,8 @@ allow hap_domain isolated_render:unix_stream_socket { read write shutdown };
 # avc_audit_slow:260] avc: denied { getattr } for pid=4594, comm="/system/bin/appspawn"  path="/data/storage/el2/log/crashpad" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=5159 scontext=u:r:debug_hap:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 allow hap_domain data_app_el2_file:dir { getattr };
 
+allow debug_hap arkweb_crashpad_handler_exec:file { execute open read execute_no_trans map };
+
 allow hap_domain isolated_render:unix_stream_socket { getopt };
 
 allow hap_domain isolated_gpu:fd { use };

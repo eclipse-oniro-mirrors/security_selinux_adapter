@@ -379,6 +379,7 @@ binder_call(powermgr, bgtaskmgr_service);
 allow powermgr sa_render_service:samgr_class { get };
 binder_call(powermgr, render_service);
 binder_call(render_service, powermgr);
+allow powermgr composer_host:fd { use };
 
 # avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
 allow powermgr sa_net_conn_manager:samgr_class { get };
@@ -539,3 +540,6 @@ allow powermgr powermgr_param:parameter_service { set };
 # avc: denied { call } for pid=1374, comm="/system/bin/sa_main"  scontext=u:r:powermgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
 allow powermgr intell_voice_service:binder { call };
 
+# avc: denied { ioctl } for pid=1506, comm="/system/bin/sa_main"  path="/dev/bbox" dev="" ino=54 ioctlcmd=0x4265 scontext=u:r:powermgr:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
+allow powermgr dev_bbox:chr_file { ioctl };
+allowxperm powermgr dev_bbox:chr_file ioctl { 0x4264 0x4265 };

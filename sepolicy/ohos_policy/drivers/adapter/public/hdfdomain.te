@@ -27,6 +27,6 @@ neverallow { hap_domain } { hdfdomain -allocator_host -violator_hdfdomain_binder
 
 neverallow { input_isolate_debug_hap -input_isolate_hap } { hdfdomain -allocator_host }:binder call;
 
-neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service debug_only(`-hdf_usb_interface_service') -hdf_allocator_service -hdf_codec_image_service -violator_hdf_devmgr_class_get -hdf_codec_component_manager_service -hdf_usbfn_mtp_interface_service -cap_violator_binder_hmc  }:hdf_devmgr_class { get };
+neverallow hap_domain { hdf_service_attr -hdf_hid_ddk_service -hdf_usb_ddk_service -hdf_usb_serial_ddk_service -hdf_scsi_peripheral_ddk_service debug_only(`-hdf_usb_interface_service') -hdf_allocator_service -hdf_codec_image_service -violator_hdf_devmgr_class_get -hdf_codec_component_manager_service -hdf_usbfn_mtp_interface_service -cap_violator_binder_hmc}:hdf_devmgr_class { get };
 
 neverallow { hap_domain -medialibrary_hap } { hdf_usbfn_mtp_interface_service }:hdf_devmgr_class { get };

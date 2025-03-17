@@ -93,8 +93,8 @@ allow native_daemon hiviewdfx_profiler_param:parameter_service { set };
 allow native_daemon hdcd_exec:file { read open getattr map };
 
 allow native_daemon hilog_exec:file { getattr map open read };
-allow native_daemon data_local_arkcache:dir { search };
-allow native_daemon data_local_arkcache:file { getattr open read };
+allow native_daemon data_app_el1_arkcache:dir { search };
+allow native_daemon data_app_el1_arkcache:file { getattr open read };
 allow native_daemon SP_daemon_exec:file { getattr open read map };
 allow native_daemon hilogd_exec:file { getattr map open read };
 allow native_daemon render_service_exec:file { getattr map open read };

@@ -96,8 +96,8 @@ allow cjappspawn data_app_el1_file:dir { mounton };
 allow cjappspawn data_app_el2_file:dir { mounton };
 allow cjappspawn hmdfs:dir { search mounton };
 allow cjappspawn data_local:dir { mounton search };
-allow cjappspawn data_local_arkcache:dir { search };
-allow cjappspawn data_local_arkprofile:dir { search mounton };
+allow cjappspawn data_app_el1_arkcache:dir { search };
+allow cjappspawn data_app_el1_arkprofile:dir { search mounton };
 allow cjappspawn data_service_el2_share:dir { search };
 allow cjappspawn data_service_file:dir { search };
 allow cjappspawn data_service_el1_file:dir { search mounton };
@@ -227,6 +227,8 @@ allow cjappspawn cgroup:dir { add_name create search open read write };
 allow cjappspawn cgroup:file { append getattr ioctl open read write };
 allowxperm cjappspawn cgroup:file ioctl {  0x5413  };
 
+allow cjappspawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
+allow cjappspawn data_service_el1_file:file { read write create map open unlink };
 
 allow cjappspawn data_misc:dir { getattr };
 
@@ -264,6 +266,7 @@ allow cjappspawn normal_hap_attr:fd use;
 allow cjappspawn normal_hap_data_file_attr:dir search;
 allow cjappspawn render_service:binder { call transfer };
 allow cjappspawn render_service:fd use;
+allow cjappspawn composer_host:fd use;
 allow cjappspawn resource_schedule_service:binder call;
 allow cjappspawn samgr:binder call;
 allow cjappspawn system_file:file { getattr open read };
