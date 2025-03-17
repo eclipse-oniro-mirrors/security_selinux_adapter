@@ -92,12 +92,12 @@ neverallow {
     domain
     -installs
     developer_only(`-wukong')
-    developer_only(`-SP_daemon')
     developer_only(`-hiprofiler_plugins')    
     -init
     -hilogd
     -hiview             # write is covered next
     -hdcd               # write is covered next
+    -SP_daemon
     updater_only(`-updater')
     updater_only(`-hiview_light')
 } data_hilogd_file:file { rw_file_perms };
