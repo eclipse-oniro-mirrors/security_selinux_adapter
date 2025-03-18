@@ -69,3 +69,4 @@ allow backup_sa paramservice_socket:sock_file { write };
 allow backup_sa kernel:unix_stream_socket { connectto };
 allow backup_sa distributeddata:binder { call };
 allow backup_sa distributeddata:fd { use };
+allow backup_sa inputmethod_service:binder { call };
