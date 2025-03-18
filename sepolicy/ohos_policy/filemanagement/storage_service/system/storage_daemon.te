@@ -475,4 +475,4 @@ allow storage_daemon vfat:dir { ioctl open read };
 allow storage_daemon exfat:dir { ioctl open read };
 
 allow storage_daemon hmdfs:dir { ioctl };
-allowxperm storage_daemon hmdfs:dir ioctl { 0xac4d 0xf20c }
+allowxperm storage_daemon hmdfs:dir ioctl { 0xac4d 0xf20c };
