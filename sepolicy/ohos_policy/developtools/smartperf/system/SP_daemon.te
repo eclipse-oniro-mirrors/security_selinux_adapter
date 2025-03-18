@@ -102,7 +102,7 @@ allow SP_daemon hisysevent:lnk_file { read };
 allow SP_daemon hisysevent:process { signal };
 allow SP_daemon hitrace:lnk_file { read };
 allow SP_daemon dev_ucollection:chr_file { ioctl read open read write open write };
-allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x1 0x2 0x3 };
+allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x1 0x2 0x3 0x5 0x7 };
 allow SP_daemon SP_daemon:tcp_socket { connect read shutdown write };
 allow SP_daemon port:tcp_socket { name_connect };
 allow SP_daemon sysfs_devices_system_cpu:dir { read open read };
@@ -164,3 +164,7 @@ allow SP_daemon sysfs_attr:file { read open getattr };
 allow SP_daemon sys_prod_file:dir { search };
 allow SP_daemon SP_daemon:file { open };
 allow SP_daemon SP_daemon:hmcap { supervsable };
+
+allow SP_daemon normal_hap:file { getattr open read };
+allow SP_daemon normal_hap:lnk_file { getattr open read };
+allow SP_daemon normal_hap:dir { open read };
