@@ -111,3 +111,5 @@ allow chipset_init init:unix_stream_socket { getopt };
 # avc:  denied  { transition } for  pid=491 comm="init" path="/vendor/bin/hdf_devhost" dev="mmcblk0p8" ino=13 scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
 allow chipset_init clearplay_host:process { rlimitinh siginh transition };
 
+# avc:  denied  { open } for  pid=638 comm="/bin/init" path="/sys/devices/virtual/gadget_usb/gadget0/f_rndis/wceis" dev="" ino=9426 scontext=u:r:chipset_init:s0 tcontext=u:r:object_r:sysfs_gadget_usb:s0 tclass=file permissive=1
+allow chipset_init sysfs_gadget_usb:file { open };
