@@ -290,6 +290,8 @@ attribute rgm_violator_filesystem_mount;
 
 attribute system_bin_file_quickfix;
 
+attribute sp_daemon_get;
+
 #define some rgm_violator_ohos attribute for neverallows
 attribute rgm_violator_ohos_filesystem_unmount;
 
