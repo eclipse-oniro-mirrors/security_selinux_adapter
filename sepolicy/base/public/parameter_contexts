@@ -51,6 +51,7 @@ persist.sys.                            u:object_r:persist_sys_param:s0
 persist.sys.hilog.                      u:object_r:hilog_param:s0
 debug.                                  u:object_r:debug_param:s0
 debug.hitrace.                          u:object_r:hitrace_param:s0
+persist.hitrace.                        u:object_r:hitrace_param:s0
 accessibility.config.ready              u:object_r:accessibility_param:s0
 musl.                                   u:object_r:musl_param:s0
 const.telephony.                        u:object_r:const_telephony_param:s0
