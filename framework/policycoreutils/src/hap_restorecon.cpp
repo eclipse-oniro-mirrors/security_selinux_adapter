@@ -522,6 +522,7 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
     context_t con = nullptr;
     con = context_new(oldTypeContext);
     if (con == nullptr) {
+        FreeContext(oldTypeContext, con);
         return -SELINUX_PTR_NULL;
     }
 
