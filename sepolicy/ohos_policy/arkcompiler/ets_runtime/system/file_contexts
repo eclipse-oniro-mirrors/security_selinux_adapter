@@ -12,3 +12,5 @@
 # limitations under the License.
 
 /system/bin/ark_aot_compiler u:object_r:ark_aot_compiler_exec:s0
+/system/bin/ark_aot u:object_r:ark_aot_exec:s0
+

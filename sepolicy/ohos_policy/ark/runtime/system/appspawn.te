@@ -17,7 +17,7 @@ allow appspawn persist_sys_param:parameter_service { set };
 allow appspawn arkui_param:parameter_service { set };
 allow system_basic_hap_attr appspawn:unix_stream_socket { write };
 allow system_basic_hap_attr appspawn:unix_stream_socket { read };
-allow normal_hap data_local_arkcache:file { map execute read open};
+allow normal_hap data_local_arkcache:file { map execute read open getattr };
 allow system_basic_hap_attr data_local_arkcache:file { map execute read open};
 allow system_core_hap_attr data_local_arkcache:file { map execute read open };
 allow appspawn data_local_arkcache:dir { search mounton};
