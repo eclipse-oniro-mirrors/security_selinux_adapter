@@ -19,3 +19,7 @@ allow ringtonelibrary_hap privacy_service:binder call;
 allow storage_manager system_basic_hap:binder { call };
 allow ringtonelibrary_hap mimetype_file:file { open read getattr };
 allow ringtonelibrary_hap hmdfs:file {open read write getattr };
+allow ringtonelibrary_hap media_library_param:parameter_service { set };
+allow ringtonelibrary_hap kernel:unix_stream_socket { connectto };
+allow ringtonelibrary_hap paramservice_socket:sock_file { write };
+allow ringtonelibrary_hap media_library_param:file { map open read };
