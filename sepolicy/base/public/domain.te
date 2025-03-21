@@ -319,7 +319,7 @@ neverallow { domain -appspawn -hiview -hidumper_service -memmgrservice -storage_
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -kernel -init -chipset_init -storage_daemon -installs -appspawn -nwebspawn -nativespawn -cjappspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater') -rgm_violator_ohos_capability_sysadmin -rgm_violator_cap_sysadmin -module_update_service -prerogative_app } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init -chipset_init } self:{ capability cap_userns } sys_boot;
-neverallow { domain -render_service -cap_violator_sysnice -composer_host -a2dp_host -resource_schedule_executor -appspawn -blue_host } self:{ capability cap_userns } sys_nice;
+neverallow { domain -render_service -cap_violator_sysnice -composer_host -a2dp_host -resource_schedule_executor -appspawn -blue_host -audio_server } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;
 neverallow { domain -time_service updater_only(`-updater') } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
