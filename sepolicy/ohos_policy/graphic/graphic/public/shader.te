@@ -23,8 +23,8 @@ allow installs data_app_el1_shadercache:file { create setattr getattr map open r
 allow installs data_app_el1_shadercache:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow appspawn data_app_el1_shadercache:dir { search mounton getattr };
 allow nwebspawn data_app_el1_shadercache:dir { search mounton getattr };
-allow storage_daemon data_app_el1_shadercache:file { mounton };
-allow storage_daemon data_app_el1_shadercache:dir { relabelto };
+allow storage_daemon data_app_el1_shadercache:file { mounton unlink };
+allow storage_daemon data_app_el1_shadercache:dir { relabelto read open remove_name search rmdir write };
 allow hap_domain data_app_el1_shadercache:file { create setattr getattr map open read rename unlink write ioctl lock };
 allow hap_domain data_app_el1_shadercache:dir { create setattr getattr open read add_name remove_name search unlink write rmdir };
 allowxperm hap_domain data_app_el1_shadercache:file ioctl { 0x5413 };
