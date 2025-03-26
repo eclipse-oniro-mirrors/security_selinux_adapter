@@ -92,6 +92,7 @@
                 "cupsd data_service_el1_public_print_service_file",
                 "pid_ns_init pid_ns_init_exec",
                 "compiler_service ark_aot_compiler_exec",
+                "compiler_service ark_aot_exec",
                 "cupsd data_app_el1_file",
                 "print_service system_bin_uni_print_driver_file",
                 "cupsd system_bin_uni_print_driver_file",

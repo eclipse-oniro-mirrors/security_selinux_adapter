@@ -12,6 +12,7 @@
 # limitations under the License.
 
 domain_auto_transition_pattern(compiler_service, ark_aot_compiler_exec, ark_aot_compiler);
+domain_auto_transition_pattern(compiler_service, ark_aot_exec, ark_aot);
 allow compiler_service sa_local_code_sign:samgr_class { add get };
 allow compiler_service compiler_service:capability { setgid setuid };
 allow compiler_service sa_local_code_sign:samgr_class { get };
@@ -21,6 +22,7 @@ allow compiler_service ark_writeable_param:file { map read open };
 allow compiler_service data_local_arkcache:file { map read open };
 
 allow compiler_service ark_aot_compiler_exec:file { execute execute_no_trans map open read execute read };
+allow compiler_service ark_aot_exec:file { execute execute_no_trans map open read execute read };
 allow compiler_service compiler_service:unix_dgram_socket { getopt setopt };
 allow compiler_service data_local:dir { search };
 allow compiler_service data_local_arkcache:dir { open read search };
@@ -34,9 +36,15 @@ allow compiler_service sa_ark_aot_compiler:samgr_class { add };
 allow compiler_service sysfs_devices_system_cpu:file { getattr open read };
 allow compiler_service tty_device:chr_file { read write };
 allow compiler_service ark_aot_compiler:process { rlimitinh siginh transition sigkill };
+allow compiler_service ark_aot:process { rlimitinh siginh transition sigkill };
 allow compiler_service compiler_service:capability { kill };
 allow compiler_service persist_param:file { map open read };
 allow compiler_service sa_foundation_cesfwk_service:samgr_class { get };
 allow compiler_service foundation:binder { call transfer };
 allow compiler_service data_app_el1_file:dir { search };
 allow compiler_service data_app_file:dir { search };
+
+allow compiler_service data_local_arkcache:dir { getattr write add_name };
+allow compiler_service data_local_arkcache:file { create getattr ioctl write };
+allowxperm compiler_service data_local_arkcache:file ioctl { 0x5413 };
+allow compiler_service data_local_arkcache:dir { create setattr };
