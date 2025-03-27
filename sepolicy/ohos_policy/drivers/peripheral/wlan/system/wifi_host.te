@@ -47,4 +47,4 @@ allow wifi_host wifi_host:udp_socket { ioctl };
 allowxperm wifi_host wifi_host:udp_socket ioctl { 0x89f1 0x8924 };
 
 #avc: denied { get } for service=3510 sid=u:r:wifi_host:s0 scontext=u:r:wifi_host:s0 tcontext=u:object_r:sa_huks_service:s0 tclass=samgr_class permissive=0
-allow wifi_host sa_huks_service.samgr_class { get };
+allow wifi_host sa_huks_service:samgr_class { get };
