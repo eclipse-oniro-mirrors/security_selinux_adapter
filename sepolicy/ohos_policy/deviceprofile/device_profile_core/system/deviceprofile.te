@@ -22,4 +22,6 @@ allow distributedsche data_service_el1_file:dir { ioctl };
 allowxperm distributedsche data_service_el1_file:dir ioctl { 0xf546 0xf547 };
 allow distributedsche sa_asset_service:samgr_class { get };
 allow distributedsche asset_service:binder { call transfer };
+allow distributedsche sys_file:file { read };
+allow distributedsche sys_file:file { open };
 
