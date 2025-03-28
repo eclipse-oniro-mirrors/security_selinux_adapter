@@ -120,3 +120,7 @@ allow hiperf multimodalinput:fd { use };
 
 # add for pasteboard_service
 allow foundation pasteboard_service:fd { use };
+
+allow foundation data_service_el1_file:dir { ioctl };
+allow foundation isolated_render:fd { use };
+allowxperm foundation data_service_el1_file:dir ioctl { 0xf546 };

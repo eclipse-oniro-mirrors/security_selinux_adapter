@@ -19,6 +19,12 @@ type hidumper, native_system_domain, sadomain, domain;
 
 type sa_dfx_sys_hidumper_cpu_ability, sa_service_attr;
 
+# cannot add/get sa:hidumper_cpu_service
+neverallow { domain -hidumper_service -hiview -hap_domain } sa_dfx_sys_hidumper_cpu_ability:samgr_class { add get };
+
+# cannot add/get sa:hidumper_service
+neverallow { domain -hidumper_service -hiview -uitest -hidumper } sa_dfx_sys_hidumper_ability:samgr_class { add get };
+
 domain_auto_transition_pattern({ native_system_domain sadomain }, hidumper_exec, hidumper);
 
 # cannot write hidumper files

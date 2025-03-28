@@ -116,7 +116,7 @@ allow charger multimodalinput:fd { use };
 allow charger multimodalinput:unix_stream_socket { read write };
 allowxperm multimodalinput data_log:file ioctl { 0x5413 };
 allowxperm multimodalinput dev_dri_file:chr_file ioctl { 0x641f };
-allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4503 0x4560 0x4542 0x4548 0x456f 0x450a 0x4559 0x4568 0x455a 0x455b 0x4577 0x4545 0x4549 0x454a 0x4550 0x4551 0x4561 0x4569 };
+allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4503 0x4560 0x4542 0x4548 0x456f 0x450a 0x4559 0x4568 0x455a 0x455b 0x4577 0x4545 0x4549 0x454a 0x4550 0x4551 0x4561 0x4569 0x456c };
 allowxperm multimodalinput data_multimodalinput:file ioctl { 0x5413 };
 debug_only(`
     allow multimodalinput sh:binder { call };
@@ -127,3 +127,5 @@ allow multimodalinput sa_screenlock_service:samgr_class { get };
 allow multimodalinput sys_prod_file:dir { open read };
 allow multimodalinput input_isolate_debug_hap:unix_stream_socket { read write };
 allow multimodalinput input_isolate_hap:unix_stream_socket { read write };
+allow multimodalinput sensors:binder { call transfer };
+allow multimodalinput sensors:unix_stream_socket { read write };
