@@ -13,3 +13,4 @@
 
 /data/service/el1/public/asset_service(/.*)?                   u:object_r:data_service_el1_public_asset_service_file:s0
 /data/service/el2/[0-9]+/asset_service(/.*)?                   u:object_r:data_service_el2_user_id_asset_service_file:s0
+/data/service/el4/[0-9]+/asset_clone(/.*)?                     u:object_r:data_service_el4_user_id_asset_clone_file:s0
