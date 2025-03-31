@@ -104,6 +104,7 @@ allow normal_hap_attr multimodalinput:fd { use };
 allow system_basic_hap_attr multimodalinput:unix_stream_socket { read };
 allow system_basic_hap_attr multimodalinput:unix_stream_socket { read write };
 allow system_core_hap_attr multimodalinput:unix_stream_socket { read };
+allow sensors multimodalinput:unix_stream_socket { write };
 allow init data_multimodalinput:dir { create getattr open read relabelfrom relabelto search setattr write };
 # avc:  denied  { read } scontext=u:r:useriam:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
 allow useriam multimodalinput:unix_stream_socket { read };
@@ -129,3 +130,4 @@ allow multimodalinput input_isolate_debug_hap:unix_stream_socket { read write };
 allow multimodalinput input_isolate_hap:unix_stream_socket { read write };
 allow multimodalinput sensors:binder { call transfer };
 allow multimodalinput sensors:unix_stream_socket { read write };
+allow multimodalinput sa_sensor_service:samgr_class { get };
