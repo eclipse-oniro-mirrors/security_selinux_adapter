@@ -18,6 +18,6 @@ type sa_useriam_authexecutormgr_service, sa_service_attr;
 type sa_useriam_faceauth_service, sa_service_attr;
 type sa_useriam_fingerprintauth_service, sa_service_attr;
 
-neverallow { domain -foundation -accountmgr -storage_daemon -hidumper_service -screenlock_server -huks_service -system_basic_hap_attr -system_core_hap_attr -useriam -domain_useridm_violators } sa_useriam_useridm_service:samgr_class { get };
+neverallow { domain -foundation -accountmgr -storage_daemon -hidumper_service -screenlock_server -huks_service -system_basic_hap_attr -system_core_hap_attr -useriam -domain_useridm_system_violators -domain_useridm_public_violators } sa_useriam_useridm_service:samgr_class { get };
 neverallow { domain -hidumper_service -pinauth -system_basic_hap_attr -system_core_hap_attr -useriam } sa_useriam_authexecutormgr_service:samgr_class { get };
 
