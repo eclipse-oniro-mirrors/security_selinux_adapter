@@ -44,3 +44,7 @@ domain_auto_transition_pattern(native_system_domain, native_daemon_exec, native_
 domain_auto_transition_pattern(hiprofiler_plugins, SP_daemon_exec, SP_daemon);
 
 neverallow { domain debug_only(`-su') } hidebug_private_param:parameter_service { set };
+
+neverallow { domain -native_daemon } sa_native_daemon:samgr_class { add };
+
+neverallow { domain -hiview } sa_native_daemon:samgr_class { get };
