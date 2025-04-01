@@ -191,3 +191,6 @@ allow media_service system_usr_file:file { getattr map open read };
 allow media_service sa_multimodalinput_service:samgr_class { get };
 allow media_service multimodalinput:unix_stream_socket { read };
 allow media_service sa_media_service:samgr_class { get };
+
+allow av_codec_service sa_hiview_service:samgr_class { get };
+allow av_codec_service hiview:binder { call transfer };
