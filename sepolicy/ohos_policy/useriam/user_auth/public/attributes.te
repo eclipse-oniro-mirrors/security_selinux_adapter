@@ -11,5 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute domain_useridm_violators;
+attribute domain_useridm_system_violators;
+
+attribute domain_useridm_public_violators;
 
