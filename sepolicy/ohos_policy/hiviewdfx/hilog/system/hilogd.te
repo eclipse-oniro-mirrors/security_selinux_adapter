@@ -93,7 +93,8 @@ neverallow * hilogd:process dyntransition;
 neverallow {
     domain
     developer_only(`-wukong')
-    developer_only(`-hiprofiler_plugins')    
+    developer_only(`-hiprofiler_plugins')
+    -data_hilogd_file_viloator   
     -init
     -hilogd
     -hiview             # write is covered next
