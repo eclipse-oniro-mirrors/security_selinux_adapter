@@ -172,3 +172,5 @@ allow installs data_hilogd_file:dir { read_dir_perms_without_ioctl unlink relabe
 allow installs data_hilogd_file:file { read_file_perms_without_ioctl };
 allow installs data_log:dir { read_dir_perms_without_ioctl unlink relabelto };
 allow installs data_log:file { read_file_perms_without_ioctl };
+allow installs data_app_el2_file:file { ioctl open write };
+allowxperm installs data_app_el2_file:file ioctl { 0x5413 };
