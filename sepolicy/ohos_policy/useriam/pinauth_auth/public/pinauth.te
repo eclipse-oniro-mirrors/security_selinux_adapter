@@ -13,3 +13,6 @@
 
 type pinauth, sadomain, domain;
 type sa_useriam_pinauth_service, sa_service_attr;
+
+neverallow { domain -normal_hap -accountmgr -hidumper_service -pinauth -system_basic_hap_attr -system_basic_hap_attr -system_core_hap_attr -domain_pinauth_violators} sa_useriam_pinauth_service:samgr_class { get };
+
