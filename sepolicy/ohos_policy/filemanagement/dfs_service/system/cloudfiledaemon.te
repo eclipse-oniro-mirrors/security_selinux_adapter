@@ -99,5 +99,5 @@ allow cloudfiledaemon media_service:dir { search };
 allow cloudfiledaemon media_service:file { getattr open read };
 allow cloudfiledaemon sa_media_service:samgr_class { get };
 allow cloudfiledaemon media_service:binder { call transfer };
-allow cloudfiledaemon media_library_hap_data_file:dir { ioctl };
-allowxperm cloudfiledaemon media_library_hap_data_file:dir ioctl 0xf546;
+allow cloudfiledaemon medialibrary_hap_data_file:dir { ioctl };
+allowxperm cloudfiledaemon medialibrary_hap_data_file:dir ioctl 0xf546;
