@@ -11,12 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow print_driver data_file:dir { search };
 allow print_driver cupsd:fd { use };
 allow print_driver cupsd:fifo_file { read write };
 allow print_driver print_driver_exec:dir { search };
 allow print_driver print_driver_exec:file { execute execute_no_trans };
 allow print_driver print_driver_tmp:dir { create getattr open read search setattr write add_name remove_name };
-allow print_driver print_driver_tmp:file { append create getattr open read write rename setattr unlink };
+allow print_driver print_driver_tmp:file { append create getattr open read write rename setattr unlink map };
 allow print_driver print_driver_read:file { open read };
 allow print_driver print_driver_read:dir { search };
 allow print_driver data_service_el1_file:dir { search };
@@ -25,3 +26,6 @@ allow print_driver data_service_el1_public_print_service_file:dir { search };
 allow print_driver sh_exec:file { execute execute_no_trans map open read };
 allow print_driver self:xpm { exec_allow_sa_plugin };
 neverallow print_driver { data_file_attr -print_driver_exec }:file { execute execute_no_trans };
+allow print_driver port:tcp_socket { name_connect };
+allow print_driver print_driver:tcp_socket { connect create read write };
+allow print_driver print_driver:udp_socket { connect create getattr };

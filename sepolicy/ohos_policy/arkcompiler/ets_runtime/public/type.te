@@ -12,3 +12,5 @@
 # limitations under the License.
 
 type sa_ark_aot_compiler, sa_service_attr;
+type data_app_el1_arkcache, file_attr, data_file_attr;
+type data_app_el1_arkprofile, file_attr, data_file_attr;

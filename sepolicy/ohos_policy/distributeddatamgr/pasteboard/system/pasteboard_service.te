@@ -40,3 +40,4 @@ allowxperm pasteboard_service data_service_el2_pasteboard_service:dir ioctl { 0x
 allowxperm pasteboard_service data_service_el2_pasteboard_service:file ioctl { 0xf50c 0xf546 };
 allow storage_daemon data_service_el2_pasteboard_service:dir { relabelto lock rename remove_name rmdir read write create getattr setattr relabelfrom open add_name search };
 allow storage_daemon data_service_el2_pasteboard_service:file { relabelto read write create getattr setattr lock append map unlink rename open watch watch_reads relabelfrom };
+allow pasteboard_service foundation:fd { use };

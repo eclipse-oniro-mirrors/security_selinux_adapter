@@ -389,6 +389,8 @@ class binder
     call
     set_context_mgr
     transfer
+    actv_binder_service
+    actv_binder_call
 }
 class netlink_iscsi_socket
 inherits socket
@@ -560,6 +562,12 @@ class hmpsf
     module_run
 }
 
+class hmprobe
+{
+    event_open
+    event_attach
+}
+
 class ced
 {
     container_escape_check
@@ -576,4 +584,9 @@ class hmcap
     pid_mem_read
     pid_mem_write
     exec_non_lsyscall
+}
+
+class dmaheap
+{
+    iris_heap
 }

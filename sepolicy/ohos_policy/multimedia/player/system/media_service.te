@@ -93,6 +93,8 @@ allow media_service dnsproxy_service:sock_file { write };
 
 allow media_service render_service:fd { use };
 
+allow media_service composer_host:fd { use };
+
 allow media_service data_media_log_file:file { create read open getattr write append ioctl };
 
 allowxperm media_service data_media_log_file:file ioctl { 0x5413 };
@@ -182,6 +184,13 @@ allow media_service camera_service:binder { call };
 
 allow media_service render_service:binder { transfer };
 
+# avc_audit_slow:277] avc: denied { search } for pid=1649, comm="/system/bin/sa_main"  name="/usr/ohos_icu" dev="overlay" ino=2251 scontext=u:r:media_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+allow media_service system_usr_file:dir { search };
+allow media_service system_usr_file:file { getattr map open read };
+
 allow media_service sa_multimodalinput_service:samgr_class { get };
 allow media_service multimodalinput:unix_stream_socket { read };
 allow media_service sa_media_service:samgr_class { get };
+
+allow media_service sa_hiview_service:samgr_class { get };
+allow media_service hiview:binder { call transfer };

@@ -113,3 +113,4 @@ allow netmanager softbus_server:binder { call transfer };
 allow netmanager locationhub:binder { call };
 allow netmanager sa_time_service:samgr_class { get };
 allow netmanager time_service:binder { transfer };
+allow netmanager paramservice_socket:sock_file { write };

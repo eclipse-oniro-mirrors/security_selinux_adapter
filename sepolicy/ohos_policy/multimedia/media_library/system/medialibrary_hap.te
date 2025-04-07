@@ -22,7 +22,7 @@ allow medialibrary_hap paramservice_socket:sock_file { write };
 allow medialibrary_hap kernel:unix_stream_socket { connectto };
 allow medialibrary_hap data_app_el2_file:file { append };
 
-neverallow { hap_domain -medialibrary_hap -system_basic_hap -init -samgr -hdf_devmgr } media_library_param:parameter_service { set };
+neverallow { hap_domain -ringtonelibrary_hap -medialibrary_hap -system_basic_hap -init -samgr -hdf_devmgr } media_library_param:parameter_service { set };
 
 allow medialibrary_hap hmdfs:dir { ioctl };
 allowxperm medialibrary_hap hmdfs:dir ioctl { 0xf547 0xf546 };

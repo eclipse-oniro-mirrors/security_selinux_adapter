@@ -60,6 +60,7 @@ static const std::string EXTENSION_PREFIX = "extension=";
 static const std::string DEBUGGABLE = "debuggable";
 static const std::string DLPSANDBOX = "dlp_sandbox";
 static const std::string INPUT_ISOLATE = "input_isolate";
+static const std::string CUSTOMSANDBOX = "custom_sandbox";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -144,6 +145,8 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
                 contextBuff.extra |= SELINUX_HAP_DLP;
             } else if (extra == INPUT_ISOLATE) {
                 contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
+            } else if (extra == CUSTOMSANDBOX) {
+                contextBuff.extra |= SELINUX_HAP_CUSTOM_SANDBOX;
             } else {
                 selinux_log(SELINUX_ERROR, "invalid extra %s\n", extra.c_str());
                 isValid = false;
@@ -187,6 +190,12 @@ static std::string GetHapContextKey(const struct SehapInfo *hapInfo)
         }
     } else if (hapInfo->extra & SELINUX_HAP_DLP) {
         keyPara = hapInfo->apl + "." + DLPSANDBOX;
+    } else if (hapInfo->extra & SELINUX_HAP_CUSTOM_SANDBOX) {
+        if (hapInfo->debuggable) {
+            keyPara = hapInfo->apl + "." + DEBUGGABLE + "." + CUSTOMSANDBOX + "." + hapInfo->name;
+        } else {
+            keyPara = hapInfo->apl + "." + CUSTOMSANDBOX + "." + hapInfo->name;
+        }
     } else if (hapInfo->debuggable) {
         keyPara = hapInfo->apl + "." + DEBUGGABLE;
     } else if (!hapInfo->name.empty()) {
@@ -513,6 +522,7 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
     context_t con = nullptr;
     con = context_new(oldTypeContext);
     if (con == nullptr) {
+        FreeContext(oldTypeContext, con);
         return -SELINUX_PTR_NULL;
     }
 
@@ -574,6 +584,14 @@ int HapContext::HapContextsLookup(const HapContextParams &params, bool isDomain,
     } else if (params.hapFlags & SELINUX_HAP_DLP) {
         keyPara = params.apl + "." + DLPSANDBOX;
         selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
+    } else if (params.hapFlags & SELINUX_HAP_CUSTOM_SANDBOX) {
+        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = params.apl + "." + DEBUGGABLE + "." + CUSTOMSANDBOX + "." + params.packageName;
+            selinux_log(SELINUX_INFO, "customsandbox debug hap, keyPara: %s", keyPara.c_str());
+        } else {
+            keyPara = params.apl + "." + CUSTOMSANDBOX + "." + params.packageName;
+            selinux_log(SELINUX_INFO, "customsandbox hap, keyPara: %s", keyPara.c_str());
+        }
     } else if (params.hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
         keyPara = params.apl + "." + params.packageName;
         selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());

@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -installs debug_only(` -aa ') -bundle_data_app_el1_file developer_only(`-hnp') -appspawn } data_app_el1_file:file { write };
+neverallow { domain -installs debug_only(` -aa ') -bundle_data_app_el1_file developer_only(`-hnp') -hnp_violator -appspawn } data_app_el1_file:file { write };
 
 init_daemon_domain(installs);
 
@@ -53,13 +53,19 @@ allow installs data_service_el2_share:lnk_file { unlink rename };
 allow installs data_service_el2_share:sock_file { unlink rename };
 allow installs data_local:file { create getattr ioctl setattr unlink map read open write rename };
 allow installs data_local:dir { add_name create setattr getattr open read remove_name rmdir search write rename };
-allow installs data_local_arkcache:file { create getattr ioctl setattr unlink map read open rename };
+allow installs data_local_arkcache:file { create getattr setattr unlink map read open rename };
 allow installs data_local_arkcache:dir { add_name create setattr getattr open read remove_name rmdir search write rename };
-allow installs data_local_arkprofile:file { create getattr setattr ioctl map open read rename unlink write rename };
-allowxperm installs data_local_arkprofile:file ioctl { 0x5413 };
+allow installs data_local_arkprofile:file { create getattr setattr map open read rename unlink write rename };
 allow installs data_local_arkprofile:dir { add_name create setattr getattr open read remove_name rmdir search write rename };
 allow installs data_local_arkprofile:lnk_file { unlink rename };
 allow installs data_local_arkprofile:sock_file { unlink rename };
+allow installs data_app_el1_arkcache:file { create getattr ioctl setattr unlink map read open rename };
+allow installs data_app_el1_arkcache:dir { add_name create setattr getattr open read remove_name rmdir search write rename };
+allow installs data_app_el1_arkprofile:file { create getattr setattr ioctl map open read rename unlink write rename };
+allowxperm installs data_app_el1_arkprofile:file ioctl { 0x5413 };
+allow installs data_app_el1_arkprofile:dir { add_name create setattr getattr open read remove_name rmdir search write rename };
+allow installs data_app_el1_arkprofile:lnk_file { unlink rename };
+allow installs data_app_el1_arkprofile:sock_file { unlink rename };
 allow installs data_local_shadercache:file { create setattr getattr map open read rename unlink write rename };
 allow installs data_local_shadercache:dir { add_name create setattr getattr open read remove_name rmdir search write rename };
 allow installs system_bin_file:file { execute execute_no_trans map read open };
@@ -146,6 +152,7 @@ allow installs data_app_el5_file:fifo_file { unlink rename };
 allow installs data_service_el2_hmdfs:fifo_file { unlink rename };
 allow installs data_service_el2_share:fifo_file { unlink rename };
 allow installs data_local_arkprofile:fifo_file { unlink rename };
+allow installs data_app_el1_arkprofile:fifo_file { unlink rename };
 allow installs faultloggerd:fifo_file { write };
 allow installs normal_hap_data_file_attr:lnk_file { getattr read rename };
 allow installs system_core_hap_data_file_attr:lnk_file { getattr read rename };
@@ -161,3 +168,9 @@ allow installs unlabeled:fifo_file { getattr relabelfrom rename setattr unlink r
 allow installs unlabeled:file { open read ioctl getattr setattr unlink relabelfrom relabelto rename };
 allow installs unlabeled:lnk_file { getattr relabelfrom rename setattr unlink read };
 allow installs unlabeled:sock_file { getattr relabelfrom rename setattr unlink read };
+allow installs data_hilogd_file:dir { read_dir_perms_without_ioctl unlink relabelto };
+allow installs data_hilogd_file:file { read_file_perms_without_ioctl };
+allow installs data_log:dir { read_dir_perms_without_ioctl unlink relabelto };
+allow installs data_log:file { read_file_perms_without_ioctl };
+allow installs data_app_el2_file:file { ioctl open write };
+allowxperm installs data_app_el2_file:file ioctl { 0x5413 };

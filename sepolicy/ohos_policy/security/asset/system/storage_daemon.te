@@ -15,3 +15,9 @@ storage_daemon_relabel(data_service_el2_user_id_asset_service_file);
 
 allow storage_daemon data_service_el2_user_id_asset_service_file:dir { getattr read open write remove_name rmdir };
 allow storage_daemon data_service_el2_user_id_asset_service_file:file { unlink };
+
+allow storage_daemon asset_service:file { getattr };
+storage_daemon_relabel(data_service_el4_user_id_asset_clone_file);
+
+allow storage_daemon data_service_el4_user_id_asset_clone_file:dir { getattr read open write remove_name rmdir };
+allow storage_daemon data_service_el4_user_id_asset_clone_file:file { unlink };

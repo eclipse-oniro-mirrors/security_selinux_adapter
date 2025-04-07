@@ -48,3 +48,9 @@ binder_call(asset_service, accountmgr);
 binder_call(asset_service, foundation);
 binder_call(asset_service, accesstoken_service);
 binder_call(asset_service, huks_service);
+
+allow asset_service data_service_el4_file:dir { search };
+allow asset_service data_service_el4_user_id_asset_clone_file:dir { search write open add_name remove_name read ioctl };
+allowxperm asset_service data_service_el4_user_id_asset_clone_file:dir ioctl { 0xf546 0xf547 };
+allow asset_service data_service_el4_user_id_asset_clone_file:file { create getattr ioctl open read write unlink lock };
+allowxperm asset_service data_service_el4_user_id_asset_clone_file:file ioctl { 0xf50c 0xf546 0xf547 };

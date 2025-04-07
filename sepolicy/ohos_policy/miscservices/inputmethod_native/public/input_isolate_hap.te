@@ -96,8 +96,7 @@ allow input_isolate_hap hiview:unix_dgram_socket { sendto };
 allow input_isolate_hap hiview:binder { call };
 allow hiview input_isolate_hap:binder { transfer };
 
-allow input_isolate_hap multimodalinput:unix_stream_socket { read };
-allow input_isolate_hap multimodalinput:binder { call transfer };
+allow input_isolate_hap multimodalinput:unix_stream_socket { read write };
 
 allow input_isolate_hap normal_hap:binder { call transfer };
 allow normal_hap input_isolate_hap:binder { call };
@@ -134,6 +133,7 @@ allow input_isolate_hap render_service:unix_stream_socket { read };
 allow input_isolate_hap render_service:binder { call transfer };
 
 allow input_isolate_hap render_service:fd { use };
+allow input_isolate_hap composer_host:fd { use };
 allow render_service input_isolate_hap:fd { use };
 allow render_service input_isolate_hap:binder { call transfer };
 
@@ -168,3 +168,5 @@ allow input_isolate_hap hdf_allocator_service:hdf_devmgr_class { get };
 allow input_isolate_hap sa_device_service_manager:samgr_class { get };
 allow input_isolate_hap allocator_host:binder { call };
 allow input_isolate_hap allocator_host:fd { use };
+binder_call(input_isolate_hap, multimodalinput);
+binder_call(multimodalinput, input_isolate_hap);

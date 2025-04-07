@@ -250,3 +250,6 @@ allow intell_voice_service tty_device:chr_file { read write };
 
 # avc:  denied  { get } for service=3505 sid=u:r:intell_voice_service:s0 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_privacy_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4607 pid=640 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow intell_voice_service sa_foundation_dms:samgr_class { get };

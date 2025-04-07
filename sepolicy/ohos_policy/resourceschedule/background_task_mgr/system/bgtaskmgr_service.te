@@ -131,6 +131,8 @@ allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class { get };
 allow bgtaskmgr_service sa_device_usage_statistics_service:samgr_class { get add };
 # device_usage_stats Event timing usage,workschedule task trigger,get device start-up time
 allow bgtaskmgr_service sa_time_service:samgr_class { get };
+allow bgtaskmgr_service data_service_el1_file:file { map };
+allow bgtaskmgr_service data_service_el1_file:dir { open };
 
 allow audio_server bgtaskmgr_service:binder { call transfer };
 allow hiview bgtaskmgr_service:dir { getattr open read };

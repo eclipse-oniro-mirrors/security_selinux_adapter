@@ -56,3 +56,4 @@ allow system_core_hap_attr system_core_hap_attr:tcp_socket { read };
 allow system_core_hap_attr system_core_hap_attr:tcp_socket { write };
 allow system_core_hap_attr system_core_hap_attr:udp_socket { connect };
 allow system_core_hap_attr system_core_hap_attr:udp_socket { read };
+allow system_core_hap_attr arkweb_crashpad_handler_exec:file { execute open read execute_no_trans map };

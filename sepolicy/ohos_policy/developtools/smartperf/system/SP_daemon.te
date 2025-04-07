@@ -12,7 +12,6 @@
 # limitations under the License
 
 neverallow SP_daemon *:process ptrace;
-developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
 allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name rmdir };
@@ -87,6 +86,7 @@ allow SP_daemon thermal_log_param:file { map read open };
 allow SP_daemon update_updater_param:file { map read open};
 allow SP_daemon updater_flashd_param:file { map read open };
 allow SP_daemon render_service:fd { use };
+allow SP_daemon composer_host:fd { use };
 allow SP_daemon usb_setting_param:file { read open map };
 allow SP_daemon sh:dir { search };
 allow SP_daemon sh:file { read };
@@ -102,7 +102,7 @@ allow SP_daemon hisysevent:lnk_file { read };
 allow SP_daemon hisysevent:process { signal };
 allow SP_daemon hitrace:lnk_file { read };
 allow SP_daemon dev_ucollection:chr_file { ioctl read open read write open write };
-allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x1 0x2 0x3 };
+allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x1 0x2 0x3 0x5 0x7 };
 allow SP_daemon SP_daemon:tcp_socket { connect read shutdown write };
 allow SP_daemon port:tcp_socket { name_connect };
 allow SP_daemon sysfs_devices_system_cpu:dir { read open read };
@@ -157,6 +157,14 @@ allow SP_daemon test_server:binder { call transfer };
 allow SP_daemon samgr:binder { transfer };
 allow SP_daemon system_usr_file:dir { search };
 allow SP_daemon system_usr_file:file { getattr map open read };
-')
 
+allow SP_daemon test_server:fd { use };
+allow SP_daemon dev_kmsg_file:chr_file { write };
+allow SP_daemon sysfs_attr:file { read open getattr };
+allow SP_daemon sys_prod_file:dir { search };
+allow SP_daemon SP_daemon:file { open };
+allow SP_daemon SP_daemon:hmcap { supervsable };
 
+allow SP_daemon normal_hap:file { getattr open read };
+allow SP_daemon normal_hap:lnk_file { getattr open read };
+allow SP_daemon normal_hap:dir { open read };

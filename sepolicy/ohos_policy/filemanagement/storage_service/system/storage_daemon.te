@@ -12,7 +12,6 @@
 # limitations under the License.
 
 allow storage_daemon hmdfs:dir { create_dir_perms_without_ioctl mounton };
-neverallow storage_daemon hmdfs:dir ioctl;
 allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
@@ -22,14 +21,21 @@ allow storage_daemon hmdfs:file { mounton };
 allow storage_daemon data_service_el2_hmdfs:file { mounton };
 allow storage_daemon data_user_file:file { mounton };
 allow storage_daemon data_app_el1_file:file { mounton };
-allow storage_daemon data_local_arkcache:file { mounton };
-allow storage_daemon data_local_arkprofile:file { mounton };
+allow storage_daemon data_app_el1_arkcache:file { mounton };
+allow storage_daemon data_app_el1_arkprofile:file { mounton };
 allow storage_daemon data_local:file { mounton };
 allow storage_daemon normal_hap_data_file_attr:file { mounton };
 allow storage_daemon system_core_hap_data_file_attr:file { mounton };
 allow storage_daemon system_basic_hap_data_file_attr:file { mounton };
 
-neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam } storage_daemon:{ binder } call;
+allow storage_daemon data_app_el1_arkcache:dir { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el1_arkprofile:dir  { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el1_arkprofile:dir { relabelto };
+allow storage_daemon data_app_el1_file:dir { relabelfrom };
+allow storage_daemon data_app_el1_arkprofile:dir { rw_dir_perms_without_ioctl rmdir };
+allow storage_daemon data_app_el1_arkprofile:file { unlink };
+
+neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc -foundation -useriam -param_watcher } storage_daemon:{ binder } call;
 
 allow storage_daemon domain:file { read open };
 allow storage_daemon domain:dir { search read open };
@@ -456,3 +462,17 @@ allow storage_daemon sa_foundation_appms:samgr_class { get };
 allow storage_daemon fuse_file:filesystem { relabelfrom };
 #avc:  denied { use } for pid=649 comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_manager:s0 tclass=fd permissive=0
 allow storage_daemon storage_manager:fd { use };
+
+allow storage_daemon mnt_external_file:dir { ioctl };
+allowxperm storage_daemon mnt_external_file:dir ioctl { 0xac4d };
+
+allowxperm storage_daemon ntfs:dir ioctl { 0xac4d };
+allowxperm storage_daemon vfat:dir ioctl { 0xac4d };
+allowxperm storage_daemon exfat:dir ioctl { 0xac4d };
+
+allow storage_daemon ntfs:dir { ioctl open read };
+allow storage_daemon vfat:dir { ioctl open read };
+allow storage_daemon exfat:dir { ioctl open read };
+
+allow storage_daemon hmdfs:dir { ioctl };
+allowxperm storage_daemon hmdfs:dir ioctl { 0xac4d 0xf20c };

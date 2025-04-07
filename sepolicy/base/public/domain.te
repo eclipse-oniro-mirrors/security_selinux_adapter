@@ -13,7 +13,7 @@
 
 
 allow domain init:process sigchld;
-allow init domain:process sigkill;
+allow init domain:process { sigkill signal};
 
 allow { domain -lldb_server } self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 
@@ -99,9 +99,9 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -rgm_vio
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display -bm -data_local_tmp_violator_dir -mediatool') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
+neverallow { domain developer_only(`-wukong -atm -snapshot_display -bm -data_local_tmp_violator_dir -mediatool') -hdcd -SP_daemon -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -lldb_server -appspawn -snapshot_display -hiprofiler_cmd -bm -processdump -data_local_tmp_violator_dir -mediatool') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -uitest updater_only(`-updater') } data_local_tmp:dir { open search };
+neverallow { domain developer_only(`-wukong -atm -lldb_server -appspawn -snapshot_display -hiprofiler_cmd -bm -processdump -data_local_tmp_violator_dir -mediatool') -hdcd -SP_daemon -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -uitest updater_only(`-updater') } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -131,11 +131,11 @@ neverallow * self:memprotect mmap_zero;
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
-    -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file -print_driver_exec
+    -module_update_bin_file -data_updater_file -data_app_el1_arkcache -system_file -data_service_el1_public_print_service_file -print_driver_exec
     -rgmli_violator_exec_file_attr -data_service_scan_service_driver_file -system_bin_uni_print_driver_file
-    developer_only(`-lldb_server_file -hnp_file -hnp_file_attr -data_app_el1_file') }:file { execute execute_no_trans entrypoint };
-neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:file { write };
-neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_local_arkcache:dir { write };
+    developer_only(`-lldb_server_file -hnp_file -hnp_file_attr -data_app_el1_file') -hnp_file_attr_violator}:file { execute execute_no_trans entrypoint };
+neverallow { domain -installs -ark_aot_compiler updater_only(`-updater') } data_app_el1_arkcache:file { write };
+neverallow { domain -installs -ark_aot_compiler -storage_daemon -init updater_only(`-updater') } data_app_el1_arkcache:dir { write };
 
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file
     developer_only(`-lldb_server_file') }:file entrypoint;
@@ -256,7 +256,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_
 neverallow { domain -init -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -snapshot_display -hiprofiler_cmd -bm -mediatool') -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
+neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -276,8 +276,8 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
-neverallow { domain developer_only(`-wukong -SP_daemon -aa -hdcd -sh -hnp -hnp_hap_domain_attr') -init -faultloggerd -riladapter_host -appspawn
-    debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa') -hidumper_service -netsysnative
+neverallow { domain developer_only(`-wukong -aa -hdcd -sh -hnp -hnp_hap_domain_attr') -init -faultloggerd -riladapter_host -appspawn
+    debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa') -hidumper_service -SP_daemon -test_server -netsysnative
     -wifi_hal_service -sh_exec_violator -rgm_violator_ohos_sh_exec_file_execute -cupsd -print_driver} sh_exec:file execute;
 
 #limit execmem use
@@ -296,8 +296,8 @@ neverallow isolated_render {domain -isolated_render}:process ptrace;
 neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -distributedfiledaemon -rgm_violator_ohos_capability_chown -download_server -media_service -prerogative_app} self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -cjappspawn -init  -chipset_init -ueventd -memmgrservice -resource_schedule_executor
              -installs updater_only(`-updater')
-             -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') -rgm_violator_ohos_capability_dacoverride } self:{ capability cap_userns } dac_override;
-neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch } self:{ capability cap_userns } dac_read_search;
+             -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_capability_dacoverride } self:{ capability cap_userns } dac_override;
+neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -hnp_violator -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner updater_only(`-updater') -rgm_violator_ohos_capability_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid updater_only(`-updater') -rgm_violator_ohos_capability_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nativespawn -cjappspawn -storage_daemon -compiler_service -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_executor -native_daemon -cap_violator_kill -rgm_violator_ohos_capability_kill -kernel } self:{ capability cap_userns } kill;
@@ -315,11 +315,11 @@ neverallow { domain -cap_violator_sysmodule } self:{ capability cap_userns } sys
 neverallow { domain -init -chipset_init -cap_violator_sysrawio} self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init -chipset_init -appspawn -rgm_violator_ohos_capability_syschroot } self:{ capability cap_userns } sys_chroot;
 neverallow { domain -appspawn -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf
-    -foundation -cap_violator_sysptrace debug_only(`-hiebpf') developer_only(`-SP_daemon') -rgm_violator_ohos_capability_sysptrace } self:{ capability cap_userns } sys_ptrace;
+    -foundation -cap_violator_sysptrace debug_only(`-hiebpf') -SP_daemon -rgm_violator_ohos_capability_sysptrace } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -kernel -init -chipset_init -storage_daemon -installs -appspawn -nwebspawn -nativespawn -cjappspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater') -rgm_violator_ohos_capability_sysadmin -rgm_violator_cap_sysadmin -module_update_service -prerogative_app } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init -chipset_init } self:{ capability cap_userns } sys_boot;
-neverallow { domain -render_service -cap_violator_sysnice -composer_host -a2dp_host -resource_schedule_executor -appspawn -blue_host } self:{ capability cap_userns } sys_nice;
+neverallow { domain -render_service -cap_violator_sysnice -composer_host -a2dp_host -resource_schedule_executor -appspawn -blue_host -audio_server } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;
 neverallow { domain -time_service updater_only(`-updater') } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;

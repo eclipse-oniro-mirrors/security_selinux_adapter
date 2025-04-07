@@ -32,6 +32,7 @@ developer_only(`
     allowxperm uitest normal_hap_data_file_attr:file ioctl { 0x5413 };
     allow uitest system_bin_file:dir { search };
     allow uitest render_service:fd { use };
+    allow uitest composer_host:fd { use };
     allow uitest data_file:dir { search };
     allow uitest data_local:dir { search };
     # allow uitest load and execute test tool in data_local_tmp in developer mode

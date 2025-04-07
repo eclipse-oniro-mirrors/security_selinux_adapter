@@ -15,4 +15,6 @@ allow bootanimation bootanimation_exec:file { read map execute entrypoint };
 allow bootanimation data_service_el1_file:dir { search };
 allow bootanimation data_service_el1_file:file { getattr read open };
 allow bootanimation data_service_file:dir { search };
-
+allow bootanimation composer_host:fd { use };
+allow bootanimation edm_config_file:dir { search };
+allow bootanimation edm_config_file:file { getattr read open };
