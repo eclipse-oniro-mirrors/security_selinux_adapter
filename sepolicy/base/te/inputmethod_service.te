@@ -63,3 +63,4 @@ allow inputmethod_service multimodalinput:binder { call };
 allow inputmethod_service multimodalinput:fd { use };
 allow inputmethod_service multimodalinput:unix_stream_socket { read write };
 allow inputmethod_service sa_multimodalinput_service:samgr_class { get };
+
