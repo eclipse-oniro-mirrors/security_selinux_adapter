@@ -76,6 +76,8 @@ allow netmanager sys_param:file { map open read };
 allow netmanager sys_usb_param:file { map open read };
 allow netmanager tracefs:dir { search };
 allow netmanager tracefs_trace_marker_file:file { open write };
+allow netmanager system_usr_file:dir { search };
+allow netmanager system_usr_file:file { getattr map open read };
 allowxperm netmanager data_data_file:file ioctl { 0x5413 };
 allowxperm netmanager netmanager:udp_socket ioctl { 0x8927 };
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 0x8933 };
