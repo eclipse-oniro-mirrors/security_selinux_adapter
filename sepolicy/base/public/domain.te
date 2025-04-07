@@ -225,7 +225,7 @@ neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
 neverallow { domain -storage_daemon -installs -init updater_only(`-updater') } *:filesystem quotaget;
 neverallow { domain -storage_daemon -init updater_only(`-updater') } *:filesystem quotamod;
 
-neverallow { domain updater_only(`-updater -updater_binary -init') } rootfs:file { create write setattr relabelto append unlink link rename };
+neverallow { domain updater_only(`-updater -updater_binary -init')} rootfs:file { create write setattr relabelto append unlink link rename };
 
 neverallow { domain -init -proc_sys_writer } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
 
@@ -254,7 +254,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_
 neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -rgm_violator_vendor_file_mounton } vendor_file_attr:dir_file_class_set mounton;
 
 neverallow { domain -init -kernel -hap_domain -locationhub
-             -audio_host updater_only(`-updater -updater_binary') } data_file:file never_write_file;
+             -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
 neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
 
