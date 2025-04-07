@@ -13,9 +13,9 @@
 
 attribute domain_useridm_system_violators;
 
-attribute domain_useridm_public_violators;
+attribute rgm_violator_useridm;
 
 attribute domain_userauth_system_violators;
-attribute domain_userauth_public_violators;
+attribute rgm_violator_userauth;
 attribute domain_faceauth_violators;
 attribute domain_fingerprintauth_violators;
