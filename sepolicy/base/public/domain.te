@@ -156,10 +156,10 @@ neverallow nwebspawn {domain -isolated_gpu -isolated_render }:process { dyntrans
 neverallow * ~{ file_attr domain  rgm_violator_domain rgm_violator_domain_oh_to_box fs_attr dev_attr parameter_attr develop_domain } :{ dir notdevfile_class_set } *;
 
 # second level for file based label class
-neverallow { domain develop_domain updater_only(`-updater') -sys_installer_sa } ~{ domain rgm_violator_domain rgm_violator_domain_oh_to_box fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
+neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_violator_domain rgm_violator_domain_oh_to_box fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
     chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain chip_ckm_file_attr
     rgmli_violator_exec_file_attr sys_prod_ai_model_llm_file_attr sys_prod_ai_model_aigc_file_attr
-    developer_only(`lldb_server_file') file_attr }:{ file dir } *;
+    developer_only(`lldb_server_file') }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
@@ -207,7 +207,7 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:11230
 #      (allow riladapter_host dev_file (chr_file (ioctl read write open)))
 #    <root>
-neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server') -dev_file_violator -rgm_violator_ohos_dev_char_file -updater_binary -sys_installer_sa } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server') -dev_file_violator -rgm_violator_ohos_dev_char_file } dev_file:{ file chr_file blk_file } *;
 
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
@@ -217,15 +217,15 @@ neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_bloc
 neverallow { module_update_service } {dev_attr -dev_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
-neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nativespawn_mount_filesystem_violator -netsysnative -rgm_violator_filesystem_mount updater_only(`-updater') -sys_installer_sa -module_update_service } *:filesystem mount;
+neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nativespawn_mount_filesystem_violator -netsysnative -rgm_violator_filesystem_mount updater_only(`-updater') -module_update_service } *:filesystem mount;
 neverallow { domain -init -appspawn -rgm_violator_ohos_filesystem_remount -sys_installer_sa } *:filesystem remount;
-neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn -nativespawn updater_only(`-updater') -rgm_violator_ohos_filesystem_unmount -module_update_service -sys_installer_sa } *:filesystem unmount;
+neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn -nativespawn updater_only(`-updater') -rgm_violator_ohos_filesystem_unmount -module_update_service } *:filesystem unmount;
 neverallow { domain -init -storage_daemon -rgm_violator_filesystem_relabelfrom -appspawn } *:filesystem relabelfrom;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
 neverallow { domain -storage_daemon -installs -init updater_only(`-updater') } *:filesystem quotaget;
 neverallow { domain -storage_daemon -init updater_only(`-updater') } *:filesystem quotamod;
 
-neverallow { domain updater_only(`-updater -updater_binary -init') -updater_binary } rootfs:file { create write setattr relabelto append unlink link rename };
+neverallow { domain updater_only(`-updater -updater_binary -init') } rootfs:file { create write setattr relabelto append unlink link rename };
 
 neverallow { domain -init -proc_sys_writer } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
 
@@ -254,7 +254,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_
 neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -rgm_violator_vendor_file_mounton } vendor_file_attr:dir_file_class_set mounton;
 
 neverallow { domain -init -kernel -hap_domain -locationhub
-             -audio_host updater_only(`-updater -updater_binary') -updater_binary -sys_installer_sa } data_file:file never_write_file;
+             -audio_host updater_only(`-updater -updater_binary') } data_file:file never_write_file;
 
 neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm') -data_local_tmp_violator_file_open -processdump } data_local_tmp:file open;
 
@@ -293,11 +293,11 @@ neverallow isolated_render {domain -isolated_render}:process ptrace;
 # neverallow { domain -init } self:capability chown;
 # means that only init can have the caps of chown.
 # TODO:debug/release
-neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -updater_binary -sys_installer_sa -distributedfiledaemon -rgm_violator_ohos_capability_chown -download_server -media_service -prerogative_app} self:{ capability cap_userns } chown;
+neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -sys_installer_sa -distributedfiledaemon -rgm_violator_ohos_capability_chown -download_server -media_service -prerogative_app} self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -cjappspawn -init  -chipset_init -ueventd -memmgrservice -resource_schedule_executor
              -installs updater_only(`-updater')
              -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_capability_dacoverride -updater_binary -sys_installer_sa } self:{ capability cap_userns } dac_override;
-neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -updater_binary -sys_installer_sa -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -hnp_violator -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -sys_installer_sa -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -hnp_violator -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner updater_only(`-updater') -rgm_violator_ohos_capability_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid updater_only(`-updater') -sys_installer_sa -rgm_violator_ohos_capability_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nativespawn -cjappspawn -storage_daemon -compiler_service -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_executor -native_daemon -cap_violator_kill -rgm_violator_ohos_capability_kill -kernel } self:{ capability cap_userns } kill;
