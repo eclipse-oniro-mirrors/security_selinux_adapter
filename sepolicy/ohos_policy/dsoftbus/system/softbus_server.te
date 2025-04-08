@@ -124,3 +124,7 @@ allow softbus_server data_service_el1_file:file { map setattr };
 allow softbus_server data_service_el1_file:dir { create getattr };
 
 allow softbus_server wifi_manager_service:fd { use };
+
+allow softbus_server sa_usb_service:samgr_class { get };
+
+allow softbus_server usb_service:binder { call };
