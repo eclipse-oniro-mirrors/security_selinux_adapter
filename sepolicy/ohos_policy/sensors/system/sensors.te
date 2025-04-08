@@ -223,6 +223,9 @@ allow sensors data_service_el1_file:dir { search };
 #avc: denied { read } for pid=1381, comm="/system/bin/sa_main" path="/data/storage/el2/base/haps/entry/files/vib.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=22829 scontext=u:r:sensors:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
 allow sensors system_basic_hap_data_file:file { read getattr };
 
+#avc: denied { get } for service=4607 sid=u:r:sensors:s0 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow sensors sa_foundation_dms:samgr_class { get };
+
 debug_only(`
     #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
     allow sensors sh:fd { use };
