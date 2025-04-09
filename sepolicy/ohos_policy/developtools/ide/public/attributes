@@ -17,4 +17,5 @@ attribute violator_chr_file_read;
 attribute violator_chr_file_write;
 attribute violator_chr_file_ioctl;
 attribute violator_hap_netlink_kobject_uevent_socket;
+attribute violator_hap_lldb_unix_stream_socket;
 

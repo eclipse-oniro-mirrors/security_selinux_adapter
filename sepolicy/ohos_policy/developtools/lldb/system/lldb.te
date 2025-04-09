@@ -70,5 +70,5 @@ neverallow domain lldb_server:process { dyntransition };
 # mode in case an already launched lldb-server is utilized by other thirdy-party
 # process directly or indirectly to dump sensitive information from debuggable
 # applications.
-neverallow { domain -lldb_server developer_only(`-hdcd') }
+neverallow { domain -lldb_server developer_only(`-hdcd') -violator_hap_lldb_unix_stream_socket }
   lldb_server:unix_stream_socket { connectto };
