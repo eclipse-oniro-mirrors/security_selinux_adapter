@@ -174,10 +174,8 @@ allow hiperf ueventd_exec:file read;
 allow hiperf vendor_bin_file:file { getattr map open read };
 
 allow init data_log:file relabelfrom;
-allow init data_log_hiperf_file:dir relabelto;
-allow init data_local_tmp_hiperf_file:dir { getattr open read relabelto setattr };
-allow init data_local_tmp_hiperf_file:file { read };
-allow init data_local_tmp:dir { relabelfrom search };
+allow init data_log_hiperf_file:dir { getattr open read relabelto setattr };
+allow init data_log_hiperf_file:file { read };
 
 #allow hiperf data_file:file { create write };
 #allow hiperf devpts:chr_file ioctl;
