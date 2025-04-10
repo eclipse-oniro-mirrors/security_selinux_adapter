@@ -57,7 +57,7 @@ neverallow { system_domain } vendor_bin_file:{ blk_file chr_file fifo_file sock_
 # Prohibit system component processes from accessing vendor etc files to achieve access isolation
 neverallow { system_domain -vendor_etc_file_violator_dir } vendor_etc_file:dir ~{ search getattr read open mounton relabelto };
 neverallow { system_domain -bootanimation -ispserver -media_service -misc -multimodalinput -resource_schedule_service -samgr -foundation -powermgr -accountmgr -oaid_service
-    -nfc_service -wifi_hal_service -telephony_sa -dhardware -dinput -hdf_devmgr -hiview -memmgrservice -msdp_sa -audio_server -av_codec_service
+    -nfc_service -wifi_hal_service -telephony_sa -dhardware -dinput -hdf_devmgr -hiview -memmgrservice -msdp_sa -audio_server -av_codec_service -resource_schedule_executor
     -multimodalinput -charger -concurrent_task_service -resource_schedule_service -dlp_permission_service -sensors -appspawn -init -ueventd -telephony_sa
     -module_update_service -sys_installer_sa -updater_binary -nwebspawn -module_update_service -vendor_etc_file_violator_dir_search -cjappspawn
     -hap_domain -render_service developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_dir_search } vendor_etc_file:dir { search };
