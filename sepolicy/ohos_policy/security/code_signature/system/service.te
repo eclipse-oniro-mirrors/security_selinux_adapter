@@ -12,3 +12,5 @@
 # limitations under the License.
 
 type sa_local_code_sign, sa_service_attr;
+
+neverallow hap_domain sa_local_code_sign:samgr_class { get };
