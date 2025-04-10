@@ -115,7 +115,7 @@ neverallow { domain -rgm_violator_ohos_dev_sock_file_mounton } { file_attr fs_at
 neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 
 #ioctl cmd TIOCSTI, dangerous cmd.
-neverallowxperm { domain debug_only(`-appspawn -ioctl_0x5412_chr_file_devpts_violators') } devpts:chr_file ioctl 0x5412;
+neverallowxperm { domain debug_only(`-appspawn -rgm_violator_ioctl_0x5412_chr_file_devpts') } devpts:chr_file ioctl 0x5412;
 
 neverallow domain dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
