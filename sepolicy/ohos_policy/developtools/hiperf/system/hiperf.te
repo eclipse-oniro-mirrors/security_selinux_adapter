@@ -189,11 +189,10 @@ developer_only(`
     allow hiperf sh:fd use;
     allow hiperf sh:fifo_file { read write };
     allow hiperf sh:process signull;
-    allow sh data_local_tmp_hiperf_file:dir { getattr };
 ')
 
 allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
-allow hiperf data_local_tmp:dir { create open read add_name remove_name search write };
+allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
 allow hiperf self:capability { sys_ptrace ipc_lock };
 allow hiperf self:unix_dgram_socket { getopt setopt };
