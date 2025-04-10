@@ -66,7 +66,6 @@ allow normal_hap_attr normal_hap_attr:binder { call transfer };
 allow normal_hap_attr normal_hap_data_file_attr:dir { open read remove_name rmdir add_name create write };
 allow normal_hap_attr normal_hap_data_file_attr:file { getattr ioctl lock map rename setattr unlink };
 allow normal_hap_attr normal_hap_attr:netlink_route_socket { append connect create getattr getopt lock nlmsg_read read setattr setopt shutdown write };
-allow normal_hap_attr normal_hap_attr:process { ptrace };
 allow normal_hap_attr normal_hap_attr:unix_dgram_socket { getopt setopt };
 allow normal_hap_attr normal_hap_attr:tcp_socket { getattr bind listen accept };
 allow normal_hap_attr node:tcp_socket { node_bind };
