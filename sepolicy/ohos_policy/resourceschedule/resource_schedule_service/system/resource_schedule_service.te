@@ -37,6 +37,8 @@ allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };
 allow resource_schedule_service vendor_etc_file:file { getattr map open read };
+allow resource_schedule_service vendor_etc_ressched_file:dir { search };
+allow resource_schedule_service vendor_etc_ressched_file:file { open read };
 allow resource_schedule_service system_basic_hap_attr:process { setsched };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
