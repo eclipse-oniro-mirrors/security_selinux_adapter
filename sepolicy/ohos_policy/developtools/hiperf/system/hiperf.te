@@ -189,6 +189,7 @@ developer_only(`
     allow hiperf sh:fd use;
     allow hiperf sh:fifo_file { read write };
     allow hiperf sh:process signull;
+    allow hiperf data_log:fifo_file { create open read unlink write };
 ')
 
 allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
