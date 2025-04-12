@@ -1,0 +1,55 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow ark_aot ark_aot:unix_dgram_socket { getopt setopt };
+allow ark_aot chip_prod_file:dir { search };
+
+allow ark_aot ark_writeable_param:file { map open read };
+allow ark_aot compiler_service:fd { use };
+allow ark_aot data_app_el1_arkprofile:file { ioctl };
+allow ark_aot dev_kmsg_file:chr_file { write };
+allow ark_aot tty_device:chr_file { read write };
+allowxperm ark_aot data_app_el1_arkcache:file ioctl { 0x5413 };
+allowxperm ark_aot data_app_el1_arkprofile:file ioctl { 0x5413 };
+
+domain_auto_transition_pattern(installs, ark_aot_exec, ark_aot);
+
+allow ark_aot code_sign_utils:file { execute getattr map open read };
+allow ark_aot data_file:dir { search };
+allow ark_aot installs:fd { use };
+allow ark_aot key_enable:key { search };
+allow ark_aot sa_local_code_sign:samgr_class { get };
+allow ark_aot data_local:dir { search };
+allow ark_aot local_code_sign:binder { call };
+allow ark_aot samgr:binder { call transfer };
+allow ark_aot dev_unix_socket:dir { search };
+allow ark_aot hook_param:file { read map open };
+allow ark_aot tracefs:dir { search };
+allow ark_aot data_app_el1_arkprofile:file { map open read rename create getattr unlink write };
+allow ark_aot system_file:file { map open read };
+allow ark_aot hilog_param:file { map open read };
+allow ark_aot debug_param:file { map open read };
+allow ark_aot data_app_el1_arkprofile:dir { search add_name remove_name write };
+allow ark_aot sysfs_devices_system_cpu:file { read getattr open };
+allow ark_aot data_app_el1_arkcache:dir { add_name create setattr getattr open read remove_name rmdir search write };
+allow ark_aot data_app_el1_arkcache:file { create getattr ioctl setattr unlink map read open write };
+allowxperm ark_aot data_app_el1_arkcache:file ioctl { 0x6685 };
+
+allow ark_aot data_app_el1_file:file { map read open read };
+allow ark_aot data_app_file:dir { search };
+allow ark_aot data_app_el1_file:dir { search };
+allow ark_aot sys_prod_file:dir { search };
+allow ark_aot sys_prod_file:file { map read open };
+allow ark_aot hiview:unix_dgram_socket { sendto };
+
+allow ark_aot system_file:file { getattr };
