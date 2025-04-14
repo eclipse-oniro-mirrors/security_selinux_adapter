@@ -12,6 +12,6 @@
 # limitations under the License.
 
 debug_only(`
-    attribute process_dyntransition_su_violators;
-    attribute ioctl_0x5412_chr_file_devpts_violators;
+    attribute rgm_violator_process_dyntransition_su;
+    attribute rgm_violator_ioctl_0x5412_chr_file_devpts;
 ')
