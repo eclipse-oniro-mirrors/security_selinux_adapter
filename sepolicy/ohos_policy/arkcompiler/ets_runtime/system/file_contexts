@@ -16,3 +16,4 @@
 
 /data/app/el1/public/aot_compiler(/.*)?       u:object_r:data_app_el1_arkcache:s0
 /data/app/el1/[0-9]+/aot_compiler(/.*)?       u:object_r:data_app_el1_arkprofile:s0
+/data/service/el1/public/framework_ark_cache(/.*)?       u:object_r:data_app_el1_arkcache:s0
