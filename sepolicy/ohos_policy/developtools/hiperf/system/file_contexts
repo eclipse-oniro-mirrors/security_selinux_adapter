@@ -17,5 +17,7 @@
 /data/test/(.*)?  u:object_r:data_test_file:s0
 
 /data/log/hiperf(/.*)?  u:object_r:data_log_hiperf_file:s0
+/data/log/hiperflog u:object_r:data_log_hiperf_file:s0
+/data/log/hiperflog/(.*)?  u:object_r:data_log_hiperf_file:s0
 
 /data/local/tmp/hiperf(/.*)?  u:object_r:data_local_tmp_hiperf_file:s0
