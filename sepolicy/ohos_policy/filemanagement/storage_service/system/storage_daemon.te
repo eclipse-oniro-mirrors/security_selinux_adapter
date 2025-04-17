@@ -479,3 +479,5 @@ allowxperm storage_daemon hmdfs:dir ioctl { 0xac4d 0xf20c };
 
 #avc: denied { transfer } for pid=1690, comm="/system/bin/sa_main" scontext=u:r:accountmgr:s0 tcontext=u:r:storage_daemon:s0 tclass=binder permissions=0
 allow accountmgr storage_daemon:binder transfer;
+
+allow storage_daemon usb_service:binder { call };
