@@ -47,7 +47,6 @@
                 "system_basic_hap toybox_exec",
                 "system_core_hap system_bin_file",
                 "system_core_hap toybox_exec",
-                "sys_installer_sa vendor_bin_file",
                 "hidumper system_bin_file",
                 "hidumper toybox_exec",
                 "hidumper_service hilog_exec",
@@ -156,8 +155,7 @@
                 "sh hnp_file",
                 "sh devicedebug_exec",
                 "hnp_native hnp_file",
-                "sh sh_exec",
-                "sys_installer_sa vendor_bin_file"
+                "sh sh_exec"
             ]
         }
     ]
