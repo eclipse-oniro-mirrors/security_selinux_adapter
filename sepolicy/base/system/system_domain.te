@@ -47,7 +47,7 @@ neverallow { system_domain -ispserver -hiebpf -hidumper_service -hiperf -hiprofi
 neverallow { system_domain -ispserver -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_read -sys_installer_sa } vendor_bin_file:file { read };
 neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_getattr -sys_installer_sa } vendor_bin_file:file { getattr };
 neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_open -sys_installer_sa } vendor_bin_file:file { open };
-neverallow { system_domain -vendor_bin_file_violator_file_execute_no_trans } vendor_bin_file:file { execute_no_trans -sys_installer_sa };
+neverallow { system_domain -vendor_bin_file_violator_file_execute_no_trans -sys_installer_sa } vendor_bin_file:file { execute_no_trans };
 neverallow { system_domain -vendor_bin_file_violator_file_relabelto } vendor_bin_file:file { relabelto };
 neverallow { system_domain -vendor_bin_file_violator_file_setattr } vendor_bin_file:file { setattr };
 neverallow { system_domain -vendor_bin_file_violator_file_lnk_file } vendor_bin_file:lnk_file ~{ read };
