@@ -95,6 +95,8 @@ allow hdf_devmgr bluetooth_service:file { open read };
 allow hdf_devmgr bluetooth_service:process { getattr };
 allow hdf_devmgr bootevent_param:file { map open read };
 allow hdf_devmgr bootevent_samgr_param:file { map open read };
+allow composer_host bootevent_param:file { map open read };
+allow composer_host bootevent_samgr_param:file { map open read };
 allow hdf_devmgr build_version_param:file { map open read };
 allow hdf_devmgr camera_service:binder { call transfer };
 allow hdf_devmgr camera_service:dir { search };
