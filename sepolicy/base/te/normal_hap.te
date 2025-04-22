@@ -79,7 +79,6 @@ allow normal_hap_attr sa_accessibleabilityms:samgr_class { get };
 allow normal_hap_attr sa_accesstoken_manager_service:samgr_class { get };
 allow normal_hap_attr sa_privacy_service:samgr_class { get };
 allow normal_hap_attr sa_dataobs_mgr_service_service:samgr_class { get };
-allow normal_hap_attr sa_device_auth_service:samgr_class { get };
 allow normal_hap_attr sa_device_security_level_manager_service:samgr_class { get };
 allow normal_hap_attr sa_device_service_manager:samgr_class { get };
 allow normal_hap_attr sa_distributeddata_service:samgr_class { get };
