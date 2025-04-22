@@ -129,3 +129,5 @@ allow bluetooth_service distributedsche:binder { call };
 #avc: denied { get } for service=3704 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
 allow distributedsche sa_screenlock_service:samgr_class { get };
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
+#avc: denied { get } for service=3203 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_foundation_ans:samgr_class { get };
