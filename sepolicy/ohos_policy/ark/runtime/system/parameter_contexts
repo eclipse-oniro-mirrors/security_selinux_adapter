@@ -16,4 +16,3 @@ ark.profile                             u:object_r:ark_profile:s0
 persist.ark.properties                  u:object_r:ark_writeable_param:s0
 persist.ark.longpausetime               u:object_r:ark_writeable_param:s0
 persist.ark.asminterpreter              u:object_r:ark_writeable_param:s0
-sys.graphic.openTestModeTrace           u:object_r:ark_writeable_param:s0
