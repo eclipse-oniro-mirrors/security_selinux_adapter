@@ -20,6 +20,7 @@ allowxperm accesstoken_service accesstoken_data_file:dir ioctl { 0xf546 };
 # [  324.863783] audit: type=1400 audit(1501923927.066:2294): avc:  denied  { setattr } for  pid=2232 comm="SaInit1" name="access_token.db" dev="mmcblk0p15" ino=3063 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
 allow accesstoken_service accesstoken_data_file:file { create open read getattr ioctl lock map setattr unlink write };
 allow accesstoken_service accesstoken_perm_param:parameter_service { set };
+neverallow { domain -accesstoken_service } accesstoken_perm_param:parameter_service { set };
 allow accesstoken_service accesstoken_service:unix_dgram_socket { getopt setopt };
 allow accesstoken_service audio_server:binder { call transfer };
 allow accesstoken_service bootevent_param:file { map open read };
