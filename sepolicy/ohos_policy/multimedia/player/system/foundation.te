@@ -17,3 +17,6 @@ allow foundation media_service:fd { use };
 # avc:  denied  { call } for  pid=607 comm="OS_IPC_7_930" scontext=u:r:foundation:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=607 comm="OS_IPC_7_930" scontext=u:r:foundation:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
 allow foundation av_codec_service:binder { call transfer };
+
+allow foundation media_library_param:file { map open read };
+allow foundation media_monitor:binder { call };
