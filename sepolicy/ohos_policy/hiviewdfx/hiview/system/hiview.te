@@ -159,7 +159,7 @@ allow hiview data_app_el2_file:dir { search read open add_name write create seta
 #avc:  denied  { create } for  pid=2716 comm="freeze_detector" name="APP_FREEZE_1501994090092_2792.log" scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=2716 comm="freeze_detector" path="/data/app/el2/100/log/com.example.myapplication/hiappevent/APP_FREEZE_1501994090092_2792.log" dev="mmcblk0p15" ino=2352 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 #avc:  denied  { setattr } for  pid=263 comm="plat_shared" name="APP_CRASH_1501997026177_1964.log" dev="mmcblk0p15" ino=2180 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=0
-allow hiview data_app_el2_file:file { open getattr read write create ioctl setattr append rename };
+allow hiview data_app_el2_file:file { open getattr read write create ioctl setattr append rename unlink };
 allowxperm hiview data_app_el2_file:file ioctl { 0x5413 };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0

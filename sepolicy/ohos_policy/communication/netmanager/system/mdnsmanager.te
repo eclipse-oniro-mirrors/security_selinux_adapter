@@ -45,6 +45,9 @@ allow mdnsmanager mdnsmanager:unix_dgram_socket { ioctl getopt setopt };
 allow mdnsmanager netmanager:binder { call transfer };
 allow mdnsmanager sa_net_conn_manager:samgr_class { get };
 
+allow mdnsmanager sa_foundation_cesfwk_service:samgr_class { get };
+allow mdnsmanager foundation:binder { call transfer };
+
 debug_only(`
     allow mdnsmanager sh:binder { call };
 ')

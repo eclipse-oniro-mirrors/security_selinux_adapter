@@ -128,3 +128,26 @@ allowxperm hdf_ext_devmgr dev_uinput:chr_file ioctl { 0x5568 };
 allow hdf_ext_devmgr hdf_usb_ddk_service:hdf_devmgr_class { get };
 allow hdf_ext_devmgr hdf_usb_serial_ddk_service:hdf_devmgr_class { get };
 allow hdf_ext_devmgr hdf_scsi_peripheral_ddk_service:hdf_devmgr_class { get };
+
+# avc:  denied  { read } for  pid=2055 comm="SaInit0" name="/" dev="tmpfs" ino=1 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
+allow hdf_ext_devmgr dev_file:dir { read };
+
+# avc:  denied  { search } for  pid=2029 comm="SaInit0" name="bus" dev="tmpfs" ino=140 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus:s0 tclass=dir permissive=1
+allow hdf_ext_devmgr dev_bus:dir { search };
+
+# avc:  denied  { read write open } for  pid=2029 comm="SaInit0" path="/dev/bus/usb/001/005" dev="tmpfs" ino=433 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { read write } for  pid=2029 comm="SaInit0" name="005" dev="tmpfs" ino=433 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+allow hdf_ext_devmgr dev_bus_usb_file:chr_file { open read write ioctl};
+
+# avc:  denied  { search } for  pid=2029 comm="SaInit0" name="001" dev="tmpfs" ino=225 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+allow hdf_ext_devmgr dev_bus_usb_file:dir { search read open };
+
+# avc:  denied  { ioctl } for  pid=1866 comm="SaInit0" path="/dev/bus/usb/001/002" dev="tmpfs" ino=419 ioctlcmd=0x551a scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
+allowxperm hdf_ext_devmgr dev_bus_usb_file:chr_file ioctl { 0x551a };
+
+allow hdf_ext_devmgr hdf_ext_devmgr:netlink_kobject_uevent_socket { bind create read setopt };
+allow hdf_ext_devmgr sys_file:file { read open };
+
+# avc:  denied  { read open } for  pid=2184 comm="SaInit0" path="/sys/bus/usb/devices" dev="sysfs" ino=11038 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sys_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=2184 comm="SaInit0" name="devices" dev="sysfs" ino=11038 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sys_file:s0 tclass=dir permissive=1
+allow hdf_ext_devmgr sys_file:dir { read open };

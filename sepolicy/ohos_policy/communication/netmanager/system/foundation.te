@@ -13,3 +13,5 @@
 
 allow foundation netmanager:binder { call transfer };
 allow foundation sa_net_conn_manager:samgr_class { add get };
+
+allow foundation mdnsmanager:binder { call };

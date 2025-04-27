@@ -115,7 +115,7 @@ neverallow { domain -rgm_violator_ohos_dev_sock_file_mounton } { file_attr fs_at
 neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 
 #ioctl cmd TIOCSTI, dangerous cmd.
-neverallowxperm { domain debug_only(`-appspawn -ioctl_0x5412_chr_file_devpts_violators') } devpts:chr_file ioctl 0x5412;
+neverallowxperm { domain debug_only(`-appspawn -rgm_violator_ioctl_0x5412_chr_file_devpts') } devpts:chr_file ioctl 0x5412;
 
 neverallow domain dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
@@ -213,7 +213,7 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server'
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
 
 neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -write_updater -rgm_violator_ohos_dev_blk_file -module_update_service } dev_attr:blk_file { open read write };
-neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file}:blk_file { open read write };
+neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file -dev_block_file}:blk_file { open read write };
 neverallow { module_update_service } {dev_attr -dev_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
@@ -221,7 +221,7 @@ neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nativespawn_mou
 neverallow { domain -init -appspawn -rgm_violator_ohos_filesystem_remount } *:filesystem remount;
 neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn -nativespawn updater_only(`-updater') -rgm_violator_ohos_filesystem_unmount -module_update_service } *:filesystem unmount;
 neverallow { domain -init -storage_daemon -rgm_violator_filesystem_relabelfrom -appspawn } *:filesystem relabelfrom;
-neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
+neverallow { domain -init -storage_daemon -appspawn -rgm_violator_filesystem_relabelto } *:filesystem relabelto;
 neverallow { domain -storage_daemon -installs -init updater_only(`-updater') } *:filesystem quotaget;
 neverallow { domain -storage_daemon -init updater_only(`-updater') } *:filesystem quotamod;
 

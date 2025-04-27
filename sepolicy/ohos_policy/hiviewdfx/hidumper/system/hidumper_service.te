@@ -137,15 +137,13 @@ developer_only(`
     allow hidumper_service system_etc_file:file lock;
 
     allow hidumper_service debugfs:dir { open read };
+    allow hidumper_service debugfs_failed_transaction_log:file { getattr open read };
+    allow hidumper_service debugfs_transactions:file { getattr open read };
+    allow hidumper_service debugfs_transaction_log:file { getattr open read };
     allow hidumper_service debugfs_used:file { getattr open read };
     allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
-    debug_only(`
-        allow hidumper_service debugfs_failed_transaction_log:file { getattr open read };
-        allow hidumper_service debugfs_transactions:file { getattr open read };
-        allow hidumper_service debugfs_transaction_log:file { getattr open read };
-        allow hidumper_service debugfs_stats:file { getattr open read };
-        allow hidumper_service debugfs_state:file { getattr open read };
-    ')
+    allow hidumper_service debugfs_stats:file { getattr open read };
+    allow hidumper_service debugfs_state:file { getattr open read };
 
     allow hidumper_service arkcompiler_param:file { map open read };
     allow hidumper_service ark_writeable_param:file { map open read };

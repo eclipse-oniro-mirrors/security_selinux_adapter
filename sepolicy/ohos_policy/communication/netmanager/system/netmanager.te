@@ -119,3 +119,6 @@ allow netmanager system_usr_file:dir { search };
 allow netmanager system_usr_file:file { getattr map open read };
 allow netmanager time_service:binder { call transfer };
 allow netmanager sa_time_service:samgr_class { get };
+
+# avc: denied { read } scontext=u:r:netmanager:s0 tcontext=u:object_r:etc_hosts_file:s0 tclass=lnk_file permissive=0
+allow netmanager etc_hosts_file:lnk_file { read };

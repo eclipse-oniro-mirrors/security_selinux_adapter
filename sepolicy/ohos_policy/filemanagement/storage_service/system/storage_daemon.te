@@ -429,7 +429,7 @@ allow storage_daemon system_bin_file:file { getattr };
 # avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5510 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
 # avc: denied { ioctl } for pid=5171, comm="/bin/mtpfs"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x5514 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
 # avc: denied { ioctl } for pid=676, comm="/system/bin/storage_daemon"  path="/dev/bus/usb/002/003" dev="" ino=3896 ioctlcmd=0x551a scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
-allowxperm storage_daemon dev_bus_usb_file:chr_file ioctl { 0x5508 0x550a 0x550d 0x550f 0x5510 0x5514 0x551a };
+allowxperm storage_daemon dev_bus_usb_file:chr_file ioctl { 0x5508 0x550a 0x550d 0x550f 0x5510 0x5514 0x551a 0x5512 };
 
 allow storage_daemon data_local:file { create getattr open read unlink write };
 
@@ -476,3 +476,9 @@ allow storage_daemon exfat:dir { ioctl open read };
 
 allow storage_daemon hmdfs:dir { ioctl };
 allowxperm storage_daemon hmdfs:dir ioctl { 0xac4d 0xf20c };
+
+#avc: denied { transfer } for pid=1690, comm="/system/bin/sa_main" scontext=u:r:accountmgr:s0 tcontext=u:r:storage_daemon:s0 tclass=binder permissions=0
+allow accountmgr storage_daemon:binder transfer;
+
+allow storage_daemon usb_service:binder { call };
+allow storage_daemon sa_usb_service:samgr_class { get };

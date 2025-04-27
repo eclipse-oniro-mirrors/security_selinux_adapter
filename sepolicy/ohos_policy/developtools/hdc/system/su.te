@@ -13,7 +13,7 @@
 debug_only(`
     permissive su;
     neverallow { domain -init } su:process transition;
-    neverallow { domain -updater -process_dyntransition_su_violators } su:process dyntransition;
+    neverallow { domain -updater -rgm_violator_process_dyntransition_su } su:process dyntransition;
     domain_auto_transition_pattern(su, SP_daemon_exec, SP_daemon);
 
 # allow xxx sh:xxx {xxxx} to allow xxx su:xxx {xxxx}

@@ -14,3 +14,4 @@
 type deviceauth_service, sadomain, domain;
 type deviceauth_service_exec, exec_attr, file_attr, system_file_attr;
 
+neverallow normal_hap sa_device_auth_service:samgr_class { get };
