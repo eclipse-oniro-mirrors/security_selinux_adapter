@@ -21,8 +21,8 @@ irda_socket pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv
 isdn_socket phonet_socket ieee802154_socket caif_socket nfc_socket vsock_socket vsock_host_socket kcm_socket 
 qipcrtr_socket smc_socket xdp_socket } *;
 
-neverallow { normal_hap_attr -violator_hap_netlink_kobject_uevent_socket } *:netlink_kobject_uevent_socket *;
-neverallow { normal_hap_attr -violator_hap_netlink_kobject_uevent_socket } domain:netlink_kobject_uevent_socket *;
+neverallow { normal_hap_attr developer_only(`-violator_hap_netlink_kobject_uevent_socket') } *:netlink_kobject_uevent_socket *;
+neverallow { normal_hap_attr developer_only(`-violator_hap_netlink_kobject_uevent_socket') } domain:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
