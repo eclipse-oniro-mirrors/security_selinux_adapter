@@ -116,7 +116,6 @@
                 "SP_daemon uinput_exec",
                 "SP_daemon aa_exec",
                 "SP_daemon snapshot_display_exec",
-                "test_server SP_daemon_exec",
                 "test_server sh_exec",
                 "test_server toybox_exec"
             ],
