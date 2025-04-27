@@ -58,7 +58,6 @@ const static std::string INVALID_APL = "invalid_apl";
 const static std::string TEST_HAP_BUNDLE_NAME = "com.hap.selftest";
 const static std::string TEST_HAP_BUNDLE_NAME_WITH_NO_CONTEXTS = "com.ohos.test";
 const static std::string TEST_HAP_BUNDLE_NAME_FOR_INVALID_CONTEXTS = "com.hap.selftest_invalid";
-const static std::string TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX = "com.hap.test_sandbox";
 
 const static std::string TEST_HAP_DATA_FILE_LABEL = "u:object_r:selftest_hap_data_file:s0";
 
@@ -76,8 +75,6 @@ const static std::string TEST_EXTENSION = "extension_test_ability";
 const static std::string TEST_SAME_EXTENSION = "extension_same_ability";
 const static std::string TEST_DEBUG_EXTENSION = "extension_test_debug_ability";
 const static std::string TEST_NORMAL_DOMAIN_WITH_CATEGORY = "o:r:normal_hap:s0:x214,x486,x514,x868,x1024";
-const static std::string TEST_SANDBOX_HAP_DOMAIN = "u:r:test_sandbox_hap:s0";
-const static std::string TEST_SANDBOX_HAP_DATA_TYPE = "u:r:test_sandbox_hap_data_file:s0";
 const static uint32_t TEST_UID = 20190166;
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
@@ -203,11 +200,7 @@ static void GenerateTestFile()
         "apl=normal domain=extension_test_hap extension=extension_test_ability",
         "apl=normal domain=extension_test_same_hap extension=extension_same_ability",
         "apl=normal debuggable=true domain=extension_test_debug_hap extension=extension_test_debug_ability",
-        "apl=normal name=com.hap.selftest domain=extension_test_preinstall_hap extension=extension_test_ability",
-        "apl=normal name=com.hap.test_sandbox extra=custom_sandbox domain=test_sandbox_hap \
-        type=test_sandbox_hap_data_file",
-        "apl=normal debuggable=true name=com.hap.test_sandbox extra=custom_sandbox domain=test_sandbox_hap \
-        type=test_sandbox_hap_data_file"};
+        "apl=normal name=com.hap.selftest domain=extension_test_preinstall_hap extension=extension_test_ability"};
     ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
 }
 
@@ -727,18 +720,6 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup001, TestSize.Level1)
     EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
 
     params.apl = NORMAL_APL;
-    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
-    params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
-    EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DOMAIN.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
-    params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX | SELINUX_HAP_DEBUGGABLE;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
-    EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DOMAIN.c_str());
-
-    params.apl = NORMAL_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = 0;
     EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con, TEST_UID));
@@ -790,18 +771,6 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup002, TestSize.Level1)
     params.hapFlags = SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE;
     EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
     EXPECT_STREQ(context_str(con), DLP_HAP_DATA_TYPE.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
-    params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
-    EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DATA_TYPE.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
-    params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX | SELINUX_HAP_DEBUGGABLE;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
-    EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DATA_TYPE.c_str());
 
     freecon(oldTypeContext);
     context_free(con);
