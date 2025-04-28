@@ -115,9 +115,7 @@
                 "SP_daemon SP_daemon_exec",
                 "SP_daemon uinput_exec",
                 "SP_daemon aa_exec",
-                "SP_daemon snapshot_display_exec",
-                "test_server sh_exec",
-                "test_server toybox_exec"
+                "SP_daemon snapshot_display_exec"
             ],
             "developer": [
                 "aa sh_exec",
