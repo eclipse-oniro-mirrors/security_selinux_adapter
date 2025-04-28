@@ -11,154 +11,139 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# allow input_isolate_hap to get sa
-allow input_isolate_hap sa_concurrent_task_service:samgr_class { get };
-allow input_isolate_hap sa_foundation_abilityms:samgr_class { get };
-allow input_isolate_hap sa_foundation_appms:samgr_class { get };
-allow input_isolate_hap sa_foundation_bms:samgr_class { get };
-allow input_isolate_hap sa_param_watcher:samgr_class { get };
-allow input_isolate_hap sa_resource_schedule:samgr_class { get };
-#avc:  denied { get } for service=3702 sid=u:r:input_isolate_hap:s0 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=0
-allow input_isolate_hap sa_time_service:samgr_class { get };
+# allow distributed_isolate_hap to get sa
+allow distributed_isolate_hap sa_foundation_abilityms:samgr_class { get };
+allow distributed_isolate_hap sa_dataobs_mgr_service_service:samgr_class { get add };
+allow distributed_isolate_hap sa_uri_permission_mgr_service:samgr_class { get };
+allow distributed_isolate_hap sa_foundation_bms:samgr_class { get };
+allow distributed_isolate_hap sa_service_router_mgr_service:samgr_class { get };
+allow distributed_isolate_hap sa_foundation_appms:samgr_class { get };
+allow distributed_isolate_hap sa_accessibleabilityms:samgr_class { get };
+allow distributed_isolate_hap sa_wifi_device_ability:samgr_class { get };
+allow distributed_isolate_hap sa_wifi_hotspot_ability:samgr_class { get };
+allow distributed_isolate_hap sa_wifi_p2p_ability:samgr_class { get };
+allow distributed_isolate_hap sa_wifi_scan_ability:samgr_class { get };
+allow distributed_isolate_hap sa_bluetooth_server:samgr_class { get };
+allow distributed_isolate_hap sa_net_conn_manager:samgr_class { get };
+allow distributed_isolate_hap sa_net_policy_manager:samgr_class { get };
+allow distributed_isolate_hap sa_comm_net_stats_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_comm_net_tethering_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_comm_vpn_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_comm_ethernet_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_comm_mdns_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_hiview_service:samgr_class { get };
+allow distributed_isolate_hap sa_sys_event_service:samgr_class { get };
+allow distributed_isolate_hap sa_distributeddata_service:samgr_class { get };
+allow distributed_isolate_hap sa_distributeschedule:samgr_class { get };
+allow distributed_isolate_hap sa_enterprise_device_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_i18n_service:samgr_class { get };
+allow distributed_isolate_hap sa_resource_schedule:samgr_class { get };
+allow distributed_isolate_hap sa_bgtaskmgr:samgr_class { get };
+allow distributed_isolate_hap sa_work_schedule_service:samgr_class { get };
+allow distributed_isolate_hap sa_device_usage_statistics_service:samgr_class { get };
+allow distributed_isolate_hap sa_concurrent_task_service:samgr_class { get };
+allow distributed_isolate_hap sa_device_standby:samgr_class { get };
+allow distributed_isolate_hap sa_location_locator_service:samgr_class { get };
+allow distributed_isolate_hap sa_msdp_devicestatus_service:samgr_class { get };
+allow distributed_isolate_hap sa_update_distributed_service:samgr_class { get };
+allow distributed_isolate_hap sa_foundation_cesfwk_service:samgr_class { get };
+allow distributed_isolate_hap sa_accesstoken_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_privacy_service:samgr_class { get };
+allow distributed_isolate_hap sa_device_security_level_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_time_service:samgr_class { get };
+allow distributed_isolate_hap sa_download_service:samgr_class { get };
+allow distributed_isolate_hap sa_param_watcher:samgr_class { get };
+allow distributed_isolate_hap sa_sysparam_device_service:samgr_class { get };
+allow distributed_isolate_hap sa_telephony_tel_cellular_data:samgr_class { get };
+allow distributed_isolate_hap sa_usb_service:samgr_class { get };
+allow distributed_isolate_hap sa_softbus_service:samgr_class { get };
+allow distributed_isolate_hap sa_device_auth_service:samgr_class { get };
+allow distributed_isolate_hap sa_storage_manager_service:samgr_class { get };
+allow distributed_isolate_hap sa_file_access_service:samgr_class { get };
+allow distributed_isolate_hap sa_device_service_manager:samgr_class { get };
+allow distributed_isolate_hap sa_devattest_service:samgr_class { get };
 
-#avc:  denied { write } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket permissive=1
-allow input_isolate_hap appspawn:unix_dgram_socket { write connect };
-#avc:  denied { use } for pid=6797, comm="/system/bin/appspawn" path="pipe:[1031]" dev="tmpfs" ino=1031 scontext=u:r:input_isolate_hap:s0 tcontext=u:r:appspawn:s0 tclass=fd permissive=0
-allow input_isolate_hap appspawn:fd { use };
-#avc:  denied { write } for pid=7200, comm="/system/bin/appspawn" path="pipe:[1138]" dev="tmpfs" ino=1138 scontext=u:r:input_isolate_hap:s0 tcontext=u:r:appspawn:s0 tclass=fifo_file permissive=1
-allow input_isolate_hap appspawn:fifo_file { write };
-#avc:  denied { dyntransition } for pid=5191, comm="/system/bin/appspawn" scontext=u:r:appspawn:s0 tcontext=u:r:input_isolate_hap:s0 tclass=process permissive=0
-allow appspawn input_isolate_hap:process { dyntransition sigkill };
-#avc:  denied { read } for pid=622, comm="/system/bin/appspawn" scontext=u:r:appspawn:s0 tcontext=u:r:input_isolate_hap:s0 tclass=file permissive=0
-allow appspawn input_isolate_hap:file { read };
+# avc: denied { dyntransition } for pid=9870, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=process permissive=1
+allow appspawn distributed_isolate_hap:process { dyntransition };
 
-#avc:  denied { call } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
-#avc:  denied { transfer } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
-allow input_isolate_hap accessibility:binder { call transfer };
-#avc:  denied { call } for pid=774, comm="/system/bin/sa_main" scontext=u:r:accessibility:s0 tcontext=u:r:input_isolate_hap:s0 tclass=binder permissive=0
-allow accessibility input_isolate_hap:binder { call };
+# avc: denied { open } for pid=9682, comm="/system/bin/appspawn"  path="/data/themes/a/app/icons/dynamic_icons/com.huawei.hmos.clock" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13353 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=9682, comm="/system/bin/appspawn"  path="/data/themes/a/app/icons/dynamic_icons/com.huawei.hmos.clock" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13353 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow distributed_isolate_hap data_service_el1_file:dir { open read };
 
-#avc:  denied { getopt } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:input_isolate_hap:s0 tclass=unix_dgram_socket permissive=1
-#avc:  denied { setopt } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:input_isolate_hap:s0 tclass=unix_dgram_socket permissive=1
-allow input_isolate_hap input_isolate_hap:unix_dgram_socket { getopt setopt };
-#avc:  denied { supervsable } for pid=6797, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:input_isolate_hap:s0 tclass=hmcap permissive=0
-allow input_isolate_hap input_isolate_hap:hmcap { supervsable };
-#avc:  denied { create } for pid=4262, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:input_isolate_hap:s0 tclass=netlink_route_socket permissive=1
-allow input_isolate_hap input_isolate_hap:netlink_route_socket { create bind };
+# avc: denied { getattr } for pid=9682, comm="/system/bin/appspawn"  path="/data/themes/a/app/flag" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13448 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow distributed_isolate_hap data_service_el1_file:file { getattr };
 
-#avc:  denied { read } for pid=6797, comm="/system/bin/appspawn" path="/dev/__parameters__/u:object_r:hichecker_writable_param:s0" dev="" ino=226 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:hichecker_writable_param:s0 tclass=file permissive=0
-allow input_isolate_hap hichecker_writable_param:file { read open map };
+# avc: denied { open } for pid=9682, comm="/system/bin/appspawn"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow distributed_isolate_hap dev_ashmem_file:chr_file { open };
 
-#avc:  denied { read } for pid=7200, comm="/system/bin/appspawn" path="/sys/devices/system/cpu/online" dev="" ino=336 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
-allow input_isolate_hap sysfs_devices_system_cpu:file { read open getattr };
+# avc: denied { supervsable } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=hmcap permissive=1
+# allow distributed_isolate_hap distributed_isolate_hap:hmcap { supervsable };
 
-#avc:  denied { search } for pid=7200, comm="/system/bin/appspawn" name="/app/el1/bundle/public/com.example.myowninputmethod" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19085 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
-allow input_isolate_hap data_app_el1_file:dir { search getattr map open read };
-#avc:  denied { getattr } for pid=7200, comm="/system/bin/appspawn" path="/data/storage/el1/bundle/entry.hap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19124 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
-allow input_isolate_hap data_app_el1_file:file { map read open getattr execute create setattr };
+# avc: denied { connect } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=tcp_socket permissive=1
+# avc: denied { create } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=tcp_socket permissive=1
+# avc: denied { getattr } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=tcp_socket permissive=1
+# avc: denied { getopt } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=tcp_socket permissive=1
+# avc: denied { read } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=tcp_socket permissive=1
+# avc: denied { setopt } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=tcp_socket permissive=1
+# avc: denied { write } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=tcp_socket permissive=1
+allow distributed_isolate_hap distributed_isolate_hap:tcp_socket { connect create getattr getopt read setopt write };
 
-allow input_isolate_hap data_app_el2_file:dir { add_name search read write create open remove_name setattr getattr };
-allow input_isolate_hap data_app_file:dir { search };
-allow input_isolate_hap data_service_el2_file:dir { read write add_name create getattr open remove_name rmdir search setattr };
-allow input_isolate_hap faultloggerd:fifo_file write;
+# avc: denied { connect } for pid=9215, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=udp_socket permissive=1
+# avc: denied { create } for pid=9215, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=udp_socket permissive=1
+# avc: denied { getattr } for pid=9215, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=udp_socket permissive=1
+# avc: denied { read } for pid=9215, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=udp_socket permissive=1
+# avc: denied { write } for pid=9215, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=udp_socket permissive=1
+allow distributed_isolate_hap distributed_isolate_hap:udp_socket { connect create getattr read write };
 
-allow input_isolate_hap dev_ashmem_file:chr_file { open };
+# avc: denied { sendto } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=1
+allow distributed_isolate_hap hiview:unix_dgram_socket { sendto };
 
-#avc:  denied { search } for pid=7200, comm="/system/bin/appspawn" name="/variant" dev="/dev/block/dm-2" ino=44306556 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
-allow input_isolate_hap sys_prod_file:dir { search };
-#avc:  denied { getattr } for pid=7200, comm="/system/bin/appspawn" path="/sys_prod/etc/frame_aware_sched/hwrme.xml" dev="/dev/block/dm-2" ino=43782140 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=1
-allow input_isolate_hap sys_prod_file:file { read open getattr };
+# avc: denied { transfer } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=1
+allow distributed_isolate_hap netmanager:binder { transfer };
 
-#avc:  denied { search } for pid=7200, comm="/system/bin/appspawn" name="/service/el1/public/themes/100/a/app" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=7071 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allow input_isolate_hap data_service_el1_file:dir { search read open };
-#avc:  denied { getattr } for pid=7200, comm="/system/bin/appspawn" path="/data/themes/a/app/flag" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=6959 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allow input_isolate_hap data_service_el1_file:file { getattr };
+# avc: denied { connectto } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:netsysnative:s0 tclass=unix_stream_socket permissive=1
+allow distributed_isolate_hap netsysnative:unix_stream_socket { connectto };
 
-#avc:  denied { call } for pid=7200, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=1
-allow input_isolate_hap inputmethod_service:binder { call transfer };
-allow inputmethod_service input_isolate_hap:binder { call transfer };
-allow inputmethod_service input_isolate_hap:fd { use };
+# avc: denied { getattr } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62920 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { ioctl } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62920 ioctlcmd=0xf546 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62920 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62920 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/cache" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=56632 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { setattr } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/cache/rawheap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62652 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+allow distributed_isolate_hap normal_hap_data_file:dir { getattr ioctl open read search setattr };
+allowxperm distributed_isolate_hap normal_hap_data_file:dir ioctl { 0xf546 };
 
-allow input_isolate_hap system_usr_file:dir { search };
+# avc: denied { append } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/app_event_20250331.log" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62300 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases/appevent.db-wal" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31436 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/app_event_20250331.log" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62300 ioctlcmd=0x5413 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { lock } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases/appevent.db-shm" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=38827 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases/appevent.db-dwr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=28293 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/app_event_20250331.log" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62300 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { read write } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/haps/application/files/test.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=59590 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31695 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { setattr } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31695 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+# avc: denied { write } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31695 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+allow distributed_isolate_hap normal_hap_data_file:file { append getattr ioctl lock map open read write read setattr write };
+allowxperm distributed_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
 
-allow input_isolate_hap ffrt_param:file { read open map };
+# avc: denied { name_connect } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=1
+allow distributed_isolate_hap port:tcp_socket { name_connect };
 
-allow input_isolate_hap resource_schedule_service:binder { call };
+# avc: denied { transfer } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
+allow distributed_isolate_hap samgr:binder { transfer };
 
-allow input_isolate_hap hiview:unix_dgram_socket { sendto };
-allow input_isolate_hap hiview:binder { call };
-allow hiview input_isolate_hap:binder { transfer };
+# avc: denied { call } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+allow distributed_isolate_hap softbus_server:binder { call transfer };
 
-allow input_isolate_hap multimodalinput:unix_stream_socket { read write };
+# avc: denied { call } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=1
+allow distributed_isolate_hap storage_manager:binder { call };
 
-allow input_isolate_hap normal_hap:binder { call transfer };
-allow normal_hap input_isolate_hap:binder { call };
+# avc: denied { call } for pid=10422, comm="/system/bin/sa_main"  scontext=u:r:distributedsche:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=binder permissive=1
+allow distributedsche distributed_isolate_hap:binder { call };
 
-allow input_isolate_hap foundation:binder { call transfer };
-allow foundation input_isolate_hap:binder { call transfer };
-allow foundation input_isolate_hap:fd { use };
-#avc:  denied { read } for pid=1319, comm="/system/bin/sa_main" scontext=u:r:foundation:s0 tcontext=u:r:input_isolate_hap:s0 tclass=file permissive=1
-#avc:  denied { getattr } for pid=1319, comm="/system/bin/sa_main" path="/proc/20252/status" dev="" ino=79645 scontext=u:r:foundation:s0 tcontext=u:r:input_isolate_hap:s0 tclass=file permissive=1
-allow foundation input_isolate_hap:file { read getattr open };
-#avc:  denied { search } for pid=1319, comm="/system/bin/sa_main" name="/20252" dev="" ino=79644 scontext=u:r:foundation:s0 tcontext=u:r:input_isolate_hap:s0 tclass=dir permissive=1
-allow foundation input_isolate_hap:dir { search read };
-#avc:  denied { sigkill } for pid=1319, comm="/system/bin/sa_main" scontext=u:r:foundation:s0 tcontext=u:r:input_isolate_hap:s0 tclass=process permissive=1
-allow foundation input_isolate_hap:process { sigkill };
+# avc: denied { call } for pid=1094, comm="/system/bin/sa_main"  scontext=u:r:netmanager:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=binder permissive=1
+allow netmanager distributed_isolate_hap:binder { call };
 
-allow processdump input_isolate_hap:file { write };
-allow processdump input_isolate_hap:netlink_route_socket { read write };
-
-allow input_isolate_hap param_watcher:binder { call transfer };
-allow param_watcher input_isolate_hap:binder { call };
-
-allow input_isolate_hap system_fonts_file:file { read open getattr map };
-allow input_isolate_hap system_fonts_file:dir { search };
-
-#avc:  denied { call } for pid=22317, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
-allow input_isolate_hap samgr:binder { call transfer };
-#avc:  denied { transfer } for pid=611, comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:input_isolate_hap:s0 tclass=binder permissive=1
-allow samgr input_isolate_hap:binder { call transfer };
-
-#avc:  denied { read } for pid=31066, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:render_service:s0 tclass=unix_stream_socket permissive=1
-allow input_isolate_hap render_service:unix_stream_socket { read };
-#avc:  denied { call } for pid=31731, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
-#avc:  denied { transfer } for pid=33917, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:render_service:s0 tclass=unix_stream_socket permissive=1
-allow input_isolate_hap render_service:binder { call transfer };
-
-allow input_isolate_hap render_service:fd { use };
-allow render_service input_isolate_hap:fd { use };
-allow render_service input_isolate_hap:binder { call transfer };
-
-#avc:  denied { call } for pid=31731, comm="/system/bin/appspawn" scontext=u:r:input_isolate_hap:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
-allow input_isolate_hap system_basic_hap:binder { call };
-#avc:  denied { call } for pid=32818, comm="/system/bin/appspawn" scontext=u:r:system_basic_hap:s0 tcontext=u:r:input_isolate_hap:s0 tclass=binder permissive=1
-allow system_basic_hap input_isolate_hap:binder { call };
-
-allow input_isolate_hap time_service:binder { call };
-
-allow input_isolate_hap sys_param:file { read open map };
-
-allow input_isolate_hap faultloggerd_temp_file:file { write };
-
-allow input_isolate_hap hiviewdfx_hiview_param:file { read open map };
-
-allow input_isolate_hap proc_meminfo_file:file { read open getattr };
-
-allow input_isolate_hap dev_ucollection:chr_file { read open ioctl };
-allowxperm input_isolate_hap dev_ucollection:chr_file ioctl { 0x6 0x8 };
-
-allow input_isolate_hap hdf_devmgr:binder { call };
-allow hdf_devmgr input_isolate_hap:binder { transfer };
-
-allow input_isolate_hap powermgr:binder { call };
-
-allow input_isolate_hap msdp_sa:binder { call };
-
-allow hiperf input_isolate_hap:lnk_file { read };
-allow input_isolate_hap data_app_el2_file:file { read open getattr map };
-allow input_isolate_hap hdf_allocator_service:hdf_devmgr_class { get };
-allow input_isolate_hap sa_device_service_manager:samgr_class { get };
-allow input_isolate_hap allocator_host:binder { call };
-allow input_isolate_hap allocator_host:fd { use };
-binder_call(input_isolate_hap, multimodalinput);
-binder_call(multimodalinput, input_isolate_hap);
+# avc: denied { call } for pid=1546, comm="/system/bin/sa_main"  scontext=u:r:softbus_server:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=binder permissive=1
+allow softbus_server distributed_isolate_hap:binder { call };
