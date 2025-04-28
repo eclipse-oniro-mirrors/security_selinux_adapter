@@ -59,11 +59,11 @@ allow hap_domain data_app_el1_file:file { getattr map open read };
 allow hap_domain data_app_el2_file:dir { add_name search read write create open remove_name setattr rmdir };
 allow hap_domain data_app_el2_file:file { create read write open lock ioctl unlink map setattr getattr rename };
 allow hap_domain data_app_el3_file:dir { add_name search read write create open remove_name setattr rmdir };
-allow hap_domain data_app_el3_file:file { create read write open lock ioctl unlink map setattr getattr rename };
+allow hap_domain data_app_el3_file:file { create read write open lock unlink map setattr getattr rename };
 allow hap_domain data_app_el4_file:dir { add_name search read write create open remove_name setattr rmdir };
-allow hap_domain data_app_el4_file:file { create read write open lock ioctl unlink map setattr getattr rename };
+allow hap_domain data_app_el4_file:file { create read write open lock unlink map setattr getattr rename };
 allow hap_domain data_app_el5_file:dir { add_name search read write create open remove_name setattr rmdir };
-allow hap_domain data_app_el5_file:file { create read write open lock ioctl unlink map setattr getattr rename };
+allow hap_domain data_app_el5_file:file { create read write open lock unlink map setattr getattr rename };
 allow hap_domain data_app_file:dir search;
 allow hap_domain data_file:dir { getattr open read  search };
 #to remove
