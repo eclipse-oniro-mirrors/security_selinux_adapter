@@ -49,12 +49,3 @@ debug_only(`
     allow pasteboard_service test_server:fd { use };
     allow test_server dev_ashmem_file:chr_file { open };
 ')
-domain_auto_transition_pattern(test_server, SP_daemon_exec, SP_daemon);
-allow test_server SP_daemon:file { open read };
-allow test_server sh_exec:file { execute execute_no_trans map open read };
-allow test_server test_server:hmcap { supervsable };
-allow test_server system_bin_file:lnk_file { read };
-allow test_server toybox_exec:file { execute execute_no_trans getattr map open read execute read };
-allow test_server SP_daemon:dir { getattr search };
-allow test_server proc_file:file { open read };
-allow test_server SP_daemon:process { signal} ;
