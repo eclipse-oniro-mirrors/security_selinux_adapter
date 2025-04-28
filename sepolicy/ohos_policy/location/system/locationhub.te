@@ -112,3 +112,5 @@ allow locationhub persist_param:parameter_service { set };
 
 allow locationhub sa_wifi_device_ability:samgr_class { get };
 allow locationhub netmanager:binder { call transfer };
+
+allow locationhub wifi_manager_service:binder { call transfer };
