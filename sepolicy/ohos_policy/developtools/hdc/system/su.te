@@ -106,7 +106,7 @@ debug_only(`
     #avc:  denied  { call } for  pid=1295 comm="hdf_ext_devmgr" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
     allow hdf_ext_devmgr su:binder {call};
     allow audio_host su:fd { use };
-    allow audio_host su:binder { transfer };
+    allow audio_host su:binder { call transfer };
     allow camera_host su:binder { call transfer };
     allow codec_host su:binder { transfer call };
     allow codec_host su:fd { use };
