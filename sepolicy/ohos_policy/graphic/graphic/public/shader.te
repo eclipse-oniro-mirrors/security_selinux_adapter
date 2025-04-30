@@ -33,6 +33,7 @@ allow isolated_gpu data_app_el1_shadercache:dir { create setattr getattr open re
 allowxperm isolated_gpu data_app_el1_shadercache:file ioctl { 0x5413 };
 allow render_service data_app_el1_shadercache:file { getattr map open read };
 allow render_service data_app_el1_shadercache:dir { getattr open read search };
+allow render_service data_app_el1_file:dir { search };
  
 # for /data/service/el1/public/shader_cache
 allow init data_service_el1_shadercache:dir { getattr open read relabelto setattr add_name create search write };
