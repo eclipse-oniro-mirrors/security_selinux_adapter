@@ -340,7 +340,7 @@ def get_policy_dir_list(args):
 
 
 def get_policy_file_list(args, dir_list_object):
-    build_root = os.path.abspath(os.path.join(args.tool_path, "../../.."))
+    build_root = os.getcwd()
     # list of all policy files
     system_policy_file_list = traverse_file_in_each_type(
         dir_list_object.system_policy_dir_list, SEPOLICY_TYPE_LIST, build_root)

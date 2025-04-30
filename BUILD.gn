@@ -20,6 +20,13 @@ if (!use_musl) {
   startup_init_with_param_base = true
 }
 
+if (!ohos_indep_compiler_enable) {
+  tool_path =
+      rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/")
+} else {
+  tool_path = rebase_path(get_label_info(":libselinux_so", "target_out_dir"))
+}
+
 special_build_selinux_gni_exist =
     selinux_adapter_special_build_selinux_gni_path != "" &&
     exec_script("/bin/sh",
@@ -450,7 +457,7 @@ action("build_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
+    tool_path,
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -556,7 +563,7 @@ action("build_update_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
+    tool_path,
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -612,7 +619,7 @@ action("build_contexts") {
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
+    tool_path,
     "--policy-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--source-root-dir",
@@ -708,7 +715,7 @@ action("build_updater_contexts") {
     "--dst-dir",
     rebase_path(target_out_dir + "/updater"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
+    tool_path,
     "--policy-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
     "--source-root-dir",
@@ -758,7 +765,7 @@ action("selinux_check") {
     "--developer-policy",
     rebase_path(target_out_dir + "/developer/developer_policy"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/"),
+    tool_path,
     "--policy-dir-list",
     selinux_adapter_build_path,
   ]
@@ -1132,23 +1139,58 @@ if (selinux_adapter_support_developer_mode) {
   }
 }
 
-if (build_selinux && !ohos_indep_compiler_enable) {
+if (build_selinux) {
   ohos_copy("libselinux_toolchain") {
     external_deps = [ "selinux:libselinux($host_toolchain)" ]
-    sources =
-        [ "$root_build_dir/clang_${host_cpu}/thirdparty/selinux/libselinux.so" ]
+    if (!ohos_indep_compiler_enable) {
+      sources = [
+        "$root_build_dir/clang_${host_cpu}/thirdparty/selinux/libselinux.so",
+      ]
+    } else {
+      sources =
+          [ rebase_path(get_label_info("selinux:libselinux($host_toolchain)",
+                                       "target_out_dir") +
+                        "/clang_${host_cpu}/libs/libselinux.so") ]
+    }
     outputs =
         [ "$root_build_dir/clang_${host_cpu}/security/selinux/libselinux.so" ]
+
     part_name = "selinux_adapter"
     subsystem_name = "security"
   }
 
   ohos_copy("libpcre2_toolchain") {
     external_deps = [ "pcre2:libpcre2($host_toolchain)" ]
-    sources =
-        [ "$root_build_dir/clang_${host_cpu}/thirdparty/pcre2/libpcre2.so" ]
+    if (!ohos_indep_compiler_enable) {
+      sources =
+          [ "$root_build_dir/clang_${host_cpu}/thirdparty/pcre2/libpcre2.so" ]
+    } else {
+      sources = [ rebase_path(get_label_info("pcre2:libpcre2($host_toolchain)",
+                                             "target_out_dir") +
+                              "/clang_${host_cpu}/libs/libpcre2.so") ]
+    }
     outputs =
         [ "$root_build_dir/clang_${host_cpu}/security/selinux/libpcre2.so" ]
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+  }
+}
+
+if (ohos_indep_compiler_enable) {
+  ohos_copy("libselinux_so") {
+    external_deps = [ "selinux:libselinux($host_toolchain)" ]
+
+    sources = [
+      "//binarys/third_party/pcre2/innerapis/libpcre2/clang_x64/libs/libpcre2.so",
+      "//binarys/third_party/selinux/innerapis/checkpolicy/clang_x64/libs/checkpolicy",
+      "//binarys/third_party/selinux/innerapis/libselinux/clang_x64/libs/libselinux.so",
+      "//binarys/third_party/selinux/innerapis/libsepol/clang_x64/libs/libsepol.so",
+      "//binarys/third_party/selinux/innerapis/secilc/clang_x64/libs/secilc",
+      "//binarys/third_party/selinux/innerapis/sefcontext_compile/clang_x64/libs/sefcontext_compile",
+    ]
+
+    outputs = [ "$target_out_dir/{{source_file_part}}" ]
+
     part_name = "selinux_adapter"
     subsystem_name = "security"
   }
@@ -1310,88 +1352,83 @@ if (selinux_adapter_components != "default") {
 
 group("selinux_group") {
   if (build_selinux) {
-    if (!ohos_indep_compiler_enable) {
-      deps = [
-        ":build_updater_sepolicy",
-        ":config",
-        ":file_contexts",
-        ":file_contexts_updater",
-        ":filecontexts_toolchain",
-        ":hap_restorecon",
-        ":hdf_service_contexts",
-        ":ignore_cfg",
-        ":libpcre2_toolchain",
-        ":libselinux_toolchain",
-        ":load_policy",
-        ":param_check",
-        ":parameter_contexts",
-        ":restorecon",
-        ":sehap_contexts",
-        ":selinux_check",
-        ":service_check",
-        ":service_contexts",
-        ":updater_config",
+    deps = []
+    if (ohos_indep_compiler_enable) {
+      deps += [ ":libselinux_so" ]
+    }
+
+    deps += [
+      ":build_updater_sepolicy",
+      ":config",
+      ":file_contexts",
+      ":file_contexts_updater",
+      ":filecontexts_toolchain",
+      ":hap_restorecon",
+      ":hdf_service_contexts",
+      ":ignore_cfg",
+      ":libpcre2_toolchain",
+      ":libselinux_toolchain",
+      ":load_policy",
+      ":param_check",
+      ":parameter_contexts",
+      ":restorecon",
+      ":sehap_contexts",
+      ":selinux_check",
+      ":service_check",
+      ":service_contexts",
+      ":updater_config",
+    ]
+    external_deps = [
+      "selinux:checkpolicy($host_toolchain)",
+      "selinux:chkcon",
+      "selinux:getenforce",
+      "selinux:getfilecon",
+      "selinux:getpidcon",
+      "selinux:secilc",
+      "selinux:secilc($host_toolchain)",
+      "selinux:sefcontext_compile($host_toolchain)",
+      "selinux:selinux_check_access",
+      "selinux:selinuxexeccon",
+      "selinux:setenforce",
+      "selinux:setfilecon",
+    ]
+    if (selinux_adapter_components == "system") {
+      deps += [
+        ":system_cil",
+        ":system_cil_sha256",
+        ":system_common_cil",
+        ":version_cil",
       ]
-      external_deps = [
-        "selinux:checkpolicy($host_toolchain)",
-        "selinux:chkcon",
-        "selinux:getenforce",
-        "selinux:getfilecon",
-        "selinux:getpidcon",
-        "selinux:secilc",
-        "selinux:secilc($host_toolchain)",
-        "selinux:sefcontext_compile($host_toolchain)",
-        "selinux:selinux_check_access",
-        "selinux:selinuxexeccon",
-        "selinux:setenforce",
-        "selinux:setfilecon",
+      if (selinux_adapter_support_developer_mode) {
+        deps += [
+          ":system_developer_cil",
+          ":system_developer_cil_sha256",
+          ":version_developer_cil",
+        ]
+      }
+    } else if (selinux_adapter_components == "vendor") {
+      deps += [
+        ":build_sepolicy",
+        ":prebuild_sepolicy_system_cil_sha256",
+        ":public_cil",
+        ":public_common_cil",
+        ":selinux_version",
+        ":vendor_cil",
+        ":vendor_common_cil",
       ]
-      if (selinux_adapter_components == "system") {
+      if (selinux_adapter_support_developer_mode) {
         deps += [
-          ":system_cil",
-          ":system_cil_sha256",
-          ":system_common_cil",
-          ":version_cil",
+          ":developer_policy",
+          ":prebuild_sepolicy_system_developer_cil_sha256",
+          ":public_developer_cil",
+          ":vendor_developer_cil",
         ]
-        if (selinux_adapter_support_developer_mode) {
-          deps += [
-            ":system_developer_cil",
-            ":system_developer_cil_sha256",
-            ":version_developer_cil",
-          ]
-        }
-      } else if (selinux_adapter_components == "vendor") {
-        deps += [
-          ":build_sepolicy",
-          ":prebuild_sepolicy_system_cil_sha256",
-          ":public_cil",
-          ":public_common_cil",
-          ":selinux_version",
-          ":vendor_cil",
-          ":vendor_common_cil",
-        ]
-        if (selinux_adapter_support_developer_mode) {
-          deps += [
-            ":developer_policy",
-            ":prebuild_sepolicy_system_developer_cil_sha256",
-            ":public_developer_cil",
-            ":vendor_developer_cil",
-          ]
-        }
-      } else {
-        deps += [ ":build_sepolicy" ]
-        if (selinux_adapter_support_developer_mode) {
-          deps += [ ":developer_policy" ]
-        }
       }
     } else {
-      deps = [
-        ":hap_restorecon",
-        ":load_policy",
-        ":param_check",
-        ":restorecon",
-        ":service_check",
-      ]
+      deps += [ ":build_sepolicy" ]
+      if (selinux_adapter_support_developer_mode) {
+        deps += [ ":developer_policy" ]
+      }
     }
   }
 }
