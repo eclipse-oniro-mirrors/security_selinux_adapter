@@ -159,7 +159,7 @@ allow hiperf data_local_tmp_hiperf_file:dir { create_dir_perms };
 allow hiperf data_local_tmp_hiperf_file:file { create_file_perms };
 allow hiperf data_local_tmp_hiperf_file:fifo_file { create open read unlink write };
 
-allow hiperf data_log:dir { add_name open read search watch write create remove_name };
+allow hiperf data_log:dir { add_name getattr open read search watch write create remove_name };
 allow hiperf data_log:file { create getattr lock map open read rename ioctl write unlink };
 allow hiperf data_app_el1_file:file { getattr map open read };
 allow hiperf data_app_el1_file:dir search;
@@ -176,6 +176,8 @@ allow hiperf vendor_bin_file:file { getattr map open read };
 allow init data_log:file relabelfrom;
 allow init data_log_hiperf_file:dir { getattr open read relabelto setattr };
 allow init data_log_hiperf_file:file { read };
+allow hiview data_log_hiperf_file:dir { getattr open read relabelto search };
+allow hiview data_log_hiperf_file:file { getattr open read unlink };
 
 #allow hiperf data_file:file { create write };
 #allow hiperf devpts:chr_file ioctl;

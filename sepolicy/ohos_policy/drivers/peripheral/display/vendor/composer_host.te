@@ -80,6 +80,9 @@ allow composer_host param_watcher:binder { call transfer };
 allow composer_host sa_param_watcher:samgr_class { get };
 allow composer_host ffrt_param:parameter_service { set };
 allow composer_host ffrt_param:file { read open map };
+allow composer_host bootevent_param:parameter_service { set };
+allow composer_host paramservice_socket:sock_file { write };
+allow composer_host kernel:unix_stream_socket { connectto };
 
 debug_only(`
     allow composer_host sh:fd { use };

@@ -31,7 +31,7 @@ allow sadomain sa_dataobs_mgr_service_service:samgr_class { get };
 neverallow { domain -samgr } self:binder set_context_mgr;
 # let every sa join sadomain
 # TODO:remove hdfdomain after SA dynamic loading support.
-neverallow { domain -sadomain -SP_daemon -init -ark_aot_compiler -hap_domain -isolated_render -isolated_gpu -input_isolate_hap -hdfdomain -samgr_binder_violator -key_enable developer_only(`-bm -input_isolate_debug_hap -uitest -edm -wukong -mediatool') debug_only(`-edm -svc') } samgr:binder transfer;
+neverallow { domain -sadomain -SP_daemon -init -ark_aot_compiler -hap_domain -isolated_render -isolated_gpu -input_isolate_hap -hdfdomain -samgr_binder_violator -key_enable developer_only(`-bm -input_isolate_debug_hap -uitest -edm -wukong -mediatool') debug_only(`-edm -svc') -distributed_isolate_hap } samgr:binder transfer;
 
 neverallow { sadomain hap_domain } dev_tee_file:chr_file { open read append write ioctl };
 
