@@ -17,6 +17,7 @@
 /dev/unix/socket/hilogControl   u:object_r:hilog_control_socket:s0
 /dev/unix/socket/hilogOutput     u:object_r:hilog_output_socket:s0
 /dev/unix/socket/hilogInput     u:object_r:hilog_input_socket:s0
+/dev/unix/socket/hilogPublic     u:object_r:hilog_public_socket:s0
 
 /data/log/hilog(/.*)?           u:object_r:data_hilogd_file:s0
 /data/service/el0/public/for-all-app/hilog(/.*)?       u:object_r:hilog_whitelist_file:s0
