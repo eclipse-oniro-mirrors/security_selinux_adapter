@@ -27,6 +27,7 @@ allow foundation system_basic_hap_attr:binder { call };
 
 developer_only(`
 allow foundation SP_daemon:binder { transfer };
-allow foundation SP_daemon:fd { use };
-allow foundation SP_daemon:fifo_file { write };
 ')
+
+allow foundation SP_daemon:fifo_file { write };
+allow foundation SP_daemon:fd { use };
