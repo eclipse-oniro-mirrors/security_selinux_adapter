@@ -104,8 +104,8 @@ allow hdf_ext_devmgr data_service_file:dir { search };
 allow hdf_ext_devmgr persist_sys_param:file { map open read };
 allow hdf_ext_devmgr dev_ashmem_file:chr_file { open };
 allow hdf_ext_devmgr system_bin_file:dir { search };
-allowxperm hdf_ext_devmgr hdf_ext_devmgr_file:file ioctl { 0xf50c };
-allow hdf_ext_devmgr hdf_ext_devmgr_file:dir { add_name open read remove_name search write };
+allowxperm hdf_ext_devmgr hdf_ext_devmgr_file:file ioctl { 0xf50c 0xf546 };
+allow hdf_ext_devmgr hdf_ext_devmgr_file:dir { add_name open read remove_name search write create ioctl };
 allow hdf_ext_devmgr hdf_ext_devmgr_file:file { create getattr ioctl lock map open read write setattr unlink };
 
 # avc:  denied  { search } for  pid=659 comm="SaInit0" name="el1" dev="mmcblk0p14" ino=12 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
@@ -151,3 +151,20 @@ allow hdf_ext_devmgr sys_file:file { read open };
 # avc:  denied  { read open } for  pid=2184 comm="SaInit0" path="/sys/bus/usb/devices" dev="sysfs" ino=11038 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sys_file:s0 tclass=dir permissive=1
 # avc:  denied  { read } for  pid=2184 comm="SaInit0" name="devices" dev="sysfs" ino=11038 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sys_file:s0 tclass=dir permissive=1
 allow hdf_ext_devmgr sys_file:dir { read open };
+
+# avc: denied { read } for pid=11143, comm="/system/bin/sa_main"  path="/sys/devices/platform/usb_proxy_hcd/usb1/busnum" dev="" ino=65677 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=0
+allow hdf_ext_devmgr dev_bus_usb_file:file { open read };
+
+# avc: denied { write } for pid=11143, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=23 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
+allow hdf_ext_devmgr dev_kmsg_file:chr_file { write };
+
+# avc: denied { getopt } for pid=11143, comm="/system/bin/sa_main"  scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=unix_dgram_socket permissive=0
+# avc: denied { setopt } for pid=11143, comm="/system/bin/sa_main"  scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=unix_dgram_socket permissive=0
+allow hdf_ext_devmgr hdf_ext_devmgr:unix_dgram_socket { getopt setopt };
+
+# avc: denied { read } for pid=11143, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=199 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+allow hdf_ext_devmgr sys_param:file { map read };
+
+# avc: denied { ioctl } for pid=11143, comm="/system/bin/sa_main"  path="/data/service/el1/public/pkg_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=32223 ioctlcmd=0xf546 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:hdf_ext_devmgr_file:s0 tclass=dir permissive=0
+allowxperm hdf_ext_devmgr hdf_ext_devmgr_file:dir ioctl { 0xf546 };
+allow hdf_ext_devmgr chip_prod_file:dir { search };
