@@ -173,3 +173,4 @@ allow SP_daemon sa_render_service:samgr_class { get };
 allow SP_daemon render_service:binder { call };
 allow SP_daemon hiview_file:dir { open read getattr search };
 allow SP_daemon hiview_file:file { open read getattr };
+allow SP_daemon render_service:binder { transfer };
