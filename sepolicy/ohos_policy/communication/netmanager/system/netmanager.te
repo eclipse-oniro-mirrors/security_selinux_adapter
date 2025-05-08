@@ -122,3 +122,6 @@ allow netmanager sa_time_service:samgr_class { get };
 
 # avc: denied { read } scontext=u:r:netmanager:s0 tcontext=u:object_r:etc_hosts_file:s0 tclass=lnk_file permissive=0
 allow netmanager etc_hosts_file:lnk_file { read };
+
+allow netmanager sa_accountmgr:samgr_class { get };
+allow netmanager accountmgr:binder { call transfer };
