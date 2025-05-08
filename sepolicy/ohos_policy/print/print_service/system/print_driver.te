@@ -29,3 +29,6 @@ neverallow print_driver { data_file_attr -print_driver_exec }:file { execute exe
 allow print_driver port:tcp_socket { name_connect };
 allow print_driver print_driver:tcp_socket { connect create read write };
 allow print_driver print_driver:udp_socket { connect create getattr };
+allow print_driver system_fonts_file:dir { getattr open read search };
+allow print_driver system_fonts_file:file { getattr open read };
+allow print_driver system_fonts_file:lnk_file { read };
