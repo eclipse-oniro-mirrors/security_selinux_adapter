@@ -1,0 +1,70 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+    allow perftest foundation:binder { call transfer };
+    allow perftest sa_foundation_cesfwk_service:samgr_class { get };
+    allow perftest sa_foundation_abilityms:samgr_class { get };
+    allow perftest normal_hap_data_file_attr:file { getattr ioctl read write };
+    allow perftest normal_hap_attr:fd { use };
+    allow perftest normal_hap_attr:binder { call };
+    allowxperm perftest normal_hap_data_file_attr:file ioctl { 0x5413 };
+    allow perftest data_file:dir { search };
+    allow perftest data_local:dir { search };
+    # allow perftest load and execute test tool in data_local_tmp in developer mode
+    allow perftest data_local_tmp:file { read create write open ioctl getattr map unlink };
+    allow perftest port:tcp_socket { name_bind name_connect };
+    allow perftest node:tcp_socket { node_bind };
+    allowxperm perftest devpts:chr_file ioctl { 0x5413 };
+    allow perftest dev_kmsg_file:chr_file { write };
+    allow perftest data_local_tmp:dir { search map open create write read add_name getattr remove_name };
+    allowxperm perftest data_local_tmp:file ioctl { 0x5413 };
+    allow perftest dev_unix_socket:dir { search };
+    allow perftest dev_ashmem_file:chr_file { open };
+    allow perftest samgr:binder { call transfer };
+    allow perftest system_basic_hap_attr:binder { call };
+    allow perftest devpts:chr_file { read write };
+    allow perftest system_basic_hap_attr:fd { use };
+    allow perftest system_basic_hap_data_file_attr:file { read write getattr write };
+    allowxperm perftest system_basic_hap_data_file_attr:file ioctl { 0x5413 0xf50c };
+    allow perftest aa:fd { use };
+    allow perftest persist_sys_param:file { map read open };
+    allow perftest sa_param_watcher:samgr_class { get };
+    allow perftest param_watcher:binder { call transfer };
+
+    allow perftest sa_test_server:samgr_class { get };
+    allow perftest test_server:binder { call transfer };
+    allow perftest system_core_hap:fd { use };
+	allow perftest system_usr_file:dir { search };
+    allow perftest system_usr_file:file { getattr map open read };
+
+    allow perftest sh_exec:file { execute execute_no_trans map open read };
+    allow perftest system_bin_file:lnk_file { read };
+    allow perftest toybox_exec:file { execute execute_no_trans getattr map open read };
+
+    allow perftest normal_hap:binder { call transfer };
+    allow perftest normal_hap:file { read open getattr };
+    allow perftest normal_hap:dir { search getattr open read };
+    allow perftest system_basic_hap:binder { call transfer };
+    allow perftest system_basic_hap:file { read open getattr };
+    allow perftest system_basic_hap:dir { search getattr open read };
+    allow perftest system_core_hap:binder { call transfer };
+    allow perftest system_core_hap:file { read open getattr };
+    allow perftest system_core_hap:dir { search getattr open read };
+
+    allow perftest hisysevent:file { read open };
+    allow perftest hisysevent:dir { search getattr };
+    allow perftest sa_sys_event_service:samgr_class { get };
+    allow perftest hiview:binder { call transfer };
+    allow perftest tty_device:chr_file { read write open };
+')
