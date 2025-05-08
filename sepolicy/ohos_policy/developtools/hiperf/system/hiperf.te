@@ -266,3 +266,4 @@ allow hiperf init_exec:file { getattr map open read };
 allow hiperf render_service_exec:file { getattr map open read };
 
 allow hiperf isolated_render:lnk_file { read };
+allow hiperf SP_daemon:fd { use };
