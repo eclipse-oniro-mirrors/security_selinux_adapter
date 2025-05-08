@@ -46,3 +46,4 @@ allow hap_domain data_service_el1_shadercache:dir { getattr open read search };
 allowxperm hap_domain data_service_el1_shadercache:file ioctl { 0x5413 };
 allow render_service data_service_el1_shadercache:file { create setattr getattr map open read rename unlink write };
 allow render_service data_service_el1_shadercache:dir { create setattr getattr open read add_name remove_name search unlink write rmdir };
+allow render_service data_service_el1_file:dir { search };
