@@ -1,0 +1,29 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+    allow test_server perftest:binder { call transfer };
+
+    allow test_server dev_ucollection:chr_file { ioctl read open write };
+    allowxperm test_server dev_ucollection:chr_file ioctl { 0x1 0x2 0x4 };
+    allow test_server normal_hap:file { getattr read open };
+    allow test_server system_basic_hap:file { getattr read open };
+    allow test_server system_core_hap:file { getattr read open };
+    allow test_server normal_hap:dir { getattr search };
+    allow test_server system_basic_hap:dir { getattr search };
+    allow test_server system_core_hap:dir { getattr search };
+    allow test_server test_server:capability { sys_ptrace };
+    allow test_server proc_stat_file:file { getattr open read };
+
+    allow test_server sysfs_devices_system_cpu:file { read open getattr };
+')
