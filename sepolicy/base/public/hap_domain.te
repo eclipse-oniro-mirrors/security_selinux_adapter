@@ -130,7 +130,7 @@ neverallow normal_hap dev_attr:sock_file open;
 neverallow normal_hap { dev_attr -dnsproxy_service -fwmark_service }:sock_file read;
 
 neverallow normal_hap { dev_attr -dev_unix_file -dev_unix_socket -dnsproxy_service -faultloggerd_socket -fwmark_service -hiprofiler_socket
-                      -hilog_output_socket -hilog_input_socket -hilog_public_socket -hisysevent_socket -dev_file -native_socket }:sock_file write;
+                      -hilog_output_socket -hilog_input_socket -hilog_control_pub_socket -hisysevent_socket -dev_file -native_socket }:sock_file write;
 
 neverallow normal_hap dev_attr:sock_file ioctl;
 
