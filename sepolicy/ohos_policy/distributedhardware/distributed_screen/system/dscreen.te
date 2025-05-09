@@ -150,7 +150,6 @@ allow dscreen init:binder { call transfer };
 
 #avc:  denied  { use } for   scontext=u:r:dscreen:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=0
 allow dscreen render_service:fd { use };
-allow dscreen composer_host:fd { use };
 
 #avc:  denied  { read write } for   scontext=u:r:dscreen:s0 tcontext=u:r:render_service:s0 tclass=unix_stream_socket permissive=1
 allow dscreen render_service:unix_stream_socket { read write };

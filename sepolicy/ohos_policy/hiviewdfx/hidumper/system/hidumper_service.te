@@ -54,7 +54,6 @@ allow hidumper_service sa_foundation_tel_call_manager:samgr_class get;
 allow hidumper_service sa_foundation_tel_state_registry:samgr_class get;
 allow hidumper_service sa_render_service:samgr_class get;
 allow hidumper_service sa_multimodalinput_service:samgr_class get;
-allow hidumper_service composer_host:fd { use };
 
 developer_only(`
     allow hidumper_service data_file:dir { getattr open read search };

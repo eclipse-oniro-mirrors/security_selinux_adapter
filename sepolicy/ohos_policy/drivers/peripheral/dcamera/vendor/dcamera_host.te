@@ -78,7 +78,6 @@ allow dcamera_host ohos_dev_param:file { read };
 allow dcamera_host media_service:binder { call };
 allow dcamera_host vendor_bin_file:dir { search };
 allow dcamera_host render_service:fd { use };
-allow dcamera_host composer_host:fd { use };
 allow dcamera_host param_watcher:binder { call transfer };
 
 allow dcamera_host bootevent_param:file { map open read };

@@ -148,7 +148,6 @@ allow isolated_gpu render_service:binder { call transfer };
  
 # avc_audit_slow:267] avc: denied { use } for pid=1391, comm="/system/bin/render_service"  path="anon_inode:sync_file" dev="" ino=0 scontext=u:r:isolated_gpu:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
 allow isolated_gpu render_service:fd { use };
-allow isolated_gpu composer_host:fd { use };
  
 # avc_audit_slow:267] avc: denied { call } for pid=24439, comm="/system/bin/appspawn"  scontext=u:r:isolated_gpu:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
 # avc_audit_slow:267] avc: denied { transfer } for pid=24439, comm="/system/bin/appspawn"  scontext=u:r:isolated_gpu:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
