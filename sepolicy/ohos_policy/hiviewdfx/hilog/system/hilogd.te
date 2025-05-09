@@ -112,4 +112,4 @@ allow hilogd hilog_private_param:parameter_service { set };
 allow hilogd data_log:dir { write add_name write remove_name };
 allow hilogd data_log:file { create getattr ioctl open rename write unlink };
 allow domain hilogd:unix_stream_socket { connectto };
-allow domain hilog_control_socket:sock_file { write };
+allow domain hilog_control_pub_socket:sock_file { write };
