@@ -21,7 +21,7 @@ type hilog_exec, exec_attr, file_attr, system_file_attr;
 type hilog_control_socket, dev_attr, file_attr;
 type hilog_input_socket, dev_attr, file_attr;
 type hilog_output_socket, dev_attr, file_attr;
-type hilog_public_socket, dev_attr, file_attr;
+type hilog_control_pub_socket, dev_attr, file_attr;
 type data_hilogd_file, file_attr, data_file_attr;
 type hilog_whitelist_file, file_attr, data_file_attr;
 init_daemon_domain(hilogd);
