@@ -12,3 +12,4 @@
 # limitations under the License.
 
 attribute edm_config_file_attr;
+attribute violator_edm_writable_param_set;
