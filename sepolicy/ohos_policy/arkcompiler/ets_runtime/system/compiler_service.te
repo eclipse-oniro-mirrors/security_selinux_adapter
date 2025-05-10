@@ -47,3 +47,4 @@ allow compiler_service data_app_el1_arkcache:file { create getattr ioctl write }
 allowxperm compiler_service data_app_el1_arkcache:file ioctl { 0x5413 };
 allow compiler_service data_app_el1_arkcache:dir { create setattr };
 allow compiler_service data_service_file:dir { open read search };
+allow compiler_service data_service_el1_file:dir { search };
