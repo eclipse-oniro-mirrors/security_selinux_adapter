@@ -13,3 +13,6 @@
 
 allow local_code_sign data_app_el1_file:dir { search };
 allow local_code_sign data_app_file:dir { search };
+allow local_code_sign data_service_el1_file:dir { search };
+allow local_code_sign data_service_file:dir { search };
+allow local_code_sign data_service_el1_file:file { getattr open read };
