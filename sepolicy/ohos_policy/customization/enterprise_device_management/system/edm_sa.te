@@ -215,7 +215,7 @@ allow render_service edm_sa:fd { use };
 
 allow edm_sa sa_camera_service:samgr_class { get };
 allow edm_sa camera_service:binder { call };
-neverallow { domain -edm_sa -init } edm_writable_param:parameter_service { set };
+neverallow { domain -edm_sa -init -violator_edm_writable_param_set } edm_writable_param:parameter_service { set };
 
 # avc:  denied  { get } for service=3524 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
 allow edm_sa sa_sg_collect_service:samgr_class { get };
