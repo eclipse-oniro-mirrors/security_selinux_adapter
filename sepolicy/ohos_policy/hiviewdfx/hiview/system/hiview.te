@@ -284,3 +284,6 @@ allow hiview wifi_manager_service:fd { use };
 
 allow hiview pstorefs:dir { open read remove_name search write };
 allow hiview pstorefs:file { open read unlink };
+
+# avc: denied { get } for service=1158 sid=u:r:hiview:s0 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_netsys_native_manager:s0	tclass=samgr_class permissive=O
+allow hiview sa_netsys_native_manager:samgr_class { get };
