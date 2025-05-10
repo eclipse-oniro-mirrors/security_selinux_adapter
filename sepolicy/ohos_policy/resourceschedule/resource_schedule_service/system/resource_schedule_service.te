@@ -195,3 +195,6 @@ allow resource_schedule_service sharing_service:file { open read getattr };
 
 allow resource_schedule_service av_codec_service:dir { open search read };
 allow resource_schedule_service av_codec_service:file { open read getattr };
+
+allow resource_schedule_service sa_device_usage_statistics_service:samgr_class { get };
+
