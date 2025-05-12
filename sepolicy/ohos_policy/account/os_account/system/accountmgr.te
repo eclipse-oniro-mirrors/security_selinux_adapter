@@ -155,6 +155,8 @@ allowxperm accountmgr account_data_file:dir ioctl { 0xf546 0xf547 };
 
 allow accountmgr msdp_sa:binder { call transfer };
 
+allow accountmgr netmanager:binder { call transfer };
+
 # add for test
 debug_only(`
     allow accountmgr sh:binder { call };
