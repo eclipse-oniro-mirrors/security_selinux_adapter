@@ -15,4 +15,4 @@ debug.graphic.overdraw                  u:object_r:debug_param:s0
 rosen.dirtyregiondebug.enabled          u:object_r:debug_param:s0
 rosen.drawingCache.enabledDfx           u:object_r:debug_param:s0
 persist.graphic.profiler.               u:object_r:debug_param:s0
-sys.graphic.openTestModeTrace           u:object_r:debug_param:s0
+sys.graphic.openTestModeTrace           u:object_r:hiviewdfx_profiler_param:s0
