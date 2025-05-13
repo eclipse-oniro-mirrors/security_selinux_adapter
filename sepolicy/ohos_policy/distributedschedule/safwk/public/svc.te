@@ -23,6 +23,7 @@ debug_only(`
     allow svc su:unix_stream_socket { read write };
     allow svc dev_console_file:chr_file { read write };
     allow svc dev_unix_socket:dir { search };
+    allow svc su:fifo_file { read write };
 
     allow svc samgr:binder { call };
     allow svc wifi_manager_service:binder { call };
