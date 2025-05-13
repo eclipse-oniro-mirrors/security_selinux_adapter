@@ -101,3 +101,4 @@ allow cloudfiledaemon sa_media_service:samgr_class { get };
 allow cloudfiledaemon media_service:binder { call transfer };
 allow cloudfiledaemon medialibrary_hap_data_file:dir { ioctl };
 allowxperm cloudfiledaemon medialibrary_hap_data_file:dir ioctl 0xf546;
+allow cloudfiledaemon sa_storage_manager_service:samgr_class { get };
