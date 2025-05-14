@@ -66,3 +66,5 @@ allow time_service tracefs_trace_marker_file:file { open write };
 allow time_service domain:dir { getattr search };
 allow time_service domain:file { open read };
 allowxperm time_service data_service_el1_file:file ioctl { 0x5413 };
+allow time_service softbus_server:binder { call };
+allow time_service softbus_server:file { getattr };
