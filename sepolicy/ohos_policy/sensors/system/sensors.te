@@ -136,7 +136,6 @@ allow sensors data_local_tmp:file { getattr read };
 allow sensors sysfs_devices_system_cpu:file { getattr open read };
 
 allow sensors render_service:fd { use };
-allow sensors composer_host:fd { use };
 allow sensors render_service:unix_stream_socket { read write };
 allow sensors render_service:binder { call };
 

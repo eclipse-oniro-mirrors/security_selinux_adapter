@@ -84,7 +84,6 @@ allow distributedsche sysfs_devices_system_cpu:file { read };
 allow distributedsche data_service_el1_file:file { setattr };
 #avc:  denied  { use } for  pid=2263 comm="IPC_1_2266" path="/dev/ashmem" dev="tmpfs" ino=612 scontext=u:r:distributedsche:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
 allow distributedsche render_service:fd { use };
-allow distributedsche composer_host:fd { use };
 #avc:  denied  { open } for  pid=3435 comm="deviceprofile" path="/sys/devices/system/cpu/online" dev="sysfs" ino=30137 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
 allow distributedsche sysfs_devices_system_cpu:file { open };
 #avc:  denied  { read } for  pid=4101 comm="mmi_EventHdr" scontext=u:r:distributedsche:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1

@@ -145,7 +145,6 @@ developer_only(`
     allow input_isolate_debug_hap render_service:binder { call transfer };
 
     allow input_isolate_debug_hap render_service:fd { use };
-    allow input_isolate_debug_hap composer_host:fd { use };
     allow render_service input_isolate_debug_hap:fd { use };
     allow render_service input_isolate_debug_hap:binder { call transfer };
 

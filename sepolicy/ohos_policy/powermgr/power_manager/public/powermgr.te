@@ -379,7 +379,6 @@ binder_call(powermgr, bgtaskmgr_service);
 allow powermgr sa_render_service:samgr_class { get };
 binder_call(powermgr, render_service);
 binder_call(render_service, powermgr);
-allow powermgr composer_host:fd { use };
 
 # avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
 allow powermgr sa_net_conn_manager:samgr_class { get };
