@@ -15,6 +15,7 @@
 /system/bin/hilog               u:object_r:hilog_exec:s0
 
 /dev/unix/socket/hilogControl   u:object_r:hilog_control_socket:s0
+/dev/unix/socket/hilogControlPub     u:object_r:hilog_control_pub_socket:s0
 /dev/unix/socket/hilogOutput     u:object_r:hilog_output_socket:s0
 /dev/unix/socket/hilogInput     u:object_r:hilog_input_socket:s0
 

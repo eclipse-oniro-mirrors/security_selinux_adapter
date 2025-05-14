@@ -59,6 +59,7 @@ allow hilogd hilog:file { getattr };
 allow hilogd init:file { getattr };
 
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
+allowxperm hilogd data_log:file ioctl { 0x5413 };
 
 allow hilogd domain:dir { search };
 allow hilogd domain:file { open read getattr };
@@ -71,6 +72,7 @@ neverallow hilogd {
     -hilog_whitelist_file
     -data_hilogd_file
     -data_init_agent
+    -data_log
 }:file { create write append };
 
 # ptrace any other app
@@ -107,3 +109,8 @@ neverallow {
 neverallow { domain -hilogd } data_hilogd_file:file { append create rename setattr write };
 
 allow hilogd hilog_private_param:parameter_service { set };
+
+allow hilogd data_log:dir { write add_name write remove_name };
+allow hilogd data_log:file { create getattr ioctl open rename write unlink };
+allow domain hilogd:unix_stream_socket { connectto };
+allow domain hilog_control_pub_socket:sock_file { write };
