@@ -116,3 +116,6 @@ binder_call(foundation, sa_sandbox_manager_service);
 
 # add for hiperf
 allow hiperf multimodalinput:fd { use };
+
+# add for pasteboard_service
+allow foundation pasteboard_service:fd { use };
