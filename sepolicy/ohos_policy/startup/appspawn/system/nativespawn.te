@@ -13,3 +13,9 @@
 
 allow nativespawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
 allow nativespawn data_service_el1_file:file { read write create map open unlink };
+
+# supports sending child process exit sig to ams
+# avc: denied { use } for pid=8723, comm="/system/bin/nativespawn" path="pipe:[53]" dev="tmpfs" ino=53 scontext=u:r:nativespawn:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=1
+allow nativespawn foundation:fd { use };
+# avc: denied { write } for pid=8723, comm="/system/bin/nativespawn" path="pipe:[8763]" dev="tmpfs" ino=53 scontext=u:r:nativespawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
+allow nativespawn foundation:fifo_file { write };
