@@ -143,7 +143,9 @@ allow hdf_ext_devmgr dev_bus_usb_file:chr_file { open read write ioctl};
 allow hdf_ext_devmgr dev_bus_usb_file:dir { search read open };
 
 # avc:  denied  { ioctl } for  pid=1866 comm="SaInit0" path="/dev/bus/usb/001/002" dev="tmpfs" ino=419 ioctlcmd=0x551a scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=1
-allowxperm hdf_ext_devmgr dev_bus_usb_file:chr_file ioctl { 0x551a };
+# avc:  denied  { ioctl } for  pid=5459 comm="SaInit0" path="/dev/bus/usb/001/002" dev="tmpfs" ino=410 ioctlcmd=0x550a scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { ioctl } for  pid=5459 comm="SaInit0" path="/dev/bus/usb/001/002" dev="tmpfs" ino=410 ioctlcmd=0x550d scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=chr_file permissive=0
+allowxperm hdf_ext_devmgr dev_bus_usb_file:chr_file ioctl { 0x551a 0x550a 0x550d };
 
 allow hdf_ext_devmgr hdf_ext_devmgr:netlink_kobject_uevent_socket { bind create read setopt };
 allow hdf_ext_devmgr sys_file:file { read open };
