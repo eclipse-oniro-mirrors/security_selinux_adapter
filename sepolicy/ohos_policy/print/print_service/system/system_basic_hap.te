@@ -21,3 +21,4 @@ allow system_basic_hap_attr hichecker_writable_param:file { map open read };
 allow system_basic_hap_attr data_service_el1_public_print_service_file:file { getattr read };
 allow system_basic_hap_attr print_driver_exec:file { getattr read };
 allow system_basic_hap_attr scan_service:fd { use };
+allow system_basic_hap kernel: fd { use };
