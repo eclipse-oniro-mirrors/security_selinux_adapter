@@ -18,6 +18,7 @@
 
 /data/log/hiview(/.*)?          u:object_r:hiview_file:s0
 /data/system/hiview(/.*)?       u:object_r:hiview_file:s0
+/data/system/hiview/unzip_configs/sys_event_def(/.*)?    u:object_r:hiview_sys_def_file:s0
 
 /dev/ucollection                u:object_r:dev_ucollection:s0
 
