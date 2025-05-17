@@ -33,7 +33,7 @@ allow sane_service sa_sane_service:samgr_class { add };
 allow sane_service sane_service:netlink_kobject_uevent_socket { bind create read setopt };
 allow sane_service sane_service:netlink_route_socket { create nlmsg_read read write };
 allow sane_service sane_service:tcp_socket { connect create getopt read setopt write shutdown };
-allow sane_service sane_service:udp_socket { bind create ioctl read setopt write getattr };
+allow sane_service sane_service:udp_socket { bind create ioctl read setopt write getattr connect };
 allow sane_service sane_service:unix_dgram_socket { getopt setopt };
 allowxperm sane_service data_service_sane_service_tmp_file:file ioctl { 0x5413 };
 allowxperm sane_service sane_service:udp_socket ioctl { 0x8912 0x8915 0x891b };
