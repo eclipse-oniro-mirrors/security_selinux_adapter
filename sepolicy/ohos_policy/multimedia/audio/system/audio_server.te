@@ -198,6 +198,8 @@ allow audio_server sa_memory_manager_service:samgr_class { get };
 
 binder_call(audio_server, memmgrservice);
 
+allow audio_server sa_bgtaskmgr:samgr_class { get };
+
 allow audio_server sa_avsession_service:samgr_class { get };
 
 binder_call(audio_server, av_session);
