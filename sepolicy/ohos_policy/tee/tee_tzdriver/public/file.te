@@ -12,6 +12,7 @@
 # limitations under the License.
 
 type dev_tee_public, dev_attr;
+type dev_tee_container_public, dev_attr;
 type dev_tee_private, dev_attr;
 type dev_tee_log, dev_attr;
 
