@@ -41,6 +41,13 @@ allow hisysevent hiprofiler_plugins:fifo_file { ioctl write };
 allow hisysevent data_local_tmp:file { write ioctl };
 allowxperm hisysevent data_local_tmp:file ioctl { 0x5413 };
 
+allow hisysevent chip_prod_file:dir { search };
+allow hisysevent data_service_file:dir { search };
+allow hisysevent data_system:dir { search };
+allow hisysevent hiview_file:dir { search };
+allow hisysevent hiview_sys_def_file:dir { search };
+allow hisysevent hiview_sys_def_file:file { read open getattr };
+
 developer_only(`
 allow hisysevent sh:fd { use };
 allow hisysevent sh:fifo_file { write ioctl };

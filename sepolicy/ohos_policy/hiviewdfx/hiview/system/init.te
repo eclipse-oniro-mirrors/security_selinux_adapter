@@ -17,7 +17,8 @@ allow init dev_bbox:chr_file { setattr ioctl };
 #avc:  denied  { write } for  pid=4175 comm="init" name="hiview" dev="mmcblk0p11" ino=18 scontext=u:r:init:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=0
 #avc:  denied  { add_name } for  pid=1594 comm="init" name="temp" scontext=u:r:init:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=0
 #avc:  denied  { create } for  pid=1594 comm="init" name="temp" scontext=u:r:init:s0 tcontext=u:object_r:hiview_file:s0 tclass=dir permissive=0
-allow init hiview_file:dir { write add_name create };
+allow init hiview_file:dir { write add_name create getattr relabelfrom };
+allow init hiview_sys_def_file:dir { write add_name create setattr relabelto read open search };
 
 #avc:  denied  { setattr } for pid=899 comm="init" name="userlist" dev="sysfs" scontext=u:r:init:s0 tcontext=u:object_r:sysfs_hungtask_userlist:s0 tclass=file permissive=0
 allow init sysfs_hungtask_userlist:file { setattr };

@@ -16,6 +16,7 @@ type hiview, sadomain, domain;
 type hiview_exec, exec_attr, file_attr, system_file_attr;
 type usage_report_exec, exec_attr, file_attr, system_file_attr;
 type hiview_file, file_attr, data_file_attr;
+type hiview_sys_def_file, file_attr, data_file_attr;
 type hisysevent_socket, dev_attr, file_attr;
 type dev_ucollection, dev_attr, file_attr;
 type dev_sysevent, dev_attr;
