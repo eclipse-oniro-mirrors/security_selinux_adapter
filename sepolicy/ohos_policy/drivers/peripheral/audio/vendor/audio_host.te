@@ -140,3 +140,6 @@ allow audio_host sys_prod_file:dir { search };
 
 # /sys/class/switch
 allow audio_host sysfs_switch:file { open read getattr };
+
+allow audio_host audio_host:unix_dgram_socket { getopt setopt };
+allow audio_host hiview:unix_dgram_socket { sendto };
