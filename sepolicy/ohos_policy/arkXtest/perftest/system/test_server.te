@@ -17,9 +17,11 @@ developer_only(`
     allow test_server dev_ucollection:chr_file { ioctl read open write };
     allowxperm test_server dev_ucollection:chr_file ioctl { 0x1 0x2 0x4 };
     allow test_server normal_hap:file { getattr read open };
+    allow test_server debug_hap:file { getattr read open };
     allow test_server system_basic_hap:file { getattr read open };
     allow test_server system_core_hap:file { getattr read open };
     allow test_server normal_hap:dir { getattr search };
+    allow test_server debug_hap:dir { getattr search };
     allow test_server system_basic_hap:dir { getattr search };
     allow test_server system_core_hap:dir { getattr search };
     allow test_server test_server:capability { sys_ptrace };
