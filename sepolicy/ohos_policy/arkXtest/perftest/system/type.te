@@ -61,6 +61,9 @@ developer_only(`
     allow perftest system_core_hap:binder { call transfer };
     allow perftest system_core_hap:file { read open getattr };
     allow perftest system_core_hap:dir { search getattr open read };
+    allow perftest debug_hap:binder { call transfer };
+    allow perftest debug_hap:file { read open getattr };
+    allow perftest debug_hap:dir { search getattr open read };
 
     allow perftest hisysevent:file { read open };
     allow perftest hisysevent:dir { search getattr };
