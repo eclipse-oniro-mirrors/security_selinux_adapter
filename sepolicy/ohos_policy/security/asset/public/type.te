@@ -15,3 +15,4 @@ type sa_asset_service, sa_service_attr;
 type asset_service, sadomain, domain;
 type data_service_el1_public_asset_service_file, file_attr, data_file_attr;
 type data_service_el2_user_id_asset_service_file, file_attr, data_file_attr;
+type data_service_el1_public_asset_clone_file, file_attr, data_file_attr;
