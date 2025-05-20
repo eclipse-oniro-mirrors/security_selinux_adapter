@@ -12,6 +12,7 @@
 # limitations under the License.
 
 domain_auto_transition_pattern(compiler_service, ark_aot_compiler_exec, ark_aot_compiler);
+domain_auto_transition_pattern(compiler_service, ark_aot_exec, ark_aot);
 allow compiler_service sa_local_code_sign:samgr_class { add get };
 allow compiler_service compiler_service:capability { setgid setuid };
 allow compiler_service sa_local_code_sign:samgr_class { get };
@@ -40,3 +41,8 @@ allow compiler_service sa_foundation_cesfwk_service:samgr_class { get };
 allow compiler_service foundation:binder { call transfer };
 allow compiler_service data_app_el1_file:dir { search };
 allow compiler_service data_app_file:dir { search };
+
+allow compiler_service data_app_el1_arkcache:dir { getattr write add_name };
+allow compiler_service data_app_el1_arkcache:file { create getattr ioctl write };
+allowxperm compiler_service data_app_el1_arkcache:file ioctl { 0x5413 };
+allow compiler_service data_app_el1_arkcache:dir { create setattr };

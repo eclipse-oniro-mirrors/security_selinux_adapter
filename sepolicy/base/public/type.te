@@ -112,6 +112,9 @@ type aa_exec, exec_attr, file_attr, system_file_attr;
 type ark_aot_compiler, native_system_domain, domain;
 type ark_aot_compiler_exec, exec_attr, file_attr, system_file_attr;
 
+type ark_aot, native_system_domain, domain;
+type ark_aot_exec, exec_attr, file_attr, system_file_attr;
+
 type compiler_service, sadomain, domain;
 
 debug_only(`
