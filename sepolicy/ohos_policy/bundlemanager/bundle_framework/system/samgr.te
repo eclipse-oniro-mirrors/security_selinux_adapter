@@ -15,3 +15,8 @@ allow samgr ark_aot_compiler:binder { call transfer };
 allow samgr ark_aot_compiler:dir { search };
 allow samgr ark_aot_compiler:file { read open read };
 allow samgr ark_aot_compiler:process { getattr };
+
+allow samgr ark_aot:binder { call transfer };
+allow samgr ark_aot:dir { search };
+allow samgr ark_aot:file { read open read };
+allow samgr ark_aot:process { getattr };
