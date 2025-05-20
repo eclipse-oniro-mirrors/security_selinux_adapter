@@ -17,7 +17,7 @@ allow appspawn persist_sys_param:parameter_service { set };
 allow appspawn arkui_param:parameter_service { set };
 allow system_basic_hap_attr appspawn:unix_stream_socket { write };
 allow system_basic_hap_attr appspawn:unix_stream_socket { read };
-allow hap_domain data_app_el1_arkcache:file { map execute read open };
+allow hap_domain data_app_el1_arkcache:file { map execute read open getattr };
 allow appspawn data_app_el1_arkcache:dir { search mounton };
 allow hap_domain data_app_el1_arkcache:dir { search };
 allow hap_domain key_enable:key { search };
