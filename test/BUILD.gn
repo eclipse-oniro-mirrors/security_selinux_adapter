@@ -42,6 +42,9 @@ ohos_unittest("hap_restorecon_unittest") {
     "../:libselinux_hilog_static",
   ]
   cflags = [ "-DSELINUX_TEST" ]
+  if (selinux_adapter_mcs_enable) {
+    cflags += [ "-DMCS_ENABLE" ]
+  }
   external_deps = [
     "googletest:gtest",
     "hilog:libhilog",

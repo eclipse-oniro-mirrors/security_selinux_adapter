@@ -76,9 +76,12 @@ const static std::string TEST_EXTENSION = "extension_test_ability";
 const static std::string TEST_SAME_EXTENSION = "extension_same_ability";
 const static std::string TEST_DEBUG_EXTENSION = "extension_test_debug_ability";
 const static std::string TEST_NORMAL_DOMAIN_WITH_CATEGORY = "o:r:normal_hap:s0:x214,x486,x514,x868,x1024";
+const static std::string TEST_NORMAL_DOMAIN_WITH_CATEGORY_USER = "o:r:normal_hap:s0:x868,x1024";
+const static std::string TEST_NORMAL_DOMAIN_WITH_CATEGORY_APP = "o:r:normal_hap:s0:x214,x486,x514";
 const static std::string TEST_SANDBOX_HAP_DOMAIN = "u:r:test_sandbox_hap:s0";
 const static std::string TEST_SANDBOX_HAP_DATA_TYPE = "u:r:test_sandbox_hap_data_file:s0";
 const static uint32_t TEST_UID = 20190166;
+const static uint32_t TEST_UID_FAILED = 20008;
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
@@ -191,8 +194,8 @@ static void GenerateTestFile()
     std::vector<std::string> sehapInfo = {
         "apl=system_core domain=system_core_hap type=system_core_hap_data_file",
         "apl=system_basic domain=system_basic_hap type=system_basic_hap_data_file",
-        "apl=normal domain=normal_hap type=normal_hap_data_file",
-        "apl=normal debuggable=true domain=debug_hap type=debug_hap_data_file",
+        "apl=normal domain=normal_hap type=normal_hap_data_file levelFrom=all user=o",
+        "apl=normal debuggable=true domain=debug_hap type=debug_hap_data_file levelFrom=all user=o",
         "apl=system_core name=com.ohos.test domain= type=",
         "apl=system_core domain=selftest type=selftest_hap_data_file",
         "apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file",
@@ -699,50 +702,44 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup001, TestSize.Level1)
     params.apl = SYSTEM_CORE_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = 0;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_HAP_DOMAIN.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = EMPTY_STRING;
-    params.hapFlags = 0;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
-    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME;
     params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_HAP_DOMAIN.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = SELINUX_HAP_DLP;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
     params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DOMAIN.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
     params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX | SELINUX_HAP_DEBUGGABLE;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, true, con));
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DOMAIN.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = EMPTY_STRING;
-    params.hapFlags = 0;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con, TEST_UID));
-    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY.c_str());
 
     freecon(oldTypeContext);
     context_free(con);
@@ -764,43 +761,50 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup002, TestSize.Level1)
     params.apl = SYSTEM_CORE_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = 0;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_HAP_DATA_TYPE.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = 0;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_NOMAL_TYPE.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME;
     params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_NOMAL_TYPE.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = SELINUX_HAP_DLP;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), DLP_HAP_DATA_TYPE.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = EMPTY_STRING;
     params.hapFlags = SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), DLP_HAP_DATA_TYPE.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
     params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DATA_TYPE.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
     params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX | SELINUX_HAP_DEBUGGABLE;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, false, con));
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_SANDBOX_HAP_DATA_TYPE.c_str());
 
     freecon(oldTypeContext);
@@ -824,7 +828,8 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup003, TestSize.Level1)
     params.packageName = EMPTY_STRING;
     params.hapFlags = 0;
     params.extension = TEST_EXTENSION;
-    int res = test.HapContextsLookup(params, true, con);
+    params.isDomain = true;
+    int res = test.HapContextsLookup(params, con);
     EXPECT_EQ(res, SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_EXTENSION_DOMAIN.c_str());
     //2.debug
@@ -832,23 +837,17 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup003, TestSize.Level1)
     params.packageName = EMPTY_STRING;
     params.hapFlags = SELINUX_HAP_DEBUGGABLE;
     params.extension = TEST_DEBUG_EXTENSION;
-    res = test.HapContextsLookup(params, true, con);
+    params.isDomain = true;
+    res = test.HapContextsLookup(params, con);
     EXPECT_EQ(res, SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_EXTENSION_DEBUG_DOMAIN.c_str());
-    //3.preinstall
-    params.apl = NORMAL_APL;
-    params.packageName = "NOT_SET";
-    params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
-    params.extension = "NOT_SET";
-    res = test.HapContextsLookup(params, true, con);
-    EXPECT_EQ(res, SELINUX_SUCC);
-    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
     //4.preinstall
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME;
     params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
     params.extension = "NOT_SET";
-    res = test.HapContextsLookup(params, true, con);
+    params.isDomain = true;
+    res = test.HapContextsLookup(params, con);
     EXPECT_EQ(res, SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_HAP_DOMAIN.c_str());
 
@@ -873,7 +872,8 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup004, TestSize.Level1)
     params.packageName = TEST_HAP_BUNDLE_NAME;
     params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
     params.extension = TEST_EXTENSION;
-    int res = test.HapContextsLookup(params, true, con);
+    params.isDomain = true;
+    int res = test.HapContextsLookup(params, con);
     EXPECT_EQ(res, SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_EXTENSION_PREINSTALL_DOMAIN.c_str());
     //6.preinstall
@@ -881,7 +881,8 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup004, TestSize.Level1)
     params.packageName = TEST_HAP_BUNDLE_NAME;
     params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
     params.extension = "NOT_SET";
-    res = test.HapContextsLookup(params, true, con);
+    params.isDomain = true;
+    res = test.HapContextsLookup(params, con);
     EXPECT_EQ(res, SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_HAP_DOMAIN.c_str());
     //7.preinstall
@@ -889,9 +890,162 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup004, TestSize.Level1)
     params.packageName = "NOT_SET";
     params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
     params.extension = TEST_SAME_EXTENSION;
-    res = test.HapContextsLookup(params, true, con);
+    params.isDomain = true;
+    res = test.HapContextsLookup(params, con);
     EXPECT_EQ(res, SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_EXTENSION_SAME_DOMAIN.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup005
+ * @tc.desc: test HapContextsLookup must succeed with mcs userid=0
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup005, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = 0;
+    params.isDomain = true;
+#ifdef MCS_ENABLE
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#endif
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup006
+ * @tc.desc: test HapContextsLookup must succeed with mcs 0<userid<100
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup006, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = 0;
+    params.isDomain = true;
+#ifdef MCS_ENABLE
+    params.uid = TEST_UID_FAILED;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#endif
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup007
+ * @tc.desc: test HapContextsLookup must succeed with mcs userid>=100
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup007, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = 0;
+    params.isDomain = true;
+#ifdef MCS_ENABLE
+    params.uid = TEST_UID;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#endif
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup008
+ * @tc.desc: test HapContextsLookup must succeed with isDomain=false
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup008, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    //3.preinstall
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = "NOT_SET";
+    params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
+    params.extension = "NOT_SET";
+    params.uid = TEST_UID;
+#ifdef MCS_ENABLE
+    EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
+    EXPECT_STREQ(context_str(con), TEST_NOMAL_TYPE.c_str());
+#else
+    EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
+    EXPECT_STREQ(context_str(con), TEST_NOMAL_TYPE.c_str());
+#endif
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup009
+ * @tc.desc: test HapContextsLookup must succeed with isDomain=true
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup009, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    //3.preinstall
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = "NOT_SET";
+    params.hapFlags = SELINUX_HAP_RESTORECON_PREINSTALLED_APP;
+    params.extension = "NOT_SET";
+    params.uid = TEST_UID;
+#ifdef MCS_ENABLE
+    params.isDomain = true;
+    EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY.c_str());
+#else
+    EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
+    EXPECT_STREQ(context_str(con), TEST_NOMAL_TYPE.c_str());
+#endif
 
     freecon(oldTypeContext);
     context_free(con);
@@ -906,6 +1060,32 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup004, TestSize.Level1)
 HWTEST_F(SelinuxUnitTest, TypeSet001, TestSize.Level1)
 {
     ASSERT_EQ(-SELINUX_ARG_INVALID, test.TypeSet(EMPTY_STRING, nullptr));
+}
+
+/**
+ * @tc.name: UserAndMCSRangeSet001
+ * @tc.desc: test UserAndMCSRangeSet with different level.
+ * @tc.type: FUNC
+ * @tc.require: issueI6JV34
+ */
+HWTEST_F(SelinuxUnitTest, UserAndMCSRangeSet001, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+    ASSERT_EQ(SELINUX_SUCC, test.TypeSet("normal_hap", con));
+#ifdef MCS_ENABLE
+    EXPECT_EQ(test.UserAndMCSRangeSet(TEST_UID, con, LEVELFROM_ALL, "o"), SELINUX_SUCC);
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY.c_str());
+
+    EXPECT_EQ(test.UserAndMCSRangeSet(TEST_UID, con, LEVELFROM_USER, "o"), SELINUX_SUCC);
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY_USER.c_str());
+
+    EXPECT_EQ(test.UserAndMCSRangeSet(TEST_UID, con, LEVELFROM_APP, "o"), SELINUX_SUCC);
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY_APP.c_str());
+#endif
+    freecon(oldTypeContext);
+    context_free(con);
 }
 } // namespace SelinuxUnitTest
 } // namespace Security

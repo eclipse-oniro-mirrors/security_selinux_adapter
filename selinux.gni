@@ -32,4 +32,5 @@ declare_args() {
 
 declare_args() {
   selinux_adapter_enforce = true
+  selinux_adapter_mcs_enable = true
 }
