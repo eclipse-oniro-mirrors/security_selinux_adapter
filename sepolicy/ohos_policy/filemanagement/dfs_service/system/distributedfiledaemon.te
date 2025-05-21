@@ -20,7 +20,7 @@ allow distributedfiledaemon foundation:binder { call transfer };
 
 #avc:  denied  { read } for  pid=2101 comm="dfs_rcv1_1_7" laddr=192.168.43.48 lport=57666 faddr=192.168.43.20 fport=45047 scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 #avc:  denied  { write } for  pid=182 comm="kworker/u8:5" laddr=192.168.43.48 lport=39379 faddr=192.168.43.20 fport=59752 scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
-allow distributedfiledaemon softbus_server:tcp_socket { read write };
+allow distributedfiledaemon softbus_server:tcp_socket { getopt read write };
 
 #avc:  denied  { search } for  pid=182 comm="kworker/u8:5" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
 allow distributedfiledaemon data_file:dir { search };
@@ -55,11 +55,17 @@ allow distributedfiledaemon data_app_file:dir { search };
 
 allow distributedfiledaemon data_app_el2_file:dir { search };
 
+allow distributedfiledaemon dev_at_file:chr_file { ioctl };
+
 allow distributedfiledaemon distributedfiledaemon:capability { dac_read_search chown net_raw };
 
 allow distributedfiledaemon distributedfiledaemon:tcp_socket { create setopt bind getattr listen getopt shutdown connect accept write read };
 
+allow distributedfiledaemon hmdfs:file { watch };
+
 allow distributedfiledaemon node:tcp_socket { node_bind };
+
+allowxperm distributedfiledaemon dev_at_file:chr_file ioctl { 0x5413 };
 
 allow distributedfiledaemon distributedfiledaemon:udp_socket { ioctl shutdown create read write getattr bind connect getopt setopt accept };
 
