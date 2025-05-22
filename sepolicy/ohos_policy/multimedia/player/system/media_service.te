@@ -194,3 +194,4 @@ allow media_service sa_media_service:samgr_class { get };
 
 allow media_service sa_hiview_service:samgr_class { get };
 allow media_service hiview:binder { call transfer };
+allow media_service sa_foundation_tel_call_manager:samgr_class { get };
