@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Huawei Device Co., Ltd.
+# Copyright (c) 2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/service/el1/public/asset_service(/.*)?                   u:object_r:data_service_el1_public_asset_service_file:s0
-/data/service/el2/[0-9]+/asset_service(/.*)?                   u:object_r:data_service_el2_user_id_asset_service_file:s0
-/data/service/el1/public/asset_clone(/.*)?                     u:object_r:data_service_el1_public_asset_clone_file:s0
+binder_call(backup_sa, asset_service);
+allow backup_sa sa_asset_service:samgr_class { get };
