@@ -1,0 +1,22 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow nfc_tag_service hap_domain:binder { call };
+allow nfc_tag_service sa_nfc_tag_service:samgr_class { add get };
+allow nfc_tag_service dev_kmsg_file:chr_file { open write };
+allow nfc_tag_service nfc_tag_service:unix_dgram_socket { getopt setopt };
+allow nfc_tag_service sa_device_service_manager:samgr_class { get };
+allow nfc_tag_service hdf_device_manager:hdf_devmgr_class { get };
+allow nfc_tag_service samgr:binder { call transfer };
+allow nfc_tag_service dev_unix_socket:dir { search };
+binder_call(nfc_tag_service, hdf_devmgr);
