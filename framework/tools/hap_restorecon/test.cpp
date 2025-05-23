@@ -32,6 +32,7 @@
 using namespace Selinux;
 
 static const int ALARM_TIME_S = 5;
+static const uint32_t TEST_UID = 20190166;
 struct TestInput {
     std::string name = "";
     std::string apl = "";
@@ -40,6 +41,7 @@ struct TestInput {
     std::string recurse = "1";
     bool isPreinstalledApp = false;
     std::string extension = "";
+    uint32_t uid = 0;
 };
 
 static void PrintUsage()
@@ -67,7 +69,7 @@ static void PrintUsage()
 static void SetOptions(int argc, char *argv[], const option *options, TestInput &input)
 {
     int index = 0;
-    const char *optStr = "hda:p:n:r:m:ie:";
+    const char *optStr = "hda:p:n:r:m:ie:u";
     int para = 0;
     while ((para = getopt_long(argc, argv, optStr, options, &index)) != -1) {
         switch (para) {
@@ -89,6 +91,7 @@ static void SetOptions(int argc, char *argv[], const option *options, TestInput 
             case 'r': input.recurse = optarg; break;
             case 'i': input.isPreinstalledApp = true; break;
             case 'e': input.extension = optarg; break;
+            case 'u': input.uid = TEST_UID; break;
             default:
                 printf("Try 'hap_restorecon -h' for more information.\n");
                 exit(-1);
@@ -131,7 +134,8 @@ int main(int argc, char *argv[])
             .apl = testCmd.apl,
             .packageName = testCmd.name,
             .extensionType = testCmd.extension,
-            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0
+            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
+            .uid = testCmd.uid
         };
         res = test.HapDomainSetcontext(hapDomainInfo);
         std::cout << GetErrStr(res) << std::endl;

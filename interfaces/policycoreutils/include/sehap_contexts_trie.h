@@ -19,18 +19,54 @@
 #include <string>
 #include <unordered_map>
 
+#ifdef MCS_ENABLE
+typedef enum LevelFrom {
+    LEVELFROM_NONE = 0,
+    LEVELFROM_APP,
+    LEVELFROM_USER,
+    LEVELFROM_ALL,
+} LevelFrom;
+#endif
+
+typedef struct SehapContextInfo {
+    std::string context = "";
+    bool isDomain = false;
+#ifdef MCS_ENABLE
+    LevelFrom levelFrom = LEVELFROM_NONE;
+    std::string user = "u";
+#endif
+} SehapContextInfo;
+
+typedef struct SehapInsertParamInfo {
+#ifdef MCS_ENABLE
+    LevelFrom levelFrom = LEVELFROM_NONE;
+    std::string user = "u";
+#endif
+    std::string domain = "";
+    std::string type = "";
+    std::string extension = "";
+} SehapInsertParamInfo;
+
 typedef struct ExtensionInfo {
     std::string domain;
+#ifdef MCS_ENABLE
+    LevelFrom levelFrom;
+    std::string user;
+#endif
 } ExtensionInfo;
 
 typedef struct NodeTypeInfo {
     bool isEnd = false;
     std::string domain;
     std::string type;
+#ifdef MCS_ENABLE
+    LevelFrom levelFrom;
+    std::string user;
+#endif
     std::unordered_map<std::string, ExtensionInfo> extensionMap;
 
-    void Insert(const std::string& domain, const std::string& type, const std::string& extension);
-    std::string Search(bool isDomain, const std::string& extension) const;
+    void Insert(const SehapInsertParamInfo &paramInfo);
+    SehapContextInfo Search(bool isDomain, const std::string& extension) const;
 } NodeTypeInfo;
 
 class SehapContextsTrie {
@@ -38,9 +74,8 @@ public:
     SehapContextsTrie() {};
     ~SehapContextsTrie() {};
 
-    bool Insert(const std::string &paraName, const std::string &domain, const std::string &type,
-        const std::string &extension = "");
-    std::string Search(const std::string &paraName, bool isDomain, const std::string &extension = "");
+    bool Insert(const std::string &paraName, const SehapInsertParamInfo &paramInfo);
+    SehapContextInfo Search(const std::string &paraName, bool isDomain, const std::string &extension = "");
     void Clear();
 
     NodeTypeInfo prefixInfo;
