@@ -120,6 +120,8 @@ developer_only(`
 (allow sh snapshot_display_exec (file (read map execute getattr open ioctl)))
 (allow sh uinput (process (transition rlimitinh siginh getattr)))
 (allow sh uinput_exec (file (open map getattr ioctl read execute)))
+(allow sh ime (process (transition rlimitinh siginh getattr)))
+(allow sh ime_exec (file (open map getattr ioctl read execute)))
 (allow sh lldb_server_file (dir (create setattr getattr add_name open write remove_name read search rmdir)))
 (allow sh lldb_server_file (file (open unlink create write setattr read getattr append)))
 (allow sh power_shell (process (transition siginh rlimitinh getattr)))
