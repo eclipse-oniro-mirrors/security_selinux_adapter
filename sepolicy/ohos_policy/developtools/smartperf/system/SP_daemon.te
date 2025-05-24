@@ -176,3 +176,5 @@ allow SP_daemon hiview_file:file { open read getattr };
 allow SP_daemon render_service:binder { transfer };
 allow SP_daemon hiperf:process { signal };
 allow SP_daemon system_file:file { read open getattr };
+
+allow SP_daemon hiview:unix_dgram_socket { sendto };
