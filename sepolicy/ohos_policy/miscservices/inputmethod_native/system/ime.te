@@ -12,7 +12,7 @@
 # limitations under the License.
 
 debug_only(`
-    # for uinput run
+    # for ime run
     domain_auto_transition_pattern(su, ime_exec, ime);
 
     allow ime su:fd { use };
