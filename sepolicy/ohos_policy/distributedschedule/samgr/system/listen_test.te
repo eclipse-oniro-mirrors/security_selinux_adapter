@@ -49,4 +49,5 @@ debug_only(`
     allow listen_test sa_distributed_sched_test_tt:samgr_class { add get };
     allow listen_test sa_distributed_sched_test_connection:samgr_class { add get };
     allow listen_test sa_distributed_sched_test_incomplete:samgr_class { add get };
+    allow chipset_init listen_test:process { rlimitinh siginh transition };
 ')

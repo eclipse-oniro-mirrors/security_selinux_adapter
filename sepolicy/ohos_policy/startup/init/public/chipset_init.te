@@ -116,3 +116,5 @@ allow chipset_init clearplay_host:process { rlimitinh siginh transition };
 
 # avc:  denied  { open } for  pid=638 comm="/bin/init" path="/sys/devices/virtual/gadget_usb/gadget0/f_rndis/wceis" dev="" ino=9426 scontext=u:r:chipset_init:s0 tcontext=u:r:object_r:sysfs_gadget_usb:s0 tclass=file permissive=1
 allow chipset_init sysfs_gadget_usb:file { open };
+
+allow chipset_init samain_exec:file { execute getattr read read open };
