@@ -28,27 +28,27 @@ developer_only(`
     allow ime chip_prod_file:dir { search };
     #avc: denied { use } for pid=16766, comm="/bin/ime"  path="pipe:[2999]" dev="tmpfs" ino=2999 scontext=u:r:ime:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=0
     allow ime hdcd:fd { use };
-    # avc:  denied  { read write } scontext=u:r:ime:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+    # avc:  denied  { read write } scontext=u:r:ime:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
     allow ime tty_device:chr_file { read write };
-    # avc:  denied  { search } for scontext=u:r:ime:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for scontext=u:r:ime:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
     allow ime dev_unix_socket:dir { search };
-    # avc:  denied  { map open read} scontext=u:r:ime:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+    # avc:  denied  { map open read} scontext=u:r:ime:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
     allow ime arkcompiler_param:file { map open read };
     allow ime ark_writeable_param:file { map open read };
-    # avc:  denied  { map open read } scontext=u:r:ime:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+    # avc:  denied  { map open read } scontext=u:r:ime:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
     allow ime debug_param:file { map open read };
-    # avc:  denied  { read } scontext=u:r:ime:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+    # avc:  denied  { read } scontext=u:r:ime:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
     allow ime hilog_param:file { read map open };
     # avc:  denied  { search } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=dir permissive=0
     allow samgr ime:dir { search };
-    # avc:  denied  { transfer } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=binder permissive=1
+    # avc:  denied  { transfer } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=binder permissive=0
     allow samgr ime:binder { transfer };
-    # avc:  denied  { open } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=file permissive=1
+    # avc:  denied  { open } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=file permissive=0
     # avc:  denied  { read } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=file permissive=0
     allow samgr ime:file { open read };
-    # avc:  denied  { getattr } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=process permissive=1
+    # avc:  denied  { getattr } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=process permissive=0
     allow samgr ime:process { getattr };
-    # avc:  denied  { ioctl read write } scontext=u:r:ime:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+    # avc:  denied  { ioctl read write } scontext=u:r:ime:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
     allow ime devpts:chr_file { ioctl read write };
     allowxperm ime devpts:chr_file ioctl { 0x5413 };
 
