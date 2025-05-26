@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow distributedfiledaemon accountmgr:binder { call transfer };
+allow distributedfiledaemon accountmgr:fd { use };
 allow distributedfiledaemon bootevent_param:file { map open read };
 allow distributedfiledaemon bootevent_samgr_param:file { map open read };
 allow distributedfiledaemon build_version_param:file { map open read };
