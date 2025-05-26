@@ -51,6 +51,10 @@ developer_only(`
     # avc:  denied  { ioctl read write } scontext=u:r:ime:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
     allow ime devpts:chr_file { ioctl read write };
     allowxperm ime devpts:chr_file ioctl { 0x5413 };
+    
+    allow ime hdcd:unix_stream_socket { read write };
+    allow ime hdcd:fifo_file { ioctl read write };
+    allowxperm ime hdcd:fifo_file ioctl { 0x5413 };
 
     #for ime run
     domain_auto_transition_pattern(sh, ime_exec, ime);
