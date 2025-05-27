@@ -19,6 +19,8 @@
 
 /system/bin/native_daemon	u:object_r:native_daemon_exec:s0
 
+/system/bin/timestamps u:object_r:hiprofiler_cmd_exec:s0
+
 /dev/unix/socket/hiprofiler_unix_socket u:object_r:hiprofiler_socket:s0
 
 /dev/unix/socket/hook_unix_socket u:object_r:hiprofiler_socket:s0
