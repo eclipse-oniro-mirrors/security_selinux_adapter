@@ -141,7 +141,7 @@ allow edm_sa sa_wifi_p2p_ability:samgr_class { get };
 allow edm_sa security_param:file { map open read };
 allow edm_sa startup_param:file { map open read };
 allow edm_sa sa_bluetooth_server:samgr_class { get };
-allow edm_sa bluetooth_service:binder { call };
+allow edm_sa bluetooth_service:binder { call transfer };
 allow edm_sa sa_location_locator_service:samgr_class { get };
 
 # avc: denied { get } for service=1152 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_net_policy_manager:s0 tclass=samar_class permissive=0
