@@ -18,7 +18,7 @@ developer_only(`
     binder_call(debug_hap, input_isolate_hap);
 ')
 
-allow input_isolate_hap system_file:file { open read getattr };
+allow input_isolate_hap system_file:file { open read getattr map };
 
 allow input_isolate_hap concurrent_task_service:binder { call };
 
