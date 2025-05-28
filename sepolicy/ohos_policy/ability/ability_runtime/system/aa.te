@@ -150,4 +150,7 @@ developer_only(`
     allowxperm aa devpts:chr_file ioctl { 0x5413 };
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+    allow aa sa_inputmethod_service:samgr_class { get };
+    allow aa inputmethod_service:binder { call transfer };
+    allow inputmethod_service aa:binder { call transfer };
 ')
