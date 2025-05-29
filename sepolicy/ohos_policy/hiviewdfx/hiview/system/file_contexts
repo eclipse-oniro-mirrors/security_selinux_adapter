@@ -15,6 +15,7 @@
 /system/bin/usage_report        u:object_r:usage_report_exec:s0
 
 /dev/unix/socket/hisysevent     u:object_r:hisysevent_socket:s0
+/dev/unix/socket/hisysevent_fast     u:object_r:hisysevent_socket:s0
 
 /data/log/hiview(/.*)?          u:object_r:hiview_file:s0
 /data/system/hiview(/.*)?       u:object_r:hiview_file:s0
