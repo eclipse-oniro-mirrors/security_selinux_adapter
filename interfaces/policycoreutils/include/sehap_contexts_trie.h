@@ -50,7 +50,7 @@ typedef struct SehapInsertParamInfo {
 typedef struct ExtensionInfo {
     std::string domain;
 #ifdef MCS_ENABLE
-    LevelFrom levelFrom;
+    LevelFrom levelFrom = LEVELFROM_NONE;
     std::string user;
 #endif
 } ExtensionInfo;
@@ -60,7 +60,7 @@ typedef struct NodeTypeInfo {
     std::string domain;
     std::string type;
 #ifdef MCS_ENABLE
-    LevelFrom levelFrom;
+    LevelFrom levelFrom = LEVELFROM_NONE;
     std::string user;
 #endif
     std::unordered_map<std::string, ExtensionInfo> extensionMap;
