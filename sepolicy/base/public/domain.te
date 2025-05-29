@@ -161,7 +161,7 @@ neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_viol
     rgmli_violator_exec_file_attr sys_prod_ai_model_llm_file_attr sys_prod_ai_model_aigc_file_attr
     developer_only(`lldb_server_file') }:{ file dir } *;
 # keep every dev_node join dev_attr
-neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
+neverallow * ~{ dev_attr fs_attr sys_prod_ai_model_devfile_class_set_attr } :devfile_class_set *;
 
 
 # keep every service join service_type
