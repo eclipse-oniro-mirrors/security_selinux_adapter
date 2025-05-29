@@ -17,3 +17,8 @@ allow init data_service_el1_public_asset_service_file:file { relabelto setattr }
 allow init asset_service:process { rlimitinh siginh transition };
 
 init_relabel(data_service_el1_public_asset_service_file);
+
+allow init data_service_el1_public_asset_clone_file:dir { getattr read open write remove_name rmdir };
+allow init data_service_el1_public_asset_clone_file:file { unlink };
+
+init_relabel(data_service_el1_public_asset_clone_file);

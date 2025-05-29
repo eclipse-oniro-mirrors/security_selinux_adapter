@@ -153,6 +153,9 @@ ohos_shared_library("libhap_restorecon") {
     "-Wall",
     "-Werror",
   ]
+  if (selinux_adapter_mcs_enable) {
+    cflags += [ "-DMCS_ENABLE" ]
+  }
   install_enable = true
   license_file = "LICENSE"
   part_name = "selinux_adapter"

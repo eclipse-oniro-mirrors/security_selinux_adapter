@@ -373,6 +373,7 @@ allow init netmanager:process { rlimitinh siginh transition };
 allow init net_param:file { map open read relabelto };
 allow init netsysnative:process { rlimitinh siginh transition };
 allow init net_tcp_param:file { map open read relabelto };
+allow init nfc_tag_service:process { rlimitinh siginh transition };
 allow init nwebspawn:process { rlimitinh siginh transition };
 allow init nwebspawn_socket:sock_file { getattr relabelto };
 allow init ohos_boot_param:file { map open read relabelto };

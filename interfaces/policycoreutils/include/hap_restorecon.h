@@ -39,6 +39,10 @@ struct SehapInfo {
     std::string extension = "";
     bool debuggable = false;
     unsigned int extra = 0;
+#ifdef MCS_ENABLE
+    LevelFrom levelFrom = LEVELFROM_NONE;
+    std::string user = "u";
+#endif
 };
 
 struct HapFileInfo {
@@ -62,6 +66,8 @@ struct HapContextParams {
     std::string packageName;
     unsigned int hapFlags = 0;
     std::string extension;
+    bool isDomain = false;
+    uint32_t uid = 0;
 };
 
 class HapContext {
@@ -81,10 +87,11 @@ protected:
     int HapLabelLookup(const std::string &apl, const std::string &packageName,
         char **secontextPtr, unsigned int hapFlags);
 
-    int HapContextsLookup(const HapContextParams &params, bool isDomain, context_t con);
-    int HapContextsLookup(const HapContextParams &params, context_t con, uint32_t uid);
+    int HapContextsLookup(const HapContextParams &params, context_t con);
     int TypeSet(const std::string &type, context_t con);
-    int UserAndMCSRangeSet(uint32_t uid, context_t con);
+#ifdef MCS_ENABLE
+    int UserAndMCSRangeSet(uint32_t uid, context_t con, const LevelFrom &levelFrom, const std::string &user);
+#endif
 };
 
 #endif // HAP_RESTORECON_H

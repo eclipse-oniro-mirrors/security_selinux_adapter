@@ -186,6 +186,8 @@ debug_only(`
     allow hiview sh:dir { getattr open read search};
     allow hiview sh:file { getattr read open };
     allow hiview sh:binder { call transfer };
+    allow su hiview_sys_def_file:dir { getattr read open search };
+    allow su hiview_sys_def_file:file { getattr write open read create };
 ')
 
 #avc:  denied  { call } for  pid=256 comm="IPC_3_1647" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
@@ -240,7 +242,8 @@ allow hiview softbus_server:binder { call };
 #avc:  denied  { add_name } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { read } for  pid=2811 comm="XperfMainThr" name="hiappevent" dev="mmcblk0p15" ino=25209 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=2811 comm="XperfMainThr" name="hiappevent" dev="mmcblk0p15" ino=25209 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
-allow hiview normal_hap_data_file_attr:dir { search write add_name read getattr };
+#avc:  denied  { open } for  pid =655 comm="system/bin/hiview"  path="/data/app/el2/100/base/com.ohos.xxx/cache/hiappevent" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40446 scontext=u:r:hiview:s0 tcontext=o:object_r:debug_hap_data_file:s0:x225,x334,x512,x868,x1024 tclass=dir permissive=0
+allow hiview normal_hap_data_file_attr:dir { search write add_name read getattr open };
 
 #avc:  denied  { create } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied  { write open } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
@@ -284,6 +287,10 @@ allow hiview wifi_manager_service:fd { use };
 
 allow hiview pstorefs:dir { open read remove_name search write };
 allow hiview pstorefs:file { open read unlink };
+
+allow hiview hiview_sys_def_file:dir { search write add_name };
+allow hiview hiview_sys_def_file:file { create open ioctl getattr write read };
+allowxperm hiview hiview_sys_def_file:file ioctl { 0x5413 };
 
 # avc: denied { get } for service=1158 sid=u:r:hiview:s0 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_netsys_native_manager:s0	tclass=samgr_class permissive=O
 allow hiview sa_netsys_native_manager:samgr_class { get };

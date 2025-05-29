@@ -90,7 +90,7 @@ allow wifi_host musl_param:file { open read map };
 
 allow wifi_host data_service_el1_file:file { create read write open getattr ioctl rename append unlink };
 allow wifi_host data_service_el1_file:sock_file { write setattr getattr unlink create };
-allow wifi_host data_service_el1_file:dir { create search write getattr add_name remove_name rmdir };
+allow wifi_host data_service_el1_file:dir { read open create search write getattr add_name remove_name rmdir };
 allow wifi_host wifi_host:netlink_generic_socket { bind create getattr read setopt write };
 allow wifi_host dev_unix_socket:sock_file { write };
 #avc:  denied  { create } for  pid=521 comm="IPC_1_583" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=netlink_route_socket permissive=0

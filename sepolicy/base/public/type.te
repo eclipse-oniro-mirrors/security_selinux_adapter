@@ -103,11 +103,17 @@ type SP_daemon_exec, exec_attr, file_attr, system_file_attr;
 type uitest_exec, exec_attr, file_attr, system_file_attr;
 type uitest, native_system_domain, domain;
 
+type perftest_exec, exec_attr, file_attr, system_file_attr;
+type perftest, native_system_domain, domain;
+
 type aa, native_system_domain, domain;
 type aa_exec, exec_attr, file_attr, system_file_attr;
 
 type ark_aot_compiler, native_system_domain, domain;
 type ark_aot_compiler_exec, exec_attr, file_attr, system_file_attr;
+
+type ark_aot, native_system_domain, domain;
+type ark_aot_exec, exec_attr, file_attr, system_file_attr;
 
 type compiler_service, sadomain, domain;
 

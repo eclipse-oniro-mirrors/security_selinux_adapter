@@ -25,7 +25,8 @@
       "selinux_adapter_special_build_selinux_gni_path",
       "selinux_adapter_check_extend_list",
       "selinux_adapter_seharmony_build_path",
-      "selinux_adapter_seharmony_build_path_updater"
+      "selinux_adapter_seharmony_build_path_updater",
+      "selinux_adapter_mcs_enable"
     ],
     "adapted_system_type": [
       "standard"

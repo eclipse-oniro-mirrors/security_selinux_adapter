@@ -12,6 +12,7 @@
 # limitations under the License.
 
 /dev/tc_ns_client                u:object_r:dev_tee_public:s0
+/dev/tc_ns_container             u:object_r:dev_tee_container_public:s0
 /dev/teelog                      u:object_r:dev_tee_log:s0
 /dev/tc_private                  u:object_r:dev_tee_private:s0
 

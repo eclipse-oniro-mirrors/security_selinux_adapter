@@ -19,6 +19,6 @@ neverallow { hap_domain } dev_encaps:chr_file { ioctl read open };
 allow { appspawn init nativespawn } dev_encaps:chr_file ioctl;
 allowxperm { appspawn init nativespawn } dev_encaps:chr_file ioctl { 0x4518 };
 allowxperm { appspawn init nativespawn } dev_encaps:chr_file ioctl { 0x451a };
-neverallowxperm { domain -appspawn -init -nativespawn } dev_encaps:chr_file ioctl { 0x4518 0x451a };
-neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4518 0x451a };
+neverallowxperm { domain -appspawn -init -nativespawn } dev_encaps:chr_file ioctl { 0x4518 0x451a 0x451d };
+neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4518 0x451a 0x451d };
 allow { appspawn init nativespawn } dev_encaps:chr_file { write };

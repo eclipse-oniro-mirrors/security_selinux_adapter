@@ -184,6 +184,7 @@ allow hiview data_log_hiperf_file:file { getattr open read unlink };
 
 debug_only(`
     allow hiperf self:capability2 syslog;
+    allow hiperf hap_domain:process { ptrace };
 ')
 
 developer_only(`
@@ -192,15 +193,16 @@ developer_only(`
     allow hiperf sh:fifo_file { read write };
     allow hiperf sh:process signull;
     allow hiperf data_log:fifo_file { create open read unlink write };
+    allow hiperf debug_hap:process { ptrace };
 ')
 
+neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap') }:process ptrace;
 allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
 allow hiperf self:capability { sys_ptrace ipc_lock };
 allow hiperf self:unix_dgram_socket { getopt setopt };
 
-neverallow hiperf *:process ptrace;
 neverallow { domain -hiperf -init -hiebpf -rgm_violator_perf_event_cpu } self:perf_event cpu;
 neverallow { domain -hiperf } self:perf_event tracepoint;
 

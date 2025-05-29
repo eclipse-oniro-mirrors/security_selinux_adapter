@@ -94,6 +94,7 @@ allow camera_host vendor_bin_file:file { entrypoint execute map read };
 allow camera_host vendor_etc_file:dir { search };
 allow camera_host vendor_etc_file:file { getattr open read };
 allow camera_host vendor_file:file { execute getattr map open read getattr };
+allow camera_host hdf_camera_service_usb:hdf_devmgr_class { add };
 debug_only(`
     allow camera_host sh:binder { call transfer };
     allow camera_host data_local:dir { search };

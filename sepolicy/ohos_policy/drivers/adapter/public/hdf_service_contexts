@@ -42,6 +42,7 @@ effect_model_service                    u:object_r:hdf_effect_model_service:s0
 wlan_hal_service                        u:object_r:hdf_wlan_hal_service:s0
 display_composer_service                u:object_r:hdf_display_composer_service:s0
 camera_service                          u:object_r:hdf_camera_service:s0
+camera_service_usb                      u:object_r:hdf_camera_service_usb:s0
 camera_image_process_service            u:object_r:hdf_camera_image_process_service:s0
 camera_video_process_service            u:object_r:hdf_camera_video_process_service:s0
 drm_service                             u:object_r:hdf_drm_service:s0

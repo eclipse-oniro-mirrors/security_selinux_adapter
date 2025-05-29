@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow nativespawn data_service_el1_file:dir { search getattr write mounton add_name remove_name };
-allow nativespawn data_service_el1_file:file { read write create map open unlink };
+developer_only(`
+    allow param_watcher perftest:binder { call };
+')

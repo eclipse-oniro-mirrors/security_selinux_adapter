@@ -141,7 +141,7 @@ allow edm_sa sa_wifi_p2p_ability:samgr_class { get };
 allow edm_sa security_param:file { map open read };
 allow edm_sa startup_param:file { map open read };
 allow edm_sa sa_bluetooth_server:samgr_class { get };
-allow edm_sa bluetooth_service:binder { call };
+allow edm_sa bluetooth_service:binder { call transfer };
 allow edm_sa sa_location_locator_service:samgr_class { get };
 
 # avc: denied { get } for service=1152 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_net_policy_manager:s0 tclass=samar_class permissive=0
@@ -222,3 +222,6 @@ allow edm_sa sa_sg_collect_service:samgr_class { get };
 
 # avc:  denied  { append } for  pid=445 comm="OS_IPC_2_1213" path="/data/service/el1/public/edm/browser/com.example.edmtest8" dev="mmcblk0p15" ino=10496 scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 allow edm_sa data_service_el1_file:file { append };
+
+# avc: denied { transfer } for pid=24576, comm="/system/bin/sa_main"  scontext=u:r:edm_sa:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=0
+allow edm_sa wifi_manager_service:binder { transfer };

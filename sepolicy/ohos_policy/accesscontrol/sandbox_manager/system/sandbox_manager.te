@@ -45,6 +45,11 @@ binder_call(sandbox_manager_service, accountmgr);
 allow sandbox_manager_service sa_accountmgr:samgr_class { get };
 allow sandbox_manager_service hap_domain:fd { use };
 allow sandbox_manager_service foundation:fd { use };
+binder_call(sandbox_manager_service, medialibrary_hap);
+allow sandbox_manager_service sa_storage_manager_service:samgr_class { get };
+allow sandbox_manager_service sa_foundation_abilityms:samgr_class { get };
+allow medialibrary_hap dev_at_file:chr_file { ioctl };
+allowxperm medialibrary_hap dev_at_file:chr_file ioctl { 0x5413 };
 
 debug_only(`
     binder_call(sandbox_manager_service, su);

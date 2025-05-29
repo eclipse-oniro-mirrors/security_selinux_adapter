@@ -92,4 +92,6 @@ developer_only(`
     allow uitest system_core_hap:fd { use };
 	allow uitest system_usr_file:dir { search };
     allow uitest system_usr_file:file { getattr map open read };
+
+    allow uitest hiview:unix_dgram_socket { sendto };
 ')

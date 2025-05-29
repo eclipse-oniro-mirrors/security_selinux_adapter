@@ -53,21 +53,28 @@ SehapContextsTrie* SehapContextsTrie::FindChild(const std::string& element)
     return nullptr;
 }
 
-void NodeTypeInfo::Insert(const std::string& domain, const std::string& type, const std::string& extension)
+void NodeTypeInfo::Insert(const SehapInsertParamInfo &paramInfo)
 {
-    if (!extension.empty()) {
+    if (!paramInfo.extension.empty()) {
         ExtensionInfo extInfo;
-        extInfo.domain = domain;
-        extensionMap[extension] = extInfo;
+        extInfo.domain = paramInfo.domain;
+#ifdef MCS_ENABLE
+        extInfo.levelFrom = paramInfo.levelFrom;
+        extInfo.user = paramInfo.user;
+#endif
+        extensionMap[paramInfo.extension] = extInfo;
     } else {
-        this->domain = domain;
-        this->type = type;
+        this->domain = paramInfo.domain;
+        this->type = paramInfo.type;
+#ifdef MCS_ENABLE
+        this->levelFrom = paramInfo.levelFrom;
+        this->user = paramInfo.user;
+#endif
     }
     this->isEnd = true;
 }
 
-bool SehapContextsTrie::Insert(const std::string& paraName, const std::string& domain,
-    const std::string& type, const std::string& extension)
+bool SehapContextsTrie::Insert(const std::string& paraName, const SehapInsertParamInfo &paramInfo)
 {
     SehapContextsTrie* node = this;
     std::vector<std::string> words = SplitString(paraName);
@@ -86,29 +93,42 @@ bool SehapContextsTrie::Insert(const std::string& paraName, const std::string& d
     }
 
     if ((paraName.back() == '.') || (paraName.back() == '*')) {
-        node->prefixInfo.Insert(domain, type, extension);
+        node->prefixInfo.Insert(paramInfo);
     } else {
-        node->matchedInfo.Insert(domain, type, extension);
+        node->matchedInfo.Insert(paramInfo);
     }
 
     return true;
 }
 
-std::string NodeTypeInfo::Search(bool isDomain, const std::string& extension) const
+SehapContextInfo NodeTypeInfo::Search(bool isDomain, const std::string& extension) const
 {
+    SehapContextInfo contextInfo;
     if (isDomain && !extension.empty()) {
         auto it = extensionMap.find(extension);
         if (it != extensionMap.end()) {
-            return it->second.domain;
+            contextInfo.context = it->second.domain;
+            contextInfo.isDomain = isDomain;
+#ifdef MCS_ENABLE
+            contextInfo.levelFrom = it->second.levelFrom;
+            contextInfo.user = it->second.user;
+#endif
+            return contextInfo;
         }
     }
-    return isDomain ? domain : type;
+    contextInfo.context = isDomain ? domain : type;
+    contextInfo.isDomain = isDomain;
+#ifdef MCS_ENABLE
+    contextInfo.levelFrom = levelFrom;
+    contextInfo.user = user;
+#endif
+    return contextInfo;
 }
 
-std::string SehapContextsTrie::Search(const std::string& paraName, bool isDomain, const std::string& extension)
+SehapContextInfo SehapContextsTrie::Search(const std::string& paraName, bool isDomain, const std::string& extension)
 {
     std::vector<std::string> words = SplitString(paraName);
-    std::string type = "";
+    SehapContextInfo contextInfo;
     SehapContextsTrie* root = this;
     for (size_t i = 0; i < words.size(); i++) {
         const std::string& word = words[i];
@@ -118,13 +138,13 @@ std::string SehapContextsTrie::Search(const std::string& paraName, bool isDomain
         }
         root = child;
         if ((root->prefixInfo.isEnd) && (i != words.size() - 1)) {
-            type = root->prefixInfo.Search(isDomain, extension);
+            contextInfo = root->prefixInfo.Search(isDomain, extension);
         }
         if ((root->matchedInfo.isEnd) && (i == words.size() - 1)) {
-            type = root->matchedInfo.Search(isDomain, extension);
+            contextInfo = root->matchedInfo.Search(isDomain, extension);
         }
     }
-    return type;
+    return contextInfo;
 }
 
 void SehapContextsTrie::Clear()
