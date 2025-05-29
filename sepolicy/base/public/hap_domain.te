@@ -21,21 +21,21 @@ typeattribute normal_hap normal_hap_attr;
 
 neverallow { normal_hap_attr -hap_domain_kernel_violators } { domain -normal_hap_attr }:file never_rw_file;
 neverallow { hap_domain -normal_hap_attr } normal_hap_attr:file never_rw_file;
-neverallow { domain -normal_hap_attr -processdump developer_only(`-lldb_server') } normal_hap_attr:process ptrace;
+neverallow { domain -normal_hap_attr -processdump developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') } normal_hap_attr:process ptrace;
 
 typeattribute system_core_hap hap_domain;
 typeattribute system_core_hap system_core_hap_attr;
 
 neverallow system_core_hap_attr { domain -system_core_hap_attr }:file never_rw_file;
 neverallow { hap_domain -system_core_hap_attr } system_core_hap_attr:file never_rw_file;
-neverallow { domain -system_core_hap_attr -processdump } system_core_hap_attr:process ptrace;
+neverallow { domain -system_core_hap_attr -processdump debug_only(`-hiperf -native_daemon') } system_core_hap_attr:process ptrace;
 
 typeattribute system_basic_hap hap_domain;
 typeattribute system_basic_hap system_basic_hap_attr;
 
 neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw_file;
 neverallow { hap_domain -system_basic_hap_attr -hap_domain_kernel_violators } system_basic_hap_attr:file never_rw_file;
-neverallow { domain -system_basic_hap_attr -processdump } system_basic_hap_attr:process ptrace;
+neverallow { domain -system_basic_hap_attr -processdump debug_only(`-hiperf -native_daemon') } system_basic_hap_attr:process ptrace;
 
 neverallow hap_domain ~{ tmpfs_data_file dev_file proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file hap_domain_lnk_file_operation_viloator developer_only(`hnp_file_attr hnp_file') hnp_file_attr_violator}:lnk_file *;
 neverallow hap_domain { proc_attr tmpfs system_bin_file rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file developer_only(`hnp_file_attr') hnp_file_attr_violator}:lnk_file ~{ getattr read };
@@ -157,7 +157,7 @@ neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
 
 #no use ptrace
 neverallow hap_domain { domain -hap_domain }:process ptrace;
-neverallow { domain -hap_domain -processdump developer_only(`-lldb_server') } hap_domain:process ptrace;
+neverallow { domain -hap_domain -processdump developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') } hap_domain:process ptrace;
 
 #hap don't bother other domain.
 neverallow hap_domain { domain -hap_domain }:process { sigkill sigstop signal };
