@@ -153,4 +153,5 @@ developer_only(`
     allow aa sa_inputmethod_service:samgr_class { get };
     allow aa inputmethod_service:binder { call transfer };
     allow inputmethod_service aa:binder { call transfer };
+    allow aa ime_exec:file { getattr execute execute_no_trans map read open};
 ')
