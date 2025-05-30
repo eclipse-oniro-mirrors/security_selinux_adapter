@@ -32,7 +32,7 @@ developer_only(`
     binder_call(input_isolate_debug_hap, hap_domain);
     binder_call(hap_domain, input_isolate_debug_hap);
 
-    allow input_isolate_debug_hap system_file:file { open read getattr };
+    allow input_isolate_debug_hap system_file:file { open read getattr map };
 
     allow input_isolate_debug_hap hdcd:unix_stream_socket { connectto };
 ')
