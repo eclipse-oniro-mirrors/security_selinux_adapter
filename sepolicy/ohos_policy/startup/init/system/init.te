@@ -543,3 +543,12 @@ allow init init:capability { setpcap };
 # avc:  denied  { append } for  pid=1 comm="init" name="private_persist_parameters" dev="mmcblk0p15" ino=2386 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 # avc:  denied  { rename } for  pid=1 comm="init" name="tmp_private_persist_parameters" dev="mmcblk0p15" ino=2703 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 allow init data_service_el1_file:file { open read append rename map };
+
+# avc: denide { read write } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
+# avc: denide { open } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
+# avc: denide { ioctl } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 ioctlcmd=0x7802 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
+allow init dev_xpm:chr_file { ioctl read write open };
+allowxperm init dev_xpm:chr_file ioctl { 0x7802 };
+
+# avc: denied { getattr } for pid=1, comm="/bin/init" path="/system/bin/nwebspawn" dev="overlay" ino=835 scontext=u:r:init:s0 tcontext=u:object_r:nwebspawn_exec:s0 tclass=file permissive=0
+allow init nwebspawn_exec:file { execute getattr read open };
