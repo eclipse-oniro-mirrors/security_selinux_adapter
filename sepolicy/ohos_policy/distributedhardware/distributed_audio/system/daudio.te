@@ -159,6 +159,8 @@ allow daudio persist_param:file { read open map };
 
 allow daudio codec_host:binder { call transfer };
 
+allow daudio sa_accountmgr:samgr_class { get };
+
 debug_only(`
     allow daudio sh:binder { call };
 ')
