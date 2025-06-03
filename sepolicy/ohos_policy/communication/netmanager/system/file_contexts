@@ -20,3 +20,14 @@
 /system/bin/ip6tables             u:object_r:iptables_exec:s0
 /system/bin/ip6tables-restore     u:object_r:iptables_exec:s0
 /system/bin/ip6tables-save        u:object_r:iptables_exec:s0
+/system/bin/charon                u:object_r:sysvpn_exec:s0
+/system/bin/xfrmi                 u:object_r:sysvpn_exec:s0
+/system/bin/starter               u:object_r:sysvpn_exec:s0
+/system/bin/pki                   u:object_r:sysvpn_exec:s0
+/system/bin/stroke                u:object_r:sysvpn_exec:s0
+/system/bin/swanctl               u:object_r:sysvpn_exec:s0
+/system/bin/ipsec                 u:object_r:sysvpn_exec:s0
+/system/bin/_updown               u:object_r:sysvpn_exec:s0
+/system/bin/pppd                  u:object_r:sysvpn_exec:s0
+/system/bin/xl2tpd                u:object_r:sysvpn_exec:s0
+/system/bin/openvpn               u:object_r:sysvpn_exec:s0

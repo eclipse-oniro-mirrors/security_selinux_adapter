@@ -15,3 +15,4 @@ type cgroup2, fs_attr;
 type dev_ppp_file, dev_attr;
 type fs_bpf, fs_attr, debugfs_attr;
 type iptables_exec, exec_attr, file_attr, system_file_attr;
+type sysvpn_exec, exec_attr, file_attr, system_file_attr;
