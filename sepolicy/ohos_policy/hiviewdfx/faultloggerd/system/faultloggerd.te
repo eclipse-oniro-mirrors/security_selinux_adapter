@@ -83,3 +83,5 @@ allow hap_domain faultloggerd:fifo_file write;
 
 allow faultloggerd sys_file:file { open read };
 allow faultloggerd hiview:binder { call };
+
+allow faultloggerd normal_hap:dir { open read };
