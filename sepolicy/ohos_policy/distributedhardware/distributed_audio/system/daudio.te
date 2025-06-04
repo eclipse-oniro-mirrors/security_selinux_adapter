@@ -11,6 +11,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+binder_call(daudio, accountmgr);
+
 allow daudio hilog_param:file { open read map };
 
 allow daudio debug_param:file { open read map };
