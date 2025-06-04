@@ -170,3 +170,6 @@ allow input_isolate_hap allocator_host:binder { call };
 allow input_isolate_hap allocator_host:fd { use };
 binder_call(input_isolate_hap, multimodalinput);
 binder_call(multimodalinput, input_isolate_hap);
+
+allow input_isolate_hap sa_huks_service:samgr_class { get };
+allow input_isolate_hap huks_service:binder { call };
