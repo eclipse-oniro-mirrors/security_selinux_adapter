@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
  
-allow telephony_sa huks_service:binder call;
+allow telephony_sa huks_service:binder { call transfer };
