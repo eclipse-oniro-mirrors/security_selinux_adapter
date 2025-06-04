@@ -13,3 +13,4 @@
 
 attribute sys_prod_ai_model_llm_file_attr;
 attribute sys_prod_ai_model_aigc_file_attr;
+attribute violator_devfile_class_set;
