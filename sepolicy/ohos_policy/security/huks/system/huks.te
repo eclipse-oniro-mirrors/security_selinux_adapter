@@ -52,7 +52,7 @@ allow huks_service dev_unix_socket:dir { search };
 allow huks_service sa_huks_service:samgr_class { get add };
 allow huks_service sa_foundation_cesfwk_service:samgr_class { get };
 allow huks_service sa_useriam_useridm_service:samgr_class { get };
-allow huks_service telephony_sa:binder { call };
+allow huks_service telephony_sa:binder { call transfer };
 
 #avc:  denied  { transfer } for  pid=273 comm="huks_service" scontext=u:r:huks_service:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=452 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1

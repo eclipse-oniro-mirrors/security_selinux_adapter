@@ -46,7 +46,7 @@ allow netmanager system_bin_file:dir { search };
 allow netmanager system_bin_file:file { execute execute_no_trans map read open };
 allow netmanager toybox_exec:file { execute execute_no_trans map read open };
 allow netmanager system_core_hap_attr:binder { call };
-allow netmanager telephony_sa:binder { call };
+allow netmanager telephony_sa:binder { call transfer };
 allow netmanager time_service:binder { call };
 allow netmanager wifi_manager_service:binder { call transfer };
 allow netmanager sa_comm_net_tethering_manager_service:samgr_class { add };

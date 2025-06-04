@@ -208,7 +208,7 @@ allow hdf_devmgr usb_service:file { open read };
 allow hdf_devmgr usb_service:process { getattr };
 allow hdf_devmgr vendor_etc_file:dir { search };
 allow hdf_devmgr vendor_etc_file:file { getattr open read };
-allow hdf_devmgr telephony_sa:binder { call };
+allow hdf_devmgr telephony_sa:binder { call transfer };
 allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6203 };
 
 # avc:  denied  { search } for  pid=571 comm="IPC_0_581" name="1364" dev="proc" ino=31517 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=dir permissive=1
