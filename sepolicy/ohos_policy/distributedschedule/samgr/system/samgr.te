@@ -117,3 +117,6 @@ allow samgr proc_stat_file:file { open read };
 allow samgr chip_prod_file:dir { search };
 allow samgr sys_prod_file:dir { search };
 allow samgr system_file:dir { open read };
+
+allow samgr rootfs:dir { open read };
+allow samgr rootfs:file { getattr open read };
