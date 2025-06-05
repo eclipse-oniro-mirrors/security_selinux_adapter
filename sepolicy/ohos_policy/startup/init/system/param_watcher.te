@@ -96,7 +96,7 @@ allow param_watcher system_basic_hap_attr:binder { call };
 allow param_watcher system_bin_file:dir { search };
 allow param_watcher system_core_hap_attr:binder { call };
 allow param_watcher sys_usb_param:file { map open read };
-allow param_watcher telephony_sa:binder { call };
+allow param_watcher telephony_sa:binder { call transfer };
 allow param_watcher time_service:binder { call };
 allow param_watcher token_sync_service:binder { call };
 allow param_watcher tracefs:dir { search };

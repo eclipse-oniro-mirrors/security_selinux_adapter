@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow telephony_sa accesstoken_service:binder { call };
+allow telephony_sa download_server:binder { call };
 allow telephony_sa bootevent_param:file { map open read };
 allow telephony_sa bootevent_samgr_param:file { map open read };
 allow telephony_sa build_version_param:file { map open read };

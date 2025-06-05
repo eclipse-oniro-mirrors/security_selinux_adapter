@@ -114,7 +114,7 @@ allow normal_hap_attr system_core_hap_attr:binder { transfer };
 allow normal_hap_attr system_core_hap_attr:fd { use };
 allow normal_hap_attr system_lib_file:dir { open read };
 allow normal_hap_attr sys_usb_param:file { map open read };
-allow normal_hap_attr telephony_sa:binder { call };
+allow normal_hap_attr telephony_sa:binder { call transfer };
 allow normal_hap_attr tracefs:dir { search };
 allow normal_hap_attr allocator_host:fd { use };
 allow normal_hap_attr tracefs_trace_marker_file:file { open write };

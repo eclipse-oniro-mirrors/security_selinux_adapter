@@ -59,6 +59,6 @@ allow download_server toybox_exec:file { execute execute_no_trans map read open 
 allow download_server system_basic_hap_attr:fd { use };
 allow download_server system_basic_hap_data_file_attr:file { read write };
 allow download_server sys_usb_param:file { map open read };
-allow download_server telephony_sa:binder { call };
+allow download_server telephony_sa:binder { call transfer };
 allow download_server tracefs:dir { search };
 allow download_server tracefs_trace_marker_file:file { open write };

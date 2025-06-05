@@ -99,7 +99,7 @@ allow wifi_manager_service sa_telephony_tel_core_service:samgr_class { get };
 allow wifi_manager_service sa_telephony_tel_cellular_data:samgr_class { get };
 
 # avc:  denied  { call } for  pid=3727 comm="RunHandleThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=0
-allow wifi_manager_service telephony_sa:binder { call };
+allow wifi_manager_service telephony_sa:binder { call transfer };
 
 # avc:  denied  { transfer } for  pid=2121 comm="IPC_2_2419" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
 allow wifi_manager_service locationhub:binder { transfer };
