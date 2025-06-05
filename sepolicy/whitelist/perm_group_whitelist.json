@@ -81,6 +81,7 @@
                 "softbus_server system_bin_file",
                 "storage_daemon system_bin_file",
                 "storage_daemon toybox_exec",
+                "storage_daemon mtpfs_exec",
                 "updater_binary tmpfs",
                 "updater_binary system_bin_file",
                 "updater_binary toybox_exec",
