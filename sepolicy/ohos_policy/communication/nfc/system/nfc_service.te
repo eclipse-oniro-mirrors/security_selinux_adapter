@@ -38,5 +38,5 @@ allowxperm nfc_service data_nfc:file ioctl { 0x5413 };
 #avc:denied { search } scontext=u:r:nfc_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir
 allow nfc_service vendor_etc_file:dir { getattr search };
 allow nfc_service vendor_bin_file:dir {search};
-
+allow nfc_service hdf_devhost_exec:dir {search};
 

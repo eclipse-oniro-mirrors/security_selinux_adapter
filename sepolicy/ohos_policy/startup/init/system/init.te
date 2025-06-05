@@ -451,6 +451,8 @@ allow init usb_host:process { rlimitinh siginh transition };
 allow init usb_service:process { rlimitinh siginh transition };
 allow init vendor_bin_file:dir { search };
 allow init vendor_bin_file:file { execute getattr read read open };
+allow init hdf_devhost_exec:dir { search };
+allow init hdf_devhost_exec:file { execute getattr read read open };
 allow init vendor_etc_file:dir { open read search getattr };
 allow init vendor_etc_file:file { getattr open read };
 allow init wallpaper_service:process { rlimitinh siginh transition };

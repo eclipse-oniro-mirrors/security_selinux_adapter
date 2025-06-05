@@ -43,6 +43,8 @@ allow teecd proc_file:file { open read };
 #avc:  denied  { execute } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
 allow teecd vendor_bin_file:file { entrypoint execute map read open getattr };
 allow teecd vendor_bin_file:dir { search };
+allow teecd hdf_devhost_exec:file { entrypoint execute map read open getattr };
+allow teecd hdf_devhost_exec:dir { search };
 allow teecd vendor_etc_file:dir { search };
 allow teecd vendor_etc_file:file { read open getattr };
 allow teecd dev_console_file:chr_file { read write };

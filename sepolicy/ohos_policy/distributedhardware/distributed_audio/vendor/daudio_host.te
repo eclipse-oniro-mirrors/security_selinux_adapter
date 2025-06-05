@@ -50,6 +50,8 @@ allow daudio_host samgr:binder { call };
 
 allow daudio_host vendor_bin_file:file { entrypoint map read execute };
 
+allow daudio_host hdf_devhost_exec:file { entrypoint map read execute };
+
 allow daudio_host vendor_etc_file:dir { search };
 
 allow daudio_host vendor_etc_file:file { getattr open read };
