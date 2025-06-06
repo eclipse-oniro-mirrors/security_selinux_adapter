@@ -15,3 +15,5 @@ updater.hdc.configfs        u:object_r:update_updater_param:s0
 updater.flashd.configfs     u:object_r:updater_flashd_param:s0
 updater.data.configs        u:object_r:update_updater_param:s0
 updater.data.ready          u:object_r:update_updater_param:s0
+update.part.slot            u:object_r:update_updater_param:s0
+update.part.suffix          u:object_r:update_updater_param:s0
