@@ -316,6 +316,8 @@
 
 /system/bin/sdc        u:object_r:sdc_exec:s0
 
+/system/bin/mtpfs       u:object_r:mtpfs_exec:s0
+
 /system/bin/thermal_protector        u:object_r:thermal_protector_exec:s0
 
 /system/bin/sh        u:object_r:sh_exec:s0
