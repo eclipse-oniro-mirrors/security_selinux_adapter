@@ -309,3 +309,5 @@ attribute normal_hap_system_basic_hap_data_file_violators;
 attribute violator_sa_domain_data_local_tmp;
 attribute violator_data_local_tmp_file_open;
 attribute violator_sa_capability_dac_override;
+
+attribute system_bin_file_updater_sa;
