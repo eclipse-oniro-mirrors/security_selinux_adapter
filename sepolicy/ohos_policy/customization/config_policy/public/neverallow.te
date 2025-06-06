@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { normal_hap_attr domain -init -sys_installer_sa -custom_param_set_allow_attr } custom_param:parameter_service { set };
+neverallow { normal_hap_attr domain -init -sys_installer_sa -violator_custom_param_set } custom_param:parameter_service { set };
