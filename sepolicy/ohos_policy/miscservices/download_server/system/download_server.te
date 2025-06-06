@@ -126,7 +126,7 @@ allow download_server download_server:unix_dgram_socket { shutdown sendto read }
 #avc: denied { write } for pid=5956, comm="/system/bin/sa_main" ... scontext=u:r:download_server:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 allow download_server hmdfs:file { read getattr write };
 #avc:  denied  { read } for  pid=1956 comm="example.mytest" ... scontext=u:r:download_server:s0 tcontext=u:object_r：data_user_file:s0 tclass=file permissive=0
-allow download_server data_user_file:file { read getattr };
+allow download_server data_user_file:file { read getattr write };
 allow download_server sys_prod_file:dir { search };
 allow download_server chip_prod_file:dir { search };
 allow download_server dev_kmsg_file:chr_file { write };
@@ -142,4 +142,4 @@ allow download_server epfs:file { read getattr write };
 allow download_server sa_foundation_bms:samgr_class { get };
 #avc: denied { getattr } for pid=8311, comm="/system/bin/sa_main" ... scontext=u:r:download_server:s0 tcontext=u:object_r:sharefs:s0 tclass=file permissive=1
 #avc: denied { write } for pid=8311, comm="/system/bin/sa_main" ... scontext=u:r:download_server:s0 tcontext=u:object_r:sharefs:s0 tclass=file permissive=1
-allow download_server sharefs:file { getattr write };
+allow download_server sharefs:file { getattr read write };
