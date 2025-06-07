@@ -189,3 +189,4 @@ allow media_service system_usr_file:file { getattr map open read };
 allow media_service sa_multimodalinput_service:samgr_class { get };
 allow media_service multimodalinput:unix_stream_socket { read };
 allow media_service sa_media_service:samgr_class { get };
+allow media_service sa_foundation_tel_call_manager:samgr_class { get };
