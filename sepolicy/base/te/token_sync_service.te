@@ -50,3 +50,5 @@ allow token_sync_service sys_usb_param:file { map open read };
 allow token_sync_service token_sync_service:unix_dgram_socket { getopt setopt };
 allow token_sync_service tracefs:dir { search };
 allow token_sync_service tracefs_trace_marker_file:file { open write };
+allow token_sync_service sa_memory_manager_service:samgr_class { get };
+allow token_sync_service memmgrservice:binder { call };
