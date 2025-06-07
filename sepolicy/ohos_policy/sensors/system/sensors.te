@@ -62,6 +62,9 @@ allow sensors dev_unix_socket:dir { search };
 #avc:  denied  { call } for  pid=645 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:vibrator_host:s0 tclass=binder permissive=1
 allow sensors vibrator_host:binder { call };
 
+#avc:  denied  { transfer } for  pid=1472 comm="/system/bin/sa_main" scontext=u:r:sensors:s0 tcontext=u:r:vibrator_host:s0 tclass=binder permissive=0
+allow sensors vibrator_host:binder { transfer };
+
 #avc:  denied  { search } for  pid=451 comm="sensors" name="/" dev="tracefs" ino=1 scontext=u:r:sensors:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow sensors tracefs:dir { search };
 
