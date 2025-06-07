@@ -14,3 +14,4 @@
 /sytem/bin/hdf_devmgr       u:object_r:hdf_devmgr_exec:s0
 /dev/hdf_kevent             u:object_r:dev_hdf_kevent:s0
 /dev/hdfwifi                u:object_r:dev_hdfwifi:s0
+/vendor/bin/hdf_devhost       u:object_r:hdf_devhost_exec:s0

@@ -48,7 +48,6 @@ allow ispserver sys_param:file { map open read };
 allow ispserver system_bin_file:dir { search };
 allow ispserver sys_usb_param:file { map open read };
 allow ispserver vendor_bin_file:file { entrypoint execute map read };
-allow ispserver hdf_devhost_exec:file { entrypoint execute map read };
 allow ispserver vendor_etc_file:dir { search };
 allow ispserver vendor_etc_file:file { getattr open read };
 allowxperm ispserver dev_media_file:chr_file ioctl { 0x7c00 0x7c01 0x7c02 0x7c03 };

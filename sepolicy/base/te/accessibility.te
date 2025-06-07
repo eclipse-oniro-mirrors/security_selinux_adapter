@@ -71,7 +71,6 @@ allowxperm accessibility data_service_el1_file:file ioctl { 0x5413 };
 allow accessibility system_file:file { map open read getattr };
 allow accessibility sys_prod_file:file { map open read getattr };
 allow accessibility vendor_bin_file:dir { search };
-allow accessibility hdf_devhost_exec:dir { search };
 allow accessibility vendor_file:file { map open read getattr };
 allow accessibility chip_prod_file:file { map open read getattr };
 allow accessibility data_app_el1_file:file { map open read getattr };
