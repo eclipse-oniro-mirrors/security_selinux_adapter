@@ -37,7 +37,7 @@ allow cloudfiledaemon data_service_el2_file:dir { search };
 allow cloudfiledaemon data_service_el2_hmdfs:dir { create search read open write add_name remove_name };
 allow cloudfiledaemon data_service_el2_hmdfs:file { create setattr getattr read open write append ioctl rename unlink };
 allow cloudfiledaemon hmdfs:dir { search write remove_name add_name create open read rmdir rename reparent ioctl };
-allowxperm cloudfiledaemon hmdfs:dir ioctl { 0xf20b };
+allowxperm cloudfiledaemon hmdfs:dir ioctl { 0xf20b 0xf281 };
 allow cloudfiledaemon hmdfs:file { read open getattr create append rename unlink ioctl };
 allowxperm cloudfiledaemon hmdfs:file ioctl { 0xf202 0x5413 };
 allow cloudfiledaemon storage_daemon:fd { use };
