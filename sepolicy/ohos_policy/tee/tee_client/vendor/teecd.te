@@ -37,11 +37,10 @@ allow teecd hilog_param:file { map open read };
 #avc:  denied  { read } for  pid=626 comm="teecd" name="overcommit_memory" dev="proc" ino=3092 scontext=u:r:teecd:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=626 comm="teecd" path="/proc/sys/vm/overcommit_memory" dev="proc" ino=3092 scontext=u:r:teecd:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
 allow teecd proc_file:file { open read };
-#avc:  denied  { entrypoint } for  pid=626 comm="init" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
-#avc:  denied  { map } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
+
 #avc:  denied  { read } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
-#avc:  denied  { execute } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
-allow teecd vendor_bin_file:file { entrypoint execute map read open getattr };
+allow teecd vendor_bin_file:file { read open getattr };
+
 allow teecd vendor_bin_file:dir { search };
 allow teecd vendor_etc_file:dir { search };
 allow teecd vendor_etc_file:file { read open getattr };

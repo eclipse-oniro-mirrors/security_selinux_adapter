@@ -552,3 +552,5 @@ allowxperm init dev_xpm:chr_file ioctl { 0x7802 };
 
 # avc: denied { getattr } for pid=1, comm="/bin/init" path="/system/bin/nwebspawn" dev="overlay" ino=835 scontext=u:r:init:s0 tcontext=u:object_r:nwebspawn_exec:s0 tclass=file permissive=0
 allow init nwebspawn_exec:file { execute getattr read open };
+
+allow init teecd_exec:file { relabelto getattr execute read open };
