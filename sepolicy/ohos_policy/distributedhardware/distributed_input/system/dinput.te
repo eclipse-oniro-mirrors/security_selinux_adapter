@@ -84,6 +84,8 @@ allow dinput dscreen:binder { call };
 
 allow dinput vendor_bin_file:dir { search };
 
+allow dinput hdf_devhost_exec:dir { search };
+
 allow dinput msdp_sa:binder { call transfer };
 
 allow dinput dev_console_file:chr_file { read write };

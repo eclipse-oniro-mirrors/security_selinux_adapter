@@ -123,6 +123,8 @@ allow daudio system_bin_file:dir { search };
 
 allow daudio vendor_bin_file:dir { search };
 
+allow daudio hdf_devhost_exec:dir { search };
+
 allow daudio daudio_host:fd { use };
 
 allow daudio sa_dhardware_service:samgr_class { get };

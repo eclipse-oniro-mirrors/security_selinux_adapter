@@ -68,6 +68,7 @@ allow security_component_service tracefs_trace_marker_file:file { open write };
 
 # avc:  denied  { search } for  pid=3239 comm="sa_main" name="bin" dev="sdd72" ino=12 scontext=u:r:security_component_service:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=1
 allow security_component_service vendor_bin_file:dir { search };
+allow security_component_service hdf_devhost_exec:dir { search };
 
 # avc:  denied  { call } for  pid=3201 comm="com.example.tes" scontext=u:r:normal_hap:s0 tcontext=u:r:security_component_service:s0 tclass=binder permissive=1
 allow security_component_service hap_domain:binder { call transfer };

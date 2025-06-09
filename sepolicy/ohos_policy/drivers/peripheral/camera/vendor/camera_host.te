@@ -91,6 +91,7 @@ allow camera_host system_core_hap_attr:fd { use };
 allow camera_host tracefs:dir { search };
 allow camera_host tracefs_trace_marker_file:file { write };
 allow camera_host vendor_bin_file:file { entrypoint execute map read };
+allow camera_host hdf_devhost_exec:file { entrypoint execute map read };
 allow camera_host vendor_etc_file:dir { search };
 allow camera_host vendor_etc_file:file { getattr open read };
 allow camera_host vendor_file:file { execute getattr map open read getattr };

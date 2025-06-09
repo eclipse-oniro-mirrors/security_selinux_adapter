@@ -147,6 +147,7 @@ allow hidumper_service sa_dhardware_service:samgr_class { get };
 
 #avc:  denied  { search } for  pid=2662 comm="sa_main" name="bin" dev="sdd72" ino=12 scontext=u:r:dcamera:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=0
 allow dhardware vendor_bin_file:dir { search };
+allow dhardware hdf_devhost_exec:dir { search };
 
 #avc:  denied  { get } for service=5100 pid=2376 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 allow dhardware sa_device_service_manager:samgr_class { get };
