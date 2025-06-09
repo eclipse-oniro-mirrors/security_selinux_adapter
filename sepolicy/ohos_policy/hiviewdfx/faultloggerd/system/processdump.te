@@ -119,6 +119,7 @@ allow processdump init:unix_stream_socket { read write connectto };
 allow processdump foundation:dir { getattr open read search };
 allow processdump foundation:binder { call transfer };
 allow processdump sa_foundation_abilityms:samgr_class { get };
+allow processdump sa_foundation_bms:samgr_class { get };
 
 #============ data_xxx ==================
 allow processdump data_file:dir search;
