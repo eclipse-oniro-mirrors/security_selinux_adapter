@@ -190,7 +190,7 @@ allow edm_sa foundation:fd { use };
 allowxperm edm_sa data_service_el1_file:file ioctl { 0x5413 0xf50c };
 
 # avc: denied { call } for pid=9009, comm="/system/bin/sa_main"  scontext=u:r:edm_sa:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=0
-allow edm_sa telephony_sa:binder { call };
+allow edm_sa telephony_sa:binder { call transfer };
 
 # avc:  denied  { get } for service=921 pid=577 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_useriam_userauth_service:s0 tclass=samgr_class permissive=0
 allow edm_sa sa_useriam_userauth_service:samgr_class { get };
@@ -225,3 +225,7 @@ allow edm_sa data_service_el1_file:file { append };
 
 # avc: denied { transfer } for pid=24576, comm="/system/bin/sa_main"  scontext=u:r:edm_sa:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=0
 allow edm_sa wifi_manager_service:binder { transfer };
+
+allow edm_sa edm_config_file:dir { add_name create write read open search setattr getattr };
+allow edm_sa edm_config_file:file { create write read open getattr ioctl };
+allowxperm edm_sa edm_config_file:file ioctl { 0x5413 };

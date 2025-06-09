@@ -136,6 +136,9 @@ allow domain netsysnative:fd { use };
 
 allow netsysnative sa_net_policy_manager:samgr_class { get };
 
+allow netsysnative sysvpn_exec:file { execute read open execute_no_trans map getattr };
+neverallow { domain -netsysnative } sysvpn_exec:file { execute };
+
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call -security_collector } netsysnative:binder *;
 neverallow { domain -netsysnative -rgm_violator_ohos_iptables_exec_file_execute } iptables_exec:file { execute };
 
@@ -231,8 +234,9 @@ allow netsysnative proc_net:file { read open};
 # avc:  denied  { ioctl } for  pid=4065 comm="pppd" path="socket:[43566]" dev="sockfs" ino=43566 ioctlcmd=0x890c scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
 # avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="socket:[44443]" dev="sockfs" ino=44443 ioctlcmd=0x8912 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
 # avc:  denied  { ioctl } for  pid=3629 comm="pppd" path="socket:[43257]" dev="sockfs" ino=43257 ioctlcmd=0x8918 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
+# avc:  denied  { ioctl } for  pid=553 comm="OS_IPC_1_664" path="socket:[19321]" dev="sockfs" ino=19321 ioctlcmd=0x8923 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=0
 allow netsysnative netsysnative:udp_socket { ioctl };
-allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8912 0x8918 0x890b 0x890c};
+allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8912 0x8918 0x890b 0x890c 0x8923 };
 
 # avc:  denied  { search } for  pid=3133 comm="xl2tpd" name="/" dev="devpts" ino=1 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_pts_file:s0 tclass=dir permissive=1
 allow netsysnative dev_pts_file:dir { search };
@@ -252,8 +256,20 @@ allow netsysnative dev_ppp_file:chr_file { open read write };
 # avc:  denied  { ioctl } for  pid=3077 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x744b scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { ioctl } for  pid=2517 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7452 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { ioctl } for  pid=2517 comm="pppd" path="/dev/ppp" dev="tmpfs" ino=375 ioctlcmd=0x7454 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=553 comm="OS_IPC_1_664" path="/dev/ppp" dev="tmpfs" ino=369 ioctlcmd=0x7456 scontext=u:r:netsysnative:s0 tcontext=u:object_r:dev_ppp_file:s0 tclass=chr_file permissive=0
 allow netsysnative dev_ppp_file:chr_file { ioctl };
-allowxperm netsysnative dev_ppp_file:chr_file ioctl { 0x7438 0x743e 0x743a 0x7440 0x745a 0x7459 0x744f 0x7457 0x744b 0x7452 0x7454 };
+allowxperm netsysnative dev_ppp_file:chr_file ioctl { 0x7438 0x743e 0x743a 0x7440 0x745a 0x7459 0x744f 0x7457 0x744b 0x7452 0x7454 0x7456 };
+
+# avc:  denied  { create } for  pid=2394 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+# avc:  denied  { bind } for  pid=2484 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+# avc:  denied  { setopt } for  pid=2506 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+# avc:  denied  { write } for  pid=2506 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+# avc:  denied  { ioctl } for  pid=2506 comm="charon" path="socket:[19176]" dev="sockfs" ino=19176 ioctlcmd=0x8946 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+# avc:  denied  { nlmsg_read } for  pid=2014 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+# avc:  denied  { nlmsg_write } for  pid=2014 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+# avc:  denied  { read } for  pid=1963 comm="charon" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_xfrm_socket permissive=0
+allow netsysnative netsysnative:netlink_xfrm_socket { create bind setopt read write ioctl nlmsg_read nlmsg_write };
+allowxperm netsysnative netsysnative:netlink_xfrm_socket ioctl { 0x8946 };
 
 # avc:  denied  { name_connect } for  pid=2551 comm="openvpn" dest=1194 scontext=u:r:netsysnative:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
 allow netsysnative port:tcp_socket { name_connect };

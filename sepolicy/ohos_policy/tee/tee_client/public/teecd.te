@@ -11,7 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type teecd, native_chipset_domain, domain;
+type teecd, native_system_domain, domain;
 type teecd_data_file, file_attr, dev_attr;
 type teecd_data_file_vendor, file_attr, data_file_attr;
+type teecd_exec, exec_attr, file_attr, system_file_attr;
 
+allow teecd teecd_exec:file { entrypoint map execute read open getattr };

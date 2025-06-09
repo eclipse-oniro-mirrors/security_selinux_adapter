@@ -125,6 +125,7 @@ allow usb_host tty_device:chr_file { open read write getattr ioctl };
 allowxperm usb_host tty_device:chr_file ioctl { 0x5401 0x5402 0x5403 0x5404 0x5408 0x5409 0x540a 0x540b };
 allow usb_host usb_service:binder { call };
 allow usb_host vendor_bin_file:file { entrypoint execute map read };
+allow usb_host hdf_devhost_exec:file { entrypoint execute map read };
 allow usb_host vendor_etc_file:dir { search };
 allow usb_host vendor_etc_file:file { getattr open read };
 allow usb_host vendor_lib_file:dir { search };

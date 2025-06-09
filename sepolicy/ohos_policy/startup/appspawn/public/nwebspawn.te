@@ -11,4 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+typeattribute nwebspawn native_system_domain;
+type nwebspawn_exec, system_file_attr, exec_attr, file_attr;
+
 neverallow nwebspawn *:process ptrace;

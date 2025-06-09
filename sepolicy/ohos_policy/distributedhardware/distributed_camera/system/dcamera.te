@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,6 +10,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+binder_call(dcamera, accountmgr);
 
 #avc:  denied  { call } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
@@ -164,6 +166,7 @@ allow dcamera sa_dhardware_service:samgr_class { get };
 
 #avc:  denied  { search } for  pid=3030 comm="sa_main" name="bin" dev="sdd72" ino=12 scontext=u:r:dcamera:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=1
 allow dcamera vendor_bin_file:dir { search };
+allow dcamera hdf_devhost_exec:dir { search };
 
 #avc:  denied  { call } for  pid=571 comm="msdp" scontext=u:r:dcamera:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow dcamera accesstoken_service:binder { call };
@@ -265,3 +268,6 @@ allow dcamera_host render_service:binder { transfer };
 allow dcamera_host normal_hap_attr:binder { transfer };
 allow dcamera_host av_codec_service:binder { call transfer };
 allowxperm dcamera data_data_file:file ioctl { 0x5413 };
+
+#avc:  denied  { get } for service=200 sid=u:r:dcamera:s0 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow dcamera sa_accountmgr:samgr_class { get };

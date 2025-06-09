@@ -138,7 +138,7 @@ neverallow { domain -installs -ark_aot_compiler -compiler_service -ark_aot updat
 neverallow { domain -installs -ark_aot_compiler -compiler_service -ark_aot -storage_daemon -init updater_only(`-updater') } data_app_el1_arkcache:dir { write };
 
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file
-    developer_only(`-lldb_server_file') -violator_lldb_server_file_entrypoint }:file entrypoint;
+    developer_only(`-lldb_server_file') -violator_file_attr_entrypoint -violator_lldb_server_file_entrypoint }:file entrypoint;
 
 # keep every process join the domain attribute.
 neverallow ~{ domain develop_domain debug_only(`rgm_violator_su_process_dyntransition') } { domain develop_domain }:process { transition dyntransition };
@@ -161,7 +161,7 @@ neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_viol
     rgmli_violator_exec_file_attr sys_prod_ai_model_llm_file_attr sys_prod_ai_model_aigc_file_attr
     developer_only(`lldb_server_file') violator_lldb_server_file }:{ file dir } *;
 # keep every dev_node join dev_attr
-neverallow * ~{ dev_attr fs_attr sys_prod_ai_model_llm_file_attr } :devfile_class_set *;
+neverallow * ~{ dev_attr fs_attr violator_devfile_class_set } :devfile_class_set *;
 
 
 # keep every service join service_type

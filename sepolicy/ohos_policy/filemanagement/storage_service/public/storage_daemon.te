@@ -42,3 +42,10 @@ allow storage_daemon param_watcher:binder { transfer call };
 # avc:  denied  { getattr } for pid=719 comm="/system/bin/storage_daemon" path="/system/bin/storage_daemon" dev="overlay" ino=862 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:storage_daemon_exec:s0 tclass=file permissive=0
 # avc:  denied  { open } for pid=714 comm="/system/bin/storage_daemon" path="/system/bin/storage_daemon" dev="overlay" ino=862 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:storage_daemon_exec:s0 tclass=file permissive=0
 allow storage_daemon storage_daemon_exec:file { getattr open };
+
+# avc: denied { execute_no_trans } for pid=12230, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mtpfs_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=12230, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mtpfs_exec:s0 tclass=file permissive=0
+# avc: denied { map } for pid=12230, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mtpfs_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=12230, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mtpfs_exec:s0 tclass=file permissive=0
+# avc: denied { read } for pid=12230, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mtpfs_exec:s0 tclass=file permissive=0
+allow storage_daemon mtpfs_exec:file { execute execute_no_trans map open read };

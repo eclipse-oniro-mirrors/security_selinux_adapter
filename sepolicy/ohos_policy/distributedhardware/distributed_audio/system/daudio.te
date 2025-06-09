@@ -11,6 +11,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+binder_call(daudio, accountmgr);
+
 allow daudio hilog_param:file { open read map };
 
 allow daudio debug_param:file { open read map };
@@ -121,6 +123,8 @@ allow daudio system_bin_file:dir { search };
 
 allow daudio vendor_bin_file:dir { search };
 
+allow daudio hdf_devhost_exec:dir { search };
+
 allow daudio daudio_host:fd { use };
 
 allow daudio sa_dhardware_service:samgr_class { get };
@@ -158,6 +162,8 @@ allow daudio system_lib_file:dir { read open };
 allow daudio persist_param:file { read open map };
 
 allow daudio codec_host:binder { call transfer };
+
+allow daudio sa_accountmgr:samgr_class { get };
 
 debug_only(`
     allow daudio sh:binder { call };

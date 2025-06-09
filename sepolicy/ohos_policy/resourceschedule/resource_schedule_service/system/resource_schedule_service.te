@@ -33,6 +33,7 @@ allow resource_schedule_service data_service_el1_file:file { create getattr ioct
 # Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
 allow resource_schedule_service distributeddata:binder { transfer };
 allow resource_schedule_service vendor_bin_file:dir { search };
+allow resource_schedule_service hdf_devhost_exec:dir { search };
 allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };
@@ -77,7 +78,7 @@ allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };
 allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
 # Standby management SIM card.
 # avc: denied  { call } for pid=679 comm="IPC_3_2276" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=1
-allow resource_schedule_service telephony_sa:binder { call };
+allow resource_schedule_service telephony_sa:binder { call transfer };
 # Standby moden enables or disables data services.
 # avc: denied  { get } for service=4010  pid=675 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_telephony_tel_core_service:s0 tclass=samgr_class permissive=1
 allow resource_schedule_service sa_telephony_tel_core_service:samgr_class { get };

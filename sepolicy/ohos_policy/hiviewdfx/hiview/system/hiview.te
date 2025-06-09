@@ -59,6 +59,7 @@ allow hiview system_basic_hap_attr:file { getattr read open };
 allow hiview system_core_hap_attr:file { getattr read open };
 allow hiview usage_report_exec:file { getattr read open execute_no_trans map execute };
 allow hiview vendor_bin_file:dir { search };
+allow hiview hdf_devhost_exec:dir { search };
 allow hiview proc_meminfo_file:file { open read };
 
 allow hiview data_init_agent:dir { search };
@@ -294,3 +295,5 @@ allowxperm hiview hiview_sys_def_file:file ioctl { 0x5413 };
 
 # avc: denied { get } for service=1158 sid=u:r:hiview:s0 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_netsys_native_manager:s0	tclass=samgr_class permissive=O
 allow hiview sa_netsys_native_manager:samgr_class { get };
+
+allow hiview data_log:fifo_file { create read write open unlink };

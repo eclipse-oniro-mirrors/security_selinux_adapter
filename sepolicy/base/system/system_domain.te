@@ -21,9 +21,9 @@ neverallow { system_domain -init -processdump -vendor_file_violator_dir_open } v
 neverallow { system_domain -vendor_file_violator_dir_mounton } vendor_file:dir { mounton };
 neverallow { system_domain -vendor_file_violator_file } vendor_file:file ~{ map open read getattr execute relabelto setattr };
 neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_map } vendor_file:file { map };
-neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_open } vendor_file:file { open };
-neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_read } vendor_file:file { read };
-neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_getattr } vendor_file:file { getattr };
+neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_open -teecd } vendor_file:file { open };
+neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_read -teecd } vendor_file:file { read };
+neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_getattr -teecd } vendor_file:file { getattr };
 neverallow { system_domain -bluetooth_service -distributeddata -foundation -audio_server -resource_schedule_service
     -usb_service -vendor_file_violator_file_execute } vendor_file:file { execute };
 neverallow { system_domain -vendor_file_violator_file_relabelto } vendor_file:file { relabelto };
@@ -34,19 +34,19 @@ neverallow { system_domain } vendor_file:{ blk_file chr_file fifo_file lnk_file 
 neverallow { system_domain -vendor_bin_file_violator_dir } vendor_bin_file:dir ~{ search getattr open read mounton relabelto };
 neverallow { system_domain -accessibility -bootanimation -nfc_service -hiebpf -hiprofiler_cmd -hiprofilerd -daudio -dcamera -dhardware -dinput -dscreen -render_service
     -processdump -hidumper_service -hiview -locationhub -audio_server -av_session -resource_schedule_service -dlp_permission_service
-    -security_component_service -init -module_update_service -hiprofiler_plugins -hiperf -vendor_bin_file_violator_dir_search } vendor_bin_file:dir { search };
-neverallow { system_domain -vendor_bin_file_violator_dir_getattr } vendor_bin_file:dir { getattr };
-neverallow { system_domain -vendor_bin_file_violator_dir_open } vendor_bin_file:dir { open };
-neverallow { system_domain -vendor_bin_file_violator_dir_read } vendor_bin_file:dir { read };
+    -security_component_service -init -module_update_service -hiprofiler_plugins -hiperf -vendor_bin_file_violator_dir_search debug_only(`-native_daemon') -teecd } vendor_bin_file:dir { search };
+neverallow { system_domain -vendor_bin_file_violator_dir_getattr -teecd } vendor_bin_file:dir { getattr };
+neverallow { system_domain -vendor_bin_file_violator_dir_open -teecd } vendor_bin_file:dir { open };
+neverallow { system_domain -vendor_bin_file_violator_dir_read -teecd } vendor_bin_file:dir { read };
 neverallow { system_domain -vendor_bin_file_violator_dir_mounton } vendor_bin_file:dir { mounton };
 neverallow { system_domain -vendor_bin_file_violator_dir_relabelto } vendor_bin_file:dir { relabelto };
 neverallow { system_domain -vendor_bin_file_violator_file } { vendor_bin_file }:file ~{ entrypoint execute map read getattr open execute_no_trans relabelto setattr };
 neverallow { system_domain -ispserver -vendor_bin_file_violator_file_entrypoint } vendor_bin_file:file { entrypoint };
 neverallow { system_domain -ispserver -init -vendor_bin_file_violator_file_execute -sys_installer_sa } vendor_bin_file:file { execute };
-neverallow { system_domain -ispserver -hiebpf -hidumper_service -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_map -sys_installer_sa } vendor_bin_file:file { map };
-neverallow { system_domain -ispserver -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_read -sys_installer_sa } vendor_bin_file:file { read };
-neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_getattr -sys_installer_sa } vendor_bin_file:file { getattr };
-neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_open -sys_installer_sa } vendor_bin_file:file { open };
+neverallow { system_domain -ispserver -hiebpf -hidumper_service -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_map -sys_installer_sa debug_only(`-native_daemon') } vendor_bin_file:file { map };
+neverallow { system_domain -ispserver -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_read -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { read };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_getattr -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { getattr };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_open -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { open };
 neverallow { system_domain -vendor_bin_file_violator_file_execute_no_trans -sys_installer_sa } vendor_bin_file:file { execute_no_trans };
 neverallow { system_domain -vendor_bin_file_violator_file_relabelto } vendor_bin_file:file { relabelto };
 neverallow { system_domain -vendor_bin_file_violator_file_setattr } vendor_bin_file:file { setattr };
@@ -60,7 +60,7 @@ neverallow { system_domain -bootanimation -ispserver -media_service -misc -multi
     -nfc_service -wifi_hal_service -telephony_sa -dhardware -dinput -hdf_devmgr -hiview -memmgrservice -msdp_sa -audio_server -av_codec_service -resource_schedule_executor
     -multimodalinput -charger -concurrent_task_service -resource_schedule_service -dlp_permission_service -sensors -appspawn -init -ueventd -telephony_sa
     -module_update_service -sys_installer_sa -updater_binary -nwebspawn -module_update_service -vendor_etc_file_violator_dir_search -cjappspawn
-    -hap_domain -render_service developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_dir_search } vendor_etc_file:dir { search };
+    -hap_domain -render_service developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_dir_search -teecd } vendor_etc_file:dir { search };
 neverallow { system_domain -nfc_service -charger -init -appspawn -cjappspawn -vendor_etc_file_violator_dir_getattr } vendor_etc_file:dir { getattr };
 neverallow { system_domain -init -appspawn -cjappspawn -vendor_etc_file_violator_dir_read } vendor_etc_file:dir { read };
 neverallow { system_domain -init -appspawn -cjappspawn -vendor_etc_file_violator_dir_open } vendor_etc_file:dir { open };
@@ -71,12 +71,12 @@ neverallow { system_domain -bootanimation -media_service -memmgrservice -concurr
     -vendor_etc_file_violator_file_map } vendor_etc_file:file { map };
 neverallow { system_domain -bootanimation -ispserver -media_service -misc -accountmgr -wifi_hal_service -dhardware -dinput -foundation -powermgr
     -hdf_devmgr -hiview -memmgrservice -audio_server -sensors -av_codec_service -multimodalinput -charger -concurrent_task_service
-    -resource_schedule_service -appspawn -cjappspawn -init -telephony_sa -vendor_etc_file_violator_file_open developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_open } vendor_etc_file:file { open };
+    -resource_schedule_service -appspawn -cjappspawn -init -telephony_sa -vendor_etc_file_violator_file_open developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_open -teecd } vendor_etc_file:file { open };
 neverallow { system_domain -bootanimation -ispserver -media_service -misc -accountmgr -wifi_hal_service -dhardware -dinput -msdp_sa -foundation -powermgr
     -hdf_devmgr -hiview -memmgrservice -audio_server -sensors -av_codec_service -multimodalinput -charger -concurrent_task_service
-    -resource_schedule_service -appspawn -cjappspawn -init -telephony_sa -vendor_etc_file_violator_file_read developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_read } vendor_etc_file:file { read };
+    -resource_schedule_service -appspawn -cjappspawn -init -telephony_sa -vendor_etc_file_violator_file_read developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_read -teecd } vendor_etc_file:file { read };
 neverallow { system_domain -bootanimation -ispserver -media_service -misc -accountmgr -wifi_hal_service -dhardware -dinput -foundation -powermgr
     -hdf_devmgr -memmgrservice -audio_server -sensors -av_codec_service -multimodalinput -charger -concurrent_task_service
-    -resource_schedule_service -appspawn -cjappspawn -init -vendor_etc_file_violator_file_getattr developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_getattr } vendor_etc_file:file { getattr };
+    -resource_schedule_service -appspawn -cjappspawn -init -vendor_etc_file_violator_file_getattr developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_getattr -teecd } vendor_etc_file:file { getattr };
 neverallow { system_domain -vendor_etc_file_violator_file_relabelto } vendor_etc_file:file { relabelto };
 neverallow { system_domain } vendor_etc_file:{ blk_file chr_file fifo_file lnk_file sock_file } *;

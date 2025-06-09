@@ -183,4 +183,7 @@ developer_only(`
 
     binder_call(input_isolate_debug_hap, multimodalinput);
     binder_call(multimodalinput, input_isolate_debug_hap);
+
+    allow input_isolate_debug_hap sa_huks_service:samgr_class { get };
+    allow input_isolate_debug_hap huks_service:binder { call };
 ')

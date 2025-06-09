@@ -18,6 +18,10 @@ developer_only(`
 neverallow native_daemon { domain debug_only(`-hap_domain') developer_only(`-debug_hap') }:process ptrace;
 neverallow { domain -hiprofiler_cmd -hiprofilerd -hiprofiler_plugins -native_daemon -hitrace -hiview -bytrace -hiperf } hiviewdfx_profiler_param:parameter_service { set };
 
+debug_only(`
+    allow native_daemon vendor_bin_file:dir { search };
+    allow native_daemon vendor_bin_file:file { getattr map open read };
+')
 allow domain hiprofiler_socket:sock_file { getattr write unlink };
 allow init hiprofiler_socket:sock_file { relabelto };
 

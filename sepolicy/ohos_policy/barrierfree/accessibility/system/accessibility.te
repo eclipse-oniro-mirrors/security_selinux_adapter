@@ -64,3 +64,12 @@ allow composer_host accessibility:fd { use };
 allow accessibility allocator_host:fd { use };
 allow accessibility resource_schedule_service:binder { call transfer };
 allow accessibility sysfs_devices_system_cpu:dir { read open };
+
+allow accessibility allocator_host:binder { call };
+allow accessibility dev_at_file:chr_file { ioctl };
+allow accessibility hdf_allocator_service:hdf_devmgr_class { get };
+allow accessibility hdf_devmgr:binder { call };
+allow accessibility sa_device_service_manager:samgr_class { get };
+allow accessibility system_etc_file:file { ioctl };
+allowxperm accessibility dev_at_file:chr_file ioctl { 0x5413 };
+allowxperm accessibility system_etc_file:file ioctl { 0xf207 };
