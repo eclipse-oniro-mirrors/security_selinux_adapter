@@ -16,7 +16,15 @@ type init_exec, exec_attr, file_attr, system_file_attr;
 type ueventd, native_system_domain, domain;
 type ueventd_exec, system_file_attr, exec_attr, file_attr;
 type remount_exec, system_file_attr, exec_attr, file_attr;
-
+type param_exec, system_file_attr, exec_attr, file_attr;
+type begetctl_exec, system_file_attr, exec_attr, file_attr;
+developer_only(`
+    allow sh param_exec:file { read getattr map execute open execute_no_trans };
+    allow sh begetctl_exec:file { read getattr map execute open execute_no_trans };
+')
+allow resource_schedule_executor param_exec:file { open read getattr };
+allow init param_exec:file { read getattr map execute open execute_no_trans };
+allow init begetctl_exec:file { read getattr map execute open execute_no_trans };
 
 debug_only(`
     allow init console:process { rlimitinh siginh transition getattr };
