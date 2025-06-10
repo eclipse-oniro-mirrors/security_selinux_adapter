@@ -311,4 +311,4 @@ attribute violator_data_local_tmp_file_open;
 attribute violator_sa_capability_dac_override;
 
 # define storage_violator attribute for neverallows
-attribute storage_binder_violator;
+attribute violator_storage_binder;
