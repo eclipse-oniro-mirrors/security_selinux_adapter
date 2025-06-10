@@ -173,4 +173,5 @@ allow media_service render_service:binder { transfer };
 
 allow media_service sa_multimodalinput_service:samgr_class { get };
 allow media_service multimodalinput:unix_stream_socket { read };
+allow media_service sa_foundation_tel_call_manager:samgr_class { get };
 
