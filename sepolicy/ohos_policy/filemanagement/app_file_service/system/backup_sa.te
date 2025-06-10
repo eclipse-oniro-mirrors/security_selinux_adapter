@@ -87,5 +87,5 @@ allow backup_sa backup_sa:capability { dac_read_search };
 allow backup_sa backup_sa:capability { sys_admin };
 allow backup_sa dev_block_file:dir { search };
 allow backup_sa dev_block_file:lnk_file { read };
-allow backup_sa dev_block_volfile:lnk_file { search };
+allow backup_sa dev_block_volfile:dir { search };
 allow backup_sa labeledfs:filesystem { quotaget };
