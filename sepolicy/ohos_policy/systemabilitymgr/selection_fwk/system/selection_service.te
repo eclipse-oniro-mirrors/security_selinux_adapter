@@ -1,0 +1,132 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { add } for service=8500 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
+allow selection_service sa_selection_service:samgr_class { add get };
+# avc:  denied  { get } for service=3101 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow selection_service sa_multimodalinput_service:samgr_class { get };
+allow selection_service hilog_param:file { map open read };
+#  avc:  denied  { get } for service=3901 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=0
+allow selection_service sa_param_watcher:samgr_class { get };
+# avc:  denied  { search } for  pid=1966 comm="sa_main" name="socket" dev="tmpfs" ino=43 scontext=u:r:selection_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+allow selection_service dev_unix_socket:dir { search };
+allow selection_service dev_unix_socket:sock_file { write };
+# avc:  denied  { read } for  pid=1970 comm="sa_main" name="u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:selection_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+allow selection_service persist_param:file { map open read };
+
+allow selection_service sys_selection_param:parameter_service { set };
+allow selection_service persist_param:parameter_service { set };
+allow selection_service sys_selection_param:file { map open read watch };
+allow selection_service persist_sys_param:file { map open read };
+
+
+# avc:  denied  { call } for  pid=2023 comm="SaInit0" scontext=u:r:selection_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=2023 comm="SaInit0" scontext=u:r:selection_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+allow selection_service param_watcher:binder { call transfer };
+
+# avc:  denied  { call } for  pid=2168 comm="OS_mmi_EventHdr" scontext=u:r:selection_service:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+allow selection_service multimodalinput:binder { call };
+allow selection_service multimodalinput:fd { use };
+
+# avc:  denied  { read } for  pid=1914 comm="OS_mmi_EventHdr" scontext=u:r:selection_service:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+allow selection_service multimodalinput:unix_stream_socket { read write };
+
+# avc:  denied  { call } for  pid=465 comm="selection_servi" scontext=u:r:selection_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=459 comm="OS_IPC_1_535" scontext=u:r:selection_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow selection_service foundation:binder { call transfer };
+
+# avc:  denied  { get } for service=180 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow selection_service sa_foundation_abilityms:samgr_class { get };
+
+
+# avc:  denied  { read } for  pid=21035 comm="selection_servi" name="online" dev="sysfs" ino=5554 scontext=u:r:selection_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+#avc:  denied  { getattr } for  pid=3391 comm="selection_servi" path="/sys/devices/system/cpu/online" dev="sysfs" ino=5554 scontext=u:r:selection_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+allow selection_service sysfs_devices_system_cpu:file { read open getattr };
+
+# avc:  denied  { transfer } for  pid=21035 comm="SaInit0" scontext=u:r:selection_service:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=0
+# avc:  denied  { getopt } for  pid=21035 comm="SaInit0" scontext=u:r:selection_service:s0 tcontext=u:r:selection_service:s0 tclass=unix_dgram_socket permissive=0
+# avc:  denied  { setopt } for  pid=21035 comm="SaInit0" scontext=u:r:selection_service:s0 tcontext=u:r:selection_service:s0 tclass=unix_dgram_socket permissive=0
+allow selection_service multimodalinput:binder { transfer };
+allow selection_service selection_service:unix_dgram_socket { getopt setopt };
+
+# avc:  denied  { read } for  pid=3391 comm="selection_servi" name="u:object_r:sys_param:s0" dev="tmpfs" ino=59 scontext=u:r:selection_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=3391 comm="selection_servi" name="u:object_r:devinfo_type_param:s0" dev="tmpfs" ino=116 scontext=u:r:selection_service:s0 tcontext=u:object_r:devinfo_type_param:s0 tclass=file permissive=0
+allow selection_service sys_param:file { map open read };
+
+# avc:  denied  { get } for service=3704 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
+allow selection_service sa_screenlock_service:samgr_class { get };
+
+# avc:  denied  { get } for service=4606 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
+# avc:  denied  { call } for  pid=546 comm="WindowManagerSe" scontext=u:r:foundation:s0 tcontext=u:r:selection_service:s0 tclass=binder permissive=1
+allow foundation selection_service:binder { call transfer };
+allow  selection_service sa_foundation_wms:samgr_class { get };
+binder_call(selection_service, foundation);
+binder_call(foundation, selection_service);
+
+# avc:  denied  { read } for  pid=3353 comm="selection_servi" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:selection_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=3353 comm="selection_servi" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:selection_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=3353 comm="selection_servi" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:selection_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow selection_service debug_param:file { map open read };
+
+# avc:  denied  { read } for  pid=3353 comm="selection_servi" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=85 scontext=u:r:selection_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=3353 comm="selection_servi" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=85 scontext=u:r:selection_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow selection_service arkcompiler_param:file { open read map };
+
+# avc:  denied  { search } for  pid=5494 comm="selection_servi" name="etc" dev="mmcblk0p10" ino=12 scontext=u:r:selection_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=0
+# avc:  denied  { search } for  pid=5494 comm="selection_servi" name="etc" dev="mmcblk0p9" ino=12 scontext=u:r:selection_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
+# avc:  denied  { search } for  pid=5494 comm="selection_servi" name="etc" dev="mmcblk0p8" ino=20 scontext=u:r:selection_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=0
+# avc:  denied  { search } for  pid=5494 comm="selection_servi" name="usr" dev="mmcblk0p7" ino=3897 scontext=u:r:selection_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=0
+# avc:  denied  { getattr } for  pid=2051 comm="selection_servi" path="/system/usr/ohos_locale_config/supported_locales.xml" dev="mmcblk0p7" ino=3968 scontext=u:r:selection_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=2051 comm="selection_servi" name="supported_locales.xml" dev="mmcblk0p7" ino=3968 scontext=u:r:selection_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=0
+allow selection_service chip_prod_file:dir { search };
+allow selection_service sys_prod_file:dir { search };
+allow selection_service system_usr_file:dir { search };
+allow selection_service system_usr_file:file { getattr read };
+
+allow selection_service accesstoken_service:binder { call };
+allow selection_service sa_accesstoken_manager_service:samgr_class { get };
+allow hap_domain sa_selection_service:samgr_class { get };
+binder_call(hap_domain, selection_service);
+allow selection_service hap_domain:binder { call transfer };
+allow sa_selection_service samgr:binder { call transfer };
+allow samgr selection_service:binder { call transfer };
+
+allow selection_service data_file:dir { search };
+allow selection_service data_service_el1_file:dir { add_name getattr open read remove_name search write };
+allow selection_service data_service_el1_file:file { create getattr ioctl lock read write open unlink relabelfrom };
+allowxperm selection_service data_service_el1_file:file ioctl { 0xf50c };
+allow selection_service data_service_file:dir { search };
+allow selection_service selection_service_data_file:dir { ioctl search add_name open write read remove_name create };
+allowxperm selection_service selection_service_data_file:dir ioctl { 0xf546 };
+allow selection_service selection_service_data_file:file { ioctl open read write getattr create lock map unlink };
+allowxperm selection_service selection_service_data_file:file ioctl { 0xf501 0xf502 0x5413 0xf50c 0xf546 0xf547 };
+allow selection_service selection_service_data_file:file { setattr };
+allow hidumper_service sa_selection_service:samgr_class { get };
+
+# avc:  denied  { get } for service=200 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
+allow selection_service sa_accountmgr:samgr_class { get };
+allow selection_service accountmgr:binder { call };
+allow accountmgr selection_service:binder { transfer };
+allow samgr sys_selection_param:file { map open read watch };
+allow samgr sys_selection_param:parameter_service { set };
+
+# avc:  denied  { write } for  pid=9730 comm="SaInit0" name="paramservice" dev="tmpfs" ino=49 scontext=u:r:selection_service:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow selection_service paramservice_socket:sock_file { read write };
+
+# avc: denied  { get } for service=3701 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_pasteboard_service:s0 tclass=samgr_class permissive=0
+# avc: denied { transfer } for pid=1856, comm="/system/bin/sa_main"  scontext=u:r:selection_service:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=1
+# avc: denied { call } for pid=6304, comm="/system/bin/sa_main"  scontext=u:r:pasteboard_service:s0 tcontext=u:r:selection_service:s0 tclass=binder permissive=1
+# avc: denied { call } for pid=7907, comm="/system/bin/sa_main"  scontext=u:r:selection_service:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=1
+allow selection_service sa_pasteboard_service:samgr_class { get };
+allow selection_service pasteboard_service:binder { call transfer };
+allow pasteboard_service selection_service:binder { call };
