@@ -71,6 +71,7 @@
                 "netmanager system_bin_file",
                 "netmanager toybox_exec",
                 "netsysnative iptables_exec",
+                "netsysnative sysvpn_exec",
                 "netsysnative sh_exec",
                 "netsysnative system_bin_file",
                 "netsysnative toybox_exec",

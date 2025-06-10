@@ -33,6 +33,8 @@ allow chipset_init system_etc_file:lnk_file { relabelto read getattr };
 
 allow chipset_init vendor_bin_file:dir { search };
 allow chipset_init vendor_bin_file:file { execute getattr read read open };
+allow chipset_init hdf_devhost_exec:dir { search };
+allow chipset_init hdf_devhost_exec:file { execute getattr read read open };
 allow chipset_init vendor_etc_file:dir { open read search getattr };
 allow chipset_init vendor_etc_file:file { getattr open read };
 

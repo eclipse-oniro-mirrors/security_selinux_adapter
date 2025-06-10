@@ -84,6 +84,7 @@ allow locationhub sa_distributeddata_service:samgr_class { get };
 allow locationhub distributeddata:binder { call };
 allow locationhub distributeddata:fd { use };
 allow locationhub vendor_bin_file:dir { search };
+allow locationhub hdf_devhost_exec:dir { search };
 
 allow locationhub musl_param:file { open };
 allow locationhub dev_file:dir { getattr };

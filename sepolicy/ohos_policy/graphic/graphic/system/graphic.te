@@ -44,6 +44,7 @@ allow render_service system_fonts_file:file { getattr map open read };
 allow render_service sa_accessibleabilityms:samgr_class { get };
 allow render_service sa_concurrent_task_service:samgr_class { get };
 allow render_service vendor_bin_file:dir { search };
+allow render_service hdf_devhost_exec:dir { search };
 allow render_service paramservice_socket:sock_file { write };
 allow render_service kernel:unix_stream_socket { connectto };
 allow render_service debug_param:parameter_service { set };

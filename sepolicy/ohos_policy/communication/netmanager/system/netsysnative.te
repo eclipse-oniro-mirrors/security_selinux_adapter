@@ -136,6 +136,9 @@ allow domain netsysnative:fd { use };
 
 allow netsysnative sa_net_policy_manager:samgr_class { get };
 
+allow netsysnative sysvpn_exec:file { execute read open execute_no_trans map getattr };
+neverallow { domain -netsysnative } sysvpn_exec:file { execute };
+
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call -security_collector } netsysnative:binder *;
 neverallow { domain -netsysnative -rgm_violator_ohos_iptables_exec_file_execute } iptables_exec:file { execute };
 

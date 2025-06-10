@@ -54,16 +54,16 @@ allow lldb_server key_enable:key { search };
 
 # Forbid lldb-server to debug other processes except debuggable applications and
 # even child processes launched by lldb-server.
-neverallow lldb_server { domain developer_only(`-debug_hap') }:process {
+neverallow lldb_server { domain developer_only(`-debug_hap') -violator_ptrace_debug_hap }:process {
     ptrace sigkill signal sigstop };
 neverallow lldb_server self:process { ptrace sigkill signal sigstop };
 # Only processes of Appspawn/CJAppspawn and lldb-server can execute lldb-server.
-neverallow { domain developer_only(`-appspawn -cjappspawn -lldb_server') }
+neverallow { domain developer_only(`-appspawn -cjappspawn -lldb_server') -violator_debug_domain_sa_lldb_server_file }
     lldb_server_file:file { map execute execute_no_trans entrypoint };
 # Only allow Appspawn/CJAppspawn to spawn lldb-server, the context transition is
 # accomplished by the kernel, and dynamic transition in the user land is
 # forbidden.
-neverallow { domain developer_only(`-appspawn -cjappspawn') }
+neverallow { domain developer_only(`-appspawn -cjappspawn') -violator_debug_domain_sa_lldb_server_transition }
     lldb_server:process { transition };
 neverallow domain lldb_server:process { dyntransition };
 # Only allow hdcd to connect to Unix socket owned lldb-server in the developer

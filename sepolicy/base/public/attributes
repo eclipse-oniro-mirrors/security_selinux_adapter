@@ -312,3 +312,14 @@ attribute violator_sa_capability_dac_override;
 
 # define storage_violator attribute for neverallows
 attribute violator_storage_binder;
+
+attribute violator_lldb_data_local_tmp;
+attribute violator_lldb_server_file;
+attribute violator_lldb_server_file_execute;
+attribute violator_debug_domain_sa_lldb_server_file;
+attribute violator_lldb_server_file_entrypoint;
+attribute violator_lldb_server_transition;
+attribute violator_debug_domain_sa_lldb_server_transition;
+attribute violator_lldb_server_ptrace;
+attribute violator_ptrace_debug_hap;
+

@@ -134,3 +134,7 @@ allow distributedfiledaemon node:udp_socket { node_bind };
 allow pasteboard_service sa_storage_manager_service:samgr_class { get };
 
 allow distributeddata sa_storage_manager_service:samgr_class { get };
+
+allow distributeddata hmdfs:lnk_file { read };
+
+allow distributeddata data_service_el2_hmdfs:lnk_file { read };

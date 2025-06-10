@@ -67,6 +67,7 @@ allow av_session data_log:dir { getattr };
 allow av_session system_basic_hap_attr:binder { transfer call };
 allow av_session sa_foundation_bms:samgr_class { get };
 allow av_session vendor_bin_file:dir { search };
+allow av_session hdf_devhost_exec:dir { search };
 allow av_session system_usr_file:dir { search };
 allow av_session sa_distributeddata_service:samgr_class { get };
 

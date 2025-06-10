@@ -21,7 +21,7 @@ typeattribute normal_hap normal_hap_attr;
 
 neverallow { normal_hap_attr -hap_domain_kernel_violators } { domain -normal_hap_attr }:file never_rw_file;
 neverallow { hap_domain -normal_hap_attr } normal_hap_attr:file never_rw_file;
-neverallow { domain -normal_hap_attr -processdump developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') } normal_hap_attr:process ptrace;
+neverallow { domain -normal_hap_attr -processdump developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') -violator_lldb_server_ptrace } normal_hap_attr:process ptrace;
 
 typeattribute system_core_hap hap_domain;
 typeattribute system_core_hap system_core_hap_attr;
@@ -157,7 +157,7 @@ neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
 
 #no use ptrace
 neverallow hap_domain { domain -hap_domain }:process ptrace;
-neverallow { domain -hap_domain -processdump developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') } hap_domain:process ptrace;
+neverallow { domain -hap_domain -processdump developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') -violator_lldb_server_ptrace } hap_domain:process ptrace;
 
 #hap don't bother other domain.
 neverallow hap_domain { domain -hap_domain }:process { sigkill sigstop signal };
