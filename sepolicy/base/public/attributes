@@ -309,6 +309,10 @@ attribute normal_hap_system_basic_hap_data_file_violators;
 attribute violator_sa_domain_data_local_tmp;
 attribute violator_data_local_tmp_file_open;
 attribute violator_sa_capability_dac_override;
+
+# define storage_violator attribute for neverallows
+attribute violator_storage_binder;
+
 attribute violator_lldb_data_local_tmp;
 attribute violator_lldb_server_file;
 attribute violator_lldb_server_file_execute;
