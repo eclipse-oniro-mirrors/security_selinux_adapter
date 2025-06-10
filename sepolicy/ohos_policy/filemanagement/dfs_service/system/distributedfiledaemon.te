@@ -138,3 +138,13 @@ allow distributeddata sa_storage_manager_service:samgr_class { get };
 allow distributeddata hmdfs:lnk_file { read };
 
 allow distributeddata data_service_el2_hmdfs:lnk_file { read };
+
+allow distributedfiledaemon sa_foundation_ans:samgr_class { get };
+
+allow distributedfiledaemon sa_foundation_bms:samgr_class { get };
+
+allow distributedfiledaemon system_etc_file:file { ioctl };
+
+allowxperm distributedfiledaemon system_etc_file:file ioctl { 0xf207 };
+
+allow distributedfiledaemon dev_ashmem_file:chr_file { open };
