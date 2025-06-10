@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type backup_sa, sadomain, domain;
-
 allow backup_sa sa_accesstoken_manager_service:samgr_class { get };
 allow backup_sa sa_foundation_abilityms:samgr_class { get };
 allow backup_sa sa_foundation_bms:samgr_class { get };
@@ -72,3 +70,22 @@ allow backup_sa data_log:file { create getattr open read append };
 allow backup_sa distributeddata:binder { call };
 allow backup_sa distributeddata:fd { use };
 allow backup_sa inputmethod_service:binder { call };
+
+allow backup_sa normal_hap_data_file_attr:dir { getattr open read search };
+allow backup_sa system_basic_hap_data_file_attr:dir { getattr open read search };
+allow backup_sa system_core_hap_data_file_attr:dir { getattr open read search };
+
+allow backup_sa data_app_el1_file:dir { getattr search };
+allow backup_sa data_app_el2_file:dir { getattr search };
+allow backup_sa data_app_el3_file:dir { getattr search };
+allow backup_sa data_app_el4_file:dir { getattr search };
+allow backup_sa data_app_el5_file:dir { getattr search };
+allow backup_sa hmdfs:dir { open read search };
+allow backup_sa data_service_el2_hmdfs:dir { read search };
+allow backup_sa data_user_file:dir { read search };
+allow backup_sa backup_sa:capability { dac_read_search };
+allow backup_sa backup_sa:capability { sys_admin };
+allow backup_sa dev_block_file:dir { search };
+allow backup_sa dev_block_file:lnk_file { read };
+allow backup_sa dev_block_volfile:lnk_file { search };
+allow backup_sa labeledfs:filesystem { quotaget };
