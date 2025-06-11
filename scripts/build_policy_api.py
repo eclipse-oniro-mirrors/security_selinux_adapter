@@ -137,7 +137,8 @@ def build_conf(args, output_conf, file_list, with_developer=False):
     if with_developer:
         m4_args += ["-D", "build_with_developer=enable"]
     if getattr(args, "product_args", None):
-        m4_args += ["-D", args.product_args]
+        for product_arg in args.product_args:
+            m4_args += ["-D", product_arg]
     build_conf_cmd = ["m4", "-s", "--fatal-warnings"] + m4_args + file_list
     with open(output_conf, 'w') as fd:
         ret = subprocess.run(build_conf_cmd, shell=False, stdout=fd).returncode

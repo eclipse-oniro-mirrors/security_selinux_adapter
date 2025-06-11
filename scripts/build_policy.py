@@ -44,6 +44,8 @@ def parse_args():
                         help='system or vendor or default', required=True)
     parser.add_argument('--vendor-policy-version',
                         help='plat version of vendor policy', required=False)
+    parser.add_argument('--product-args',
+                        help='extra product macros for m4', required=False, action='append')
     return parser.parse_args()
 
 
