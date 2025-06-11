@@ -86,4 +86,4 @@ developer_only(`
     allow hitrace hiview:unix_dgram_socket {  read write sendto };
 ')
 
-neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor } tracefs:file write_file_perms;
+neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor -appspawn } tracefs:file write_file_perms;

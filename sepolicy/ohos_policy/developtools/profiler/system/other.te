@@ -53,6 +53,7 @@ allow appspawn samgr:binder call;
 allow appspawn system_file:file { getattr open read };
 allow appspawn system_lib_file:dir { open read };
 allow appspawn tracefs:dir search;
+allow appspawn tracefs:file { open read write };
 allow appspawn tracefs_trace_marker_file:file { open write };
 allow appspawn accessibility:binder { call transfer };
 allow appspawn dev_mali:chr_file { getattr ioctl open read write };
