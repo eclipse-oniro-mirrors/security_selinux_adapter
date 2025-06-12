@@ -12,3 +12,4 @@
 # limitations under the License.
 
 /data/app/el1/bundle/public(/.*)?       u:object_r:app_el1_bundle_public:s0
+/data/service/el1/public/bundle_usage(/.*)? u:object_r:data_service_el1_public_bundle_usage:s0
