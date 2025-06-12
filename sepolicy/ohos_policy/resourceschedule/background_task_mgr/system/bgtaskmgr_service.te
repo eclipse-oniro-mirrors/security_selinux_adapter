@@ -148,6 +148,9 @@ allow system_basic_hap_attr sa_device_usage_statistics_service:samgr_class { get
 allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get };
 allow time_service bgtaskmgr_service:file { getattr };
 allow time_service bgtaskmgr_service:binder { call };
+# add device_usage_stats access self file permission
+allow bgtaskmgr_service data_service_el1_public_bundle_usage:file { map open read getattr };
+allow bgtaskmgr_service data_service_el1_public_bundle_usage:dir { read search open getattr write add_name };
 
 debug_only(`
     allow bgtaskmgr_service debug_param:file { map open read };

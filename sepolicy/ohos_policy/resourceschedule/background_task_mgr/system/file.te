@@ -12,3 +12,5 @@
 # limitations under the License.
 
 type app_el1_bundle_public, file_attr, data_file_attr;
+type data_service_el1_public_bundle_usage, file_attr, data_file_attr;
+
