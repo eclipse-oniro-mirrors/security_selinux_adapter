@@ -200,3 +200,7 @@ allow isolated_render data_service_el1_file:file { open };
 
 #avc: denied { get } for service=180, sid=u:r:isolated_render:s0 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow isolated_render sa_foundation_abilityms:samgr_class { get };
+
+#add for sysevent in render
+allow isolated_render self:unix_dgram_socket { getopt setopt };
+allow isolated_render hiview:unix_dgram_socket { sendto };
