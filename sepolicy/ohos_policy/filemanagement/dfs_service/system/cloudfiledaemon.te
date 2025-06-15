@@ -41,7 +41,7 @@ allowxperm cloudfiledaemon hmdfs:dir ioctl { 0xf20b 0xf281 };
 allow cloudfiledaemon hmdfs:file { read open getattr create append rename unlink ioctl };
 allowxperm cloudfiledaemon hmdfs:file ioctl { 0xf202 0x5413 };
 allow cloudfiledaemon storage_daemon:fd { use };
-allow cloudfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add get_remote get };
+allow cloudfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add add_remote get_remote get };
 allow cloudfiledaemon hap_domain:binder { call transfer };
 debug_only(`
     allow cloudfiledaemon sh:binder { call };

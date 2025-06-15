@@ -49,7 +49,7 @@ allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
 
 neverallow { domain -pasteboard_service -dslm_service -foundation -softbus_server -accountmgr -device_manager -param_watcher -sadomain -hidumper_service -hap_domain } distributedfiledaemon:binder { call };
 
-allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:samgr_class { get_remote };
+allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:samgr_class { add_remote get_remote };
 
 allow distributedfiledaemon data_app_file:dir { search };
 
