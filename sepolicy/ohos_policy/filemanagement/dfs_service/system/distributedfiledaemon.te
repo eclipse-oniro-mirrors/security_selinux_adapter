@@ -117,6 +117,14 @@ allow distributedfiledaemon sa_device_profile_service:samgr_class { get };
 #avc:  denied  { call } for  pid=4447 comm="/system/bin/sa_main" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=0
 allow distributedfiledaemon distributedsche:binder { call };
 
+allow foundation distributedfiledaemon:binder { transfer };
+
+allow distributedfiledaemon medialibrary_hap:fd { use };
+
+allow distributedfiledaemon pasteboard_service:fd { use };
+
+allow pasteboard_service distributedfiledaemon:fd { use };
+
 allow distributedfiledaemon sa_storage_manager_service:samgr_class { get };
 
 allow distributedfiledaemon storage_manager:binder { call };
