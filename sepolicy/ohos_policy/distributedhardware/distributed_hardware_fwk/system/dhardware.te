@@ -206,3 +206,10 @@ binder_call(dhardware, powermgr);
 allow dhardware sa_powermgr_powermgr_service:samgr_class { get };
 
 binder_call(dhardware, accountmgr);
+
+allow dhardware hdf_device_manager:hdf_devmgr_class { get };
+allow dhardware hdf_devmgr:binder { call transfer };
+allow dhardware hdf_daudio_ext:hdf_devmgr_class { get };
+allow dhardware daudio_host:binder { call transfer };
+allow dhardware dcamera_host:binder { call transfer };
+allow dhardware hdf_distributed_camera_provider_service:hdf_devmgr_class { get };
