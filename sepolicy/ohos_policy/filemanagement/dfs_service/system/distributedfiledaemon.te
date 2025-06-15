@@ -121,6 +121,10 @@ allow foundation distributedfiledaemon:binder { transfer };
 
 allow distributedfiledaemon medialibrary_hap:fd { use };
 
+allow distributedfiledaemon pasteboard_service:fd { use };
+
+allow pasteboard_service distributedfiledaemon:fd { use };
+
 allow distributedfiledaemon sa_storage_manager_service:samgr_class { get };
 
 allow distributedfiledaemon storage_manager:binder { call };
