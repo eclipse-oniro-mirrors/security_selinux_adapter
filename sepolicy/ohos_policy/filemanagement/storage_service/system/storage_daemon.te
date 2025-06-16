@@ -483,3 +483,5 @@ allow accountmgr storage_daemon:binder transfer;
 
 allow storage_daemon usb_service:binder { call };
 allow storage_daemon sa_usb_service:samgr_class { get };
+
+allow storage_daemon foundation:fd { use };
