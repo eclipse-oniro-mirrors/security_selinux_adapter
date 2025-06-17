@@ -229,6 +229,15 @@ allow sensors system_basic_hap_data_file:file { read getattr };
 #avc: denied { get } for service=4607 sid=u:r:sensors:s0 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow sensors sa_foundation_dms:samgr_class { get };
 
+#avc: denied { write } for pid=1518, comm="/system/bin/sa_main"  scontext=u:r:sensors:s0 tcontext=u:r:wifi_manager_service:s0 tclass=unix_stream_socket permissive=0
+allow sensors wifi_manager_service:unix_stream_socket { write };
+
+#avc: denied  { call } for pid=1518 comm="/system/bin/sa_main" scontext=u:r:sensors:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=0
+allow sensors wifi_manager_service:binder { call };
+
+#avc: denied { use } for pid=1518, comm="/system/bin/sa_main"  ioctlcmd=0x0  scontext=u:r:sensors:s0 tcontext=u:r:wifi_manager_service:s0 tclass=fd permissive=0
+allow sensors wifi_manager_service:fd { use };
+
 debug_only(`
     #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
     allow sensors sh:fd { use };
