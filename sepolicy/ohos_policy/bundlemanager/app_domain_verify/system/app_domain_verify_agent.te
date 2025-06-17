@@ -38,3 +38,5 @@ allow app_domain_verify_agent tty_device:chr_file { write };
 allow app_domain_verify_agent distributeddata:binder { call };
 allow app_domain_verify_agent distributeddata:fd { use };
 allow app_domain_verify_agent sa_distributeddata_service:samgr_class { get };
+allow app_domain_verify_agent sa_memory_manager_service:samgr_class { get };
+allow app_domain_verify_agent memmgrservice:binder { call };
