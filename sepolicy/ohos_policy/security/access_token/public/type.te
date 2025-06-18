@@ -14,3 +14,4 @@
 type accesstoken_data_file, file_attr, data_file_attr;
 type permissionmanager_hap, normal_hap_attr, hap_domain, domain;
 type permissionmanager_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+type access_control_level_manager, sadomain, domain;
