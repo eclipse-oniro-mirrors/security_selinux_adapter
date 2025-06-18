@@ -21,26 +21,6 @@ debug_only(`
     allow init hnp_file:file { execute getattr open read };
     allow init hnp_file:lnk_file { read };
     allow init su:process2 { nosuid_transition };
-    allow su data_app_el1_file:dir { getattr search };
-    allow su data_app_file:dir { getattr };
-    allow su data_file:dir { getattr };
-    allow su data_local:dir { getattr };
-    allow su data_local_tmp:dir { open read };
-    allow su data_local_tmp:file { getattr ioctl open read };
-    allowxperm su data_local_tmp:file ioctl { 0x5413 };
-    allow su dev_kmsg_file:chr_file { write };
-    allow su hnp_file:dir { getattr open read search };
-    allow su hnp_file:file { entrypoint execute_no_trans getattr ioctl open map execute read };
-    allowxperm su hnp_file:file ioctl { 0x5413 };
-    allow su hnp_file:lnk_file { read };
-    allow su kernel:unix_stream_socket { connectto };
-    allow su paramservice_socket:sock_file { write };
-    allow su servicectrl_param:parameter_service { set };
-    allow su su:capability { dac_override };
-    allow su sys_prod_file:dir { search };
-    allow su system_file:file { getattr open read };
-    allow su tty_device:chr_file { ioctl };
-    allowxperm su tty_device:chr_file ioctl { 0x5413 };
 ')
 allow init nwebspawn_socket:sock_file { unlink };
 allow init appspawn_socket:sock_file { unlink };
