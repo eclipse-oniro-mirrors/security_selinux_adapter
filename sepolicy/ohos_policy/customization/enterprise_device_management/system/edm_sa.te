@@ -229,3 +229,6 @@ allow edm_sa wifi_manager_service:binder { transfer };
 allow edm_sa edm_config_file:dir { add_name create write read open search setattr getattr };
 allow edm_sa edm_config_file:file { create write read open getattr ioctl };
 allowxperm edm_sa edm_config_file:file ioctl { 0x5413 };
+
+# avc:  denied  { get } for service=4005 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_foundation_tel_call_manager:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_foundation_tel_call_manager:samgr_class { get };
