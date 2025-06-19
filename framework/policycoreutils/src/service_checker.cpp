@@ -293,6 +293,10 @@ int ServiceChecker::GetRemoteServiceCheck(const std::string &callingSid, const s
 
 int ServiceChecker::AddRemoteServiceCheck(const std::string &callingSid, const std::string &remoteServiceName)
 {
+    if (isHdf_) {
+        selinux_log(SELINUX_ERROR, "hdf service has no permission to add remote!\n");
+        return -SELINUX_PERMISSION_DENY;
+    }
     return CheckPerm(callingSid, remoteServiceName, "add_remote");
 }
 
