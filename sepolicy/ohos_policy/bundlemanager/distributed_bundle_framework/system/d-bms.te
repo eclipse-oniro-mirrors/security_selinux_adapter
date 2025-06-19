@@ -37,7 +37,7 @@ allow d-bms system_basic_hap_attr:binder { call transfer };
 allow d-bms softbus_server:fd { use };
 allow d-bms softbus_server:tcp_socket { read write setopt shutdown };
 allow d-bms startup_param:file { map open };
-allow d-bms sa_distributed_bundle_mgr_service_service:samgr_class { get_remote };
+allow d-bms sa_distributed_bundle_mgr_service_service:samgr_class { add_remote get_remote };
 allow d-bms data_service_el1_file:dir { add_name create getattr open remove_name search read write };
 allow d-bms data_service_el1_file:file { create getattr lock ioctl map open read unlink write setattr };
 allow d-bms data_service_file:dir { search };

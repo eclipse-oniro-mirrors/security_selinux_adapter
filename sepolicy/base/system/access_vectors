@@ -505,6 +505,7 @@ class parameter_service
 class samgr_class
 {
     add
+    add_remote
     get
     get_remote
     list
