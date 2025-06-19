@@ -95,5 +95,5 @@ developer_only(`
 
     allow uitest hiview:unix_dgram_socket { sendto };
 
-    allow uitest system_file file { getattr open read };
+    allow uitest system_file:file { getattr open read };
 ')
