@@ -79,3 +79,5 @@ allow a2dp_host bluetooth_service:binder { call transfer };
 allow a2dp_host dev_ashmem_file:chr_file { open };
 allow a2dp_host a2dp_host:capability { sys_nice };
 
+#avc:  denied { sendto } for pid=8375, comm="/vendor/bin/hdf_devhost" scontext=u:r:a2dp_host:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=1
+allow a2dp_host hiview:unix_dgram_socket { sendto };
