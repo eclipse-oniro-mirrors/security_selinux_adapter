@@ -123,3 +123,12 @@ allowxperm sys_installer_sa tmpfs:file ioctl { 0x5413 };
 allow sys_installer_sa updater_block_file:lnk_file { read };
 allow sys_installer_sa updater_block_file:blk_file { write getattr read open };
 
+allow sys_installer_sa dev_block_file:dir { search };
+allow sys_installer_sa update_updater_param:parameter_service { set };
+allow sys_installer_sa update_updater_param:file { map open read };
+allow sys_installer_sa sys_installer_sa:unix_dgram_socket { getopt setopt };
+allow sys_installer_sa dev_kmsg_file:chr_file { write getattr read open };
+allow sys_installer_sa dev_block_file:lnk_file { read };
+allow sys_installer_sa dev_block_file:blk_file { write getattr read open };
+allow sys_installer_sa data_updater_file:dir { create };
+
