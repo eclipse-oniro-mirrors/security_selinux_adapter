@@ -99,3 +99,4 @@ allow softbus_server kernel:system { module_request };
 allow softbus_server softbus_server:capability { net_admin };
 allowxperm softbus_server softbus_server:udp_socket ioctl { 0x8910 0x8912 0x8913 0x8915 0x8919 0x8927 };
 allowxperm softbus_server softbus_server:unix_dgram_socket ioctl { 0x8910 };
+allow softbus_server port:tcp_socket { name_bind };
