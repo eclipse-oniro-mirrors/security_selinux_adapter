@@ -324,3 +324,5 @@ attribute violator_debug_domain_sa_lldb_server_transition;
 attribute violator_lldb_server_ptrace;
 attribute violator_ptrace_debug_hap;
 
+attribute violator_hap_domain_file_sock_file;
+

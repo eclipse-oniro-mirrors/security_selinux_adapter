@@ -98,7 +98,7 @@ neverallow { hap_domain -hap_domain_kernel_violators } { domain -hap_domain }:fi
 
 neverallow hap_domain vendor_file_attr:dir never_write_dir;
 #limit hap access vendor.
-neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file -vendor_etc_graphic_xengine_file_violator_dir_open_read_search }:{ file fifo_file lnk_file sock_file } *;
+neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file -vendor_etc_graphic_xengine_file_violator_dir_open_read_search -violator_hap_domain_file_sock_file }:{ file fifo_file lnk_file sock_file } *;
 
 #hap never access blk_file.
 neverallow hap_domain dev_attr:blk_file open;
