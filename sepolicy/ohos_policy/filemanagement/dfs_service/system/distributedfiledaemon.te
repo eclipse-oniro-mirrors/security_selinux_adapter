@@ -123,6 +123,10 @@ allow distributedfiledaemon medialibrary_hap:fd { use };
 
 allow distributedfiledaemon pasteboard_service:fd { use };
 
+allow distributedfiledaemon distributeddata:fd { use };
+
+allow distributeddata distributedfiledaemon:fd { use };
+
 allow pasteboard_service distributedfiledaemon:fd { use };
 
 allow distributedfiledaemon sa_storage_manager_service:samgr_class { get };
