@@ -214,9 +214,9 @@ neverallow { init } {normal_hap_data_file_attr -medialibrary_hap_data_file}:file
 
 neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel -hap_domain_sys_file_violators } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
-neverallow hap_domain { domain -hap_domain -processdump developer_only(`-hap_domain_native_system_violators') }:process transition;
+neverallow hap_domain { domain -hap_domain -processdump -hap_domain_native_system_violators }:process transition;
 
-neverallow hap_domain { domain -hap_domain developer_only(`-hap_domain_native_system_violators') }:process dyntransition;
+neverallow hap_domain { domain -hap_domain -hap_domain_native_system_violators }:process dyntransition;
 
 neverallow hap_domain domain:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
 
