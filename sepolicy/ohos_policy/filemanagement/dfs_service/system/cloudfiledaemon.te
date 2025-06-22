@@ -104,3 +104,6 @@ allowxperm cloudfiledaemon medialibrary_hap_data_file:dir ioctl 0xf546;
 allow cloudfiledaemon sa_storage_manager_service:samgr_class { get };
 allow cloudfiledaemon sa_memory_manager_service:samgr_class { get };
 allow cloudfiledaemon memmgrservice:binder { call };
+allow cloudfiledaemon hap_domain:dir { search };
+allow cloudfiledaemon hap_domain:file { getattr open read };
+allow cloudfiledaemon cloudfile_data_file:file { append };
