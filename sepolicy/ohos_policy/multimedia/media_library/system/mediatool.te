@@ -13,6 +13,7 @@
 
 developer_only(`
 allow mediatool sh:fd { use };
+allow mediatool sh:fifo_file { write };
 allow mediatool medialibrary_hap:fd { use };
 allow mediatool chip_prod_file:dir { search };
 allow mediatool debug_param:file { read open map };
