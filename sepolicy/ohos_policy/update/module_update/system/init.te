@@ -35,3 +35,11 @@ allow init tmpfs:dir { remove_name rmdir };
 allow init tmpfs:filesystem { mount };
 allow init sysfs_block_loop:file { getattr open read write setattr };
 allow init data_module_update:dir { rmdir reparent rename };
+
+# avc:  denied  { execute } for  pid=598 comm="/bin/init" path="/system/bin/check_module_update_init" dev="overlay" ino=571 scontext=u:r:init:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=1 comm="/bin/init" path="/system/bin/check_module_update_init" dev="overlay" ino=571 scontext=u:r:init:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=599 comm="/bin/init" path="/system/bin/check_module_update_init" dev="overlay" ino=572 scontext=u:r:init:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+# avc:  denied  { execute_no_trans } for  pid=599 comm="/bin/init" path="/system/bin/check_module_update_init" scontext=u:r:init:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=599 comm="/bin/init" path="/system/bin/check_module_update_init" dev="overlay" ino=572 scontext=u:r:init:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=unknown comm=unknown, cidx=0x0 path="/system/bin/check_module_update_init" dev="overlay" ino=157 scontext=u:r:init:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+allow init system_bin_module_update_exec:file { execute getattr open execute_no_trans read map };

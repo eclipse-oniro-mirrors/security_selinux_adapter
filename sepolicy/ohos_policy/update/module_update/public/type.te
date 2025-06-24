@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type module_update_service, sadomain, domain;
+type system_bin_module_update_exec, exec_attr, file_attr, system_file_attr;

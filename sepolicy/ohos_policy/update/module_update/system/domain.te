@@ -17,3 +17,5 @@ neverallow { domain -init -module_update_service -module_update_file_violator_fi
 # sa process which support module update should add itself here
 neverallow { domain -init -module_update_service -foundation -module_update_binary_file_violator_file_dir } { module_update_file
   module_update_bin_file module_update_lib_file }:{ file dir } *;
+
+neverallow { domain -init -module_update_service } system_bin_module_update_exec : file { execute execute_no_trans };
