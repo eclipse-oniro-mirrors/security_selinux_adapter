@@ -59,7 +59,7 @@ allow dcamera dev_dri_file:chr_file { getattr ioctl open read write };
 allow dcamera dev_dri_file:dir { search };
 
 #avc:  denied  { call } for  pid=2464 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
-allow dcamera dhardware:binder { call };
+allow dcamera dhardware:binder { call transfer };
 
 
 
