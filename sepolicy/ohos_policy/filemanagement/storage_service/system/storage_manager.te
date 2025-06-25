@@ -76,3 +76,6 @@ allow storage_manager dev_fuse_file:chr_file { read write };
 
 # avc: denied { open } for pid=647, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow storage_manager dev_ashmem_file:chr_file { open };
+
+# avc: denied { use } for pid=1947, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_manager:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=0
+allow storage_manager foundation:fd { use };
