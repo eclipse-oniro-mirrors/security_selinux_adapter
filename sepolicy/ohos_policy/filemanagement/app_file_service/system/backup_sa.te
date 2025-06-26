@@ -59,6 +59,8 @@ allow backup_sa backup_sa:unix_dgram_socket { getopt setopt };
 allow backup_sa tty_device:chr_file { read write };
 allow backup_sa wifi_manager_service:binder { call };
 allow backup_sa wifi_manager_service:fd { use };
+allow backup_sa netmanager:binder { call };
+allow backup_sa netmanager:fd { use };
 allow backup_sa data_service_el2_file:file { ioctl };
 allowxperm backup_sa data_service_el2_file:file ioctl { 0x5413 };
 allow backup_sa persist_param:file { map open read };
