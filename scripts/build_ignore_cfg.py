@@ -19,6 +19,12 @@ limitations under the License.
 
 import os
 import argparse
+import sys
+sys.path.append(os.path.join(os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))), "build"))
+from scripts.util import build_utils
+import subprocess
+import find
 
 
 def parse_args():
@@ -31,6 +37,12 @@ def parse_args():
     parser.add_argument(
         "--components", help="system or vendor or default", required=True
     )
+    parser.add_argument('--depfile',
+                        help='depfile', required=True)
+    parser.add_argument('--output-file',
+                        help='output file', required=True)
+    parser.add_argument('--sepolicy-dir-lists',
+                        help='sepolicy dir lists', required=True)
     return parser.parse_args()
 
 
@@ -186,4 +198,8 @@ def main(args):
 
 if __name__ == "__main__":
     input_args = parse_args()
+    if input_args.depfile:
+        dep_file = find.get_all_sepolicy_file(input_args.sepolicy_dir_lists)
+        dep_file.sort()
+        build_utils.write_depfile(input_args.depfile, input_args.output_file, dep_file, add_pydeps=False)
     main(input_args)
