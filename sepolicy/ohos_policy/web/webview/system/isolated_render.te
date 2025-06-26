@@ -101,7 +101,7 @@ allow isolated_render system_file:file { getattr map open read };
 # avc:  denied  { open } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
 # avc:  denied  { read } for  pid=5103 comm="ei.hmos.browser" name="fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
 # avc:  denied  { search } for  pid=5103 comm="ei.hmos.browser" name="fonts" dev="sdd74" ino=2210 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
-allow isolated_render system_fonts_file:dir { open read search };
+allow isolated_render system_fonts_file:dir { getattr open read search };
 
 # avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts/HarmonyOS_Sans_Light.ttf" dev="sdd74" ino=2229 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
 # avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/fonts/HarmonyOS_Sans_Light.ttf" dev="sdd74" ino=2229 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
