@@ -134,3 +134,6 @@ allow netmanager dev_bus_usb_file:dir { search getattr };
 # avc: denied { read } scontext=u:r:netmanager:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
 # avc: denied { getattr } scontext=u:r:netmanager:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
 allow netmanager dev_bus_usb_file:file { open read getattr };
+
+allow netmanager data_service_el1_file:dir { search getattr read open };
+allow netmanager data_service_el1_file:file { getattr read open };
