@@ -51,6 +51,7 @@ struct HapFileInfo {
     std::string packageName;
     unsigned int flags;
     unsigned int hapFlags = 0;
+    uint32_t uid = 0;
 };
 
 struct HapDomainInfo {
@@ -84,8 +85,7 @@ protected:
     int RestoreconSb(const std::string &pathNameOrig, HapFileInfo& hapFileInfo);
     int GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNameOrig,
         char **newSecontext, char **oldSecontext);
-    int HapLabelLookup(const std::string &apl, const std::string &packageName,
-        char **secontextPtr, unsigned int hapFlags);
+    int HapLabelLookup(const HapContextParams &params, char **secontextPtr);
 
     int HapContextsLookup(const HapContextParams &params, context_t con);
     int TypeSet(const std::string &type, context_t con);

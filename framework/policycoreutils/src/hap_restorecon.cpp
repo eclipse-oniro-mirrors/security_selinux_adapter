@@ -77,6 +77,11 @@ static const int CATEGORY_SEG4_OFFSET = 1024;
 static const int CATEGORY_MASK = 0xff;
 static const int SHIFT_8 = 8;
 static const int SHIFT_16 = 16;
+static const std::string SEHAP_CCM_FILE = "/version/etc/selinux/product_config";
+static const std::string DEFAULT_LEVEL_PREFIX = "defaultLevelFrom=";
+static const std::string DEFAULT_USER_PREFIX = "defaultUser=";
+static LevelFrom DEFAULT_LEVELFROM = LEVELFROM_NONE;
+static std::string DEFAULT_USER = "u";
 #endif
 static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
@@ -120,9 +125,42 @@ static LevelFrom GetLevelFrom(const std::string &level)
     } else if (level == "app") {
         levelFrom = LEVELFROM_APP;
     } else {
-        levelFrom = LEVELFROM_NONE;
+        levelFrom = DEFAULT_LEVELFROM;
     }
     return levelFrom;
+}
+
+static std::string DeleteNonLetter(std::string str)
+{
+    for (auto it = str.begin(); it != str.end();) {
+        if (!std::isalpha(*it)) {
+            it = str.erase(it);
+            continue;
+        }
+        ++it;
+    }
+    return str;
+}
+
+static void SetDefaultConfig()
+{
+    std::ifstream ccmFile(SEHAP_CCM_FILE);
+    if (ccmFile) {
+        std::string line;
+        bool ccmLevelVisit = false;
+        bool ccmUserVisit = false;
+        while(getline(ccmFile, line) && !(ccmLevelVisit && ccmUserVisit)) {
+            size_t pos;
+            if (!ccmLevelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
+                DEFAULT_LEVELFROM = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
+                ccmLevelVisit = true;
+            } else if (!ccmUserVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
+                DEFAULT_USER = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
+                ccmUserVisit = true;
+            }
+        }
+        ccmFile.close();
+    }
 }
 #endif
 
@@ -141,6 +179,8 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
 #ifdef MCS_ENABLE
     bool levelVisit = false;
     bool userVisit = false;
+    contextBuff.levelFrom = DEFAULT_LEVELFROM;
+    contextBuff.user = DEFAULT_USER;
 #endif
     while (input >> tmp) {
         size_t pos;
@@ -271,6 +311,9 @@ static bool HapContextsInsert(const SehapInfo &tmpInfo, int lineNum)
 
 static bool HapContextsLoad()
 {
+#ifdef MCS_ENABLE
+    SetDefaultConfig();
+#endif
     // load sehap_contexts file
     std::ifstream contextsFile(SEHAP_CONTEXTS_FILE);
     if (contextsFile) {
@@ -482,7 +525,9 @@ int HapContext::GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNa
         return -SELINUX_GET_CONTEXT_ERROR;
     }
 
-    int res = HapLabelLookup(hapFileInfo.apl, hapFileInfo.packageName, newSecontext, hapFileInfo.hapFlags);
+    HapContextParams params = {hapFileInfo.apl, hapFileInfo.packageName, hapFileInfo.hapFlags};
+    params.uid = hapFileInfo.uid;
+    int res = HapLabelLookup(params, newSecontext);
     if (res < 0) {
         freecon(*oldSecontext);
         return res;
@@ -490,8 +535,7 @@ int HapContext::GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNa
     return SELINUX_SUCC;
 }
 
-int HapContext::HapLabelLookup(const std::string &apl, const std::string &packageName,
-    char **secontextPtr, unsigned int hapFlags)
+int HapContext::HapLabelLookup(const HapContextParams &params, char **secontextPtr)
 {
     *secontextPtr = strdup(DEFAULT_CONTEXT);
     if (*secontextPtr == nullptr) {
@@ -504,7 +548,6 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
         *secontextPtr = nullptr;
         return -SELINUX_PTR_NULL;
     }
-    HapContextParams params = {apl, packageName, hapFlags};
     int res = HapContextsLookup(params, con);
     if (res < 0) {
         freecon(*secontextPtr);
@@ -658,7 +701,7 @@ int HapContext::HapContextsLookup(const HapContextParams &params, context_t con)
         return res;
     }
 #ifdef MCS_ENABLE
-    if (params.isDomain && contextInfo.levelFrom != LEVELFROM_NONE) {
+    if (contextInfo.levelFrom != LEVELFROM_NONE) {
         return UserAndMCSRangeSet(params.uid, con, contextInfo.levelFrom, contextInfo.user);
     }
 #endif

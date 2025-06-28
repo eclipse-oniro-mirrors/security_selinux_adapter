@@ -125,7 +125,8 @@ int main(int argc, char *argv[])
             .apl = testCmd.apl,
             .packageName = testCmd.name,
             .flags = atoi(testCmd.recurse.c_str()),
-            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0
+            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
+            .uid = testCmd.uid
         };
         res = test.HapFileRestorecon(hapFileInfo);
         std::cout << GetErrStr(res) << std::endl;
