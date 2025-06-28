@@ -45,6 +45,8 @@ attribute rgm_violator_data_log_file_createwrite;
 attribute rgm_violator_data_log_dir_createwrite;
 attribute rgm_violator_system_file_mounton;
 attribute rgm_violator_vendor_file_mounton;
+attribute rgm_vendor_file_violator_dir_getattr;
+attribute rgm_vendor_bin_file_violator_dir_search;
 
 attribute rgm_violator_system_bin_file;
 attribute rgm_violator_perf_event_cpu;
