@@ -160,3 +160,5 @@ allow distributedfiledaemon system_etc_file:file { ioctl };
 allowxperm distributedfiledaemon system_etc_file:file ioctl { 0xf207 };
 
 allow distributedfiledaemon dev_ashmem_file:chr_file { open };
+
+allow distributedfiledaemon fuse_file:dir { search };
