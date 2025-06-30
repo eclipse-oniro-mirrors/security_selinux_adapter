@@ -76,7 +76,7 @@ neverallow { normal_hap_attr -hap_domain_proc_stat_file_violators } proc_net:fil
 neverallow normal_hap_attr proc_net:dir ~{ getattr };
 
 # neverallow normal_hap sh restorecon
-neverallow { sh debug_only(`-sh') normal_hap_attr -hap_domain_sys_file_violators } *:dir_file_class_set { relabelto relabelfrom };
+neverallow { sh debug_only(`-sh') normal_hap_attr -hap_domain_dir_file_relabel_violators } *:dir_file_class_set { relabelto relabelfrom };
 
 neverallow normal_hap_attr { dev_block_volfile dev_block_file dev_bus dev_char_file dev_pts_file dev_snd_file dev_unix_file dev_v_file }:file { open read };
 

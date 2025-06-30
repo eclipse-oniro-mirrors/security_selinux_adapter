@@ -1,2 +1,2 @@
-neverallow { hap_domain -hap_domain_sys_file_violators } { tmpfs_data_file dev_file }:lnk_file *;
+neverallow { hap_domain -hap_domain_dev_file_link_violators } { tmpfs_data_file dev_file }:lnk_file *;
 neverallow { normal_hap_attr -hap_domain_socket_violators } *:{ alg_socket sctp_socket } *;

@@ -212,7 +212,7 @@ neverallow { init } {normal_hap_data_file_attr -medialibrary_hap_data_file}:dir 
 
 neverallow { init } {normal_hap_data_file_attr -medialibrary_hap_data_file}:file_class_set open;
 
-neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel -hap_domain_sys_file_violators } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
+neverallow { domain -installs -appspawn -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
 neverallow hap_domain { domain -hap_domain -processdump -hap_domain_native_system_violators }:process transition;
 
