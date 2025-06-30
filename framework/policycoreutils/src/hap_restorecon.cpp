@@ -77,7 +77,7 @@ static const int CATEGORY_SEG4_OFFSET = 1024;
 static const int CATEGORY_MASK = 0xff;
 static const int SHIFT_8 = 8;
 static const int SHIFT_16 = 16;
-static const std::string SEHAP_CCM_FILE = "/version/etc/selinux/product_config";
+static const std::string PRODUCT_CONFIG_FILE = "/version/etc/selinux/product_config";
 static const std::string DEFAULT_LEVEL_PREFIX = "defaultLevelFrom=";
 static const std::string DEFAULT_USER_PREFIX = "defaultUser=";
 static LevelFrom DEFAULT_LEVELFROM = LEVELFROM_NONE;
@@ -144,22 +144,24 @@ static std::string DeleteNonLetter(std::string str)
 
 static void SetDefaultConfig()
 {
-    std::ifstream ccmFile(SEHAP_CCM_FILE);
-    if (ccmFile) {
+    std::ifstream configFile(PRODUCT_CONFIG_FILE);
+    if (configFile) {
         std::string line;
-        bool ccmLevelVisit = false;
-        bool ccmUserVisit = false;
-        while(getline(ccmFile, line) && !(ccmLevelVisit && ccmUserVisit)) {
+        bool levelVisit = false;
+        bool userVisit = false;
+        while(getline(configFile, line) && !(levelVisit && userVisit)) {
             size_t pos;
-            if (!ccmLevelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
+            if (!levelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
                 DEFAULT_LEVELFROM = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
-                ccmLevelVisit = true;
-            } else if (!ccmUserVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
+                levelVisit = true;
+            } else if (!userVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
                 DEFAULT_USER = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
-                ccmUserVisit = true;
+                userVisit = true;
             }
         }
-        ccmFile.close();
+        configFile.close();
+    } else {
+        selinux_log(SELINUX_ERROR, "read product_config fail, no such file: %s\n", PRODUCT_CONFIG_FILE.c_str());
     }
 }
 #endif
