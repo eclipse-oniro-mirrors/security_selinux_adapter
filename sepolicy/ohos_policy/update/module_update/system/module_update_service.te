@@ -121,3 +121,8 @@ allow module_update_service dev_block_file:dir { search };
 allow module_update_service dev_block_file:lnk_file { read };
 
 allow module_update_service system_module_update_file:file { map };
+
+# avc:  denied  { entrypoint } for  pid=795 comm="/bin/init" scontext=u:r:module_update_service:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=unknown comm=unknown path="/system/bin/check_module_update_init" dev="overlay" ino=572 scontext=u:r:module_update_service:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+# avc:  denied  { read execute } for  pid=unknown comm=unknown path="/system/bin/check_module_update_init" dev="overlay" ino=572 scontext=u:r:module_update_service:s0 tcontext=u:r:system_bin_module_update_exec:s0 tclass=file permissive=1
+allow module_update_service system_bin_module_update_exec:file { entrypoint map read execute };

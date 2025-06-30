@@ -93,6 +93,10 @@ allow processdump normal_hap_attr:dir { getattr open read search };
 allow processdump normal_hap_attr:file { getattr open read };
 allow processdump app_el1_bundle_public:dir search;
 allow processdump data_app_el1_file:dir search; # remove later
+allow processdump normal_hap_data_file:file { read write append create open map };
+allow processdump normal_hap_data_file:dir { write add_name search };
+allow processdump debug_hap_data_file:file { read write append create open map };
+allow processdump debug_hap_data_file:dir { write add_name search };
 
 #============ hap_domain ================
 allow processdump hap_domain:lnk_file { read };
@@ -119,6 +123,7 @@ allow processdump init:unix_stream_socket { read write connectto };
 allow processdump foundation:dir { getattr open read search };
 allow processdump foundation:binder { call transfer };
 allow processdump sa_foundation_abilityms:samgr_class { get };
+allow processdump sa_foundation_bms:samgr_class { get };
 
 #============ data_xxx ==================
 allow processdump data_file:dir search;

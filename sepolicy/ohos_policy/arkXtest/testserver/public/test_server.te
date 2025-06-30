@@ -29,6 +29,8 @@ developer_only(`
     allow test_server samgr:binder { transfer };
     allow pasteboard_service test_server:fd { use };
     allow test_server dev_ashmem_file:chr_file { open };
+    allow test_server sa_foundation_wms:samgr_class { get };
+    allow foundation test_server:binder { call transfer };
 ')
 
 debug_only(`

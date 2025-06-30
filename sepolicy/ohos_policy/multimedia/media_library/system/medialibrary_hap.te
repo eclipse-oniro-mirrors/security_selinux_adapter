@@ -42,3 +42,5 @@ allow medialibrary_hap dev_fuse_file:chr_file { read write };
 allow medialibrary_hap ntfs:dir { watch watch_reads };
 allow medialibrary_hap exfat:dir { watch watch_reads };
 allow medialibrary_hap vfat:dir { watch_reads };
+
+allow medialibrary_hap sandbox_manager_service:fd { use };

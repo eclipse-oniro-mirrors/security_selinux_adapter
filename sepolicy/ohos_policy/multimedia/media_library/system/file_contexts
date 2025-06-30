@@ -12,3 +12,4 @@
 # limitations under the License.
 
 /system/bin/mediatool        u:object_r:mediatool_exec:s0
+/system/bin/scanner          u:object_r:mediatool_exec:s0

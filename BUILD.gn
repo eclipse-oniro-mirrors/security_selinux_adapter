@@ -429,16 +429,11 @@ action("build_policy") {
   }
 
   updater_version = "disable"
-
-  inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("sepolicy") ],
-                       "list lines")
+  sepolicy_dir_lists = rebase_path("sepolicy", root_build_dir)
   if (selinux_adapter_build_path != "default") {
     foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
-      inputs += exec_script("//build/scripts/find.py",
-                            [ rebase_path(src) ],
-                            "list lines")
+      sepolicy_dir_lists += ":" + rebase_path(src, root_build_dir)
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
@@ -455,8 +450,14 @@ action("build_policy") {
   } else {
     script = "scripts/build_policy.py"
   }
-
+  depfile = "$target_gen_dir/$target_name.d"
   args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--output-file",
+    rebase_path("$target_out_dir/$target_name.txt", root_build_dir),
+    "--sepolicy-dir-lists",
+    sepolicy_dir_lists,
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--tool-path",
@@ -536,15 +537,11 @@ action("build_update_policy") {
 
   updater_version = "enable"
   selinux_adapter_components = "default"
-  inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("sepolicy") ],
-                       "list lines")
+  sepolicy_dir_lists = rebase_path("sepolicy", root_build_dir)
   if (selinux_adapter_build_path != "default") {
     foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
-      inputs += exec_script("//build/scripts/find.py",
-                            [ rebase_path(src) ],
-                            "list lines")
+      sepolicy_dir_lists += ":" + rebase_path(src, root_build_dir)
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext_updater != "default") {
@@ -561,8 +558,14 @@ action("build_update_policy") {
   } else {
     script = "scripts/build_policy.py"
   }
-
+  depfile = "$target_gen_dir/$target_name.d"
   args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--output-file",
+    rebase_path("$target_out_dir/$target_name.txt", root_build_dir),
+    "--sepolicy-dir-lists",
+    sepolicy_dir_lists,
     "--dst-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
     "--tool-path",
@@ -593,15 +596,11 @@ action("build_update_policy") {
 }
 
 action("build_contexts") {
-  inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("sepolicy") ],
-                       "list lines")
+  sepolicy_dir_lists = rebase_path("sepolicy", root_build_dir)
   if (selinux_adapter_build_path != "default") {
     foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
-      inputs += exec_script("//build/scripts/find.py",
-                            [ rebase_path(src) ],
-                            "list lines")
+      sepolicy_dir_lists += ":" + rebase_path(src, root_build_dir)
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
@@ -618,7 +617,14 @@ action("build_contexts") {
   } else {
     script = "scripts/build_contexts.py"
   }
+  depfile = "$target_gen_dir/$target_name.d"
   args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--output-file",
+    rebase_path("$target_out_dir/$target_name.txt", root_build_dir),
+    "--sepolicy-dir-lists",
+    sepolicy_dir_lists,
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
     "--tool-path",
@@ -650,15 +656,11 @@ action("build_contexts") {
 }
 
 action("build_ignore_cfg") {
-  inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("sepolicy") ],
-                       "list lines")
+  sepolicy_dir_lists = rebase_path("sepolicy", root_build_dir)
   if (selinux_adapter_build_path != "default") {
     foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
-      inputs += exec_script("//build/scripts/find.py",
-                            [ rebase_path(src) ],
-                            "list lines")
+      sepolicy_dir_lists += ":" + rebase_path(src, root_build_dir)
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
@@ -675,7 +677,14 @@ action("build_ignore_cfg") {
   } else {
     script = "scripts/build_ignore_cfg.py"
   }
+  depfile = "$target_gen_dir/$target_name.d"
   args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--output-file",
+    rebase_path("$target_out_dir/$target_name.txt", root_build_dir),
+    "--sepolicy-dir-lists",
+    sepolicy_dir_lists,
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
     "--source-root-dir",
@@ -689,15 +698,11 @@ action("build_ignore_cfg") {
 }
 
 action("build_updater_contexts") {
-  inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("sepolicy") ],
-                       "list lines")
+  sepolicy_dir_lists = rebase_path("sepolicy", root_build_dir)
   if (selinux_adapter_build_path != "default") {
     foreach(src, string_split(selinux_adapter_build_path, ":")) {
       src = "//" + src
-      inputs += exec_script("//build/scripts/find.py",
-                            [ rebase_path(src) ],
-                            "list lines")
+      sepolicy_dir_lists += ":" + rebase_path(src, root_build_dir)
     }
     if (special_build_selinux_gni_exist &&
         selinux_build_path_ext_updater != "default") {
@@ -714,7 +719,14 @@ action("build_updater_contexts") {
   } else {
     script = "scripts/build_contexts.py"
   }
+  depfile = "$target_gen_dir/$target_name.d"
   args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--output-file",
+    rebase_path("$target_out_dir/$target_name.txt", root_build_dir),
+    "--sepolicy-dir-lists",
+    sepolicy_dir_lists,
     "--dst-dir",
     rebase_path(target_out_dir + "/updater"),
     "--tool-path",

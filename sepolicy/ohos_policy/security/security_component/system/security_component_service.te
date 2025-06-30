@@ -155,3 +155,10 @@ allow security_component_service distributeddata:fd { use };
 
 # avc:  denied  { get } for service=1301 sid=u:r:security_component_service:s0 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=1
 allow security_component_service sa_distributeddata_service:samgr_class { get };
+
+# avc:  denied  { call } for pid=7945, comm="/system/bin/sa_main" scontext=u:r:security_component_service:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for pid=7945, comm="/system/bin/sa_main" scontext=u:r:security_component_service:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
+allow security_component_service accessibility:binder { call transfer };
+
+# avc:  denied  { get } for service=801 sid=u:r:security_component_service:s0 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_accessibleabilityms:s0 tclass=samgr_class permissive=1
+allow security_component_service sa_accessibleabilityms:samgr_class { get };

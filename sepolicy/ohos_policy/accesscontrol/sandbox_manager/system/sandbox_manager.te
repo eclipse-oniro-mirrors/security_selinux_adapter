@@ -27,7 +27,7 @@ allow sandbox_manager_service accesstoken_service:binder { call };
 allow sandbox_manager_service data_file:dir { search };
 allow sandbox_manager_service data_service_el1_file:dir { search };
 allow sandbox_manager_service data_service_file:dir { search };
-allow sandbox_manager_service sandbox_manager_data_file:dir { search add_name read open remove_name write ioctl };
+allow sandbox_manager_service sandbox_manager_data_file:dir { create search add_name read open remove_name write ioctl };
 allow sandbox_manager_service sandbox_manager_data_file:file { getattr lock ioctl create read write open unlink setattr map };
 allowxperm sandbox_manager_service sandbox_manager_data_file:file ioctl { 0xf501 0xf502 0xf50c 0xf546 };
 allowxperm sandbox_manager_service sandbox_manager_data_file:dir ioctl { 0xf546 };

@@ -16,6 +16,12 @@ debug_only(`
     allow vendor_file tmpfs:filesystem associate;
 ')
 
+debug_only(`
+    allow init hnp_file:dir { search };
+    allow init hnp_file:file { execute getattr open read };
+    allow init hnp_file:lnk_file { read };
+    allow init su:process2 { nosuid_transition };
+')
 allow init nwebspawn_socket:sock_file { unlink };
 allow init appspawn_socket:sock_file { unlink };
 allow init data_ethernet:dir { getattr };

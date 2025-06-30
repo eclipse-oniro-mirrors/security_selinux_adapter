@@ -505,6 +505,7 @@ class parameter_service
 class samgr_class
 {
     add
+    add_remote
     get
     get_remote
     list
@@ -539,6 +540,8 @@ class xpm
     exec_in_jitfort
     exec_allow_debug_id
     exec_allow_sa_plugin
+    exec_allow_debug_ownerid
+    exec_allow_release_ownerid
 }
 
 class hideaddr

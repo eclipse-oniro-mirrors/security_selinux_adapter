@@ -13,3 +13,4 @@
 
 allow storage_daemon cloudfiledaemon:fd { use };
 allow storage_daemon cloudfiledaemon:binder { call };
+allow storage_daemon hmdfs:lnk_file { read };

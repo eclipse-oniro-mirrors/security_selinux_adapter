@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow foundation accessibility:binder { transfer };
+allow foundation accessibility:fd { use };

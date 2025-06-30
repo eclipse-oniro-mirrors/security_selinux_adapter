@@ -49,7 +49,7 @@ allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
 
 neverallow { domain -pasteboard_service -dslm_service -foundation -softbus_server -accountmgr -device_manager -param_watcher -sadomain -hidumper_service -hap_domain } distributedfiledaemon:binder { call };
 
-allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:samgr_class { get_remote };
+allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:samgr_class { add_remote get_remote };
 
 allow distributedfiledaemon data_app_file:dir { search };
 
@@ -117,6 +117,18 @@ allow distributedfiledaemon sa_device_profile_service:samgr_class { get };
 #avc:  denied  { call } for  pid=4447 comm="/system/bin/sa_main" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=0
 allow distributedfiledaemon distributedsche:binder { call };
 
+allow foundation distributedfiledaemon:binder { transfer };
+
+allow distributedfiledaemon medialibrary_hap:fd { use };
+
+allow distributedfiledaemon pasteboard_service:fd { use };
+
+allow distributedfiledaemon distributeddata:fd { use };
+
+allow distributeddata distributedfiledaemon:fd { use };
+
+allow pasteboard_service distributedfiledaemon:fd { use };
+
 allow distributedfiledaemon sa_storage_manager_service:samgr_class { get };
 
 allow distributedfiledaemon storage_manager:binder { call };
@@ -135,6 +147,18 @@ allow pasteboard_service sa_storage_manager_service:samgr_class { get };
 
 allow distributeddata sa_storage_manager_service:samgr_class { get };
 
-allow distributeddata hmdfs:lnk_file { read };
+allow distributedfiledaemon hmdfs:lnk_file { read };
 
-allow distributeddata data_service_el2_hmdfs:lnk_file { read };
+allow distributedfiledaemon data_service_el2_hmdfs:lnk_file { read };
+
+allow distributedfiledaemon sa_foundation_ans:samgr_class { get };
+
+allow distributedfiledaemon sa_foundation_bms:samgr_class { get };
+
+allow distributedfiledaemon system_etc_file:file { ioctl };
+
+allowxperm distributedfiledaemon system_etc_file:file ioctl { 0xf207 };
+
+allow distributedfiledaemon dev_ashmem_file:chr_file { open };
+
+allow distributedfiledaemon fuse_file:dir { search };

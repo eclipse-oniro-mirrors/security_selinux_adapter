@@ -431,4 +431,12 @@ allow updater persist_param:file { map open read };
 # avc:  denied  { read } for  pid=265 comm="hdcd_shellfork" name="u:object_r:updater_flashd_param:s0" dev="tmpfs" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:updater_flashd_param:s0 tclass=file permissive=1
 allow updater updater_flashd_param:file { map open read };
 
+# avc:  denied  { set } for parameter=update.part.slot pid=172 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=parameter_service permissive=0
+allow updater update_updater_param:parameter_service { set };
+
+# avc:  denied  { map } for  pid=174 comm="updater" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=174 comm="updater" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=174 comm="updater" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
+allow updater update_updater_param:file { map open read };
+
 ')

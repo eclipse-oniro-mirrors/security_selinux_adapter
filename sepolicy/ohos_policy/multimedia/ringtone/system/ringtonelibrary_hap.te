@@ -23,3 +23,4 @@ allow ringtonelibrary_hap media_library_param:parameter_service { set };
 allow ringtonelibrary_hap kernel:unix_stream_socket { connectto };
 allow ringtonelibrary_hap paramservice_socket:sock_file { write };
 allow ringtonelibrary_hap media_library_param:file { map open read };
+allow system_core_hap ringtonelibrary_hap_data_file:file { read write };

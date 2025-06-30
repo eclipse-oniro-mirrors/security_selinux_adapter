@@ -131,3 +131,4 @@ allow multimodalinput input_isolate_hap:unix_stream_socket { read write };
 allow multimodalinput sensors:binder { call transfer };
 allow multimodalinput sensors:unix_stream_socket { read write };
 allow multimodalinput sa_sensor_service:samgr_class { get };
+allow multimodalinput hdf_device_manager:hdf_devmgr_class { get };

@@ -21,5 +21,7 @@ type hiperf_exec, exec_attr, file_attr, system_file_attr;
 
 type hiperf, native_system_domain, domain;
 
+type dev_lperf, dev_attr, file_attr;
+
 domain_auto_transition_pattern(native_system_domain, hiperf_exec, hiperf);
 domain_auto_transition_pattern(hiview, hiperf_exec, hiperf);

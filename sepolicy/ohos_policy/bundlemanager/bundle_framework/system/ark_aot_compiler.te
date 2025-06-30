@@ -29,7 +29,7 @@ allow ark_aot_compiler data_app_el1_arkprofile:file { map open read rename creat
 allow ark_aot_compiler system_file:file { map open read };
 allow ark_aot_compiler hilog_param:file { map open read };
 allow ark_aot_compiler debug_param:file { map open read };
-allow ark_aot_compiler data_app_el1_arkprofile:dir { search add_name remove_name write };
+allow ark_aot_compiler data_app_el1_arkprofile:dir { search add_name remove_name write open read };
 allow ark_aot_compiler sysfs_devices_system_cpu:file { read getattr open };
 allow ark_aot_compiler data_app_el1_arkcache:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow ark_aot_compiler data_app_el1_arkcache:file { create getattr ioctl setattr unlink map read open write };

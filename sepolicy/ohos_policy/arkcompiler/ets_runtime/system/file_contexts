@@ -13,6 +13,8 @@
 
 /system/bin/ark_aot_compiler u:object_r:ark_aot_compiler_exec:s0
 /system/bin/ark_aot u:object_r:ark_aot_exec:s0
+/system/bin/rawheap_translator u:object_r:rawheap_translator_exec:s0
 
 /data/app/el1/public/aot_compiler(/.*)?       u:object_r:data_app_el1_arkcache:s0
 /data/app/el1/[0-9]+/aot_compiler(/.*)?       u:object_r:data_app_el1_arkprofile:s0
+/data/app/el1/[0-9]+/system_optimize/.+/ark_startup_cache(/.*)?       u:object_r:data_app_el1_arkstartupcache:s0

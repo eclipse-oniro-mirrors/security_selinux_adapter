@@ -35,6 +35,8 @@ public:
 
     int GetRemoteServiceCheck(const std::string &callingSid, const std::string &remoteServiceName);
 
+    int AddRemoteServiceCheck(const std::string &callingSid, const std::string &remoteServiceName);
+
     int AddServiceCheck(const std::string &callingSid, const std::string &serviceName);
 
     static ServiceChecker& GetInstance();
