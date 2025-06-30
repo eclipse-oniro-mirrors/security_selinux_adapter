@@ -63,6 +63,8 @@
                 "init sdc_exec",
                 "init system_bin_file",
                 "init toybox_exec",
+                "init param_exec",
+                "init begetctl_exec",
                 "input_user_host system_bin_file",
                 "installs system_bin_file",
                 "multimodalinput system_bin_file",
@@ -159,7 +161,9 @@
                 "hnp_native hnp_file",
                 "sh sh_exec",
                 "perftest sh_exec",
-                "perftest toybox_exec"
+                "perftest toybox_exec",
+                "sh param_exec",
+                "sh begetctl_exec"
             ]
         }
     ]
