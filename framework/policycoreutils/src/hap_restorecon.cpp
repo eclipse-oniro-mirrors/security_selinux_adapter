@@ -80,8 +80,8 @@ static const int SHIFT_16 = 16;
 static const std::string PRODUCT_CONFIG_FILE = "/version/etc/selinux/product_config";
 static const std::string DEFAULT_LEVEL_PREFIX = "defaultLevelFrom=";
 static const std::string DEFAULT_USER_PREFIX = "defaultUser=";
-static LevelFrom DEFAULT_LEVELFROM = LEVELFROM_NONE;
-static std::string DEFAULT_USER = "u";
+static LevelFrom g_defaultLevelFrom = LEVELFROM_NONE;
+static std::string g_defaultUser = "u";
 #endif
 static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
@@ -125,7 +125,7 @@ static LevelFrom GetLevelFrom(const std::string &level)
     } else if (level == "app") {
         levelFrom = LEVELFROM_APP;
     } else {
-        levelFrom = DEFAULT_LEVELFROM;
+        levelFrom = g_defaultLevelFrom;
     }
     return levelFrom;
 }
@@ -152,10 +152,10 @@ static void SetDefaultConfig()
         while(getline(configFile, line) && !(levelVisit && userVisit)) {
             size_t pos;
             if (!levelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
-                DEFAULT_LEVELFROM = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
+                g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
                 levelVisit = true;
             } else if (!userVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
-                DEFAULT_USER = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
+                g_defaultUser = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
                 userVisit = true;
             }
         }
@@ -181,8 +181,8 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
 #ifdef MCS_ENABLE
     bool levelVisit = false;
     bool userVisit = false;
-    contextBuff.levelFrom = DEFAULT_LEVELFROM;
-    contextBuff.user = DEFAULT_USER;
+    contextBuff.levelFrom = g_defaultLevelFrom;
+    contextBuff.user = g_defaultUser;
 #endif
     while (input >> tmp) {
         size_t pos;
