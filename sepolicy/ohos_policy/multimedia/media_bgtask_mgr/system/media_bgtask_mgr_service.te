@@ -110,3 +110,6 @@ allow media_bgtask_mgr_service data_service_el1_file:dir { write remove_name sea
 
 # avc_audit_slow:278] avc: denied { search } for pid=50366, comm="/system/bin/sa_main"  name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=9 scontext=u:r:media_bgtask_mgr_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
 allow media_bgtask_mgr_service data_service_file:dir { search };
+
+# avc_audit_slow:278] avc: denied { add_name } for pid=18222, comm="/system/bin/sa_main"  name="/service/el1/public/media_bgtask_mgr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1683 scontext=u:r:media_bgtask_mgr_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+allow media_bgtask_mgr_service data_service_el1_file:dir { add_name };
