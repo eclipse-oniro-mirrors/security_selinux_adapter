@@ -39,4 +39,4 @@ allowxperm sane_service data_service_sane_service_tmp_file:file ioctl { 0x5413 }
 allowxperm sane_service sane_service:udp_socket ioctl { 0x8912 0x8915 0x891b };
 allow sane_service sys_file:dir { open read };
 allow sane_service sys_file:file { open read };
-allow sane_service self:xpm { exec_allow_sa_plugin };
+allow sane_service data_service_scan_service_driver_file:xpm { exec_allow_release_ownerid exec_allow_debug_ownerid };
