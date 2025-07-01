@@ -185,6 +185,10 @@ attribute modem_file_attr;
 
 attribute cgroup_creator;
 
+attribute violator_exec_file_attr;
+attribute violator_execute_no_trans_data_file_attr;
+attribute violator_execute_data_file_attr;
+
 # Type of all module_update file
 # i.e. /module_update/*
 attribute module_update_file_attr;
