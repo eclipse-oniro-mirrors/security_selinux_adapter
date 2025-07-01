@@ -85,6 +85,8 @@ const static std::string TEST_SANDBOX_HAP_DOMAIN = "u:r:test_sandbox_hap:s0";
 const static std::string TEST_SANDBOX_HAP_DATA_TYPE = "u:r:test_sandbox_hap_data_file:s0";
 const static uint32_t TEST_UID = 20190166;
 const static uint32_t TEST_UID_FAILED = 20008;
+static const uint32_t INVALID_UID = -1;
+static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
