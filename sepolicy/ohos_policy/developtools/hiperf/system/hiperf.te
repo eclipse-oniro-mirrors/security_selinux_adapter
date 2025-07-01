@@ -271,7 +271,3 @@ allow hiperf isolated_render:lnk_file { read };
 allow hiperf SP_daemon:fd { use };
 
 allow hiperf SP_daemon:fifo_file { write };
-
-allow init dev_lperf:chr_file { getattr setattr };
-allow hap_domain dev_lperf:chr_file { ioctl open read write };
-allowxperm hap_domain dev_lperf:chr_file ioctl { 0x6c01 0x6c02 0x6c04 };
