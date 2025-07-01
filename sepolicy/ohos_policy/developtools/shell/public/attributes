@@ -19,3 +19,5 @@ attribute hap_domain_tmpfs_violators;
 attribute hap_domain_self_violators;
 attribute tmpfs_data_file;
 attribute prerogative_app;
+attribute hap_domain_dev_file_link_violators;
+attribute hap_domain_dir_file_relabel_violators;
