@@ -1,4 +1,5 @@
 /data/local/shader_cache(/.*)?    u:object_r:data_local_shadercache:s0
 /data/app/el1/public/shader_cache(/.*)?        u:object_r:data_app_el1_shadercache:s0
 /data/app/el1/[0-9]+/shader_cache(/.*)?        u:object_r:data_app_el1_shadercache:s0
+/data/app/el1/[0-9]+/system_optimize/.+/shader_cache(/.*)?        u:object_r:data_app_el1_shadercache:s0
 /data/service/el1/public/shader_cache(/.*)?    u:object_r:data_service_el1_shadercache:s0
