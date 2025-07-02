@@ -150,7 +150,7 @@ static void SetDefaultConfig()
         std::string line;
         bool levelVisit = false;
         bool userVisit = false;
-        while(getline(configFile, line) && !(levelVisit && userVisit)) {
+        while (getline(configFile, line) && !(levelVisit && userVisit)) {
             size_t pos;
             if (!levelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
                 g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
