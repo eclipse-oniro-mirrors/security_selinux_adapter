@@ -1050,7 +1050,7 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup008, TestSize.Level1)
     params.uid = TEST_UID;
 #ifdef MCS_ENABLE
     EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
-    EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE.c_str());
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE_WITH_CATEGORY.c_str());
 #else
     EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE.c_str());
