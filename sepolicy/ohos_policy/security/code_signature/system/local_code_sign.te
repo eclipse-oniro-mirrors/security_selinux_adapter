@@ -68,3 +68,9 @@ allow local_code_sign data_app_el1_arkcache:dir { search };
 allow local_code_sign data_app_el1_arkcache:file { getattr open read };
 
 allow local_code_sign sa_foundation_bms:samgr_class { get };
+
+allow local_code_sign chip_prod_file:dir { search };
+
+allow local_code_sign dev_kmsg_file:chr_file { write };
+
+allow local_code_sign foundation:binder { call };
