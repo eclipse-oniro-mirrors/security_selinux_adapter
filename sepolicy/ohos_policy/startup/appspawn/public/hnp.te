@@ -321,4 +321,7 @@ allow sh hnp_native:process2 { nosuid_transition };
 
 ## add hnp permission for pre-installed app
 allow hnp system_file:file { map open read };
+
+## add hnp permission for read link information
+allow hnp hnp_file:lnk_file { read };
 ')
