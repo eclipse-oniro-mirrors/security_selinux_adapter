@@ -33,3 +33,5 @@ allow deviceauth_service sa_foundation_cesfwk_service:samgr_class { get };
 allow deviceauth_service data_service_el2_file:dir { add_name create search write };
 allow deviceauth_service data_service_el2_file:file { create getattr ioctl open read setattr write };
 allow deviceauth_service sa_foundation_appms:samgr_class { get };
+allow deviceauth_service sa_memory_manager_service:samgr_class { get };
+binder_call(deviceauth_service, memmgrservice);
