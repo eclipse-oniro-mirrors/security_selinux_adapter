@@ -19,7 +19,7 @@ allowxperm asset_service data_service_el1_public_asset_service_file:dir ioctl { 
 allow asset_service data_service_el1_public_asset_service_file:file { create getattr open read setattr unlink write lock ioctl };
 allowxperm asset_service data_service_el1_public_asset_service_file:file ioctl { 0xf501 0xf502 0xf50c 0xf546 0xf547 };
 
-allow asset_service data_service_el2_user_id_asset_service_file:dir { search write add_name open read remove_name ioctl };
+allow asset_service data_service_el2_user_id_asset_service_file:dir { search write add_name open read remove_name ioctl getattr };
 allowxperm asset_service data_service_el2_user_id_asset_service_file:dir ioctl { 0xf546 0xf547 };
 
 allow asset_service data_service_el2_user_id_asset_service_file:file { create write open read setattr getattr lock unlink ioctl };
