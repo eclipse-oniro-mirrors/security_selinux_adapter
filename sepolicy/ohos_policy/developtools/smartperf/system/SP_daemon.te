@@ -178,3 +178,7 @@ allow SP_daemon hiperf:process { signal };
 allow SP_daemon system_file:file { read open getattr };
 
 allow SP_daemon hiview:unix_dgram_socket { sendto };
+
+allow SP_daemon data_service_el2_file:dir { search read open getattr };
+allow SP_daemon data_service_el2_file:file { read open getattr };
+allow SP_daemon data_service_file:dir { search };
