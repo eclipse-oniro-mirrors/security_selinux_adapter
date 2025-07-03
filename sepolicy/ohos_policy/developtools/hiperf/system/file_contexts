@@ -21,5 +21,3 @@
 /data/log/hiperflog/(.*)?  u:object_r:data_log_hiperf_file:s0
 
 /data/local/tmp/hiperf(/.*)?  u:object_r:data_local_tmp_hiperf_file:s0
-
-/dev/lperf u:object_r:dev_lperf:s0

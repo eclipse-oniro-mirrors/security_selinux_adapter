@@ -109,21 +109,21 @@ neverallow hap_domain dev_attr:blk_file ioctl;
 #limit hap access dev file.
 neverallow hap_domain { dev_attr -dev_ptmx -dev_ucollection -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file
                       -dev_zero_file -dev_mali -tty_device -dev_fuse_file -dev_bbox
-                      -dev_tun_file -dev_attr_violator_chr_file_rw -dev_bus_usb_file -dev_usb_accessory_file -dev_lperf }:chr_file { open ioctl read write};
+                      -dev_tun_file -dev_attr_violator_chr_file_rw -dev_bus_usb_file -dev_usb_accessory_file }:chr_file { open ioctl read write};
 
 neverallow { hap_domain -hap_domain_dev_ptmx_violators } dev_ptmx:chr_file { open ioctl read write};
 
 neverallow normal_hap { dev_attr -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file -dev_ucollection
-                      -dev_attr_violator_chr_file_rw -dev_ashmem_file -dev_dri_file -dev_mali -dev_lperf developer_only(`-violator_chr_file_open') }:chr_file open;
+                      -dev_attr_violator_chr_file_rw -dev_ashmem_file -dev_dri_file -dev_mali developer_only(`-violator_chr_file_open') }:chr_file open;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file -dev_lperf developer_only(`-violator_chr_file_read') }:chr_file read;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file developer_only(`-violator_chr_file_read') }:chr_file read;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_tun_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file -dev_lperf developer_only(`-violator_chr_file_write') }:chr_file write;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_usb_accessory_file developer_only(`-violator_chr_file_write') }:chr_file write;
 
 neverallow normal_hap { dev_attr -dev_ashmem_file -dev_at_file -dev_bbox -dev_binder_file -dev_null_file -dev_random_file -dev_zero_file
-                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file -dev_lperf developer_only(`-violator_chr_file_ioctl') }:chr_file ioctl;
+                      -dev_ucollection -dev_attr_violator_chr_file_rw -dev_dri_file -dev_mali -dev_bus_usb_file developer_only(`-violator_chr_file_ioctl') }:chr_file ioctl;
 
 neverallow normal_hap dev_attr:sock_file open;
 
