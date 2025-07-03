@@ -77,7 +77,6 @@ static const int CATEGORY_SEG4_OFFSET = 1024;
 static const int CATEGORY_MASK = 0xff;
 static const int SHIFT_8 = 8;
 static const int SHIFT_16 = 16;
-static const uint32_t INVALID_UID = -1;
 static const std::string PRODUCT_CONFIG_FILE = "/version/etc/selinux/product_config";
 static const std::string DEFAULT_LEVEL_PREFIX = "defaultLevelFrom=";
 static const std::string DEFAULT_USER_PREFIX = "defaultUser=";
@@ -388,11 +387,6 @@ int HapContext::HapFileRestorecon(HapFileInfo& hapFileInfo)
     if (hapFileInfo.apl.empty() || hapFileInfo.pathNameOrig.empty() || !CheckApl(hapFileInfo.apl)) {
         return -SELINUX_ARG_INVALID;
     }
-#ifdef MCS_ENABLE
-    if (hapFileInfo.uid == INVALID_UID) {
-        return -SELINUX_ARG_INVALID;
-    }
-#endif
     bool failFlag = false;
     for (auto pathname : hapFileInfo.pathNameOrig) {
         int res = HapFileRestorecon(pathname.c_str(), hapFileInfo);
