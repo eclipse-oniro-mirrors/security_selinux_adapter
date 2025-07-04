@@ -14,10 +14,10 @@
 type dev_encaps, dev_attr;
 
 neverallow { domain -appspawn -init -nativespawn -access_control_level_manager -ueventd } dev_encaps:chr_file *;
-neverallowxperm { domain -appspawn -init -nativespawn -access_control_level_manager } dev_encaps:chr_file ioctl { 0x4515 0x4516 0x4518 0x451a 0x451d };
-neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4515 0x4516 0x4518 0x451a 0x451d };
+neverallowxperm { domain -appspawn -init -nativespawn -access_control_level_manager } dev_encaps:chr_file ioctl { 0x4515 0x4516 0x4518 0x451a 0x451d 0x451e };
+neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4515 0x4516 0x4518 0x451a 0x451d 0x451e };
 
 allow { appspawn init nativespawn access_control_level_manager } dev_encaps:chr_file { read open write ioctl };
 
-allowxperm { appspawn init nativespawn } dev_encaps:chr_file ioctl { 0x4518 0x451a };
+allowxperm { appspawn init nativespawn } dev_encaps:chr_file ioctl { 0x4518 0x451a 0x451e };
 allowxperm access_control_level_manager dev_encaps:chr_file ioctl { 0x4515 0x4516 };
