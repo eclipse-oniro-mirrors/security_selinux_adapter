@@ -19,8 +19,8 @@ allowxperm hap_domain data_local_shadercache:file ioctl { 0x5413 };
 
 # for /data/app/el1/public/shader_cache and /data/app/el1/userid/shader_cache
 allow init data_app_el1_shadercache:dir { getattr open read relabelto setattr add_name create search write };
-allow installs data_app_el1_shadercache:file { create setattr getattr map open read rename unlink write };
-allow installs data_app_el1_shadercache:dir { add_name create setattr getattr open read remove_name rmdir search write };
+allow installs data_app_el1_shadercache:file { create setattr getattr map open read rename unlink write mounton };
+allow installs data_app_el1_shadercache:dir { add_name create setattr getattr open read remove_name rmdir search write relabelto rw_dir_perms_without_ioctl };
 allow appspawn data_app_el1_shadercache:dir { search mounton getattr };
 allow nwebspawn data_app_el1_shadercache:dir { search mounton getattr };
 allow storage_daemon data_app_el1_shadercache:file { mounton unlink };
