@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -31,4 +31,4 @@ domain_auto_transition_pattern({ native_system_domain sadomain }, hidumper_exec,
 neverallow { domain -sadomain } hidumper_file:file { write };
 
 # cannot execute hidumper
-neverallow { domain -sadomain -native_system_domain -sh } hidumper_exec:file { execute };
+neverallow { domain -sadomain -native_system_domain -sh -hap_domain_dumper_exec_violators } hidumper_exec:file { execute };

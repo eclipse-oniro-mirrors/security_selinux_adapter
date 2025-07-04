@@ -12,3 +12,4 @@
 # limitations under the License.
 
 attribute data_hilogd_file_viloator;
+attribute hilog_sock_file_violator;

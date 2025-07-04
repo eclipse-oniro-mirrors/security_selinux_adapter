@@ -1,4 +1,4 @@
-# Copyright (c) 2024-2025 Huawei Device Co., Ltd.
+# Copyright (c) 2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,14 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute hap_domain_native_system_violators;
-attribute hap_domain_sys_file_violators;
-attribute hap_domain_socket_violators;
-attribute hap_domain_kernel_violators;
-attribute hap_domain_tmpfs_violators;
-attribute hap_domain_self_violators;
-attribute tmpfs_data_file;
-attribute prerogative_app;
-attribute hap_domain_dev_file_link_violators;
-attribute hap_domain_dir_file_relabel_violators;
-attribute hap_domain_dumper_exec_violators;
+attribute cap_violator_resource;
+attribute cap_violator_systime;
+attribute hiviewdfx_profiler_param_violator;
