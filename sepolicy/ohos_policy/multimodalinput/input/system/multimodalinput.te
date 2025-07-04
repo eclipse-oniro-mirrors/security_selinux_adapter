@@ -74,6 +74,7 @@ allow multimodalinput sa_multimodalinput_service:samgr_class { get };
 allow multimodalinput sa_render_service:samgr_class { get };
 allow multimodalinput sys_file:dir { open read };
 allow multimodalinput sys_file:file { getattr open read };
+allow multimodalinput system_lib_file:dir { open read };
 allow multimodalinput system_bin_file:dir { search };
 allow multimodalinput system_bin_file:file { execute execute_no_trans map read open };
 allow multimodalinput tracefs:dir { search };
