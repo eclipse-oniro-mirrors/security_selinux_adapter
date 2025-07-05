@@ -300,7 +300,10 @@ attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
 
-attribute violator_binary_security_attr;
+attribute violator_code_sign_utils_file_attr;
+attribute violator_dev_code_sign_chr_file_attr;
+attribute violator_dev_encaps_chr_file_attr;
+attribute cap_violator_mac_admin;
 
 # define some hap_domain violator attribute for neverallows
 attribute hap_domain_dev_ptmx_violators;
