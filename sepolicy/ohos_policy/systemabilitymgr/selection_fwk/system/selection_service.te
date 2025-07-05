@@ -135,4 +135,6 @@ allow pasteboard_service selection_service:binder { call };
 allow selection_service dev_ashmem_file:chr_file { open };
 allow selection_service dev_unix_socket:dir { search };
 allow selection_service dev_unix_socket:sock_file { write };
-allow selection_service paramservice_socket:sock_file { write };
+
+# avc: denied { connectto } for pid=1470, comm="/system/bin/sa_main"  scontext=u:r:selection_service:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+allow selection_service kernel:unix_stream_socket { connectto };
