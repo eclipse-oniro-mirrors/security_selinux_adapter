@@ -73,6 +73,7 @@ allow nativespawn isolated_render:process { dyntransition sigkill };
 allow isolated_render nativespawn:fd { use };
 allow isolated_render nativespawn:fifo_file { write };
 allow isolated_render nativespawn:unix_dgram_socket { write connect };
+allow isolated_render hmdfs:file { write };
 
 ## Before killing the isolated process of nativespawn by ams, it will read the /proc/pid/status.
 allow foundation isolated_render:dir { search };
