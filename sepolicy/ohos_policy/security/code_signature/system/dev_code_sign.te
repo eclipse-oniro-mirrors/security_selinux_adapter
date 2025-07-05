@@ -13,4 +13,4 @@
 
 type dev_code_sign, dev_attr;
 
-neverallow {domain -key_enable -installs} dev_code_sign:chr_file { ioctl read write open };
+neverallow {domain -key_enable -installs -violator_binary_security_attr} dev_code_sign:chr_file { ioctl read write open };

@@ -300,6 +300,8 @@ attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
 
+attribute violator_binary_security_attr;
+
 # define some hap_domain violator attribute for neverallows
 attribute hap_domain_dev_ptmx_violators;
 attribute hap_domain_cgroup_violators;

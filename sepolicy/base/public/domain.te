@@ -186,7 +186,7 @@ neverallow limit_domain *:file *;
 neverallow domain limit_domain:binder *;
 
 # every file should have a label. The unlabeled file shouldn't be accessed.
-neverallow { domain -appspawn -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators -rgm_violator_ohos_unlabeled_file -installs -storage_daemon } unlabeled:dir_file_class_set *;
+neverallow { domain -appspawn -init -kernel updater_only(`-updater') -unlabeled_dir_file_violators -rgm_violator_ohos_unlabeled_file -installs -storage_daemon -violator_binary_security_attr } unlabeled:dir_file_class_set *;
 
 # keep selinuxfs safe.
 neverallow * kernel:security { load_policy setenforce setbool };
@@ -296,9 +296,9 @@ neverallow isolated_render {domain -isolated_render}:process ptrace;
 neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -distributedfiledaemon -rgm_violator_ohos_capability_chown -download_server -media_service -prerogative_app} self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -cjappspawn -init  -chipset_init -ueventd -memmgrservice -resource_schedule_executor
              -installs updater_only(`-updater')
-             -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_capability_dacoverride -violator_sa_capability_dac_override } self:{ capability cap_userns } dac_override;
-neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -hnp_violator -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch -backup_sa } self:{ capability cap_userns } dac_read_search;
-neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner updater_only(`-updater') -rgm_violator_ohos_capability_fowner } self:{ capability cap_userns } fowner;
+             -storage_daemon -usb_host -cap_violator_dacoverride developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_capability_dacoverride -violator_sa_capability_dac_override -violator_binary_security_attr } self:{ capability cap_userns } dac_override;
+neverallow { domain -chipset_init -appspawn -cjappspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater') -wifi_host  developer_only(`-hdcd -hnp -hap_domain_self_violators') -hnp_violator -distributedfiledaemon -memmgrservice -rgm_violator_ohos_capability_dacreadsearch -backup_sa -violator_binary_security_attr } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner updater_only(`-updater') -rgm_violator_ohos_capability_fowner -violator_binary_security_attr } self:{ capability cap_userns } fowner;
 neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid updater_only(`-updater') -rgm_violator_ohos_capability_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nativespawn -cjappspawn -storage_daemon -compiler_service -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_executor -native_daemon -cap_violator_kill -rgm_violator_ohos_capability_kill -kernel } self:{ capability cap_userns } kill;
 neverallow { domain -init -chipset_init -appspawn -compiler_service -nwebspawn -nativespawn -cjappspawn -storage_daemon -cap_violator_setuid updater_only(`-updater') -rgm_violator_ohos_capability_setuid -rgm_violator_cap_setuid } self:{ capability cap_userns } setuid;
@@ -329,7 +329,7 @@ neverallow * self:{ capability cap_userns } audit_write;
 neverallow * self:{ capability cap_userns } audit_control;
 neverallow * self:{ capability cap_userns } setfcap;
 neverallow * self:{ capability2 cap2_userns } mac_override;
-neverallow * self:{ capability2 cap2_userns } mac_admin;
+neverallow { domain -violator_binary_security_attr } self:{ capability2 cap2_userns } mac_admin;
 neverallow { domain -kernel -hiview -hilogd debug_only(`-hiperf') -cap_violator_syslog } self:{ capability2 cap2_userns } syslog;
 neverallow { domain -time_service -cap_violator_wakealarm } self:{ capability2 cap2_userns } wake_alarm;
 neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend;
