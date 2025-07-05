@@ -132,37 +132,31 @@ static LevelFrom GetLevelFrom(const std::string &level)
 
 static std::string DeleteNonLetter(std::string str)
 {
-    for (auto it = str.begin(); it != str.end();) {
-        if (!std::isalpha(*it)) {
-            it = str.erase(it);
-            continue;
-        }
-        ++it;
-    }
+    str.erase(std::remove_if(str.begin(), str.end(), [](char c) { return !std::isalpha(c); }), str.end());
     return str;
 }
 
 static void SetDefaultConfig()
 {
     std::ifstream configFile(PRODUCT_CONFIG_FILE);
-    if (configFile) {
-        std::string line;
-        bool levelVisit = false;
-        bool userVisit = false;
-        while (getline(configFile, line) && !(levelVisit && userVisit)) {
-            size_t pos;
-            if (!levelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
-                g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
-                levelVisit = true;
-            } else if (!userVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
-                g_defaultUser = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
-                userVisit = true;
-            }
-        }
-        configFile.close();
+    if (!configFile) {
+        selinux_log(SELINUX_ERROR, "Read %s failed, errno: %s\n", PRODUCT_CONFIG_FILE.c_str(), strerror(errno));
         return;
     }
-    selinux_log(SELINUX_ERROR, "Read %s failed, errno: %s\n", PRODUCT_CONFIG_FILE.c_str(), strerror(errno));
+    std::string line;
+    bool levelVisit = false;
+    bool userVisit = false;
+    while (getline(configFile, line) && !(levelVisit && userVisit)) {
+        size_t pos;
+        if (!levelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
+            g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
+            levelVisit = true;
+        } else if (!userVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
+            g_defaultUser = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
+            userVisit = true;
+        }
+    }
+    configFile.close();
 }
 #endif
 
