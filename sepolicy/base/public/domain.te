@@ -329,7 +329,7 @@ neverallow * self:{ capability cap_userns } audit_write;
 neverallow * self:{ capability cap_userns } audit_control;
 neverallow * self:{ capability cap_userns } setfcap;
 neverallow * self:{ capability2 cap2_userns } mac_override;
-neverallow * self:{ capability2 cap2_userns } mac_admin;
+neverallow { domain -cap_violator_mac_admin } self:{ capability2 cap2_userns } mac_admin;
 neverallow { domain -kernel -hiview -hilogd debug_only(`-hiperf') -cap_violator_syslog } self:{ capability2 cap2_userns } syslog;
 neverallow { domain -time_service -cap_violator_wakealarm } self:{ capability2 cap2_userns } wake_alarm;
 neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend;
