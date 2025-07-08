@@ -13,6 +13,7 @@
 
 # processdump
 /system/bin/processdump              u:object_r:processdump_exec:s0
+/dev/lperf                           u:object_r:dev_lperf:s0
 
 # faultloggerd
 /system/bin/faultloggerd             u:object_r:faultloggerd_exec:s0
