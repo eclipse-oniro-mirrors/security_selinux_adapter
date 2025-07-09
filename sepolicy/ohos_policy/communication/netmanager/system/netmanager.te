@@ -138,4 +138,3 @@ allow netmanager dev_bus_usb_file:file { open read getattr };
 allow netmanager data_service_el1_file:dir { search getattr read open };
 allow netmanager data_service_el1_file:file { getattr read open };
 allow netmanager normal_hap:fd { use };
-allow netmanager dataclone_hap:fd { use };
