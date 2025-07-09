@@ -138,3 +138,6 @@ allow selection_service dev_unix_socket:sock_file { write };
 
 # avc: denied { connectto } for pid=1470, comm="/system/bin/sa_main"  scontext=u:r:selection_service:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
 allow selection_service kernel:unix_stream_socket { connectto };
+
+# avc:  denied  { get } for service=3299 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow selection_service sa_foundation_cesfwk_service:samgr_class { get };
