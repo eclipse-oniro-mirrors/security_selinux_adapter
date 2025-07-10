@@ -24,7 +24,7 @@ allow hiview const_postinstall_fstab_param:file { map open read };
 allow hiview const_postinstall_param:file { map open read };
 allow hiview const_product_param:file { map open read };
 allow hiview data_file:dir { read write add_name create };
-allow hiview data_log:dir { setattr };
+allow hiview data_log:dir { setattr getattr };
 allow hiview data_system:dir { add_name create setattr write };
 allow hiview debug_param:file { map open read };
 allow hiview default_param:file { map open read };
