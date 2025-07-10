@@ -25,3 +25,4 @@ allow normal_hap hichecker_writable_param:file { map open read };
 allow normal_hap_attr data_service_el1_public_print_service_file:file { getattr read map };
 allow normal_hap_attr print_driver_exec:file { getattr read map };
 allow normal_hap scan_service:fd { use };
+allow normal_hap print_service:fd { use };
