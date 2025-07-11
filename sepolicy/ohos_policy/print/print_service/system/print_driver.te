@@ -34,3 +34,10 @@ allow print_driver system_fonts_file:lnk_file { read };
 allow print_driver print_driver_exec:xpm { exec_allow_release_ownerid exec_allow_debug_ownerid };
 allow print_driver system_bin_uni_print_driver_file:dir { search };
 allow print_driver system_bin_uni_print_driver_file:file { execute execute_no_trans getattr map read open };
+
+# about backends
+allow print_driver data_service_el1_public_print_service_file:file { getattr ioctl lock open read write };
+allowxperm print_driver data_service_el1_public_print_service_file:file ioctl { 0x5413 };
+allow print_driver node:udp_socket { node_bind };
+allow print_driver print_driver:udp_socket { bind ioctl read setopt write };
+allowxperm print_driver print_driver:udp_socket ioctl { 0x8912 0x8913 0x8919 };
