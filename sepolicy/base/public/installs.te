@@ -13,6 +13,6 @@
 
 neverallow { domain -samgr -foundation -binder_call_installs_violators} installs:binder call;
 
-neverallow installs { domain -el5_filekey_manager -installs_binder_violator -samgr -storage_manager -compiler_service -local_code_sign -accesstoken_service }:binder call;
+neverallow installs { domain -el5_filekey_manager -installs_binder_violator -samgr -storage_manager -compiler_service -local_code_sign -accesstoken_service -memmgrservice }:binder call;
 
 allow installs data_service_el2_file:dir { relabelfrom };
