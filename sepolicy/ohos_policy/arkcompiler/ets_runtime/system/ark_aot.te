@@ -53,3 +53,6 @@ allow ark_aot sys_prod_file:file { map read open };
 allow ark_aot hiview:unix_dgram_socket { sendto };
 
 allow ark_aot system_file:file { getattr };
+allow ark_aot data_service_el1_file:dir { search };
+allow ark_aot data_service_file:dir { search };
+allow ark_aot data_service_el1_file:dir { getattr };

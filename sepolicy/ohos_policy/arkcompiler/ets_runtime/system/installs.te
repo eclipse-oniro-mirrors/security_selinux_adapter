@@ -14,3 +14,5 @@
 allow installs compiler_service:binder { call };
 allow installs sa_ark_aot_compiler:samgr_class { get };
 allow installs code_sign_utils:file { execute getattr map open read };
+allow installs data_service_el1_file:file { ioctl };
+allowxperm installs data_service_el1_file:file ioctl { 0x6685 };
