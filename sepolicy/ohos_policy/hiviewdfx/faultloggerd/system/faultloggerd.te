@@ -79,7 +79,7 @@ allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write op
 allow faultloggerd_temp_file labeledfs:filesystem { associate };
 
 # allow hap apply pipe fd for mix stack
-allow hap_domain faultloggerd:fifo_file write;
+allow hap_domain faultloggerd:fifo_file { read write };
 
 allow faultloggerd sys_file:file { open read };
 allow faultloggerd hiview:binder { call };
