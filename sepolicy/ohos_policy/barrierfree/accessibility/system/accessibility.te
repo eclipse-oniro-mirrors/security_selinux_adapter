@@ -80,3 +80,5 @@ allow accessibility sa_foundation_ans:samgr_class { get };
 allow accessibility sa_foundation_appms:samgr_class { get };
 allow accessibility time_service:binder { call transfer };
 allow accessibility dev_ashmem_file:chr_file { open };
+
+allow accessibility accountmgr:binder { call transfer };
