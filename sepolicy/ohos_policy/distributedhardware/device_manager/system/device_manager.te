@@ -13,6 +13,9 @@
 
 type device_manager, sadomain, domain;
 
+allow device_manager sa_sg_classify_service:samgr_class { get };
+allow device_manager security_guard:binder { transfer };
+
 allow device_manager sa_foundation_devicemanager_service:samgr_class { add get };
 
 #avc:  denied  { search } for  pid=594 comm="sa_main" name="bin" dev="mmcblk0p6" ino=107 scontext=u:r:device_manager:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
