@@ -19,22 +19,17 @@ allow hap_domain security_collector:binder { call transfer };
 
 # avc:  denied  { call } for  pid=2872 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=2872 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
-allow security_collector hap_domain:binder { transfer call };
-
+binder_call(security_collector, hap_domain);
 # avc:  denied  { call } for  pid=2872 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
-allow security_collector accesstoken_service:binder { call };
-
+binder_call(security_collector, accesstoken_service);
 # avc:  denied  { call } for  pid=2872 comm="IPC_2_4085" scontext=u:r:security_collector:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
-allow security_collector time_service:binder { call };
-
+binder_call(security_collector, time_service);
 # avc:  denied  { transfer } for  pid=2872 comm="IPC_1_2876" scontext=u:r:security_collector:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 # avc:  denied  { call } for  pid=2872 comm="IPC_2_4085" scontext=u:r:security_collector:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 # avc:  denied  { call } for  pid=2872 comm="IPC_3_4407" scontext=u:r:security_collector:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
-allow security_collector foundation:binder { transfer call };
-
+binder_call(security_collector, foundation);
 # avc:  denied  { call } for  pid=2872 comm="IPC_0_2875" scontext=u:r:security_collector:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
-allow security_collector multimodalinput:binder { call };
-
+binder_call(security_collector, multimodalinput);
 # avc:  denied  { write } for  pid=2872 comm="IPC_0_2875" name="kmsg" dev="tmpfs" ino=107 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { open } for  pid=2872 comm="IPC_0_2875" path="/dev/kmsg" dev="tmpfs" ino=107 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow security_collector dev_kmsg_file:chr_file { open write };
@@ -89,15 +84,12 @@ allow security_collector sa_foundation_cesfwk_service:samgr_class { get };
 allow security_collector sa_multimodalinput_service:samgr_class { get };
 
 # avc:  denied  { call } for  pid=3728 comm="OS_cesComLstnr" scontext=u:r:security_collector:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=0
-allow security_collector storage_manager:binder { call transfer };
-
+binder_call(security_collector, storage_manager);
 # avc:  denied  { call } for  pid=4414 comm="IPC_1_4419" scontext=u:r:security_collector:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
-allow security_collector device_manager:binder { call transfer };
-
+binder_call(security_collector, device_manager);
 # avc:  denied  { call } for  pid=3359 comm="IPC_1_3364" scontext=u:r:security_collector:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=0
 # avc:  denied  { call } for  pid=3359 comm="IPC_1_3364" scontext=u:r:security_collector:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=0
-allow security_collector camera_service:binder { call transfer };
-
+binder_call(security_collector, camera_service);
 # avc:  denied  { get } for service=5003 pid=3415 scontext=u:r:security_collector:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=0
 allow security_collector sa_foundation_devicemanager_service:samgr_class { get };
 
@@ -108,7 +100,6 @@ allow security_collector sa_camera_service:samgr_class { get };
 allow security_collector sa_storage_manager_service:samgr_class { get };
 
 # avc:  denied  { call } for  pid=2912 comm="security_collec" scontext=u:r:security_collector:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=1
-allow security_collector security_guard:binder { call };
-
+binder_call(security_collector, security_guard);
 # avc:  denied  { search } for  pid=2912 comm="security_collec" name="socket" dev="tmpfs" ino=43 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow security_collector dev_unix_socket:dir { search };
