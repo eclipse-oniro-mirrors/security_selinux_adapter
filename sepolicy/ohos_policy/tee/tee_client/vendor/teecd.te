@@ -48,7 +48,8 @@ allow teecd vendor_etc_file:dir { search };
 allow teecd vendor_etc_file:file { read open getattr };
 allow teecd dev_console_file:chr_file { read write };
 allow teecd debug_param:file { read open map };
-
+allow teecd su:dir { search };
+allow teecd su:file { read open getattr };
 debug_only(`
     allow teecd sh:dir { search };
     allow teecd sh:file { read open getattr };
