@@ -21,3 +21,4 @@ allow nwebspawn data_service_el1_file:file { read write create map open unlink }
 
 # avc: denied { execute_no_trans } for pid=1, comm="/system/bin/nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:object_r:nwebspawn_exec:s0 tclass=file permissive=0
 allow nwebspawn nwebspawn_exec:file { entrypoint execute execute_no_trans map read open };
+allow nwebspawn dev_kmsg_file:chr_file { open write };
