@@ -14,3 +14,4 @@
 allow init cadaemon:process { rlimitinh siginh transition };
 allow init tlogcat:process { rlimitinh siginh transition };
 
+allow init teecd_exec:file { relabelto getattr execute read open };

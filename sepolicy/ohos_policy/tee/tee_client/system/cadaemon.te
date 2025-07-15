@@ -13,6 +13,9 @@
 
 type cadaemon, sadomain, domain;
 
+neverallow { domain -teecd -cadaemon } tee_src_file:dir *;
+neverallow { domain -teecd -cadaemon } tee_src_file:file *;
+
 allow cadaemon system_bin_file: dir { search };
 allow cadaemon system_bin_file: file { read open getattr };
 allow cadaemon dev_tee_public:chr_file { read write open ioctl map };
@@ -76,6 +79,10 @@ allow cadaemon sa_foundation_bms:samgr_class { get };
 # avc: denied { get } for service=200 sid=u:r:cadaemon:s0 scontext=u:r:cadaemon:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
 allow cadaemon sa_accountmgr:samgr_class { get };
 binder_call(cadaemon, accountmgr);
+
+# avc: denied { read } for service=308 sid=u:r:cadaemon:s0 scontext=u:r:cadaemon:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=0
+# avc: denied { getattr } for service=308 sid=u:r:cadaemon:s0 scontext=u:r:cadaemon:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=0
+allow cadaemon data_file:file { read getattr };
 
 debug_only(`
     allow cadaemon sh:binder { call };
