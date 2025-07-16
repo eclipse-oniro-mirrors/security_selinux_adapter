@@ -43,7 +43,8 @@ allow teecd vendor_bin_file:file { read open getattr };
 #avc:  denied  { entrypoint } for  pid=2070 comm="init" path="/system/bin/teecd" dev="mmcblk0p7" ino=430 scontext=u:r:teecd:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
 allow teecd system_bin_file:file { entrypoint };
 #avc:  denied  { read } for  pid=2168 comm="teecd" name="u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:teecd:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
-allow teecd persist_param:file { read search };
+allow teecd persist_param:file { read };
+allow teecd persist_param:dir { search };
 
 allow teecd tee_file:dir { search };
 allow teecd tee_ta_sec_file:file { map read open getattr };
@@ -62,6 +63,7 @@ allow teecd vendor_etc_file:dir { search };
 allow teecd vendor_etc_file:file { read open getattr };
 allow teecd dev_console_file:chr_file { read write };
 allow teecd debug_param:file { read open map };
+
 debug_only(`
     allow teecd sh:dir { search };
     allow teecd sh:file { read open getattr };
