@@ -15,5 +15,17 @@ type teecd, native_system_domain, domain;
 type teecd_data_file, file_attr, dev_attr;
 type teecd_data_file_vendor, file_attr, data_file_attr;
 type teecd_exec, exec_attr, file_attr, system_file_attr;
+type tee_file, vendor_file_attr, file_attr;
+type tee_ta_sec_file, vendor_file_attr, file_attr;
+type tee_srv_sec_file, vendor_file_attr, file_attr;
+type tee_drv_sec_file, vendor_file_attr, file_attr;
+type tee_src_file, vendor_file_attr, file_attr;
 
 allow teecd teecd_exec:file { entrypoint map execute read open getattr };
+
+neverallow { hap_domain } tee_ta_sec_file:dir *;
+neverallow { hap_domain } tee_ta_sec_file:file *;
+neverallow { domain -teecd } tee_srv_sec_file:dir *;
+neverallow { domain -teecd } tee_srv_sec_file:file *;
+neverallow { domain -teecd } tee_drv_sec_file:dir *;
+neverallow { domain -teecd } tee_drv_sec_file:file *;

@@ -40,8 +40,23 @@ allow teecd proc_file:file { open read };
 
 #avc:  denied  { read } for  pid=626 comm="teecd" path="/vendor/bin/teecd" dev="sdd74" ino=20 scontext=u:r:teecd:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
 allow teecd vendor_bin_file:file { read open getattr };
+#avc:  denied  { entrypoint } for  pid=2070 comm="init" path="/system/bin/teecd" dev="mmcblk0p7" ino=430 scontext=u:r:teecd:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
+allow teecd system_bin_file:file { entrypoint };
+#avc:  denied  { read } for  pid=2168 comm="teecd" name="u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:teecd:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+allow teecd persist_param:file { read };
+allow teecd persist_param:dir { search };
 
-allow teecd vendor_bin_file:dir { search };
+allow teecd tee_file:dir { search };
+allow teecd tee_ta_sec_file:file { map read open getattr };
+allow teecd tee_ta_sec_file:dir { search };
+allow teecd tee_srv_sec_file:file { map read open getattr };
+allow teecd tee_srv_sec_file:dir { search open read };
+allow teecd tee_drv_sec_file:file { map read open getattr };
+allow teecd tee_drv_sec_file:dir { search open read };
+allow teecd tee_src_file:file { map read open getattr };
+allow teecd tee_src_file:dir { search };
+
+allow teecd vendor_bin_file:dir { search read open };
 allow teecd hdf_devhost_exec:file { entrypoint execute map read open getattr };
 allow teecd hdf_devhost_exec:dir { search };
 allow teecd vendor_etc_file:dir { search };

@@ -14,4 +14,9 @@
 /sec_storage(/.*)?                                u:object_r:teecd_data_file:s0
 /data/vendor/sec_storage_data(/.*)?               u:object_r:teecd_data_file_vendor:s0
 /data/vendor/sec_storage_data_users(/.*)?         u:object_r:teecd_data_file_vendor:s0
-
+/system/bin/teecd                                 u:object_r:teecd_exec:s0
+/vendor/etc/passthrough/teeeos(/.*)?              u:object_r:tee_file:s0
+/vendor/etc/passthrough/teeos/ta(/.*)?            u:object_r:tee_ta_sec_file:s0
+/vendor/etc/passthrough/teeos/dynamic_srv(/.*)?   u:object_r:tee_srv_sec_file:s0
+/vendor/etc/passthrough/teeos/dynamic_drv(/.*)?   u:object_r:tee_drv_sec_file:s0
+/vendor/etc/passthrough/teeos/source(/.*)?        u:object_r:tee_src_file:s0
