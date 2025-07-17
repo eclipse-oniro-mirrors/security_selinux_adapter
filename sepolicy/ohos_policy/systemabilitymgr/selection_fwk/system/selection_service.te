@@ -141,3 +141,6 @@ allow selection_service kernel:unix_stream_socket { connectto };
 
 # avc:  denied  { get } for service=3299 sid=u:r:selection_service:s0 scontext=u:r:selection_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow selection_service sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc: denied { write } for pid=1627, comm="/system/bin/sa_main"  name="1" dev="1" major=136 minor=1 scontext=u:r:selection_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+allow selection_service tty_device:chr_file { read write };
