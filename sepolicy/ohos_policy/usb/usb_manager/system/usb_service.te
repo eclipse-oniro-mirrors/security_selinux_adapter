@@ -135,3 +135,5 @@ allow usb_service paramservice_socket:sock_file { write };
 allow usb_service devinfo_type_param:file { read };
 allow usb_service tty_device:chr_file { read write open ioctl };
 allowxperm usb_service tty_device:chr_file ioctl { 0x5401 0x5402 };
+allow usb_service allocator_host:binder { call };
+allow usb_service allocator_host:fd { use };
