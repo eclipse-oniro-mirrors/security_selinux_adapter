@@ -12,5 +12,5 @@
 # limitations under the License.
 
 persist.samgr.perf.ondemand u:object_r:samgr_perf_param:s0
-persist.samgr.cache.sa  u:object_r:samgr_writable_param:s0
+samgr.cache.sa  u:object_r:samgr_writable_param:s0
 persist.samgr.moduleupdate. u:object_r:samgr_writable_param:s0
