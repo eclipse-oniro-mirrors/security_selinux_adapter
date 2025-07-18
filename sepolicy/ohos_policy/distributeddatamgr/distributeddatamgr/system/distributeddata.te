@@ -159,7 +159,7 @@ allow distributeddata input_pointer_device_param:file { map open read };
 allow distributeddata net_param:file { map open read };
 allow distributeddata net_tcp_param:file { map open read };
 allow distributeddata normal_hap_attr:fd { use };
-allow distributeddata normal_hap_data_file_attr:dir { getattr open read };
+allow distributeddata normal_hap_data_file_attr:dir { getattr setattr open read };
 allow distributeddata normal_hap_data_file_attr:file { ioctl map open read write setattr };
 allow distributeddata ohos_boot_param:file { map open read };
 allow distributeddata ohos_param:file { map open read };
