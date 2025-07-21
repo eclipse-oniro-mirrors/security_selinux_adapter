@@ -14,3 +14,5 @@
 allow system_core_hap_attr edm_sa:binder { call };
 allow system_core_hap_attr sa_enterprise_device_manager_service:samgr_class { get };
 allow system_core_hap_attr edm_sa:fd { use };
+allow system_core_hap_attr edm_application_config_file:dir { read execute search open getattr };
+allow system_core_hap_attr edm_application_config_file:file { read open getattr };
