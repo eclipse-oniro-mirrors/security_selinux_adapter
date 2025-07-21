@@ -15,8 +15,7 @@ binder_call(security_guard, samgr);
 
 allow security_guard sa_accesstoken_manager_service:samgr_class { get };
 
-allow security_guard accesstoken_service:binder { call };
-
+binder_call(security_guard, accesstoken_service);
 allow security_guard data_service_el1_public_security_guard_file:dir { search add_name write remove_name };
 
 allow security_guard data_service_el1_public_security_guard_file:file { read create getattr ioctl write open unlink };
@@ -37,8 +36,7 @@ allow security_guard hilog_param:file { read map open };
 
 allow security_guard debug_param:file { map open read };
 
-allow security_guard foundation:binder { call transfer };
-
+binder_call(security_guard, foundation);
 allow security_guard sa_foundation_cesfwk_service:samgr_class { get };
 
 allow security_guard data_service_file:dir { search };
@@ -49,8 +47,7 @@ allow security_guard dev_ashmem_file:chr_file { open };
 
 allow security_guard self:netlink_kobject_uevent_socket { read create bind };
 
-allow security_guard hiview:binder { call transfer };
-
+binder_call(security_guard, hiview);
 allow security_guard system_bin_file:dir { search };
 
 allow security_guard system_bin_file:lnk_file { read };
@@ -61,8 +58,7 @@ allow security_guard sa_sg_classify_service:samgr_class { get add };
 
 allow security_guard sa_sg_collect_service:samgr_class { get add };
 
-allow security_guard hap_domain:binder { call };
-
+binder_call(security_guard, hap_domain);
 allow security_guard sa_sys_event_service:samgr_class { get };
 
 allow security_guard sa_security_collector_service:samgr_class { get add };
@@ -89,4 +85,4 @@ allow security_guard normal_hap_attr:fd { use };
 allow security_guard normal_hap_data_file:file { read };
 
 # avc: denied { call } for pid=1516, comm="/system/bin/sa_main"  scontext=u:r:security_guard:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=0
-allow security_guard wifi_manager_service:binder { call };
+binder_call(security_guard, wifi_manager_service);
