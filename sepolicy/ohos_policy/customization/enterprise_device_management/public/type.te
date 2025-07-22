@@ -16,3 +16,4 @@ type edm_sa, sadomain, domain;
 type edm, native_system_domain, domain;
 type edm_exec, exec_attr, file_attr, system_file_attr;
 type edm_config_file, file_attr, data_file_attr;
+type edm_application_config_file, file_attr, data_file_attr;

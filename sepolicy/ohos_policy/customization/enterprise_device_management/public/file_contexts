@@ -12,3 +12,4 @@
 # limitations under the License.
 
 /data/service/el1/public/edm/config(/.*)?                          u:object_r:edm_config_file:s0
+/data/service/el1/public/edm/config/application(/.*)?              u:object_r:edm_application_config_file:s0

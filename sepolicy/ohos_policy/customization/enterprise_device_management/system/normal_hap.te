@@ -15,3 +15,5 @@
 allow normal_hap_attr edm_sa:binder { call transfer };
 allow normal_hap_attr sa_enterprise_device_manager_service:samgr_class { get };
 allow normal_hap_attr edm_sa:fd { use };
+allow normal_hap_attr edm_application_config_file:dir { read execute search open getattr };
+allow normal_hap_attr edm_application_config_file:file { read open getattr };
