@@ -79,7 +79,7 @@ allow hidumper_service chipset_init:lnk_file read;
 #for for start process in subcontext  hdf_devhost.cfg
 chipset_init_daemon_domain(hdf_devmgr);
 allow chipset_init { user_auth_host pin_auth_host fingerprint_auth_host face_auth_host codec_host vibrator_host sensor_host }:process { rlimitinh siginh transition };
-allow chipset_init { light_host input_user_host wifi_host camera_host power_host audio_host }:process { rlimitinh siginh transition };
+allow chipset_init { light_host input_user_host wifi_host camera_host power_host audio_host ethernet_host }:process { rlimitinh siginh transition };
 allow chipset_init { usb_host blue_host partitionslot_host location_host dcamera_host a2dp_host daudio_host sample_host intell_voice_host }:process { rlimitinh siginh transition };
 
 #for init.usb.configfs.cfg
