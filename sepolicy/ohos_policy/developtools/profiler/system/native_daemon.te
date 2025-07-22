@@ -11,6 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+developer_only(`
+    allow native_daemon debug_hap:process { ptrace };
+')
+
+neverallow native_daemon { domain debug_only(`-hap_domain') developer_only(`-debug_hap') }:process ptrace;
 debug_only(`
 	allow native_daemon self:capability setgid;
         allow domain dev_unix_socket:sock_file write;
@@ -72,8 +77,6 @@ allow native_daemon appspawn_exec:file map;
 allow native_daemon dev_ashmem_file:chr_file { open };
 allow native_daemon dev_console_file:chr_file { read write };
 allow native_daemon proc_file:file { open read getattr };
-
-neverallow native_daemon *:process ptrace;
 
 allow native_daemon sa_foundation_bms:samgr_class get;
 allow native_daemon sa_param_watcher:samgr_class get;
