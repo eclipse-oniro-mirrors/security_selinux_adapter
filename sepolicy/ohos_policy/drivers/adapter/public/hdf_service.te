@@ -91,3 +91,5 @@ type hdf_sample1_driver_service, hdf_service_attr;
 type hdf_intell_voice_engine_manager_service, hdf_service_attr;
 type hdf_intell_voice_trigger_manager_service, hdf_service_attr;
 type hdf_camera_service_usb, hdf_service_attr;
+
+type hdf_ethernet_service, hdf_service_attr;

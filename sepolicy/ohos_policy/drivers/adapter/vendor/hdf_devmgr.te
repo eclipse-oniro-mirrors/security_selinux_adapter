@@ -225,3 +225,10 @@ allow hdf_devmgr wifi_manager_service:binder { transfer };
 
 allow hdf_devmgr bootevent_param:file { map open read };
 allow hdf_devmgr bootevent_samgr_param:file { map open read };
+
+# avc: denied { call } for pid=663, comm="/vendor/bin/hdf_devmgr"  scontext=u:r:hdf_devmgr:s0 tcontext=u:r:ethernet_host:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=663, comm="/vendor/bin/hdf_devmgr"  scontext=u:r:hdf_devmgr:s0 tcontext=u:r:ethernet_host:s0 tclass=binder permissive=1
+allow hdf_devmgr ethernet_host:binder { call transfer };
+allow hdf_devmgr ethernet_host:file { read open };
+allow hdf_devmgr ethernet_host:process { getattr };
+allow hdf_devmgr ethernet_host:dir { search };
