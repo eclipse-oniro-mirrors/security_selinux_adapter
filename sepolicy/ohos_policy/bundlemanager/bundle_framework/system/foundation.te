@@ -146,3 +146,4 @@ allow foundation data_app_el2_file:dir { getattr search };
 allow foundation data_app_el5_file:dir { getattr search };
 allow foundation data_service_el2_hmdfs:dir { getattr search };
 allow foundation sa_app_fwk_update_service:samgr_class { get };
+allow foundation startup_appspawn_param:parameter_service { set };
