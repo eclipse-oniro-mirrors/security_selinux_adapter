@@ -256,3 +256,6 @@ allow appspawn { sharefs tmpfs }:filesystem { unmount };
 allow appspawn foundation:fd { use };
 #avc: denied { write } for pid=51347, comm="/system/bin/appspawn" path="pipe:[8763]" dev="tmpfs" ino=8763 scontext=u:r:appspawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
 allow appspawn foundation:fifo_file { write };
+
+# for create hybridspawn socket
+allow appspawn init:unix_stream_socket { accept getattr getopt listen };
