@@ -26,3 +26,4 @@ allow font_manager_server dev_unix_socket:dir { search };
 allow font_manager_server dev_kmsg_file:chr_file { write };
 allow font_manager_server sa_foundation_cesfwk_service:samgr_class { get };
 allow font_manager_server sharefs_appdata_bundle_file:file { getattr map read };
+allow font_manager_server hmdfs:file { map read };
