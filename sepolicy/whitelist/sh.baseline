@@ -12,6 +12,8 @@
 # limitations under the License.
 
 developer_only(`
+(allow sh sqlite3 (process (transition siginh rlimitinh)))
+(allow sh sqlite3_exec (file (ioctl read getattr map execute open)))
 (allow sh aa (process (transition siginh rlimitinh)))
 (allow sh aa_exec (file (ioctl read getattr map execute open)))
 (allow sh bm (process (transition siginh rlimitinh)))
