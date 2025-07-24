@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -module_update_service -init -foundation -sys_installer_sa updater_only(`-updater') -violator_update_updater_param_get } update_updater_param:parameter_service { set };
+neverallow { domain -module_update_service -init -foundation -sys_installer_sa updater_only(`-updater') -violator_update_updater_param_set } update_updater_param:parameter_service { set };
