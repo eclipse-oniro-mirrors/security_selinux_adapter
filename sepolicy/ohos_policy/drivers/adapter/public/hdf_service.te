@@ -50,6 +50,7 @@ type hdf_fingerprint_auth_interface_service, hdf_service_attr;
 type hdf_motion_interface_service, hdf_service_attr;
 type hdf_activity_interface_service, hdf_service_attr;
 type hdf_geofence_intf_service, hdf_service_attr;
+type hdf_mntn_intf_service, hdf_service_attr;
 type hdf_cellfence_interface_service, hdf_service_attr;
 type hdf_cellbatching_interface_service, hdf_service_attr;
 type hdf_wififence_interface_service, hdf_service_attr;

@@ -57,6 +57,7 @@ activity_interface_service              u:object_r:hdf_activity_interface_servic
 cellular_radio_ext                      u:object_r:hdf_cellular_radio_ext:s0
 ril_service                             u:object_r:hdf_ril_service:s0
 geofence_intf_service                   u:object_r:hdf_geofence_intf_service:s0
+mntn_intf_service                       u:object_r:hdf_mntn_intf_service:s0
 cellfence_interface_service             u:object_r:hdf_cellfence_interface_service:s0
 cellbatching_interface_service          u:object_r:hdf_cellbatching_interface_service:s0
 wififence_interface_service             u:object_r:hdf_wififence_interface_service:s0
