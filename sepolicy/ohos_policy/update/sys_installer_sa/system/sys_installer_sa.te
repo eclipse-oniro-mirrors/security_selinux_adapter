@@ -75,7 +75,7 @@ allow sys_installer_sa update_firmware_file:file { append create ioctl open read
 allowxperm sys_installer_sa update_firmware_file:file ioctl { 0x5413 };
 
 allow sys_installer_sa sys_installer_sa:process { setcurrent };
-allow sys_installer_sa updater_binary:process { dyntransition };
+allow sys_installer_sa updater_binary:process { dyntransition setsched };
 allow sys_installer_sa vendor_etc_file:dir { search };
 
 allow sys_installer_sa musl_param:file { read open map };
@@ -134,3 +134,5 @@ allow sys_installer_sa data_updater_file:dir { create };
 
 # avc:  denied  { ioctl } for  pid=3389 comm="OS_IPC_1_3392" path="/dev/block/mmcblk0p16" dev="tmpfs" ino=35 ioctlcmd=0x1277 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
 allowxperm sys_installer_sa dev_block_file:blk_file ioctl { 0x1277 };
+
+allow sys_installer_sa updater_binary:dir { search read open };
