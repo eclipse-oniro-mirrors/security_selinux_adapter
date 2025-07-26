@@ -186,6 +186,7 @@ allow isolated_render sa_resource_schedule:samgr_class { get };
 
 # avc_audit_slow:267] avc:denied { write } for pid=1,comm="/system/bin/appspawn"
 allow isolated_render sharefs:file { read write open getattr append };
+allow isolated_render hmdfs:file { read write open getattr append };
 
 # avc: denied  { write } for pid=5253 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=0
 allow isolated_render data_user_file:file { read write open getattr append };
