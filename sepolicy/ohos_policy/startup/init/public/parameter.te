@@ -19,6 +19,7 @@ neverallow { normal_hap debug_hap } paramservice_socket:sock_file { write };
 typeattribute accessibility devinfo_type_allow_attr;
 typeattribute bgtaskmgr_service devinfo_type_allow_attr;
 typeattribute distributeddata devinfo_type_allow_attr;
+typeattribute drm_service devinfo_type_allow_attr;
 typeattribute foundation devinfo_type_allow_attr;
 typeattribute hidumper_service devinfo_type_allow_attr;
 typeattribute hiview devinfo_type_allow_attr;

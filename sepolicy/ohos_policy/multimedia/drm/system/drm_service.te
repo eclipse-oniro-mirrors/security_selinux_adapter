@@ -130,3 +130,11 @@ allow drm_service hap_domain:fd { use };
 # avc_audit_slow:260] avc: denied { call } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
 # avc_audit_slow:260] avc: denied { transfer } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
 allow drm_service system_basic_hap:binder { call transfer };
+
+# oobe get basic statement agreed
+allow drm_service devinfo_type_param:file { map open read };
+allow accountmgr drm_service:binder { transfer };
+allow drm_service accountmgr:binder { call };
+allow drm_service sa_accountmgr:samgr_class { get };
+binder_call(drm_service, distributeddata);
+allow drm_service sa_distributeddata_service:samgr_class { get };
