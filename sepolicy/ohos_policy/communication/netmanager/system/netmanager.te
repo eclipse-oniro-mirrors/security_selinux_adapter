@@ -149,3 +149,6 @@ allow netmanager ethernet_host:unix_dgram_socket { sendto };
 
 # avc: denied { getattr } for pid=1128, comm="/system/bin/sa_main"  path="/sys/power/last_sr" dev="" ino=99 scontext=u:r:netmanager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
 allow netmanager sys_file:file { getattr };
+allow netmanager allocator_host:binder { call };
+allow netmanager allocator_host:fd { use };
+allow netmanager hdf_allocator_service:hdf_devmgr_class { get };
