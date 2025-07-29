@@ -138,3 +138,6 @@ allow telephony_sa tty_device:chr_file { ioctl };
 allowxperm telephony_sa tty_device:chr_file ioctl { 0x5413 };
 allow telephony_sa sa_sg_collect_service:samgr_class { get };
 allow telephony_sa security_guard:binder { call };
+
+allow telephony_sa sa_media_service:samgr_class { get };
+allow telephony_sa media_service:binder { call transfer };
