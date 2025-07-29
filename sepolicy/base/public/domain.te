@@ -340,3 +340,5 @@ neverallow { domain -hiperf -cap_violator_perfmon debug_only(`-hiebpf') } self:{
 #limit domain has exec_no_sign and exec_anon_mem permission
 neverallow { domain developer_only(`-debug_hap -normal_hap') debug_only(`-su') -updater_binary -rgm_violator_exec_no_sign } self:xpm { exec_no_sign };
 neverallow { domain developer_only(`-debug_hap') debug_only(`-su') -isolated_render } self:xpm { exec_anon_mem };
+
+neverallow { domain } data_local_tmp:file execute_no_trans;
