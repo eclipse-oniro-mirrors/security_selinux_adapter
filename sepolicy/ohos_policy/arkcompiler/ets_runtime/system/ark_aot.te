@@ -51,5 +51,6 @@ allow ark_aot data_app_el1_file:dir { search };
 allow ark_aot sys_prod_file:dir { search };
 allow ark_aot sys_prod_file:file { map read open };
 allow ark_aot hiview:unix_dgram_socket { sendto };
+allow ark_aot ark_aot:hmcap { code_protect };
 
 allow ark_aot system_file:file { getattr };
