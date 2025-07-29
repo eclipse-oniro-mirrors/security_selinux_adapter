@@ -335,3 +335,4 @@ attribute violator_ptrace_debug_hap;
 
 attribute violator_hap_domain_file_sock_file;
 
+attribute violator_web_libs_arm64_file;

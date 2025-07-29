@@ -23,7 +23,7 @@
 #(allow appspawn system_basic_hap_data_file_attr (dir (mounton)))
 #(allow appspawn system_core_hap_data_file_attr (dir (mounton)))
 
-neverallow appspawn { hap_file_attr -data_app_el1_file -data_app_el2_file -data_app_el3_file -data_app_el4_file -data_app_el5_file -data_service_el2_file -normal_hap_data_file_attr -system_basic_hap_data_file -system_core_hap_data_file_attr }:dir ~{ getattr search mounton };
+neverallow appspawn { hap_file_attr -data_app_el1_file -violator_web_libs_arm64_file -data_app_el2_file -data_app_el3_file -data_app_el4_file -data_app_el5_file -data_service_el2_file -normal_hap_data_file_attr -system_basic_hap_data_file -system_core_hap_data_file_attr }:dir ~{ getattr search mounton };
 neverallow appspawn normal_hap_data_file_attr:dir ~{ getattr search mounton create write add_name setattr relabelto };
 neverallow appspawn { system_basic_hap_data_file system_core_hap_data_file}:dir ~{ getattr search mounton relabelto };
 
@@ -31,9 +31,9 @@ neverallow appspawn data_cache:dir ~{ read_dir_perms };
 
 neverallow appspawn data_cache:file ~{ read getattr };
 
-neverallow appspawn data_file_attr:file never_execute_file;
+neverallow appspawn { data_file_attr -violator_web_libs_arm64_file }:file never_execute_file;
 
 neverallow { domain -appspawn -foundation -ui_service -app_fwk_update_service -storage_manager developer_only(`-devicedebug') } appspawn:unix_stream_socket connectto;
 
-neverallow appspawn hap_file_attr:file { exec_file_perms };
+neverallow appspawn { hap_file_attr -violator_web_libs_arm64_file }:file { exec_file_perms };
 
