@@ -12,5 +12,6 @@
 # limitations under the License.
 
 /mnt/data/external(/.*)?           u:object_r:mnt_external_file:s0
+/mnt/data/external_fuse(/.*)?           u:object_r:mnt_external_fuse_file:s0
 /data/service/el1/public/storage_daemon/share/public(/.*)?       u:object_r:share_public_file:s0
 

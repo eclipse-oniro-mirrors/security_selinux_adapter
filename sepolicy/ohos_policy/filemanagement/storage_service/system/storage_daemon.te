@@ -395,6 +395,7 @@ allow storage_daemon data_log:file { read append getattr open create write renam
 allow storage_daemon data_log:dir { write add_name create open read getattr remove_name };
 allow storage_daemon labeledfs:filesystem { relabelfrom };
 allow storage_daemon mnt_external_file:filesystem { mount unmount relabelfrom relabelto };
+allow storage_daemon mnt_external_fuse_file:filesystem { mount unmount relabelfrom relabelto };
 
 # avc: denied { rmdir } for pid=5021, comm="/bin/mtpfs"  name="/mtp_tmp/simple-mtpfs-aLAbfL" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=21448 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
 allow storage_daemon data_file:dir { rmdir };
@@ -492,3 +493,10 @@ allow storage_daemon proc_filesystems_file:file { getattr };
 # avc: denied { getattr } for pid=8828, comm="/bin/ntfslabel"  path="/sys/devices/virtual/block/dm-0/dm/name" dev="" ino=75464 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sysfs_block_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=8828, comm="/bin/ntfslabel"  path="/sys/devices/virtual/block/dm-0/dm/name" dev="" ino=75464 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sysfs_block_file:s0 tclass=file permissive=1
 allow storage_daemon sysfs_block_file:file { getattr read };
+
+# avc: denied { remove_name } for pid=621, comm="/system/bin/storage_daemon"  name="/external_fuse" dev="tmpfs" ino=2 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_fuse_file:s0 tclass=dir permissive=1
+# avc: denied { rmdir } for pid=621, comm="/system/bin/storage_daemon"  name="/external_fuse/7DF9-C584" dev="tmpfs" ino=17 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_fuse_file:s0 tclass=dir permissive=1
+allow storage_daemon mnt_external_fuse_file:dir { remove_name rmdir };
+ 
+# avc: denied { setattr } for pid=622, comm="/system/bin/storage_daemon"  name="/external_fuse/2242-16F3" dev="tmpfs" ino=10 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_fuse_file:s0 tclass=dir permissive=1
+allow storage_daemon mnt_external_fuse_file:dir { setattr };
