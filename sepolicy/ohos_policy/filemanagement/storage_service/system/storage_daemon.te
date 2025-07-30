@@ -395,7 +395,6 @@ allow storage_daemon data_log:file { read append getattr open create write renam
 allow storage_daemon data_log:dir { write add_name create open read getattr remove_name };
 allow storage_daemon labeledfs:filesystem { relabelfrom };
 allow storage_daemon mnt_external_file:filesystem { mount unmount relabelfrom relabelto };
-allow storage_daemon mnt_external_fuse_file:filesystem { mount unmount relabelfrom relabelto };
 
 # avc: denied { rmdir } for pid=5021, comm="/bin/mtpfs"  name="/mtp_tmp/simple-mtpfs-aLAbfL" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=21448 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
 allow storage_daemon data_file:dir { rmdir };
