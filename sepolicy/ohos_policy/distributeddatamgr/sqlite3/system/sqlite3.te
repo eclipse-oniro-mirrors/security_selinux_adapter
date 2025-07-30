@@ -1,0 +1,95 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+ 
+debug_only(`
+domain_auto_transition_pattern(su, sqlite3_exec, sqlite3);
+allow sqlite3 su:fd { use };
+allow sqlite3 su:fifo_file { ioctl read write };
+allow sqlite3 su:unix_stream_socket { read write };
+allowxperm sqlite3 su:fifo_file ioctl { 0x5413 };
+')
+ 
+developer_only(`
+domain_auto_transition_pattern(sh, sqlite3_exec, sqlite3);
+')
+ 
+developer_only(`
+allow sqlite3 chip_prod_file:dir { search };
+allow sqlite3 data_app_file:dir { search };
+allow sqlite3 dev_unix_socket:dir { search };
+allow sqlite3 dev_kmsg_file:chr_file { write };
+allow sqlite3 devpts:chr_file { ioctl read write };
+allowxperm sqlite3 devpts:chr_file ioctl 0x5413;
+ 
+# avc_audit_slow:278] avc: denied { create } for pid=21688, comm="/bin/sqlite3"  name="/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35119 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+# avc_audit_slow:278] avc: denied { getattr } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13608 scontext=u:r:sqlite3:s0 tcontext=o:object_r:debug_hap_data_file:s0:x57,x334,x512,x868,x1024 tclass=dir permissive=1
+# avc_audit_slow:278] avc: denied { search } for pid=21688, comm="/bin/sqlite3"  name="/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35119 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+# avc_audit_slow:278] avc: denied { write add_name search } for pid=21688, comm="/bin/sqlite3"  name="/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35119 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { ioctl } for  pid=8945 comm="sqlite3" path="/data/app/el1/0/base/com.ohos.settingsdata/haps/entry/preferences" dev="mmcblk0p15" ino=2440 ioctlcmd=0xf546 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { read open } for  pid=8945 comm="sqlite3" path="/data/app/el1/0/base/com.ohos.settingsdata/haps/entry/preferences" dev="mmcblk0p15" ino=2440 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=8945 comm="sqlite3" name="preferences" dev="mmcblk0p15" ino=2440 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { remove_name } for  pid=8945 comm="sqlite3" name="ab.db-journal" dev="mmcblk0p15" ino=7463 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+allow sqlite3 debug_hap_data_file:dir { create getattr search write add_name ioctl read open remove_name };
+ 
+# avc_audit_slow:278] avc: denied { create } for pid=21688, comm="/bin/sqlite3"  name="/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.undo" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35132 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { getattr } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.map" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35148 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { ioctl } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.undo" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35132 ioctlcmd=0xf547 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { lock } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.map" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35148 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { map } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.map" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35148 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { open } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.undo" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35132 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { read write } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.undo" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35132 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=8945 comm="sqlite3" path="/data/app/el1/0/base/com.ohos.settingsdata/haps/entry/preferences/ab.db" dev="mmcblk0p15" ino=7462 ioctlcmd=0xf502 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc:  denied  { setattr } for  pid=8945 comm="sqlite3" name="ab.db-journal" dev="mmcblk0p15" ino=7463 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc:  denied  { unlink } for  pid=8945 comm="sqlite3" name="ab.db-journal" dev="mmcblk0p15" ino=7463 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+allow sqlite3 debug_hap_data_file:file { create getattr ioctl lock map open read write setattr unlink };
+ 
+# avc_audit_slow:278] avc: denied { ioctl } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.undo" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35132 ioctlcmd=0xf546 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { ioctl } for pid=21688, comm="/bin/sqlite3"  path="/data/app/el2/100/database/com.huawei.hmsapp.appgallery/data/vector/sqlite3.undo" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=35132 ioctlcmd=0xf547 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=8945 comm="sqlite3" path="/data/app/el1/0/base/com.ohos.settingsdata/haps/entry/preferences/ab.db" dev="mmcblk0p15" ino=7462 ioctlcmd=0xf501 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=8945 comm="sqlite3" path="/data/app/el1/0/base/com.ohos.settingsdata/haps/entry/preferences/ab.db" dev="mmcblk0p15" ino=7462 ioctlcmd=0xf502 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+# avc:  denied  { ioctl } for  pid=8945 comm="sqlite3" path="/data/app/el1/0/base/com.ohos.settingsdata/haps/entry/preferences/ab.db" dev="mmcblk0p15" ino=7462 ioctlcmd=0xf50c scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+allowxperm sqlite3 debug_hap_data_file:file ioctl { 0xf546 0xf547 0xf501 0xf502 0xf50c };
+
+# avc:  denied  { ioctl } for  pid=8945 comm="sqlite3" path="/data/app/el1/0/base/com.ohos.settingsdata/haps/entry/preferences" dev="mmcblk0p15" ino=2440 ioctlcmd=0xf546 scontext=u:r:sqlite3:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+allowxperm sqlite3 debug_hap_data_file:dir ioctl { 0xf546 };
+
+# avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el1/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+allow sqlite3 data_app_el1_file:dir { search };
+
+# avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el2/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+allow sqlite3 data_app_el2_file:dir { search };
+
+# avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el3/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el3_file:s0 tclass=dir permissive=1
+allow sqlite3 data_app_el3_file:dir { search };
+
+# avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el4/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el4_file:s0 tclass=dir permissive=1
+allow sqlite3 data_app_el4_file:dir { search };
+
+# avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el5/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el5_file:s0 tclass=dir permissive=1
+allow sqlite3 data_app_el5_file:dir { search };
+
+# avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=9 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow sqlite3 data_service_file:dir { search };
+
+# avc: denied { write } for pid=13874, comm="/bin/sqlite3"  path="pipe:[24]" dev="tmpfs" ino=24 scontext=u:r:sqlite3:s0 tcontext=u:r:init:s0 tclass=fifo_file permissive=1
+allow sqlite3 init:fifo_file { write };
+
+# avc:  denied  { search } for  pid=3202 comm="sqlite3" name="/" dev="mmcblk0p15" ino=3 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow sqlite3 data_file:dir { search };
+')
+ 
+# only shell allowed execute sqlite3_exec
+neverallow ~{ debug_only(`su') developer_only(`sh') sqlite3 } sqlite3_exec:file { execute };
+neverallow sqlite3 { normal_hap_data_file_attr -debug_hap_data_file }:dir_file_class_set { create unlink };
+neverallow sqlite3 { normal_hap_data_file_attr -debug_hap_data_file }:dir *;
+neverallow sqlite3 { normal_hap_data_file_attr -debug_hap_data_file }:file_class_set open;
