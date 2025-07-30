@@ -12,4 +12,4 @@
 # limitations under the License.
 
 type mnt_external_file, fs_attr, permissions_mount_file_attr;
-
+type mnt_external_fuse_file, fs_attr, permissions_mount_file_attr;

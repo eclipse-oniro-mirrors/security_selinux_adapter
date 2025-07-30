@@ -492,3 +492,10 @@ allow storage_daemon proc_filesystems_file:file { getattr };
 # avc: denied { getattr } for pid=8828, comm="/bin/ntfslabel"  path="/sys/devices/virtual/block/dm-0/dm/name" dev="" ino=75464 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sysfs_block_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=8828, comm="/bin/ntfslabel"  path="/sys/devices/virtual/block/dm-0/dm/name" dev="" ino=75464 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sysfs_block_file:s0 tclass=file permissive=1
 allow storage_daemon sysfs_block_file:file { getattr read };
+
+# avc: denied { remove_name } for pid=621, comm="/system/bin/storage_daemon"  name="/external_fuse" dev="tmpfs" ino=2 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_fuse_file:s0 tclass=dir permissive=1
+# avc: denied { rmdir } for pid=621, comm="/system/bin/storage_daemon"  name="/external_fuse/7DF9-C584" dev="tmpfs" ino=17 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_fuse_file:s0 tclass=dir permissive=1
+allow storage_daemon mnt_external_fuse_file:dir { remove_name rmdir };
+ 
+# avc: denied { setattr } for pid=622, comm="/system/bin/storage_daemon"  name="/external_fuse/2242-16F3" dev="tmpfs" ino=10 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_fuse_file:s0 tclass=dir permissive=1
+allow storage_daemon mnt_external_fuse_file:dir { setattr };

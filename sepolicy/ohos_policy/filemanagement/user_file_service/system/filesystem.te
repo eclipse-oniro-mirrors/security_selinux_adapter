@@ -13,3 +13,6 @@
 
 # avc:  denied  { associate } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:object_r:mnt_external_file:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem permissive=1
 allow mnt_external_file tmpfs:filesystem { associate };
+
+# avc:  denied  { associate } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:object_r:mnt_external_fuse_file:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem permissive=1
+allow mnt_external_fuse_file tmpfs:filesystem { associate };
