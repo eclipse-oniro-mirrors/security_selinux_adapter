@@ -13,6 +13,7 @@
 
 developer_only(`
     allow native_daemon debug_hap:process { ptrace };
+    allow native_daemon native_daemon:hmcap { code_protect };
 ')
 
 neverallow native_daemon { domain debug_only(`-hap_domain') developer_only(`-debug_hap') }:process ptrace;
