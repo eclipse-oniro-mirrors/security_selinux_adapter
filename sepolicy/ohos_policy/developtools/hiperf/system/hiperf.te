@@ -194,6 +194,7 @@ developer_only(`
     allow hiperf sh:process signull;
     allow hiperf data_log:fifo_file { create open read unlink write };
     allow hiperf debug_hap:process { ptrace };
+    allow hiperf hiperf:hmcap { code_protect };
 ')
 
 neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap') }:process ptrace;
