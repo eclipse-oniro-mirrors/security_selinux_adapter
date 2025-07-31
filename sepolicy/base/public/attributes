@@ -168,6 +168,10 @@ attribute module_update_binary_file_violator_file_dir;
 attribute normal_hap_data_file_attr_violator_relabel;
 attribute file_migrate_hap_data_file_attr_violator_opt;
 
+attribute exec_attr_violator_file_create_unlink;
+attribute exec_attr_violator_file_write;
+attribute exec_attr_violator_file_rename;
+
 attribute data_user_file_dir_violator;
 attribute data_user_file_file_violator;
 
