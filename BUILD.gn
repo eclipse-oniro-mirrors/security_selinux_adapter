@@ -686,7 +686,10 @@ action("build_ignore_cfg") {
     "--components",
     selinux_adapter_components,
   ]
-  outputs = [ target_out_dir + "/ignore_cfg" ]
+  outputs = [
+    target_out_dir + "/ignore_cfg",
+    target_out_dir + "/app_allow_cfg"
+  ]
 }
 
 action("build_updater_contexts") {
@@ -949,6 +952,16 @@ ohos_prebuilt_etc("ignore_cfg") {
   } else {
     install_images = [ "system" ]
   }
+}
+
+ohos_prebuilt_etc("app_allow_cfg") {
+  deps = [ ":build_ignore_cfg" ]
+  source = target_out_dir + "/app_allow_cfg"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/"
+  install_images = [ "system" ]
 }
 
 ohos_prebuilt_etc("file_contexts_updater") {
@@ -1373,6 +1386,7 @@ group("selinux_group") {
       ":hap_restorecon",
       ":hdf_service_contexts",
       ":ignore_cfg",
+      ":app_allow_cfg",
       ":libpcre2_toolchain",
       ":libselinux_toolchain",
       ":load_policy",

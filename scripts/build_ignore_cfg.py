@@ -171,6 +171,12 @@ def build_ignore_cfg(output_path, folder_list):
     combine_ignore_cfg(ignore_cfg_list, combined_ignore_cfg)
 
 
+def build_app_allow_cfg(output_path, folder_list):
+    combined_ignore_cfg = os.path.join(output_path, "app_allow_cfg")
+    ignore_cfg_list = traverse_folder_in_type(folder_list, "app_allow_cfg")
+    combine_ignore_cfg(ignore_cfg_list, combined_ignore_cfg)
+
+
 def main(args):
     output_path = args.dst_dir
     print("output_path: ", output_path)
@@ -193,6 +199,7 @@ def main(args):
             folder_list += public_ + system_policy + vendor_policy
 
     build_ignore_cfg(output_path, folder_list)
+    build_app_allow_cfg(output_path, folder_list)
     print("build_ignore_cfg done")
 
 
