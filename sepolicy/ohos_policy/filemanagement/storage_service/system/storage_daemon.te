@@ -499,3 +499,10 @@ allow storage_daemon mnt_external_fuse_file:dir { remove_name rmdir };
  
 # avc: denied { setattr } for pid=622, comm="/system/bin/storage_daemon"  name="/external_fuse/2242-16F3" dev="tmpfs" ino=10 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_fuse_file:s0 tclass=dir permissive=1
 allow storage_daemon mnt_external_fuse_file:dir { setattr };
+
+allow storage_daemon hap_file_attr:dir { getattr open read rename unlink write add_name remove_name rmdir search };
+allow storage_daemon hap_file_attr:file { getattr read rename unlink };
+allow storage_daemon hap_file_attr:lnk_file { getattr read rename unlink };
+allow storage_daemon hap_file_attr:fifo_file { getattr read rename unlink };
+allow storage_daemon hap_file_attr:sock_file { getattr read rename unlink };
+
