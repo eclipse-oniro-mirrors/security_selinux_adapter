@@ -339,3 +339,4 @@ attribute violator_isolated_render_execute_data_file_attr;
 attribute violator_appspawn_hap_file_attr_dir;
 attribute violator_appspawn_execute_data_file_attr_violator_file;
 attribute violator_appspawn_execute_hap_file_attr_file;
+attribute violator_domain_sys_boot;
