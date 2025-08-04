@@ -107,3 +107,5 @@ allow cloudfiledaemon memmgrservice:binder { call };
 allow cloudfiledaemon hap_domain:dir { search };
 allow cloudfiledaemon hap_domain:file { getattr open read };
 allow cloudfiledaemon cloudfile_data_file:file { append };
+allow cloudfiledaemon sa_powermgr_thermal_service:samgr_class { get };
+allow cloudfiledaemon powermgr:binder { call transfer };
