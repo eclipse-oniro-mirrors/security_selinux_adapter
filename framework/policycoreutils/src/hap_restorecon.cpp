@@ -148,12 +148,20 @@ static void SetDefaultConfig()
     bool userVisit = false;
     while (getline(configFile, line) && !(levelVisit && userVisit)) {
         size_t pos;
-        if (!levelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
-            g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
-            levelVisit = true;
-        } else if (!userVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
-            g_defaultUser = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
-            userVisit = true;
+        if (!levelVisit) {
+            pos = line.find(DEFAULT_LEVEL_PREFIX);
+            if (pos == 0) {
+                g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
+                levelVisit = true;
+                continue;
+            }
+        }
+        if (!userVisit) {
+            pos = line.find(DEFAULT_USER_PREFIX);
+            if (pos == 0) {
+                g_defaultUser = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
+                userVisit = true;
+            }
         }
     }
     configFile.close();
