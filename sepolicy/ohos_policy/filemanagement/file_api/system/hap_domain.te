@@ -17,5 +17,5 @@ allow hap_domain hmdfs:file { watch watch_reads create_file_perms_without_ioctl 
 allow hap_domain hmdfs:dir { watch watch_reads create_dir_perms_without_ioctl };
 neverallow { hap_domain -medialibrary_hap } hmdfs:dir { ioctl };
 allow hap_domain hmdfs:file ioctl;
-allowxperm hap_domain hmdfs:file ioctl { 0xf207 };
-neverallowxperm hap_domain hmdfs:file ioctl ~{ 0xf207 0x5413 0x9409 };
+allowxperm hap_domain hmdfs:file ioctl { 0xf207 0x5413 0xf205 0xf20a };
+neverallowxperm hap_domain hmdfs:file ioctl ~{ 0xf207 0x5413 0x9409 0xf205 0xf20a };
