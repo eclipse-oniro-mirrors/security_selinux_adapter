@@ -352,3 +352,4 @@ allowxperm device_manager data_service_el1_file:file ioctl { 0xf50c 0x5413 0xf54
 allow device_manager data_file:dir { search };
 allow device_manager chip_prod_file:dir { search };
 allow device_manager foundation:fd { use };
+allow device_manager sys_prod_file:dir { search };

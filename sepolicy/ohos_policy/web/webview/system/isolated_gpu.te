@@ -11,29 +11,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { execute } for  pid=3708 comm="ei.hmos.browser" path="/data/storage/el1/bundle/arkwebcore/libs/arm64/libweb_engine.so" dev="sdd78" ino=30131 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allow isolated_gpu data_app_el1_file:dir { getattr };
 # allow isolated_gpu data_app_el1_file:dir { execute };
 
-# avc:  denied  { search } for  pid=3708 comm="ei.hmos.browser" name="socket" dev="tmpfs" ino=112 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow isolated_gpu dev_unix_socket:dir { search };
 
-# avc:  denied  { use } for  pid=3708 comm="ei.hmos.browser" path="/dev/null" dev="tmpfs" ino=3 scontext=u:r:isolated_gpu:s0 tcontext=u:r:nwebspawn:s0 tclass=fd permissive=1
 allow isolated_gpu nwebspawn:fd { use };
 allow isolated_gpu nwebspawn:unix_dgram_socket { write connect};
 
-# avc:  denied  { call } for  pid=3708 comm="ei.hmos.browser" scontext=u:r:isolated_gpu:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
 allow isolated_gpu time_service:binder { call };
 
-# avc:  denied  { getattr } for  pid=3708 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=256 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { read open } for  pid=3708 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=256 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=3708 comm="ei.hmos.browser" path="/system/app/ArkWeb/ArkWebCore.hap" dev="sdd74" ino=256 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
 allow isolated_gpu system_file:file { getattr read open map };
 
-# avc:  denied  { search } for  pid=3708 comm="ei.hmos.browser" name="bin" dev="sdd74" ino=338 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
 allow isolated_gpu system_bin_file:dir { search };
 
-# avc:  denied  { search } for  pid=3708 comm="ei.hmos.browser" name="/" dev="tracefs" ino=1 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow isolated_gpu tracefs:dir { search };
 
 allow isolated_gpu sa_foundation_appms:samgr_class { get };

@@ -44,3 +44,17 @@ allow medialibrary_hap exfat:dir { watch watch_reads };
 allow medialibrary_hap vfat:dir { watch_reads };
 
 allow medialibrary_hap sandbox_manager_service:fd { use };
+
+# avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+allow medialibrary_hap dev_at_file:chr_file { ioctl };
+
+# avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/storage/cloud/files/Photo/6/IMG_1745832970_070.jpg" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068543986 ioctlcmd=0xf205 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
+allow medialibrary_hap hmdfs:file { ioctl };
+
+# avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+allowxperm medialibrary_hap dev_at_file:chr_file ioctl { 0x5413 };
+
+# avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/storage/cloud/files/.thumbs/Photo/14/IMG_1745833179_3374.HEIC/temp_1745050668267_LCD.jpg" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068542715 ioctlcmd=0x5413 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/storage/cloud/files/Photo/6/IMG_1745832970_070.jpg" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068543986 ioctlcmd=0xf205 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/storage/cloud/files/Photo/11/IMG_1745833015_1579.HEIC" dev="/data/service/el2/100/hmdfs/account" ino=11529250227965747175 ioctlcmd=0xf20a scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
+allowxperm medialibrary_hap hmdfs:file ioctl { 0x5413 0xf205 0xf20a };
