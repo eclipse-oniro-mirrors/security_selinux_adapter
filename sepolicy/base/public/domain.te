@@ -99,7 +99,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -rgm_vio
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -data_local_tmp_violator_dir_limit developer_only(`-wukong -atm -snapshot_display -bm -data_local_tmp_violator_dir -mediatool -perftest') -hdcd -SP_daemon -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
+neverallow { domain -violator_data_local_tmp_dir_limit developer_only(`-wukong -atm -snapshot_display -bm -data_local_tmp_violator_dir -mediatool -perftest') -hdcd -SP_daemon -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
 
 neverallow { domain developer_only(`-wukong -atm -lldb_server -appspawn -snapshot_display -hiprofiler_cmd -bm -processdump -data_local_tmp_violator_dir -mediatool -perftest') -hdcd -SP_daemon -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -uitest updater_only(`-updater') -violator_sa_domain_data_local_tmp -violator_lldb_data_local_tmp } data_local_tmp:dir { open search };
 
