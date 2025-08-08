@@ -13,3 +13,7 @@
 
 allow sadomain sa_accesstoken_manager_service:samgr_class { get };
 allow sadomain accesstoken_service:binder { call };
+
+allow sadomain allocator_host:fd { use };
+allow { sadomain -installs } allocator_host:binder { call };
+allow sadomain hdf_allocator_service:hdf_devmgr_class { get };
