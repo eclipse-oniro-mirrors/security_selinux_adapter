@@ -58,7 +58,8 @@ debug_only(`
     allow aa sa_foundation_bms:samgr_class { get };
     allow aa sa_foundation_cesfwk_service:samgr_class { get };
     allow aa sa_foundation_dms:samgr_class { get };
-    allow aa samgr:binder { call };
+    # avc:  denied  { transfer } scontext=u:r:aa:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+    allow aa samgr:binder { call transfer };
     allow aa sa_multimodalinput_service:samgr_class { get };
     allow aa sa_param_watcher:samgr_class { get };
     allow aa sh_exec:file { execute execute_no_trans map read open };
