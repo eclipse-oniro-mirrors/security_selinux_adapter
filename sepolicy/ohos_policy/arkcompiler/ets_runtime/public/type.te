@@ -17,3 +17,5 @@ type data_app_el1_arkprofile, file_attr, data_file_attr;
 type data_app_el1_arkstartupcache, file_attr, data_file_attr;
 
 type rawheap_translator_exec, exec_attr, file_attr, system_file_attr;
+
+type verifier_exec, exec_attr, file_attr, system_file_attr;
