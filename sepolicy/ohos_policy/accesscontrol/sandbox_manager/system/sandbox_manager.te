@@ -50,6 +50,8 @@ allow sandbox_manager_service sa_storage_manager_service:samgr_class { get };
 allow sandbox_manager_service sa_foundation_abilityms:samgr_class { get };
 allow medialibrary_hap dev_at_file:chr_file { ioctl };
 allowxperm medialibrary_hap dev_at_file:chr_file ioctl { 0x5413 };
+allow sandbox_manager_service sa_foundation_bms:samgr_class { get };
+allow sandbox_manager_service sys_prod_file:dir { search };
 
 debug_only(`
     binder_call(sandbox_manager_service, su);
