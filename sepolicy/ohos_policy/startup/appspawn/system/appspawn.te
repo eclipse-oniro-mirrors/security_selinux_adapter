@@ -257,3 +257,6 @@ allow appspawn foundation:fd { use };
 #avc: denied { write } for pid=51347, comm="/system/bin/appspawn" path="pipe:[8763]" dev="tmpfs" ino=8763 scontext=u:r:appspawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
 allow appspawn foundation:fifo_file { write };
 allow appspawn dev_kmsg_file:chr_file { open write };
+
+# for create hybridspawn socket
+allow appspawn init:unix_stream_socket { accept getattr getopt listen };
