@@ -116,7 +116,7 @@ allow nwebspawn paramservice_socket:sock_file { write };
 allow nwebspawn data_misc:dir { add_name search write remove_name getattr };
 allow nwebspawn data_misc:file { create map open read write unlink };
 
-# avc:  denied  { dyntransition } for  pid=5103 comm="ei.hmos.browser" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+# avc:  denied  { dyntransition } for  pid=5103 comm=".browser" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow nwebspawn isolated_render:process { dyntransition };
 allow nwebspawn isolated_gpu:process { dyntransition };
 
