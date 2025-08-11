@@ -21,6 +21,12 @@ allowxperm sqlite3 su:fifo_file ioctl { 0x5413 };
  
 developer_only(`
 domain_auto_transition_pattern(sh, sqlite3_exec, sqlite3);
+allow sqlite3 hdcd:fd { use };
+allow sqlite3 hdcd:unix_stream_socket { read write };
+allow sqlite3 sh:fd { use };
+allow sqlite3 sh:unix_stream_socket { read write };
+allow sqlite3 sh:fifo_file { ioctl read write };
+allowxperm sqlite3 sh:fifo_file ioctl { 0x5413 };
 ')
  
 developer_only(`
