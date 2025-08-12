@@ -110,6 +110,8 @@ allowxperm samgr dev_binder_file:chr_file ioctl { 0x620c };
 allowxperm samgr dev_binder_file:chr_file ioctl { 0x6221 };
 neverallowxperm { domain -samgr } dev_binder_file:chr_file ioctl { 0x6221 };
 
+allowxperm samgr dev_binder_file:chr_file ioctl { 0x62a1 };
+
 # [avc_audit_slow:277] avc: denied { write } for pid=681, comm="/system/bin/samgr" name="0" dev="0" major=136 minor=0 scontext=u:r:samgr:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
 allow samgr tty_device:chr_file { write };
 allow samgr proc_stat_file:file { open read };
