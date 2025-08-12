@@ -81,3 +81,4 @@ allowxperm accessibility dev_at_file:chr_file ioctl { 0x5413 };
 allowxperm accessibility system_etc_file:file ioctl { 0xf207 };
 
 allow accessibility accountmgr:binder { call transfer };
+allow accessibility sa_time_service:samgr_class { get };
