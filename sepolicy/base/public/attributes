@@ -304,6 +304,7 @@ attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
 
+attribute sp_daemon_get;
 attribute violator_code_sign_utils_file_attr;
 attribute violator_dev_code_sign_chr_file_attr;
 attribute violator_dev_encaps_chr_file_attr;
