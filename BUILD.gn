@@ -28,7 +28,15 @@ if (!ohos_indep_compiler_enable) {
 }
 
 special_build_selinux_gni_exist =
-    selinux_adapter_special_build_selinux_gni_path != ""
+    selinux_adapter_special_build_selinux_gni_path != "" &&
+    exec_script("/bin/sh",
+                [
+                  "-c",
+                  "if [ -f " + rebase_path(
+                          selinux_adapter_special_build_selinux_gni_path) +
+                      " ]; then echo true; else echo false; fi",
+                ],
+                "value")
 if (special_build_selinux_gni_exist) {
   import(selinux_adapter_special_build_selinux_gni_path)
 }
