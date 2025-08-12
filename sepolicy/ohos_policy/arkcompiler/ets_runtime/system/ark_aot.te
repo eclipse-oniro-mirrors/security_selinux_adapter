@@ -57,3 +57,8 @@ allow ark_aot system_file:file { getattr };
 allow ark_aot data_service_el1_file:dir { search };
 allow ark_aot data_service_file:dir { search };
 allow ark_aot data_service_el1_file:dir { getattr };
+
+allow ark_aot arkcompiler_param:file { map open read };
+allow ark_aot data_service_el1_framework_arkcache:dir { getattr search write add_name search };
+allow ark_aot data_service_el1_framework_arkcache:file { create getattr ioctl open write };
+allowxperm ark_aot data_service_el1_framework_arkcache:file ioctl { 0x5413 };
