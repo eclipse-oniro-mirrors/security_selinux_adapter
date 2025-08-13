@@ -304,7 +304,6 @@ attribute rgm_violator_ohos_filesystem_unmount;
 
 attribute rgmli_violator_exec_file_attr;
 
-attribute sp_daemon_get;
 attribute violator_code_sign_utils_file_attr;
 attribute violator_dev_code_sign_chr_file_attr;
 attribute violator_dev_encaps_chr_file_attr;
@@ -317,6 +316,7 @@ attribute hap_domain_proc_modules_file_violators;
 
 attribute hap_domain_lnk_file_operation_viloator;
 attribute hap_attr_link_violators;
+attribute sp_daemon_get;
 
 attribute normal_hap_system_basic_hap_data_file_violators;
 
