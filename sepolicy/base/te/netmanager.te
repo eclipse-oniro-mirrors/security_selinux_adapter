@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow netmanager port:tcp_socket name_bind;
+allow netmanager node:tcp_socket node_bind;
+allow netmanager self:tcp_socket { create bind connect listen accept read write getopt setopt shutdown };
 allow netmanager bootevent_param:file { map open read };
 allow netmanager bootevent_samgr_param:file { map open read };
 allow netmanager build_version_param:file { map open read };
@@ -44,7 +47,7 @@ allow netmanager hw_sc_param:file { map open read };
 allow netmanager init_param:file { map open read };
 allow netmanager init_svc_param:file { map open read };
 allow netmanager input_pointer_device_param:file { map open read };
-allow netmanager netmanager:netlink_route_socket { bind setopt };
+allow netmanager netmanager:netlink_route_socket { bind setopt create write read nlmsg_read };
 allow netmanager netmanager:udp_socket { ioctl };
 allow netmanager netmanager:unix_dgram_socket { getopt setopt ioctl };
 allow netmanager net_param:file { map open read };
