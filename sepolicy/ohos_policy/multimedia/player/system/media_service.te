@@ -93,8 +93,6 @@ allow media_service dnsproxy_service:sock_file { write };
 
 allow media_service render_service:fd { use };
 
-allow media_service composer_host:fd { use };
-
 allow media_service data_media_log_file:file { create read open getattr write append ioctl };
 
 allowxperm media_service data_media_log_file:file ioctl { 0x5413 };
