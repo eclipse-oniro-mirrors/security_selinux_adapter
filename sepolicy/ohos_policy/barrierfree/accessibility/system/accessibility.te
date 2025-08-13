@@ -55,7 +55,6 @@ allow accessibility distributeddata:fd { use };
 allow distributeddata accessibility:binder { transfer };
 allow accessibility sa_distributeddata_service:samgr_class { get };
 allow accessibility render_service:fd { use };
-allow accessibility composer_host:fd { use };
 allow accessibility render_service:unix_stream_socket { read write };
 allow accessibility dev_mali:chr_file { getattr ioctl map open read write };
 allowxperm accessibility dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800e 0x800f 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 };

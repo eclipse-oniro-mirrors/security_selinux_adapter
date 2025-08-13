@@ -32,4 +32,3 @@ allow ui_service distributeddata:binder { call };
 allow time_service ui_service:file { getattr };
 allow time_service ui_service:binder { call transfer };
 allow distributeddata ui_service:binder { call transfer };
-allow ui_service composer_host:fd { use };

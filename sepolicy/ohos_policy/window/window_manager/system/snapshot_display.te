@@ -54,7 +54,6 @@ debug_only(`
     allow snapshot_display persist_sys_param:file { map open };
     # avc:  denied  { use } for  pid=1475 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=239 scontext=u:r:snapshot_display:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=1
     allow snapshot_display render_service:fd { use };
-    allow snapshot_display composer_host:fd { use };
     # avc:  denied  { call } for  pid=1475 comm="snapshot_displa" scontext=u:r:snapshot_display:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
     allow snapshot_display samgr:binder { call };
     # avc:  denied  { search } for  pid=1475 comm="snapshot_displa" name="/" dev="tracefs" ino=1 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1

@@ -86,7 +86,6 @@ allow SP_daemon thermal_log_param:file { map read open };
 allow SP_daemon update_updater_param:file { map read open};
 allow SP_daemon updater_flashd_param:file { map read open };
 allow SP_daemon render_service:fd { use };
-allow SP_daemon composer_host:fd { use };
 allow SP_daemon usb_setting_param:file { read open map };
 allow SP_daemon sh:dir { search };
 allow SP_daemon sh:file { read };

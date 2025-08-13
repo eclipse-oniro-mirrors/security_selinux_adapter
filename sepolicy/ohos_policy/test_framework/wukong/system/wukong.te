@@ -61,7 +61,6 @@ allow wukong sa_sys_event_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_powermgr_powermgr_service:samgr_class { get };
 allow wukong render_service:fd { use };
-allow wukong composer_host:fd { use };
 
 # for data_local_tmp
 allow wukong data_local_tmp:file { create getattr read relabelfrom ioctl write open unlink append };

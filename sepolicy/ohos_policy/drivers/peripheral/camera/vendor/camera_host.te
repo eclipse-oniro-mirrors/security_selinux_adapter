@@ -74,7 +74,6 @@ allow camera_host persist_sys_param:file { map open read };
 allow camera_host proc_version_file:file { open read getattr };
 allow camera_host render_service:binder { call };
 allow camera_host render_service:fd { use };
-allow camera_host composer_host:fd { use };
 allow camera_host sa_device_service_manager:samgr_class { get };
 allow camera_host samgr:binder { call };
 allow camera_host security_param:file { map open read };

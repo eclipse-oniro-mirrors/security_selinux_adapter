@@ -50,7 +50,6 @@ debug_only(`
     allow aa persist_sys_param:file { map open read };
     binder_call(aa, powermgr);
     allow aa render_service:fd { use };
-    allow aa composer_host:fd { use };
     allow aa sa_accessibleabilityms:samgr_class { get };
     allow aa sa_accountmgr:samgr_class { get };
     allow aa sa_foundation_abilityms:samgr_class { get };
