@@ -180,3 +180,8 @@ allowxperm installs data_app_el2_file:file ioctl { 0x5413 };
 allowxperm installs data_app_el2_file:dir ioctl { 0x581f 0x5820 };
 allow installs memmgrservice:binder { call };
 allow installs sa_memory_manager_service:samgr_class { get };
+allow installs hap_file_attr:lnk_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:fifo_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:sock_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:dir { getattr setattr relabelfrom relabelto unlink rename };
