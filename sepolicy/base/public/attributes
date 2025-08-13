@@ -316,6 +316,7 @@ attribute hap_domain_proc_modules_file_violators;
 
 attribute hap_domain_lnk_file_operation_viloator;
 attribute hap_attr_link_violators;
+attribute sp_daemon_get;
 
 attribute normal_hap_system_basic_hap_data_file_violators;
 
