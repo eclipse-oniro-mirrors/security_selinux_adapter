@@ -69,6 +69,8 @@ allow i18n_param tmpfs:filesystem associate;
 allow init i18n_param:file { map open read relabelto relabelfrom };
 allow init i18n_param:parameter_service { set };
 allow { domain -limit_domain } i18n_param:file { map open read };
+allow const_i18n_param tmpfs:filesystem associate;
+allow init const_i18n_param:file { map open read relabelto relabelfrom };
 allow i18n_param_tz_override tmpfs:filesystem associate;
 allow init i18n_param_tz_override:file { map open read relabelto relabelfrom };
 allow init i18n_param_tz_override:parameter_service { set };
@@ -76,8 +78,6 @@ allow { domain } i18n_param_tz_override:file { map open read };
 developer_only(`
     allow sh i18n_param_tz_override:file { map open read };
 ')
-allow const_i18n_param tmpfs:filesystem associate;
-allow init const_i18n_param:file { map open read relabelto relabelfrom };
 allow { domain -limit_domain } const_i18n_param:file { map open read };
 
 allow { domain } data_service_el1_i18n_timezone_file:dir { search open read getattr mounton };
