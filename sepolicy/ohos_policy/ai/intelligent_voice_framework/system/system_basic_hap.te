@@ -14,5 +14,4 @@
 # avc:  denied  { get } for service=312 pid=2633 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=0
 allow system_basic_hap_attr sa_intell_voice_service:samgr_class { get };
 
-# avc:  denied  { transfer } for  pid=19359 comm="wei.hmos.wakeup" scontext=u:r:system_basic_hap:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
 allow system_basic_hap_attr intell_voice_service:binder { call transfer };
