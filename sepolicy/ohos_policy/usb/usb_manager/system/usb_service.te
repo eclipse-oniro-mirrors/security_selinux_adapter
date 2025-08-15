@@ -137,3 +137,12 @@ allow usb_service tty_device:chr_file { read write open ioctl };
 allowxperm usb_service tty_device:chr_file ioctl { 0x5401 0x5402 };
 allow usb_service allocator_host:binder { call };
 allow usb_service allocator_host:fd { use };
+allow usb_service system_core_hap_attr:fd { use };
+allow usb_service system_basic_hap_attr:fd { use };
+allow usb_service resource_schedule_service:fd { use };
+allow usb_service foundation:fd { use };
+allow usb_service netmanager:fd { use };
+allow usb_service audio_server:fd { use };
+allow usb_service media_service:fd { use };
+allow usb_service nfc_service:fd { use };
+
