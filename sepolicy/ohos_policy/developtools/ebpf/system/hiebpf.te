@@ -83,3 +83,5 @@ allow hiebpf tracefs:file { open read write };
 
 allow hiebpf powermgr:dir search;
 allow hiebpf powermgr:file { getattr open read };
+allow hiebpf hdf_devhost_exec:dir { search };
+allow hiebpf hdf_devhost_exec:file { getattr map open read };
