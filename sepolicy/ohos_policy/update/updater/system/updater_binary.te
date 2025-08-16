@@ -258,12 +258,10 @@ allowxperm updater_binary dev_dri_file:chr_file ioctl { 0x6409 0x64af };
 allow updater_binary updater_block_file:blk_file { read write open map getattr ioctl };
 allowxperm updater_binary updater_block_file:blk_file ioctl { 0x1277 };
 
-allow updater_binary data_updater_file:file { execute execute_no_trans };
-allow updater_binary samain_exec:file { read };
-
 # avc:  denied  { map } for  pid=217 comm="updater_binary" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
 # avc:  denied  { open } for  pid=217 comm="updater_binary" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
 # avc:  denied  { read } for  pid=217 comm="updater_binary" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater_binary:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
 allow updater_binary update_updater_param:file { map open read };
 ')
-allow updater_binary self:xpm { exec_no_sign };
+
+allow updater_binary data_updater_file:file { execute execute_no_trans };
