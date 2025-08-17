@@ -32,5 +32,4 @@ allow input_isolate_hap data_app_el1_arkprofile:dir { search };
 
 allow input_isolate_hap hisysevent_socket:sock_file { write };
 allow input_isolate_hap hilog_input_socket:sock_file { write };
-allow input_isolate_hap input_isolate_hap:udp_socket { create connect write read };
 
