@@ -28,7 +28,6 @@ allow foundation paramservice_socket:sock_file { write };
 allow foundation proc_file:file { open read };
 allow foundation render_service:binder { call transfer };
 allow foundation render_service:fd { use };
-allow foundation composer_host:fd { use };
 allow foundation resource_schedule_service:binder { call transfer };
 allow foundation sa_accesstoken_manager_service:samgr_class { get };
 allow foundation sa_foundation_abilityms:samgr_class { get };

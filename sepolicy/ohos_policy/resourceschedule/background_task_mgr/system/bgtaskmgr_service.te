@@ -152,6 +152,7 @@ allow time_service bgtaskmgr_service:binder { call };
 # add device_usage_stats access self file permission
 allow bgtaskmgr_service data_service_el1_public_bundle_usage:file { map open read getattr };
 allow bgtaskmgr_service data_service_el1_public_bundle_usage:dir { read search open getattr write add_name };
+allow bgtaskmgr_service dev_ashmem_file:chr_file { open };
 
 debug_only(`
     allow bgtaskmgr_service debug_param:file { map open read };

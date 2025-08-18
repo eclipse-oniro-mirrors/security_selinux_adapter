@@ -241,14 +241,6 @@ allow appspawn faultloggerd_socket_sdkdump:sock_file { write };
 allow appspawn faultloggerd:fifo_file { read };
 allow appspawn appspawn:capability { sys_nice };
 
-# avc: denied { ioctl } for pid=748, comm="/system/bin/appspawn" path="/data/app/el2/100" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=11203 ioctlcmd=0x661a scontext=u:r:appspawn:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
-# avc: denied { ioctl } for pid=748, comm="/system/bin/appspawn" path="/data/app/el2/100" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=11203 ioctlcmd=0x6616 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
-allow appspawn data_app_el2_file:dir { ioctl };
-allowxperm appspawn data_app_el2_file:dir ioctl { 0x6616 0x661a };
-
-# avc: denied { rmdir } for pid=744, comm="/system/bin/appspawn" name="/sandbox/100/com.ohos.sceneboard/Users/currentUser" dev="tmpfs" ino=414 scontext=u:r:appspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=0
-allow appspawn tmpfs:dir { rmdir };
-
 #avc: denied { unmount } for pid=654, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:object_r:sharefs:s0 tclass=filesystem permissive=1
 allow appspawn { sharefs tmpfs }:filesystem { unmount };
 
@@ -257,3 +249,6 @@ allow appspawn foundation:fd { use };
 #avc: denied { write } for pid=51347, comm="/system/bin/appspawn" path="pipe:[8763]" dev="tmpfs" ino=8763 scontext=u:r:appspawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
 allow appspawn foundation:fifo_file { write };
 allow appspawn dev_kmsg_file:chr_file { open write };
+
+# for create hybridspawn socket
+allow appspawn init:unix_stream_socket { accept getattr getopt listen };

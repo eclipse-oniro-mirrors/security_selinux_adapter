@@ -168,6 +168,10 @@ attribute module_update_binary_file_violator_file_dir;
 attribute normal_hap_data_file_attr_violator_relabel;
 attribute file_migrate_hap_data_file_attr_violator_opt;
 
+attribute exec_attr_violator_file_create_unlink;
+attribute exec_attr_violator_file_write;
+attribute exec_attr_violator_file_rename;
+
 attribute data_user_file_dir_violator;
 attribute data_user_file_file_violator;
 
@@ -303,7 +307,6 @@ attribute rgmli_violator_exec_file_attr;
 attribute violator_code_sign_utils_file_attr;
 attribute violator_dev_code_sign_chr_file_attr;
 attribute violator_dev_encaps_chr_file_attr;
-attribute cap_violator_mac_admin;
 
 # define some hap_domain violator attribute for neverallows
 attribute hap_domain_dev_ptmx_violators;
@@ -313,6 +316,7 @@ attribute hap_domain_proc_modules_file_violators;
 
 attribute hap_domain_lnk_file_operation_viloator;
 attribute hap_attr_link_violators;
+attribute sp_daemon_get;
 
 attribute normal_hap_system_basic_hap_data_file_violators;
 
@@ -339,3 +343,4 @@ attribute violator_isolated_render_execute_data_file_attr;
 attribute violator_appspawn_hap_file_attr_dir;
 attribute violator_appspawn_execute_data_file_attr_violator_file;
 attribute violator_appspawn_execute_hap_file_attr_file;
+attribute violator_domain_sys_boot;

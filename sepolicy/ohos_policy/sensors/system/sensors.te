@@ -33,11 +33,7 @@ allow sensors accesstoken_service:binder { call transfer };
 #avc:  denied  { call } for  pid=2043 comm="sensors" scontext=u:r:accesstoken_service:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow accesstoken_service sensors:binder { call };
 
-#avc:  denied  { use } for pid=2519 comm="wei.hmos.health" path="socket:[39017]" dev="sockfs" ino=39017 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=0
-#avc:  denied  { use } for pid=2748 comm="wei.hmos.health" path="socket:[39096]" dev="sockfs" ino=39096 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=1
 allow sensors system_basic_hap_attr:fd { use };
-
-#avc:  denied  { read write } for pid=2748 comm="wei.hmos.health" path="socket:[39036]" dev="sockfs" ino=39036 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=unix_stream_socket permissive=1
 allow sensors system_basic_hap_attr:unix_stream_socket { read write };
 
 #avc:  denied  { call } for pid=1208 comm="IPC_0_1342" scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
@@ -139,7 +135,6 @@ allow sensors data_local_tmp:file { getattr read };
 allow sensors sysfs_devices_system_cpu:file { getattr open read };
 
 allow sensors render_service:fd { use };
-allow sensors composer_host:fd { use };
 allow sensors render_service:unix_stream_socket { read write };
 allow sensors render_service:binder { call };
 

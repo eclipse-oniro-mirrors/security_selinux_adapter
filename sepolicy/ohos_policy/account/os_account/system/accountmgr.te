@@ -72,6 +72,7 @@ allow accountmgr sa_foundation_appms:samgr_class { get };
 allow accountmgr sa_storage_manager_service:samgr_class { get };
 allow accountmgr sa_foundation_cesfwk_service:samgr_class { get };
 allow accountmgr sa_foundation_abilityms:samgr_class { get };
+allow accountmgr sa_foundation_dms:samgr_class { get };
 allow accountmgr sa_distributeddata_service:samgr_class { get };
 allow accountmgr sa_accesstoken_manager_service:samgr_class { get };
 allow accountmgr sa_foundation_bms:samgr_class { get };

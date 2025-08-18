@@ -80,8 +80,10 @@ static const int SHIFT_16 = 16;
 static const std::string PRODUCT_CONFIG_FILE = "/version/etc/selinux/product_config";
 static const std::string DEFAULT_LEVEL_PREFIX = "defaultLevelFrom=";
 static const std::string DEFAULT_USER_PREFIX = "defaultUser=";
+static const std::string DEFAULT_MCS_HAP_FILE_PREFIX = "mcsHapFileEnabled=";
 static LevelFrom g_defaultLevelFrom = LEVELFROM_NONE;
 static std::string g_defaultUser = "u";
+static bool g_mcsHapFileEnabled = false;
 #endif
 static pthread_once_t g_fcOnce = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
@@ -144,16 +146,34 @@ static void SetDefaultConfig()
         return;
     }
     std::string line;
-    bool levelVisit = false;
-    bool userVisit = false;
-    while (getline(configFile, line) && !(levelVisit && userVisit)) {
+    bool levelVisited = false;
+    bool userVisited = false;
+    bool hapFileMcsVisited = false;
+    while (getline(configFile, line) && !(levelVisited && userVisited && hapFileMcsVisited)) {
         size_t pos;
-        if (!levelVisit && (pos = line.find(DEFAULT_LEVEL_PREFIX)) != line.npos) {
-            g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(pos + DEFAULT_LEVEL_PREFIX.size())));
-            levelVisit = true;
-        } else if (!userVisit && (pos = line.find(DEFAULT_USER_PREFIX)) != line.npos) {
-            g_defaultUser = DeleteNonLetter(line.substr(pos + DEFAULT_USER_PREFIX.size()));
-            userVisit = true;
+        if (!levelVisited) {
+            pos = line.find(DEFAULT_LEVEL_PREFIX);
+            if (pos == 0) {
+                g_defaultLevelFrom = GetLevelFrom(DeleteNonLetter(line.substr(DEFAULT_LEVEL_PREFIX.size())));
+                levelVisited = true;
+                continue;
+            }
+        }
+        if (!userVisited) {
+            pos = line.find(DEFAULT_USER_PREFIX);
+            if (pos == 0) {
+                g_defaultUser = DeleteNonLetter(line.substr(DEFAULT_USER_PREFIX.size()));
+                userVisited = true;
+                continue;
+            }
+        }
+        if (!hapFileMcsVisited) {
+            pos = line.find(DEFAULT_MCS_HAP_FILE_PREFIX);
+            if (pos == 0) {
+                g_mcsHapFileEnabled =
+                    !strcmp(DeleteNonLetter(line.substr(DEFAULT_MCS_HAP_FILE_PREFIX.size())).c_str(), "true");
+                hapFileMcsVisited = true;
+            }
         }
     }
     configFile.close();
@@ -697,7 +717,7 @@ int HapContext::HapContextsLookup(const HapContextParams &params, context_t con)
         return res;
     }
 #ifdef MCS_ENABLE
-    if (contextInfo.levelFrom != LEVELFROM_NONE) {
+    if (contextInfo.levelFrom != LEVELFROM_NONE && (params.isDomain || g_mcsHapFileEnabled)) {
         return UserAndMCSRangeSet(params.uid, con, contextInfo.levelFrom, contextInfo.user);
     }
 #endif

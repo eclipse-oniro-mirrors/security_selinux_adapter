@@ -15,5 +15,6 @@ type sa_ark_aot_compiler, sa_service_attr;
 type data_app_el1_arkcache, file_attr, data_file_attr;
 type data_app_el1_arkprofile, file_attr, data_file_attr;
 type data_app_el1_arkstartupcache, file_attr, data_file_attr;
+type data_service_el1_framework_arkcache, file_attr, data_file_attr;
 
 type rawheap_translator_exec, exec_attr, file_attr, system_file_attr;

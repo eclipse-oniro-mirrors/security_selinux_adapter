@@ -15,7 +15,9 @@ allow ethernet_host dev_console_file:chr_file { read write };
 allow ethernet_host dev_hdf_kevent:chr_file { open read write ioctl getattr };
 allow ethernet_host hilog_param:file { open read map };
 allow ethernet_host musl_param:file { open read map };
-allow ethernet_host sh:binder { call };
+debug_only(`
+    allow ethernet_host su:binder { call };
+')
 allowxperm ethernet_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6203 };
 
 # avc: denied { write } for pid=7514, comm="/vendor/bin/hdf_devhost"  path="/dev/kmsg" dev="" ino=27 scontext=u:r:ethernet_host:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1

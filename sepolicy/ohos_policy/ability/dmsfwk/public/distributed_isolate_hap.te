@@ -65,9 +65,6 @@ allow distributed_isolate_hap sa_devattest_service:samgr_class { get };
 
 # avc: denied { dyntransition } for pid=9870, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:r:distributed_isolate_hap:s0 tclass=process permissive=1
 allow appspawn distributed_isolate_hap:process { dyntransition };
-
-# avc: denied { open } for pid=9682, comm="/system/bin/appspawn"  path="/data/themes/a/app/icons/dynamic_icons/com.huawei.hmos.clock" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13353 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-# avc: denied { read } for pid=9682, comm="/system/bin/appspawn"  path="/data/themes/a/app/icons/dynamic_icons/com.huawei.hmos.clock" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13353 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow distributed_isolate_hap data_service_el1_file:dir { open read };
 
 # avc: denied { getattr } for pid=9682, comm="/system/bin/appspawn"  path="/data/themes/a/app/flag" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=13448 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1

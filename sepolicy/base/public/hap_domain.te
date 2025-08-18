@@ -180,7 +180,10 @@ neverallow { isolated_render } system_basic_hap_data_file_attr: { dir blk_file c
 
 neverallow hap_domain { sysfs_attr proc_attr }:dir_file_class_set write;
 
-neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow hap_domain { exec_attr }:file { setattr relabelfrom relabelto append link };
+neverallow hap_domain { exec_attr -exec_attr_violator_file_create_unlink }:file { create unlink };
+neverallow hap_domain { exec_attr -exec_attr_violator_file_rename }:file { rename };
+neverallow hap_domain { exec_attr -exec_attr_violator_file_write }:file { write };
 
 #Access /proc/kmsg
 neverallow hap_domain kernel:system { syslog_read syslog_mod syslog_console };
@@ -229,8 +232,8 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -cupsd -print_driver -violator_execute_no_trans_data_file_attr -data_file_attr_violator_exec developer_only(`-hnp_native')} { data_file_attr }:file { execute_no_trans };
-neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -print_driver -violator_execute_data_file_attr -sane_service -data_file_attr_violator_exec developer_only(`-uitest -input_isolate_debug_hap -hnp_native') debug_only(`-init')} data_file_attr:file { execute };
+neverallow { domain -hap_domain -nwebspawn -cupsd -print_driver -violator_execute_no_trans_data_file_attr -data_file_attr_violator_exec developer_only(`-hnp_native') -updater_binary} { data_file_attr }:file { execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -print_driver -violator_execute_data_file_attr -sane_service -data_file_attr_violator_exec developer_only(`-uitest -input_isolate_debug_hap -hnp_native') debug_only(`-init') -updater_binary} data_file_attr:file { execute };
 
 neverallow isolated_gpu { data_file_attr -data_app_el1_file }:file { execute };
 neverallow isolated_render { data_file_attr -data_app_el1_file -violator_isolated_render_execute_data_file_attr }:file { execute };
@@ -247,8 +250,6 @@ neverallow { hap_domain -system_basic_hap_attr } data_app_file:dir_file_class_se
 neverallow hap_domain proc_file:dir_file_class_set write;
 
 neverallow * { file_attr -hap_file_attr }:file execmod;
-
-neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelto append unlink link rename };
 
 #normal_hap or selfdefine should be forbidden to set parameters.
 neverallow { hap_domain -system_core_hap_attr -system_basic_hap_attr } init:unix_stream_socket connectto;
