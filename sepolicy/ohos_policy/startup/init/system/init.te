@@ -36,6 +36,7 @@ allow init system_core_hap_attr:file { read open };
 allow init system_core_hap_attr:dir { search };
 allow init system_core_hap_attr:process { getattr };
 allow init system_lib_file:dir { open read };
+allow init system_lib_file:lnk_file { getattr };
 
 allow init accessibility_param:file { map open read relabelto relabelfrom };
 allow init const_postinstall_param:file { map open read relabelto relabelfrom };
