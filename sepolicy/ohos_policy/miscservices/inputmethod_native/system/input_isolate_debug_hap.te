@@ -35,4 +35,5 @@ developer_only(`
     allow input_isolate_debug_hap system_file:file { open read getattr map };
 
     allow input_isolate_debug_hap hdcd:unix_stream_socket { connectto };
+    allow input_isolate_debug_hap dev_unix_socket:dir { search };
 ')
