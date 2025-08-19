@@ -12,9 +12,6 @@
 # limitations under the License
 
 neverallow hiprofiler_plugins *:process ptrace;
-
-allow domain hiviewdfx_profiler_param:file { map open read };
-
 developer_only(`
     allow hiprofiler_plugins data_file:dir search;
     allow hiprofiler_plugins data_init_agent:dir search;
@@ -30,7 +27,6 @@ developer_only(`
     allow hiprofiler_plugins data_local:dir search;
     allow hiprofiler_plugins hiprofilerd:unix_stream_socket connectto;
     allow hiprofiler_plugins hiprofilerd:fd { use };
-    allow hiprofiler_plugins system_bin_file:file execute;
 
     allow hiprofiler_plugins appspawn:file read;
     allow hiprofiler_plugins hdcd:fd use;
@@ -114,7 +110,7 @@ developer_only(`
 
     allow hiprofiler_plugins accessibility:file { getattr open read };
     allow hiprofiler_plugins distributeddata:file { getattr read };
-    allow hiprofiler_plugins hilog_exec:file { getattr map open read execute execute_no_trans };
+    allow hiprofiler_plugins hilog_exec:file { execute execute_no_trans getattr map open read };
     allow hiprofiler_plugins init:dir { open read };
     allow hiprofiler_plugins kernel:file { getattr open };
     allow hiprofiler_plugins media_service:dir search;
@@ -209,6 +205,7 @@ developer_only(`
     allow hiprofiler_plugins storage_daemon:file { getattr open };
 
     allow hiprofiler_plugins hilogd:file getattr;
+    allow hiprofiler_plugins system_bin_file:file execute;
     allow hiprofiler_plugins toybox_exec:file { execute execute_no_trans getattr map open read };
     allow hiprofiler_plugins tmpfs:file { map read };
     allow hiprofiler_plugins tracefs:dir search;
@@ -249,7 +246,6 @@ developer_only(`
     allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search };
 
     allow hiprofiler_plugins domain:dir { open read getattr search };
-
     allow hiprofiler_plugins domain:file { open read getattr };
 
     allow hiprofiler_plugins data_local_tmp:file ioctl;
@@ -258,7 +254,7 @@ developer_only(`
 
     allow hiprofiler_plugins musl_param:file map;
     allow hiprofiler_plugins dev_unix_file:sock_file write;
-    allow hiprofiler_plugins hisysevent_exec:file { open read map execute execute_no_trans };
+    allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_trans map};
     allow hiprofiler_plugins samgr:binder call;
     allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
     allow hiprofiler_plugins sa_hiview_service:samgr_class get;
@@ -292,16 +288,18 @@ developer_only(`
     allow accountmgr hiprofiler_plugins:binder { transfer };
     allow hiprofiler_plugins system_bin_file:lnk_file read;
     allow hiprofiler_plugins toybox_exec:lnk_file read;
-    allow hiprofiler_plugins SP_daemon_exec:file { getattr open read map execute execute_no_trans };
+    allow hiprofiler_plugins SP_daemon_exec:file { getattr open read execute execute_no_trans map};
 
     allow hiprofiler_plugins sa_render_service:samgr_class get;
     allow hiprofiler_plugins render_service:binder { call transfer };
     allow hiprofiler_plugins normal_hap_attr:unix_stream_socket { connectto };
-    
+
+    allow domain hiviewdfx_profiler_param:file { map open read };
+
     allow hiprofiler_plugins system_usr_file:dir { search };
     allow hiprofiler_plugins system_usr_file:file { getattr map open read };
     allow hiprofiler_plugins SP_daemon:process { rlimitinh siginh transition sigkill signal };
-    allow hiprofiler_plugins dev_ashmem_file:chr_file { open };
+	allow hiprofiler_plugins dev_ashmem_file:chr_file { open };
     allow hiprofiler_plugins hiviewdfx_profiler_param:parameter_service { set };
     allow hiprofiler_plugins hitrace_param:parameter_service { set };
     allow hiprofiler_plugins paramservice_socket:sock_file { read write };

@@ -95,8 +95,8 @@ developer_only(`
 
 	allow hiprofiler_cmd init:file read;
 	allow hiprofiler_cmd kernel:file read;
-	allow hiprofiler_cmd system_bin_file:file { getattr map open read execute execute_no_trans };
-	allow hiprofiler_cmd toybox_exec:file { getattr map open read execute execute_no_trans };
+	allow hiprofiler_cmd system_bin_file:file { execute execute_no_trans getattr map open read };
+	allow hiprofiler_cmd toybox_exec:file { execute execute_no_trans getattr map open read };
 
 	allow hiprofiler_cmd dev_unix_socket:dir remove_name;
 	allow hiprofiler_cmd dev_unix_socket:sock_file unlink;
@@ -128,8 +128,8 @@ developer_only(`
 	allow hiprofiler_cmd dev_unix_socket:sock_file { create getattr setattr };
 	allow hiprofiler_cmd hook_param:parameter_service set;
 
-	allow hiprofiler_cmd data_local_tmp:file { lock read open getattr };
-	allow hiprofiler_cmd data_local_tmp:dir { open search };
+    allow hiprofiler_cmd data_local_tmp:file { lock read open getattr };
+    allow hiprofiler_cmd data_local_tmp:dir { open search };
 
 	allow hiprofiler_cmd sh:fd use;
 	allow hiprofiler_cmd sh:fifo_file write;
