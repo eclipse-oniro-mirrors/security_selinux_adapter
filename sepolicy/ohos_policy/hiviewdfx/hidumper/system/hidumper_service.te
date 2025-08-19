@@ -239,5 +239,4 @@ developer_only(`
     allow hidumper_service sa_telephony_tel_core_service:samgr_class get;
     allow hidumper_service sa_telephony_tel_sms_mms:samgr_class get;
     allow hidumper_service sa_time_service:samgr_class get;
-    allow hidumper_service sa_media_bgtask_mgr_service:samgr_class get;
 ')
