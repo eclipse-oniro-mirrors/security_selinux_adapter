@@ -155,4 +155,4 @@ allow netmanager hdf_allocator_service:hdf_devmgr_class { get };
 
 allow netmanager normal_hap:fd { use };
 allow netmanager accountmgr:fd { use };
-allow normal_hap netmanager:fd { use };
+allow hap_domain netmanager:fd { use };
