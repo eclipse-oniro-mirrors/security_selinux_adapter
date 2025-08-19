@@ -51,7 +51,7 @@ allow el5_filekey_manager sysfs_devices_system_cpu:file { read getattr open };
 # avc:  denied  { search } for  pid=2030 comm="el5_filekey_man" name="/" dev="tracefs" ino=1 scontext=u:r:el5_filekey_manager:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow el5_filekey_manager tracefs:dir { search };
 
-allow hap_domain data_app_el5_file:dir { add_name search read write create open remove_name setattr };
+allow hap_domain data_app_el5_file:dir { add_name search read write create open remove_name setattr getattr};
 allow hap_domain data_app_el5_file:file { create read write open lock unlink map setattr getattr rename };
 
 allow el5_filekey_manager devpts:chr_file { write };
