@@ -122,7 +122,8 @@
                 "SP_daemon uinput_exec",
                 "SP_daemon aa_exec",
                 "SP_daemon snapshot_display_exec",
-                "init system_bin_module_update_exec"
+                "init system_bin_module_update_exec",
+                "updater_binary data_updater_file"
             ],
             "developer": [
                 "aa sh_exec",
