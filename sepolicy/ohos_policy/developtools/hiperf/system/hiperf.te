@@ -118,7 +118,6 @@ allow hiperf proc_cpuinfo_file:file { open read };
 allow hiperf sysfs_devices_system_cpu:file { open read };
 allow hiperf uinput_inject_exec:file { getattr map open read };
 allow hiperf vendor_bin_file:dir search;
-allow hiperf hdf_devhost_exec:dir { search };
 
 allow hiperf domain:dir { add_name getattr search open read write };
 allow hiperf domain:file { getattr map open read };
@@ -173,7 +172,6 @@ allow hiperf sysfs_devices_system_cpu:file getattr;
 allow hiperf udevd_exec:file { getattr map open read };
 allow hiperf ueventd_exec:file read;
 allow hiperf vendor_bin_file:file { getattr map open read };
-allow hiperf hdf_devhost_exec:file { getattr map open read };
 
 allow init data_log:file relabelfrom;
 allow init data_log_hiperf_file:dir { getattr open read relabelto setattr };
