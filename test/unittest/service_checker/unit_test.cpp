@@ -182,6 +182,41 @@ HWTEST_F(SelinuxUnitTest, GetRemoteServiceCheck001, TestSize.Level1)
 }
 
 /**
+ * @tc.name: AddRemoteServiceCheck001
+ * @tc.desc: AddRemoteServiceCheck test isHdf_ false.
+ * @tc.type: FUNC
+ * @tc.require:ICF8LK
+ */
+HWTEST_F(SelinuxUnitTest, AddRemoteServiceCheck001, TestSize.Level1)
+{
+    std::string sid;
+    if (GetSidForCurrentProcess(sid) < 0) {
+        return;
+    }
+    ServiceChecker service(false);
+    ASSERT_EQ(-SELINUX_CHECK_CONTEXT_ERROR, service.AddRemoteServiceCheck(invalidSid, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_ARG_INVALID, service.AddRemoteServiceCheck(sid, ""));
+    ASSERT_EQ(SELINUX_SUCC, service.AddRemoteServiceCheck(sid, TEST_SERVICE_NAME));
+    std::string cmd = "hilog -T Selinux -x | grep 'avc:  denied  { add_remote } for service=" + TEST_SERVICE_NAME +
+                      " sid=" + sid + "' | grep 'tclass=samgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: AddRemoteServiceCheck002
+ * @tc.desc: AddRemoteServiceCheck test isHdf_ true.
+ * @tc.type: FUNC
+ * @tc.require:ICF8LK
+ */
+HWTEST_F(SelinuxUnitTest, AddRemoteServiceCheck002, TestSize.Level1)
+{
+    ServiceChecker service(true);
+    int result = service.AddRemoteServiceCheck("callingSid", "remoteService");
+    EXPECT_EQ(result, -SELINUX_PERMISSION_DENY);
+}
+
+/**
  * @tc.name: AddServiceCheck001
  * @tc.desc: AddServiceCheck test.
  * @tc.type: FUNC
