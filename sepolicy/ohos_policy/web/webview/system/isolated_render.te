@@ -126,7 +126,7 @@ allow isolated_render system_bin_file:dir { search };
 allow isolated_render nwebspawn:unix_dgram_socket { connect };
 
 #avc: denied { execute } for pid=2265 comm="e.myapplication" path="/data/storage/el1/bundle/nweb/libs/arm/libweb_engine.so" dev="mmcblk0p14" ino=600 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=0
-allow isolated_render data_app_el1_file:file { execute getattr open read map };
+allow isolated_render data_app_el1_file:file { execute read getattr map open };
 
 #avc: denied { call } for pid=3693 comm="e.myapplication" scontext=u:r:isolated_render:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
 allow isolated_render time_service:binder { call };
