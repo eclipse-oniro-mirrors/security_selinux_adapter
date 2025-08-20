@@ -152,3 +152,7 @@ allow netmanager sys_file:file { getattr };
 allow netmanager allocator_host:binder { call };
 allow netmanager allocator_host:fd { use };
 allow netmanager hdf_allocator_service:hdf_devmgr_class { get };
+
+allow netmanager hap_domain:fd { use };
+allow netmanager accountmgr:fd { use };
+allow hap_domain netmanager:fd { use };
