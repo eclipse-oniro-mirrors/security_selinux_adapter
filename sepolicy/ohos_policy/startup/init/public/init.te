@@ -137,5 +137,6 @@ init_relabel(data_service_el1_public_huksService_file);
 init_relabel(update_dupdate_engine_file);
 init_relabel(update_update_service_file);
 neverallow init *:process ptrace;
-
+allow init dev_bus:dir { create open read relabelfrom setattr write add_name };
+allow init dev_bus_usb_file:dir { open read setattr };
 allow init init:netlink_kobject_uevent_socket { read write };
