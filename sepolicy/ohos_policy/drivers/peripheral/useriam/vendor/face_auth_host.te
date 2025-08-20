@@ -57,3 +57,4 @@ allow face_auth_host vendor_etc_file:dir { search };
 allow face_auth_host vendor_etc_file:file { getattr open read };
 allowxperm face_auth_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allow face_auth_host useriam:binder { call transfer };
+allow face_auth_host hdf_devhost_exec:file { getattr open };

@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,11 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow kernel device:blk_file { create getattr setattr unlink };
-allow kernel hmdfs:dir { create_dir_perms_without_ioctl };
-allow kernel hmdfs:file { create_file_perms_without_ioctl };
-neverallow kernel hmdfs:dir ioctl;
-neverallow kernel hmdfs:file ioctl;
-allow kernel data_service_el2_hmdfs:dir { create_dir_perms };
-allow kernel data_service_el2_hmdfs:file { create_file_perms };
-allow kernel hdf_devhost_exec:file { getattr open read};
+allow ispserver hdf_devhost_exec:file { entrypoint execute map read };

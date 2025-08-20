@@ -84,3 +84,4 @@ debug_only(`
     allow codec_host hdcd:fifo_file { write };
     allow codec_host hdcd:fifo_file { read };
 ')
+allow codec_host hdf_devhost_exec:file { getattr open };

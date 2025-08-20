@@ -113,3 +113,5 @@ allow hilogd data_log:dir { write add_name write remove_name };
 allow hilogd data_log:file { create getattr ioctl open rename write unlink };
 allow domain hilogd:unix_stream_socket { connectto };
 allow domain hilog_control_pub_socket:sock_file { write };
+allow hilogd hdf_devhost_exec:file { getattr map open read };
+allow hilogd hdf_devhost_exec:lnk_file read;

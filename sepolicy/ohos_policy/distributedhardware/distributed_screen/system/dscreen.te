@@ -174,7 +174,6 @@ allow dscreen musl_param:file { read open };
 
 #avc:  denied  { search } for  pid=3351  scontext=u:r:dscreen:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=0
 allow dscreen vendor_bin_file:dir { search };
-allow dscreen hdf_devhost_exec:dir { search };
 
 #avc:  denied  { get } for  service=allocator_service pid=3162  scontext=u:r:dscreen:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
 allow dscreen hdf_allocator_service:hdf_devmgr_class { get };

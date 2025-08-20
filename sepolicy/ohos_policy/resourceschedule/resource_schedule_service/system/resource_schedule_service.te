@@ -33,7 +33,6 @@ allow resource_schedule_service data_service_el1_file:file { create getattr ioct
 # Before obtaining the application list, the rss service needs to call the DataShare interface to query the database information to check whether the user agrees to the authorization
 allow resource_schedule_service distributeddata:binder { transfer };
 allow resource_schedule_service vendor_bin_file:dir { search };
-allow resource_schedule_service hdf_devhost_exec:dir { search };
 allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };

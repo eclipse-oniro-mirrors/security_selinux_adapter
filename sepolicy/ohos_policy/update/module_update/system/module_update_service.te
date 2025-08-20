@@ -40,7 +40,6 @@ allow module_update_service system_bin_file:file { entrypoint map read execute }
 allow module_update_service system_module_update_file:dir { getattr open read search };
 allow module_update_service system_module_update_file:file { getattr open read };
 allow module_update_service vendor_bin_file:dir { search };
-allow module_update_service hdf_devhost_exec:dir { search };
 allow module_update_service system_file:dir { read search getattr open };
 allow module_update_service update_firmware_file:dir { add_name search write remove_name getattr append read open };
 allow module_update_service update_firmware_file:file { append create open read write rename unlink getattr setattr map };
