@@ -12,3 +12,4 @@
 # limitations under the License.
 
 persist.global.tz_override              u:object_r:i18n_param_tz_override:s0
+persist.global.language                 u:object_r:i18n_param_tz_override:s0
