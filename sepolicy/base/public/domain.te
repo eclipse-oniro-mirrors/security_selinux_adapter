@@ -344,4 +344,4 @@ neverallow { domain developer_only(`-debug_hap') debug_only(`-su') -isolated_ren
 neverallow { domain } data_local_tmp:file execute_no_trans;
 
 # limit domain has code_protect permission
-neverallow { domain -ark_aot_compiler -native_daemon debug_only(`-hiperf') } self:hmcap { code_protect };
+neverallow { domain -ark_aot -ark_aot_compiler -native_daemon debug_only(`-hiperf') } self:hmcap { code_protect };
