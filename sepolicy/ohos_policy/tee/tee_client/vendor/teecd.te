@@ -58,7 +58,7 @@ allow teecd tee_src_file:dir { search };
 
 allow teecd vendor_bin_file:dir { search read open };
 allow teecd hdf_devhost_exec:file { entrypoint execute map read open getattr };
-allow teecd hdf_devhost_exec:dir { search };
+allow teecd hdf_devhost_exec:file { read open getattr };
 allow teecd vendor_etc_file:dir { search };
 allow teecd vendor_etc_file:file { read open getattr };
 allow teecd dev_console_file:chr_file { read write };

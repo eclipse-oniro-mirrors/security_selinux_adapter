@@ -94,3 +94,4 @@ allowxperm composer_host dev_graphics_file:chr_file ioctl { 0x4611 };
 allowxperm composer_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allowxperm composer_host dev_rga:chr_file ioctl { 0x5017 0x601b };
 allow composer_host composer_host:capability {sys_nice};
+allow composer_host hdf_devhost_exec:file { getattr open };

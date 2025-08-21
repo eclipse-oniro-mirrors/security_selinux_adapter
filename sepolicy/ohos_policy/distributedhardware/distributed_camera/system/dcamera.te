@@ -166,7 +166,6 @@ allow dcamera sa_dhardware_service:samgr_class { get };
 
 #avc:  denied  { search } for  pid=3030 comm="sa_main" name="bin" dev="sdd72" ino=12 scontext=u:r:dcamera:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=1
 allow dcamera vendor_bin_file:dir { search };
-allow dcamera hdf_devhost_exec:dir { search };
 
 #avc:  denied  { call } for  pid=571 comm="msdp" scontext=u:r:dcamera:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow dcamera accesstoken_service:binder { call };

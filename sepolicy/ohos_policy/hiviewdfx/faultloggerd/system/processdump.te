@@ -176,6 +176,7 @@ allow processdump hiviewdfx_hiview_param:file { map open read };
 
 allow processdump dev_bbox:chr_file { ioctl open write };
 allowxperm processdump dev_bbox:chr_file ioctl 0xab09;
+allow processdump hdf_devhost_exec:file { getattr map open read };
 
 #============= dev_lperf ===================
 allow init dev_lperf:chr_file { getattr setattr };

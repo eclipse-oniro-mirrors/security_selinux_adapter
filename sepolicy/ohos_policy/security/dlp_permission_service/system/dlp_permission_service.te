@@ -105,7 +105,6 @@ allow dlp_permission_service sa_foundation_cesfwk_service:samgr_class { get };
 allow dlp_permission_service sysfs_devices_system_cpu:file { getattr open read };
 allow dlp_permission_service system_bin_file:dir { search };
 allow dlp_permission_service vendor_bin_file:dir { search };
-allow dlp_permission_service hdf_devhost_exec:dir { search };
 allowxperm dlp_permission_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
 allowxperm dlp_permission_service dlp_permission_data_file:file ioctl { 0x5413 };
 allow dlp_permission_service dlp_permission_data_file:file { read };

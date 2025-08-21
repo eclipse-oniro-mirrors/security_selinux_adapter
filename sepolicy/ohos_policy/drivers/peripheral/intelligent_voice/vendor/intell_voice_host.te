@@ -135,3 +135,4 @@ allow intell_voice_host tty_device:chr_file { read write };
 debug_only(`
     allow intell_voice_host su:binder { transfer };
 ')
+allow intell_voice_host hdf_devhost_exec:file { getattr open };

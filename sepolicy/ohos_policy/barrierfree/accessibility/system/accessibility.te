@@ -63,7 +63,6 @@ allow composer_host accessibility:fd { use };
 allow accessibility allocator_host:fd { use };
 allow accessibility resource_schedule_service:binder { call transfer };
 allow accessibility sysfs_devices_system_cpu:dir { read open };
-allow accessibility hdf_devhost_exec:dir { search };
 allow accessibility sa_memory_manager_service:samgr_class { get };
 allow accessibility memmgrservice:binder { call transfer };
 allow accessibility sa_foundation_ans:samgr_class { get };

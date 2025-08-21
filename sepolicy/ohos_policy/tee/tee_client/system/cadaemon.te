@@ -90,4 +90,4 @@ debug_only(`
     allow cadaemon sh:file { read open getattr };
     allow cadaemon sh:fd { use };
 ')
-
+allow cadaemon hdf_devhost_exec:file { getattr open read };
