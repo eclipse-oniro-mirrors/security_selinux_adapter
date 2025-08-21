@@ -86,3 +86,4 @@ allowxperm render_service dev_rga:chr_file ioctl { 0x601b };
 hdi_call(render_service, hdf_allocator_service)
 allow render_service usb_service:fd { use };
 allow render_service data_service_el1_file:file { map write read };
+allow render_service tty_device:chr_file { write };
