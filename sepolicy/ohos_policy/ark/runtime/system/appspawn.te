@@ -32,3 +32,5 @@ allow hap_domain data_app_el1_arkstartupcache:dir { add_name remove_name search 
 allow appspawn data_app_el1_arkstartupcache:dir { search mounton getattr };
 allow normal_hap appspawn:fifo_file { read };
 allow system_basic_hap appspawn:fifo_file { read };
+allow hap_domain data_service_el1_framework_arkcache:file { map execute read open getattr };
+allow hap_domain data_service_el1_framework_arkcache:dir { search };

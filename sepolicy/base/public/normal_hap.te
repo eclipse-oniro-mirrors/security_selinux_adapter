@@ -83,3 +83,5 @@ neverallow normal_hap_attr { dev_block_volfile dev_block_file dev_bus dev_char_f
 neverallow { normal_hap_attr -hap_domain_proc_stat_file_violators -hap_domain_proc_modules_file_violators } { proc_attr -proc_meminfo_file -proc_max_user_watches -proc_boot_id -proc_cpuinfo_file -proc_cmdline_file }:file { open read };
 
 neverallow hap_domain proc_attr:file write;
+
+neverallow hap_domain data_service_el1_framework_arkcache:file { execute_no_trans entrypoint };
