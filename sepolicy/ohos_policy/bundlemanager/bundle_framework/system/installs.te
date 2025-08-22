@@ -154,3 +154,8 @@ allow installs data_service_el2_file:lnk_file { getattr read rename };
 allow installs data_service_el2_hmdfs:lnk_file { getattr read rename };
 allow installs data_user_file:lnk_file { getattr read rename };
 allow installs data_service_el2_share:lnk_file { getattr read rename };
+allow installs hap_file_attr:lnk_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:fifo_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:sock_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:dir { getattr setattr relabelfrom relabelto unlink rename };
