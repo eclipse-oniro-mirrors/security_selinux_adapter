@@ -159,3 +159,9 @@ allow installs unlabeled:fifo_file { getattr relabelfrom rename setattr unlink r
 allow installs unlabeled:file { open read ioctl getattr setattr unlink relabelfrom relabelto rename };
 allow installs unlabeled:lnk_file { getattr relabelfrom rename setattr unlink read };
 allow installs unlabeled:sock_file { getattr relabelfrom rename setattr unlink read };
+allow installs hap_file_attr:lnk_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:fifo_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:sock_file { getattr setattr relabelfrom relabelto unlink rename };
+allow installs hap_file_attr:dir { getattr setattr relabelfrom relabelto unlink rename };
+
