@@ -138,3 +138,6 @@ allow drm_service accountmgr:binder { call };
 allow drm_service sa_accountmgr:samgr_class { get };
 binder_call(drm_service, distributeddata);
 allow drm_service sa_distributeddata_service:samgr_class { get };
+
+# binder fd
+allow drm_service foundation:fd {use};
