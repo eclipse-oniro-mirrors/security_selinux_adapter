@@ -542,3 +542,6 @@ allow powermgr intell_voice_service:binder { call };
 # avc: denied { ioctl } for pid=1506, comm="/system/bin/sa_main"  path="/dev/bbox" dev="" ino=54 ioctlcmd=0x4265 scontext=u:r:powermgr:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
 allow powermgr dev_bbox:chr_file { ioctl };
 allowxperm powermgr dev_bbox:chr_file ioctl { 0x4264 0x4265 };
+
+# avc: denied { call } for pid=1625, comm="/system/bin/sa_main"  scontext=u:r:powermgr:s0 tcontext=u:r:cloudfiledaemon:s0 tclass=binder permissive=1
+allow powermgr cloudfiledaemon:binder { call };
