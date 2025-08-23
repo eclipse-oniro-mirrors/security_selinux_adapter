@@ -89,12 +89,6 @@ static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
-#ifdef MCS_ENABLE
-static const std::string PRODUCT_CONFIG_FILE_TEST = "/version/etc/selinux/product_config";
-static const std::string DEFAULT_MCS_HAP_FILE_PREFIX_TEST = "mcsHapFileEnabled=";
-static bool g_mcsHapFileEnabledTest = false;
-#endif
-
 static HapFileInfo g_hapFileInfoWithoutFlags = {
     .pathNameOrig = {TEST_SUB_PATH_1},
     .apl = SYSTEM_CORE_APL,
@@ -232,34 +226,6 @@ static void GenerateTestFile()
     ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
 }
 
-#ifdef MCS_ENABLE
-static std::string DeleteNonLetter(std::string str)
-{
-    str.erase(std::remove_if(str.begin(), str.end(), [](char c) { return !std::isalpha(c); }), str.end());
-    return str;
-}
-
-static void SetDefaultConfig()
-{
-    std::ifstream configFile(PRODUCT_CONFIG_FILE_TEST);
-    if (!configFile) {
-        std::cout << "Read " << PRODUCT_CONFIG_FILE_TEST << " failed." << std::endl;
-        return;
-    }
-    std::string line;
-    bool hapFileMcsVisited = false;
-    while (getline(configFile, line) && !hapFileMcsVisited) {
-        size_t pos = line.find(DEFAULT_MCS_HAP_FILE_PREFIX_TEST);
-        if (pos == 0 && !hapFileMcsVisited) {
-            g_mcsHapFileEnabledTest =
-                !strcmp(DeleteNonLetter(line.substr(DEFAULT_MCS_HAP_FILE_PREFIX_TEST.size())).c_str(), "true");
-            hapFileMcsVisited = true;
-        }
-    }
-    configFile.close();
-}
-#endif
-
 static void RemoveTestFile()
 {
     unlink(SEHAP_CONTEXTS_FILE.c_str());
@@ -269,9 +235,6 @@ void SelinuxUnitTest::SetUpTestCase()
 {
     // make test case clean
     GenerateTestFile();
-#ifdef MCS_ENABLE
-    SetDefaultConfig();
-#endif
 }
 
 void SelinuxUnitTest::TearDownTestCase()
@@ -1083,11 +1046,7 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup008, TestSize.Level1)
     params.uid = TEST_UID;
 #ifdef MCS_ENABLE
     EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
-    if (params.isDomain || g_mcsHapFileEnabledTest) {
-        EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE_WITH_CATEGORY.c_str());
-    } else {
-        EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE.c_str());
-    }
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE_WITH_CATEGORY.c_str());
 #else
     EXPECT_EQ(test.HapContextsLookup(params, con), SELINUX_SUCC);
     EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE.c_str());

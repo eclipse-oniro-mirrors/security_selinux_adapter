@@ -311,7 +311,7 @@ ohos_shared_library("libservice_checker") {
 }
 
 ohos_executable("load_policy") {
-  install_enable = false
+  install_enable = true
   sources = [ "framework/tools/load_policy/load_policy.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [ ":libload_policy" ]
