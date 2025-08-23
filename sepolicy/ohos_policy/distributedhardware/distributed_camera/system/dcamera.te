@@ -270,3 +270,6 @@ allowxperm dcamera data_data_file:file ioctl { 0x5413 };
 
 #avc:  denied  { get } for service=200 sid=u:r:dcamera:s0 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
 allow dcamera sa_accountmgr:samgr_class { get };
+
+allowxperm dcamera dev_at_file:chr_file ioctl { 0x5413 };
+allow dcamera dhardware:fd { use };

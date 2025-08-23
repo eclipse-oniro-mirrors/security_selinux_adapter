@@ -163,6 +163,10 @@ allow daudio codec_host:binder { call transfer };
 
 allow daudio sa_accountmgr:samgr_class { get };
 
+allowxperm daudio dev_at_file:chr_file ioctl { 0x5413 };
+
+allow daudio dhardware:fd { use };
+
 debug_only(`
     allow daudio sh:binder { call };
 ')
