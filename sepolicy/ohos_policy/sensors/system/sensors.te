@@ -233,6 +233,18 @@ allow sensors wifi_manager_service:binder { call };
 #avc: denied { use } for pid=1518, comm="/system/bin/sa_main"  ioctlcmd=0x0  scontext=u:r:sensors:s0 tcontext=u:r:wifi_manager_service:s0 tclass=fd permissive=0
 allow sensors wifi_manager_service:fd { use };
 
+#avc: denied { read } for pid=27043, comm="/system/bin/sa_main"  scontext=u:r:sensors:s0 tcontext=u:r:security_collector:s0 tclass=unix_stream_socket permissive=0
+allow sensors security_collector:unix_stream_socket { read };
+
+#avc: denied { use } for pid=1489, comm="/system/bin/sa_main"  ioctlcmd=0x0  scontext=u:r:sensors:s0 tcontext=u:r:security_collector:s0 tclass=fd permissive=0
+allow sensors security_collector:fd { use };
+
+#avc: denied { use } for pid=1477, comm="/system/bin/sa_main"  ioctlcmd=0x0  scontext=u:r:sensors:s0 tcontext=u:r:netmanager:s0 tclass=fd permissive=0
+allow sensors netmanager:fd { use };
+
+#avc: denied { use } for pid=1495, comm="/system/bin/sa_main"  ioctlcmd=0x0  scontext=u:r:sensors:s0 tcontext=u:r:hiview:s0 tclass=fd permissive=0
+allow sensors hiview:fd { use };
+
 debug_only(`
     #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
     allow sensors sh:fd { use };
