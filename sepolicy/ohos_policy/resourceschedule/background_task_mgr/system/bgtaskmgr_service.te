@@ -153,6 +153,8 @@ allow time_service bgtaskmgr_service:binder { call };
 allow bgtaskmgr_service data_service_el1_public_bundle_usage:file { map open read getattr };
 allow bgtaskmgr_service data_service_el1_public_bundle_usage:dir { read search open getattr write add_name };
 allow bgtaskmgr_service dev_ashmem_file:chr_file { open };
+allow bgtaskmgr_service hdf_devmgr:binder { call };
+allow bgtaskmgr_service sa_device_service_manager:samgr_class { get };
 
 debug_only(`
     allow bgtaskmgr_service debug_param:file { map open read };
