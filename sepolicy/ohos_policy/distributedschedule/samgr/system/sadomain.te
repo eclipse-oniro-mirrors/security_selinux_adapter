@@ -17,6 +17,3 @@ allow sadomain accesstoken_service:binder { call };
 allow sadomain allocator_host:fd { use };
 allow { sadomain -installs } allocator_host:binder { call };
 allow sadomain hdf_allocator_service:hdf_devmgr_class { get };
-
-allow sadomain hdf_devmgr:binder { call };
-allow sadomain sa_device_service_manager:samgr_class { get };
