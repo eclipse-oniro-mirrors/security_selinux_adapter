@@ -13,3 +13,5 @@
 
 #avc:  denied  { call } for  pid=929 comm="VIDEO#2" scontext=u:r:camera_host:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=0
 allow camera_host av_codec_service:binder { call };
+allow camera_host appspawn:fd { use };
+allow camera_host hap_domain:fd { use };
