@@ -49,6 +49,7 @@ allow wallpaper_service hdf_codec_image_service:hdf_devmgr_class { get };
 allow wallpaper_service allocator_host:binder { call };
 allow wallpaper_service allocator_host:fd { use };
 allow wallpaper_service codec_host:binder { call };
+allow wallpaper_service codec_host:fd { use };
 allow wallpaper_service sa_memory_manager_service:samgr_class { get };
 allow wallpaper_service memmgrservice:binder { call };
 debug_only(`
