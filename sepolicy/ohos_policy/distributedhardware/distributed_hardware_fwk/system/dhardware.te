@@ -213,3 +213,4 @@ allow dhardware daudio_host:binder { call transfer };
 allow dhardware dcamera_host:binder { call transfer };
 allow dhardware hdf_distributed_camera_provider_service:hdf_devmgr_class { get };
 allow dhardware sa_accountmgr:samgr_class { get };
+allow dhardware dev_ashmem_file:chr_file { open };
