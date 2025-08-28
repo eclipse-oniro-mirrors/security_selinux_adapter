@@ -198,7 +198,8 @@ allow edm_sa sa_useriam_userauth_service:samgr_class { get };
 allow edm_sa sa_pasteboard_service:samgr_class { get };
 
 # avc:  denied  { call } for  pid=2537 comm="edm" scontext=u:r:edm_sa:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=0
-allow edm_sa pasteboard_service:binder { call };
+# avc:  denied  { transfer } for  pid=1436 comm="edm" scontext=u:r:edm_sa:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=0
+allow edm_sa pasteboard_service:binder { call transfer };
 
 # avc:  denied  { call } for  pid=1412, comm="/system/bin/sa_main" scontext=u:r:edm_sa:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=0
 allow edm_sa useriam:binder { call };
