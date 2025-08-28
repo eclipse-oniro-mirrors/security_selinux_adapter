@@ -340,6 +340,7 @@ attribute violator_hap_domain_file_sock_file;
 
 attribute violator_samgr_class_add_remote;
 attribute violator_isolated_render_execute_data_file_attr;
+attribute violator_isolated_gpu_execute_data_file_attr;
 attribute violator_appspawn_hap_file_attr_dir;
 attribute violator_appspawn_execute_data_file_attr_violator_file;
 attribute violator_appspawn_execute_hap_file_attr_file;
