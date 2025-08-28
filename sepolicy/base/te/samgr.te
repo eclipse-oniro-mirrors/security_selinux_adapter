@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow * { sa_service_attr -sa_distributed_bundle_mgr_service_service -sa_dhardware_service -sa_distributeschedule -sa_filemanagement_cloud_sync_service -sa_filemanagement_distributed_file_daemon_service -sa_avsession_service -cap_violator_addremote }:samgr_class add_remote;
+neverallow * { sa_service_attr -sa_distributed_bundle_mgr_service_service -sa_dhardware_service -sa_distributeschedule -sa_filemanagement_cloud_sync_service -sa_filemanagement_distributed_file_daemon_service -sa_avsession_service -cap_violator_addremote -sa_distributed_hardware_audio_sink_service -sa_distributed_hardware_audio_source_service -sa_dcamera_sink_service -sa_dcamera_source_service }:samgr_class add_remote;
 allow samgr bootevent_param:file { map open read };
 allow samgr bootevent_samgr_param:file { map open read };
 allow samgr build_version_param:file { map open read };
