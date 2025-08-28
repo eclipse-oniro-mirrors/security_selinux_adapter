@@ -298,3 +298,6 @@ allow hiview sa_netsys_native_manager:samgr_class { get };
 allow hiview data_log:fifo_file { create read write open unlink };
 
 allow hiview sa_xperf_service:samgr_class { add };
+
+allow hiview normal_hap:fd { use };
+
