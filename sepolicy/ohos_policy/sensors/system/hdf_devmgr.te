@@ -18,3 +18,4 @@ allow hdf_devmgr sensors:process { getattr };
 allow hdf_devmgr sensors:binder { transfer };
 
 allow hdf_devmgr bgtaskmgr_service:binder { transfer };
+allow hdf_devmgr { sadomain -netsysnative }:binder { transfer };
