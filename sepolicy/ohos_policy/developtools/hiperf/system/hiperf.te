@@ -275,3 +275,5 @@ allow hiperf SP_daemon:fd { use };
 allow hiperf SP_daemon:fifo_file { write };
 
 allow hiperf hiperf:hmcap { code_protect };
+
+neverallow { domain -hiperf -hiview } data_log_hiperf_file:file { write };
