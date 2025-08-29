@@ -75,3 +75,6 @@ allowxperm cert_manager_service cert_manager_service_file:file ioctl { 0xf50c };
 
 #avc:  denied  { open } for  pid=1430 comm="OS_IPC_1_1446" path="/dev/ashmem" dev="tmpfs" ino=256 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow cert_manager_service dev_ashmem_file:chr_file { open };
+
+# avc:  denied  { get } for service=401 sid=u:r:cert_manager_service:s0 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
+allow cert_manager_service sa_foundation_bms:samgr_class { get };
