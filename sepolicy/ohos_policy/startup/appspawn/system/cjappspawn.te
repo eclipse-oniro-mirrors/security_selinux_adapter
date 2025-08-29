@@ -120,6 +120,7 @@ allow cjappspawn cgroup:file { read open getattr };
 allow cjappspawn limit_domain:unix_dgram_socket { getopt setopt write };
 allow cjappspawn hisysevent_socket:sock_file { write };
 allow cjappspawn hiview:unix_dgram_socket { sendto };
+allow cjappspawn dev_dri_file:chr_file { open read write };
 
 
 allow cjappspawn cjappspawn_exec:file { execute_no_trans };

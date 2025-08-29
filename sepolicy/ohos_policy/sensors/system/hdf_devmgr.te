@@ -16,3 +16,6 @@ allow hdf_devmgr sensors:process { getattr };
 
 #avc:  denied  { transfer } for  pid=245 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow hdf_devmgr sensors:binder { transfer };
+
+allow hdf_devmgr bgtaskmgr_service:binder { transfer };
+allow hdf_devmgr { sadomain -netsysnative }:binder { transfer };
