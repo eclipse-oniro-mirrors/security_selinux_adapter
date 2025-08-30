@@ -14,8 +14,9 @@
 developer_only(`
     allow bytrace data_file:dir search;
     allow bytrace data_local:dir search;
-    allow bytrace data_log:dir { add_name search write };
-    allow bytrace data_log:file { create getattr open write };
+    allow bytrace data_log:dir search;
+    allow bytrace data_log_hitrace:dir { add_name search write };
+    allow bytrace data_log_hitrace:file { create getattr open write };
     allow bytrace data_local_tmp:dir { add_name search write create };
     allow bytrace data_local_tmp:file { create getattr open write };
     allow bytrace debug_param:parameter_service set;
