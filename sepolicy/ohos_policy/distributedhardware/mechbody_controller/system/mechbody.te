@@ -11,6 +11,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+binder_call(mechbody, bluetooth_service);
+
+binder_call(mechbody, multimodalinput);
+
+binder_call(mechbody, system_basic_hap_attr);
+
+binder_call(mechbody, normal_hap_attr);
+
+binder_call(mechbody, accountmgr);
+
+binder_call(mechbody, camera_service);
+
+binder_call(mechbody, foundation);
+
+binder_call(mechbody, resource_schedule_service);
+
+binder_call(mechbody, sensors);
+
 allow mechbody chip_prod_file:dir { search };
 
 allow mechbody mechbody:unix_dgram_socket { getopt setopt };
