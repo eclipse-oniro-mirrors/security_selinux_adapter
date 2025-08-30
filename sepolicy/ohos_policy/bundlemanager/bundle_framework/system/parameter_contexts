@@ -15,4 +15,3 @@ persist.bms.                 u:object_r:bms_param:s0
 persist.bms.optimizing_apps. u:object_r:bms_param:s0
 const.bms.optimizing_apps.   u:object_r:bms_param:s0
 bms.optimizing_apps.         u:object_r:bms_param:s0
-bms.scanning_apps.         u:object_r:bms_param:s0
