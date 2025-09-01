@@ -19,6 +19,7 @@ developer_only(`
 (allow hdcd dev_at_file (chr_file (open read write ))
 (allow hdcd dev_unix_file (sock_file (write))
 (allow hdcd hidebug_private_param (file (map open read ))
+(allow hdcd uitest (unix_stream_socket (write read connectto)))
 
 (allow hdcd dev_at_file (chr_file ()))
 (allow hdcd dev_encaps (chr_file (read open)))
