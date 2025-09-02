@@ -116,3 +116,5 @@ allow camera_service sa_msdp_motion_service:samgr_class { get };
 allow camera_service msdp_sa:binder { call transfer };
 allow camera_service sys_prod_file:dir { search };
 allow camera_service hdf_camera_service_usb:hdf_devmgr_class { get };
+allow camera_service sa_resource_schedule:samgr_class { get };
+allow camera_service resource_schedule_service:binder { call transfer };
