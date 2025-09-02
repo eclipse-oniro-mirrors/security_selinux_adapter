@@ -276,4 +276,6 @@ allow hiperf SP_daemon:fifo_file { write };
 
 allow hiperf hiperf:hmcap { code_protect };
 
-neverallow { domain -hiperf -hiview } data_log_hiperf_file:file { write };
+# define data_log_hiperf_file attribute for neverallows
+attribute violator_data_log_hiperf_file_write;
+neverallow { domain -hiperf -hiview -violator_data_log_hiperf_file_write } data_log_hiperf_file:file { write };
