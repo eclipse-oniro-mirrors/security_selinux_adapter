@@ -1,0 +1,60 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow mechbody chip_prod_file:dir { search };
+
+allow mechbody mechbody:unix_dgram_socket { getopt setopt };
+
+allow mechbody bluetooth_service:binder { call transfer };
+
+allow mechbody sa_bluetooth_server:samgr_class { get };
+
+allow mechbody dev_kmsg_file:chr_file { write };
+
+allow mechbody persist_sys_param:file { map open read };
+
+allow mechbody sa_mechbody_service:samgr_class { add };
+
+allow mechbody sys_param:file { map open read };
+
+allow mechbody sysfs_devices_system_cpu:file { getattr open read };
+
+allow mechbody multimodalinput:binder { call };
+
+allow mechbody sa_multimodalinput_service:samgr_class { get };
+
+allow mechbody dev_unix_socket:dir { search };
+
+allow mechbody system_basic_hap_attr:binder { call transfer };
+
+allow mechbody normal_hap_attr:binder { call transfer };
+
+allow mechbody sa_accountmgr:samgr_class { get };
+
+allow mechbody sa_camera_service:samgr_class { get };
+
+allow mechbody sa_sensor_service:samgr_class { get };
+
+allow mechbody accountmgr:binder { call };
+
+allow mechbody camera_service:binder { call transfer };
+
+allow mechbody foundation:binder { call };
+
+allow mechbody resource_schedule_service:binder { call };
+
+allow mechbody sa_foundation_bms:samgr_class { get };
+
+allow mechbody sa_resource_schedule:samgr_class { get };
+
+allow mechbody sensors:binder { call transfer };
