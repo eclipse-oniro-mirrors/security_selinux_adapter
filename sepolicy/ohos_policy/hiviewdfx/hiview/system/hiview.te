@@ -301,3 +301,5 @@ allow hiview sa_xperf_service:samgr_class { add };
 
 allow hiview normal_hap:fd { use };
 
+# avc: denied { call } for pid=619, comm="/system/bin/hiview"  scontext=u:r:hiview:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
+allow hiview av_codec_service:binder { call };
