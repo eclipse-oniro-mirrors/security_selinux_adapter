@@ -34,10 +34,10 @@ allow hiview hiview_file:dir { search getattr read open write add_name remove_na
 allow hiview hiview_file:file { getattr setattr append ioctl unlink map read write getattr open lock rename };
 
 allow hiview data_file:dir { search };
-allow hiview data_log:dir { add_name open read search watch write create remove_name };
+allow hiview  { data_log data_log_hitrace }:dir { add_name open read search watch write create remove_name };
 #avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
-allow hiview data_log:file { create getattr lock map open read write unlink rename append ioctl };
-allowxperm hiview data_log:file ioctl { 0x5413 0xf546 0xf547 };
+allow hiview { data_log data_log_hitrace }:file { create getattr lock map open read write unlink rename append ioctl };
+allowxperm hiview { data_log data_log_hitrace }:file ioctl { 0x5413 0xf546 0xf547 };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
@@ -295,7 +295,7 @@ allowxperm hiview hiview_sys_def_file:file ioctl { 0x5413 };
 # avc: denied { get } for service=1158 sid=u:r:hiview:s0 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_netsys_native_manager:s0	tclass=samgr_class permissive=O
 allow hiview sa_netsys_native_manager:samgr_class { get };
 
-allow hiview data_log:fifo_file { create read write open unlink };
+allow hiview { data_log data_log_hitrace }:fifo_file { create read write open unlink };
 
 allow hiview sa_xperf_service:samgr_class { add };
 
