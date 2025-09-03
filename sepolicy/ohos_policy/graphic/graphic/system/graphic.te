@@ -56,6 +56,11 @@ allow render_service drawing_engine_sample:file { getattr map open read };
 allow render_service drawing_sample_replayer:file { getattr map open read };
 allow render_service sa_foundation_appms:samgr_class { get };
 allow render_service camera_service:fd { use };
+allow render_service cameradaemon:fd { use };
+allow render_service distributedsched:fd { use };
+allow render_service sharing_service:fd { use };
+allow render_service dscreen:fd { use };
+allow render_service av_codec_service:fd { use };
 
 debug_only(`
     allow render_service sh:fd { use };
