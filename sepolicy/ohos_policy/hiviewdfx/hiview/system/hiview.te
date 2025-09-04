@@ -261,9 +261,9 @@ allow hiview distributeddata:binder { call transfer };
 allow hiview distributeddata:fd { use };
 
 allow sadomain dev_bbox:chr_file { ioctl read open write };
-allowxperm sadomain dev_bbox:chr_file ioctl { 0xab09 };
+allowxperm sadomain dev_bbox:chr_file ioctl { 0xab09 0xab0a };
 
-neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0xaf07 0xaf08 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };
+neverallowxperm hiview dev_bbox:chr_file ioctl ~{ 0xab09 0xab0a 0xaf01 0xaf02 0xaf03 0xaf04 0xaf05 0xaf06 0xaf07 0xaf08 0x4264 0x4265 0x4266 0x426a 0x426f 0x5413 0x601 };
 
 #avc: denied { get } for service=4607 pid=8375 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
 allow hiview sa_foundation_dms:samgr_class { get };
