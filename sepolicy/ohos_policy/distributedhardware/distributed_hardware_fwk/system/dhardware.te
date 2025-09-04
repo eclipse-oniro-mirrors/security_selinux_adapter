@@ -204,6 +204,8 @@ binder_call(dhardware, powermgr);
 #avc:  denied  { get } for service=3301 pid=4564 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
 allow dhardware sa_powermgr_powermgr_service:samgr_class { get };
 
+allow dhardware sa_accountmgr:samgr_class { get };
+
 binder_call(dhardware, accountmgr);
 
 allow dhardware hdf_device_manager:hdf_devmgr_class { get };
