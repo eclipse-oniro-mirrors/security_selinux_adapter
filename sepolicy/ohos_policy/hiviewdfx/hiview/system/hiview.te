@@ -303,3 +303,28 @@ allow hiview normal_hap:fd { use };
 
 # avc: denied { call } for pid=619, comm="/system/bin/hiview"  scontext=u:r:hiview:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
 allow hiview av_codec_service:binder { call };
+
+define(`hiview_cmd', `
+    allow hiview $1:file { getattr map open read };
+')
+
+hiview_cmd({
+    app_el1_bundle_public
+    arkcompiler_param
+    ark_writeable_param
+    chip_prod_file
+    data_app_el1_file
+    data_file
+    data_service_el1_file
+    dev_parameters_file
+    domain
+    exec_attr
+    foundation
+    sys_prod_file
+    system_bin_file
+    system_file
+    system_lib_file
+    system_usr_file
+    vendor_file
+    vendor_lib_file
+})
