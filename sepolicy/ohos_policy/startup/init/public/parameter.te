@@ -38,6 +38,7 @@ typeattribute telephony_sa devinfo_type_allow_attr;
 typeattribute wifi_manager_service devinfo_type_allow_attr;
 typeattribute usb_service devinfo_type_allow_attr;
 typeattribute bootanimation devinfo_type_allow_attr;
+typeattribute backup_sa devinfo_type_allow_attr;
 
 neverallow {sadomain -devinfo_type_allow_attr} devinfo_type_param:file {open read map};
 allow {domain -sadomain } devinfo_type_param:file {open read map};
