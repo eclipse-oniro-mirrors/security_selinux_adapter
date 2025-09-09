@@ -31,7 +31,7 @@ processdump_cmd({
     arkcompiler_param
     ark_writeable_param
     chip_prod_file
-    data_app_el1_file # remove later
+    data_app_el1_file
     data_file
     data_service_el1_file
     dev_parameters_file
