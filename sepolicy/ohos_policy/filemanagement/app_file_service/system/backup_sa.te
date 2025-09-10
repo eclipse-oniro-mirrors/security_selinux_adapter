@@ -91,3 +91,4 @@ allow backup_sa dev_block_file:dir { search };
 allow backup_sa dev_block_file:lnk_file { read };
 allow backup_sa dev_block_volfile:dir { search };
 allow backup_sa labeledfs:filesystem { quotaget };
+allow backup_sa devinfo_type_param:file { open read map };
