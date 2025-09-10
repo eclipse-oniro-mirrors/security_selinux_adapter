@@ -13,8 +13,8 @@
 
 neverallow { domain -hitrace -bytrace -hiview -hiprofiler_plugins } hitrace_param:parameter_service set;
 
-neverallow { domain -hitrace -bytrace -hiview -updater } data_log_hitrace:dir { add_name open read search watch write create remove_name getattr };
-neverallow { domain -hitrace -bytrace -hiview -updater } data_log_hitrace:file { create getattr lock map open read write unlink rename append ioctl };
+neverallow { domain -hitrace -bytrace -hiview -updater -init } data_log_hitrace:dir { add_name open read search watch write create remove_name getattr };
+neverallow { domain -hitrace -bytrace -hiview -updater -init } data_log_hitrace:file { create getattr lock map open read write unlink rename append ioctl };
 neverallow { domain -hiview -updater } data_log_hitrace:fifo_file { create read write open unlink };
 
 allow hitrace_param tmpfs:filesystem { associate };
