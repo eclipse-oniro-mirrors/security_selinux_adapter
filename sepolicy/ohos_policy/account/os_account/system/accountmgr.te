@@ -163,8 +163,6 @@ allow accountmgr netmanager:binder { call transfer };
 
 allow accountmgr accessibility:binder { call transfer };
 
-allow accountmgr multimodalinput:binder { call transfer };
-
 # add for test
 debug_only(`
     allow accountmgr sh:binder { call };
