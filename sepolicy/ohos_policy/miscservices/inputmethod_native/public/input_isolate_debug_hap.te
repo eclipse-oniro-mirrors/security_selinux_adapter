@@ -26,7 +26,7 @@ developer_only(`
     allow input_isolate_debug_hap sa_privacy_service:samgr_class { get };
     allow input_isolate_debug_hap sa_render_service:samgr_class { get };
     allow input_isolate_debug_hap sa_resource_schedule:samgr_class { get };
-    #avc:  denied { get } for service=3702 sid=u:r:input_isolate_hap:s0 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=0
+    #avc: denied { get } for service=3702 sid=u:r:input_isolate_hap:s0 scontext=u:r:input_isolate_hap:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=0
     allow input_isolate_debug_hap sa_time_service:samgr_class { get };
 
     #avc:  denied { write } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket permissive=1
@@ -54,8 +54,6 @@ developer_only(`
     #avc:  denied { getopt } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=unix_dgram_socket permissive=1
     #avc:  denied { setopt } for pid=13826, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=unix_dgram_socket permissive=1
     allow input_isolate_debug_hap input_isolate_debug_hap:unix_dgram_socket { getopt setopt };
-    #avc:  denied { supervsable } for pid=6797, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=hmcap permissive=0
-    allow input_isolate_debug_hap input_isolate_debug_hap:hmcap { supervsable };
     #avc:  denied { create } for pid=4262, comm="/system/bin/appspawn" scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:r:input_isolate_debug_hap:s0 tclass=netlink_route_socket permissive=1
     allow input_isolate_debug_hap input_isolate_debug_hap:netlink_route_socket { create bind };
 
@@ -78,7 +76,6 @@ developer_only(`
 
     allow input_isolate_debug_hap data_app_el2_file:dir { add_name search read write create open remove_name setattr getattr };
     allow input_isolate_debug_hap data_app_file:dir { search };
-    allow input_isolate_debug_hap data_service_el2_file:dir { read write add_name create getattr open remove_name rmdir search setattr };
     allow input_isolate_debug_hap faultloggerd:fifo_file write;
 
     allow input_isolate_debug_hap dev_ashmem_file:chr_file { open };

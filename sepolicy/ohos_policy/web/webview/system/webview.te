@@ -1,0 +1,18 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { set } for parameter=web.engine.default pid=10001 uid=0 gid=0 scontext=u:r:appspawn:s0 tcontext=u:object_r:default_param:s0 tclass=parameter_service permissive=0
+# avc:  denied  { set } for parameter=web.engine.enforce pid=10001 uid=0 gid=0 scontext=u:r:appspawn:s0 tcontext=u:object_r:default_param:s0 tclass=parameter_service permissive=0
+allow appspawn web_private_param:parameter_service { set };
+allow { hap_domain isolated_render appspawn init isolated_gpu } web_private_param:file { map open read };
+

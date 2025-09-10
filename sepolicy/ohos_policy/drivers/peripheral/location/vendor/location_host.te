@@ -63,3 +63,4 @@ allow location_host hdf_geofence_intf_service:hdf_devmgr_class { add };
 allow location_host hdf_cellfence_interface_service:hdf_devmgr_class { add };
 allow location_host hdf_cellbatching_interface_service:hdf_devmgr_class { add };
 allow location_host hdf_wififence_interface_service:hdf_devmgr_class { add };
+allow location_host sys_file:file { read open };

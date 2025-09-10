@@ -137,3 +137,6 @@ allow av_codec_service foundation:binder { call };
 allow av_codec_service dev_kmsg_file:chr_file { open read write };
 allow av_codec_service tty_device:chr_file { open read write };
 allow av_codec_service sys_prod_file:dir { search };
+
+# avc:  denied  { get } for service=8600 sid=u:r:av_codec_service:s0 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sa_xperf_service:s0 tclass=samgr_class permissive=1
+allow av_codec_service sa_xperf_service:samgr_class { get };

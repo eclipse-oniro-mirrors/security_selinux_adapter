@@ -265,8 +265,5 @@ allow msdp_sa cgroup:file { getattr open read };
 # avc:  denied  { get } for service=allocator_service sid=u:r:msdp_sa:s0 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
 allow msdp_sa hdf_allocator_service:hdf_devmgr_class { get };
 
-# avc:  denied  { get } for service=allocator_service sid=u:r:msdp_sa:s0 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
-allow msdp_sa hdf_allocator_service:hdf_devmgr_class { get };
-
 # avc: denied { transfer } for pid=1211, comm="/system/bin/sa_main"  scontext=u:r:msdp_sa:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
 allow msdp_sa hap_domain:binder { transfer };

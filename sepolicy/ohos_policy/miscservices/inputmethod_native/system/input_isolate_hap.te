@@ -20,11 +20,11 @@ developer_only(`
 
 allow input_isolate_hap system_file:file { open read getattr map };
 
-allow input_isolate_hap concurrent_task_service:binder { call };
-
 allow input_isolate_hap normal_hap_data_file_attr:dir { rmdir create setattr getattr write add_name remove_name search open read rename };
 allow input_isolate_hap normal_hap_data_file_attr:file { create read write open getattr setattr map append rename unlink lock ioctl };
 allowxperm input_isolate_hap normal_hap_data_file_attr:file ioctl { 0x5413 0xf50c 0xf546 };
+
+allow input_isolate_hap concurrent_task_service:binder { call };
 
 allow input_isolate_hap ark_profile:file { read open map };
 
@@ -32,4 +32,5 @@ allow input_isolate_hap data_app_el1_arkprofile:dir { search };
 
 allow input_isolate_hap hisysevent_socket:sock_file { write };
 allow input_isolate_hap hilog_input_socket:sock_file { write };
+allow input_isolate_hap dev_unix_socket:dir { search };
 

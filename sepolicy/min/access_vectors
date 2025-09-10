@@ -588,6 +588,7 @@ class hmcap
     pid_mem_write
     exec_non_lsyscall
     code_protect
+    sec_mode_trusted
 }
 
 class dmaheap

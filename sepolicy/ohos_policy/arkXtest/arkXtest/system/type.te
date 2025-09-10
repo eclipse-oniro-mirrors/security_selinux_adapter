@@ -50,6 +50,7 @@ developer_only(`
     allow uitest hdcd:fifo_file { read write ioctl };
     allow uitest hdcd:fd { use };
     allow uitest hdcd:unix_stream_socket { read write };
+    allow hdcd uitest:unix_stream_socket { connectto read write };
     allowxperm uitest hdcd:fifo_file ioctl { 0x5413 };
     allow uitest samgr:binder { call };
     allow uitest sh:fd { use };

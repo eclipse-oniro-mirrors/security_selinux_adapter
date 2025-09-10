@@ -42,7 +42,8 @@ developer_only(`
     # avc:  denied  { search } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=dir permissive=0
     allow samgr ime:dir { search };
     # avc:  denied  { transfer } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=binder permissive=0
-    allow samgr ime:binder { transfer };
+    # avc:  denied  { call } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=binder permissive=0
+    allow samgr ime:binder { call transfer };
     # avc:  denied  { open } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=file permissive=0
     # avc:  denied  { read } scontext=u:r:samgr:s0 tcontext=u:r:ime:s0 tclass=file permissive=0
     allow samgr ime:file { open read };
@@ -57,8 +58,8 @@ developer_only(`
 
     #for ime run
     domain_auto_transition_pattern(sh, ime_exec, ime);
-    
-    allow ime samgr:binder { call };
+    # avc:  denied  { transfer } scontext=u:r:ime:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+    allow ime samgr:binder { call transfer };
     allow ime sa_inputmethod_service:samgr_class { get };
     allow ime inputmethod_service:binder { call transfer };
     allow inputmethod_service ime:binder { call transfer };

@@ -18,4 +18,4 @@ neverallow kernel hmdfs:dir ioctl;
 neverallow kernel hmdfs:file ioctl;
 allow kernel data_service_el2_hmdfs:dir { create_dir_perms };
 allow kernel data_service_el2_hmdfs:file { create_file_perms };
-allow kernel hdf_devhost_exec:file { getattr open read};
+allow kernel hdf_devhost_exec:file { getattr open read };

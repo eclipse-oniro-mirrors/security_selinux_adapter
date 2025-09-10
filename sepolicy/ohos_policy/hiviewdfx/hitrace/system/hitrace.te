@@ -14,8 +14,9 @@
 developer_only(`
     allow hitrace data_file:dir search;
     allow hitrace data_local:dir search;
-    allow hitrace data_log:dir { add_name search write };
-    allow hitrace data_log:file { create getattr open write };
+    allow hitrace data_log:dir search;
+    allow hitrace data_log_hitrace:dir { add_name search write };
+    allow hitrace data_log_hitrace:file { create getattr open write };
     allow hitrace data_local_tmp:dir { add_name search write create };
     allow hitrace data_local_tmp:file { create getattr open write };
     allow hitrace debug_param:parameter_service set;
@@ -85,5 +86,7 @@ developer_only(`
     allow hitrace self:unix_dgram_socket { getopt setopt };
     allow hitrace hiview:unix_dgram_socket {  read write sendto };
 ')
+
+allow hiview data_log_hitrace:dir getattr;
 
 neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor -appspawn } tracefs:file write_file_perms;
