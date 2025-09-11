@@ -103,3 +103,4 @@ allow print_service print_driver_exec:lnk_file { create getattr };
 allow print_service sa_foundation_appms:samgr_class { get };
 allow print_service sa_distributeddata_service:samgr_class { get };
 allow print_service distributeddata:binder { call };
+allow print_service distributeddata:fd { use };
