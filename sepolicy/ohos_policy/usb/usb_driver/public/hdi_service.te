@@ -16,3 +16,4 @@ debug_only(`
     allow usb_host su:fd { use };
     allow usb_service su:fd { use };
 ')
+allow usb_host dev_bus_usb_file:file { write };
