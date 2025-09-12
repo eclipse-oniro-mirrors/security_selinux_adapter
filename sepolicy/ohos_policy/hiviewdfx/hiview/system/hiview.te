@@ -328,3 +328,6 @@ hiview_cmd({
     vendor_file
     vendor_lib_file
 })
+
+# avc:  denied  { get } for service=180 sid=u:r:hiview:s0 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+allow hiview sa_foundation_abilityms:samgr_class { get };
