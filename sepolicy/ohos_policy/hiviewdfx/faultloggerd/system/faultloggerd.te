@@ -47,7 +47,8 @@ use_faultloggerd_file({ hiview hidumper })
 use_faultloggerd_sdkdump({ hiview hidumper foundation })
 
 neverallow { domain -processdump } faultloggerd_socket_crash:sock_file { write read ioctl };
-neverallow { domain -processdump -foundation -hidumper -hiview -dumpcatcher -appspawn } faultloggerd_socket_sdkdump:sock_file { write read ioctl };
+neverallow { domain -processdump -foundation -hidumper -hiview -dumpcatcher -appspawn -violator_faultloggerd_socket_sdkdump_write } faultloggerd_socket_sdkdump:sock_file { write };
+neverallow { domain -processdump -foundation -hidumper -hiview -dumpcatcher -appspawn } faultloggerd_socket_sdkdump:sock_file { read ioctl };
 #########################
 ## faultloggerd rules: ##
 #########################
