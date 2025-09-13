@@ -43,6 +43,12 @@ allow storage_daemon domain:dir { search read open };
 allow storage_daemon domain:lnk_file { read };
 allow storage_daemon domain:process { sigkill };
 
+allow storage_daemon data_file_attr:dir { getattr read open search };
+allow storage_daemon data_file_attr:file { getattr };
+allow storage_daemon data_file_attr:lnk_file { getattr };
+allow storage_daemon data_file_attr:fifo_file { getattr };
+allow storage_daemon data_file_attr:sock_file { getattr };
+
 #avc:  denied  { call } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow storage_daemon accesstoken_service:binder { call };
 
