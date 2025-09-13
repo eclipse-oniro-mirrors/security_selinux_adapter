@@ -11,8 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -init -module_update_service -module_update_file_violator_file_dir updater_only(`-updater') } { data_module_update
+neverallow { domain -storage_daemon -init -module_update_service -module_update_file_violator_file_dir updater_only(`-updater') } { data_module_update
   data_module_update_package system_module_update_file }:{ file dir } *;
+neverallow storage_daemon { data_module_update data_module_update_package system_module_update_file }:file ~{ getattr };
+neverallow storage_daemon { data_module_update data_module_update_package system_module_update_file }:dir ~{ getattr read open search };
 
 # sa process which support module update should add itself here
 neverallow { domain -init -module_update_service -foundation -module_update_binary_file_violator_file_dir } { module_update_file
