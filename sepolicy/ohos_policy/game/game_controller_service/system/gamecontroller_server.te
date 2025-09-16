@@ -1,0 +1,87 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow gamecontroller_server sa_gamecontroller_server:samgr_class { add };
+
+binder_call(gamecontroller_server, foundation);
+binder_call(gamecontroller_server, debug_hap);
+binder_call(gamecontroller_server, normal_hap_attr);
+
+allow gamecontroller_server normal_hap:dir { search open read };
+allow gamecontroller_server normal_hap:file { getattr open read };
+
+# avc_audit_slow:277] avc: denied { search } for pid=6681, comm="/system/bin/sa_main"  name="/lib64" dev="overlay" ino=1 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=dir permissive=1
+allow gamecontroller_server chip_prod_file:dir { search };
+
+# avc_audit_slow:277] avc: denied { map } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=260 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc_audit_slow:277] avc: denied { open } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=260 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc_audit_slow:277] avc: denied { read } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=260 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow gamecontroller_server debug_param:file { map open read };
+
+# avc_audit_slow:277] avc: denied { write } for pid=6681, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=23 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow gamecontroller_server dev_kmsg_file:chr_file { write };
+
+# avc_audit_slow:277] avc: denied { getopt } for pid=6681, comm="/system/bin/sa_main"  scontext=u:r:gamecontroller_server:s0 tcontext=u:r:gamecontroller_server:s0 tclass=unix_dgram_socket permissive=1
+# avc_audit_slow:277] avc: denied { setopt } for pid=6681, comm="/system/bin/sa_main"  scontext=u:r:gamecontroller_server:s0 tcontext=u:r:gamecontroller_server:s0 tclass=unix_dgram_socket permissive=1
+allow gamecontroller_server gamecontroller_server:unix_dgram_socket { getopt setopt };
+
+# avc_audit_slow:277] avc: denied { map } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=259 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc_audit_slow:277] avc: denied { open } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=259 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc_audit_slow:277] avc: denied { read } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=259 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+allow gamecontroller_server persist_sys_param:file { map open read };
+
+# avc_audit_slow:277] avc: denied { map } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=247 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+# avc_audit_slow:277] avc: denied { open } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=247 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+# avc_audit_slow:277] avc: denied { read } for pid=6681, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:sys_param:s0" dev="" ino=247 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+allow gamecontroller_server sys_param:file { map open read };
+
+# avc_audit_slow:277] avc: denied { search } for pid=8143, comm="/system/bin/sa_main"  name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=9 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow gamecontroller_server data_service_file:dir { search };
+
+# avc_audit_slow:277] avc: denied { search } for pid=8143, comm="/system/bin/sa_main"  name="/unix/socket" dev="" ino=229 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow gamecontroller_server dev_unix_socket:dir { search };
+
+# avc:  denied  { get } for service=401 sid=u:r:gamecontroller_server:s0 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+allow gamecontroller_server sa_foundation_bms:samgr_class { get };
+
+# avc_audit_slow:278] avc: denied { search } for pid=9185, comm="/system/bin/sa_main"  name="/service/el1/public/gamecontroller_server" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=3795 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc_audit_slow:278] avc: denied { write add_name search } for pid=9185, comm="/system/bin/sa_main"  name="/service/el1/public/gamecontroller_server" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=3795 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow gamecontroller_server data_service_el1_file:dir { search write add_name search };
+
+# avc_audit_slow:278] avc: denied { create } for pid=9185, comm="/system/bin/sa_main"  name="/service/el1/public/gamecontroller_server/device_config.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55160 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { getattr } for pid=9185, comm="/system/bin/sa_main"  path="/data/service/el1/public/gamecontroller_server/game_support_key_mapping.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55153 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { ioctl } for pid=9185, comm="/system/bin/sa_main"  path="/data/service/el1/public/gamecontroller_server/game_support_key_mapping.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55153 ioctlcmd=0x5413 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { open } for pid=9185, comm="/system/bin/sa_main"  path="/data/service/el1/public/gamecontroller_server/game_support_key_mapping.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55153 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { read } for pid=9185, comm="/system/bin/sa_main"  path="/data/service/el1/public/gamecontroller_server/device_config.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55160 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { setattr } for pid=9185, comm="/system/bin/sa_main"  name="/service/el1/public/gamecontroller_server/device_config.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55160 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { write } for pid=9185, comm="/system/bin/sa_main"  path="/data/service/el1/public/gamecontroller_server/game_support_key_mapping.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55153 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow gamecontroller_server data_service_el1_file:file { create getattr ioctl open read setattr write relabelto};
+
+
+# avc:  denied  { get } for service=3299 sid=u:r:gamecontroller_server:s0 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow gamecontroller_server sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc_audit_slow:278] avc: denied { getattr } for pid=9185, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=94 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { open } for pid=9185, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=94 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+# avc_audit_slow:278] avc: denied { read } for pid=9185, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=94 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow gamecontroller_server sysfs_devices_system_cpu:file { getattr open read };
+
+# avc_audit_slow:278] avc: denied { ioctl } for pid=9185, comm="/system/bin/sa_main"  path="/data/service/el1/public/gamecontroller_server/game_support_key_mapping.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=55153 ioctlcmd=0x5413 scontext=u:r:gamecontroller_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allowxperm gamecontroller_server data_service_el1_file:file ioctl { 0x5413 };
+
+allow gamecontroller_server hiviewdfx_hiview_param:file { read open map };
+
+allow gamecontroller_server persist_param:file { open read };
+
+allow gamecontroller_server data_file:dir { search };
+
