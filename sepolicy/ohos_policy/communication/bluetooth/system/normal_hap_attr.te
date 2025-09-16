@@ -15,3 +15,5 @@ allow normal_hap_attr bluetooth_service:fd { use };
 
 allow normal_hap_attr bluetooth_service:unix_stream_socket { read write shutdown };
 
+# avc: denied { getattr } for pid=7707, comm="/system/bin/appspawn" ioctlcmd=0x541b scontext=o:r:debug_hap:s0:x228,x334,x512,x868,x1024 tcontext=u:r:bluetooth_service:s0 tclass=unix_stream_socket permissive=1
+allow normal_hap_attr bluetooth_service:unix_stream_socket { getattr };
