@@ -12,3 +12,4 @@
 # limitations under the License.
 
 8350                                   u:object_r:sa_app_fwk_update_service:s0
+8610                                   u:object_r:sa_web_native_messaging_service:s0

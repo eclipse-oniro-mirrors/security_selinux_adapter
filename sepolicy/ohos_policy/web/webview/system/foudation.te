@@ -27,3 +27,5 @@ allow foundation app_fwk_update_service:binder { call transfer };
 
 allow foundation isolated_gpu:binder { call transfer };
 allow foundation isolated_gpu:process { sigkill };
+
+allow foundation web_native_messaging_service:binder { call transfer };

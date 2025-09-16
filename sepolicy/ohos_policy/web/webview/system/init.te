@@ -15,3 +15,5 @@
 # avc_audit_slow:267] avc: denied { siginh } for pid=6959, comm="/system/bin/sa_main"  scontext=u:r:init:s0 tcontext=u:r:app_fwk_update_service:s0 tclass=process permissive=1
 # avc_audit_slow:267] avc: denied { transition } for pid=6959, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:app_fwk_update_service:s0 tclass=process permissive=1
 allow init app_fwk_update_service:process { rlimitinh siginh transition };
+
+allow init web_native_messaging_service:process { rlimitinh siginh transition };

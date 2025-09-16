@@ -27,3 +27,7 @@ allow hap_domain isolated_gpu:fd { use };
 allow hap_domain isolated_gpu:unix_stream_socket { read write shutdown getopt };
 
 allow hap_domain isolated_gpu:binder { call transfer };
+
+allow hap_domain sa_web_native_messaging_service:samgr_class { get };
+
+allow hap_domain web_native_messaging_service:binder { call transfer };
