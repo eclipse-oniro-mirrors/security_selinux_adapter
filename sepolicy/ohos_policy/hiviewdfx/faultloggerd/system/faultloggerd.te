@@ -43,7 +43,7 @@ define(`use_faultloggerd_sdkdump', `
 ##########################################
 use_faultloggerd(domain)
 use_faultloggerd_crash({ processdump })
-use_faultloggerd_file({ hiview hidumper })
+use_faultloggerd_file({ hiview hidumper hdfdomain sadomain })
 use_faultloggerd_sdkdump({ hiview hidumper foundation })
 
 neverallow { domain -processdump } faultloggerd_socket_crash:sock_file { write read ioctl };

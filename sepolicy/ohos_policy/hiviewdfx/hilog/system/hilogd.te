@@ -71,6 +71,7 @@ neverallow hilogd {
     -data_hilogd_file
     -data_init_agent
     -data_log
+    -faultloggerd_temp_file
 }:file { create write append };
 
 # ptrace any other app
