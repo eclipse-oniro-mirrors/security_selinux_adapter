@@ -20,4 +20,3 @@ allow sadomain hdf_allocator_service:hdf_devmgr_class { get };
 
 allow sadomain sa_device_service_manager:samgr_class { get };
 allow { sadomain -installs } hdf_devmgr:binder { call };
-
