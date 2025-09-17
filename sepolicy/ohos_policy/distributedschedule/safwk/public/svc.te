@@ -34,4 +34,5 @@ debug_only(`
 
     allow svc samgr:binder { transfer };
     allow samgr svc:binder { transfer call };
+    allow sadomain svc:fd { use };
 ')
