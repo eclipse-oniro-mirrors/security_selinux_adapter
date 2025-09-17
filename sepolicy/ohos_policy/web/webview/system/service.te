@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type sa_app_fwk_update_service, sa_service_attr;
+type sa_web_native_messaging_service, sa_service_attr;

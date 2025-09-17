@@ -16,3 +16,4 @@ type isolated_gpu, domain;
 type web_private_param, parameter_attr;
 type app_fwk_update_service, sadomain, domain;
 type arkweb_crashpad_handler_exec, exec_attr, file_attr, system_file_attr;
+type web_native_messaging_service, sadomain, domain;
