@@ -17,6 +17,4 @@ type hitrace, native_system_domain, domain;
 
 type hitrace_param, parameter_attr;
 
-type data_log_hitrace, file_attr, data_file_attr;
-
 domain_auto_transition_pattern(native_system_domain, hitrace_exec, hitrace);

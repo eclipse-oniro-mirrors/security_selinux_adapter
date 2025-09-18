@@ -12,5 +12,3 @@
 # limitations under the License
 
 /system/bin/hitrace	u:object_r:hitrace_exec:s0
-
-/data/log/hitrace(/.*)?  u:object_r:data_log_hitrace:s0
