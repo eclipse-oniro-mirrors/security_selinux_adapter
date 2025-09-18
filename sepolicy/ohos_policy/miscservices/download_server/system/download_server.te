@@ -12,7 +12,7 @@
 # limitations under the License.
 
 neverallow download_server { domain -download_server }:socket_class_set { setattr };
-neverallow download_server { file_attr -data_service_el1_file -data_log_sanitizer_file }:{ file_class_set dir_file_class_set } { setattr };
+neverallow download_server { file_attr -data_service_el1_file -data_log_sanitizer_file -faultloggerd_temp_file }:{ file_class_set dir_file_class_set } { setattr };
 
 allow download_server accesstoken_service:binder { call };
 allow download_server download_server:tcp_socket { read };

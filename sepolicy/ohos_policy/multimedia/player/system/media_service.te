@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow media_service { file_attr -data_service_el1_file -data_log_sanitizer_file }:{ file_class_set dir_file_class_set } { setattr };
+neverallow media_service { file_attr -data_service_el1_file -data_log_sanitizer_file -faultloggerd_temp_file }:{ file_class_set dir_file_class_set } { setattr };
 #avc:  denied  { getattr } for  pid=475 comm="media_service" path="/data/storage/el1/bundle/ohos.acts.multimedia.audio.audioplayer/assets/entry/resources/rawfile/01.mp3" dev="mmcblk0p11" ino=1307144 scontext=u:r:media_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
 allow media_service data_app_el1_file:file { getattr };
 
