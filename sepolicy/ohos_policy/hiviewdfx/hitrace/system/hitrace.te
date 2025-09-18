@@ -89,7 +89,4 @@ developer_only(`
 
 allow hiview data_log_hitrace:dir getattr;
 
-allow init data_log_hitrace:dir { getattr open read relabelto setattr };
-allow init data_log_hitrace:file { relabelto open read };
-
 neverallow { domain -hitrace -hiview -hiprofiler_plugins -hiperf -hiebpf -bytrace -init -audio_server -multimodalinput -media_monitor -appspawn } tracefs:file write_file_perms;
