@@ -72,5 +72,6 @@ allow app_fwk_update_service appspawn_socket:sock_file { write };
 
 # avc:  denied  { set } for parameter=web.engine.install.completed pid=12719 uid=3350 gid=3350 scontext=u:r:app_fwk_update_service:s0 tcontext=u:object_r:webengine_param:s0 tclass=parameter_service permissive=0
 allow app_fwk_update_service web_private_param:parameter_service { set };
+allow app_fwk_update_service devinfo_public_param:file { map open read };
 
 neverallow { domain -foundation } app_fwk_update_service:samgr_class { get };
