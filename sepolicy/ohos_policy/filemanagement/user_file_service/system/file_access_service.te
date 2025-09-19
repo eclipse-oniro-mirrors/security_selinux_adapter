@@ -110,3 +110,22 @@ allow file_access_service hap_domain:binder { transfer };
 
 # avc:denied { getopt } for pid=6408,comm="/system/bin/sa_main" scontex=u:r:file_acccess_services:s0 tcontext=u:r:file_access_service:s0 tclass=unix_dgram_socket permissive=1
 allow file_access_service file_access_service:unix_dgram_socket { getopt setopt };
+allow file_access_service accountmgr:binder { call transfer };
+allow file_access_service clouddiskservice:binder { call };
+allow file_access_service data_service_el1_file:dir { create open read write add_name remove_name search };
+allow file_access_service data_service_el1_file:file { append create getattr lock map open read write unlink };
+allow file_access_service data_service_el2_file:dir { search };
+allow file_access_service data_service_el2_hmdfs:dir { search };
+allow file_access_service data_service_file:dir { search };
+allow file_access_service data_user_file:dir { getattr search };
+allow file_access_service sa_accountmgr:samgr_class { get };
+allow file_access_service sa_filemanagement_cloud_disk_service:samgr_class { get };
+allow file_access_service sa_foundation_bms:samgr_class { get };
+allow file_access_service sa_foundation_cesfwk_service:samgr_class { get };
+allow file_access_service sa_sandbox_manager_service:samgr_class { get };
+allow file_access_service sandbox_manager_service:binder { call };
+allow file_access_service persist_param:file { read map open };
+allow file_access_service persist_param:parameter_service { set };
+allow file_access_service kernel:unix_stream_socket { connectto };
+allow file_access_service paramservice_socket:sock_file { write };
+allow accountmgr file_access_service:binder { transfer };
