@@ -14,7 +14,6 @@
 allow gamecontroller_server sa_gamecontroller_server:samgr_class { add };
 
 binder_call(gamecontroller_server, foundation);
-binder_call(gamecontroller_server, debug_hap);
 binder_call(gamecontroller_server, normal_hap_attr);
 
 allow gamecontroller_server normal_hap:dir { search open read };
@@ -81,7 +80,7 @@ allowxperm gamecontroller_server data_service_el1_file:file ioctl { 0x5413 };
 
 allow gamecontroller_server hiviewdfx_hiview_param:file { read open map };
 
-allow gamecontroller_server persist_param:file { open read };
+allow gamecontroller_server persist_param:file { open read map };
 
 allow gamecontroller_server data_file:dir { search };
 
