@@ -15,5 +15,8 @@ type dlp_permission_service, sadomain, domain;
 type dlpmanager_hap, normal_hap_attr, hap_domain, domain;
 type dlp_fuse_file, fs_attr;
 
-type dlp_sandbox_hap, normal_hap_attr, hap_domain, domain;
-type dlp_sandbox_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+type dlp_sandbox_read_only_hap, normal_hap_attr, hap_domain, domain;
+type dlp_sandbox_read_only_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+
+type dlp_sandbox_full_control_hap, normal_hap_attr, hap_domain, domain;
+type dlp_sandbox_full_control_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;

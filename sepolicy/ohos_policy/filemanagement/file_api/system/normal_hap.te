@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow normal_hap_attr normal_hap_data_file_attr:file { ioctl create getattr setattr lock append map unlink rename execute watch watch_reads };
-allow normal_hap_attr { normal_hap_data_file_attr -dlp_sandbox_hap_data_file }:file { read write open };
+allow normal_hap_attr { normal_hap_data_file_attr -dlp_sandbox_read_only_hap_data_file }:file { read write open };
+allow normal_hap_attr { normal_hap_data_file_attr -dlp_sandbox_full_control_hap_data_file }:file { read write open };
 
 allow normal_hap_attr normal_hap_data_file_attr:dir { watch watch_reads create reparent rename rmdir setattr open read getattr lock ioctl add_name remove_name write };

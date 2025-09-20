@@ -13,4 +13,5 @@
 #
 
 allow hap_domain normal_hap_data_file_attr:file { getattr };
-allow hap_domain { normal_hap_data_file_attr -dlp_sandbox_hap_data_file }:file { open read write };
+allow hap_domain { normal_hap_data_file_attr -dlp_sandbox_read_only_hap_data_file }:file { open read write };
+allow hap_domain { normal_hap_data_file_attr -dlp_sandbox_full_control_hap_data_file }:file { open read write };

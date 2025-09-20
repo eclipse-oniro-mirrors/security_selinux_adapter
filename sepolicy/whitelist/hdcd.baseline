@@ -319,7 +319,6 @@ developer_only(`
 (allow hdcd proc_max_user_watches (dir (getattr)))
 (allow hdcd i18n_param (file (read open map)))
 (allow hdcd data_local_traces (dir (read getattr open)))
-(allow hdcd dlp_sandbox_hap (unix_stream_socket (connectto)))
 (allow hdcd dev_parameters_file (file (watch_reads ioctl read open map lock watch getattr)))
 (allow hdcd config_usb_gadget (dir (getattr)))
 (allow hdcd debugfs_kprobes (dir (getattr)))
@@ -407,4 +406,6 @@ developer_only(`
 (allow hdcd data_hilogd_file (file (watch_reads read lock watch open ioctl map getattr)))
 (allow hdcd hisysevent (process (signal)))
 (allow hdcd dslm_service (fd (use)))
+(allow hdcd dlp_sandbox_read_only (unix_stream_socket (connectto)))
+(allow hdcd dlp_sandbox_full_control (unix_stream_socket (connectto)))
 

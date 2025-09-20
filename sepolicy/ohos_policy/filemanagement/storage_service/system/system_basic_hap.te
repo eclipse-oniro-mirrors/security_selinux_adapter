@@ -14,4 +14,5 @@
 allow system_basic_hap_attr sa_distributeddata_service:samgr_class { get };
 allow system_basic_hap_attr sa_huks_service:samgr_class { get };
 allow system_basic_hap_attr system_core_hap_attr:binder { call };
-allow system_basic_hap_attr { normal_hap_data_file_attr -dlp_sandbox_hap_data_file }:file { read write };
+allow system_basic_hap_attr { normal_hap_data_file_attr -dlp_sandbox_read_only_hap }:file { read write };
+allow system_basic_hap_attr { normal_hap_data_file_attr -dlp_sandbox_full_control_hap_data_file }:file { read write };
