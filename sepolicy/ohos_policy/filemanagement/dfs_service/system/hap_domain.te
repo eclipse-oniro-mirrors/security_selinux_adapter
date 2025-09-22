@@ -18,3 +18,5 @@ allow hap_domain cloudfiledaemon:fd { use };
 allow hap_domain sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
 allow hap_domain sa_filemanagement_distributed_file_daemon_service:binder { call transfer };
 allow hap_domain distributedfiledaemon:binder { call transfer };
+allow hap_domain clouddiskservice:binder { call transfer };
+allow hap_domain sa_filemanagement_cloud_disk_service:samgr_class { get };
