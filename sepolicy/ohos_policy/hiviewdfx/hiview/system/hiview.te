@@ -325,6 +325,7 @@ hiview_cmd({
     system_file
     system_lib_file
     system_usr_file
+    vendor_bin_file
     vendor_file
     vendor_lib_file
 })

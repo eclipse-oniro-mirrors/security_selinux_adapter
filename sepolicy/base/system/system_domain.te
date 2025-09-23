@@ -43,10 +43,10 @@ neverallow { system_domain -vendor_bin_file_violator_dir_relabelto } vendor_bin_
 neverallow { system_domain -vendor_bin_file_violator_file } { vendor_bin_file }:file ~{ entrypoint execute map read getattr open execute_no_trans relabelto setattr };
 neverallow { system_domain -ispserver -vendor_bin_file_violator_file_entrypoint } vendor_bin_file:file { entrypoint };
 neverallow { system_domain -ispserver -init -vendor_bin_file_violator_file_execute -sys_installer_sa } vendor_bin_file:file { execute };
-neverallow { system_domain -ispserver -hiebpf -hidumper_service -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_map -sys_installer_sa debug_only(`-native_daemon') } vendor_bin_file:file { map };
-neverallow { system_domain -ispserver -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_read -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { read };
-neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_getattr -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { getattr };
-neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -vendor_bin_file_violator_file_open -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { open };
+neverallow { system_domain -ispserver -hiebpf -hidumper_service -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_map -sys_installer_sa debug_only(`-native_daemon') } vendor_bin_file:file { map };
+neverallow { system_domain -ispserver -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_read -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { read };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_getattr -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { getattr };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_open -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { open };
 neverallow { system_domain -vendor_bin_file_violator_file_execute_no_trans -sys_installer_sa } vendor_bin_file:file { execute_no_trans };
 neverallow { system_domain -vendor_bin_file_violator_file_relabelto } vendor_bin_file:file { relabelto };
 neverallow { system_domain -vendor_bin_file_violator_file_setattr } vendor_bin_file:file { setattr };
