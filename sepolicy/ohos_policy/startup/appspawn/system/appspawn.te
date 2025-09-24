@@ -252,3 +252,6 @@ allow appspawn dev_kmsg_file:chr_file { open write };
 
 # for create hybridspawn socket
 allow appspawn init:unix_stream_socket { accept getattr getopt listen };
+
+# for appspawn preload js runtime to read hichecker_writable_param
+allow appspawn hichecker_writable_param:file { map open read };
