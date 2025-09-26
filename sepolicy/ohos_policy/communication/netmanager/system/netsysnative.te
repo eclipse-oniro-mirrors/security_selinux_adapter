@@ -223,7 +223,8 @@ allow netsysnative netsysnative:unix_dgram_socket { getattr };
 # avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x5423 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
 # avc:  denied  { ioctl } for  pid=3700 comm="pppd" path="/dev/pts/1" dev="devpts" ino=4 ioctlcmd=0x7437 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
 # avc:  denied  { ioctl } for  pid=2670 comm="pppd" path=2F6465762F7074732F31202864656C6574656429 dev="devpts" ino=4 ioctlcmd=0x5417 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
-allow netsysnative devpts:chr_file { ioctl };
+# avc:  denied { read write } for pid=11867, comm="/system/bin/xl2tpd"  path="/dev/pts/0" dev="" ino=10881 scontext=u:r:netsysnative:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
+allow netsysnative devpts:chr_file { ioctl read write };
 allowxperm netsysnative devpts:chr_file ioctl { 0x5416 0x542a 0x542d 0x540c 0x5423 0x7437 0x5417};
 
 # avc:  denied  { read } for  pid=3629 comm="pppd" name="route" dev="proc" ino=4026532126 scontext=u:r:netsysnative:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=1
