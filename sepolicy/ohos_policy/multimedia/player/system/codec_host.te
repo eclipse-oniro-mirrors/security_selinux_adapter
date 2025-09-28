@@ -37,7 +37,7 @@ allow codec_host dev_mpp:chr_file { read write };
 
 #avc:  denied  { ioctl } for  pid=413 comm="omx_dec_output" path="/dev/rga" dev="tmpfs" ino=169 ioctlcmd=0x5017 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_rga:s0 tclass=chr_file permissive=1
 allow codec_host dev_rga:chr_file { ioctl };
-allowxperm codec_host dev_rga:chr_file ioctl { 0x5017 0x601b };
+allowxperm codec_host dev_rga:chr_file ioctl { 0x5017 0x601b 0x7203 0x7201 0x7202 };
 
 
 #avc:  denied  { use } for  pid=2003 comm="src:src" path="/dmabuf:" dev="dmabuf" ino=37677 scontext=u:r:codec_host:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=1
