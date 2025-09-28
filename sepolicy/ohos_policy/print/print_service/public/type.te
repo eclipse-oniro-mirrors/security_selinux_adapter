@@ -17,4 +17,5 @@ type print_driver_tmp, file_attr, data_file_attr;
 type print_driver_read, file_attr, data_file_attr;
 type sane_service, sadomain, domain;
 type print_driver, sadomain, domain;
+type scan_service, sadomain, domain;
 domain_auto_transition_pattern(cupsd, print_driver_exec, print_driver);
