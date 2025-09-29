@@ -132,3 +132,5 @@ allow softbus_server usb_service:binder { call };
 allow softbus_server sa_time_service:samgr_class { get };
 
 allow softbus_server time_service:binder { call transfer };
+
+allow softbus_server sa_foundation_dms:samgr_class { get };
