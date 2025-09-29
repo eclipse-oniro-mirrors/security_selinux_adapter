@@ -219,3 +219,5 @@ allow audio_server hiview:binder { call };
 
 # avc:  denied  { get } for service=8600 sid=u:r:audio_server:s0 scontext=u:r:audio_server:s0 tcontext=u:object_r:sa_xperf_service:s0 tclass=samgr_class permissive=1
 allow audio_server sa_xperf_service:samgr_class { get };
+
+allow audio_server arkui_param:file { map open read };
