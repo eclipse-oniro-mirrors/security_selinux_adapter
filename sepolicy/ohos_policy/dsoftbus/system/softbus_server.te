@@ -133,4 +133,5 @@ allow softbus_server sa_time_service:samgr_class { get };
 
 allow softbus_server time_service:binder { call transfer };
 
+#avc:  denied  { get } for service=4607 sid=u:r:softbus_server:s0 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_foundation_dms:samgr_class { get };
