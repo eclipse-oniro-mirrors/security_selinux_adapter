@@ -76,3 +76,4 @@ allow scan_service data_service_sane_service_config_file:file { create open read
 allowxperm scan_service data_service_sane_service_config_file:file ioctl 0x5413;
 allow scan_service data_service_scan_service_driver_file:dir { write add_name search };
 allow scan_service data_service_scan_service_driver_file:lnk_file { create getattr read };
+allow scan_service sa_foundation_appms:samgr_class { get };
