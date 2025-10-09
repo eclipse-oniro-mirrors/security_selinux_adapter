@@ -37,4 +37,4 @@ allow foundation system_basic_hap_attr:fd { use };
 allow foundation sa_foundation_reminder_agent_service:samgr_class { add get };
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
 allowxperm foundation dev_mali:chr_file ioctl { 0x801e };
-
+allow foundation backup_sa:fd { use };
