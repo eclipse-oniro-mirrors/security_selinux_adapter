@@ -238,3 +238,12 @@ allow edm_sa sa_foundation_tel_call_manager:samgr_class { get };
 
 # avc: denied { get } for service=1155 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_comm_vpn_manager_service:s0 tclass=samgr_class permissive=1
 allow edm_sa sa_comm_vpn_manager_service:samgr_class { get };
+
+# avc: denied { get } for service=3505 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_privacy_service:samgr_class { get };
+
+# avc: denied { call } for pid=3013, comm="OS_IPC_2_3205"  scontext=u:r:edm_sa:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=0
+allow edm_sa privacy_service:binder { call };
+
+# avc: denied { call } for pid=3013, comm="OS_IPC_2_3205"  scontext=u:r:edm_sa:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=0
+allow edm_sa security_guard:binder { call };
