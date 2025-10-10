@@ -182,11 +182,11 @@ allow edm_sa usb_service:binder { call };
 allow edm_sa edm_writable_param:parameter_service { set };
 
 # avc:  denied  { create } for  pid=1652 comm="SaInit0" name="stream_install" scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
-allow edm_sa data_service_el1_file:dir { create setattr };
+allow edm_sa data_service_el1_file:dir { create setattr getattr };
 allow edm_sa foundation:fd { use };
 
 # avc:  denied  { ioctl } for  pid=398 comm="edm" path="/data/service/el1/public/edm/edmdb.db" dev="mmcblk0p12" ino=14159 ioctlcmd=0xf50c scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
-allowxperm edm_sa data_service_el1_file:file ioctl { 0x5413 0xf50c };
+allowxperm edm_sa data_service_el1_file:file ioctl { 0x5413 0xf50c 0xf546 };
 
 # avc: denied { call } for pid=9009, comm="/system/bin/sa_main"  scontext=u:r:edm_sa:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=0
 allow edm_sa telephony_sa:binder { call transfer };
