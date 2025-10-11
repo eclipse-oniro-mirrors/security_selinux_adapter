@@ -102,7 +102,7 @@ allow accesstoken_service sa_accessibleabilityms:samgr_class { get };
 allow accesstoken_service sa_multimodalinput_service:samgr_class { get };
 allow accesstoken_service multimodalinput:binder { call transfer};
 allow accesstoken_service multimodalinput:fd { use };
-allow accesstoken_service multimodalinput:unix_stream_socket { read write write };
+allow accesstoken_service multimodalinput:unix_stream_socket { read write };
 
 # avc:  denied  { get } for service=501 pid=537 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow accesstoken_service sa_foundation_appms:samgr_class { get };
