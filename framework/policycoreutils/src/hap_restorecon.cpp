@@ -46,8 +46,10 @@ using namespace Selinux;
 namespace {
 #ifdef SELINUX_TEST
 static const std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
+static const std::string PRODUCT_CONFIG_FILE = "/data/test/product_config";
 #else
 static const std::string SEHAP_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/sehap_contexts";
+static const std::string PRODUCT_CONFIG_FILE = "/version/etc/selinux/product_config";
 #endif // STARTUP_INIT_TEST
 
 static const std::string APL_PREFIX = "apl=";
@@ -63,6 +65,8 @@ static const std::string DEBUGGABLE = "debuggable";
 static const std::string DLPSANDBOX = "dlp_sandbox";
 static const std::string INPUT_ISOLATE = "input_isolate";
 static const std::string CUSTOMSANDBOX = "custom_sandbox";
+static const std::string ISOLATED_GPU = "isolated_gpu";
+static const std::string ISOLATED_RENDER = "isolated_render";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -77,7 +81,6 @@ static const int CATEGORY_SEG4_OFFSET = 1024;
 static const int CATEGORY_MASK = 0xff;
 static const int SHIFT_8 = 8;
 static const int SHIFT_16 = 16;
-static const std::string PRODUCT_CONFIG_FILE = "/version/etc/selinux/product_config";
 static const std::string DEFAULT_LEVEL_PREFIX = "defaultLevelFrom=";
 static const std::string DEFAULT_USER_PREFIX = "defaultUser=";
 static const std::string DEFAULT_MCS_HAP_FILE_PREFIX = "mcsHapFileEnabled=";
@@ -129,6 +132,7 @@ static LevelFrom GetLevelFrom(const std::string &level)
     } else {
         levelFrom = g_defaultLevelFrom;
     }
+
     return levelFrom;
 }
 
@@ -229,7 +233,11 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
 #endif
         } else if (!extraVisit && (pos = tmp.find(EXTRA_PREFIX)) != tmp.npos) {
             std::string extra = tmp.substr(pos + EXTRA_PREFIX.size());
-            if (extra == DLPSANDBOX) {
+            if (extra == ISOLATED_GPU) {
+                contextBuff.extra |= SELINUX_HAP_ISOLATED_GPU;
+            } else if (extra == ISOLATED_RENDER) {
+                contextBuff.extra |= SELINUX_HAP_ISOLATED_RENDER;
+            } else if (extra == DLPSANDBOX) {
                 contextBuff.extra |= SELINUX_HAP_DLP;
             } else if (extra == INPUT_ISOLATE) {
                 contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
@@ -269,8 +277,11 @@ static bool CheckApl(const std::string &apl)
 static std::string GetHapContextKey(const struct SehapInfo *hapInfo)
 {
     std::string keyPara;
-
-    if (hapInfo->extra & SELINUX_HAP_INPUT_ISOLATE) {
+    if (hapInfo->extra & SELINUX_HAP_ISOLATED_RENDER) {
+        keyPara = hapInfo->apl + "." + ISOLATED_RENDER;
+    } else if (hapInfo->extra & SELINUX_HAP_ISOLATED_GPU) {
+        keyPara = hapInfo->apl + "." + ISOLATED_GPU;
+    } else if (hapInfo->extra & SELINUX_HAP_INPUT_ISOLATE) {
         if (hapInfo->debuggable) {
             keyPara = hapInfo->apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
         } else {
@@ -664,7 +675,11 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
 static std::string GetKeyParams(const HapContextParams &params)
 {
     std::string keyPara;
-    if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
+    if (params.hapFlags & SELINUX_HAP_ISOLATED_GPU) {
+        keyPara = params.apl + "." + ISOLATED_GPU;
+    } else if (params.hapFlags & SELINUX_HAP_ISOLATED_RENDER) {
+        keyPara = params.apl + "." + ISOLATED_RENDER;
+    } else if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
         if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
             keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
             selinux_log(SELINUX_INFO, "input_isolate debug hap, keyPara: %s", keyPara.c_str());
@@ -696,15 +711,26 @@ static std::string GetKeyParams(const HapContextParams &params)
     return keyPara;
 }
 
+int HapContextLoadConfig()
+{
+    std::lock_guard<std::mutex> lock(g_loadContextsLock);
+    if (g_sehapContextsTrie != nullptr) {
+        return 0;
+    }
+
+    if (HapContextsLoad()) {
+        return 0;
+    }
+
+    return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+}
+
 int HapContext::HapContextsLookup(const HapContextParams &params, context_t con)
 {
-    {
-        std::lock_guard<std::mutex> lock(g_loadContextsLock);
-        if (g_sehapContextsTrie == nullptr) {
-            if (!HapContextsLoad()) {
-                return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
-            }
-        }
+    int ret = HapContextLoadConfig();
+    if (ret != 0) {
+        selinux_log(SELINUX_ERROR, "read config error, ret=%d", ret);
+        return ret;
     }
 
     std::string keyPara = GetKeyParams(params);
