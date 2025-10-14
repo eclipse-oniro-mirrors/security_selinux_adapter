@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute violator_freeze;
+attribute violator_dev_binder_file_ioctl;
