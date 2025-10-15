@@ -30,13 +30,15 @@ allow hiview init:unix_dgram_socket { getattr getopt read write setopt };
 allow hiview init:unix_stream_socket { connectto };
 allow hiview faultloggerd:unix_stream_socket { connectto };
 
-allow hiview hiview_file:dir { search getattr read open write add_name remove_name rmdir };
+allow hiview hiview_file:dir { search getattr read open write add_name remove_name rmdir ioctl };
 allow hiview hiview_file:file { getattr setattr append ioctl unlink map read write getattr open lock rename };
+allow hiview hiview_file:lnk_file { unlink create read setattr getattr };
+allowxperm hiview hiview_file:dir ioctl { 0xf546 };
 
 allow hiview data_file:dir { search };
 allow hiview data_log:dir { add_name open read search watch write create remove_name };
 #avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
-allow hiview data_log:file { create getattr lock map open read write unlink rename append ioctl };
+allow hiview data_log:file { create setattr getattr lock map open read write unlink rename append ioctl };
 allowxperm hiview data_log:file ioctl { 0x5413 0xf546 0xf547 };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
