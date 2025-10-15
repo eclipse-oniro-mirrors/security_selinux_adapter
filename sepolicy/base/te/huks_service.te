@@ -50,5 +50,4 @@ allow huks_service huks_service:unix_dgram_socket { getopt setopt };
 allow huks_service tracefs_trace_marker_file:file { open write };
 allow huks_service accountmgr:binder { call };
 allow huks_service sa_accountmgr:samgr_class { get };
-allow huks_service sys_file:file { getattr open read };
 allow huks_service sa_foundation_abilityms:samgr_class { get };
