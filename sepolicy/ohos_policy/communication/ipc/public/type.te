@@ -12,4 +12,4 @@
 # limitations under the License.
 
 # limit hap_domain has binder freeze permission
-neverallow ~{ violator_freeze } hap_domain:binder freeze_ctx;
+neverallow ~{ violator_hap_domain_binder_freeze } hap_domain:binder freeze_ctx;
