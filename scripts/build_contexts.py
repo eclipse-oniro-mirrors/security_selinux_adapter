@@ -191,7 +191,7 @@ def echo_error():
     print("extension=*, extension is 'optional'")
     print("extra=*, extra is 'optional'")
     print("domain=*, hapdomain selinux type")
-    print("type=*, hapdatafile selinux type")
+    print("type=*, type is 'optional'")
     print("***********************************************************")
 
 
@@ -207,8 +207,8 @@ def sehap_check_line(line, line_index, contexts_write, domain, contexts_file):
         r'(name=\S+\s+)?'
         r'(extra=\S+\s+)?'
         r'(extension=\S+\s+)?'
-        r'domain=(\S+)\s+'
-        r'type=(\S+)\s*'
+        r'domain=(\S+)'
+        r'(?:\s+type=(\S+)\s*)?'
         r'.*\n',
         re.DOTALL
     )
@@ -217,7 +217,11 @@ def sehap_check_line(line, line_index, contexts_write, domain, contexts_file):
         if domain:
             line = match.group(1) + " u:r:" + match.group(6) + ":s0\n"
         else:
-            line = match.group(1) + " u:object_r:" + match.group(7) + ":s0\n"
+            if match.group(7):
+                line = match.group(1) + " u:object_r:" + \
+                    match.group(7) + ":s0\n"
+            else:
+                return
         contexts_write.write(line)
     else:
         print(contexts_file + ":" + str(line_index) + " format check fail")
