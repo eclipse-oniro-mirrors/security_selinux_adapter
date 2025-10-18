@@ -24,7 +24,7 @@ from check_common import read_json_file, traverse_file_in_each_type
 DOMAIN_BASELINE = "domain_baseline.json"
 TYPE_GROUP_FILE_NAME = "type_group.json"
 WHITELIST_FILE_NAME = "domian_whitelist.json"
-HISTORY_LEGACY_DOMIAN = 'history_legacy_domian.txt'
+HISTORY_LEGACY_DOMAIN = 'history_legacy_domain.txt'
 
 
 def simplify_string(string):
@@ -73,7 +73,7 @@ def get_domain_set(args, with_developer, domain_map):
     return domain_set
 
 
-def get_type_group(args):
+def get_type_group(input_args):
     config_file = os.path.join(os.path.dirname(
         os.path.dirname(os.path.dirname(os.path.realpath(__file__)))), input_args.config)
     group_map = {}
@@ -114,17 +114,17 @@ def output_file(file_path, data):
         f.writelines(lines)
 
 
-def write_domian(args, domain_set, domain_map, group_map):
-    history_legacy_domian = domain_set
+def write_domain(args, domain_set, domain_map, group_map):
+    history_legacy_domain = domain_set
     for name, values in group_map.items():
         domain_union = set()
         for key in values:
             domain_union |= domain_map[key]
         domain_path = os.path.join(os.path.dirname(args.cil_file), '{}_new.txt'.format(name))
         output_file(domain_path, domain_union)
-        history_legacy_domian -= domain_union
-    history_legacy_domian_path = os.path.join(os.path.dirname(args.cil_file), HISTORY_LEGACY_DOMIAN)
-    output_file(history_legacy_domian_path, history_legacy_domian)
+        history_legacy_domain -= domain_union
+    history_legacy_domain_path = os.path.join(os.path.dirname(args.cil_file), HISTORY_LEGACY_DOMAIN)
+    output_file(history_legacy_domain_path, history_legacy_domain)
 
 
 # Only check
@@ -233,7 +233,7 @@ def check(args, with_developer):
     group_map = get_type_group(args)
     domain_map = construct_domain_map(group_map)
     domain_set = get_domain_set(args, with_developer, domain_map)
-    write_domian(args, domain_set, domain_map, group_map)
+    write_domain(args, domain_set, domain_map, group_map)
     history_data = get_notallow(domain_set, domain_map)
     whitelist_map = get_whitelist(args, with_developer)
     baseline_result = check_baseline(args, domain_map, with_developer)

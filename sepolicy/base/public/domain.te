@@ -166,6 +166,7 @@ neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_viol
     chip_prod_passthrough_file_attr system_file_attr system_file_attr data_vendor_file_attr data_service_file_attr data_chipset_file_attr dev_attr
     system_parameter_attr system_internal_parameter_attr system_restricted_parameter_attr system_public_parameter_attr
     vendor_parameter_attr vendor_internal_parameter_attr vendor_restricted_parameter_attr vendor_public_parameter_attr
+    system_sock_domain chipset_sock_domain
     }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr violator_devfile_class_set } :devfile_class_set *;

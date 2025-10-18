@@ -372,3 +372,7 @@ attribute vendor_parameter_attr;
 attribute vendor_internal_parameter_attr;
 attribute vendor_restricted_parameter_attr;
 attribute vendor_public_parameter_attr;
+
+# define for type of socket
+attribute system_sock_domain;
+attribute chipset_sock_domain;
