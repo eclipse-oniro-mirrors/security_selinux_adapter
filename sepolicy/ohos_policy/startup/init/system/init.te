@@ -566,3 +566,23 @@ allowxperm init dev_xpm:chr_file ioctl { 0x7802 };
 
 # avc: denied { getattr } for pid=1, comm="/bin/init" path="/system/bin/nwebspawn" dev="overlay" ino=835 scontext=u:r:init:s0 tcontext=u:object_r:nwebspawn_exec:s0 tclass=file permissive=0
 allow init nwebspawn_exec:file { execute getattr read open };
+
+#avc: denied { unmount } for pid=1, comm="/bin/init" scontext=u:r:init:s0 tcontext=u:object_r:sharefs:s0 tclass=filesystem permissive=1
+allow init sharefs:filesystem { unmount };
+
+#avc: denied { unmount } for pid=1, comm="/bin/init" scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem permissive=1
+allow init tmpfs:filesystem { unmount };
+
+#avc: denied { unmount } for pid=1, comm="/bin/init" scontext=u:r:init:s0 tcontext=u:object_r:selinuxfs:s0 tclass=filesystem permissive=1
+allow init selinuxfs:filesystem { unmount };
+
+#avc: denied { unmount } for pid=1, comm="/bin/init" scontext=u:r:init:s0 tcontext=u:object_r:functionfs:s0 tclass=filesystem permissive=1
+allow init functionfs:filesystem { unmount };
+
+#avc: denied { unmount } for pid=1, comm="/bin/init" scontext=u:r:init:s0 tcontext=u:object_r:teecd_data_file:s0 tclass=filesystem permissive=1
+allow init teecd_data_file:filesystem { unmount };
+
+#avc: denied { read } for pid=10102, comm="/bin/sh" path="/proc/filesystems" dev="" ino=38 scontext=u:r:init:s0 tcontext=u:object_r:proc_filesystems_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=10102, comm="/bin/sh" path="/proc/filesystems" dev="" ino=38 scontext=u:r:init:s0 tcontext=u:object_r:proc_filesystems_file:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=10102, comm="/bin/sh" path="/proc/filesystems" dev="" ino=38 scontext=u:r:init:s0 tcontext=u:object_r:proc_filesystems_file:s0 tclass=file permissive=1
+allow init proc_filesystems_file:file { open read getattr };
