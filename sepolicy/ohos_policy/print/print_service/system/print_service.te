@@ -100,6 +100,9 @@ allow print_service data_service_el2_file:file { create getattr read open write 
 allow print_service tty_device:chr_file { read write };
 allow print_service print_driver_exec:dir { search write add_name };
 allow print_service print_driver_exec:lnk_file { create getattr };
+allow print_service print_driver_tmp:dir { search write remove_name };
+allow print_service print_driver_tmp:file { getattr open read unlink };
+allow print_service print_driver_read:dir { search };
 allow print_service sa_foundation_appms:samgr_class { get };
 allow print_service sa_distributeddata_service:samgr_class { get };
 allow print_service distributeddata:binder { call };
