@@ -152,3 +152,6 @@ allow netmanager sys_file:file { getattr };
 allow netmanager allocator_host:binder { call };
 allow netmanager allocator_host:fd { use };
 allow netmanager hdf_allocator_service:hdf_devmgr_class { get };
+
+# avc: denied  { get } for service=8600 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_xperf_service:s0 tclass=samgr_class permissive=0
+allow netmanager sa_xperf_service:samgr_class { get };

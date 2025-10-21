@@ -14,3 +14,5 @@
 allow render_service hiview:fd { use };
 
 allow render_service hiview_file:file { write };
+
+allow render_service sa_xperf_service:samgr_class { get };

@@ -297,3 +297,8 @@ allowxperm hiview hiview_sys_def_file:file ioctl { 0x5413 };
 allow hiview sa_netsys_native_manager:samgr_class { get };
 
 allow hiview data_log:fifo_file { create read write open unlink };
+
+allow hiview sa_xperf_service:samgr_class { add };
+ 
+# avc: denied { call } for pid=619, comm="/system/bin/hiview"  scontext=u:r:hiview:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
+allow hiview av_codec_service:binder { call };
