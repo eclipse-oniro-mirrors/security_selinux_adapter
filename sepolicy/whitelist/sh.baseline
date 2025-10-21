@@ -181,4 +181,5 @@ developer_only(`
 (allow sh data_local_tmp (lnk_file (create getattr read unlink)))
 (allow sh sh_exec (file (execute_no_trans execute open read getattr unlink)))
 (allow sh labeledfs (filesystem (getattr)))
+(allow sh arkcompiler_param (parameter_service (set)))
 ')
