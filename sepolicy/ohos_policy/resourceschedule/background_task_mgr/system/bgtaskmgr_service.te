@@ -150,8 +150,13 @@ allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get 
 allow time_service bgtaskmgr_service:file { getattr };
 allow time_service bgtaskmgr_service:binder { call };
 # add device_usage_stats access self file permission
-allow bgtaskmgr_service data_service_el1_public_bundle_usage:file { map open read getattr };
+#avc: denied { lock } for pid=1191, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+#avc: denied { write } for pid=1191, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+#avc: denied { ioctl } for pid=1191, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+#avc: denied { ioctl } for pid=1191, scontext=u:r:bgtaskmgr_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+allow bgtaskmgr_service data_service_el1_public_bundle_usage:file { map open read getattr ioctl write lock };
 allow bgtaskmgr_service data_service_el1_public_bundle_usage:dir { read search open getattr write add_name };
+allowxperm bgtaskmgr_service data_service_el1_public_bundle_usage:file ioctl { 0xf546 0xf50c };
 allow bgtaskmgr_service dev_ashmem_file:chr_file { open };
 allow bgtaskmgr_service hdf_devmgr:binder { call };
 allow bgtaskmgr_service sa_device_service_manager:samgr_class { get };

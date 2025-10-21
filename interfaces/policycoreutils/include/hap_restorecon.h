@@ -28,8 +28,8 @@
 #define SELINUX_HAP_DEBUGGABLE 2 // whether it is a debuggable hap
 #define SELINUX_HAP_INPUT_ISOLATE 8 // whether it is input_isolate hap
 #define SELINUX_HAP_CUSTOM_SANDBOX 16 // whether it is custom sandbox hap
-#define SELINUX_HAP_DLP_READ_ONLY 32 // whether it is dlp read only sandbox hap
-#define SELINUX_HAP_DLP_FULL_CONTROL 64 // whether it is dlp full control sandbox hap
+#define SELINUX_HAP_ISOLATED_GPU 32
+#define SELINUX_HAP_ISOLATED_RENDER 64
 
 // parameters of each SehapInfo in file sehap_contexts
 struct SehapInfo {
@@ -39,7 +39,7 @@ struct SehapInfo {
     std::string type = "";
     std::string extension = "";
     bool debuggable = false;
-    unsigned int extra = 0;
+    uint64_t extra = 0;
 #ifdef MCS_ENABLE
     LevelFrom levelFrom = LEVELFROM_NONE;
     std::string user = "u";
@@ -51,7 +51,7 @@ struct HapFileInfo {
     std::string apl;
     std::string packageName;
     unsigned int flags;
-    unsigned int hapFlags = 0;
+    uint64_t hapFlags = 0;
     uint32_t uid = 0;
 };
 
@@ -59,14 +59,14 @@ struct HapDomainInfo {
     std::string apl;
     std::string packageName;
     std::string extensionType;
-    unsigned int hapFlags = 0;
+    uint64_t hapFlags = 0;
     uint32_t uid = 0;
 };
 
 struct HapContextParams {
     std::string apl;
     std::string packageName;
-    unsigned int hapFlags = 0;
+    uint64_t hapFlags = 0;
     std::string extension;
     bool isDomain = false;
     uint32_t uid = 0;
@@ -94,5 +94,7 @@ protected:
     int UserAndMCSRangeSet(uint32_t uid, context_t con, const LevelFrom &levelFrom, const std::string &user);
 #endif
 };
+
+int HapContextLoadConfig(void);
 
 #endif // HAP_RESTORECON_H

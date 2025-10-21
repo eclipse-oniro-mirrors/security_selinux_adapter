@@ -134,3 +134,9 @@ allow av_codec_service dscreen:binder { call transfer };
 
 # avc:  denied  { get } for service=8600 sid=u:r:av_codec_service:s0 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sa_xperf_service:s0 tclass=samgr_class permissive=1
 allow av_codec_service sa_xperf_service:samgr_class { get };
+
+#  avc:  denied  { get } for service=1901 sid=u:r:av_codec_service:s0 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow av_codec_service sa_resource_schedule:samgr_class { get };
+
+# avc: denied { call } for pid=1556, comm="/system/bin/sa_main"  scontext=u:r:av_codec_service:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
+allow av_codec_service resource_schedule_service:binder { call };

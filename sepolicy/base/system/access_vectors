@@ -391,6 +391,7 @@ class binder
     transfer
     actv_binder_service
     actv_binder_call
+    freeze_ctx
 }
 class netlink_iscsi_socket
 inherits socket

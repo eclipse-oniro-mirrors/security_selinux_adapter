@@ -15,3 +15,4 @@ allow init cloudfiledaemon:process { rlimitinh siginh transition };
 allow init sa_filemanagement_cloud_daemon_service:samgr_class { add };
 allow init cloudfile_data_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init cloudfile_data_file:file { relabelto };
+allow init clouddiskservice:process { rlimitinh siginh transition };

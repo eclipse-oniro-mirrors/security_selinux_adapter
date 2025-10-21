@@ -36,7 +36,7 @@ allow appspawn data_service_el1_file:file { read write create map open unlink };
 # read cfg from
 #avc:  denied  { getattr } for  pid=1802 comm="appspawn" path="/dev" dev="tmpfs" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
 allow appspawn dev_file:dir { getattr };
-allow appspawn chip_prod_file:dir { open read search getattr };
+allow appspawn chip_prod_file:dir { open read search mounton getattr };
 allow appspawn chip_prod_file:file { getattr open read };
 allow appspawn sys_prod_file:dir { open read search getattr };
 allow appspawn sys_prod_file:file { getattr open read map };
@@ -252,3 +252,7 @@ allow appspawn dev_kmsg_file:chr_file { open write };
 
 # for create hybridspawn socket
 allow appspawn init:unix_stream_socket { accept getattr getopt listen };
+
+# for appspawn preload js runtime to read hichecker_writable_param
+allow appspawn hichecker_writable_param:file { map open read };
+allow appspawn data_service_el0_file:dir { mounton };

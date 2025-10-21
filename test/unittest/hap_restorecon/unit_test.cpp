@@ -83,16 +83,21 @@ const static std::string TEST_NORMAL_DOMAIN_WITH_CATEGORY_APP = "o:r:normal_hap:
 const static std::string TEST_NORMAL_TYPE_WITH_CATEGORY = "o:r:normal_hap_data_file:s0:x214,x486,x514,x868,x1024";
 const static std::string TEST_NORMAL_TYPE_WITH_CATEGORY_USER = "o:r:normal_hap_data_file:s0:x868,x1024";
 const static std::string TEST_NORMAL_TYPE_WITH_CATEGORY_APP = "o:r:normal_hap_data_file:s0:x214,x486,x514";
+const static std::string TEST_ISOLATED_RENDER_TYPE = "u:r:isolated_render:s0";
+const static std::string TEST_ISOLATED_GPU_TYPE = "u:r:isolated_render:s0";
+const static std::string TEST_ISOLATED_RENDER_TYPE_WITH_MCS = "u:r:isolated_render:s0:x868,x1024";
+const static std::string TEST_ISOLATED_GPU_TYPE_WITH_MCS = "u:r:isolated_gpu:s0:x868,x1024";
 const static std::string TEST_SANDBOX_HAP_DOMAIN = "u:r:test_sandbox_hap:s0";
 const static std::string TEST_SANDBOX_HAP_DATA_TYPE = "u:r:test_sandbox_hap_data_file:s0";
 const static uint32_t TEST_UID = 20190166;
 const static uint32_t TEST_UID_FAILED = 20008;
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
+static const char *DEFAULT_CONTEXT_FOR_ISOLATED = "u:r:unlabeled:s0";
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
 #ifdef MCS_ENABLE
-static const std::string PRODUCT_CONFIG_FILE_TEST = "/version/etc/selinux/product_config";
+const static std::string PRODUCT_CONFIG = "/data/test/product_config";
 static const std::string DEFAULT_MCS_HAP_FILE_PREFIX_TEST = "mcsHapFileEnabled=";
 static bool g_mcsHapFileEnabledTest = false;
 #endif
@@ -230,8 +235,19 @@ static void GenerateTestFile()
         "apl=normal name=com.hap.test_sandbox extra=custom_sandbox domain=test_sandbox_hap \
         type=test_sandbox_hap_data_file",
         "apl=normal debuggable=true name=com.hap.test_sandbox extra=custom_sandbox domain=test_sandbox_hap \
-        type=test_sandbox_hap_data_file"};
+        type=test_sandbox_hap_data_file",
+        "apl=normal extra=isolated_gpu domain=isolated_gpu",
+        "apl=system_basic extra=isolated_gpu domain=isolated_gpu",
+        "apl=system_core extra=isolated_gpu domain=isolated_gpu",
+        "apl=normal extra=isolated_render domain=isolated_render",
+        "apl=system_basic extra=isolated_render domain=isolated_render",
+        "apl=system_core extra=isolated_render domain=isolated_render"};
     ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
+    std::vector<std::string> productConfig = {
+        "defaultLevelFrom=user",
+        "mcsHapFileEnabled=true",
+    };
+    ASSERT_EQ(true, WriteFile(PRODUCT_CONFIG, productConfig));
 }
 
 #ifdef MCS_ENABLE
@@ -243,9 +259,9 @@ static std::string DeleteNonLetter(std::string str)
 
 static void SetDefaultConfig()
 {
-    std::ifstream configFile(PRODUCT_CONFIG_FILE_TEST);
+    std::ifstream configFile(PRODUCT_CONFIG);
     if (!configFile) {
-        std::cout << "Read " << PRODUCT_CONFIG_FILE_TEST << " failed." << std::endl;
+        std::cout << "Read " << PRODUCT_CONFIG << " failed." << std::endl;
         return;
     }
     std::string line;
@@ -265,6 +281,7 @@ static void SetDefaultConfig()
 static void RemoveTestFile()
 {
     unlink(SEHAP_CONTEXTS_FILE.c_str());
+    unlink(PRODUCT_CONFIG.c_str());
 }
 
 void SelinuxUnitTest::SetUpTestCase()
@@ -1248,6 +1265,52 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup012, TestSize.Level1)
 #endif
 
     freecon(*secontextPtr);
+    context_free(con);
+}
+
+HWTEST_F(SelinuxUnitTest, HapContextsLookup013, TestSize.Level1)
+{
+    char *secontext = strdup(DEFAULT_CONTEXT_FOR_ISOLATED);
+    context_t con = context_new(secontext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags |= SELINUX_HAP_ISOLATED_GPU;
+    params.isDomain = true;
+#ifdef MCS_ENABLE
+    params.uid = TEST_UID;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_ISOLATED_GPU_TYPE_WITH_MCS.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_ISOLATED_GPU_TYPE.c_str());
+#endif
+
+    freecon(secontext);
+    context_free(con);
+}
+
+HWTEST_F(SelinuxUnitTest, HapContextsLookup014, TestSize.Level1)
+{
+    char *secontext = strdup(DEFAULT_CONTEXT_FOR_ISOLATED);
+    context_t con = context_new(secontext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags |= SELINUX_HAP_ISOLATED_RENDER;
+    params.isDomain = true;
+#ifdef MCS_ENABLE
+    params.uid = TEST_UID;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_ISOLATED_RENDER_TYPE_WITH_MCS.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_ISOLATED_RENDER_TYPE.c_str());
+#endif
+
+    freecon(secontext);
     context_free(con);
 }
 

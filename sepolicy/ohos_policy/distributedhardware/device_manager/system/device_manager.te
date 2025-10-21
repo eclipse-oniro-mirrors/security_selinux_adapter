@@ -354,3 +354,5 @@ allow device_manager chip_prod_file:dir { search };
 allow device_manager foundation:fd { use };
 allow device_manager sys_prod_file:dir { search };
 allow device_manager tty_device:chr_file { write };
+allow device_manager sa_time_service:samgr_class { get };
+allow device_manager time_service:binder { call };

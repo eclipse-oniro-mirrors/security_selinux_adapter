@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,10 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation cloudfiledaemon:binder { transfer call };
-allow foundation cloudfiledaemon:file { read open getattr };
-allow foundation cloudfiledaemon:dir { search };
+allow normal_hap_attr gamecontroller_server:binder { call transfer };
+allow normal_hap_attr sa_gamecontroller_server:samgr_class { get };
 
-allow foundation distributedfiledaemon:binder { transfer };
-allow foundation distributedfiledaemon:fd { use };
-allow foundation clouddiskservice:binder { call transfer };
+
+
