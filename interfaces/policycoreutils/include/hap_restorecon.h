@@ -30,6 +30,8 @@
 #define SELINUX_HAP_CUSTOM_SANDBOX 16 // whether it is custom sandbox hap
 #define SELINUX_HAP_ISOLATED_GPU 32
 #define SELINUX_HAP_ISOLATED_RENDER 64
+#define SELINUX_HAP_DLP_READ_ONLY 128 // whether it is dlp read only sandbox hap
+#define SELINUX_HAP_DLP_FULL_CONTROL 256 // whether it is dlp full control sandbox hap
 
 // parameters of each SehapInfo in file sehap_contexts
 struct SehapInfo {
