@@ -144,4 +144,4 @@ allow drm_service foundation:fd {use};
 
 allow drm_service netmanager (binder (transfer))
 
-allow drm_service netmanager (binder (call))
+allow netmanager drm_service (binder (call))
