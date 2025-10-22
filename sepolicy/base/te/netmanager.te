@@ -82,3 +82,4 @@ allow netmanager tracefs_trace_marker_file:file { open write };
 allowxperm netmanager data_data_file:file ioctl { 0x5413 };
 allowxperm netmanager netmanager:udp_socket ioctl { 0x8927 };
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 0x8933 };
+allow netmanager drm_service:binder { call };

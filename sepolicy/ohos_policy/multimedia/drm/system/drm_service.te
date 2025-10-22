@@ -142,6 +142,4 @@ allow drm_service sa_distributeddata_service:samgr_class { get };
 # binder fd
 allow drm_service foundation:fd {use};
 
-allow drm_service netmanager (binder (transfer))
-
-allow netmanager drm_service (binder (call))
+allow drm_service netmanager { transfer };
