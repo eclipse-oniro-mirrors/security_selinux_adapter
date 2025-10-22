@@ -26,6 +26,8 @@ allow web_native_messaging_service dev_kmsg_file:chr_file { write };
 
 allow web_native_messaging_service foundation:binder { call transfer };
 
+allow web_native_messaging_service foundation:fd { use };
+
 allow web_native_messaging_service persist_sys_param:file { map open read };
 
 allow web_native_messaging_service sa_foundation_abilityms:samgr_class { get };
