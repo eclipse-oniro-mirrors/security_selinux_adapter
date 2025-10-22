@@ -49,4 +49,5 @@ allow drm_service sys_usb_param:file { map open read };
 allow drm_service tracefs:dir { search };
 allow drm_service tracefs_trace_marker_file:file { open write };
 allow drm_service hdf_devmgr:hdf_devmgr_class { list };
+allow drm_service netmanager:binder { transfer };
 
