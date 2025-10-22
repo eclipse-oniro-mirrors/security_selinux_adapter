@@ -32,4 +32,6 @@ allow hap_domain sa_web_native_messaging_service:samgr_class { get };
 
 allow hap_domain web_native_messaging_service:binder { call transfer };
 
+allow hap_domain web_native_messaging_service:fd { use };
+
 allow hap_domain hap_domain:fifo_file { read write };
