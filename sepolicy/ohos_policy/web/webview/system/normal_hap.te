@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -108,8 +108,7 @@ allow { normal_hap_attr -filemanager_hap }  normal_hap_data_file_attr:dir { sear
 #avc:  denied  { ioctl } for  pid=4361 comm="ThreadPoolForeg" path="/data/storage/el2/base/cache/cookie.db" dev="mmcblk0p11" ino=523820 ioctlcmd=0xf50c scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
 #avc:  denied  { lock } for  pid=4361 comm="ThreadPoolForeg" path="/data/storage/el2/base/cache/cookie.db" dev="mmcblk0p11" ino=523820 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file_attr:s0 tclass=file permissive=1
 allow normal_hap_attr normal_hap_data_file_attr:file { create getattr unlink map ioctl lock };
-allow normal_hap_attr { normal_hap_data_file_attr -dlp_sandbox_read_only_hap_data_file }:file { read write open };
-allow normal_hap_attr { normal_hap_data_file_attr -dlp_sandbox_full_control_hap_data_file }:file { read write open };
+allow normal_hap_attr { normal_hap_data_file_attr -dlp_sandbox_read_only_hap_data_file -dlp_sandbox_hap_data_file }:file { read write open };
 allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0xf50c };
 
 #avc:  denied  { call } for  pid=2377 comm="Geolocation" scontext=u:r:normal_hap:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1

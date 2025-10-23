@@ -124,9 +124,9 @@
                 "dlp_sandbox_read_only_hap hilog_exec",
                 "dlp_sandbox_read_only_hap system_bin_file",
                 "dlp_sandbox_read_only_hap toybox_exec",
-                "dlp_sandbox_full_control_hap hilog_exec",
-                "dlp_sandbox_full_control_hap system_bin_file",
-                "dlp_sandbox_full_control_hap toybox_exec",
+                "dlp_sandbox_hap hilog_exec",
+                "dlp_sandbox_hap system_bin_file",
+                "dlp_sandbox_hap toybox_exec"
             ],
             "developer": [
                 "aa sh_exec",

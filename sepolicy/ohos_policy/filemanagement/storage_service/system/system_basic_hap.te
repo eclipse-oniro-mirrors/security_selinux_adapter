@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,5 +14,4 @@
 allow system_basic_hap_attr sa_distributeddata_service:samgr_class { get };
 allow system_basic_hap_attr sa_huks_service:samgr_class { get };
 allow system_basic_hap_attr system_core_hap_attr:binder { call };
-allow system_basic_hap_attr { normal_hap_data_file_attr -dlp_sandbox_read_only_hap }:file { read write };
-allow system_basic_hap_attr { normal_hap_data_file_attr -dlp_sandbox_full_control_hap_data_file }:file { read write };
+allow system_basic_hap_attr { normal_hap_data_file_attr -dlp_sandbox_read_only_hap_data_file -dlp_sandbox_hap_data_file }:file { read write };
