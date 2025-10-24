@@ -256,3 +256,7 @@ allow appspawn init:unix_stream_socket { accept getattr getopt listen };
 # for appspawn preload js runtime to read hichecker_writable_param
 allow appspawn hichecker_writable_param:file { map open read };
 allow appspawn data_service_el0_file:dir { mounton };
+
+#avc: denied { ioctl } for pid=579, comm="/system/bin/appspawn" path="/dev/bbox" dev="" ino=54 ioctlcmd=0xab09 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
+allow appspawn dev_bbox:chr_file { ioctl };
+allowxperm appspawn dev_bbox:chr_file ioctl { 0xab09 };
