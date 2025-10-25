@@ -32,5 +32,9 @@ developer_only(`
     allow atm samgr:binder { call };
     allow atm accesstoken_service:binder { call };
 
+    allow atm hdcd:fifo_file { read write ioctl };
+    allowxperm atm hdcd:fifo_file ioctl { 0x5413 };
+    allow atm hdcd:unix_stream_socket { read write };
+
     binder_call(atm, privacy_service);
 ')
