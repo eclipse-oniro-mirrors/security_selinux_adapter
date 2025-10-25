@@ -99,9 +99,9 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -rgm_vio
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -data_local_tmp_violator_dir developer_only(`-wukong -atm -snapshot_display -bm -mediatool -perftest') -hdcd -SP_daemon -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
+neverallow { domain -data_local_tmp_violator_dir developer_only(`-wukong -atm -snapshot_display -bm -mediatool -perftest -uinput') -hdcd -SP_daemon -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm -uinput') -sh -uitest updater_only(`-updater') } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -storage_daemon developer_only(`-wukong -atm -lldb_server -appspawn -snapshot_display -hiprofiler_cmd -bm -processdump -data_local_tmp_violator_dir -mediatool -perftest') -hdcd -SP_daemon -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm') -uitest updater_only(`-updater') -violator_sa_domain_data_local_tmp -violator_lldb_data_local_tmp } data_local_tmp:dir { open search };
+neverallow { domain -storage_daemon developer_only(`-wukong -atm -lldb_server -appspawn -snapshot_display -hiprofiler_cmd -bm -processdump -data_local_tmp_violator_dir -mediatool -perftest -uinput') -hdcd -SP_daemon -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -aa -bm -uinput') -uitest updater_only(`-updater') -violator_sa_domain_data_local_tmp -violator_lldb_data_local_tmp } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -257,7 +257,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_
 neverallow { domain -init -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
-neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool -perftest') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm') -data_local_tmp_violator_file_open -processdump -violator_data_local_tmp_file_open } data_local_tmp:file open;
+neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool -perftest -uinput') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm -uinput') -data_local_tmp_violator_file_open -processdump -violator_data_local_tmp_file_open } data_local_tmp:file open;
 
 #forbid root process access network;
 #
