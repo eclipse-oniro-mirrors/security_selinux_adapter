@@ -272,4 +272,3 @@ allow wifi_manager_service sa_foundation_tel_state_registry:samgr_class { get };
 # avc: denied { open } for pid=2783, comm="/system/bin/sa_main"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=2783, comm="/system/bin/sa_main"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 allow wifi_manager_service proc_meminfo_file:file { getattr open read };
-
