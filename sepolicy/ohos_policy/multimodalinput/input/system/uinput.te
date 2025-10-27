@@ -25,6 +25,17 @@ debug_only(`
     allow uinput su:fifo_file { ioctl read write };
     allow uinput su:unix_stream_socket { read write };
     allowxperm uinput su:fifo_file ioctl { 0x5413 };
+
+    allow uinput hdcd:fd { use };
+    allow uinput hdcd:fifo_file { ioctl read write };
+    allow uinput hdcd:unix_stream_socket { read write };
+    allowxperm uinput hdcd:fifo_file ioctl { 0x5413 };
+
+    allow uinput data_local:dir { search };
+    allow uinput data_local_tmp:dir { search };
+    allow uinput data_local_tmp:file { open read write };
+
+    allow uinput hap_domain:fd { use };
 ')
 
 developer_only(`
@@ -38,7 +49,7 @@ developer_only(`
     allow uinput dev_unix_socket:dir { search };
 
     # avc:  denied  { call } tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
-    allow uinput multimodalinput:binder { call };
+    allow uinput multimodalinput:binder { call transfer };
 
     # avc:  denied  { map } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
     # avc:  denied  { open } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
@@ -88,4 +99,15 @@ developer_only(`
     allow uinput sh:fifo_file { ioctl read write };
     allow uinput sh:unix_stream_socket { read write };
     allowxperm uinput sh:fifo_file ioctl { 0x5413 };
+
+    allow uinput hdcd:fd { use };
+    allow uinput hdcd:fifo_file { ioctl read write };
+    allow uinput hdcd:unix_stream_socket { read write };
+    allowxperm uinput hdcd:fifo_file ioctl { 0x5413 };
+
+    allow uinput data_local:dir { search };
+    allow uinput data_local_tmp:dir { search };
+    allow uinput data_local_tmp:file { open read write };
+
+    allow uinput hap_domain:fd { use };
 ')
