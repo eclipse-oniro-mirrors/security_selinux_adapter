@@ -15,10 +15,11 @@ type data_log_sanitizer_file, file_attr, data_file_attr;
 
 #avc:  denied  { getattr } for  pid=1853 comm="ls" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:sh:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=1805 comm="sh" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:sh:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
+debug_only(`
 allow { domain -hilogd } data_log_sanitizer_file:dir { create getattr open read remove_name search setattr write add_name };
 allow { domain -hilogd } data_log_sanitizer_file:file { create getattr ioctl open read append rename unlink write open };
-
 allow { domain -hilogd } data_log:dir { search };
+')
 
 #avc:  denied  { search } for  pid=1 comm="init" name="sanitizer" dev="mmcblk0p11" ino=579 scontext=u:r:init:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=dir permissive=0
 allow init data_log_sanitizer_file:dir { relabelto create_dir_perms };
