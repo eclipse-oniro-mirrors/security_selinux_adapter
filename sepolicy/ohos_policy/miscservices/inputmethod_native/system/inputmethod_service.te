@@ -96,6 +96,3 @@ allow inputmethod_service sa_screenlock_service:samgr_class { get };
 allow inputmethod_service normal_hap:fd { use };
 
 allow inputmethod_service sa_foundation_dms:samgr_class { get };
-
-# avc: denied { search } for pid=1477, comm="/system/bin/sa_main" name="/app" dev="overlay" ino=127 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
-allow inputmethod_service sys_prod_file:dir { search };
