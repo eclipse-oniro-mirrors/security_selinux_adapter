@@ -20,7 +20,6 @@
                 "faultloggerd toybox_exec",
                 "debug_hap hilog_exec",
                 "dlpmanager_hap hilog_exec",
-                "dlp_sandbox_hap hilog_exec",
                 "medialibrary_hap hilog_exec",
                 "ringtonelibrary_hap hilog_exec",
                 "formrenderservice_hap hilog_exec",
@@ -32,8 +31,6 @@
                 "debug_hap toybox_exec",
                 "dlpmanager_hap system_bin_file",
                 "dlpmanager_hap toybox_exec",
-                "dlp_sandbox_hap system_bin_file",
-                "dlp_sandbox_hap toybox_exec",
                 "medialibrary_hap system_bin_file",
                 "medialibrary_hap toybox_exec",
                 "ringtonelibrary_hap system_bin_file",
@@ -123,7 +120,13 @@
                 "SP_daemon aa_exec",
                 "SP_daemon snapshot_display_exec",
                 "init system_bin_module_update_exec",
-                "updater_binary data_updater_file"
+                "updater_binary data_updater_file",
+                "dlp_sandbox_read_only_hap hilog_exec",
+                "dlp_sandbox_read_only_hap system_bin_file",
+                "dlp_sandbox_read_only_hap toybox_exec",
+                "dlp_sandbox_hap hilog_exec",
+                "dlp_sandbox_hap system_bin_file",
+                "dlp_sandbox_hap toybox_exec"
             ],
             "developer": [
                 "aa sh_exec",

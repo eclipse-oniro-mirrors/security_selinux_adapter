@@ -62,6 +62,7 @@ static const std::string EXTENSION_PREFIX = "extension=";
 static const std::string LEVEL_PREFIX = "levelFrom=";
 static const std::string USER_PREFIX = "user=";
 static const std::string DEBUGGABLE = "debuggable";
+static const std::string DLP_SANDBOX_READ_ONLY = "dlp_sandbox_read_only";
 static const std::string DLPSANDBOX = "dlp_sandbox";
 static const std::string INPUT_ISOLATE = "input_isolate";
 static const std::string CUSTOMSANDBOX = "custom_sandbox";
@@ -237,12 +238,14 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
                 contextBuff.extra |= SELINUX_HAP_ISOLATED_GPU;
             } else if (extra == ISOLATED_RENDER) {
                 contextBuff.extra |= SELINUX_HAP_ISOLATED_RENDER;
-            } else if (extra == DLPSANDBOX) {
-                contextBuff.extra |= SELINUX_HAP_DLP;
             } else if (extra == INPUT_ISOLATE) {
                 contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
             } else if (extra == CUSTOMSANDBOX) {
                 contextBuff.extra |= SELINUX_HAP_CUSTOM_SANDBOX;
+            } else if (extra == DLP_SANDBOX_READ_ONLY) {
+                contextBuff.extra |= SELINUX_HAP_DLP_READ_ONLY;
+            } else if (extra == DLPSANDBOX) {
+                contextBuff.extra |= SELINUX_HAP_DLP_FULL_CONTROL;
             } else {
                 selinux_log(SELINUX_ERROR, "invalid extra %s\n", extra.c_str());
                 isValid = false;
@@ -287,7 +290,9 @@ static std::string GetHapContextKey(const struct SehapInfo *hapInfo)
         } else {
             keyPara = hapInfo->apl + "." + INPUT_ISOLATE;
         }
-    } else if (hapInfo->extra & SELINUX_HAP_DLP) {
+    } else if (hapInfo->extra & SELINUX_HAP_DLP_READ_ONLY) {
+        keyPara = hapInfo->apl + "." + DLP_SANDBOX_READ_ONLY;
+    } else if (hapInfo->extra & SELINUX_HAP_DLP_FULL_CONTROL) {
         keyPara = hapInfo->apl + "." + DLPSANDBOX;
     } else if (hapInfo->extra & SELINUX_HAP_CUSTOM_SANDBOX) {
         if (hapInfo->debuggable) {
@@ -687,9 +692,12 @@ static std::string GetKeyParams(const HapContextParams &params)
             keyPara = params.apl + "." + INPUT_ISOLATE;
             selinux_log(SELINUX_INFO, "input_isolate isolate hap, keyPara: %s", keyPara.c_str());
         }
-    } else if (params.hapFlags & SELINUX_HAP_DLP) {
+    } else if (params.hapFlags & SELINUX_HAP_DLP_READ_ONLY) {
+        keyPara = params.apl + "." + DLP_SANDBOX_READ_ONLY;
+        selinux_log(SELINUX_INFO, "dlpsandbox read only hap, keyPara: %s", keyPara.c_str());
+    } else if (params.hapFlags & SELINUX_HAP_DLP_FULL_CONTROL) {
         keyPara = params.apl + "." + DLPSANDBOX;
-        selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
+        selinux_log(SELINUX_INFO, "dlpsandbox full control hap, keyPara: %s", keyPara.c_str());
     } else if (params.hapFlags & SELINUX_HAP_CUSTOM_SANDBOX) {
         if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
             keyPara = params.apl + "." + DEBUGGABLE + "." + CUSTOMSANDBOX + "." + params.packageName;

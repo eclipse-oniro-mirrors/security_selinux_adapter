@@ -11,6 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apl=normal name=com.ohos.dlpmanager domain=dlpmanager_hap type=normal_hap_data_file
-apl=normal extra=dlp_sandbox domain=dlp_sandbox_hap type=dlp_sandbox_hap_data_file	
-apl=normal extra=dlp_sandbox_read_only domain=dlp_sandbox_read_only_hap type=dlp_sandbox_read_only_hap_data_file
+allow dlp_sandbox_read_only_hap dlp_fuse_file:file { open read write getattr };	
+allow dlp_sandbox_read_only_hap dlp_fuse_file:dir { search open read write getattr };	
+
+allow dlp_sandbox_read_only_hap dlp_sandbox_read_only_hap_data_file:file { open read write };	
+
+neverallow { hap_domain -dlp_sandbox_read_only_hap -isolated_render } dlp_sandbox_read_only_hap_data_file:file { open read write };	
+
+allow dlp_sandbox_read_only_hap dev_mali:chr_file { ioctl };	
+
+allowxperm dlp_sandbox_read_only_hap dev_mali:chr_file ioctl { 0x800f 0x801b };

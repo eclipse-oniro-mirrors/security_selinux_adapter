@@ -26,11 +26,12 @@
 #define SELINUX_HAP_RESTORECON_RECURSE 1    // whether the data directory need recurse
 #define SELINUX_HAP_RESTORECON_PREINSTALLED_APP 1   // whether it is a pre-built app
 #define SELINUX_HAP_DEBUGGABLE 2 // whether it is a debuggable hap
-#define SELINUX_HAP_DLP 4 // whether it is dlp hap
 #define SELINUX_HAP_INPUT_ISOLATE 8 // whether it is input_isolate hap
 #define SELINUX_HAP_CUSTOM_SANDBOX 16 // whether it is custom sandbox hap
 #define SELINUX_HAP_ISOLATED_GPU 32
 #define SELINUX_HAP_ISOLATED_RENDER 64
+#define SELINUX_HAP_DLP_READ_ONLY 128 // whether it is dlp read only sandbox hap
+#define SELINUX_HAP_DLP_FULL_CONTROL 256 // whether it is dlp full control sandbox hap
 
 // parameters of each SehapInfo in file sehap_contexts
 struct SehapInfo {

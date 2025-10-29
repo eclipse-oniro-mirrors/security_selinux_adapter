@@ -300,7 +300,7 @@ developer_only(`
     allow hdcd debug_param:file { map read open };
     allow hdcd debug_param:parameter_service { set };
 
-    allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
+    allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh -dlp_sandbox_read_only_hap }:unix_stream_socket { connectto };
 
     domain_auto_transition_pattern(hdcd, sh_exec, sh);
 
