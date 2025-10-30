@@ -12,4 +12,4 @@
 # limitations under the License.
 
 # avc:  denied  { search } for  pid=3855 comm="s.certframework" name="cert_manager_service" dev="mmcblk0p14" ino=149 scontext=u:r:appspawn:s0 tcontext=u:object_r:cert_manager_service_file:s0 tclass=dir permissive=0
-allow appspawn cert_manager_service_file:dir { search getattr };
+allow appspawn cert_manager_service_file:dir { search getattr write create add_name setattr };
