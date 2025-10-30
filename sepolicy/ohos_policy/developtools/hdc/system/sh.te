@@ -98,6 +98,9 @@ allow sh data_local_tmp:file { create_file_perms };
 # for data/log
 allow sh data_log:dir { search };
 
+# for data/log/faultlog/faultlogger
+allow sh faultlogger_log_file:dir { search };
+
 # for data/log/hilog
 allow sh data_hilogd_file:dir read_dir_perms;
 allow sh data_hilogd_file:file read_file_perms;

@@ -17,6 +17,7 @@
 /dev/unix/socket/hisysevent     u:object_r:hisysevent_socket:s0
 /dev/unix/socket/hisysevent_fast     u:object_r:hisysevent_socket:s0
 
+/data/log/faultlog/faultlogger(/.*)?          u:object_r:faultlogger_log_file:s0
 /data/log/hiview(/.*)?          u:object_r:hiview_file:s0
 /data/system/hiview(/.*)?       u:object_r:hiview_file:s0
 /data/system/hiview/unzip_configs/sys_event_def(/.*)?    u:object_r:hiview_sys_def_file:s0

@@ -22,6 +22,7 @@ developer_only(`
 (allow sh bytrace_exec (file (ioctl read getattr map execute open)))
 (allow sh data_file (dir (getattr search)))
 (allow sh data_log (dir (search)))
+(allow sh faultlogger_log_file (dir (search)))
 (allow sh data_hilogd_file (dir (ioctl read getattr lock open watch watch_reads search)))
 (allow sh data_hilogd_file (file (ioctl read getattr lock map open watch watch_reads)))
 (allow sh data_local (dir (ioctl read getattr lock open watch watch_reads search)))

@@ -13,6 +13,7 @@
 
 allow hidumper data_log:file read;
 allow hidumper data_log:file append;
+allow hidumper faultlogger_log_file:file { read write append};
 allow hidumper data_file:dir search;
 allow hidumper data_init_agent:dir search;
 allow hidumper data_init_agent:file { append ioctl open read };
