@@ -191,3 +191,4 @@ allow installs hap_file_attr:fifo_file { getattr setattr relabelfrom relabelto u
 allow installs hap_file_attr:file { getattr setattr relabelfrom relabelto unlink rename };
 allow installs hap_file_attr:sock_file { getattr setattr relabelfrom relabelto unlink rename };
 allow installs hap_file_attr:dir { getattr setattr relabelfrom relabelto unlink rename };
+allow installs bms_db_file:file { getattr setattr relabelfrom relabelto unlink rename };
