@@ -147,3 +147,6 @@ allow foundation data_app_el5_file:dir { getattr search };
 allow foundation data_service_el2_hmdfs:dir { getattr search };
 allow foundation sa_app_fwk_update_service:samgr_class { get };
 allow foundation startup_appspawn_param:parameter_service { set };
+
+allow foundation bms_db_file:file { create ioctl open unlink write write open setattr map getattr lock read };
+allowxperm foundation bms_db_file:file ioctl { 0x5413 0xf546 0xf547 0xf50c };

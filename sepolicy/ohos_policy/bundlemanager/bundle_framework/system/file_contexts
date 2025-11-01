@@ -19,3 +19,6 @@
 
 # for bm tool
 /system/bin/bm u:object_r:bm_exec:s0
+
+# for bmsdb
+/data/service/el1/public/bms/bundle_manager_service/bmsdb.* u:object_r:bms_db_file:s0
