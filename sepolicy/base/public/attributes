@@ -214,6 +214,22 @@ attribute filesystem_violator;
 # i.e. sh
 attribute develop_domain;
 
+# Attributes for system and chipset files
+attribute vendor_bin_file_attr;
+attribute vendor_lib_file_attr;
+attribute vendor_etc_file_attr;
+attribute sys_prod_bin_file_attr;
+attribute sys_prod_lib_file_attr;
+attribute sys_prod_etc_file_attr;
+attribute chip_prod_bin_file_attr;
+attribute chip_prod_lib_file_attr;
+attribute chip_prod_etc_file_attr;
+attribute chip_prod_passthrough_file_attr;
+attribute data_vendor_file_attr;
+attribute data_service_file_attr;
+attribute data_chipset_file_attr;
+
+
 # define some violator attribute for neverallows.
 attribute vendor_file_violator_dir;
 attribute vendor_file_violator_dir_getattr;
@@ -345,3 +361,4 @@ attribute violator_appspawn_hap_file_attr_dir;
 attribute violator_appspawn_execute_data_file_attr_violator_file;
 attribute violator_appspawn_execute_hap_file_attr_file;
 attribute violator_domain_sys_boot;
+
