@@ -395,6 +395,7 @@ developer_only(`
 (allow hdcd exfat (dir (getattr)))
 (allow hdcd ntfs (dir (getattr)))
 (allow hdcd hdcd (unix_stream_socket (getopt bind ioctl read connect map shutdown create append accept listen lock write setopt connectto getattr)))
+(allow hdcd sqlite3 (process (signal)))
 ')
 (allow hdcd audio_server (binder (transfer)))
 (allow hdcd powermgr (binder (transfer)))
