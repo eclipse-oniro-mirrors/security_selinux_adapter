@@ -159,7 +159,12 @@ neverallow * ~{ file_attr domain  rgm_violator_domain rgm_violator_domain_oh_to_
 neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_violator_domain rgm_violator_domain_oh_to_box fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
     chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain chip_ckm_file_attr
     rgmli_violator_exec_file_attr sys_prod_ai_model_llm_file_attr sys_prod_ai_model_aigc_file_attr
-    developer_only(`lldb_server_file') violator_lldb_server_file }:{ file dir } *;
+    developer_only(`lldb_server_file') violator_lldb_server_file
+    vendor_file_attr vendor_bin_file_attr vendor_bin_file_attr vendor_lib_file_attr vendor_lib_file_attr vendor_lib_file_attr
+    vendor_lib_file_attr vendor_etc_file_attr sys_prod_file_attr sys_prod_bin_file_attr sys_prod_lib_file_attr sys_prod_lib_file_attr
+    sys_prod_etc_file_attr chip_prod_file_attr chip_prod_bin_file_attr chip_prod_lib_file_attr chip_prod_lib_file_attr chip_prod_etc_file_attr
+    chip_prod_passthrough_file_attr system_file_attr system_file_attr data_vendor_file_attr data_service_file_attr data_chipset_file_attr dev_attr
+    }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr violator_devfile_class_set } :devfile_class_set *;
 

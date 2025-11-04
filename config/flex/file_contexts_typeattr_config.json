@@ -1,0 +1,102 @@
+[
+    {
+        "path": "/vendor",
+        "typeattr": "vendor_file_attr"
+    },
+    {
+        "path": "/vendor/bin",
+        "typeattr": "vendor_bin_file_attr"
+    },
+    {
+        "path": "/eng_chipset/bin",
+        "typeattr": "vendor_bin_file_attr"
+    },
+    {
+        "path": "/vendor/lib",
+        "typeattr": "vendor_lib_file_attr"
+    },
+    {
+        "path": "/vendor/lib64",
+        "typeattr": "vendor_lib_file_attr"
+    },
+    {
+        "path": "/eng_chipset/lib",
+        "typeattr": "vendor_lib_file_attr"
+    },
+    {
+        "path": "/eng_chipset/lib64",
+        "typeattr": "vendor_lib_file_attr"
+    },
+    {
+        "path": "/vendor/etc",
+        "typeattr": "vendor_etc_file_attr"
+    },
+    {
+        "path": "/sys_prod",
+        "typeattr": "sys_prod_file_attr"
+    },
+    {
+        "path": "/sys_prod/bin",
+        "typeattr": "sys_prod_bin_file_attr"
+    },
+    {
+        "path": "/sys_prod/lib",
+        "typeattr": "sys_prod_lib_file_attr"
+    },
+    {
+        "path": "/sys_prod/lib64/",
+        "typeattr": "sys_prod_lib_file_attr"
+    },
+    {
+        "path": "/sys_prod/etc",
+        "typeattr": "sys_prod_etc_file_attr"
+    },
+    {
+        "path": "/chip_prod",
+        "typeattr": "chip_prod_file_attr"
+    },
+    {
+        "path": "/chip_prod/bin",
+        "typeattr": "chip_prod_bin_file_attr"
+    },
+    {
+        "path": "/chip_prod/lib",
+        "typeattr": "chip_prod_lib_file_attr"
+    },
+    {
+        "path": "/chip_prod/lib64",
+        "typeattr": "chip_prod_lib_file_attr"
+    },
+    {
+        "path": "/chip_prod/etc",
+        "typeattr": "chip_prod_etc_file_attr"
+    },
+    {
+        "path": "/chip_prod/lib64/passthrough",
+        "typeattr": "chip_prod_passthrough_file_attr"
+    },
+    {
+        "path": "/cust",
+        "typeattr": "system_file_attr"
+    },
+    {
+        "path": "/preload",
+        "typeattr": "system_file_attr"
+    },
+    {
+        "path": "/data/vendor",
+        "typeattr": "data_vendor_file_attr"
+    },
+    {
+        "path": "/data/service/",
+        "typeattr": "data_service_file_attr"
+    },
+    {
+        "path": "/data/data_chipset",
+        "typeattr": "data_chipset_file_attr"
+    },
+    {
+        "path": "/dev",
+        "typeattr": "dev_attr"
+    }
+]

@@ -1,0 +1,307 @@
+{
+    "whitelist": [
+        {
+            "path": "/vendor",
+            "permissive_list": {
+                "user": [
+                    "/vendor/bin/hdf_devmgr",
+                    "/vendor/bin/hdf_devhost",
+                    "/vendor/etc/power_config/power_mode_config.xml"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/vendor/bin",
+            "permissive_list": {
+                "user": [
+                    "/vendor/bin(/.*)?",
+                    "/vendor/bin/hdf_devmgr",
+                    "/vendor/bin/hdf_devhost"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/eng_chipset/bin",
+            "permissive_list": {
+                "user": [
+                    "/eng_chipset/bin(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/vendor/lib",
+            "permissive_list": {
+                "user": [
+                    "/vendor/lib(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/vendor/lib64",
+            "permissive_list": {
+                "user": [
+                    "/vendor/lib64(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/eng_chipset/lib",
+            "permissive_list": {
+                "user": [
+                    "/eng_chipset/lib(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/eng_chipset/lib64",
+            "permissive_list": {
+                "user": [
+                    "/eng_chipset/lib64(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/vendor/etc",
+            "permissive_list": {
+                "user": [
+                    "/vendor/etc(/.*)?",
+                    "/vendor/etc/thermal_config/hdf/thermal_hdi_config.xml",
+                    "/vendor/etc/vulkan(/.*)?",
+                    "/vendor/etc/power_config/power_mode_config.xml",
+                    "/vendor/etc/ressched(/.*)?",
+                    "/vendor/etc/passthrough/teeeos(/.*)?",
+                    "/vendor/etc/passthrough/teeos/ta(/.*)?",
+                    "/vendor/etc/passthrough/teeos/dynamic_srv(/.*)?",
+                    "/vendor/etc/passthrough/teeos/dynamic_drv(/.*)?",
+                    "/vendor/etc/passthrough/teeos/source(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/sys_prod",
+            "permissive_list": {
+                "user": [
+                    "/sys_prod"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/sys_prod/bin",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/sys_prod/lib",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/sys_prod/lib64/",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/sys_prod/etc",
+            "permissive_list": {
+                "user": [
+                    "/sys_prod/etc/ressched(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/chip_prod",
+            "permissive_list": {
+                "user": [
+                    "/chip_prod"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/chip_prod/bin",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/chip_prod/lib",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/chip_prod/lib64",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/chip_prod/etc",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/chip_prod/lib64/passthrough",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/cust",
+            "permissive_list": {
+                "user": [
+                    "/cust"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/preload",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/data/vendor",
+            "permissive_list": {
+                "user": [
+                    "/data/vendor",
+                    "/data/vendor/(.*)?",
+                    "/data/vendor/hyperhold(/.*)?",
+                    "/data/vendor/sec_storage_data(/.*)?",
+                    "/data/vendor/sec_storage_data_users(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/data/service/",
+            "permissive_list": {
+                "user": [
+                    "/data/service",
+                    "/data/service/(.*)?",
+                    "/data/service/el0(/.*)?",
+                    "/data/service/el1(/.*)?",
+                    "/data/service/el1/public/print_service(/.*)?",
+                    "/data/service/el2(/.*)?",
+                    "/data/service/el3(/.*)?",
+                    "/data/service/el4(/.*)?",
+                    "/data/service/el5(/.*)?",
+                    "/data/service/el0/startup(/.*)?",
+                    "/data/service/el1/startup/parameters(/.*)?",
+                    "/data/service/el1/public/udev(/.*)?",
+                    "/data/service/el1/public/sandbox_manager(/.*)?",
+                    "/data/service/el1/public/account",
+                    "/data/service/el1/public/account/[0-9]+(/.*)?",
+                    "/data/service/el2/[0-9]+/account(/.*)?",
+                    "/data/service/el1/public/account/account_list.json",
+                    "/data/service/el1/public/account/account_index_info.json",
+                    "/data/service/el1/public/account/account_info_digest.json",
+                    "/data/service/el1/public/account/base_os_account_constraints.json",
+                    "/data/service/el1/public/account/global_os_account_constraints.json",
+                    "/data/service/el1/public/account/specific_os_account_constraints.json",
+                    "/data/service/el1/public/for-all-app/framework_ark_cache(/.*)?",
+                    "/data/service/el1/public/edm/config(/.*)?",
+                    "/data/service/el1/public/edm/config/application(/.*)?",
+                    "/data/service/el1/public/hdc",
+                    "/data/service/el1/public/hdc/(.*)?",
+                    "/data/service/el1/public/device_attest",
+                    "/data/service/el1/public/device_attest/(.*)?",
+                    "/data/service/el1/[0-9]+/distributeddata/utd(/.*)?",
+                    "/data/service/el2/[0-9]+/database/pasteboard_service(/.*)?",
+                    "/data/service/el1/public/pkg_service(/.*)?",
+                    "/data/service/el2/[0-9]+/share(/.*)?",
+                    "/data/service/el2/[0-9]+/hmdfs(/.*)?",
+                    "/data/service/el2/[0-9]+/hmdfs/account/files(/.*)?",
+                    "/data/service/el1/public/cloudfile(/.*)?",
+                    "/data/service/el1/public/storage_daemon/sd(/.*)?",
+                    "/data/service/el0/storage_daemon/sd(/.*)?",
+                    "/data/service/el1/public/storage_daemon/share/public(/.*)?",
+                    "/data/service/el1/public/i18n/libphonenumber(/.*)?",
+                    "/data/service/el1/public/i18n/taboo(/.*)?",
+                    "/data/service/el1/public/i18n/timezone(/.*)?",
+                    "/data/service/el1/public/shader_cache(/.*)?",
+                    "/data/service/el0/public/for-all-app/hilog(/.*)?",
+                    "/data/service/el1/public/msdp(/.*)?",
+                    "/data/service/el1/public/av_session(/.*)?",
+                    "/data/service/el1/public/av_session/cache(/.*)?",
+                    "/data/service/el1/public/udev/control",
+                    "/data/service/el1/public/multimodalinput",
+                    "/data/service/el1/public/multimodalinput(/.*)?",
+                    "/data/service/el1/public/print_service/sane/backend(/.*)?",
+                    "/data/service/el1/public/print_service/sane/config(/.*)?",
+                    "/data/service/el2/public/print_service/sane(/.*)?",
+                    "/data/service/el1/public/print_service/cups/serverbin/filter",
+                    "/data/service/el1/public/print_service/cups/serverbin/backend",
+                    "/data/service/el1/public/print_service/cups/cache",
+                    "/data/service/el1/public/print_service/cups/spool/tmp",
+                    "/data/service/el1/public/print_service/cups/spool",
+                    "/data/service/el1/public/print_service/cups/ppd",
+                    "/data/service/el1/public/bundle_usage(/.*)?",
+                    "/data/service/el1/public/access_token(/.*)?",
+                    "/data/service/el0/access_token/nativetoken.json",
+                    "/data/service/el0/access_token/nativetoken.json.lock",
+                    "/data/service/el1/public/asset_service(/.*)?",
+                    "/data/service/el2/[0-9]+/asset_service(/.*)?",
+                    "/data/service/el1/public/asset_clone(/.*)?",
+                    "/data/service/el1/public/cert_manager_service(/.*)?",
+                    "/data/service/el0/profiles(/.*)?",
+                    "/data/service/el1/profiles(/.*)?",
+                    "/data/service/el1/public/profiles(/.*)?",
+                    "/data/service/el1/public/deviceauth(/.*)?",
+                    "/data/service/el1/public/dlp_permission_service(/.*)?",
+                    "/data/service/el1/public/huks_service(/.*)?",
+                    "/data/service/el2/public/huks_service(/.*)?",
+                    "/data/service/el2/[0-9]+/huks_service(/.*)?",
+                    "/data/service/el4/[0-9]+/huks_service(/.*)?",
+                    "/data/service/el1/public/security_guard(/.*)?",
+                    "/data/service/el1/public/database/security_guard_service/file_store(/.*)?",
+                    "/data/service/el1/public/sharing_service(/.*)?",
+                    "/data/service/el1/public/selection_service(/.*)?",
+                    "/data/service/el1/public/update/dupdate_engine",
+                    "/data/service/el1/public/update/dupdate_engine(/.*)?",
+                    "/data/service/el1/public/update/update_service",
+                    "/data/service/el1/public/update/update_service(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/data/data_chipset",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/dev",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        }
+    ]
+}
