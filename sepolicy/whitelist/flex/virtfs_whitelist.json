@@ -1,0 +1,36 @@
+{
+    "whitelist": [
+        {
+            "virtfs": "proc",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "virtfs": "sysfs",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "virtfs": "debugfs",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+
+            }
+        },
+        {
+            "virtfs": "tracefs",
+            "permissive_list": {
+                "user": [
+                    "tracefs",
+                    "tracefs_trace_marker_file"
+                ],
+                "developer": []
+            }
+        }
+    ]
+}
