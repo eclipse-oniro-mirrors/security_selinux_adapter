@@ -26,6 +26,7 @@ allow init nwebspawn_socket:sock_file { unlink };
 allow init appspawn_socket:sock_file { unlink };
 allow init data_ethernet:dir { getattr };
 allow init data_log:file { getattr };
+allow init faultlogger_log_file:file { getattr };
 allow init bootuptrace_file:dir { add_name getattr open read search write relabelto };
 allow init bootuptrace_file:file { create getattr write open relabelto };
 allow init data_parameters:file { getattr };
@@ -208,6 +209,8 @@ allow init data_app_el1_arkprofile:dir { add_name create getattr open read relab
 allow init data_service_el1_framework_arkcache:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_log:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_log:file { relabelto };
+allow init faultlogger_log_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init faultlogger_log_file:file { relabelto };
 allow init data_media:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_misc_ce:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_misc_ce:file { getattr setattr };

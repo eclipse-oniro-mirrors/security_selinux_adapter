@@ -239,6 +239,8 @@ developer_only(`
 (allow hdcd kernel (unix_stream_socket (connectto)))
 (allow hdcd device (dir (getattr)))
 (allow hdcd data_log (dir (read getattr open search)))
+(allow hdcd faultlogger_log_file (file (read getattr open)))
+(allow hdcd faultlogger_log_file (dir (read getattr open search)))
 (allow hdcd const_display_brightness_param (file (read open map)))
 (allow hdcd dev_unix_socket (dir (search)))
 (allow hdcd data_service_el1_file (dir (search)))

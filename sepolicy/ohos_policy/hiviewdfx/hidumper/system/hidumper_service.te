@@ -26,6 +26,7 @@ use_hidumper({ sadomain hdfdomain });
 neverallow hidumper_service *:process ptrace;
  
 allow hidumper_service data_log:file { getattr open read write append };
+allow hidumper_service faultlogger_log_file:file { getattr open read write append };
 allow hidumper_service hidumper:fd use;
  
 allow hidumper_service hilog_exec:file { execute execute_no_trans getattr map open read };
@@ -58,6 +59,7 @@ allow hidumper_service sa_multimodalinput_service:samgr_class get;
 developer_only(`
     allow hidumper_service data_file:dir { getattr open read search };
     allow hidumper_service data_log:dir { open read search };
+    allow hidumper_service faultlogger_log_file:dir { open read search };
 
     allow hidumper_service dev_block_file:blk_file getattr;
     allow hidumper_service dev_block_file:dir search;
