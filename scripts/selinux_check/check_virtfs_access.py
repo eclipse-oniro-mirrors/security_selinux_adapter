@@ -70,7 +70,7 @@ def deal_with_typeattributeset(cil_file_path, attributes_map):
 def deal_with_genfscon(cil_file_path, genfscon_dict, virtfs_list):
     with open(cil_file_path, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
-            line  = line.strip()
+            line = line.strip()
             if not line.startswith('(genfscon '):
                 continue
             m = re.match(r'\(genfscon\s+(\S+)\s+"([^"]+)"\s+\(u\s+object_r\s+(\S+)\s+', line, flags = re.M|re.S)

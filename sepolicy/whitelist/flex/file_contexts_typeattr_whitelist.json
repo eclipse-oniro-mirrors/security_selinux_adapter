@@ -76,7 +76,7 @@
                     "/vendor/etc/vulkan(/.*)?",
                     "/vendor/etc/power_config/power_mode_config.xml",
                     "/vendor/etc/ressched(/.*)?",
-                    "/vendor/etc/passthrough/teeeos(/.*)?",
+                    "/vendor/etc/passthrough/teeos(/.*)?",
                     "/vendor/etc/passthrough/teeos/ta(/.*)?",
                     "/vendor/etc/passthrough/teeos/dynamic_srv(/.*)?",
                     "/vendor/etc/passthrough/teeos/dynamic_drv(/.*)?",
@@ -284,7 +284,8 @@
                     "/data/service/el1/public/update/dupdate_engine",
                     "/data/service/el1/public/update/dupdate_engine(/.*)?",
                     "/data/service/el1/public/update/update_service",
-                    "/data/service/el1/public/update/update_service(/.*)?"
+                    "/data/service/el1/public/update/update_service(/.*)?",
+                    "/data/service/el1/public/bms/bundle_manager_service/bmsdb.*"
                 ],
                 "developer": []
             }
