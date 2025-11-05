@@ -6,8 +6,7 @@
 - [ ] 策略、注释不出现敏感词
 - [ ] 不要继续往sepolicy/base下新增策略，策略放在sepolicy/ohos_policy下，按子系统/部件存放，没有请新增目录
 - [ ] 如果涉及新增参数标签type ***, parameter_attr， 即type定义以parameter_attr结尾，需要与init责任田达成一致。参数规范详见：https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/subsystems/subsys-boot-init-sysparam.md
-- [ ] type定义的标签如果是文件类型，不允许删除旧标签，只允许新增，否则会引入升级问题
-- [ ] type标签定义和neverallow管控请写在相应目录的public路径下，保证系统和芯片组件能同时管控
+- [ ] neverallow管控请写在相应目录的public路径下，保证系统和芯片组件能同时管控
 - [ ] 不允许应用访问的SA服务使用neverallow规则看护
 - [ ] 系统参数应禁止三方应用配置
 - [ ] 具有写和执行的文件目录应该使用neverallow管控

@@ -23,6 +23,7 @@ import re
 from collections import defaultdict
 from check_common import read_json_file, traverse_file_in_each_type
 
+
 WHITELIST_FILE_NAME = "file_contexts_typeattr_whitelist.json"
 
 
@@ -71,7 +72,7 @@ def is_subpath(subpath, path):
     parts = path.split('/')
     if len(sub_parts) >= len(parts):
         if len(parts) == 0:
-            print("[ERROR] Unsupported check path of " + path)
+            print("[ERROR] Unsupported check path of {}".format(path))
         for i in range(len(parts) - 1):
             if not sub_parts[i] == parts[i]:
                 return False
@@ -80,7 +81,7 @@ def is_subpath(subpath, path):
             if re.fullmatch(maybe_match_part, parts[-1]):
                 return True
         except Exception as e:
-            print("[ERROR] Unsupported check subpath of " + subpath)
+            print("[ERROR] Unsupported check subpath of {}".format(subpath))
             return False
     return False
 
@@ -96,12 +97,12 @@ def print_merged_permissive_info(error_infos):
             merged[error_info.target_path] = []
         merged[error_info.target_path].append(error_info.path)
     for target_path, path_list in merged.items():
-        print("\n\t\tmodify permissive_list of rules: " + target_path)
+        print("\n\t\tmodify permissive_list of rules: {}".format(target_path))
         for path in path_list:
             print("\t\t\t\"{}\"".format(path))
 
 
-def print_error_info(add_error_info, del_error_info, with_developer, config_dict, config_path):
+def print_error_info(add_error_info, del_error_info, with_developer):
     print("[ERROR] check system/chipset access in {} mode failed:".format('developer' if with_developer else 'user'))
     if add_error_info:
         print_blank()
@@ -110,20 +111,24 @@ def print_error_info(add_error_info, del_error_info, with_developer, config_dict
         for error_info in add_error_info:
             print("\t\t{}, {}\t({})" .format(
                     error_info.label, error_info.target_typeattr, error_info.path))
-        print("\n\t2: add following path to permissive_list_file_path of releted requirement in " + WHITELIST_FILE_NAME)
+        print("\n\t2: add following path to permissive_list of releted requirement in {}".format(WHITELIST_FILE_NAME))
         print_merged_permissive_info(add_error_info)
     if del_error_info:
         print_blank()
-        print("[Excess whitelist] The following path should be removed from permissive_list_file_path of releted requirement in "
-            + WHITELIST_FILE_NAME)
-        print_merged_permissive_info(del_error_info)
+        print("[Unused whitelist] The following path should be removed from permissive_list in {}"
+            .format(WHITELIST_FILE_NAME))
+        for target_path, path_list in del_error_info.items():
+            print("\n\t\tmodify permissive_list of rules: {}".format(target_path))
+            for path in path_list:
+                print("\t\t\t\"{}\"".format(path))
         print_blank()
     print_blank()
 
 
 def check_file_label_context_attr(file_path, file_label, config_dict, whitelist_dict, typeattributeset_dict):
     add_to_path_list = []
-    del_from_path_list = []
+    violate_list = []
+
     for config in config_dict.values():
         target_path = config.get('path')
         target_typeattr = config.get('typeattr')
@@ -131,13 +136,12 @@ def check_file_label_context_attr(file_path, file_label, config_dict, whitelist_
         if is_subpath(file_path, target_path):
             types_of_typeattr = typeattributeset_dict.get(target_typeattr)
             if not types_of_typeattr or not file_label in types_of_typeattr:
+                # incorrect path
                 if not file_path in permissive_list:
                     add_to_path_list.append(target_path)
-            else:
-                if file_path in permissive_list:
-                    del_from_path_list.append(target_path)
+                violate_list.append(target_path)
 
-    return add_to_path_list, del_from_path_list
+    return add_to_path_list, violate_list
 
 
 def merge_error_info(cur_path, cur_label, error_path_list, configs, error_msg):
@@ -145,9 +149,20 @@ def merge_error_info(cur_path, cur_label, error_path_list, configs, error_msg):
         error_msg.append(ErrorInfo(cur_path, cur_label, path, configs[path]["typeattr"]))
 
 
+def get_unused_withlist(withlist_dict, violate_map):
+    unused_withlite = {}
+    for path, whiltelist in withlist_dict.items():
+        if path in violate_map:
+            tmp = set(whiltelist) - violate_map[path]
+            if tmp:
+                unused_withlite[path] = tmp
+    return unused_withlite
+
+
 def check_file_contexts_with_typeset(config_dict, whitelist_dict, file_contexts_path, typeattributeset_dict):
-    del_error_info = []
     add_error_info = []
+    del_error_info = []
+    violate_map = defaultdict(set)
     with open(file_contexts_path, 'r', encoding='utf-8') as contexts:
         for file_path_label in contexts:
             file_path_label = file_path_label.strip()
@@ -155,17 +170,18 @@ def check_file_contexts_with_typeset(config_dict, whitelist_dict, file_contexts_
                 continue
             file_path_label_list = file_path_label.split()
             if len(file_path_label_list) < 2:
-                print("[ERROR] Unsupported file_context = " + file_path_label)
+                print("[ERROR] Unsupported file_context = {}".format(file_path_label))
                 continue
             file_path = file_path_label_list[0]
             file_label = get_label_from_context(file_path_label_list[1].strip())
 
-            add_to_path_list, del_from_path_list = check_file_label_context_attr(
+            add_to_path_list, violate_list = check_file_label_context_attr(
                 file_path, file_label, config_dict, whitelist_dict, typeattributeset_dict)
 
             merge_error_info(file_path, file_label, add_to_path_list, config_dict, add_error_info)
-            merge_error_info(file_path, file_label, del_from_path_list, config_dict, del_error_info)
-
+            for path in violate_list:
+                violate_map[path].add(file_path)
+        del_error_info = get_unused_withlist(whitelist_dict, violate_map)
     return add_error_info, del_error_info
 
 
@@ -174,12 +190,12 @@ def filter_valid_config_dict(configs):
     for config in configs:
         target_path = config["path"]
         if target_path in filtered_configs:
-            print("[ERROR] duplicated path = " + target_path)
+            print("[ERROR] duplicated path = {}".format(target_path))
             raise Exception(-1)
         # cannot use regex in checklist
         regex_special_chars = r'[\.\*\+\?\^\$\{\}$\]$\)\|]'
         if re.search(regex_special_chars, target_path):
-            print("[ERROR] config is invalid for path = " + target_path)
+            print("[ERROR] config is invalid for path = {}".format(target_path))
             raise Exception(-1)
         else:
             filtered_configs[target_path] = config
@@ -207,7 +223,6 @@ def check_file_contexts_with_mode(input_args, with_developer=False):
     config_all = read_json_file(config_file)
     config_dict = filter_valid_config_dict(config_all)
 
-    whitelist_config = []
     cil_file_path = ''
     file_contexts_path = input_args.file_contexts
     typeattributeset_dict = defaultdict(list)
@@ -222,7 +237,7 @@ def check_file_contexts_with_mode(input_args, with_developer=False):
     add_error, del_error = check_file_contexts_with_typeset(config_dict, whitelist_dict, file_contexts_path, typeattributeset_dict)
 
     if add_error or del_error:
-        print_error_info(add_error, del_error, with_developer, config_dict, config_file)
+        print_error_info(add_error, del_error, with_developer)
         exit(1)
 
 
