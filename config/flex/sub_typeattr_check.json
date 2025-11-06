@@ -1,0 +1,36 @@
+{
+    "checks":[
+        {
+            "typeattr": "parameter_attr",
+            "subtypeattr": [
+                "system_parameter_attr",
+                "vendor_parameter_attr"
+            ],
+            "baseline": []
+        },
+        {
+            "typeattr": "system_parameter_attr",
+            "subtypeattr": [
+                "system_internal_parameter_attr",
+                "system_restricted_parameter_attr",
+                "system_public_parameter_attr"
+            ],
+            "baseline": [
+                "system_restricted_parameter_attr",
+                "system_public_parameter_attr"
+            ]
+        },
+        {
+            "typeattr": "vendor_parameter_attr",
+            "subtypeattr": [
+                "vendor_internal_parameter_attr",
+                "vendor_restricted_parameter_attr",
+                "vendor_public_parameter_attr"
+            ],
+            "baseline": [
+                "vendor_restricted_parameter_attr",
+                "vendor_public_parameter_attr"
+            ]
+        }
+    ]
+}

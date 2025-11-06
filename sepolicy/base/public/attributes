@@ -362,3 +362,13 @@ attribute violator_appspawn_execute_data_file_attr_violator_file;
 attribute violator_appspawn_execute_hap_file_attr_file;
 attribute violator_domain_sys_boot;
 
+# define type attributes for parameter
+attribute system_parameter_attr;
+attribute system_internal_parameter_attr;
+attribute system_restricted_parameter_attr;
+attribute system_public_parameter_attr;
+
+attribute vendor_parameter_attr;
+attribute vendor_internal_parameter_attr;
+attribute vendor_restricted_parameter_attr;
+attribute vendor_public_parameter_attr;
