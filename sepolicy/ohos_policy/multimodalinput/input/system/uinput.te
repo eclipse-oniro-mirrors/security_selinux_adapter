@@ -36,6 +36,7 @@ debug_only(`
     allow uinput data_local_tmp:file { open read write };
 
     allow uinput hap_domain:fd { use };
+    allow uinput multimodalinput:fd { use };
 ')
 
 developer_only(`
@@ -110,4 +111,5 @@ developer_only(`
     allow uinput data_local_tmp:file { open read write };
 
     allow uinput hap_domain:fd { use };
+    allow uinput multimodalinput:fd { use };
 ')
