@@ -1,0 +1,21 @@
+{
+    "groups": {
+        "checkname": "domain_check",
+        "group": [
+            {
+                "system_domain": [
+                    "sadomain",
+                    "rgm_violator_sadomain",
+                    "hap_domain",
+                    "native_system_domain"
+                ]
+            },
+            {
+                "chipset_domain": [
+                    "hdfdomain",
+                    "native_chipset_domain"
+                ]
+            }
+        ]
+    }
+}
