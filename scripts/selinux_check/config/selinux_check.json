@@ -39,6 +39,21 @@
             "script": "base/security/selinux_adapter/scripts/selinux_check/check_virtfs_access.py",
             "args": "--cil_file",
             "extra_args": "--config scripts/selinux_check/config/flex/virtfs_rules.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_domain.py",
+            "args": "--cil_file",
+            "extra_args": "--config config/flex/type_group.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_parameter.py",
+            "args": "--cil_file",
+            "extra_args": "--config config/flex/sub_typeattr_check.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_socket.py",
+            "args": "--cil_file",
+            "extra_args": ""
         }
     ]
 }
