@@ -763,14 +763,25 @@ action("build_updater_contexts") {
 action("selinux_check") {
   script = "scripts/selinux_check/selinux_check_main.py"
 
-  if (selinux_adapter_build_path == "default") {
-    selinux_adapter_build_path =
-        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
-  }
-
   if (selinux_adapter_check_extend_list != "default") {
     selinux_adapter_build_path =
         selinux_adapter_build_path + ":" + selinux_adapter_check_extend_list
+  }
+
+  if (selinux_adapter_build_path != "default") {
+    sepolicy_dir_lists = rebase_path("sepolicy", root_build_dir)
+    foreach(src, string_split(selinux_adapter_build_path, ":")) {
+      src = "//" + src
+      sepolicy_dir_lists += ":" + rebase_path(src, root_build_dir)
+    }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext != "default") {
+      selinux_adapter_build_path =
+          selinux_adapter_build_path + ":" + selinux_build_path_ext
+    }
+  } else {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
   }
 
   args = [

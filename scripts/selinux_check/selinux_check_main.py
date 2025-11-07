@@ -28,7 +28,10 @@ def get_request_args(args, request):
     for arg in arg_list:
         if arg == "--file_contexts":
             request_args.append(arg)
-            request_args.append(os.path.join(args.output_path, "file_contexts"))
+            file_context_path = os.path.join(args.output_path, "all_file_contexts")
+            if not os.path.exists(file_context_path):
+                file_context_path = os.path.join(args.output_path, "file_contexts")
+            request_args.append(file_context_path)
         if arg == "--cil_file":
             request_args.append(arg)
             request_args.append(os.path.join(args.output_path, "all.cil"))
