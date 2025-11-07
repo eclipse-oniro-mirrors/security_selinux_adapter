@@ -103,7 +103,8 @@ def print_merged_permissive_info(error_infos):
 
 
 def print_error_info(add_error_info, del_error_info, with_developer):
-    print("[ERROR] check system/chipset access in {} mode failed:".format('developer' if with_developer else 'user'))
+    print("[ERROR] check typeattributes of file_contexts access in {} mode failed:"
+        .format('developer' if with_developer else 'user'))
     if add_error_info:
         print_blank()
         print("[Unsafe context] The following file_contexts check failed. The two solutions:")
