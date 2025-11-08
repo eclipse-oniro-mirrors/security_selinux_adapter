@@ -276,3 +276,7 @@ allow wifi_manager_service proc_meminfo_file:file { getattr open read };
 # avc: denied { open } for pid=2887, comm="/system/bin/sa_main"  path="/data/service/el2/100/hmdfs/account/data/com.youku.next/conn_calidata" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=183329 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
 # avc: denied { getattr } for pid=2887, comm="/system/bin/sa_main"  path="/data/service/el2/100/hmdfs/account/data/com.youku.next/conn_calidata" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=183329 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
 allow wifi_manager_service data_service_el2_hmdfs:file { getattr open read };
+#avc: denied { search } for pid=2990, comm="/system/bin/sa_main"  name="/service/el2" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1332 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+allow wifi_manager_service data_service_el2_file:dir { search };
+#avc: denied { search } for pid=2990, comm="/system/bin/sa_main"  name="/service/el2/100/hmdfs" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=8033 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
+allow wifi_manager_service data_service_el2_hmdfs:dir { search };
