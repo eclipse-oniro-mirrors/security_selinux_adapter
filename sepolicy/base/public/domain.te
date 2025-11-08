@@ -60,7 +60,7 @@ allow domain system_etc_file:file { getattr map open read };
 allow domain system_file:dir { search };
 allow domain vendor_file:dir search;
 
-allow domain { lib_file system_lib_file vendor_lib_file }:dir { search };
+allow domain { lib_file system_lib_file vendor_lib_file }:dir { search getattr };
 allow domain { lib_file system_lib_file vendor_lib_file }:file { execute getattr map open read };
 allow domain { lib_file system_lib_file vendor_lib_file }:lnk_file { read };
 
