@@ -157,7 +157,7 @@ def check_baseline(args, with_developer, check_map, baseline_map, attributes_map
                 output_whitelist_err(args, with_developer, typeattr, baseline_data, BASELINE_FILE_NAME)
                 continue
 
-        subtype_data = attributes_map.get(subtype)
+        subtype_data = set(attributes_map.get(subtype))
         if len(baseline_data) == 0:
             check_result = True
             output_policy_err(args, with_developer, typeattr, subtype_data, BASELINE_FILE_NAME)
