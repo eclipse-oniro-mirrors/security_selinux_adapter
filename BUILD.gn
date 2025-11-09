@@ -1413,11 +1413,13 @@ group("selinux_group") {
       ":parameter_contexts",
       ":restorecon",
       ":sehap_contexts",
-      ":selinux_check",
       ":service_check",
       ":service_contexts",
       ":updater_config",
     ]
+    if (!is_asan) {
+      deps += [ ":selinux_check" ]
+    }
     external_deps = [
       "selinux:checkpolicy($host_toolchain)",
       "selinux:chkcon",
