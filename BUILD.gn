@@ -1417,7 +1417,7 @@ group("selinux_group") {
       ":service_contexts",
       ":updater_config",
     ]
-    if (!is_asan) {
+    if (asan_detector) {
       deps += [ ":selinux_check" ]
     }
     external_deps = [
