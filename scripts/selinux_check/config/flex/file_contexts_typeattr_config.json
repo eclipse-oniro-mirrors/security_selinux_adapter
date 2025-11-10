@@ -45,11 +45,35 @@
     },
     {
         "path": "/sys_prod/lib64/",
-        "typeattr": "sys_prod_lib_file_attr"
+        "typeattr": "system_lib_file_attr"
     },
     {
         "path": "/sys_prod/etc",
         "typeattr": "sys_prod_etc_file_attr"
+    },
+    {
+        "path": "/system/lib",
+        "typeattr": "system_lib_file_attr"
+    },
+    {
+        "path": "/system/lib64",
+        "typeattr": "system_lib_file_attr"
+    },
+    {
+        "path": "/eng_system/lib/",
+        "typeattr": "system_lib_file_attr"
+    },
+    {
+        "path": "/eng_system/lib64/",
+        "typeattr": "system_lib_file_attr"
+    },
+    {
+        "path": "/system/etc",
+        "typeattr": "system_etc_file_attr"
+    },
+    {
+        "path": "/eng_system/etc/",
+        "typeattr": "system_etc_file_attr"
     },
     {
         "path": "/chip_prod",

@@ -125,6 +125,84 @@
             }
         },
         {
+            "path": "/system/lib",
+            "permissive_list": {
+                "user": [
+                    "/system/lib(/.*)?",
+                    "/system/lib(64)?/platformsdk/libark_jsruntime.so",
+                    "/system/lib(64)?/libark_jsoptimizer.so",
+                    "/system/lib(64)?/ndk/libjsvm.so",
+                    "/system/lib(64)?/libv8_shared.so",
+                    "/system/lib(64)?/libcode_sign_utils.z.so",
+                    "/system/lib(64)?/libjit_code_sign.z.so"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/system/lib64",
+            "permissive_list": {
+                "user": [
+                    "/system/lib64(/.*)?",
+                    "/system/lib(64)?/platformsdk/libark_jsruntime.so",
+                    "/system/lib(64)?/libark_jsoptimizer.so",
+                    "/system/lib(64)?/ndk/libjsvm.so",
+                    "/system/lib(64)?/libv8_shared.so",
+                    "/system/lib(64)?/libcode_sign_utils.z.so",
+                    "/system/lib(64)?/libjit_code_sign.z.so"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/system/lib64",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/eng_system/lib/",
+            "permissive_list": {
+                "user": [
+                    "/eng_system/lib(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/eng_system/lib64/",
+            "permissive_list": {
+                "user": [],
+                "developer": []
+            }
+        },
+        {
+            "path": "/system/etc",
+            "permissive_list": {
+                "user": [
+                    "/system/etc(/.*)?",
+                    "/system/etc/userfilemanager/userfilemanager_mimetypes.json",
+                    "/system/etc/power_config/power_average.json",
+                    "/system/etc/power_config/power_mode_config.xml",
+                    "/system/etc/thermal_config(/.*)?",
+                    "/system/etc/security_guard_model.cfg",
+                    "/system/etc/security_guard_event.cfg",
+                    "/system/etc/security_guard.cfg"
+                ],
+                "developer": []
+            }
+        },
+        {
+            "path": "/eng_system/etc/",
+            "permissive_list": {
+                "user": [
+                    "/eng_system/etc(/.*)?"
+                ],
+                "developer": []
+            }
+        },
+        {
             "path": "/chip_prod",
             "permissive_list": {
                 "user": [
