@@ -1,0 +1,117 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow accountmgr vpn_isolate_hap:binder { transfer };
+allow appspawn vpn_isolate_hap:process { dyntransition sigkill setsched };
+allow distributeddata vpn_isolate_hap:binder { transfer };
+allow foundation vpn_isolate_hap:binder { call transfer };
+allow foundation vpn_isolate_hap:dir { search };
+allow foundation vpn_isolate_hap:file { getattr read };
+allow foundation vpn_isolate_hap:process { sigkill };
+allow hianalytics vpn_isolate_hap:binder { call };
+allow netsysnative vpn_isolate_hap:tcp_socket { getopt setopt };
+allow netsysnative vpn_isolate_hap:udp_socket { getopt setopt };
+allow normal_hap vpn_isolate_hap:binder { call transfer };
+allow normal_hap vpn_isolate_hap:unix_stream_socket { connectto };
+allow param_watcher vpn_isolate_hap:binder { call };
+allow render_service vpn_isolate_hap:binder { transfer };
+allow samgr vpn_isolate_hap:binder { call transfer };
+
+allow vpn_isolate_hap accesstoken_service:binder { call transfer };
+allow vpn_isolate_hap accountmgr:binder { call };
+allow vpn_isolate_hap appspawn:fd { use };
+allow vpn_isolate_hap appspawn:fifo_file { write };
+allow vpn_isolate_hap appspawn_exec:file { read open getattr };
+allow vpn_isolate_hap asset_service:dir { search };
+allow vpn_isolate_hap asset_service:binder { call };
+allow vpn_isolate_hap chip_prod_file:dir { search };
+allow vpn_isolate_hap data_app_el2_file:dir { search };
+allow vpn_isolate_hap data_app_el1_arkprofile:dir { search };
+allow vpn_isolate_hap data_service_el1_file:dir { search };
+allow vpn_isolate_hap data_app_el1_arkprofile:dir { search };
+allow vpn_isolate_hap data_app_el1_file:dir { search };
+allow vpn_isolate_hap data_app_el1_file:file { getattr map open read execute read };
+allow vpn_isolate_hap data_service_el1_file:dir { open read };
+allow vpn_isolate_hap data_service_el1_file:file { getattr };
+allow vpn_isolate_hap dev_unix_socket:dir { search };
+allow vpn_isolate_hap debug_hap_data_file:dir { search read getattr write open add_name };
+allow vpn_isolate_hap debug_hap_data_file:file { getattr };
+allow vpn_isolate_hap dev_ashmem_file:chr_file { open };
+allow vpn_isolate_hap dev_at_file:chr_file { ioctl };
+allow vpn_isolate_hap dev_tun_file:chr_file { getattr ioctl };
+allow vpn_isolate_hap distributeddata:binder { call transfer };
+allow vpn_isolate_hap distributeddata:fd { use };
+allow vpn_isolate_hap foundation:binder { call transfer };
+allow vpn_isolate_hap hianalytics:binder { call transfer };
+allow vpn_isolate_hap hiview:binder { call };
+allow vpn_isolate_hap hiview:unix_dgram_socket { sendto };
+allow vpn_isolate_hap netmanager:binder { call transfer };
+allow vpn_isolate_hap netsysnative:unix_stream_socket { connectto };
+allow vpn_isolate_hap node:tcp_socket { node_bind };
+allow vpn_isolate_hap node:udp_socket { node_bind };
+allow vpn_isolate_hap normal_hap:unix_stream_socket { connectto };
+allow vpn_isolate_hap normal_hap:binder { call };
+allow vpn_isolate_hap normal_hap:fd { use };
+allow vpn_isolate_hap normal_hap_data_file:dir { getattr ioctl open read setattr write add_name search write remove_name search write rename create };
+allow vpn_isolate_hap normal_hap_data_file:file { append getattr ioctl lock map open read write setattr create unlink };
+allow vpn_isolate_hap normal_hap_data_file:sock_file { create unlink write };
+allow vpn_isolate_hap param_watcher:binder { call transfer };
+allow vpn_isolate_hap port:tcp_socket { name_connect name_bind };
+allow vpn_isolate_hap port:udp_socket { name_bind };
+allow vpn_isolate_hap proc_meminfo_file:file { getattr open read };
+allow vpn_isolate_hap proc_cpuinfo_file:file { read open };
+allow vpn_isolate_hap proc_file:file { read open };
+allow vpn_isolate_hap proc_stat_file:file { read open };
+allow vpn_isolate_hap proc_net_tcp_udp:file { read open };
+allow vpn_isolate_hap render_service:binder { call transfer };
+allow vpn_isolate_hap render_service:fd { use };
+allow vpn_isolate_hap resource_schedule_service:binder { call };
+allow vpn_isolate_hap sa_accesstoken_manager_service:samgr_class { get };
+allow vpn_isolate_hap sa_accountmgr:samgr_class { get };
+allow vpn_isolate_hap sa_asset_service:samgr_class { get };
+allow vpn_isolate_hap sa_comm_vpn_manager_service:samgr_class { get };
+allow vpn_isolate_hap sa_foundation_abilityms:samgr_class { get };
+allow vpn_isolate_hap sa_foundation_ans:samgr_class { get };
+allow vpn_isolate_hap sa_foundation_appms:samgr_class { get };
+allow vpn_isolate_hap sa_foundation_bms:samgr_class { get };
+allow vpn_isolate_hap sa_foundation_cesfwk_service:samgr_class { get };
+allow vpn_isolate_hap sa_foundation_dms:samgr_class { get };
+allow vpn_isolate_hap sa_hianalytics:samgr_class { get };
+allow vpn_isolate_hap sa_hiview_service:samgr_class { get };
+allow vpn_isolate_hap sa_param_watcher:samgr_class { get };
+allow vpn_isolate_hap sa_render_service:samgr_class { get };
+allow vpn_isolate_hap sa_resource_schedule:samgr_class { get };
+allow vpn_isolate_hap sa_storage_manager_service:samgr_class { get };
+allow vpn_isolate_hap sa_time_service:samgr_class { get };
+allow vpn_isolate_hap samgr:binder { call transfer };
+allow vpn_isolate_hap storage_manager:binder { call };
+allow vpn_isolate_hap sysfs_devices_system_cpu:file { getattr open read };
+allow vpn_isolate_hap system_file:file { getattr open read };
+allow vpn_isolate_hap sys_prod_file:dir { search };
+allow vpn_isolate_hap system_usr_file:dir { search };
+allow vpn_isolate_hap vpn_isolate_hap:hmcap { supervsable };
+allow vpn_isolate_hap vpn_isolate_hap:netlink_route_socket { create bind write nlmsg_read read setopt getattr };
+allow vpn_isolate_hap vpn_isolate_hap:tcp_socket { accept bind connect create getattr getopt listen read setopt write shutdown };
+allow vpn_isolate_hap vpn_isolate_hap:udp_socket { bind connect create read setopt write getattr };
+allow vpn_isolate_hap vpn_isolate_hap:unix_dgram_socket { getopt setopt };
+allowxperm vpn_isolate_hap dev_at_file:chr_file ioctl { 0x5413 };
+allowxperm vpn_isolate_hap dev_tun_file:chr_file ioctl { 0x54d2 };
+allowxperm vpn_isolate_hap normal_hap_data_file:dir ioctl { 0xf546 };
+allowxperm vpn_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
+
+debug_only(`
+    allow vpn_isolate_hap su:unix_stream_socket { connectto };
+    allow su vpn_isolate_hap:dir { getattr search };
+    allow su vpn_isolate_hap:file { read open };
+    allow su vpn_isolate_hap:process { getattr };
+')

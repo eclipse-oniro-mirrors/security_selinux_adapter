@@ -146,7 +146,7 @@ neverallow ~{ domain develop_domain debug_only(`rgm_violator_su_process_dyntrans
 # everyone should in { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain }
 neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -native_system_domain -native_chipset_domain
     developer_only(`-lldb_server') -violator_lldb_server_transition }:process { transition };
-neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -isolated_render -isolated_gpu -native_system_domain -native_chipset_domain developer_only(`-input_isolate_debug_hap') -input_isolate_hap -distributed_isolate_hap }:process { dyntransition };
+neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -isolated_render -isolated_gpu -native_system_domain -native_chipset_domain developer_only(`-input_isolate_debug_hap') -input_isolate_hap -distributed_isolate_hap -vpn_isolate_hap }:process { dyntransition };
 
 neverallow { domain -nwebspawn -nativespawn } { isolated_gpu isolated_render }:process { dyntransition };
 neverallow nwebspawn {domain -isolated_gpu -isolated_render }:process { dyntransition };
