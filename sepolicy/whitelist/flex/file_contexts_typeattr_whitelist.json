@@ -362,8 +362,7 @@
                     "/data/service/el1/public/update/dupdate_engine",
                     "/data/service/el1/public/update/dupdate_engine(/.*)?",
                     "/data/service/el1/public/update/update_service",
-                    "/data/service/el1/public/update/update_service(/.*)?",
-                    "/data/service/el1/public/bms/bundle_manager_service/bmsdb.*"
+                    "/data/service/el1/public/update/update_service(/.*)?"
                 ],
                 "developer": []
             }

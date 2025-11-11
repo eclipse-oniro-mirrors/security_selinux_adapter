@@ -22,3 +22,6 @@
 
 # for bmsdb
 /data/service/el1/public/bms/bundle_manager_service/bmsdb.* u:object_r:bms_db_file:s0
+/data/service/el1/public/bms/bundle_manager_service/bmsdb.db_binlog(/.*) u:object_r:bms_db_file:s0
+/data/service/el1/public/bms/bundle_resources/bundleResource.* u:object_r:bms_db_file:s0
+/data/service/el1/public/bms/bundle_resources/bundleResource.db_binlog(/.*) u:object_r:bms_db_file:s0
