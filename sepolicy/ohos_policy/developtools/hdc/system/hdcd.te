@@ -324,6 +324,9 @@ developer_only(`
     allow hdcd proc_file:lnk_file { read };
     # avc:  denied  { search } for  pid=5252 comm="OS_FFRT_2_4" name="/" dev="proc" ino=1 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
     allow hdcd proc_file:dir { search };
+
+    # avc: denied { signal } for pid=25234, comm="/system/bin/hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:sqlite3:s0 tclass=process permissive=0
+    allow hdcd sqlite3:process { signal };
 ')
 
 neverallow hdcd hmdfs:dir ioctl;

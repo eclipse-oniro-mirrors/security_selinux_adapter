@@ -100,6 +100,10 @@ allow sqlite3 tty_device:chr_file { ioctl read write };
 
 # avc: denied { ioctl } for pid=25124, comm="/bin/sqlite3"  name="0" dev="0" major=136 minor=0 ioctlcmd=0x5413 scontext=u:r:sqlite3:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
 allowxperm sqlite3 tty_device:chr_file ioctl { 0x5413 };
+
+# avc: denied { read } for pid=29485, comm="/bin/sqlite3" path="pipe:[3519]" dev="tmpfs" ino=3519 scontext=u:r:sqlite3:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=0
+# avc: denied { write } for pid=29485, comm="/bin/sqlite3" path="pipe:[3519]" dev="tmpfs" ino=3519 scontext=u:r:sqlite3:s0 tcontext=u:r:hdcd:s0 tclass=fifo_file permissive=0
+allow sqlite3 hdcd:fifo_file { read write };
 ')
  
 # only shell allowed execute sqlite3_exec
