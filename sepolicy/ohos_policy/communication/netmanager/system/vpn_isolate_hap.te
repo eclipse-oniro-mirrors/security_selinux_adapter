@@ -14,4 +14,4 @@
 allow vpn_isolate_hap appspawn:unix_dgram_socket { write };
 allow vpn_isolate_hap ark_profile:file { map open read };
 allow vpn_isolate_hap sa_net_conn_manager:samgr_class { get };
-allow vpn_isolate_hap sa_netmanager_enhanced_service:samgr_class { get };
+# allow vpn_isolate_hap sa_netmanager_enhanced_service:samgr_class { get };
