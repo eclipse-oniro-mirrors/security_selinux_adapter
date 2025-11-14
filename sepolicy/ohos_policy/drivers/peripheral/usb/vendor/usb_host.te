@@ -126,6 +126,7 @@ allow usb_host hdf_ext_devmgr:binder { call };
 allow usb_host sys_usb_param:parameter_service { set };
 allow usb_host normal_hap_attr:fd { use };
 allow usb_host hmdfs:file { read write };
+allow usb_host data_user_file:file { read write};
 allow usb_host dev_usb_accessory_file:chr_file { open ioctl read write };
 allowxperm usb_host dev_usb_accessory_file:chr_file ioctl { 0x4d01 0x4d02 0x4d03 0x4d04 0x4d06 0x4dc0 };
 allow usb_host sa_accesstoken_manager_service:samgr_class { get };
