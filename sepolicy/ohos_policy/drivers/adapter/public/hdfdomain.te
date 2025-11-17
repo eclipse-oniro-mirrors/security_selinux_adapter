@@ -17,6 +17,10 @@ allow hdfdomain vendor_bin_file:file { entrypoint execute map read };
 
 allow hdfdomain hdf_devhost_exec:file { entrypoint execute map read };
 
+allow domain vendor_lib_file:dir { open read search getattr };
+
+allow domain vendor_lib_file:file { open read getattr };
+
 #neverallow
 # let every hdf_host join hdf_domain
 neverallow { domain -hdfdomain -sadomain -init -hap_domain -isolated_gpu developer_only(`-input_isolate_debug_hap') -input_isolate_hap } hdf_devmgr:binder call;
