@@ -100,11 +100,13 @@ def get_whitelist(args, with_developer):
 def check_sock_unique(with_developer, rule_system_set, rule_chipset_set):
     notallow = rule_system_set & rule_chipset_set
     if len(notallow) > 0 :
-        print('check socket rule in "{}" mode failed.'.format("developer" if with_developer else "user"))
-        print('violation list (type):')
+        print('Check sock_file with correct socket attribute in {} mode failed.'.format(
+            "developer" if with_developer else "user"))
+        print('Violation list (type):')
         for diff in sorted(list(notallow)):
             print('\t"{}",'.format(diff))
-        print('The above types should only one of the two attributes: chipset_sock_domain and system_sock_domain.')
+        print('The above types should be associated with exactly one of the two attributes: '
+            'chipset_sock_domain and system_sock_domain.\n')
     return len(notallow) > 0
 
 
@@ -113,32 +115,33 @@ def check(args, with_developer):
     rule_system_set = set()
     rule_chipset_set = set()
     socket_set = get_socket_set(args, with_developer, rule_system_set, rule_chipset_set)
-    rule1 = check_sock_unique(with_developer, rule_system_set, rule_chipset_set)
+    unique_rule = check_sock_unique(with_developer, rule_system_set, rule_chipset_set)
     contexts_list = get_whitelist(args, with_developer)
     notallow = socket_set - set(contexts_list)
     if len(notallow) > 0 :
         check_result = True
-        print('check socket rule in "{}" mode failed.'.format("developer" if with_developer else "user"))
-        print('violation list (scontext):')
+        print('Check sock_file with single socket attribute in {} mode failed.'.format(
+            "developer" if with_developer else "user"))
+        print('Violation list (types):')
         for diff in sorted(list(notallow)):
             print('\t"{}",'.format(diff))
         print('There are two solutions:\n',
-            '\t1.modify the type of sock_file to belong to either the chipset_sock_domain or the system_sock_domain.\n',
-            '\t2.add the above list to whitelist file "{}" in "{}" mode.'.format(
-                    WHITELIST_FILE_NAME, "developer" if with_developer else "user")
-              )
+            '\t1. Associate types with either chipset_sock_domain or system_sock_domain.\n',
+            '\t2. Add the above list to "{}" field in {} file.\n'.format(
+                "developer" if with_developer else "user", WHITELIST_FILE_NAME))
 
     notallow = set(contexts_list) - socket_set
     if len(notallow) > 0 :
         check_result = True
-        print('check socket rule in "{}" mode failed.'.format("developer" if with_developer else "user"))
-        print('violation list (scontext):')
+        print('Check whitelist of socket rule in {} mode failed.'.format(
+            "developer" if with_developer else "user"))
+        print('Violation list (types):')
         for diff in sorted(list(notallow)):
             print('\t"{}",'.format(diff))
-        print('Solution: delete unused data from the "{}" file in "{}" mode.'.format(
-            WHITELIST_FILE_NAME, "developer" if with_developer else "user"
+        print('Solution: delete any unused data from "{}" field in {} file.\n'.format(
+            "developer" if with_developer else "user", WHITELIST_FILE_NAME
         ))
-    return check_result | rule1
+    return check_result | unique_rule
 
 
 def parse_args():

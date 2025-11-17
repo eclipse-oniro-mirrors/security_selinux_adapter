@@ -28,28 +28,27 @@ WHITELIST_FILE_NAME = "virtfs_whitelist.json"
 
 
 def print_error_info(add_path_to_virtfs, del_path_from_virtfs, with_developer, config_dict):
-    print("\n\nCheck virtfs access in '{}' mode failed.\n".format("developer" if with_developer else "user"))
+    print("\nCheck security context of filesystem in {} mode failed.\n"
+        .format("developer" if with_developer else "user"))
     if add_path_to_virtfs:
-        print("[Violation list]")
         for virtfs, label_list in add_path_to_virtfs.items():
-            print("\ttype of path mounted to '{}' should belong to typeattribute '{}'"
+            print("The node mounted to \"{}\" should be associated with the attribute \"{}\""
                 .format(virtfs, config_dict[virtfs]["typeattr"]))
             for label in label_list:
-                print("\t\t {}".format(label))
-        print("\tThere are two solutions:")
-        print("\t1. define type with typeattribute.")
-        print("\t2. add type to permissive_list of '{}' in '{}' mode in file '{}'.".format(
-                virtfs, "developer" if with_developer else "user", WHITELIST_FILE_NAME))
-        print("\n")
+                print("\t{}".format(label))
+        print("There are two solutions:")
+        print("1. Associate types with the attribute {}.".format(config_dict[virtfs]["typeattr"]))
+        print("2. Add types to \"{}\" field under \"permissive_list\" field of \"{}\" in {} file.\n".format(
+                "developer" if with_developer else "user", virtfs, WHITELIST_FILE_NAME))
 
     if del_path_from_virtfs:
-        print("[Unused whitelist]")
         for virtfs, label_list in del_path_from_virtfs.items():
-            print("\tDelete permissive_list of '{}' in '{}' mode in file '{}'.".format(
-                virtfs, "developer" if with_developer else "user", WHITELIST_FILE_NAME))
+            print("Delete any unused data from \"{}\" field under \"permissive_list\" of \"{}\" "
+                "in {} file: ".format(
+                "developer" if with_developer else "user", virtfs, WHITELIST_FILE_NAME))
             for label in label_list:
-                print("\t\t {}".format(label))
-
+                print("\t{}".format(label))
+        print("\n")
 
 def simplify_string(string):
     return string.replace('(', '').replace(')', '').replace('\n', '').strip()
@@ -174,7 +173,7 @@ def parse_args():
 if __name__ == '__main__':
     input_args = parse_args()
     script_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-    print("check virtfs input_args: {}".format(input_args))
+    print("check virtfs_context input_args: {}".format(input_args))
 
     check_virtfs(input_args, False)
     check_virtfs(input_args, True)

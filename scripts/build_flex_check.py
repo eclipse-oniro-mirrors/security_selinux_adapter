@@ -20,11 +20,7 @@ limitations under the License.
 import os
 import re
 import argparse
-import build_policy_api
 import sys
-sys.path.append(os.path.join(os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))), "build"))
-from scripts.util import build_utils
 import shutil
 import find
 
@@ -171,11 +167,11 @@ def generate_compatible_cil(input_args, old_type_set, new_type_set,
     types_output = ''
     deleted_types = old_type_set - new_type_set
     for label in deleted_types:
-        types_output += '(type ' + label + ')\n'
+        types_output += '(type {})\n'.format(label)
     with open(old_diff_cil_file, 'w', encoding='utf-8') as outfile:
-        outfile.write('\n' + types_output)
+        outfile.write('{}\n'.format(types_output))
         if deleted_types:
-            outfile.write('\n\n')
+            outfile.write('\n')
 
     version_cil = None
     if is_developer:
@@ -319,7 +315,7 @@ def parse_args():
     parser.add_argument(
         '--latest-policy-object', help='the latest compiled policy object', required=True)
     parser.add_argument(
-        '--system-compact-object', help='the compiled system compatible policy object', required=True)
+        '--system-compact-object', help='the compiled system compatible policy object')
     parser.add_argument(
         '--compat-version', help='compat version', required=True)
     parser.add_argument('--use-mode',
@@ -334,6 +330,9 @@ def parse_args():
 
 
 def check_and_prepare(input_args):
+    if input_args.use_mode == "generate" and not input_args.compat_policy_object:
+        print("[ERROR] need --compat-policy-object in generation mode.")
+        raise Exception(-1)
     # check output path
     if not os.path.exists(input_args.output_path):
         os.makedirs(input_args.output_path)
