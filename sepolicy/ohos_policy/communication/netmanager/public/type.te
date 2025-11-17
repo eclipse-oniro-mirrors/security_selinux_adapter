@@ -14,4 +14,4 @@
 type fwmark_service, dev_attr, file_attr;
 type dnsproxy_service, dev_attr, file_attr;
 type etc_hosts_file, file_attr, data_file_attr;
-type vpn_isolate_hap, domain;
+type vpn_isolate_hap, sadomain;
