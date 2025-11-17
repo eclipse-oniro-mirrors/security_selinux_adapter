@@ -63,6 +63,7 @@ debug_only(`
     allow usb_host console:fd { use };
     allow usb_host sh:binder { call };
 ')
+allow usb_host data_file:dir { search };
 allow usb_host data_init_agent:dir { search };
 allow usb_host data_init_agent:file { ioctl open read append };
 allow usb_host data_log:file { read write };
