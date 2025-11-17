@@ -135,7 +135,8 @@
             "daudio",
             "distributeddata",
             "av_codec_service",
-            "distributedfile"
+            "distributedfile",
+            "vpn_isolate_hap"
         ],
         "rgm_violator_sadomain": [],
         "hap_domain": [
