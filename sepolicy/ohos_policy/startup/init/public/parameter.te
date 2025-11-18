@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Copyright (c) 2024-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -17,7 +17,6 @@ neverallow { normal_hap debug_hap } parameter_attr:parameter_service { set };
 neverallow { normal_hap debug_hap } paramservice_socket:sock_file { write };
 
 typeattribute accessibility devinfo_type_allow_attr;
-typeattribute bgtaskmgr_service devinfo_type_allow_attr;
 typeattribute distributeddata devinfo_type_allow_attr;
 typeattribute drm_service devinfo_type_allow_attr;
 typeattribute foundation devinfo_type_allow_attr;

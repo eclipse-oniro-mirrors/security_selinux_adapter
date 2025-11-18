@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -72,7 +72,7 @@ allow av_session sa_distributeddata_service:samgr_class { get };
 
 allow av_session dev_ashmem_file:chr_file { open };
 
-allow av_session bgtaskmgr_service:binder { call transfer };
+allow av_session resource_schedule_service:binder { call transfer };
 allow av_session sa_bgtaskmgr:samgr_class { get };
 allow av_session sa_foundation_ans:samgr_class { get };
 allow av_session bootevent_param:file { map open read };

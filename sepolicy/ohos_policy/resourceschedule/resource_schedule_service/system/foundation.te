@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,3 +13,9 @@
 
 #foundation
 allow foundation resource_schedule_service:binder { call transfer };
+
+allow foundation device_usage_stats_service:binder { call transfer };
+allow foundation sa_resource_schedule:samgr_class { get };
+allow foundation resource_schedule_service:dir { search };
+allow foundation resource_schedule_service:file { getattr open read };
+
