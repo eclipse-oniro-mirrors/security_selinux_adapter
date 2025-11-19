@@ -280,3 +280,8 @@ allow wifi_manager_service data_service_el2_hmdfs:file { getattr open read };
 allow wifi_manager_service data_service_el2_file:dir { search };
 #avc: denied { search } for pid=2990, comm="/system/bin/sa_main"  name="/service/el2/100/hmdfs" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=8033 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 allow wifi_manager_service data_service_el2_hmdfs:dir { search };
+
+# avc: denied { create } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
+# avc: denied { setopt } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
+# avc: denied { write } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
+allow wifi_manager_service wifi_manager_service:rawip_socket { create setopt write };
