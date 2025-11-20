@@ -143,28 +143,29 @@ def non_unique_domain_data(args, with_developer, domain_map, whitelist_map):
     notallow = conflict_domain - result
     if (len(notallow) > 0):
         check_result = True
-        print('************************************************************************************************')
-        print('\tcheck domain "conflict_domain" in "{}" mode failed.'.format("developer" if with_developer else "user"))
-        print('\tviolation list (type):')
+        print('\tCheck whitelist of "conflict_domain" in {} mode failed.'.format(
+            "developer" if with_developer else "user"
+        ))
+        print('\tViolation list (type):')
         for violation in sorted(list(notallow)):
             print('\t\t"{}",'.format(violation))
-        print('\tSolution: Delete unused data from the "{}" file in "{}" mode.'.format(
-            WHITELIST_FILE_NAME, "developer" if with_developer else "user"
-        ))
-        print('************************************************************************************************')
+        print('\tSolution: delete any unused data from "conflict_domain" field under "{}" field '
+            'in {} file\n'.format("developer" if with_developer else "user", WHITELIST_FILE_NAME))
 
     notallow = result - conflict_domain
     if (len(notallow) > 0):
         check_result = True
-        print('************************************************************************************************')
-        print('\tcheck domain "conflict_domain" in "{}" mode failed.'.format( "developer" if with_developer else "user"))
-        print('\tviolation list (type):')
+        print("\tCheck rule in {} mode failed: a process is restricted to a single domain."
+            .format("developer" if with_developer else "user"))
+        print('\tViolation list (type):')
         for violation in sorted(list(notallow)):
             print('\t\t"{}",'.format(violation))
-        print('\tSolution: In "{}" mode, modify the policy to prevent belonging to multiple domain.'.format(
-            "developer" if with_developer else "user"
-        ))
-        print('************************************************************************************************')
+        
+        print('\tThere are two solutions:\n',
+            '\t1. Change types to prevent association with multiple domains.\n'.format(
+            "developer" if with_developer else "user"),
+            '\t2. Add the above list to "conflict_domain" field under "{}" field in {} file.\n'.format(
+            "developer" if with_developer else "user", WHITELIST_FILE_NAME))
     return check_result
 
 
@@ -176,26 +177,22 @@ def get_notallow(domain_set, domain_map):
 
 
 def output_policy_err(args, with_developer, domain, domain_err_set):
-    print('************************************************************************************************')
-    print('\tcheck "{}" baseline in "{}" mode failed'.format(domain, "developer" if with_developer else "user"))
-    print('\tviolation list (type):')
+    print('\tCheck "{}" baseline in {} mode failed.'.format(domain, "developer" if with_developer else "user"))
+    print('\tViolation list (type):')
     for violation in sorted(list(domain_err_set)):
         print('\t\t"{}",'.format(violation))
-    print('\tSolution: add the above list to baseline file "{}" in "{}" mode.\n'.format(
-            DOMAIN_BASELINE, "developer" if with_developer else "user"))
-    print('************************************************************************************************')
+    print('\tSolution: add the above list to "{}" field under "{}" field in baseline file {}.\n'.format(
+        domain, "developer" if with_developer else "user", DOMAIN_BASELINE))
 
 
 def output_baseline_err(args, with_developer, domain, domain_err_set):
-    print('************************************************************************************************')
-    print('\tcheck "{}" baseline in "{}" mode failed.'.format(domain, "developer" if with_developer else "user"))
-    print('\tviolation list (type):')
+    print('\tCheck "{}" baseline in "{}" mode failed.'.format(domain, "developer" if with_developer else "user"))
+    print('\tViolation list (type):')
     for violation in sorted(list(domain_err_set)):
         print('\t\t"{}",'.format(violation))
-    print('\tSolution: delete unused data from the "{}" file in "{}" mode.'.format(
-        DOMAIN_BASELINE, "developer" if with_developer else "user"
+    print('\tSolution: delete any unused data from "{}" field under "{}" field in baseline file {}.\n'.format(
+        domain, "developer" if with_developer else "user", DOMAIN_BASELINE
     ))
-    print('************************************************************************************************')
 
 
 def check_baseline(args, domain_map, with_developer):
@@ -247,28 +244,27 @@ def check(args, with_developer):
         for v in group_map.values():
             domain_list.extend(v)
         whitelist_result = True
-        print('************************************************************************************************')
-        print('\tcheck domain "missing_domain" in "{}" mode failed.'.format( "developer" if with_developer else "user"))
-        print('\tviolation list (type):')
+        print('\tCheck rule in {} mode failed: a process should be associated with a domain.'.format(
+                "developer" if with_developer else "user"))
+        print('\tViolation list (type):')
         for diff in sorted(list(notallow)):
             print('\t\t"{}",'.format(diff))
-        print('There are two solutions:\n',
-              '\t1. the type needs to be associated with one of "{}".\n'.format(domain_list),
-              '\t2. add the above list to whitelist file "{}" in "{}" mode.\n'.format(
-                    WHITELIST_FILE_NAME, "developer" if with_developer else "user"))
-        print('************************************************************************************************')
+        print('\tThere are two solutions:\n',
+            '\t1. Associate the types to one of domains:\n',
+            "\t\t{}\n".format(", ".join(domain_list)),
+            '\t2. Add the above list to "missing_domain" field under "{}" field in {} file.\n'.format(
+            "developer" if with_developer else "user", WHITELIST_FILE_NAME))
 
     notallow = contexts_list - history_data
     if len(notallow) > 0 :
         whitelist_result = True
-        print('************************************************************************************************')
-        print('\tcheck domain "missing_domain" in "{}" mode failed.'.format( "developer" if with_developer else "user"))
-        print('\tviolation list (type):')
+        print('\tCheck whitelist of "missing_domain" in {} mode failed.'.format( "developer" if with_developer else "user"))
+        print('\tViolation list (type):')
         for diff in sorted(list(notallow)):
             print('\t\t"{}",'.format(diff))
-        print('\tSolution: delete unused whitelist from the "{}" file in "{}" mode.'.format(
-                    WHITELIST_FILE_NAME, "developer" if with_developer else "user"))
-        print('************************************************************************************************')
+        print('\tSolution: delete any unused data from "missing_domain" field under '
+            '"{}" field in {} file.\n'.format(
+            "developer" if with_developer else "user", WHITELIST_FILE_NAME))
     return whitelist_result | baseline_result | multiple_mapping_result
 
 

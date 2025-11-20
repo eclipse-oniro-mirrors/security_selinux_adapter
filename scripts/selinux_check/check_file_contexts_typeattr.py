@@ -97,31 +97,35 @@ def print_merged_permissive_info(error_infos):
             merged[error_info.target_path] = []
         merged[error_info.target_path].append(error_info.path)
     for target_path, path_list in merged.items():
-        print("\n\t\tmodify permissive_list of rules: {}".format(target_path))
+        print("\t\tChange \"permissive_list\" of \"path\": {}".format(target_path))
         for path in path_list:
             print("\t\t\t\"{}\"".format(path))
+        print("\n")
 
 
 def print_error_info(add_error_info, del_error_info, with_developer):
-    print("[ERROR] check typeattributes of file_contexts access in {} mode failed:"
+    print("Check security context of file and its associated attributes in {} mode failed."
         .format('developer' if with_developer else 'user'))
     if add_error_info:
         print_blank()
-        print("[Unsafe context] The following file_contexts check failed. The two solutions:")
-        print("\t1: modify following types belong to target typeattribute: type, attribute (file)")
+        print("Check security context of file failed. There are two solutions:")
+        print("\t1: Associate following types with the attribute: type, attribute (file)")
         for error_info in add_error_info:
             print("\t\t{}, {}\t({})" .format(
                     error_info.label, error_info.target_typeattr, error_info.path))
-        print("\n\t2: add following path to permissive_list of releted requirement in {}".format(WHITELIST_FILE_NAME))
+        print("\n\t2: Add following file path to \"{}\" field in {} file."
+            .format('developer' if with_developer else 'user', WHITELIST_FILE_NAME))
         print_merged_permissive_info(add_error_info)
     if del_error_info:
         print_blank()
-        print("[Unused whitelist] The following path should be removed from permissive_list in {}"
-            .format(WHITELIST_FILE_NAME))
+        print("The following file path should be removed from \"permissive_list\""
+            " \"{}\" field in {} file."
+            .format('developer' if with_developer else 'user', WHITELIST_FILE_NAME))
         for target_path, path_list in del_error_info.items():
-            print("\n\t\tmodify permissive_list of rules: {}".format(target_path))
+            print("\tChange \"permissive_list\" of \"path\": {}".format(target_path))
             for path in path_list:
                 print("\t\t\t\"{}\"".format(path))
+            print("\n")
         print_blank()
     print_blank()
 
