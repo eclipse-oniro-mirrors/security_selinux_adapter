@@ -60,6 +60,7 @@ allow render_service distributedsched:fd { use };
 allow render_service sharing_service:fd { use };
 allow render_service dscreen:fd { use };
 allow render_service av_codec_service:fd { use };
+allow render_service arkui_param:file { map open read };
 
 debug_only(`
     allow render_service sh:fd { use };
