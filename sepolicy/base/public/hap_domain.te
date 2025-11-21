@@ -205,11 +205,11 @@ neverallow { domain -appspawn -hap_domain -installs -storage_daemon  -distribute
 neverallow { normal_hap_attr -normal_hap_system_basic_hap_data_file_violators } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -processdump -hiview -download_server developer_only(`-input_isolate_debug_hap') -input_isolate_hap -appspawn -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt -rgm_violator_normal_hap_data_file_attr_dir_file_create_unlink updater_only(`-updater') developer_only(`-sqlite3') } normal_hap_data_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -processdump -hiview -download_server developer_only(`-input_isolate_debug_hap') -input_isolate_hap -appspawn -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt -rgm_violator_normal_hap_data_file_attr_dir_file_create_unlink updater_only(`-updater') developer_only(`-sqlite3') -vpn_isolate_hap } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn -nativespawn -cjappspawn -distributeddata -storage_daemon -processdump -hiview -download_server developer_only(`-input_isolate_debug_hap') -input_isolate_hap -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -rgm_violator_normal_hap_data_file_attr_dir -distributedfiledaemon -pasteboard_service developer_only(`-hdcd') updater_only(`-updater') -init -distributed_isolate_hap -backup_sa developer_only(`-sqlite3') } normal_hap_data_file_attr:dir *;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -nativespawn -cjappspawn -distributeddata -storage_daemon -processdump -hiview -download_server developer_only(`-input_isolate_debug_hap') -input_isolate_hap -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -rgm_violator_normal_hap_data_file_attr_dir -distributedfiledaemon -pasteboard_service developer_only(`-hdcd') updater_only(`-updater') -init -distributed_isolate_hap -backup_sa developer_only(`-sqlite3') -vpn_isolate_hap } normal_hap_data_file_attr:dir *;
 
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -processdump -hiview -download_server -input_isolate_hap -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -rgm_violator_normal_hap_data_file_attr_file_open -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt developer_only(`-hdcd -input_isolate_debug_hap') updater_only(`-updater') -init -distributed_isolate_hap developer_only(`-sqlite3') } normal_hap_data_file_attr:file_class_set open;
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -processdump -hiview -download_server -input_isolate_hap -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -rgm_violator_normal_hap_data_file_attr_file_open -distributedfiledaemon -file_migrate_hap_data_file_attr_violator_opt developer_only(`-hdcd -input_isolate_debug_hap') updater_only(`-updater') -init -distributed_isolate_hap developer_only(`-sqlite3') -vpn_isolate_hap } normal_hap_data_file_attr:file_class_set open;
 
 neverallow { init } {normal_hap_data_file_attr -medialibrary_hap_data_file}:dir *;
 
@@ -233,7 +233,7 @@ neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
 neverallow { domain -hap_domain -nwebspawn -cupsd -print_driver -violator_execute_no_trans_data_file_attr -data_file_attr_violator_exec developer_only(`-hnp_native') -updater_binary} { data_file_attr }:file { execute_no_trans };
-neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -print_driver -violator_execute_data_file_attr -sane_service -data_file_attr_violator_exec developer_only(`-uitest -input_isolate_debug_hap -hnp_native') debug_only(`-init') -updater_binary} data_file_attr:file { execute };
+neverallow { domain -hap_domain -nwebspawn -isolated_render -isolated_gpu -input_isolate_hap -cupsd -print_driver -violator_execute_data_file_attr -sane_service -data_file_attr_violator_exec developer_only(`-uitest -input_isolate_debug_hap -hnp_native') debug_only(`-init') -updater_binary -vpn_isolate_hap } data_file_attr:file { execute };
 
 neverallow isolated_gpu { data_file_attr -data_app_el1_file -violator_isolated_gpu_execute_data_file_attr }:file { execute };
 neverallow isolated_render { data_file_attr -data_app_el1_file -violator_isolated_render_execute_data_file_attr }:file { execute };

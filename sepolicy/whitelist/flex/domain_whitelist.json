@@ -9,7 +9,8 @@
                 "isolated_render",
                 "kernel",
                 "lldb_server",
-                "netdnative"
+                "netdnative",
+                "vpn_isolate_hap"
             ],
             "conflict_domain": [
                 "nwebspawn",
