@@ -111,7 +111,4 @@ allowxperm vpn_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf54
 
 debug_only(`
     allow vpn_isolate_hap su:unix_stream_socket { connectto };
-    allow su vpn_isolate_hap:dir { getattr search };
-    allow su vpn_isolate_hap:file { read open };
-    allow su vpn_isolate_hap:process { getattr };
 ')
