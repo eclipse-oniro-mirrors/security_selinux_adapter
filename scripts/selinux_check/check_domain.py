@@ -23,7 +23,7 @@ from check_common import read_json_file, traverse_file_in_each_type
 
 DOMAIN_BASELINE = "domain_baseline.json"
 TYPE_GROUP_FILE_NAME = "type_group.json"
-WHITELIST_FILE_NAME = "domian_whitelist.json"
+WHITELIST_FILE_NAME = "domain_whitelist.json"
 HISTORY_LEGACY_DOMAIN = 'history_legacy_domain.txt'
 
 
