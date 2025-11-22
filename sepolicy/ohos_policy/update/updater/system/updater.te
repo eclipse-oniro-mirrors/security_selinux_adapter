@@ -443,4 +443,11 @@ allow updater update_updater_param:parameter_service { set };
 # avc:  denied  { read } for  pid=174 comm="updater" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
 allow updater update_updater_param:file { map open read };
 
+# avc: denied { search } for pid=569, comm="/bin/updater"  name="/718" dev="" ino=2505 scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=dir permissive=1
+allow updater updater_binary:dir { search };
+
+# avc: denied { getattr } for pid=569, comm="/bin/updater"  path="/proc/718/io" dev="" ino=2514 scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=file permissive=1
+# avc: denied { open } for pid=569, comm="/bin/updater"  path="/proc/718/io" dev="" ino=2514 scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=file permissive=1
+# avc: denied { read } for pid=569, comm="/bin/updater"  scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=file permissive=1
+allow updater updater_binary:file { getattr open read };
 ')
