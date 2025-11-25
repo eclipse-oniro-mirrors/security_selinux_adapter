@@ -50,6 +50,7 @@ def print_error_info(add_path_to_virtfs, del_path_from_virtfs, with_developer, c
                 print("\t{}".format(label))
         print("\n")
 
+
 def simplify_string(string):
     return string.replace('(', '').replace(')', '').replace('\n', '').strip()
 
