@@ -25,7 +25,7 @@ import shutil
 import find
 
 PUBLIC_CIL_FILES = ["public.cil", "public_common.cil"]
-DEVELOPER_PUBLIC_CIL_FILES = [ "developer/public.cil" ]
+DEVELOPER_PUBLIC_CIL_FILES = [ "public_developer.cil" ]
 DEVELOPER_SUB_PATH = "developer"
 
 
@@ -294,7 +294,7 @@ def generate_compatible_cil(input_args, old_type_set, new_type_set,
     version_cil = None
     if is_developer:
         version_cil = os.path.join(input_args.system_compat_object,
-            DEVELOPER_SUB_PATH, "compatible",
+            "compatible_developer",
             "{}.cil".format(input_args.compat_version))
     else:
         version_cil = os.path.join(input_args.system_compat_object,
