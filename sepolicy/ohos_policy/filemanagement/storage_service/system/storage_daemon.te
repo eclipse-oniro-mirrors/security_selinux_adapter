@@ -90,8 +90,9 @@ allowxperm storage_daemon data_data_file:dir ioctl { 0x5705 };
 #avc:  denied  { read } for  pid=246 comm="storage_daemon" path="/data/service/el0/huks_service/root_encrypt_key" dev="mmcblk0p11" ino=1044791 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=246 comm="storage_daemon" path="/data/service/el0/huks_service/root_encrypt_key" dev="mmcblk0p11" ino=1044791 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
 #avc:  denied  { create } for  pid=249 comm="storage_daemon" name="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc:  denied  { unlink } for pid=609, comm="/system/bin/storage_daemon" name="/service/el0/storage_daemon/sd_bak/key_desc" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1055 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
 allow storage_daemon data_service_el0_file:dir { rw_dir_perms rmdir ioctl getattr search rename create relabelfrom };
-allow storage_daemon data_service_el0_file:file { create write open ioctl setattr read getattr relabelfrom };
+allow storage_daemon data_service_el0_file:file { create write open ioctl setattr read getattr relabelfrom unlink };
 
 #avc:  denied  { read open } for  pid=1875 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=130643 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=3372 comm="kworker/u8:4" path="/data/service/el2/100/hmdfs/account/data" dev="mmcblk0p11" ino=130644 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
