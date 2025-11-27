@@ -68,6 +68,7 @@ allow distributeddata normal_hap_data_file_attr:file { create getattr ioctl lock
 allow distributeddata data_service_el2_hmdfs:file { getattr };
 allow distributeddata data_service_el2_hmdfs:dir { search read open create write add_name };
 allow distributeddata hmdfs:file { getattr };
+allow distributeddata hmdfs:dir { search };
 allowxperm distributeddata hmdfs:dir ioctl { 0xf203 };
 allow distributeddata proc_file:file { open read };
 allow distributeddata sa_accesstoken_manager_service:samgr_class { get };
