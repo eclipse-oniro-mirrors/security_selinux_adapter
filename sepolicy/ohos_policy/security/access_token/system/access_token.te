@@ -107,6 +107,11 @@ allow accesstoken_service multimodalinput:unix_stream_socket { read write };
 # avc:  denied  { get } for service=501 pid=537 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow accesstoken_service sa_foundation_appms:samgr_class { get };
 
+# denied  { get } for service=3524 sid=u:r:accesstoken_service:s0 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow accesstoken_service sa_sg_collect_service:samgr_class { get };
+allow accesstoken_service security_guard:binder { call };
+allow accesstoken_service security_guard:fd use;
+
 allowxperm accesstoken_service data_service_el1_file:file ioctl { 0xf50c };
 
 allow domain dev_at_file:chr_file { ioctl open read write };
