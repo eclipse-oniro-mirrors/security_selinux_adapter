@@ -341,3 +341,15 @@ allow hiview sa_foundation_abilityms:samgr_class { get };
 
 allow hiview render_service:fd { use };
 
+allow hiview print_driver_read:dir { open };
+allow hiview print_driver_read:dir { read };
+allow hiview print_driver_read:dir { search };
+allow hiview print_driver_read:file { getattr };
+allow hiview print_driver_read:file { open };
+allow hiview print_driver_read:file { read };
+allow hiview data_service_el1_public_print_service_file:dir { search };
+allow hiview data_service_el1_public_print_service_file:dir { open };
+allow hiview data_service_el1_public_print_service_file:dir { read };
+allow hiview data_service_el1_public_print_service_file:file { getattr };
+allow hiview data_service_el1_public_print_service_file:file { open };
+allow hiview data_service_el1_public_print_service_file:file { read };
