@@ -210,3 +210,6 @@ allow isolated_render hiview:unix_dgram_socket { sendto };
 # avc: denied { open } for pid=1, comm="/system/bin/nwebspawn"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=219 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc: denied { map } for pid=1, comm="/system/bin/nwebspawn"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=219 scontext=u:r:isolated_render:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 allow isolated_render debug_param:file { read open map };
+
+allow isolated_render shared_relro_file:dir { search };
+allow isolated_render shared_relro_file:file { getattr map open read };
