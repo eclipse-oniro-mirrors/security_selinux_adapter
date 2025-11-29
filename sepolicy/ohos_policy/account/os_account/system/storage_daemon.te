@@ -13,6 +13,6 @@
 
 allow storage_daemon account_data_el2_file:dir { getattr open read search rmdir write remove_name };
 allow storage_daemon account_data_el2_file:file { getattr open read unlink };
-allow storage_daemon hnp_file:dir { rmdir write remove_name search open read };
-allow storage_daemon hnp_file:file { unlink };
-allow storage_daemon hnp_file:lnk_file { unlink };
+allow storage_daemon {hnp_file private_hnp_file}:dir { rmdir write remove_name search open read };
+allow storage_daemon {hnp_file private_hnp_file}:file { unlink };
+allow storage_daemon {hnp_file private_hnp_file}:lnk_file { unlink };
