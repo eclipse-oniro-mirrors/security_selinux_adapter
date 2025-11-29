@@ -97,13 +97,11 @@ class MappingParser:
         wrong = expand_attributesets - mapped_attributesets
         if wrong:
             print("The following typeattributes appear in expandtypeattribute but not in typeattributeset:")
-            for attr in wrong:
-                print("\t{}".format(attr))
+            print_single_info(wrong)
         wrong = mapped_attributesets - expand_attributesets
         if wrong:
             print("The following typeattributes appear in typeattributeset but not in expandtypeattribute:")
-            for attr in wrong:
-                print("\t{}".format(attr))
+            print_single_info(wrong)
         raise Exception(-1)
 
 
@@ -353,12 +351,12 @@ def check_compat_cil_file(input_args, old_type_set, new_type_set, is_developer):
     get_mapping_from_cil(old_cill_file, new_cil_file, mapping_file)
     mapping = MappingParser(mapping_file, input_args.compat_version)
 
-    check_mapping_and_old(old_type_set, mapping, old_cill_file)
-    check_mapping_types_in_attributes(old_type_set, new_type_set, mapping,
-        old_cill_file, new_cil_file)
+    if not input_args.skip_exact_match:
+        check_mapping_and_old(old_type_set, mapping, old_cill_file)
+        check_mapping_types_in_attributes(old_type_set, new_type_set, mapping,
+            old_cill_file, new_cil_file)
     check_policy_flex_check(old_type_set, new_type_set, mapping,
         old_cill_file, new_cil_file)
-
 
 
 def get_compiled_file_path(input_args, version, is_developer, filename):
@@ -446,6 +444,8 @@ def parse_args():
         "and output in generation mode", required=True)
     parser.add_argument('--output-path',
                         help='output path for intermediate files and cils', required=True)
+    parser.add_argument('--skip-exact-match', action="store_true",
+                        help='skip exact match of types in lastest and compact verison policy')
     
     return parser.parse_args()
 
@@ -472,7 +472,7 @@ if __name__ == "__main__":
         dep_file = find.get_all_sepolicy_file(input_args.sepolicy_dir_lists)
         dep_file.sort()
         build_utils.write_depfile(input_args.depfile, input_args.output_file, dep_file, add_pydeps=False)
-    
+
     check_and_prepare(input_args)
     flex_check(input_args, False)
     flex_check(input_args, True)
