@@ -58,6 +58,7 @@ allow useriam security_param:file { map open read };
 allow useriam startup_param:file { map open read };
 allow useriam sys_param:file { map open read };
 allow useriam system_basic_hap_attr:binder { call };
+allow useriam system_core_hap_attr:binder { call };
 allow useriam system_basic_hap_attr:fd { use };
 allow useriam system_bin_file:dir { search };
 allow useriam sys_usb_param:file { map open read };
