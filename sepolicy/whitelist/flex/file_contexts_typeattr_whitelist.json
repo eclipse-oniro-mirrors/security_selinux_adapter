@@ -188,7 +188,8 @@
                     "/system/etc/thermal_config(/.*)?",
                     "/system/etc/security_guard_model.cfg",
                     "/system/etc/security_guard_event.cfg",
-                    "/system/etc/security_guard.cfg"
+                    "/system/etc/security_guard.cfg",
+                    "/system/etc/zoneinfo(/.*)?"
                 ],
                 "developer": []
             }

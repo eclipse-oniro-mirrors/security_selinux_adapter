@@ -14,3 +14,4 @@
 /data/service/el1/public/i18n/libphonenumber(/.*)?      u:object_r:data_service_el1_i18n_libphonenumber_file:s0
 /data/service/el1/public/i18n/taboo(/.*)?      u:object_r:data_service_el1_i18n_taboo_file:s0
 /data/service/el1/public/i18n/timezone(/.*)?      u:object_r:data_service_el1_i18n_timezone_file:s0
+/system/etc/zoneinfo(/.*)?                        u:object_r:system_etc_zoneinfo_file:s0
