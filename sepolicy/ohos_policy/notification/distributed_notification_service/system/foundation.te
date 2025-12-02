@@ -14,7 +14,7 @@
 allow foundation accountmgr:binder { call };
 allow foundation appspawn:unix_stream_socket { connectto };
 allow foundation appspawn_socket:sock_file { write };
-allow foundation bgtaskmgr_service:binder { call };
+allow foundation resource_schedule_service:binder { call };
 allow foundation data_app_el1_file:dir { search };
 allow foundation data_app_el1_file:file { getattr read };
 allow foundation data_app_file:dir { search };

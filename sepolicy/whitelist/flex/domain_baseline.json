@@ -54,7 +54,6 @@
             "foundation",
             "storage_daemon",
             "inputmethod_service",
-            "bgtaskmgr_service",
             "local_code_sign",
             "print_service",
             "watchdog_service",

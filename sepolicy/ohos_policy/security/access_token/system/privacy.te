@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -89,7 +89,7 @@ binder_call(privacy_service, foundation);
 binder_call(privacy_service, powermgr);
 binder_call(system_basic_hap_attr, privacy_service);
 binder_call(system_core_hap_attr, privacy_service);
-binder_call(privacy_service, bgtaskmgr_service);
+binder_call(privacy_service, resource_schedule_service);
 
 debug_only(`
     binder_call(privacy_service, sh);
