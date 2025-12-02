@@ -163,7 +163,7 @@ neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_viol
     vendor_file_attr vendor_bin_file_attr vendor_bin_file_attr vendor_lib_file_attr vendor_lib_file_attr vendor_lib_file_attr
     vendor_lib_file_attr vendor_etc_file_attr sys_prod_file_attr sys_prod_bin_file_attr sys_prod_lib_file_attr sys_prod_lib_file_attr
     sys_prod_etc_file_attr chip_prod_file_attr chip_prod_bin_file_attr chip_prod_lib_file_attr chip_prod_lib_file_attr chip_prod_etc_file_attr
-    chip_prod_passthrough_file_attr system_file_attr system_file_attr data_vendor_file_attr data_service_file_attr data_chipset_file_attr dev_attr
+    chip_prod_passthrough_file_attr system_file_attr system_file_attr system_etc_file_attr data_vendor_file_attr data_service_file_attr data_chipset_file_attr dev_attr
     system_parameter_attr system_internal_parameter_attr system_restricted_parameter_attr system_public_parameter_attr
     vendor_parameter_attr vendor_internal_parameter_attr vendor_restricted_parameter_attr vendor_public_parameter_attr
     system_sock_domain chipset_sock_domain

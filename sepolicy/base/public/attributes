@@ -44,7 +44,7 @@ attribute rootfs_file_attr;
 # i.e. /system/*
 attribute system_file_attr;
 
-# i.e. /system/*
+# i.e. /system/etc/*
 attribute system_etc_file_attr;
 
 # Type of all sys_prod files.
