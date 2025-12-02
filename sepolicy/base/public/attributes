@@ -44,9 +44,6 @@ attribute rootfs_file_attr;
 # i.e. /system/*
 attribute system_file_attr;
 
-# i.e. /system/etc/*
-attribute system_etc_file_attr;
-
 # Type of all sys_prod files.
 # i.e. /sys_prod/*
 attribute sys_prod_file_attr;
@@ -231,6 +228,9 @@ attribute chip_prod_passthrough_file_attr;
 attribute data_vendor_file_attr;
 attribute data_service_file_attr;
 attribute data_chipset_file_attr;
+
+# i.e. /system/etc/*
+attribute system_etc_file_attr;
 
 
 # define some violator attribute for neverallows.
