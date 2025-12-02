@@ -188,7 +188,11 @@
                     "/system/etc/thermal_config(/.*)?",
                     "/system/etc/security_guard_model.cfg",
                     "/system/etc/security_guard_event.cfg",
-                    "/system/etc/security_guard.cfg"
+                    "/system/etc/security_guard.cfg",
+                    "/system/etc/ld-musl-aarch64.path",
+                    "/system/etc/ld-musl-namespace-aarch64-flex.ini",
+                    "/system/etc/ld-musl-namespace-aarch64-test.ini",
+                    "/system/etc/ld-musl-namsepace-aarch64.ini"
                 ],
                 "developer": []
             }
