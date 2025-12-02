@@ -15,4 +15,4 @@ type i18n_service, sadomain, domain;
 type data_service_el1_i18n_libphonenumber_file, file_attr, data_file_attr;
 type data_service_el1_i18n_taboo_file, file_attr, data_file_attr;
 type data_service_el1_i18n_timezone_file, file_attr, data_file_attr;
-type system_etc_zoneinfo_file, file_attr, system_file_attr;
+type system_etc_zoneinfo_file, system_etc_file_attr, system_file_attr, file_attr;
