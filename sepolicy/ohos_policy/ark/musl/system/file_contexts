@@ -14,4 +14,4 @@
 /system/etc/ld-musl-aarch64.path       u:object_r:system_etc_musl_file:s0
 /system/etc/ld-musl-namespace-aarch64-flex.ini       u:object_r:system_etc_musl_file:s0
 /system/etc/ld-musl-namespace-aarch64-test.ini       u:object_r:system_etc_musl_file:s0
-/system/etc/ld-musl-namsepace-aarch64.ini       u:object_r:system_etc_musl_file:s0
+/system/etc/ld-musl-namespace-aarch64.ini       u:object_r:system_etc_musl_file:s0
