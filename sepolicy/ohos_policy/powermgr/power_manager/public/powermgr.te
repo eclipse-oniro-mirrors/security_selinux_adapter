@@ -545,3 +545,7 @@ allowxperm powermgr dev_bbox:chr_file ioctl { 0x4264 0x4265 };
 
 # avc: denied { call } for pid=1625, comm="/system/bin/sa_main"  scontext=u:r:powermgr:s0 tcontext=u:r:cloudfiledaemon:s0 tclass=binder permissive=1
 allow powermgr cloudfiledaemon:binder { call };
+
+# avc:  denied  { get } for service=1901 sid=u:r:powermgr:s0 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow powermgr sa_resource_schedule:samgr_class { get };
+binder_call(powermgr, resource_schedule_service);
