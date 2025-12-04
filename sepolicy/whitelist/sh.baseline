@@ -60,6 +60,7 @@ developer_only(`
 (allow sh hilogd (unix_stream_socket (connectto)))
 (allow sh hiperf (process (transition siginh rlimitinh)))
 (allow sh hiperf_exec (file (ioctl read getattr map execute open)))
+(allow sh system_etc_musl_file (file (read open getattr map)))
 (allow sh hiprofiler_cmd (process (transition siginh rlimitinh)))
 (allow sh hiprofiler_cmd_exec (file (ioctl read getattr map execute open)))
 (allow sh hisysevent (process (transition siginh rlimitinh)))
