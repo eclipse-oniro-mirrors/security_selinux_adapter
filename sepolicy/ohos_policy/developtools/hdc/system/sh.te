@@ -59,6 +59,7 @@ allow sh system_etc_file:dir { search };
 allow sh lib_file:lnk_file { read };
 allow sh etc_file:lnk_file { read };
 allow sh system_etc_file:file { read open getattr map };
+allow sh system_etc_musl_file:file { read open getattr map };
 allow sh sysfs_net:dir { search };
 allow sh sysfs_net:lnk_file { read };
 allow sh proc_net_tcp_udp:file { getattr };
