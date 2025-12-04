@@ -108,3 +108,5 @@ allow print_service sa_distributeddata_service:samgr_class { get };
 allow print_service distributeddata:binder { call };
 allow print_service distributeddata:fd { use };
 allow print_service foundation:fd { use };
+allow print_service sa_enterprise_device_manager_service:samgr_class { get };
+allow print_service edm_sa:binder {call};
