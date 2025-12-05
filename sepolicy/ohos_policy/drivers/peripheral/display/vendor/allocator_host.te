@@ -55,5 +55,6 @@ allow allocator_host system_bin_file:dir { search };
 allow allocator_host sys_usb_param:file { map open read };
 allow allocator_host vendor_etc_file:dir { search };
 allow allocator_host vendor_etc_file:file { getattr open read };
+allow allocator_host camera_service:fd { use };
 allowxperm allocator_host dev_dri_file:chr_file ioctl { 0x641f 0x642d 0x64b2 0x64b4 };
 allowxperm allocator_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
