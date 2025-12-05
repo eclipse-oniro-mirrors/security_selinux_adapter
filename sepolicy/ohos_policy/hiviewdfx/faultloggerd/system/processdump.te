@@ -185,3 +185,5 @@ allowxperm processdump dev_lperf:chr_file ioctl { 0x6c01 0x6c02 0x6c04 };
 
 neverallow { domain -init -processdump -ueventd } dev_lperf:{ chr_file } *;
 neverallow { domain } dev_lperf:{ file blk_file } *;
+
+allow processdump data_app_file:dir {search};
