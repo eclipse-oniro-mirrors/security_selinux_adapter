@@ -14,7 +14,7 @@
 ## add hnp exec type
 developer_only(`
 allow installs hnp_exec:file { execute execute_no_trans map read open };
-allow installs hnp_file:lnk_file { create getattr };
+allow installs {hnp_file private_hnp_file}:lnk_file { create getattr };
 
 domain_auto_transition_pattern(installs, hnp_exec, hnp);
 ')
