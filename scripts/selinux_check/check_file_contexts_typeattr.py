@@ -156,11 +156,13 @@ def merge_error_info(cur_path, cur_label, error_path_list, configs, error_msg):
 
 def get_unused_withlist(withlist_dict, violate_map):
     unused_withlite = {}
-    for path, whiltelist in withlist_dict.items():
+    for path, whitelist in withlist_dict.items():
         if path in violate_map:
-            tmp = set(whiltelist) - violate_map[path]
+            tmp = set(whitelist) - violate_map[path]
             if tmp:
                 unused_withlite[path] = tmp
+        elif whitelist:
+            unused_withlite[path] = whitelist
     return unused_withlite
 
 
