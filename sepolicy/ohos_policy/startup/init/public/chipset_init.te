@@ -102,6 +102,9 @@ allow chipset_init data_service_el1_file:dir { add_name create getattr open read
 allow chipset_init data_service_el1_file:file { create getattr setattr relabelto };
 allow chipset_init data_chipset_el1_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 
+# for /data/vendor/
+allow chipset_init data_vendor:dir { setattr read write getattr search add_name open create };
+
 # for ifup,hostname,domainname
 allow chipset_init chipset_init:udp_socket { create ioctl };
 allow chipset_init init:unix_dgram_socket { write connect };

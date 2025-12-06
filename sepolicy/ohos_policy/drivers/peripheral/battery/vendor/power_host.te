@@ -18,3 +18,10 @@ allow power_host hdf_device_manager:hdf_devmgr_class { get };
 allow power_host hdf_battery_interface_service:hdf_devmgr_class { add };
 allow power_host sa_device_service_manager:samgr_class { get };
 allow power_host dev_kmsg_file:chr_file { write open };
+
+# legacy permissions, restricted to the very specific subdir
+allow power_host data_file:dir { search };
+allow power_host data_service_file:dir { search };
+allow power_host data_service_el0_file:dir { search };
+allow power_host data_service_el0_battery:dir { setattr getattr search add_name create open read write remove_name};
+allow power_host data_service_el0_battery:file { create append open read write getattr };

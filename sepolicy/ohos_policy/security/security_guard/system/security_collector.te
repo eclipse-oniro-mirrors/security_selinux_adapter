@@ -103,3 +103,5 @@ allow security_collector sa_storage_manager_service:samgr_class { get };
 binder_call(security_collector, security_guard);
 # avc:  denied  { search } for  pid=2912 comm="security_collec" name="socket" dev="tmpfs" ino=43 scontext=u:r:security_collector:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow security_collector dev_unix_socket:dir { search };
+
+allow security_collector data_service_el0_thermal:file { read open };
