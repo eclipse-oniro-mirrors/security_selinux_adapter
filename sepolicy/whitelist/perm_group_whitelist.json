@@ -85,7 +85,6 @@
                 "updater_binary tmpfs",
                 "updater_binary system_bin_file",
                 "updater_binary toybox_exec",
-                "usb_host system_bin_file",
                 "wifi_hal_service sh_exec",
                 "wifi_hal_service system_bin_file",
                 "wifi_hal_service toybox_exec",
