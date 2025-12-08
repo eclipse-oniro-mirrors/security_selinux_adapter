@@ -10,7 +10,8 @@
                 "kernel",
                 "lldb_server",
                 "netdnative",
-                "vpn_isolate_hap"
+                "vpn_isolate_hap",
+                "hnp_native"
             ],
             "conflict_domain": [
                 "nwebspawn",

@@ -15,7 +15,8 @@ type hnp, native_system_domain, domain;
 type hnp_exec, system_file_attr, exec_attr, file_attr;
 type hnp_file, exec_attr, file_attr, data_file_attr;
 type private_hnp_file, exec_attr, file_attr, data_file_attr;
-type hnp_native, hap_domain, domain;
+type hnp_native, domain;
+allow hnp_native {system_bin_file toybox_exec hilog_exec}:file { execute execute_no_trans };
 
 developer_only(`
 # avc:  denied  { search } for  pid=12202 comm="hnp" name="app" dev="sdd78" ino=634 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
