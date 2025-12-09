@@ -268,8 +268,6 @@
 			"storage_daemon unlabeled dir",
 			"storage_daemon unlabeled file",
 			"storage_daemon unlabeled lnk_file",
-            "storage_manager data_service_el1_file dir",
-            "storage_manager data_service_el1_file file",
             "sys_installer_sa data_ota_package dir",
             "sys_installer_sa data_ota_package file",
             "sys_installer_sa data_updater_file dir",
