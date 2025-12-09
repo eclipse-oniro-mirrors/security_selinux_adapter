@@ -175,7 +175,7 @@ neverallow domain processdump_exec:file execute_no_trans;
 allow processdump hiviewdfx_hiview_param:file { map open read };
 
 allow processdump dev_bbox:chr_file { ioctl open write };
-allowxperm processdump dev_bbox:chr_file ioctl 0xab09;
+allowxperm processdump dev_bbox:chr_file ioctl { 0xab09 0xab0a };
 allow processdump hdf_devhost_exec:file { getattr map open read };
 
 #============= dev_lperf ===================
