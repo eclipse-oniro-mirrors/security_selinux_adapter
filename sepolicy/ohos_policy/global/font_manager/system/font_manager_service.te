@@ -12,7 +12,7 @@
 # limitations under the License.
 
 allow font_manager_server data_service_el1_file:dir { create getattr setattr add_name search read open write remove_name rmdir };
-allow font_manager_server data_service_el1_file:file { create getattr setattr ioctl read write open unlink rename };
+allow font_manager_server data_service_el1_file:file { create getattr setattr ioctl read write open unlink rename map };
 allowxperm font_manager_server data_service_el1_file:file ioctl {  0x5413  };
 allow font_manager_server font_manager_server:unix_dgram_socket { getopt setopt };
 allow font_manager_server foundation:binder { call };
