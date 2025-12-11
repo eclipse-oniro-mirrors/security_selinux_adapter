@@ -12,5 +12,5 @@
 # limitations under the License.
 
 allow init app_domain_verify_agent:process { rlimitinh siginh transition };
-allow init app_domain_verify_data_file:dir { add_name create getattr open read relabelto search setattr write };
-allow init app_domain_verify_data_file:file { relabelto };
+allow init adv_data_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init adv_data_file:file { relabelto };

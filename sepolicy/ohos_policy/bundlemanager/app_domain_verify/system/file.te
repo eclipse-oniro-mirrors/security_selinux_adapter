@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type app_domain_verify_data_file, file_attr, data_file_attr, data_service_file_attr;
+type adv_data_file, file_attr, data_file_attr, data_service_file_attr;
