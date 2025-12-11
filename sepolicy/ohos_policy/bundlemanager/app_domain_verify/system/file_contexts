@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/service/el1/public/app_domain_verify_mgr_service    u:object_r:adv_data_file:s0
-/data/service/el1/public/app_domain_verify_mgr_service/(/.*)?    u:object_r:adv_data_file:s0
+/data/service/el1/public/app_domain_verify_mgr_service(/.*)?    u:object_r:adv_data_file:s0
