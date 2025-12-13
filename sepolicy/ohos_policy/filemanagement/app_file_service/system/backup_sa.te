@@ -94,3 +94,6 @@ allow backup_sa labeledfs:filesystem { quotaget };
 allow backup_sa devinfo_type_param:file { open read map };
 allow backup_sa powermgr:binder { call transfer };
 allow backup_sa sa_powermgr_powermgr_service:samgr_class { get };
+allow backup_sa accountmgr:binder { call };
+allow backup_sa sa_accountmgr:samgr_class { get };
+allow accountmgr backup_sa:binder { transfer };
