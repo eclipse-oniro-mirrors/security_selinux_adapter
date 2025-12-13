@@ -55,7 +55,7 @@ allow domain dev_parameters_file:dir { getattr search };
 allow domain dev_parameters_file:file read_file_perms;
 
 allow domain system_etc_file:dir { open read search getattr };
-allow domain system_etc_file:file { getattr map open read };
+allow { domain -violator_vendor_system_etc_read } system_etc_file:file { getattr map open read };
 
 allow domain system_file:dir { search };
 allow domain vendor_file:dir search;
