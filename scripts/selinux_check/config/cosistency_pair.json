@@ -1,0 +1,12 @@
+{
+    "checks": [
+        {
+            "base": "normal_hap_data_file",
+            "extend": "appdat"
+        },
+        {
+            "base": "appdat",
+            "extend": "normal_hap_data_file"
+        }
+    ]
+}

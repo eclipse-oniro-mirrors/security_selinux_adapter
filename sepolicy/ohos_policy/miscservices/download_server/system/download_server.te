@@ -61,7 +61,7 @@ allow download_server system_usr_file:file { getattr open read map };
 #avc:  denied  { read } for  pid=1435 comm="download_server" name="online" dev="sysfs" ino=4917 scontext=u:r:download_server:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
 allow download_server sysfs_devices_system_cpu:file { getattr open read map };
 #avc:  denied  { getattr } for  pid=1439 comm="IPC_0_1440" path="/data/storage/el2/base/haps/entry/cache/cacert.pem" dev="mmcblk0p12" ino=1331 scontext=u:r:download_server:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=0
-allow download_server normal_hap_data_file:file { getattr };
+allow download_server normal_app_data:file { getattr };
 #avc:  denied  { search } for  pid=1424 comm="tokio-runtime-w" name="data" dev="mmcblk0p12" ino=89 scontext=u:r:download_server:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=0
 allow download_server data_data_file:dir { search };
 #avc:  denied  { get } for service=180 pid=1535 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0

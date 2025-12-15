@@ -46,6 +46,7 @@ neverallow { hap_domain -hap_domain_lnk_file_violators } hmdfs:lnk_file *;
 type system_core_hap_data_file, system_core_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 type system_basic_hap_data_file, system_basic_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 type normal_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+type appdat, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 
 type debug_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 

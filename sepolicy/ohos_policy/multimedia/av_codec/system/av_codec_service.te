@@ -38,7 +38,7 @@ allow av_codec_service system_basic_hap_attr:fd { use };
 allow av_codec_service system_basic_hap_attr:binder { transfer call };
 allow av_codec_service system_basic_hap_data_file_attr:file { getattr read write };
 allow av_codec_service normal_hap_data_file_attr:file { read getattr };
-allow av_codec_service normal_hap_data_file:file { write };
+allow av_codec_service normal_app_data:file { write };
 allow av_codec_service sa_av_codec_service:samgr_class { add get_remote };
 allow av_codec_service debug_param:file { map open read };
 allow av_codec_service dev_console_file:chr_file { read write };

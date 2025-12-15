@@ -82,7 +82,7 @@ allow security_guard security_guard_file_store_file:file { create read write app
 allow security_guard normal_hap_attr:fd { use };
 
 # avc:  denied  { read } for  pid=2037 comm="OS_FFRT_2_1" path="/data/storage/el2/base/files/text.json" dev="mmcblk0p15" ino=2627 scontext=u:r:security_guard:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
-allow security_guard normal_hap_data_file:file { read };
+allow security_guard normal_app_data:file { read };
 
 # avc: denied { call } for pid=1516, comm="/system/bin/sa_main"  scontext=u:r:security_guard:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=0
 binder_call(security_guard, wifi_manager_service);

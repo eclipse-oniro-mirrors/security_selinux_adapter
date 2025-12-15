@@ -93,8 +93,8 @@ allow processdump normal_hap_attr:dir { getattr open read search };
 allow processdump normal_hap_attr:file { getattr open read };
 allow processdump app_el1_bundle_public:dir search;
 allow processdump data_app_el1_file:dir search; # remove later
-allow processdump normal_hap_data_file:file { read write append create open map };
-allow processdump normal_hap_data_file:dir { write add_name search };
+allow processdump normal_app_data:file { read write append create open map };
+allow processdump normal_app_data:dir { write add_name search };
 allow processdump debug_hap_data_file:file { read write append create open map };
 allow processdump debug_hap_data_file:dir { write add_name search };
 
