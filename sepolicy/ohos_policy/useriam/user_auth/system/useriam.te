@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -100,3 +100,5 @@ allow useriam hdf_device_manager:hdf_devmgr_class { get };
 allow useriam sa_screenlock_service:samgr_class { get };
 allow useriam sa_sysparam_device_service:samgr_class { get };
 allow useriam deviceinfoservice:binder { call };
+
+allow useriam useriam_fwkready_param:parameter_service { set };
