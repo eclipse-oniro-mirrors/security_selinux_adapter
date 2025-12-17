@@ -140,3 +140,5 @@ neverallow init *:process ptrace;
 allow init dev_bus:dir { create open read relabelfrom setattr write add_name };
 allow init dev_bus_usb_file:dir { open read setattr };
 allow init init:netlink_kobject_uevent_socket { read write };
+allow init dev_block_file:dir { write remove_name add_name };
+allow init dev_block_file:lnk_file { create getattr unlink write link };
