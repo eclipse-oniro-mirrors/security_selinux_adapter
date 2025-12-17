@@ -88,27 +88,25 @@ def get_config_check(args):
     return check_rules
 
 
-def output_policy_err(args, with_developer, typeattr, notallow, file_name):
-    print('************************************************************************************************')
-    print('\tcheck "{}" parameter in "{}" mode failed'.format(typeattr, "developer" if with_developer else "user"))
-    print('\tviolation list (type):')
+def output_policy_err(with_developer, typeattr, notallow, file_name):
+    print('\tCheck baseline of attribute "{}" in {} mode failed.'.format(
+        typeattr, "developer" if with_developer else "user"))
+    print('\tViolation list (type):')
     for violation in sorted(list(notallow)):
         print('\t\t"{}",'.format(violation))
-    print('\tSolution: policy information needs to be added to the "{}" file as well in "{}" mode.'.format(
-        file_name, "developer" if with_developer else "user"))
-    print('************************************************************************************************')
+    print('\tSolution: add the above list to "{}" field under "{}" field in {} file.\n'.format(
+        typeattr, "developer" if with_developer else "user", file_name))
 
 
-def output_whitelist_err(args, with_developer, typeattr, notallow, file_name):
-    print('************************************************************************************************')
-    print('\tcheck "{}" parameter in "{}" mode failed.'.format(typeattr, "developer" if with_developer else "user"))
-    print('\tviolation list (type):')
+def output_unused_data(check_type, with_developer, typeattr, notallow, file_name):
+    print('\tCheck {} of attribute "{}" in {} mode failed.'.format(
+        check_type, typeattr, "developer" if with_developer else "user"))
+    print('\tViolation list (type):')
     for violation in sorted(list(notallow)):
         print('\t\t"{}",'.format(violation))
-    print('\tSolution: delete unused type from file "{}" in "{}" mode.'.format(
-        file_name, "developer" if with_developer else "user"
+    print('\tSolution: delete any unused data from "{}" field under "{}" field in {} file.\n'.format(
+        "developer" if with_developer else "user", typeattr, file_name
     ))
-    print('************************************************************************************************')
 
 
 def check_unique(with_developer, check_map, attributes_map):
@@ -128,14 +126,13 @@ def check_unique(with_developer, check_map, attributes_map):
                 result.add(item)
     if (len(result) > 0):
         check_result = True
-        print('************************************************************************************************')
-        print('\tcheck "{}" parameter in "{}" mode failed.'.format(typeattr, "developer" if with_developer else "user"))
-        print('\tviolation list (type):')
+        print('\tCheck types associated with attribute {} of parameters in {} mode failed.'.format(
+            typeattr, "developer" if with_developer else "user"))
+        print('\tViolation list (type):')
         for violation in sorted(list(result)):
             print('\t\t"{}",'.format(violation))
-        print('\tSolution: modify the policy in "{}" mode; it cannot belong to multiple typeattributes ("{}") at the same time.'
-            .format("developer" if with_developer else "user", ",".join(subtypes) ))
-        print('************************************************************************************************')
+        print('\tSolution: associate types with exactly one of attributes in {} mode: \n{}\n'
+            .format("developer" if with_developer else "user"), ', '.join(subtypeattr))
 
     return check_result
 
@@ -146,7 +143,7 @@ def check_baseline(args, with_developer, check_map, baseline_map, attributes_map
     baseline = check_map.get('baseline')
 
     if len(baseline) == 0:
-        print('Check {}: No baseline data, default to pass'.format(typeattr)) 
+        return check_result
     for subtype in baseline:
         baseline_data = baseline_map.get(subtype)
         if subtype not in attributes_map:
@@ -154,24 +151,24 @@ def check_baseline(args, with_developer, check_map, baseline_map, attributes_map
                 continue
             else:
                 check_result = True
-                output_whitelist_err(args, with_developer, typeattr, baseline_data, BASELINE_FILE_NAME)
+                output_unused_data("baselise", with_developer, subtype, baseline_data, BASELINE_FILE_NAME)
                 continue
 
         subtype_data = set(attributes_map.get(subtype))
         if len(baseline_data) == 0:
             check_result = True
-            output_policy_err(args, with_developer, typeattr, subtype_data, BASELINE_FILE_NAME)
+            output_policy_err(with_developer, subtype, subtype_data, BASELINE_FILE_NAME)
             continue
 
         notallow = subtype_data - baseline_data
         if (len(notallow) > 0):
             check_result = True
-            output_policy_err(args, with_developer, typeattr, notallow, BASELINE_FILE_NAME)
+            output_policy_err(with_developer, subtype, notallow, BASELINE_FILE_NAME)
 
         notallow = baseline_data - subtype_data
         if (len(notallow) > 0):
             check_result = True
-            output_whitelist_err(args, with_developer, typeattr, notallow, BASELINE_FILE_NAME)
+            output_unused_data("baseline", with_developer, subtype, notallow, BASELINE_FILE_NAME)
 
     return check_result
 
@@ -195,21 +192,20 @@ def check_whitelist(args, with_developer, check_map, whitelist_map, attributes_m
     notallow = history_data - whitelist_data
     if (len(notallow) > 0):
         check_result = True
-        print('************************************************************************************************')
-        print('\tcheck "{}" parameter in "{}" mode failed'.format(typeattr, "developer" if with_developer else "user"))
-        print('\tviolation list (type):')
+        print('\tCheck attributes of parameter "{}" in {} mode failed.'.format(
+            typeattr, "developer" if with_developer else "user"))
+        print('\tViolation list (type):')
         for violation in sorted(list(notallow)):
             print('\t\t"{}",'.format(violation))
         print('\tSolution:\n',
-            '\t1. Modified parameter to belong to system_parameter_attr or vendor_parameter_attr.\n' 
-            '\t2. Policy information needs to be added to the "{}" file as well in "{}" mode.'.format(
-            WHITELIST_FILE_NAME, "developer" if with_developer else "user"))
-        print('************************************************************************************************')
+            '\t1. Associate types with one of attributes ({}).\n'.format(", ".join(subtypeattr)),
+            '\t2. Add types to "{}" field under "{}" field in {} file.\n'.format(
+            typeattr, "developer" if with_developer else "user", WHITELIST_FILE_NAME))
 
     notallow = whitelist_data - history_data
     if (len(notallow) > 0):
         check_result = True
-        output_whitelist_err(args, with_developer, typeattr, notallow, WHITELIST_FILE_NAME)
+        output_unused_data("whitelist", with_developer, typeattr, notallow, WHITELIST_FILE_NAME)
 
     return check_result
 

@@ -14,8 +14,9 @@
 developer_only(`
     allow hitrace data_file:dir search;
     allow hitrace data_local:dir search;
-    allow hitrace data_log:dir { add_name search write };
-    allow hitrace data_log:file { create getattr open write };
+    allow hitrace data_log:dir search;
+    allow hitrace hitrace_log_file:dir { add_name search write };
+    allow hitrace hitrace_log_file:file { create getattr open write };
     allow hitrace data_local_tmp:dir { add_name search write create };
     allow hitrace data_local_tmp:file { create getattr open write };
     allow hitrace debug_param:parameter_service set;

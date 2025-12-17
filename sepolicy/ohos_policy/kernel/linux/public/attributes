@@ -19,3 +19,8 @@ attribute hmcap_supervsable_container_attr;
 # used in vendor/huawei/base/security/sepolicy_ext/sepolicy/container_sepolicy
 attribute hmcap_supervsable_platform_attr;
 # used in device/hisi/sepolicy/ohos/vendor
+
+# declare the actv binder client
+attribute actv_binder_client_attr;
+# declare the actv binder server
+attribute actv_binder_server_attr;

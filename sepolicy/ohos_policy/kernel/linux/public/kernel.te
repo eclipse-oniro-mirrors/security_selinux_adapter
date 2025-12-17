@@ -13,6 +13,14 @@
 
 type kernel, domain;
 
+# neverallow control for binder:actv_binder_{call/service}
+# If you add a new authorization "ABC" to binder:actv_binder_{call/service}, you should:
+#       1) typeattribute ABC actv_binder_{client/server}_attr;
+#       2) allow ABC ABC:binder { actv_binder_{call/service} };
+neverallow { domain -actv_binder_client_attr debug_only(`-su') } self:binder { actv_binder_call };
+neverallow { domain -actv_binder_server_attr debug_only(`-su') } self:binder { actv_binder_service };
+neverallow { normal_hap } self:binder { actv_binder_service };
+
 # neverallow control for hmcap:supervsable
 # If you add a new authorization "ABC" to hmcap:supervsable, you should:
 #       1) typeattribute      ABC       hmcap_supervsable_xxx_attr;
@@ -20,5 +28,5 @@ type kernel, domain;
 #
 neverallow {domain -hmcap_supervsable_common_attr -hmcap_supervsable_osr_attr
                    -hmcap_supervsable_container_attr -hmcap_supervsable_platform_attr -hap_domain_kernel_violators
-                   -SP_daemon -test_server -hidumper } self:hmcap {supervsable};
+                   -SP_daemon -test_server -hidumper -vpn_isolate_hap } self:hmcap {supervsable};
 neverallow {hmcap_supervsable_osr_attr -input_isolate_hap -input_isolate_debug_hap -nativespawn -processdump } self:hmcap {supervsable};

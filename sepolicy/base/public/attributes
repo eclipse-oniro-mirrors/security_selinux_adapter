@@ -229,6 +229,9 @@ attribute data_vendor_file_attr;
 attribute data_service_file_attr;
 attribute data_chipset_file_attr;
 
+# i.e. /system/etc/*
+attribute system_etc_file_attr;
+
 
 # define some violator attribute for neverallows.
 attribute vendor_file_violator_dir;
@@ -322,6 +325,7 @@ attribute rgmli_violator_exec_file_attr;
 attribute violator_code_sign_utils_file_attr;
 attribute violator_dev_code_sign_chr_file_attr;
 attribute violator_dev_encaps_chr_file_attr;
+attribute violator_dev_at_file_chr_file_attr;
 
 # define some hap_domain violator attribute for neverallows
 attribute hap_domain_dev_ptmx_violators;

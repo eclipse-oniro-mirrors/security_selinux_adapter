@@ -25,7 +25,7 @@ allow edm_sa const_postinstall_fstab_param:file { map open read };
 allow edm_sa const_postinstall_param:file { map open read };
 allow edm_sa const_product_param:file { map open read };
 allow edm_sa data_file:dir { add_name open read remove_name search write };
-allow edm_sa data_service_el1_file:dir { search read write open add_name remove_name };
+allow edm_sa data_service_el1_file:dir { search read write open add_name remove_name rmdir };
 allow edm_sa time_param:parameter_service { set };
 
 # avc:  denied  { lock } for  pid=3779 comm="IPC_6_3929" path="/data/service/el1/public/edm/edmdb.db-shm" dev="mmcblk0p12" ino=10573 scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
@@ -247,6 +247,12 @@ allow edm_sa privacy_service:binder { call };
 
 # avc: denied { call } for pid=3013, comm="OS_IPC_2_3205"  scontext=u:r:edm_sa:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=0
 allow edm_sa security_guard:binder { call };
+
+# avc: denied  { get } for service=3703 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_inputmethod_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_inputmethod_service:samgr_class { get };
+
+# avc: denied { call } for pid=1545, comm="/system/bin/sa_main"  scontext=u:r:edm_sa:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
+allow edm_sa inputmethod_service:binder { call };
 
 # avc: denied { get } for service=1901 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
 allow edm_sa sa_resource_schedule:samgr_class { get };

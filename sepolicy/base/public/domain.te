@@ -133,7 +133,7 @@ neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
     -module_update_bin_file -data_updater_file -data_app_el1_arkcache -system_file -data_service_el1_public_print_service_file -print_driver_exec
     -rgmli_violator_exec_file_attr -data_service_scan_service_driver_file -system_bin_uni_print_driver_file -data_service_el1_framework_arkcache
-    developer_only(`-lldb_server_file -hnp_file -hnp_file_attr -data_app_el1_file') -hnp_file_attr_violator -violator_lldb_server_file_execute -violator_exec_file_attr }:file { execute execute_no_trans entrypoint };
+    developer_only(`-lldb_server_file -hnp_file -private_hnp_file -hnp_file_attr -data_app_el1_file') -hnp_file_attr_violator -violator_lldb_server_file_execute -violator_exec_file_attr }:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs -ark_aot_compiler -compiler_service -ark_aot updater_only(`-updater') } data_app_el1_arkcache:file { write };
 neverallow { domain -installs -ark_aot_compiler -compiler_service -ark_aot -storage_daemon -init updater_only(`-updater') } data_app_el1_arkcache:dir { write };
 
@@ -146,7 +146,7 @@ neverallow ~{ domain develop_domain debug_only(`rgm_violator_su_process_dyntrans
 # everyone should in { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain }
 neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -native_system_domain -native_chipset_domain
     developer_only(`-lldb_server') -violator_lldb_server_transition }:process { transition };
-neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -isolated_render -isolated_gpu -native_system_domain -native_chipset_domain developer_only(`-input_isolate_debug_hap') -input_isolate_hap -distributed_isolate_hap }:process { dyntransition };
+neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -isolated_render -isolated_gpu -native_system_domain -native_chipset_domain developer_only(`-input_isolate_debug_hap') -input_isolate_hap -distributed_isolate_hap -vpn_isolate_hap }:process { dyntransition };
 
 neverallow { domain -nwebspawn -nativespawn } { isolated_gpu isolated_render }:process { dyntransition };
 neverallow nwebspawn {domain -isolated_gpu -isolated_render }:process { dyntransition };
@@ -163,7 +163,7 @@ neverallow { domain develop_domain updater_only(`-updater') } ~{ domain rgm_viol
     vendor_file_attr vendor_bin_file_attr vendor_bin_file_attr vendor_lib_file_attr vendor_lib_file_attr vendor_lib_file_attr
     vendor_lib_file_attr vendor_etc_file_attr sys_prod_file_attr sys_prod_bin_file_attr sys_prod_lib_file_attr sys_prod_lib_file_attr
     sys_prod_etc_file_attr chip_prod_file_attr chip_prod_bin_file_attr chip_prod_lib_file_attr chip_prod_lib_file_attr chip_prod_etc_file_attr
-    chip_prod_passthrough_file_attr system_file_attr system_file_attr data_vendor_file_attr data_service_file_attr data_chipset_file_attr dev_attr
+    chip_prod_passthrough_file_attr system_file_attr system_file_attr system_etc_file_attr data_vendor_file_attr data_service_file_attr data_chipset_file_attr dev_attr
     system_parameter_attr system_internal_parameter_attr system_restricted_parameter_attr system_public_parameter_attr
     vendor_parameter_attr vendor_internal_parameter_attr vendor_restricted_parameter_attr vendor_public_parameter_attr
     system_sock_domain chipset_sock_domain
@@ -328,7 +328,7 @@ neverallow { domain -appspawn -hiview -hidumper_service -memmgrservice -storage_
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -kernel -init -chipset_init -storage_daemon -installs -appspawn -nwebspawn -nativespawn -cjappspawn -netsysnative -file_guard_server -clouddiskservice debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater') -rgm_violator_ohos_capability_sysadmin -rgm_violator_cap_sysadmin -module_update_service -prerogative_app -backup_sa } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init -chipset_init -violator_domain_sys_boot } self:{ capability cap_userns } sys_boot;
-neverallow { domain -render_service -cap_violator_sysnice -composer_host -a2dp_host -resource_schedule_executor -appspawn -blue_host -audio_server } self:{ capability cap_userns } sys_nice;
+neverallow { domain -render_service -cap_violator_sysnice -composer_host -a2dp_host -resource_schedule_executor -appspawn -blue_host -audio_server -rgm_violator_ohos_capability_sys_nice } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative -cap_violator_resource debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;
 neverallow { domain -time_service -cap_violator_systime updater_only(`-updater') } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
@@ -353,4 +353,4 @@ neverallow { domain developer_only(`-debug_hap') debug_only(`-su') -isolated_ren
 neverallow { domain } data_local_tmp:file execute_no_trans;
 
 # limit domain has code_protect permission
-neverallow { domain -ark_aot -ark_aot_compiler -hiperf -native_daemon debug_only(`-hiperf') } self:hmcap { code_protect };
+neverallow { domain -ark_aot -ark_aot_compiler -hiview -hiperf -native_daemon debug_only(`-hiperf') } self:hmcap { code_protect };

@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 allow resource_schedule_service accesstoken_service:binder { call };
 binder_call(resource_schedule_service, powermgr);
 allow resource_schedule_service param_watcher:binder { call transfer };
-allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
+allow resource_schedule_service resource_schedule_service:binder { call transfer };
 allow resource_schedule_service audio_server:binder { call transfer };
 allow resource_schedule_service msdp_sa:binder { call transfer };
 allow resource_schedule_service bluetooth_service:binder { call };
@@ -103,7 +103,6 @@ allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
 allow resource_schedule_service time_service:binder { transfer };
 allow resource_schedule_service sa_task_heartbeat_mgr:samgr_class { add get };
-allow bgtaskmgr_service sa_device_standby:samgr_class { get };
 allow normal_hap_attr sa_device_standby:samgr_class { get };
 allow system_basic_hap_attr sa_device_standby:samgr_class { get };
 allow system_core_hap_attr sa_device_standby:samgr_class { get };
@@ -199,4 +198,156 @@ allow resource_schedule_service av_codec_service:dir { open search read };
 allow resource_schedule_service av_codec_service:file { open read getattr };
 
 allow resource_schedule_service sa_device_usage_statistics_service:samgr_class { get };
+
+#moke test
+#avc:  denied  { search } for  pid=488 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow resource_schedule_service data_file:dir { search };
+
+# device start-up
+#avc: denied { map } for pid=1067, ino=12 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1067, ino=12 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1067, ino=12 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=1067, ino=12 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+allow resource_schedule_service chip_prod_file:file { map open read getattr };
+#avc:  denied  { get } for service=401 pid=473 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow resource_schedule_service sa_accountmgr:samgr_class { get };
+#avc:  denied  { get } for service=3203 pid=1173 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
+allow resource_schedule_service sa_foundation_ans:samgr_class { get };
+#avc:  denied  { add } for service=1904 pid=1059 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
+#avc:  denied  { get } for service=1904 pid=1059 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_work_schedule_service:s0 tclass=samgr_class permissive=0
+allow resource_schedule_service sa_work_schedule_service:samgr_class { add get };
+#avc: denied { search } for pid=1059, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_storage:s0 tclass=dir permissive=0
+allow resource_schedule_service data_storage:dir { search };
+#avc: denied { read } for pid=1059, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+allow resource_schedule_service persist_param:file { read };
+#avc: denied { write } for pid=53703, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
+allow resource_schedule_service dev_kmsg_file:chr_file { write };
+
+# workschedule task get cpu info
+#avc: denied { get } for service=1067 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_hiview_service:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_hiview_service:samgr_class { get };
+#avc: denied { open } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+allow resource_schedule_service proc_meminfo_file:file { open read };
+#avc: denied { get } for service=5300 sid=u:r:resource_schedule_service:s0 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_ark_aot_compiler:s0 tclass=samgr_class
+allow resource_schedule_service sa_ark_aot_compiler:samgr_class { get };
+# workschedule use reportData
+allow resource_schedule_service sa_resource_schedule:samgr_class { get };
+
+# device_usage_stats database read/write, Record events,bgtask info persistence
+#avc: denied { ioctl } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { setattr } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { create } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { lock } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow resource_schedule_service data_service_el1_file:file { create getattr ioctl open read write lock setattr};
+#avc: denied { 0x5413 } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
+#avc: denied { 0xf50c } for pid=1067, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctl permissive=1
+allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
+#avc: denied { get } for service=1301 pid=1014 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=0
+allow resource_schedule_service sa_distributeddata_service:samgr_class { get };
+#avc: denied { call } for pid=1070, commm="/system/bin/sa_main" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
+allow resource_schedule_service distributeddata:binder { call };
+#avc: denied { transfer } for pid=1594, commm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=0
+allow distributeddata resource_schedule_service:binder { transfer };
+#avc: denied { use } for pid=1417, comm="/system/bin/sa_main" path="/dev/ashmen" dev="" ino=1 scontext=u:r:resource_schedule_service:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=0
+allow resource_schedule_service distributeddata:fd { use };
+
+# transient task apply
+#avc: denied { search } for pid=1114, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
+allow resource_schedule_service data_app_file:dir { search };
+
+# transient task set/get param
+#avc: denied { read open map } for pid=53703, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+allow resource_schedule_service persist_sys_param:file { read open map };
+
+# continous task apply
+#avc: denied { get } for service=1067 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_foundation_abilityms:samgr_class { get };
+#avc: denied { search } for scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=0
+allow resource_schedule_service data_app_el1_file:dir { search };
+
+# get service from samgr
+#avc: denied { get } for service=1067 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_bgtaskmgr:samgr_class { get };
+
+# get power and net service
+#avc: denied { call } for pid=1137, scontext=u:r:resource_schedule_service:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=1
+#avc: denied { transfer } for pid=1137, scontext=u:r:resource_schedule_service:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=1
+allow resource_schedule_service netmanager:binder { call transfer };
+#avc: denied { get } for service=1067 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_powermgr_thermal_service:s0 tclass=samgr_class 
+allow resource_schedule_service sa_powermgr_thermal_service:samgr_class { get };
+#avc: denied { get } for service=1151 pid=1063 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=0
+allow resource_schedule_service sa_net_conn_manager:samgr_class { get };
+
+# Add the corresponding selinux permission 
+# for the device_usage_stats.service process
+# from security_selinux_adapter\sepolicy\base\te\device_usage_stats_service.te
+# device_usage_stats IPC authentication, get current user
+#avc:  denied  { get } for service=3301 pid=282 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_accesstoken_manager_service:samgr_class { get };
+#avc:  denied  { get } for service=3301 pid=282 scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:sa_device_usage_statistics_service:s0 tclass=samgr_class permissive=1
+allow resource_schedule_service sa_device_usage_statistics_service:samgr_class { get add };
+allow resource_schedule_service data_service_el1_file:file { map };
+
+allow audio_server resource_schedule_service:binder { call transfer };
+allow hiview resource_schedule_service:dir { getattr open read };
+allow hiview resource_schedule_service:file { getattr };
+
+# Due to the merging of the device_usage_stats_service process 
+# into the resource_schedule_service process,
+# it is necessary to add the corresponding selinux permission 
+# for the device_usage_stats.service process.
+# device_usage_stats interface call and return result
+allow normal_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+allow system_basic_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+allow system_core_hap_attr sa_device_usage_statistics_service:samgr_class { get };
+allow time_service resource_schedule_service:file { getattr };
+allow time_service resource_schedule_service:binder { call };
+# add device_usage_stats access self file permission
+#avc: denied { lock } for pid=1191, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+#avc: denied { write } for pid=1191, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+#avc: denied { ioctl } for pid=1191, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+#avc: denied { ioctl } for pid=1191, scontext=u:r:resource_schedule_service:s0 tcontext=u:object_r:data_service_el1_public_bundle_usage:s0 tclass=file permissive=0
+allow resource_schedule_service data_service_el1_public_bundle_usage:file { map open read getattr ioctl write lock };
+allow resource_schedule_service data_service_el1_public_bundle_usage:dir { read search open getattr write add_name };
+allowxperm resource_schedule_service data_service_el1_public_bundle_usage:file ioctl { 0xf546 0xf50c };
+allow resource_schedule_service dev_ashmem_file:chr_file { open };
+allow resource_schedule_service hdf_devmgr:binder { call };
+allow resource_schedule_service sa_device_service_manager:samgr_class { get };
+
+debug_only(`
+    allow resource_schedule_service debug_param:file { map open read };
+')
+
+binder_call(resource_schedule_service, accountmgr);
+binder_call(resource_schedule_service, accesstoken_service);
+binder_call(resource_schedule_service, device_usage_stats_service);
+binder_call(resource_schedule_service, foundation);
+binder_call(resource_schedule_service, memmgrservice);
+binder_call(resource_schedule_service, normal_hap_attr);
+binder_call(resource_schedule_service, param_watcher);
+binder_call(resource_schedule_service, powermgr);
+binder_call(resource_schedule_service, resource_schedule_service);
+binder_call(resource_schedule_service, system_core_hap_attr);
+binder_call(resource_schedule_service, system_basic_hap_attr);
+binder_call(resource_schedule_service, hiview);
+binder_call(resource_schedule_service, distributedsche);
+binder_call(resource_schedule_service, bluetooth_service);
+binder_call(resource_schedule_service, time_service);
+binder_call(normal_hap_attr, resource_schedule_service);
+binder_call(system_core_hap_attr, resource_schedule_service);
+binder_call(param_watcher, resource_schedule_service);
+binder_call(foundation, resource_schedule_service);
+binder_call(powermgr, resource_schedule_service);
+binder_call(hiview, resource_schedule_service);
+binder_call(distributedsche, resource_schedule_service);
+binder_call(bluetooth_service, resource_schedule_service);
+binder_call(system_basic_hap_attr, resource_schedule_service);
+
+debug_only(`
+    binder_call(resource_schedule_service, sh);
+')
 

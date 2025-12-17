@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -36,9 +36,11 @@ allow hiview hiview_file:lnk_file { unlink create read setattr getattr };
 allowxperm hiview hiview_file:dir ioctl { 0xf546 };
 
 allow hiview data_file:dir { search };
-allow hiview data_log:dir { add_name open read search watch write create remove_name };
+allow hiview { data_log hitrace_log_file }:dir { add_name open read search watch write create remove_name };
+allow hiview hitrace_log_file:dir getattr;
 #avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
 allow hiview data_log:file { create setattr getattr lock map open read write unlink rename append ioctl };
+allow hiview hitrace_log_file:file { create setattr getattr lock map open read write unlink rename append };
 allow hiview faultlogger_log_file:dir { add_name open read search watch write create remove_name };
 allow hiview faultlogger_log_file:file { create setattr getattr lock map open read write unlink rename append };
 allowxperm hiview data_log:file ioctl { 0x5413 0xf546 0xf547 };
@@ -93,8 +95,8 @@ allow hiview tracefs_trace_marker_file:file { write open };
 allow hiview vendor_lib_file:dir { search };
 allow hiview vendor_lib_file:file { read open getattr map execute };
 
-allow hiview bgtaskmgr_service:dir { search };
-allow hiview bgtaskmgr_service:file { open read };
+allow hiview resource_schedule_service:dir { search };
+allow hiview resource_schedule_service:file { open read };
 
 allowxperm hiview dev_bbox:chr_file ioctl { 0x4264 };
 allowxperm hiview dev_bbox:chr_file ioctl { 0x4266 };
@@ -299,7 +301,7 @@ allowxperm hiview hiview_sys_def_file:file ioctl { 0x5413 };
 # avc: denied { get } for service=1158 sid=u:r:hiview:s0 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_netsys_native_manager:s0	tclass=samgr_class permissive=O
 allow hiview sa_netsys_native_manager:samgr_class { get };
 
-allow hiview data_log:fifo_file { create read write open unlink };
+allow hiview { data_log hitrace_log_file }:fifo_file { create read write open unlink };
 
 allow hiview sa_xperf_service:samgr_class { add };
 
@@ -338,4 +340,11 @@ hiview_cmd({
 allow hiview sa_foundation_abilityms:samgr_class { get };
 
 allow hiview render_service:fd { use };
+
+allow hiview print_driver_read:dir { open read search };
+allow hiview print_driver_read:file { getattr open read };
+allow hiview data_service_el1_public_print_service_file:dir { search open read };
+allow hiview data_service_el1_public_print_service_file:file { getattr open read };
+
+allow hiview hiview:hmcap { code_protect };
 

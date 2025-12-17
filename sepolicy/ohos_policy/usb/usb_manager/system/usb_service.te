@@ -145,4 +145,5 @@ allow usb_service netmanager:fd { use };
 allow usb_service audio_server:fd { use };
 allow usb_service media_service:fd { use };
 allow usb_service nfc_service:fd { use };
-
+allow usb_service security_guard:binder { call };
+allow usb_service sa_sg_collect_service:samgr_class { get };

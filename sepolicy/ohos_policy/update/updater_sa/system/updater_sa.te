@@ -79,3 +79,8 @@ allow updater_sa time_service:binder { call transfer };
 #avc:  denied  { transfer } for  pid=473 comm="OS_IPC_2_1087" scontext=u:r:updater_sa:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 allow updater_sa foundation:binder { transfer };
 
+#avc:  denied  { get } for service=5003 sid=u:r:updater_sa:s0 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=0
+allow updater_sa sa_storage_manager_service:samgr_class { get };
+
+binder_call(updater_sa, storage_manager);
+

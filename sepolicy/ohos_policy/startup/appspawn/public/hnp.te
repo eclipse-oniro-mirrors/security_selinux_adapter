@@ -14,7 +14,9 @@
 type hnp, native_system_domain, domain;
 type hnp_exec, system_file_attr, exec_attr, file_attr;
 type hnp_file, exec_attr, file_attr, data_file_attr;
-type hnp_native, hap_domain, domain;
+type private_hnp_file, exec_attr, file_attr, data_file_attr;
+type hnp_native, domain;
+allow hnp_native {system_bin_file toybox_exec hilog_exec}:file { execute execute_no_trans };
 
 developer_only(`
 # avc:  denied  { search } for  pid=12202 comm="hnp" name="app" dev="sdd78" ino=634 scontext=u:r:hnp:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
@@ -289,13 +291,13 @@ allow hnp data_app_el1_file:lnk_file { unlink };
 
 allow hnp installs:fifo_file { ioctl write };
 allowxperm hnp installs:fifo_file ioctl { 0x5413 };
-allow hnp hnp_file:dir { getattr read open remove_name search rmdir write add_name create mounton };
-allow hnp hnp_file:file { getattr unlink create ioctl read open setattr write };
-allowxperm hnp hnp_file:file ioctl { 0x5413 0x66c8 };
-allow hnp hnp_file:lnk_file { getattr unlink create };
+allow hnp {hnp_file private_hnp_file}:dir { getattr read open remove_name search rmdir write add_name create mounton };
+allow hnp {hnp_file private_hnp_file}:file { getattr unlink create ioctl read open setattr write };
+allowxperm hnp {hnp_file private_hnp_file}:file ioctl { 0x5413 0x66c8 };
+allow hnp {hnp_file private_hnp_file}:lnk_file { getattr unlink create };
 allow hnp data_app_el1_file:dir { relabelfrom };
-allow hnp hnp_file:dir { relabelto setattr };
-allow appspawn hnp_file:dir { getattr mounton search };
+allow hnp {hnp_file private_hnp_file}:dir { relabelto setattr };
+allow appspawn {hnp_file private_hnp_file}:dir { getattr mounton search };
 allow hiperf hnp_exec:file { getattr map read open };
 
 domain_auto_transition_pattern(sh, hnp_file, hnp_native);
@@ -323,5 +325,5 @@ allow sh hnp_native:process2 { nosuid_transition };
 allow hnp system_file:file { map open read };
 
 ## add hnp permission for read link information
-allow hnp hnp_file:lnk_file { read };
+allow hnp {hnp_file private_hnp_file}:lnk_file { read };
 ')

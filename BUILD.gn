@@ -1244,119 +1244,204 @@ ohos_copy("filecontexts_toolchain") {
 }
 
 if (selinux_adapter_components != "default") {
-  copy("eng_system_compatible") {
+  action("eng_system_compatible") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/compatible" ]
     outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/compatible" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_compatible_developer") {
+  action("eng_system_compatible_developer") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/compatible" ]
     outputs = [
       "$root_out_dir/$eng_system_base_dir/etc/selinux/compatible_developer",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_cil") {
+  action("eng_system_system_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/system.cil" ]
     outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_cil_sha256") {
+  action("eng_system_system_cil_sha256") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/system.cil.sha256" ]
     outputs =
         [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_common_cil") {
+  action("eng_system_system_common_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/system_common.cil" ]
     outputs =
         [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_common.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_developer_cil") {
+  action("eng_system_system_developer_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/system.cil" ]
     outputs = [
       "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_developer_cil_sha256") {
+  action("eng_system_system_developer_cil_sha256") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/system.cil.sha256" ]
     outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_developer_policy") {
+  action("eng_chipset_developer_policy") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/policy.31" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy/developer_policy" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_policy") {
+  action("eng_chipset_policy") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/policy.31" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy/policy.31" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_system_cil_sha256") {
+  action("eng_chipset_system_cil_sha256") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/prebuild_sepolicy.system.cil.sha256" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy.system.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_system_developer_cil_sha256") {
+  action("eng_chipset_system_developer_cil_sha256") {
     deps = [ ":build_policy" ]
     sources =
         [ "$target_out_dir/developer/prebuild_sepolicy.system.cil.sha256" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy.system_developer.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_public_cil") {
+  action("eng_chipset_public_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/public.cil" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_public_common_cil") {
+  action("eng_chipset_public_common_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/public_common.cil" ]
     outputs =
         [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public_common.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_public_developer_cil") {
+  action("eng_chipset_public_developer_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/public.cil" ]
     outputs = [
       "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public_developer.cil",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_vendor_cil") {
+  action("eng_chipset_vendor_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/vendor.cil" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_vendor_common_cil") {
+  action("eng_chipset_vendor_common_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/vendor_common.cil" ]
     outputs =
         [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor_common.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_vendor_developer_cil") {
+  action("eng_chipset_vendor_developer_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/vendor.cil" ]
     outputs = [
       "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor_developer.cil",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
   group("eng_system_selinux_group") {
@@ -1417,7 +1502,7 @@ group("selinux_group") {
       ":service_contexts",
       ":updater_config",
     ]
-    if (asan_detector) {
+    if (!asan_detector) {
       deps += [ ":selinux_check" ]
     }
     external_deps = [

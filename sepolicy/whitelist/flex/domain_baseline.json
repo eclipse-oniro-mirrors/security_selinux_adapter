@@ -54,7 +54,6 @@
             "foundation",
             "storage_daemon",
             "inputmethod_service",
-            "bgtaskmgr_service",
             "local_code_sign",
             "print_service",
             "watchdog_service",
@@ -140,7 +139,6 @@
         "rgm_violator_sadomain": [],
         "hap_domain": [
             "filemanager_hap",
-            "hnp_native",
             "normal_hap",
             "system_basic_hap",
             "dlp_sandbox_hap",

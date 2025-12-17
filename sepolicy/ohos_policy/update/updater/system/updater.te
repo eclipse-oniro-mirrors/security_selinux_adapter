@@ -286,6 +286,8 @@ allow updater updater_binary_exec:file { unlink };
 
 # avc:  denied  { mount } for  pid=235 comm="updater" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=filesystem permissive=0
 allow updater vfat:filesystem { mount };
+# avc: denied { unmount } for pid=622, comm="/bin/updater"  scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=filesystem permissive=0
+allow updater vfat:filesystem { unmount };
 
 # avc:  denied  { read write } for  pid=231 comm="updater" name="updater" dev="mmcblk1p1" ino=99 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=0
 # avc:  denied  { ioctl } for  pid=230 comm="updater" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=102 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=0
@@ -318,6 +320,8 @@ allowxperm updater ntfs:file ioctl { 0x5413 };
 
 # avc:  denied  { mount } for  pid=262 comm="mount.ntfs" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=filesystem permissive=0
 allow updater ntfs:filesystem { mount };
+# avc: denied { unmount } for pid=624, comm="/bin/updater"  scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=filesystem permissive=0
+allow updater ntfs:filesystem { unmount };
 
 # avc:  denied  { search } for  pid=235 comm="updater" name="/" dev="functionfs" ino=18353 scontext=u:r:updater:s0 tcontext=u:object_r:functionfs:s0 tclass=dir permissive=1
 allow updater functionfs:dir { search };
@@ -439,4 +443,11 @@ allow updater update_updater_param:parameter_service { set };
 # avc:  denied  { read } for  pid=174 comm="updater" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=81 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
 allow updater update_updater_param:file { map open read };
 
+# avc: denied { search } for pid=569, comm="/bin/updater"  name="/718" dev="" ino=2505 scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=dir permissive=1
+allow updater updater_binary:dir { search };
+
+# avc: denied { getattr } for pid=569, comm="/bin/updater"  path="/proc/718/io" dev="" ino=2514 scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=file permissive=1
+# avc: denied { open } for pid=569, comm="/bin/updater"  path="/proc/718/io" dev="" ino=2514 scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=file permissive=1
+# avc: denied { read } for pid=569, comm="/bin/updater"  scontext=u:r:updater:s0 tcontext=u:r:updater_binary:s0 tclass=file permissive=1
+allow updater updater_binary:file { getattr open read };
 ')

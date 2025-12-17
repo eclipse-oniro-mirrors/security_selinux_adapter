@@ -40,6 +40,7 @@ attribute rgm_violator_ohos_vendor_etc_file_read;
 attribute rgm_violator_ohos_vendor_etc_file_open;
 attribute rgm_violator_ohos_iptables_exec_file_execute;
 attribute rgm_violator_ohos_sh_exec_file_execute;
+attribute rgm_violator_ohos_capability_sys_nice;
 
 attribute rgm_violator_data_log_file_createwrite;
 attribute rgm_violator_data_log_dir_createwrite;

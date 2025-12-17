@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow bgtaskmgr_service audio_server:binder { call };
-
+allow domain system_etc_zoneinfo_file:dir { open read search getattr };
+allow domain system_etc_zoneinfo_file:file { getattr map open read };
