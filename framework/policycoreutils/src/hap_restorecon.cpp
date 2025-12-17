@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -68,6 +68,8 @@ static const std::string INPUT_ISOLATE = "input_isolate";
 static const std::string CUSTOMSANDBOX = "custom_sandbox";
 static const std::string ISOLATED_GPU = "isolated_gpu";
 static const std::string ISOLATED_RENDER = "isolated_render";
+static const char *ORIGINAL_TYPE = "normal_hap_data_file";
+static const char *UPDATED_TYPE = "appdat";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -428,6 +430,32 @@ int HapContext::HapFileRestorecon(HapFileInfo& hapFileInfo)
     return failFlag ? -SELINUX_RESTORECON_ERROR : SELINUX_SUCC;
 }
 
+static int IsSkipSetContext(const char *oldSecontext, const char *newSecontext, bool &skipSetCon,
+    const std::string &pathNameOrig)
+{
+    context_t oldContext = context_new(oldSecontext);
+    if (oldContext == nullptr) {
+        selinux_log(SELINUX_ERROR, "Old context is null");
+        return -SELINUX_PTR_NULL;
+    }
+    context_t newContext = context_new(newSecontext);
+    if (newContext == nullptr) {
+        context_free(oldContext);
+        selinux_log(SELINUX_ERROR, "New context is null");
+        return -SELINUX_PTR_NULL;
+    }
+
+    if (!strcmp(context_type_get(oldContext), ORIGINAL_TYPE) && !strcmp(context_type_get(newContext), UPDATED_TYPE)) {
+        selinux_log(SELINUX_ERROR, "Skip set the context of path: %s.", pathNameOrig.c_str());
+        skipSetCon = true;
+    }
+
+    context_free(oldContext);
+    context_free(newContext);
+
+    return SELINUX_SUCC;
+}
+
 int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& hapFileInfo)
 {
     if (hapFileInfo.apl.empty() || pathNameOrig.empty() || !CheckApl(hapFileInfo.apl)) {
@@ -457,6 +485,15 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
         selinux_log(SELINUX_ERROR, "oldSecontext or newSecontext is null");
         return -SELINUX_PTR_NULL;
     }
+
+    bool skipSetCon = false;
+    res = IsSkipSetContext(oldSecontext, newSecontext, skipSetCon, pathNameOrig);
+    if ((res != 0) || skipSetCon) {
+        freecon(newSecontext);
+        freecon(oldSecontext);
+        return res;
+    }
+
     if (strcmp(oldSecontext, newSecontext) == 0) {
         freecon(newSecontext);
         freecon(oldSecontext);

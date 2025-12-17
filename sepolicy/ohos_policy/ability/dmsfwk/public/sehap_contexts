@@ -10,5 +10,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apl=normal extension=distributed domain=distributed_isolate_hap type=normal_hap_data_file
-apl=normal debuggable=true extension=distributed domain=distributed_isolate_hap type=normal_hap_data_file
+apl=normal extension=distributed domain=distributed_isolate_hap type=appdat
+apl=normal debuggable=true extension=distributed domain=distributed_isolate_hap type=appdat
