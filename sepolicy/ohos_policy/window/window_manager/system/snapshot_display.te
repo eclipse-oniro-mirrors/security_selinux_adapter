@@ -90,6 +90,8 @@ debug_only(`
     # avc:  denied  { read } for  pid=15286 comm="snapshot_displa" name="cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
     # avc:  denied  { read open } for  pid=15286 comm="snapshot_displa" path="/proc/cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
     allow snapshot_display proc_cpuinfo_file:file { getattr read open };
+    # avc:  denied  { use } for pid=1576, comm="/system/bin/sa_main" path="anon_inode:dmabuf" dev="" ino=0 scontext=u:r:snapshot_display:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=0
+    allow snapshot_display allocator_host:fd { use };
 ')
 
 developer_only(`
@@ -172,4 +174,6 @@ developer_only(`
     # avc:  denied  { read } for  pid=15286 comm="snapshot_displa" name="cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
     # avc:  denied  { read open } for  pid=15286 comm="snapshot_displa" path="/proc/cpuinfo" dev="proc" ino=4026532344 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
     allow snapshot_display proc_cpuinfo_file:file { getattr read open };
+    # avc:  denied  { use } for pid=1576, comm="/system/bin/sa_main" path="anon_inode:dmabuf" dev="" ino=0 scontext=u:r:snapshot_display:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=0
+    allow snapshot_display allocator_host:fd { use };
 ')
