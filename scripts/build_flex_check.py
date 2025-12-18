@@ -25,7 +25,7 @@ import shutil
 import find
 
 PUBLIC_CIL_FILES = ["public.cil", "public_common.cil"]
-DEVELOPER_PUBLIC_CIL_FILES = [ "public_developer.cil" ]
+DEVELOPER_PUBLIC_CIL_FILES = [ "public_developer.cil", "public_common.cil"]
 DEVELOPER_SUB_PATH = "developer"
 
 
@@ -394,17 +394,17 @@ def flex_check(input_args, is_developer):
         old_type_set = old_type_set & old_vendor_type_set
         new_type_set = new_type_set & new_vendor_type_set
     else:
-        all_cil_files = []
-        all_cil_files += PUBLIC_CIL_FILES
+        all_cil_files = PUBLIC_CIL_FILES
         if is_developer:
-            all_cil_files += DEVELOPER_PUBLIC_CIL_FILES
+            all_cil_files = DEVELOPER_PUBLIC_CIL_FILES
 
-        for cil_file in PUBLIC_CIL_FILES:
+        for cil_file in all_cil_files:
             old_policy_file = os.path.join(old_file_path, cil_file)
             new_policy_file = os.path.join(new_file_path, cil_file)
 
             if not os.path.exists(old_policy_file) or not os.path.exists(new_policy_file):
-                print("[ERROR] {} or {} no found.".format(old_policy_file, new_policy_file))
+                if input_args.updater_version == "disable":
+                    print("[ERROR] {} or {} no found.".format(old_policy_file, new_policy_file))
                 continue
             old_type_set.update(get_type_set(old_policy_file))
             new_type_set.update(get_type_set(new_policy_file))
@@ -446,6 +446,9 @@ def parse_args():
                         help='output path for intermediate files and cils', required=True)
     parser.add_argument('--skip-exact-match', action="store_true",
                         help='skip exact match of types in lastest and compact verison policy')
+    parser.add_argument('--updater-version',
+                        default='disable',
+                        help='updater version', required=False)
     
     return parser.parse_args()
 
@@ -475,4 +478,7 @@ if __name__ == "__main__":
 
     check_and_prepare(input_args)
     flex_check(input_args, False)
-    flex_check(input_args, True)
+    if input_args.updater_version == "enable":
+        print("The developer mode of the updater-version skips generate or check campact policy.")
+    else:
+        flex_check(input_args, True)
