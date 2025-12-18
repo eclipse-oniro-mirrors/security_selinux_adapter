@@ -54,6 +54,11 @@
             "script": "base/security/selinux_adapter/scripts/selinux_check/check_socket.py",
             "args": "--cil_file",
             "extra_args": ""
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_consistency_of_tcontext.py",
+            "args": "--cil_file",
+            "extra_args": "--config scripts/selinux_check/config/cosistency_pair.json"
         }
     ]
 }

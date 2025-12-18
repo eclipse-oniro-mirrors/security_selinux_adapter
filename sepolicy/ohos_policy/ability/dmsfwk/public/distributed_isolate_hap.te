@@ -107,8 +107,8 @@ allow distributed_isolate_hap netsysnative:unix_stream_socket { connectto };
 # avc: denied { read } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62920 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
 # avc: denied { search } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/cache" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=56632 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
 # avc: denied { setattr } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/cache/rawheap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62652 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
-allow distributed_isolate_hap normal_hap_data_file:dir { getattr ioctl open read search setattr };
-allowxperm distributed_isolate_hap normal_hap_data_file:dir ioctl { 0xf546 };
+allow distributed_isolate_hap normal_app_data:dir { getattr ioctl open read search setattr };
+allowxperm distributed_isolate_hap normal_app_data:dir ioctl { 0xf546 };
 
 # avc: denied { append } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/app_event_20250331.log" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=62300 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
 # avc: denied { getattr } for pid=9682, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases/appevent.db-wal" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31436 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
@@ -120,8 +120,8 @@ allowxperm distributed_isolate_hap normal_hap_data_file:dir ioctl { 0xf546 };
 # avc: denied { read } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31695 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
 # avc: denied { setattr } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31695 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
 # avc: denied { write } for pid=9682, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.example.dms_extension/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=31695 scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
-allow distributed_isolate_hap normal_hap_data_file:file { append getattr ioctl lock map open read write read setattr write };
-allowxperm distributed_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
+allow distributed_isolate_hap normal_app_data:file { append getattr ioctl lock map open read write read setattr write };
+allowxperm distributed_isolate_hap normal_app_data:file ioctl { 0x5413 0xf50c 0xf546 };
 
 # avc: denied { name_connect } for pid=9682, comm="/system/bin/appspawn"  scontext=u:r:distributed_isolate_hap:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=1
 allow distributed_isolate_hap port:tcp_socket { name_connect };

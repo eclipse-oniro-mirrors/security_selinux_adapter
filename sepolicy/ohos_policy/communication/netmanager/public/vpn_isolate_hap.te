@@ -62,9 +62,9 @@ allow vpn_isolate_hap node:udp_socket { node_bind };
 allow vpn_isolate_hap normal_hap:unix_stream_socket { connectto };
 allow vpn_isolate_hap normal_hap:binder { call };
 allow vpn_isolate_hap normal_hap:fd { use };
-allow vpn_isolate_hap normal_hap_data_file:dir { getattr ioctl open read setattr write add_name search write remove_name search write rename create };
-allow vpn_isolate_hap normal_hap_data_file:file { append getattr ioctl lock map open read write setattr create unlink };
-allow vpn_isolate_hap normal_hap_data_file:sock_file { create unlink write };
+allow vpn_isolate_hap normal_app_data:dir { getattr ioctl open read setattr write add_name search write remove_name search write rename create };
+allow vpn_isolate_hap normal_app_data:file { append getattr ioctl lock map open read write setattr create unlink };
+allow vpn_isolate_hap normal_app_data:sock_file { create unlink write };
 allow vpn_isolate_hap param_watcher:binder { call transfer };
 allow vpn_isolate_hap port:tcp_socket { name_connect name_bind };
 allow vpn_isolate_hap port:udp_socket { name_bind };
@@ -106,8 +106,8 @@ allow vpn_isolate_hap vpn_isolate_hap:udp_socket { bind connect create read seto
 allow vpn_isolate_hap vpn_isolate_hap:unix_dgram_socket { getopt setopt };
 allowxperm vpn_isolate_hap dev_at_file:chr_file ioctl { 0x5413 };
 allowxperm vpn_isolate_hap dev_tun_file:chr_file ioctl { 0x54d2 };
-allowxperm vpn_isolate_hap normal_hap_data_file:dir ioctl { 0xf546 };
-allowxperm vpn_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
+allowxperm vpn_isolate_hap normal_app_data:dir ioctl { 0xf546 };
+allowxperm vpn_isolate_hap normal_app_data:file ioctl { 0x5413 0xf50c 0xf546 };
 
 debug_only(`
     allow vpn_isolate_hap su:unix_stream_socket { connectto };

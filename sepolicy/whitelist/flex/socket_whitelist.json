@@ -57,6 +57,7 @@
             "msdp_data_file",
             "native_socket",
             "normal_hap_data_file",
+            "appdat",
             "normal_hap_data_file_attr",
             "nwebspawn_socket",
             "paramservice_socket",

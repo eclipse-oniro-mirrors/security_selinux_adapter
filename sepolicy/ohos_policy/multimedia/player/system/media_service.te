@@ -171,8 +171,8 @@ allow media_service media_monitor:binder { call };
 allow media_service hmdfs:file { ioctl };
 allowxperm media_service hmdfs:file ioctl { 0xf206 0xf207 0xf208 0xf209 };
 
-allow media_service normal_hap_data_file:file { ioctl };
-allowxperm media_service normal_hap_data_file:file ioctl { 0xf206 };
+allow media_service normal_app_data:file { ioctl };
+allowxperm media_service normal_app_data:file ioctl { 0xf206 };
 
 allow media_service sa_camera_service:samgr_class { get };
 allow media_service media_service:tcp_socket { accept bind connect create listen read setopt getopt shutdown write setattr getattr };

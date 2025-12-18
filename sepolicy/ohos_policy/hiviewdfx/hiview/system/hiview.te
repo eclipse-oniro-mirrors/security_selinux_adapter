@@ -177,16 +177,16 @@ allow hiview system_basic_hap_data_file_attr:dir { add_name search write };
 allow hiview system_basic_hap_data_file_attr:file { create write open };
 
 #avc:  denied  { search } for  pid=241 comm="exportSysEventT" name="com.huawei.myapplicationtest" dev="mmcblk0p12" ino=1615 scontext=u:r:hiview:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=0
-allow hiview normal_hap_data_file:dir { search };
+allow hiview normal_app_data:dir { search };
 
 #avc:  denied  { write } for  pid=245 comm="exportSysEventT" name="cache" dev="mmcblk0p12" ino=1616 scontext=u:r:hiview:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=0
-allow hiview normal_hap_data_file:dir { write add_name };
+allow hiview normal_app_data:dir { write add_name };
 
-allow hiview normal_hap_data_file:file { create  write open };
+allow hiview normal_app_data:file { create  write open };
 
 #avc:  denied  { setattr } for  pid=246 comm="exportSysEventT" name="RELIABILITY-20170806025113-000-0.evt" dev="mmcblk0p12" ino=2052 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
 allow hiview system_basic_hap_data_file_attr:file { setattr };
-allow hiview normal_hap_data_file:file { setattr };
+allow hiview normal_app_data:file { setattr };
 
 debug_only(`
     allow hiview sh:dir { getattr open read search};
