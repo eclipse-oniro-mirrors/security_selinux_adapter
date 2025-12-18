@@ -121,7 +121,7 @@ allow installs installs:code_sign { add_cert_chain remove_cert_chain };
 allow installs data_service_el0_file:dir { add_name create getattr write open read rmdir remove_name search setattr rename };
 allow installs data_service_el0_file:file { create getattr open read unlink write setattr rename };
 allow installs dev_code_sign:chr_file { ioctl write write open };
-allowxperm installs dev_code_sign:chr_file ioctl { 0x6b01 0x6b04 };
+allowxperm installs dev_code_sign:chr_file ioctl { 0x6b01 0x6b04 0x6b05 };
 allow installs normal_hap_data_file_attr:lnk_file { unlink rename };
 allow installs system_basic_hap_data_file_attr:lnk_file { unlink rename };
 allow installs system_core_hap_data_file_attr:lnk_file { unlink rename };
