@@ -488,7 +488,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
 
     bool skipSetCon = false;
     res = IsSkipSetContext(oldSecontext, newSecontext, skipSetCon, pathNameOrig);
-    if ((res != 0) || skipSetCon) {
+    if ((res != SELINUX_SUCC) || skipSetCon) {
         freecon(newSecontext);
         freecon(oldSecontext);
         return res;
