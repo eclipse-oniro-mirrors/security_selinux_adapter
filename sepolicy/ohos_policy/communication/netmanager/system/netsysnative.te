@@ -139,7 +139,7 @@ allow netsysnative sa_net_policy_manager:samgr_class { get };
 allow netsysnative sysvpn_exec:file { execute read open execute_no_trans map getattr };
 neverallow { domain -netsysnative } sysvpn_exec:file { execute };
 
-neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call -security_collector } netsysnative:binder *;
+neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa -netsysnative_violator_binder_call -security_guard } netsysnative:binder *;
 neverallow { domain -netsysnative -rgm_violator_ohos_iptables_exec_file_execute } iptables_exec:file { execute };
 
 # avc:  denied  { getattr } for  pid=4358 comm="xl2tpd" lport=1701 scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=udp_socket permissive=1
