@@ -31,6 +31,7 @@ type audio_host, hdfdomain, domain;
 type camera_host, hdfdomain, domain;
 type clearplay_host, hdfdomain, domain;
 type input_user_host, hdfdomain, domain;
+typeattribute input_user_host violator_vendor_system_etc_read;
 type motion_host, hdfdomain, domain;
 type riladapter_host, hdfdomain, domain;
 type sensor_host, hdfdomain, domain;
