@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow telephony_sa telecom:binder { call };
+allow telephony_sa telecom:binder { transfer };
