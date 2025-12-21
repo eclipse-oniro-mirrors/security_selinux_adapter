@@ -307,7 +307,7 @@
 
 /system/bin/lmks        u:object_r:lmks_exec:s0
 
-/vendor/bin/hdf_devmgr        u:object_r:hdf_devmgr_exec:s0
+/system/bin/hdf_devmgr        u:object_r:hdf_devmgr_exec:s0
 
 /system/bin/wifi_hal_service        u:object_r:wifi_hal_service_exec:s0
 

@@ -4,7 +4,6 @@
             "path": "/vendor",
             "permissive_list": {
                 "user": [
-                    "/vendor/bin/hdf_devmgr",
                     "/vendor/bin/hdf_devhost",
                     "/vendor/etc/power_config/power_mode_config.xml"
                 ],
@@ -16,7 +15,6 @@
             "permissive_list": {
                 "user": [
                     "/vendor/bin(/.*)?",
-                    "/vendor/bin/hdf_devmgr",
                     "/vendor/bin/hdf_devhost"
                 ],
                 "developer": []
