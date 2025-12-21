@@ -72,3 +72,7 @@ allow telecom audio_server:fd { use };
 allow telecom audio_server:binder { call transfer };
 allow telecom arkcompiler_param:file { map open read };
 allow telecom accountmgr:binder { call };
+allow telecom sa_telephony_tel_core_service:samgr_class { get };
+allow telecom sa_privacy_service:samgr_class { get };
+allow telecom sa_mutimodalinput:samgr_class { get };
+allow telecom sa_foundation_appms:samgr_class { get };
