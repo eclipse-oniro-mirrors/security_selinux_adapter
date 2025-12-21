@@ -26,6 +26,7 @@ type medialibrary_service, sadomain, domain;
 type netdnative, domain;
 type netmanager, sadomain, domain;
 type sensors, sadomain, domain;
+type telecom, sadomain, domain;
 type telephony_sa, sadomain, domain;
 type camera_service, sadomain, domain;
 type drm_service, sadomain, domain;

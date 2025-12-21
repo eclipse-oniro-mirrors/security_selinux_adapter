@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sa_net_policy_manager, sa_service_attr;
-type sa_telephony_tel_cellular_data, sa_service_attr;
-type sa_telephony_tel_sms_mms, sa_service_attr;
+type sa_foundation_tel_state_registry, sa_service_attr;

@@ -106,6 +106,7 @@
             "memmgrservice",
             "distributedsche",
             "security_collector",
+            "telecom",
             "telephony_sa",
             "drm_service",
             "msdp_sa",
