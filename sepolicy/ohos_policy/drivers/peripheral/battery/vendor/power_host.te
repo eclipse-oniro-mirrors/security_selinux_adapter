@@ -26,4 +26,4 @@ allow power_host data_file:dir { search };
 allow power_host data_service_file:dir { search };
 allow power_host data_service_el0_file:dir { search };
 allow power_host data_service_el0_battery:dir { setattr getattr search add_name create open read write remove_name };
-allow power_host data_service_el0_battery:file { create append open read write getattr };
+allow power_host data_service_el0_battery:file { create append open read write getattr setattr };

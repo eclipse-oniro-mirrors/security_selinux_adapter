@@ -41,9 +41,10 @@ allowxperm power_host data_vendor:file ioctl { 0x5413 };
 # trying to make a complete list that is as independent as possible
 # avc: denied { search write add_name create read open remove_name setattr getattr } for pid=1430, comm="/vendor/bin/hdf_devhost" name="/data/service/el0/thermal/sensor" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=dir permissive=1
 # avc: denied { create append open read write getattr } for pid=1430, comm="/vendor/bin/hdf_devhost" name="/data/service/el0/thermal/sensor" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=1535, comm="/vendor/bin/hdf_devhost" path="data/service/el0/thermal/cooling/battery/current" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=4812 ioctlcmd=0x5413 scontext=u:r:power_host:s0  tcontext=u:object_r:data_service_el0_thermal:s0 tclass=file permissive=1
 allow power_host data_file:dir { search };
 allow power_host data_service_file:dir { search };
 allow power_host data_service_el0_file:dir { search };
 allow power_host data_service_el0_thermal:dir { setattr getattr search add_name create open read write remove_name };
-allow power_host data_service_el0_thermal:file { create append open read write getattr };
-
+allow power_host data_service_el0_thermal:file { ioctl create append open read write getattr setattr };
+allowxperm power_host data_service_el0_thermal:file ioctl { 0x5413 };
