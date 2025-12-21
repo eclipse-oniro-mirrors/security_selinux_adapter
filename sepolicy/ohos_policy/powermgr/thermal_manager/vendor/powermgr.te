@@ -13,7 +13,3 @@
 
 #avc:  denied  { get } for service=thermal_interface_service pid=481 scontext=u:r:powermgr:s0 tcontext=u:object_r:hdf_thermal_interface_service:s0 tclass=hdf_devmgr_class permissive=1
 allow powermgr hdf_thermal_interface_service:hdf_devmgr_class { get };
-
-# Fine-grained dir/file permissions. The label is defined in drivers/peripheral/thermal under vendor image
-allow powermgr data_service_el0_thermal:dir { setattr getattr search add_name create open read write remove_name};
-allow powermgr data_service_el0_thermal:file { create append open read write getattr};

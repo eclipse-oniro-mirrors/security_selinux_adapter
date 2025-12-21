@@ -11,5 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# avc: denied { relabelto read open setattr search write add_name create getattr} for pid=592, comm="/bin/init" name="/data/service/el0/battery" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=34620 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_battery:s0 tclass=dir permissive=1
 allow init data_service_el0_battery:dir { relabelto read open setattr getattr search write add_name create };
+
+# avc: denied { relabelto read open setattr search write add_name create getattr} for pid=592, comm="/bin/init" name="/data/service/el0/battery" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=34620 scontext=u:r:chipset_init:s0 tcontext=u:object_r:data_service_el0_battery:s0 tclass=dir permissive=1
 allow chipset_init data_service_el0_battery:dir { relabelto read open setattr getattr search write add_name create };

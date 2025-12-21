@@ -17,9 +17,6 @@ allow power_host sa_param_watcher:samgr_class { get };
 #avc:  denied  { call transfer } for  pid=464 comm="power_host" scontext=u:r:power_host:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
 allow power_host param_watcher:binder { call transfer };
 
-#avc:  denied  { read } for  pid=421 comm="hdf_devhost" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:power_host:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
-allow power_host accessibility_param:file { read };
-
 #avc:  denied  { getattr } for  pid=563 comm="IPC_0_636" path="/sys/devices/virtual/thermal/thermal_zone0/temp" dev="sysfs" ino=5327 scontext=u:r:power_host:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
 allow power_host sys_file:file { getattr };
 
@@ -40,11 +37,13 @@ allow power_host data_vendor:dir { setattr search write add_name create read ope
 allow power_host data_vendor:file { create append read open write unlink getattr ioctl };
 allowxperm power_host data_vendor:file ioctl { 0x5413 };
 
-# legacy permissions, restricted to the very specific subdir
+# legacy el0 permissions, restricted to the very specific subdir
 # trying to make a complete list that is as independent as possible
+# avc: denied { search write add_name create read open remove_name setattr getattr } for pid=1430, comm="/vendor/bin/hdf_devhost" name="/data/service/el0/thermal/sensor" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=dir permissive=1
+# avc: denied { create append open read write getattr } for pid=1430, comm="/vendor/bin/hdf_devhost" name="/data/service/el0/thermal/sensor" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=file permissive=1
 allow power_host data_file:dir { search };
 allow power_host data_service_file:dir { search };
 allow power_host data_service_el0_file:dir { search };
-allow power_host data_service_el0_thermal:dir { setattr getattr search add_name create open read write remove_name};
-allow power_host data_service_el0_thermal:file { create append open read write getattr};
+allow power_host data_service_el0_thermal:dir { setattr getattr search add_name create open read write remove_name };
+allow power_host data_service_el0_thermal:file { create append open read write getattr };
 

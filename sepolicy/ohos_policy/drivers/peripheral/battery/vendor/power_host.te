@@ -19,9 +19,11 @@ allow power_host hdf_battery_interface_service:hdf_devmgr_class { add };
 allow power_host sa_device_service_manager:samgr_class { get };
 allow power_host dev_kmsg_file:chr_file { write open };
 
-# legacy permissions, restricted to the very specific subdir
+# legacy el0 permissions, restricted to the very specific subdir
+# avc: denied { search write add_name create read open remove_name setattr getattr } for pid=1430, comm="/vendor/bin/hdf_devhost" name="/data/service/el0/battery/" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_battery:s0 tclass=dir permissive=0
+# avc: denied { create append open read write getattr } for pid=1430, comm="/vendor/bin/hdf_devhost" name="/data/service/el0/battery/" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_battery:s0 tclass=dir permissive=0
 allow power_host data_file:dir { search };
 allow power_host data_service_file:dir { search };
 allow power_host data_service_el0_file:dir { search };
-allow power_host data_service_el0_battery:dir { setattr getattr search add_name create open read write remove_name};
+allow power_host data_service_el0_battery:dir { setattr getattr search add_name create open read write remove_name };
 allow power_host data_service_el0_battery:file { create append open read write getattr };
