@@ -74,5 +74,5 @@ allow telecom arkcompiler_param:file { map open read };
 allow telecom accountmgr:binder { call };
 allow telecom sa_telephony_tel_core_service:samgr_class { get };
 allow telecom sa_privacy_service:samgr_class { get };
-allow telecom sa_mutimodalinput_service:samgr_class { get };
+allow telecom sa_multimodalinput_service:samgr_class { get };
 allow telecom sa_foundation_appms:samgr_class { get };
