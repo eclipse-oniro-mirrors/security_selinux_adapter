@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hiview telecom:binder { call };
-allow hiview telecom:binder { transfer };
+allow hiview telecom:binder { call transfer};

@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow bluetooth_service telecom:binder { call };
-allow bluetooth_service telecom:binder { transfer };
+allow bluetooth_service telecom:binder { call transfer };
