@@ -15,7 +15,7 @@ allow normal_hap_attr normal_hap_data_file_attr:dir { add_name write };
 allow normal_hap_attr normal_hap_data_file_attr:file create;
 allow normal_hap_attr proc_boot_id:file { open read };
 allow normal_hap_attr rootfs:dir mounton;
-allow normal_hap_attr sa_foundation_tel_call_manager:samgr_class get;
+allow normal_hap_attr sa_telephony_tel_call_manager:samgr_class get;
 allow normal_hap_attr sa_telephony_tel_sms_mms:samgr_class get;
 allow normal_hap_attr telephony_sa:binder transfer;
 allow normal_hap_attr tmpfs:dir { add_name create mounton write };

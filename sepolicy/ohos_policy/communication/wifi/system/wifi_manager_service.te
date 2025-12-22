@@ -265,8 +265,8 @@ allowxperm wifi_manager_service data_service_el1_file:dir ioctl { 0xf546 0xf547 
 allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0xf547 };
 allow wifi_manager_service security_guard:binder { call transfer };
 allow wifi_manager_service sa_sg_classify_service:samgr_class { get };
-# avc: denied  { get } for service=4009 sid=u:r:wifi_manager_service:s0 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_foundation_tel_state_registry:s0 tclass=samgr_class permissive=0
-allow wifi_manager_service sa_foundation_tel_state_registry:samgr_class { get };
+# avc: denied  { get } for service=4009 sid=u:r:wifi_manager_service:s0 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_telecom_tel_state_registry:s0 tclass=samgr_class permissive=0
+allow wifi_manager_service sa_telecom_tel_state_registry:samgr_class { get };
 
 # avc: denied { getattr } for pid=2783, comm="/system/bin/sa_main"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 # avc: denied { open } for pid=2783, comm="/system/bin/sa_main"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1

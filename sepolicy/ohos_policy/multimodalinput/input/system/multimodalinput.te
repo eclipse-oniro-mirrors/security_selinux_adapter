@@ -67,7 +67,7 @@ allow multimodalinput sa_audio_policy_service:samgr_class { get };
 allow multimodalinput sa_device_service_manager:samgr_class { get };
 allow multimodalinput sa_distributeddata_service:samgr_class { get };
 allow multimodalinput sa_foundation_dms:samgr_class { get };
-allow multimodalinput sa_foundation_tel_call_manager:samgr_class { get };
+allow multimodalinput sa_telephony_tel_call_manager:samgr_class { get };
 allow multimodalinput sa_foundation_wms:samgr_class { get };
 allow multimodalinput sa_media_service:samgr_class { get };
 allow multimodalinput sa_multimodalinput_service:samgr_class { get };

@@ -53,11 +53,11 @@ allow bluetooth_service hdf_hci_interface_service:hdf_devmgr_class { get };
 #avc:  denied  { get } for service=4010 pid=278 scontext=u:r:bluetooth_service:s0 tcontext=u:r:sa_telephony_tel_core_service:s0 tclass=samgr_class permissive=1
 allow bluetooth_service sa_telephony_tel_core_service:samgr_class { get };
 
-#avc:  denied  { get } for service=4005 pid=278 scontext=u:r:bluetooth_service:s0 tcontext=u:r:sa_foundation_tel_call_manager:s0 tclass=samgr_class permissive=1
-allow bluetooth_service sa_foundation_tel_call_manager:samgr_class { get };
+#avc:  denied  { get } for service=4005 pid=278 scontext=u:r:bluetooth_service:s0 tcontext=u:r:sa_telephony_tel_call_manager:s0 tclass=samgr_class permissive=1
+allow bluetooth_service sa_telephony_tel_call_manager:samgr_class { get };
 
-#avc:  denied  { get } for service=4009 pid=348 scotext=u:bluetooth_service:s0 tcontext:u:object_r:sa_foundation_tel_state_registry:s0 tclass=samgr_class permissive=0
-allow bluetooth_service sa_foundation_tel_state_registry:samgr_class { get };
+#avc:  denied  { get } for service=4009 pid=348 scotext=u:bluetooth_service:s0 tcontext:u:object_r:sa_telecom_tel_state_registry:s0 tclass=samgr_class permissive=0
+allow bluetooth_service sa_telecom_tel_state_registry:samgr_class { get };
 
 #avc:  denied  { get } for pid=279 scontext=u:r:bluetooth_service:s0 tcontext=u:r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 allow bluetooth_service hdf_device_manager:hdf_devmgr_class { get };
