@@ -12,3 +12,7 @@
 # limitations under the License.
 
 allow normal_hap telecom:binder { call transfer };
+allow normal_hap_attr telecom:binder { call};
+allow normal_hap_attr telecom:binder { transfer };
+allow syatem_basic_attr telecom:binder { call };
+allow syatem_basic_attr telecom:binder { transfer };
