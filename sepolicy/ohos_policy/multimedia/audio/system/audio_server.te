@@ -221,3 +221,4 @@ allow audio_server hiview:binder { call };
 allow audio_server sa_xperf_service:samgr_class { get };
 
 allow audio_server arkui_param:file { map open read };
+allow audio_server telecom:binder { call transfer };

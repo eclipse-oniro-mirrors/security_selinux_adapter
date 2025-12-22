@@ -285,3 +285,4 @@ allow wifi_manager_service data_service_el2_hmdfs:dir { search };
 # avc: denied { setopt } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
 # avc: denied { write } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
 allow wifi_manager_service wifi_manager_service:rawip_socket { create setopt write };
+allow wifi_manager_service telecom:binder { call transfer };

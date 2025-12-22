@@ -117,3 +117,4 @@ allow locationhub wifi_manager_service:binder { call transfer };
 
 #avc:  denied  { call } for pid=2525 comm="OS_IPC_7_3905" scontext=u:r:locationhub:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=0
 binder_call(locationhub,bluetooth_service);
+allow locationhub telecom:binder { call };

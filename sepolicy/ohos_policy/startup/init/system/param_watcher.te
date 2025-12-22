@@ -107,6 +107,7 @@ allow param_watcher useriam:binder { call };
 allow param_watcher wallpaper_service:binder { call };
 allow param_watcher wifi_manager_service:binder { call };
 allow param_watcher composer_host:binder { call };
+allow param_watcher telecom:binder { call };
 
 debug_only(`
     allow param_watcher console:binder { call };

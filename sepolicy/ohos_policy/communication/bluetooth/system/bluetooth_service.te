@@ -225,4 +225,5 @@ allow bluetooth_service hmdfs:file { read };
 allow bluetooth_service medialibrary_hap:fd { use };
 allow bluetooth_service sharefs:file { ioctl write };
 allowxperm bluetooth_service sharefs:file ioctl { 0x5413 };
+allow bluetooth_service telecom:binder { call transfer };
 

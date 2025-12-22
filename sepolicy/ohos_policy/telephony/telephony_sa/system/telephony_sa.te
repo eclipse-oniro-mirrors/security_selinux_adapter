@@ -140,3 +140,4 @@ allow telephony_sa security_guard:binder { call };
 
 allow telephony_sa sa_media_service:samgr_class { get };
 allow telephony_sa media_service:binder { call transfer };
+allow telephony_sa telecom:binder { call transfer };

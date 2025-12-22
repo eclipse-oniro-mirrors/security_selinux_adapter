@@ -161,4 +161,5 @@ allow hap_domain netmanager:fd { use };
 allow netmanager sa_xperf_service:samgr_class { get };
 
 allow netmanager drm_service:binder { call };
+allow netmanager telecom:binder { call transfer };
 
