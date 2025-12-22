@@ -26,7 +26,7 @@ allow telecom sa_telephony_tel_cellular_call:samgr_class { get };
 allow telecom sa_pulseaudio_audio_service:samgr_class { get };
 allow telecom sa_param_watcher:samgr_class { get };
 allow telecom sa_telecom_tel_state_registry:samgr_class { add get };
-allow telecom sa_telephony_tel_call_manager:samgr_class { add get };
+allow telecom sa_telecom_tel_call_manager:samgr_class { add get };
 allow telecom sa_foundation_dms:samgr_class { get };
 allow telecom sa_foundation_cesfwk_service:samgr_class { get };
 allow telecom sa_foundation_bms:samgr_class { get };

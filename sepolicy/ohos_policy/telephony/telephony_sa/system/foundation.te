@@ -20,7 +20,7 @@ allow foundation sa_audio_policy_service:samgr_class get;
 allow foundation sa_camera_service:samgr_class get;
 allow foundation sa_drm_service:samgr_class get;
 allow foundation sa_device_usage_statistics_service:samgr_class get;
-allow foundation sa_telephony_tel_call_manager:samgr_class { add get };
+allow foundation sa_telecom_tel_call_manager:samgr_class { add get };
 allow foundation sa_telecom_tel_state_registry:samgr_class { add get };
 allow foundation sa_pulseaudio_audio_service:samgr_class get;
 allow foundation sa_telephony_tel_cellular_call:samgr_class get;

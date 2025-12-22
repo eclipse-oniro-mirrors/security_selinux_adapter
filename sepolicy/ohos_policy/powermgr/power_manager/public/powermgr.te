@@ -437,8 +437,8 @@ allow powermgr sa_foundation_devicemanager_service:samgr_class { get };
 # avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow powermgr sa_foundation_dms:samgr_class { get };
 
-# avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_telephony_tel_call_manager:s0 tclass=samgr_class permissive=1
-allow powermgr sa_telephony_tel_call_manager:samgr_class { get };
+# avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_telecom_tel_call_manager:s0 tclass=samgr_class permissive=1
+allow powermgr sa_telecom_tel_call_manager:samgr_class { get };
 
 # avc:  denied  { get } for  pid=1216 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_telecom_tel_state_registry:s0 tclass=samgr_class permissive=1
 allow powermgr sa_telecom_tel_state_registry:samgr_class { get };

@@ -55,7 +55,7 @@ type sa_miscdevice_service, sa_service_attr;
 type sa_time_service, sa_service_attr;
 type sa_inputmethod_service, sa_service_attr;
 type sa_param_watcher, sa_service_attr;
-type sa_telephony_tel_call_manager, sa_service_attr;
+type sa_telecom_tel_call_manager, sa_service_attr;
 type sa_telephony_tel_cellular_call, sa_service_attr;
 type sa_telephony_tel_core_service, sa_service_attr;
 type sa_telephony_tel_ims, sa_service_attr;
