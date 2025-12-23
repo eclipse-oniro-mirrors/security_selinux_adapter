@@ -102,4 +102,3 @@ allow useriam sa_sysparam_device_service:samgr_class { get };
 allow useriam deviceinfoservice:binder { call };
 
 allow useriam useriam_fwkready_param:parameter_service { set };
-allow useriam telecom:binder { call transfer };

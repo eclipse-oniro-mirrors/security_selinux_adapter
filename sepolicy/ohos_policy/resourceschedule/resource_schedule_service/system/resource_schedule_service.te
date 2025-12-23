@@ -351,4 +351,3 @@ debug_only(`
     binder_call(resource_schedule_service, sh);
 ')
 
-allow resource_schedule_service telecom:binder { call transfer };

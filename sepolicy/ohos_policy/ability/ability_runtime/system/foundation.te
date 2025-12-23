@@ -125,6 +125,3 @@ allowxperm foundation data_service_el1_file:dir ioctl { 0xf546 };
 
 # add for nwebspawn
 allow foundation nwebspawn:unix_stream_socket { connectto };
-
-# add for telecom
-allow foundation telecom:binder { call transfer };

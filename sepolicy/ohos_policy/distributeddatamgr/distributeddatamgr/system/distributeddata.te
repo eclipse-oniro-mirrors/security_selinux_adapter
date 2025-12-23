@@ -232,4 +232,3 @@ allowxperm distributeddata data_service_el2_pasteboard_service:file ioctl { 0xf5
 allow distributeddata usb_service:binder { transfer };
 allow distributeddata concurrent_task_service:binder { call };
 allow distributeddata sa_concurrent_task_service:samgr_class { get };
-allow distributeddata telecom:binder { transfer };

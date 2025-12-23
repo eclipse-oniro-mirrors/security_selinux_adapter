@@ -55,5 +55,3 @@ allow el5_filekey_manager devpts:chr_file { write };
 debug_only(`
     allow el5_filekey_manager su:fd { use };
 ')
-
-allow el5_filekey_manager telecom:binder { call transfer };
