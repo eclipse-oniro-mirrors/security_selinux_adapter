@@ -43,7 +43,7 @@ allow resource_schedule_service default_param:file { map open read };
 allow resource_schedule_service dev_file:lnk_file { read };
 allow resource_schedule_service persist_param:file { map open read };
 allow resource_schedule_service persist_sys_param:file { map open read };
-allow resource_schedule_service sa_telecom_tel_state_registry:samgr_class { get };
+allow resource_schedule_service sa_foundation_tel_state_registry:samgr_class { get };
 allow resource_schedule_service sa_foundation_wms:samgr_class { get };
 allow resource_schedule_service sa_resource_schedule:samgr_class { add get };
 allow resource_schedule_service sa_sys_event_service:samgr_class { get };

@@ -90,7 +90,7 @@ allow normal_hap_attr sa_foundation_bms:samgr_class { get };
 allow normal_hap_attr sa_foundation_cesfwk_service:samgr_class { get };
 allow normal_hap_attr sa_foundation_devicemanager_service:samgr_class { get };
 allow normal_hap_attr sa_foundation_dms:samgr_class { get };
-allow normal_hap_attr sa_telecom_tel_state_registry:samgr_class { get };
+allow normal_hap_attr sa_foundation_tel_state_registry:samgr_class { get };
 allow normal_hap_attr sa_foundation_wms:samgr_class { get };
 allow normal_hap_attr sa_huks_service:samgr_class { get };
 allow normal_hap_attr sa_inputmethod_service:samgr_class { get };

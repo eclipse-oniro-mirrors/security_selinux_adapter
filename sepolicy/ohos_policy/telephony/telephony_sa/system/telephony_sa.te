@@ -50,8 +50,8 @@ allow telephony_sa sa_powermgr_battery_service:samgr_class get;
 allow telephony_sa sa_foundation_bms:samgr_class get;
 allow telephony_sa sa_foundation_cesfwk_service:samgr_class get;
 allow telephony_sa sa_powermgr_powermgr_service:samgr_class get;
-allow telephony_sa sa_telephony_tel_call_manager:samgr_class get;
-allow telephony_sa sa_telecom_tel_state_registry:samgr_class get;
+allow telephony_sa sa_foundation_tel_call_manager:samgr_class get;
+allow telephony_sa sa_foundation_tel_state_registry:samgr_class get;
 allow telephony_sa sa_location_locator_service:samgr_class get;
 allow telephony_sa sa_netsys_native_manager:samgr_class get;
 allow telephony_sa sa_net_conn_manager:samgr_class get;
@@ -86,7 +86,7 @@ allow telephony_sa sys_file:file { open read };
 allow telephony_sa sys_prod_file:dir search;
 allow telephony_sa time_service:binder call;
 allow telephony_sa vendor_etc_file:dir search;
-allow telephony_sa sa_telephony_tel_call_manager:samgr_class get;
+allow telephony_sa sa_foundation_tel_call_manager:samgr_class get;
 
 #avc:  denied  { get } for service=ril_service pid=317 scontext=u:r:telephony_sa:s0 tcontext=u:object_r:hdf_ril_service:s0 tclass=hdf_devmgr_class permissive=1
 allow telephony_sa hdf_ril_service:hdf_devmgr_class get;
