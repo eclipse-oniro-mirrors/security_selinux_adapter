@@ -11,10 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap_attr sa_foundation_tel_state_registry:samgr_class get;
+allow system_basic_hap_attr sa_telecom_tel_state_registry:samgr_class get;
 allow system_basic_hap_attr sa_telephony_tel_core_service:samgr_class get;
 allow system_basic_hap_attr sa_telephony_tel_cellular_data:samgr_class get;
 allow system_basic_hap_attr sa_telephony_tel_sms_mms:samgr_class get;
 allow system_basic_hap_attr telephony_sa:binder { call transfer };
-allow system_basic_hap_attr sa_foundation_tel_call_manager:samgr_class get;
+allow system_basic_hap_attr sa_telecom_tel_call_manager:samgr_class get;
 

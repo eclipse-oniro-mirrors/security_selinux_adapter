@@ -193,11 +193,11 @@
 4000	                               u:object_r:sa_subsys_telepony_service:s0
 4001	                               u:object_r:sa_telephony_service:s0
 4002	                               u:object_r:sa_dcall_service:s0
-4005                                   u:object_r:sa_foundation_tel_call_manager:s0
+4005                                   u:object_r:sa_telecom_tel_call_manager:s0
 4006                                   u:object_r:sa_telephony_tel_cellular_call:s0
 4007                                   u:object_r:sa_telephony_tel_cellular_data:s0
 4008                                   u:object_r:sa_telephony_tel_sms_mms:s0
-4009                                   u:object_r:sa_foundation_tel_state_registry:s0
+4009                                   u:object_r:sa_telecom_tel_state_registry:s0
 4010                                   u:object_r:sa_telephony_tel_core_service:s0
 4012	                               u:object_r:sa_telephony_data_storage_service:s0
 4014                                   u:object_r:sa_telephony_tel_ims:s0
