@@ -58,6 +58,7 @@ allow telecom foundation:binder { call transfer };
 allow telecom el5_filekey_manager:binder { call };
 allow telecom distributeddata:fd { use };
 allow telecom distributeddata:binder { call transfer };
+allow telecom distributeddata:binder { call };
 allow telecom device_manager:binder { call transfer };
 allow telecom dev_unix_socket:dir { search };
 allow telecom dev_kmsg_file:chr_file { write };

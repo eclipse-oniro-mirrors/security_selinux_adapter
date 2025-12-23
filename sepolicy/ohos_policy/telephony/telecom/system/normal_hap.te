@@ -13,3 +13,4 @@
 
 allow normal_hap telecom:binder { call transfer };
 allow normal_hap_attr telecom:binder { call transfer };
+allow syatem_basic_hap_attr telecom:binder { call transfer };
