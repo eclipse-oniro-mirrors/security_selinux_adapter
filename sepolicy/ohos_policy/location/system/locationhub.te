@@ -97,7 +97,7 @@ allow locationhub resource_schedule_service:binder { call };
 allow locationhub sa_form_mgr_service:samgr_class { get };
 allow locationhub sa_foundation_ans:samgr_class { get };
 allow locationhub sa_telephony_tel_sms_mms:samgr_class { get };
-allow locationhub sa_telecom_tel_call_manager:samgr_class { get };
+allow locationhub sa_telephony_tel_call_manager:samgr_class { get };
 
 allow locationhub time_service:binder { call };
 allow locationhub sa_resource_schedule:samgr_class { get };

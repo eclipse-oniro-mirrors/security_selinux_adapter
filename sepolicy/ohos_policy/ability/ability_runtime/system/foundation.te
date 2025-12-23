@@ -61,7 +61,7 @@ allow foundation sa_foundation_ans:samgr_class { add };
 allow foundation sa_foundation_appms:samgr_class { add get };
 allow foundation sa_foundation_bms:samgr_class { add };
 allow foundation sa_foundation_devicemanager_service:samgr_class { add get };
-allow foundation sa_telecom_tel_call_manager:samgr_class { add };
+allow foundation sa_telephony_tel_call_manager:samgr_class { add };
 allow foundation sa_foundation_wms:samgr_class { get };
 allow foundation sa_powermgr_battery_service:samgr_class { get };
 allow foundation sa_powermgr_batterystats_service:samgr_class { get };
