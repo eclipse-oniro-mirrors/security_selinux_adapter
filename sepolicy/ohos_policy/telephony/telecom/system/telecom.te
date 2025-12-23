@@ -32,8 +32,6 @@ allow telecom sa_foundation_cesfwk_service:samgr_class { get };
 allow telecom sa_foundation_bms:samgr_class { get };
 allow telecom sa_foundation_abilityms:samgr_class { get };
 allow telecom sa_foundation_devicemanager_service:samgr_class { get };
-allow telecom sa_location_locator_service:samgr_class { get };
-allow telecom sa_locationhub_lbsservice_passive:samgr_class { get };
 allow telecom sa_distributeddata_service:samgr_class { get };
 allow telecom sa_bluetooth_server:samgr_class { get };
 allow telecom sa_audio_policy_service:samgr_class { get };
