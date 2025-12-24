@@ -65,7 +65,6 @@ allow telecom distributeddata:binder { call };
 allow telecom device_manager:binder { call transfer };
 allow telecom dev_unix_socket:dir { search };
 allow telecom dev_kmsg_file:chr_file { write };
-allow telecom dev_at_file:chr_file { ioctl };
 allow telecom debug_param:file { map open read };
 allow telecom data_system:dir { search };
 allow telecom data_service_el1_shadercache:dir { search };
