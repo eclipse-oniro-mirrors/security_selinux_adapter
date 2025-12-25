@@ -102,3 +102,7 @@ allow useriam sa_sysparam_device_service:samgr_class { get };
 allow useriam deviceinfoservice:binder { call };
 
 allow useriam useriam_fwkready_param:parameter_service { set };
+
+allow useriam sa_useriam_pinauth_service:samgr_class { add };
+allow useriam hdf_pin_auth_interface_service:hdf_devmgr_class { get };
+binder_call(useriam, pin_auth_host);
