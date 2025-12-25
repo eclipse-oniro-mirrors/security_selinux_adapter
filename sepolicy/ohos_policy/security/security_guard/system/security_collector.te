@@ -106,5 +106,5 @@ allow security_collector dev_unix_socket:dir { search };
 
 # avc denied { search } for pid=3324 comm="IPC_2_3561" path="/data/service/el0/thermal/" dev="sdd78" ino=1832 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=dir permissive=1
 # avc denied { read open } for pid=3324 comm="IPC_2_3561" path="/data/service/el0/thermal/sensor/soc/temp" dev="sdd78" ino=1832 scontext=u:r:security_collector:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=file permissive=1
-allow security_collector data_service_el0_thermal:dir { search };
-allow security_collector data_service_el0_thermal:file { read open };
+allow security_collector thermal_el0_data:dir { search };
+allow security_collector thermal_el0_data:file { read open };

@@ -25,5 +25,5 @@ allow power_host dev_kmsg_file:chr_file { write open };
 allow power_host data_file:dir { search };
 allow power_host data_service_file:dir { search };
 allow power_host data_service_el0_file:dir { search };
-allow power_host data_service_el0_battery:dir { setattr getattr search add_name create open read write remove_name };
-allow power_host data_service_el0_battery:file { create append open read write getattr setattr };
+allow power_host battery_el0_data:dir { setattr getattr search add_name create open read write remove_name };
+allow power_host battery_el0_data:file { create append open read write getattr setattr };

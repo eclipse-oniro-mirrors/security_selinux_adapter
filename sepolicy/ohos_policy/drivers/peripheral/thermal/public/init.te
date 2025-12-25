@@ -12,7 +12,7 @@
 # limitations under the License.
 
 # avc: denied { relabelto read open setattr search write add_name create getattr} for pid=592, comm="/bin/init" name="/service/el0/thermal" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=34620 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=dir permissive=1
-allow init data_service_el0_thermal:dir { relabelto read open setattr getattr search write add_name create };
+allow init thermal_el0_data:dir { relabelto read open setattr getattr search write add_name create };
 
 # avc: denied { relabelto read open setattr search write add_name create getattr} for pid=592, comm="/bin/init" name="/service/el0/thermal" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=34620 scontext=u:r:chipset_init:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=dir permissive=1
-allow chipset_init data_service_el0_thermal:dir { relabelto read open setattr getattr search write add_name create };
+allow chipset_init thermal_el0_data:dir { relabelto read open setattr getattr search write add_name create };

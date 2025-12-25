@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type data_service_el0_battery, data_service_file_attr, data_file_attr, file_attr;
+type battery_el0_data, data_service_file_attr, data_file_attr, file_attr;

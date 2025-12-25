@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/service/el0/battery(/.*)?                                u:object_r:data_service_el0_battery:s0
+/data/service/el0/battery(/.*)?                                u:object_r:battery_el0_data:s0
