@@ -13,6 +13,7 @@
 
 type composer_host, hdfdomain, domain;
 type allocator_host, hdfdomain, domain;
+typeattribute allocator_host violator_vendor_system_etc_read;
 type dev_usbfn_file, dev_attr, file_attr;
 type dev_functionfs_file, dev_attr, file_attr;
 type distributeddata, sadomain, domain;
