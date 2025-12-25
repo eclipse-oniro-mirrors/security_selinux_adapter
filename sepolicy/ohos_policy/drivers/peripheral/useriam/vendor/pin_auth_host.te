@@ -64,3 +64,4 @@ allow pin_auth_host vendor_etc_file:file { getattr open read };
 allowxperm pin_auth_host data_service_el1_file:file ioctl { 0x5413 };
 allowxperm pin_auth_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allow pin_auth_host hdf_devhost_exec:file { getattr open };
+binder_call(pin_auth_host, useriam);
