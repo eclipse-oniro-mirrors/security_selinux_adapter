@@ -65,6 +65,8 @@ allow sh sysfs_net:lnk_file { read };
 allow sh proc_net_tcp_udp:file { getattr };
 allow sh system_etc_zoneinfo_file:dir { search };
 allow sh system_etc_zoneinfo_file:file { read open getattr map };
+allow sh system_etc_ffrt_file:dir { search };
+allow sh system_etc_ffrt_file:file { read open getattr map };
 allow sh system_etc_hilog_file:dir { search };
 allow sh system_etc_hilog_file:file { read open getattr map };
 
