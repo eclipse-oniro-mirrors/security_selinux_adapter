@@ -24,5 +24,8 @@ type hilog_output_socket, dev_attr, file_attr;
 type hilog_control_pub_socket, dev_attr, file_attr;
 type data_hilogd_file, file_attr, data_file_attr;
 type hilog_whitelist_file, file_attr, data_file_attr;
+type system_etc_hilog_file, system_etc_file_attr, system_file_attr, file_attr;
 init_daemon_domain(hilogd);
+allow domain system_etc_hilog_file:dir { open read search getattr };
+allow domain system_etc_hilog_file:file { getattr map open read };
 neverallow { domain debug_only(`-su') -hilogd -init -sh -aa -snapshot_display -hiprofiler_plugins -hiview -hap_domain -hilog_sock_file_violator } hilog_output_socket:sock_file { write };

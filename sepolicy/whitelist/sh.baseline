@@ -96,6 +96,8 @@ developer_only(`
 (allow sh toybox_exec (lnk_file (read)))
 (allow sh system_etc_file (dir (search)))
 (allow sh system_etc_file (file (read getattr open map)))
+(allow sh system_etc_hilog_file (dir (search)))
+(allow sh system_etc_hilog_file (file (read getattr open map)))
 (allow sh system_etc_zoneinfo_file (dir (search)))
 (allow sh system_etc_zoneinfo_file (file (read getattr open map)))
 (allow sh system_etc_ffrt_file (dir (search)))

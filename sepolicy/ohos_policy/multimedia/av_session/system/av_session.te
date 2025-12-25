@@ -83,3 +83,5 @@ allow av_session sa_memory_manager_service:samgr_class { get };
 allow av_session memmgrservice:binder { call };
 allow av_session sa_foundation_cesfwk_service:samgr_class { get };
 allow av_session accountmgr:binder { transfer };
+
+allow av_session arkui_param:file { map open read };

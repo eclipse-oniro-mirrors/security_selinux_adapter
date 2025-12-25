@@ -96,3 +96,7 @@ allow inputmethod_service sa_screenlock_service:samgr_class { get };
 allow inputmethod_service normal_hap:fd { use };
 
 allow inputmethod_service sa_foundation_dms:samgr_class { get };
+# avc: denied  { get } for service=1201 sid=u:r:inputmethod_service:s0 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_hiview_service:s0 tclass=samgr_class permissive=0
+allow inputmethod_service sa_hiview_service:samgr_class { get };
+# avc: denied { call } for pid=1569, comm="/system/bin/sa_main"  scontext=u:r:inputmethod_service:s0 tcontext=u:r:hiview:s0 tclass=binder permissive=0
+allow inputmethod_service hiview:binder { call };
