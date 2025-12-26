@@ -93,6 +93,12 @@ const static uint32_t TEST_UID = 20190166;
 const static uint32_t TEST_UID_FAILED = 20008;
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const char *DEFAULT_CONTEXT_FOR_ISOLATED = "u:r:unlabeled:s0";
+const static std::string INPUT_ISOLATE_HAP_DOMAIN = "u:r:input_isolate_hap:s0";
+const static std::string INPUT_ISOLATE_DEBUG_HAP_DOMAIN = "u:r:input_isolate_debug_hap:s0";
+const static std::string INPUT_ISOLATE_HAP_DATA_TYPE = "u:r:input_sandbox_data_file:s0";
+const static std::string INPUT_ISOLATE_FULL_HAP_DOMAIN = "u:r:input_hap:s0";
+const static std::string INPUT_ISOLATE_FULL_DEBUG_HAP_DOMAIN = "u:r:input_debug_hap:s0";
+const static std::string INPUT_ISOLATE_FULL_HAP_DATA_TYPE = "u:r:input_sandbox_data_file:s0";
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
@@ -243,7 +249,12 @@ static void GenerateTestFile()
         "apl=system_core extra=isolated_gpu domain=isolated_gpu",
         "apl=normal extra=isolated_render domain=isolated_render",
         "apl=system_basic extra=isolated_render domain=isolated_render",
-        "apl=system_core extra=isolated_render domain=isolated_render"};
+        "apl=system_core extra=isolated_render domain=isolated_render",
+        "apl=normal extra=input_isolate domain=input_isolate_hap type=input_sandbox_data_file",
+        "apl=normal debuggable=true extra=input_isolate domain=input_isolate_debug_hap type=input_sandbox_data_file",
+        "apl=normal extra=input_isolate_full domain=input_hap type=input_sandbox_data_file",
+        "apl=normal debuggable=true extra=input_isolate_full domain=input_debug_hap type=input_sandbox_data_file"
+    };
     ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
     std::vector<std::string> productConfig = {
         "defaultLevelFrom=user",
@@ -1350,6 +1361,129 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup016, TestSize.Level1)
     context_free(con);
 }
 
+/**
+ * @tc.name: HapContextsLookup017
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE_FULL
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup017, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_DEBUG_HAP_DOMAIN.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup018
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE_FULL
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup018, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup019
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup019, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_DEBUG_HAP_DOMAIN.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup020
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup020, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
 
 /**
  * @tc.name: TypeSet001

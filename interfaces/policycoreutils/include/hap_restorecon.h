@@ -32,6 +32,7 @@
 #define SELINUX_HAP_ISOLATED_RENDER 64
 #define SELINUX_HAP_DLP_READ_ONLY 128 // whether it is dlp read only sandbox hap
 #define SELINUX_HAP_DLP_FULL_CONTROL 256 // whether it is dlp full control sandbox hap
+#define SELINUX_HAP_INPUT_ISOLATE_FULL 512 // whether it is input_isolate hap
 
 // parameters of each SehapInfo in file sehap_contexts
 struct SehapInfo {
