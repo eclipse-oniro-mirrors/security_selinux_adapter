@@ -87,4 +87,3 @@ hdi_call(render_service, hdf_allocator_service)
 allow render_service usb_service:fd { use };
 allow render_service data_service_el1_file:file { map write read };
 allow render_service tty_device:chr_file { write };
-allow render_service sa_foundation_cesfwk_service:samgr_class { get };
