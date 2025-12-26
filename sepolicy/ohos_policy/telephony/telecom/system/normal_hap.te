@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow normal_hap_attr telecom:binder { call };
+
+binder_call(hap_domain, telecom);

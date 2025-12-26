@@ -12,67 +12,95 @@
 # limitations under the License.
 
 allowxperm telecom dev_at_file:chr_file ioctl { 0x5413 };
-allow telecom wifi_manager_service:binder { call };
-allow telecom useriam:binder { call };
-allow telecom telephony_sa:binder { call transfer };
+allow telecom el5_filekey_manager:binder { call transfer };
+
+
+allow telecom wifi_manager_service:binder { call transfer };
+allow telecom useriam:binder { call transfer };
 allow telecom telecom:unix_dgram_socket { getopt setopt };
 allow telecom system_usr_file:file { getattr map open read };
 allow telecom sysfs_devices_system_cpu:file { getattr open read };
 allow telecom sys_prod_file:dir { search };
 allow telecom sys_param:file { map open read };
-allow telecom softbus_server:binder { call transfer };
+allow telecom data_system:dir { search };
+allow telecom data_service_el1_shadercache:dir { search };
+allow telecom chip_prod_file:dir { search };
+
 allow telecom sensors:binder { call transfer };
-allow telecom sa_telephony_tel_cellular_call:samgr_class { get };
-allow telecom sa_pulseaudio_audio_service:samgr_class { get };
+
 allow telecom sa_param_watcher:samgr_class { get };
-allow telecom sa_telecom_tel_state_registry:samgr_class { add get };
-allow telecom sa_telecom_tel_call_manager:samgr_class { add get };
+allow telecom softbus_server:binder { call transfer };
+
+
 allow telecom sa_foundation_dms:samgr_class { get };
 allow telecom sa_foundation_cesfwk_service:samgr_class { get };
 allow telecom sa_foundation_bms:samgr_class { get };
 allow telecom sa_foundation_abilityms:samgr_class { get };
 allow telecom sa_foundation_devicemanager_service:samgr_class { get };
-allow telecom sa_location_locator_service:samgr_class { get };
-allow telecom sa_locationhub_lbsservice_passive:samgr_class { get };
-allow telecom sa_distributeddata_service:samgr_class { get };
-allow telecom sa_bluetooth_server:samgr_class { get };
-allow telecom sa_audio_policy_service:samgr_class { get };
+allow telecom sa_foundation_appms:samgr_class { get };
+allow telecom foundation:binder { call transfer };
+
+
+
 allow telecom sa_accountmgr:samgr_class { get };
-allow telecom resource_schedule_service:binder { call };
+allow telecom resource_schedule_service:binder { call transfer };
 allow telecom render_service:binder { call transfer };
 allow telecom privacy_service:binder { call transfer };
 allow telecom powermgr:binder { call transfer };
 allow telecom persist_sys_param:file { map open read };
 allow telecom param_watcher:binder { call transfer };
-allow telecom system_basic_hap_attr:binder { call transfer };
-allow telecom netmanager:binder { call };
-allow telecom multimodalinput:fd { use };
-allow telecom multimodalinput:binder { call transfer };
-allow telecom media_service:binder { call transfer };
-allow telecom media_monitor:binder { call };
-allow telecom media_library_param:file { map open read };
+
+
+allow telecom netmanager:binder { call transfer };
 allow telecom locationhub:binder { call transfer };
-allow telecom intell_voice_service:binder { call };
-allow telecom hiview:binder { call };
-allow telecom foundation:binder { call transfer };
-allow telecom el5_filekey_manager:binder { call };
-allow telecom device_manager:binder { call transfer };
+allow telecom intell_voice_service:binder { call transfer };
+allow telecom hiview:binder { call transfer };
+
+
 allow telecom dev_unix_socket:dir { search };
 allow telecom dev_kmsg_file:chr_file { write };
 allow telecom debug_param:file { map open read };
-allow telecom data_system:dir { search };
-allow telecom data_service_el1_shadercache:dir { search };
-allow telecom chip_prod_file:dir { search };
-allow telecom bluetooth_service:binder { call transfer };
+
+
+
 allow telecom arkcompiler_param:file { map open read };
-allow telecom accountmgr:binder { call };
-allow telecom sa_telephony_tel_core_service:samgr_class { get };
-allow telecom sa_telephony_tel_cellular_data:samgr_class { get };
-allow telecom sa_privacy_service:samgr_class { get };
+allow telecom accountmgr:binder { call transfer };
+
 allow telecom sa_powermgr_powermgr_service:samgr_class { get };
 allow telecom sa_multimodalinput_service:samgr_class { get };
-allow telecom sa_foundation_appms:samgr_class { get };
 
-binder_call(telecom, normal_hap_attr);
-binder_call(telecom, distributeddata);
+binder_call(telecom, hap_domain);
+
+# telephony subsystem
+allow telecom sa_telecom_tel_state_registry:samgr_class { add get };
+allow telecom sa_telecom_tel_call_manager:samgr_class { add get };
+allow telecom sa_telephony_tel_core_service:samgr_class { get };
+allow telecom sa_telephony_tel_cellular_data:samgr_class { get };
+allow telecom telephony_sa:binder { call transfer };
+allow telecom sa_telephony_tel_cellular_call:samgr_class { get };
+
+# multimedia service
+allow telecom media_service:binder { call transfer };
+allow telecom media_monitor:binder { call transfer };
+allow telecom multimodalinput:fd { use };
+allow telecom multimodalinput:binder { call transfer };
+allow telecom media_library_param:file { map open read };
+allow telecom sa_audio_policy_service:samgr_class { get };
+allow telecom sa_pulseaudio_audio_service:samgr_class { get };
 binder_call(telecom, audio_server);
+
+# for wireless communication
+allow telecom bluetooth_service:binder { call transfer };
+allow telecom device_manager:binder { call transfer };
+allow telecom sa_distributeddata_service:samgr_class { get };
+allow telecom sa_bluetooth_server:samgr_class { get };
+binder_call(telecom, distributeddata);
+
+# dial in super_provicy mod
+allow telecom sa_privacy_service:samgr_class { get };
+
+# location info for earthquake alert
+allow telecom sa_location_locator_service:samgr_class { get };
+allow telecom sa_locationhub_lbsservice_passive:samgr_class { get };
+
+

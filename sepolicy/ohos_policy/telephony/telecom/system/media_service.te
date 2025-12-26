@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow media_service telecom:binder { call transfer };
-allow media_service telecom:fd { use };
+binder_call(media_service, telecom);
