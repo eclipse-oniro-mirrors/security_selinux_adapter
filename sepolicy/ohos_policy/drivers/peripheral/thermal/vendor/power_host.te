@@ -48,3 +48,7 @@ allow power_host data_service_el0_file:dir { search };
 allow power_host thermal_el0_data:dir { setattr getattr search add_name create open read write remove_name };
 allow power_host thermal_el0_data:file { ioctl create append open read write getattr setattr };
 allowxperm power_host thermal_el0_data:file ioctl { 0x5413 };
+
+# allow binder callback from power_host to shell for tests, this permission already exists in ext
+# avc: denied { call } for pid=479 comm="OS_IPC_1_503" scontext=u:r:power_host:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+debug_only(`allow power_host su:binder { call };')
