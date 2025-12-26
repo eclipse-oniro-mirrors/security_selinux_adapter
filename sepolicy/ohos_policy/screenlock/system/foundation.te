@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation screenlock_data_file:file { read write rename create getattr setattr lock relabelfrom map unlink open watch relabelto };
-allow foundation screenlock_data_file:dir { read write create getattr setattr open watch add_name remove_name search rmdir relabelto };
-allow init screenlock_data_file:dir { relabelto read setattr getattr open };
-allow init screenlock_data_file:file { relabelto };
+allow foundation screenlock_data_file:file { read write rename create getattr setattr lock map unlink open watch };
+allow foundation screenlock_data_file:dir { read write create getattr setattr open watch add_name remove_name search rmdir };
+allow init screenlock_data_file:dir { relabelto read setattr getattr open search };
+allow init screenlock_data_file:file { relabelto getattr };
