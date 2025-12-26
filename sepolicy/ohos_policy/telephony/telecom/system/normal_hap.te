@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap_attr telecom:binder { call };
-
-binder_call(hap_domain, telecom);
+allow hap_domain telecom:binder { call, transfer };
