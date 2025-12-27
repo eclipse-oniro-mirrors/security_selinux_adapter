@@ -35,6 +35,7 @@ type motion_host, hdfdomain, domain;
 type riladapter_host, hdfdomain, domain;
 type sensor_host, hdfdomain, domain;
 type usb_host, hdfdomain, domain;
+typeattribute usb_host violator_vendor_system_etc_read;
 type vibrator_host, hdfdomain, domain;
 type power_host, hdfdomain, domain;
 type location_host, hdfdomain, domain;
