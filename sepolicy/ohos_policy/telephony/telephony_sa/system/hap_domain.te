@@ -11,12 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap_attr normal_hap_data_file_attr:dir { add_name write };
-allow normal_hap_attr normal_hap_data_file_attr:file create;
-allow normal_hap_attr proc_boot_id:file { open read };
-allow normal_hap_attr rootfs:dir mounton;
-allow normal_hap_attr sa_foundation_tel_call_manager:samgr_class get;
-allow normal_hap_attr sa_telephony_tel_sms_mms:samgr_class get;
-allow normal_hap_attr telephony_sa:binder transfer;
-allow normal_hap_attr tmpfs:dir { add_name create mounton write };
+binder_call(hap_domain, telephony_sa);
+allow hap_domain sa_telephony_tel_sms_mms:samgr_class get;
+allow hap_domain sa_telephony_tel_core_service:samgr_class get;
+allow hap_domain sa_telephony_tel_cellular_data:samgr_class get;
 
+allow hap_domain normal_hap_data_file_attr:dir { add_name write };
+allow hap_domain normal_hap_data_file_attr:file create;
+allow hap_domain proc_boot_id:file { open read };
+allow hap_domain rootfs:dir mounton;
+allow hap_domain tmpfs:dir { add_name create mounton write };
