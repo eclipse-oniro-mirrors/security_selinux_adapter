@@ -390,7 +390,17 @@ allow updater updater_binary_exec:file { relabelto };
 allow updater kernel:system { syslog_read };
 
 # avc: denied { read } for pid=232 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
-allow updater dev_block_file:lnk_file { read };
+# avc: denied { create } for pid=235 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
+# avc: denied { getattr } for pid=235 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
+# avc: denied { unlink } for pid=235 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
+# avc: denied { write } for pid=235 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
+# avc: denied { link } for pid=235 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
+allow updater dev_block_file:lnk_file { read create getattr unlink write link };
+
+# avc: denied { write } for pid=232 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+# avc: denied { remove_name } for pid=232 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+# avc: denied { add_name } for pid=232 comm="updater" name="misc" dev="tmpfs" ino=161 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+allow updater dev_block_file:dir { write remove_name add_name };
 
 # avc: denied { add_name } for pid=232 comm="updater" name="log" scontext=u:r:updater:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
 # avc: denied { create } for pid=232 comm="updater" name="updater" scontext=u:r:updater:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=1
