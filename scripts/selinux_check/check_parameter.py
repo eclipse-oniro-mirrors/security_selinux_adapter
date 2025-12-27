@@ -53,16 +53,31 @@ def get_attributes_map(args, with_developer):
 
 def get_whitelist(args, with_developer):
     whitelist_file_list = traverse_file_in_each_type(args.policy_dir_list, WHITELIST_FILE_NAME)
-    whitelist_map = defaultdict(set)
+    missing_whitelist_map = defaultdict(set)
     for path in whitelist_file_list:
         white_list = read_json_file(path).get('whitelist')
-        user_data = white_list.get('user')
+        user_data = white_list.get('user').get('missing_parameter')
         for k, v in user_data.items():
-            whitelist_map[k] |= set(v)
+            missing_whitelist_map[k] |= set(v)
         if with_developer:
-            dev_data = white_list.get('developer')
+            dev_data = white_list.get('developer').get('missing_parameter')
             for k, v in dev_data.items():
-                whitelist_map[k] |= set(v)
+                missing_whitelist_map[k] |= set(v)
+
+    conflict_whitelist_map = defaultdict(set)
+    for path in whitelist_file_list:
+        white_list = read_json_file(path).get('whitelist')
+        user_data = white_list.get('user').get('conflict_parameter')
+        for k, v in user_data.items():
+            conflict_whitelist_map[k] |= set(v)
+        if with_developer:
+            dev_data = white_list.get('developer').get('conflict_parameter')
+            for k, v in dev_data.items():
+                conflict_whitelist_map[k] |= set(v)
+    whitelist_map = {
+        'conflict_parameter': conflict_whitelist_map,
+        'missing_parameter': missing_whitelist_map
+    }
     return whitelist_map
 
 
@@ -109,30 +124,47 @@ def output_unused_data(check_type, with_developer, typeattr, notallow, file_name
     ))
 
 
-def check_unique(with_developer, check_map, attributes_map):
+def check_unique(with_developer, check_map, whitelist_map, attributes_map):
     check_result = False
     typeattr = check_map.get('typeattr')
     subtypeattr = check_map.get('subtypeattr')
 
     temp_set = set()
     result = set()
+    
+    if typeattr in whitelist_map:
+        whitelist = whitelist_map.get(typeattr)
+    else:
+        whitelist = set()
+
     for subtype in subtypeattr:
         if subtype not in attributes_map:
             continue
+        # for item in (set(attributes_map.get(subtype)) - whitelist):
         for item in set(attributes_map.get(subtype)):
             if item not in temp_set:
                 temp_set.add(item)
             else:
                 result.add(item)
-    if (len(result) > 0):
+
+    notallow = result - whitelist
+    if (notallow):
         check_result = True
-        print('\tCheck types associated with attribute {} of parameters in {} mode failed.'.format(
+        print('\tCheck types associated with attribute "{}" of parameters in "{}" mode failed.'.format(
             typeattr, "developer" if with_developer else "user"))
         print('\tViolation list (type):')
-        for violation in sorted(list(result)):
+        for violation in sorted(list(notallow)):
             print('\t\t"{}",'.format(violation))
-        print('\tSolution: associate types with exactly one of attributes in {} mode: \n{}\n'
-            .format("developer" if with_developer else "user"), ', '.join(subtypeattr))
+        print('\tSolution:\n',
+            '\t1. associate types with exactly one of attributes in {} mode: {}\n'
+            .format("developer" if with_developer else "user", ', '.join(subtypeattr)),
+            '\t2. add the above list to the "{}" field of the "{}" object under the "{}" field in the {} file.\n'
+            .format(typeattr, "conflict_parameter", "developer" if with_developer else "user", WHITELIST_FILE_NAME))
+
+    unused_data = whitelist - result
+    if unused_data:
+        check_result = True
+        output_unused_data("whitelist", with_developer, typeattr, unused_data, WHITELIST_FILE_NAME)
 
     return check_result
 
@@ -217,8 +249,10 @@ def check(args, with_developer):
     check_result = False
     check_rules = get_config_check(args)
     for check_map in check_rules:
-        check_result |= check_whitelist(args, with_developer, check_map, whitelist_map, attributes_map)
-        check_result |= check_unique(with_developer, check_map, attributes_map)
+        check_result |= check_whitelist(
+            args, with_developer, check_map, whitelist_map.get('missing_parameter'), attributes_map)
+        check_result |= check_unique(
+            with_developer, check_map, whitelist_map.get('conflict_parameter'), attributes_map)
         check_result |= check_baseline(args, with_developer, check_map, baseline_map, attributes_map)
     return check_result
 
