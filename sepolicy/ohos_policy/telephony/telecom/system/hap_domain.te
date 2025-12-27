@@ -12,3 +12,5 @@
 # limitations under the License.
 
 binder_call(hap_domain, telecom);
+allow hap_domain sa_telecom_tel_call_manager:samgr_class get;
+allow hap_domain sa_telecom_tel_state_registry:samgr_class get;
