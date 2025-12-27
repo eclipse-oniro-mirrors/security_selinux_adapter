@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow el5_filekey_manager telecom:binder { call transfer };
+binder_call(el5_filekey_manager, telecom);
