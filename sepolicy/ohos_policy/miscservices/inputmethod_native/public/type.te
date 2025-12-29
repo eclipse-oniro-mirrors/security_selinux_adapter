@@ -16,6 +16,10 @@ type input_isolate_debug_hap, domain;
 typeattribute input_isolate_hap input_isolate_attr;
 typeattribute input_isolate_debug_hap input_isolate_attr;
 
+type input_hap, normal_hap_attr, hap_domain, domain;
+type input_debug_hap, normal_hap_attr, hap_domain, domain;
+type input_sandbox_data_file, hap_file_attr, data_file_attr, file_attr;
+
 # for ime
 type ime, native_system_domain, domain;
 type ime_exec, exec_attr, file_attr, system_file_attr;

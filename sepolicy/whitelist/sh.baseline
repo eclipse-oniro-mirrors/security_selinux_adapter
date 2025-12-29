@@ -178,6 +178,7 @@ developer_only(`
 (allow sh devicedebug_exec (file (execute_no_trans open read map getattr execute ioctl)))
 (allow sh i18n_param_tz_override (file (map open read)))
 (allow sh debug_hap (dir (read open)))
+(allow sh input_debug_hap (dir (read open)))
 (allow sh proc_stat_file (file (read open)))
 (allow sh proc_meminfo_file (file (read open)))
 (allow sh sysfs_devices_system_cpu (dir (read open)))

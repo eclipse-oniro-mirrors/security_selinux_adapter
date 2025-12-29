@@ -150,7 +150,9 @@
             "dlpmanager_hap",
             "system_core_hap",
             "ringtonelibrary_hap",
-            "formrenderservice_hap"
+            "formrenderservice_hap",
+            "input_hap",
+            "input_debug_hap"
         ],
         "native_system_domain": [
             "ark_aot",

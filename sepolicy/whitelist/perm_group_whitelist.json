@@ -19,16 +19,20 @@
                 "faultloggerd system_bin_file",
                 "faultloggerd toybox_exec",
                 "debug_hap hilog_exec",
+                "input_debug_hap hilog_exec",
                 "dlpmanager_hap hilog_exec",
                 "medialibrary_hap hilog_exec",
                 "ringtonelibrary_hap hilog_exec",
                 "formrenderservice_hap hilog_exec",
                 "normal_hap hilog_exec",
+                "input_hap hilog_exec",
                 "permissionmanager_hap hilog_exec",
                 "system_basic_hap hilog_exec",
                 "system_core_hap hilog_exec",
                 "debug_hap system_bin_file",
                 "debug_hap toybox_exec",
+                "input_debug_hap system_bin_file",
+                "input_debug_hap toybox_exec",
                 "dlpmanager_hap system_bin_file",
                 "dlpmanager_hap toybox_exec",
                 "medialibrary_hap system_bin_file",
@@ -39,6 +43,8 @@
                 "formrenderservice_hap toybox_exec",
                 "normal_hap system_bin_file",
                 "normal_hap toybox_exec",
+                "input_hap system_bin_file",
+                "input_hap toybox_exec",
                 "permissionmanager_hap system_bin_file",
                 "permissionmanager_hap toybox_exec",
                 "system_basic_hap system_bin_file",
@@ -108,6 +114,7 @@
                 "hnp_native toybox_exec",
                 "hnp_native hilog_exec",
                 "normal_hap arkweb_crashpad_handler_exec",
+                "input_hap arkweb_crashpad_handler_exec",
                 "debug_hap arkweb_crashpad_handler_exec",
                 "system_core_hap arkweb_crashpad_handler_exec",
                 "SP_daemon uitest_exec",
@@ -167,7 +174,8 @@
                 "perftest sh_exec",
                 "perftest toybox_exec",
                 "sh param_exec",
-                "sh begetctl_exec"
+                "sh begetctl_exec",
+                "input_debug_hap arkweb_crashpad_handler_exec"
             ]
         }
     ]

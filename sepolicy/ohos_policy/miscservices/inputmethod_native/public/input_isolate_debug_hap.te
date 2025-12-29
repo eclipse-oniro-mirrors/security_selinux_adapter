@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Copyright (c) 2024-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -188,4 +188,14 @@ developer_only(`
         0x8010 0x8011 0x8012 0x8014 0x8015 0x8016 0x8017 0x8018 0x8019 0x801b 0x801d 0x801e 0x801f
         0x8020 0x8023 0x8024 0x8025 0x8026 0x8027 0x8028 0x8029 0x802a 0x802b 0x802c 0x802d 0x802e 0x802f
         0x8030 0x8031 0x8032 0x8033 0x8034 0x8035 0x8036 0x8037 0x8038 0x8039 0x803a 0x803b 0x803c 0x803e 0x803f };
+
+    allow input_isolate_debug_hap input_sandbox_data_file:dir
+        { create open read write search rename reparent setattr getattr add_name remove_name rmdir lock watch watch_reads mounton };
+    allow input_isolate_debug_hap input_sandbox_data_file:file
+        { create open read getattr setattr lock append map execute watch watch_reads unlink rename };
+    allow input_isolate_debug_hap input_sandbox_data_file:sock_file { append create getattr lock map open read rename setattr unlink watch watch_reads write };
+    allowxperm input_isolate_debug_hap input_sandbox_data_file:file ioctl { 0xf501 0xf502 0xf50c 0xf546 0xf547 };
+
+    binder_call(input_isolate_debug_hap, input_hap);
+    binder_call(input_isolate_debug_hap, input_debug_hap);
 ')

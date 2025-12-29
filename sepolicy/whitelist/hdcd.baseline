@@ -165,6 +165,8 @@ developer_only(`
 (allow hdcd toybox_exec (file (read getattr map open)))
 (allow hdcd data_log_sanitizer_file (dir (setattr remove_name search add_name read open create write getattr)))
 (allow hdcd normal_hap (unix_stream_socket (connectto)))
+(allow hdcd input_hap (unix_stream_socket (connectto)))
+(allow hdcd input_debug_hap (unix_stream_socket (connectto)))
 (allow hdcd input_pointer_device_param (file (read open map)))
 (allow hdcd const_allow_mock_param (file (read open map)))
 (allow hdcd debugfs_state (dir (getattr)))
