@@ -100,8 +100,10 @@ allow camera_service data_service_el1_file:dir { search write add_name read geta
 #avc: denied { create } for pid=1694, comm="/system/bin/sa_main"  name="/service/el1/public/camera_service/ota_source5" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=68644 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 #avc: denied { rmdir } for pid=1697, comm="/system/bin/sa_main"  name="/service/el1/public/camera_service/network_source/101" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=67757 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow camera_service data_service_el1_file:dir { create rmdir };
-#avc: denied { call } for pid=1620, comm="/system/bin/sa_main" scontext=u:r:camera_service:s0 tcontext=u:r:updater_sa:s0 tclass=binder permissive=1
-allow camera_service updater_sa:binder { call };
+# avc: denied { getattr } for pid=1909, comm="/system/bin/sa_main"  path="/sys_prod/resource/camera/10" dev="overlay" ino=143 scontext=u:r:camera_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=1909, comm="/system/bin/sa_main"  path="/sys_prod/resource/camera/10" dev="overlay" ino=143 scontext=u:r:camera_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=1909, comm="/system/bin/sa_main"  path="/sys_prod/resource/camera/10" dev="overlay" ino=143 scontext=u:r:camera_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
+allow camera_service sys_prod_file:dir { getattr open read };
 #avc: denied { read } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/VID_9003970_001.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25402 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc: denied { open } for pid=1591, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/VID_9003970_001.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25402 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc: denied { create } for pid=1591, comm="/system/bin/sa_main"  name="/service/el1/public/camera_service/temp.mp4" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=26635 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
