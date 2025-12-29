@@ -70,7 +70,8 @@
             "udevd_socket",
             "unlabeled",
             "update_dupdate_engine_file",
-            "update_update_service_file"
+            "update_update_service_file",
+            "input_sandbox_data_file"
         ],
         "developer": []
     }

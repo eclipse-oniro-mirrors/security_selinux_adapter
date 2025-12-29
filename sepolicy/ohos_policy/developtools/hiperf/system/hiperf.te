@@ -198,7 +198,7 @@ developer_only(`
     allow hiperf debug_hap:process { ptrace };
 ')
 
-neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap') }:process ptrace;
+neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap -input_debug_hap') }:process ptrace;
 allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;

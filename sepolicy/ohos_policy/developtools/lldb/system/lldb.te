@@ -54,7 +54,7 @@ allow lldb_server key_enable:key { search };
 
 # Forbid lldb-server to debug other processes except debuggable applications and
 # even child processes launched by lldb-server.
-neverallow lldb_server { domain developer_only(`-debug_hap') -violator_ptrace_debug_hap }:process {
+neverallow lldb_server { domain developer_only(`-debug_hap -input_debug_hap') -violator_ptrace_debug_hap }:process {
     ptrace sigkill signal sigstop };
 neverallow lldb_server self:process { ptrace sigkill signal sigstop };
 # Only processes of Appspawn/CJAppspawn and lldb-server can execute lldb-server.

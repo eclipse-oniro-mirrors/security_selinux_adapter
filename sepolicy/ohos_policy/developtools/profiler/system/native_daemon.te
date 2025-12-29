@@ -16,7 +16,7 @@ developer_only(`
     allow native_daemon native_daemon:hmcap { code_protect };
 ')
 
-neverallow native_daemon { domain debug_only(`-hap_domain') developer_only(`-debug_hap') }:process ptrace;
+neverallow native_daemon { domain debug_only(`-hap_domain') developer_only(`-debug_hap -input_debug_hap') }:process ptrace;
 neverallow { domain -hiprofiler_cmd -hiprofilerd -hiprofiler_plugins -native_daemon -hitrace -hiview -bytrace -hiperf -hiviewdfx_profiler_param_violator } hiviewdfx_profiler_param:parameter_service { set };
 
 debug_only(`

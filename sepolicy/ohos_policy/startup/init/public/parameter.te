@@ -11,10 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { normal_hap debug_hap } parameter_attr:parameter_service { set };
+neverallow { normal_hap debug_hap input_hap input_debug_hap } parameter_attr:parameter_service { set };
 ## Do not modify this permission
 ## Hap cannot apply this permission
-neverallow { normal_hap debug_hap } paramservice_socket:sock_file { write };
+neverallow { normal_hap debug_hap input_hap input_debug_hap } paramservice_socket:sock_file { write };
 
 typeattribute accessibility devinfo_type_allow_attr;
 typeattribute distributeddata devinfo_type_allow_attr;

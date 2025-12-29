@@ -19,7 +19,7 @@ type kernel, domain;
 #       2) allow ABC ABC:binder { actv_binder_{call/service} };
 neverallow { domain -actv_binder_client_attr debug_only(`-su') } self:binder { actv_binder_call };
 neverallow { domain -actv_binder_server_attr debug_only(`-su') } self:binder { actv_binder_service };
-neverallow { normal_hap } self:binder { actv_binder_service };
+neverallow { normal_hap input_hap } self:binder { actv_binder_service };
 
 # neverallow control for hmcap:supervsable
 # If you add a new authorization "ABC" to hmcap:supervsable, you should:
