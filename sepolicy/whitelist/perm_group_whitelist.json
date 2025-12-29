@@ -141,6 +141,7 @@
                 "aa aa_exec",
                 "aa bm_exec",
                 "aa ime_exec",
+                "aa hilog_exec",
                 "snapshot_display snapshot_display_exec",
                 "wukong sh_exec",
                 "wukong system_bin_file",
