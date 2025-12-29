@@ -590,6 +590,7 @@ class hmcap
     exec_non_lsyscall
     code_protect
     sec_mode_trusted
+    audio_rec_mem_map
 }
 
 class dmaheap
