@@ -75,6 +75,17 @@ struct HapContextParams {
     uint32_t uid = 0;
 };
 
+enum StopReason {
+    UNIDLE,
+    UPDATE,
+    DELETE
+};
+
+struct ResultInfo {
+    uint32_t currentCount = 0;
+    uint32_t totalCount = 0;
+};
+
 class HapContext {
 public:
     HapContext();
@@ -100,4 +111,16 @@ protected:
 
 int HapContextLoadConfig(void);
 
+class HapFileRestoreContext : public HapContext {
+public:
+    static HapFileRestoreContext& GetInstance();
+    ~HapFileRestoreContext();
+    int SetFileConForce(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo);
+    int StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason);
+
+private:
+    HapFileRestoreContext();
+    HapFileRestoreContext(const HapFileRestoreContext&) = delete;
+    HapFileRestoreContext& operator=(const HapFileRestoreContext&) = delete;
+};
 #endif // HAP_RESTORECON_H
