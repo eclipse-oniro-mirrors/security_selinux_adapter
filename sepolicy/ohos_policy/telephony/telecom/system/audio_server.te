@@ -12,3 +12,4 @@
 # limitations under the License.
 
 binder_call(audio_server, telecom);
+allow audio_server sa_telecom_tel_call_manager:samgr_class get;
