@@ -52,7 +52,6 @@ binder_call(telecom, sensors);
 binder_call(telecom, softbus_server);
 allow telecom sa_distributeddata_service:samgr_class { get };
 allow telecom sa_bluetooth_server:samgr_class { get };
-allow telecom sa_miscdevice:samgr_class { get };
 
 # sepolicy about system resource management
 binder_call(telecom, powermgr);
