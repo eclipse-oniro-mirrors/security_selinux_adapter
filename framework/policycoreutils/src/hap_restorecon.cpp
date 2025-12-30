@@ -825,6 +825,25 @@ int HapContext::TypeSet(const std::string &type, context_t con)
     return SELINUX_SUCC;
 }
 
+HapFileRestoreContext& HapFileRestoreContext::GetInstance()
+{
+    static HapFileRestoreContext instance;
+    return instance;
+}
+
+HapFileRestoreContext::HapFileRestoreContext() : HapContext() {}
+HapFileRestoreContext::~HapFileRestoreContext() {}
+
+int HapFileRestoreContext::SetFileConForce(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo)
+{
+    return SELINUX_SUCC;
+}
+
+int HapFileRestoreContext::StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason)
+{
+    return SELINUX_SUCC;
+}
+
 #ifdef MCS_ENABLE
 static std::string GetMCSLevel(const LevelFrom &levelFrom, uint32_t userId, uint32_t appId)
 {
