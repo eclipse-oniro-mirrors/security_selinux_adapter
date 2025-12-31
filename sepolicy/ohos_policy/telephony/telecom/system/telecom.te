@@ -27,6 +27,8 @@ binder_call(telecom, audio_server);
 binder_call(telecom, media_service);
 binder_call(telecom, media_monitor);
 allow telecom media_library_param:file { map open read };
+allow telecom sa_media_monitor:samgr_class { get };
+allow telecom sa_media_service:samgr_class { get };
 allow telecom sa_audio_policy_service:samgr_class { get };
 allow telecom sa_pulseaudio_audio_service:samgr_class { get };
 allow telecom sa_multimodalinput_service:samgr_class { get };
@@ -64,6 +66,7 @@ allow telecom sa_location_locator_service:samgr_class { get };
 allow telecom sa_locationhub_lbsservice_passive:samgr_class { get };
 
 # dialing in super_provicy mod
+binder_call(telecom, privacy_service);
 binder_call(telecom, sa_privacy_service);
 allow telecom sa_privacy_service:samgr_class { get };
 
