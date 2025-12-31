@@ -53,3 +53,5 @@ allow asset_service data_service_el1_public_asset_clone_file:dir { search write 
 allowxperm asset_service data_service_el1_public_asset_clone_file:dir ioctl { 0xf546 0xf547 };
 allow asset_service data_service_el1_public_asset_clone_file:file { create getattr ioctl open read write unlink lock };
 allowxperm asset_service data_service_el1_public_asset_clone_file:file ioctl { 0xf50c 0xf546 0xf547 };
+allow asset_service sa_memory_manager_service:samgr_class { get };
+allow asset_service memmgrservice:binder { call };
