@@ -82,7 +82,7 @@ allow edm_sa normal_hap_attr:binder { call };
 allow edm_sa normal_hap_attr:fd { use };
 
 # avc:  denied { read } for  pid=4149 comm="OS_FFRT_2_17" dev="sdd78" ino=14037 scontext=u:r:edm_sa:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=0
-allow edm_sa normal_hap_data_file_attr:file { read };
+allow edm_sa normal_hap_data_file_attr:file { getattr read };
 
 allow edm_sa ohos_boot_param:file { map open read };
 allow edm_sa ohos_param:file { map open read };
@@ -208,6 +208,7 @@ allow edm_sa useriam:binder { call };
 allow edm_sa sa_pulseaudio_audio_service:samgr_class { get };
 
 allow edm_sa system_core_hap:fd { use };
+allow edm_sa system_core_hap_data_file_attr:file { getattr };
 allow edm_sa render_service:binder { call transfer };
 allow edm_sa sa_render_service:samgr_class { get };
 allow render_service edm_sa:binder { transfer };
