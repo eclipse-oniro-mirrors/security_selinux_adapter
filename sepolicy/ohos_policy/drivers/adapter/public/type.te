@@ -16,7 +16,9 @@ type hdf_ext_devmgr, sadomain, domain;
 type sa_hdf_ext_devmgr, sa_service_attr;
 
 type blue_host, hdfdomain, domain;
+typeattribute blue_host violator_vendor_system_etc_read;
 type a2dp_host, hdfdomain, domain;
+typeattribute a2dp_host violator_vendor_system_etc_read;
 type sample_host, hdfdomain, domain;
 type light_host, hdfdomain, domain;
 type dcamera_host, hdfdomain, domain;
