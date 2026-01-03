@@ -31,6 +31,11 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <atomic>
+#include <mutex>
+#include <memory>
+#include <map>
+#include <unistd.h>
 
 #include <include/fts.h>
 #include <pthread.h>
@@ -40,6 +45,10 @@
 #include "src/callbacks.h"
 #include "selinux_error.h"
 #include "selinux_log.h"
+#include "restore_task.h"
+#include "seharmony_cjson.h"
+#include "seharmony_hisysevent_adapter.h"
+
 
 using namespace Selinux;
 
@@ -71,6 +80,7 @@ static const std::string ISOLATED_GPU = "isolated_gpu";
 static const std::string ISOLATED_RENDER = "isolated_render";
 static const char *ORIGINAL_TYPE = "normal_hap_data_file";
 static const char *UPDATED_TYPE = "appdat";
+static const char *APPDAT_CONTEXT = "u:object_r:appdat:s0";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -455,7 +465,7 @@ static int IsSkipSetContext(const char *oldSecontext, const char *newSecontext, 
     }
 
     if (!strcmp(context_type_get(oldContext), ORIGINAL_TYPE) && !strcmp(context_type_get(newContext), UPDATED_TYPE)) {
-        selinux_log(SELINUX_ERROR, "Skip set the context of path: %s.", pathNameOrig.c_str());
+        selinux_log(SELINUX_ERROR, "Skip set the context of path: %s.\n", AnonymizePath(pathNameOrig).c_str());
         skipSetCon = true;
     }
 
@@ -475,7 +485,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
         return SELINUX_SUCC;
     }
 
-    char realPath[PATH_MAX];
+    char realPath[PATH_MAX + 1];
     if (realpath(pathNameOrig.c_str(), realPath) == nullptr) {
         return -SELINUX_PATH_INVALID;
     }
@@ -834,13 +844,153 @@ HapFileRestoreContext& HapFileRestoreContext::GetInstance()
 HapFileRestoreContext::HapFileRestoreContext() : HapContext() {}
 HapFileRestoreContext::~HapFileRestoreContext() {}
 
+bool HapFileRestoreContext::IsAppdatContext(const HapFileInfo& hapFileInfo)
+{
+    char *secontext = nullptr;
+    HapContextParams params = {hapFileInfo.apl, hapFileInfo.packageName, hapFileInfo.hapFlags};
+    params.uid = hapFileInfo.uid;
+    bool isAppdat = false;
+    if (HapLabelLookup(params, &secontext) == SELINUX_SUCC && secontext != nullptr) {
+        if (strcmp(secontext, APPDAT_CONTEXT) == 0) {
+            isAppdat = true;
+        }
+        freecon(secontext);
+    }
+    return isAppdat;
+}
+
 int HapFileRestoreContext::SetFileConForce(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo)
 {
+    if (!IsAppdatContext(hapFileInfo)) {
+        selinux_log(SELINUX_ERROR, "Skip SetFileConForce for non-appdat context, bundleName=%s",
+            hapFileInfo.packageName.c_str());
+        DeleteRefreshInfo(hapFileInfo.packageName, hapFileInfo.uid);
+        return SELINUX_SUCC;
+    }
+    if (hapFileInfo.packageName.empty() || hapFileInfo.pathNameOrig.empty()) {
+        selinux_log(SELINUX_ERROR, "Invalid args or context check failed for bundleName=%s",
+            hapFileInfo.packageName.c_str());
+        return -SELINUX_ARG_INVALID;
+    }
+    Selinux::ReportSeharmonyHapFileRestoreStart(hapFileInfo);
+    std::shared_ptr<RestoreTask> task = nullptr;
+    int ret = InitRestoreTask(task, hapFileInfo);
+    if (ret != SELINUX_SUCC) {
+        Selinux::ReportSeharmonyRestoreErr(hapFileInfo.packageName, hapFileInfo.uid, ret, "InitRestoreTask failed");
+        return ret;
+    }
+
+    for (const auto& origPath : hapFileInfo.pathNameOrig) {
+        if (task->IsStopping()) {
+            task->SetInterrupted();
+            ret = -SELINUX_RESTORECON_TASK_STOPPED;
+            break;
+        }
+        ret = ProcessRestorePath(task, origPath, hapFileInfo);
+        if (ret == -SELINUX_RESTORECON_TASK_STOPPED) {
+            break;
+        } else if (ret != SELINUX_SUCC) {
+            Selinux::ReportSeharmonyRestoreErr(hapFileInfo.packageName, hapFileInfo.uid, ret,
+                "ProcessRestorePath failed, path = " + AnonymizePath(origPath));
+        }
+    }
+
+    FinishRestoreTask(hapFileInfo, resultInfo);
+    if (ret != SELINUX_SUCC && ret != -SELINUX_RESTORECON_TASK_STOPPED) {
+        Selinux::ReportSeharmonyRestoreErr(hapFileInfo.packageName, hapFileInfo.uid, ret, "SetFileConForce failed");
+    }
+    return ret;
+}
+
+int HapFileRestoreContext::InitRestoreTask(std::shared_ptr<RestoreTask>& task, const HapFileInfo& hapFileInfo)
+{
+    std::lock_guard<std::mutex> lock(restoreTaskMutex_);
+    if (restoreTask_ != nullptr) {
+        selinux_log(SELINUX_ERROR, "Restorecon task already in progress for %s", restoreTask_->info.bundleName.c_str());
+        return -SELINUX_RESTORECON_TASK_ALREADY_RUNNING;
+    }
+    task = std::make_shared<RestoreTask>(hapFileInfo.packageName, hapFileInfo.uid);
+    // Load progress
+    std::vector<std::string> pathNameOrig = hapFileInfo.pathNameOrig;
+    (void)ReadRefreshInfo(task->info, pathNameOrig);
+    if (task->info.paths.empty()) {
+        Selinux::ReportSeharmonyRestoreErr(hapFileInfo.packageName, hapFileInfo.uid,
+            -SELINUX_RESTORECON_TASK_INVALID_PATHS, "ReadRefreshInfo failed or no paths to restore");
+        selinux_log(SELINUX_ERROR, "No paths to restore for bundleName=%s", hapFileInfo.packageName.c_str());
+        restoreTask_ = nullptr;
+        return -SELINUX_RESTORECON_TASK_INVALID_PATHS;
+    }
+    restoreTask_ = task;
     return SELINUX_SUCC;
+}
+
+int HapFileRestoreContext::ProcessRestorePath(std::shared_ptr<RestoreTask> task,
+    const std::string& origPath, const HapFileInfo& hapFileInfo)
+{
+    char realPath[PATH_MAX + 1];
+    if (realpath(origPath.c_str(), realPath) == nullptr) {
+        selinux_log(SELINUX_ERROR, "realpath failed for %s, errno: %s\n",
+            AnonymizePath(origPath).c_str(), strerror(errno));
+        return -SELINUX_PATH_INVALID;
+    }
+
+    std::string targetPath(realPath);
+    int ret = task->RestoreTraversal(targetPath);
+    if (ret != SELINUX_SUCC && ret != -SELINUX_RESTORECON_TASK_STOPPED) {
+        Selinux::ReportSeharmonyRestoreErr(hapFileInfo.packageName,
+            hapFileInfo.uid, ret, "RestoreTraversal failed");
+        selinux_log(SELINUX_ERROR, "RestoreTraversal failed for path %s with error %d\n", targetPath.c_str(), ret);
+    }
+    return ret;
+}
+
+void HapFileRestoreContext::FinishRestoreTask(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo)
+{
+    std::lock_guard<std::mutex> lock(restoreTaskMutex_);
+    if (restoreTask_ == nullptr) {
+        return;
+    }
+
+    uint32_t total = 0;
+    std::vector<std::string> currentPath;
+    restoreTask_->GetProgress(total, currentPath);
+    resultInfo.totalCount = total;
+    resultInfo.currentCount = restoreTask_->successCount;
+
+    if (restoreTask_->IsInterrupted() && restoreTask_->GetShouldSave()) {
+        std::lock_guard<std::mutex> infoLock(restoreTask_->infoMutex);
+        WriteRefreshInfo(restoreTask_->info);
+    } else {
+        DeleteRefreshInfo(hapFileInfo.packageName, hapFileInfo.uid);
+    }
+
+    RestoreFinishInfo finishInfo;
+    finishInfo.totalCount = static_cast<int32_t>(total);
+    finishInfo.successCount = static_cast<int32_t>(resultInfo.currentCount);
+    finishInfo.errorCount = static_cast<int32_t>(restoreTask_->failureCount);
+    finishInfo.changeContext = (resultInfo.currentCount > 0);
+    finishInfo.stopReason = static_cast<int32_t>(restoreTask_->GetStopReason());
+    finishInfo.currentPath = currentPath;
+    finishInfo.isSkipAlias = false;
+
+    Selinux::ReportSeharmonyHapFileRestoreFinish(hapFileInfo, finishInfo);
+    restoreTask_ = nullptr;
 }
 
 int HapFileRestoreContext::StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason)
 {
+    std::lock_guard<std::mutex> lock(restoreTaskMutex_);
+    bool isAppdat = IsAppdatContext(hapFileInfo);
+    bool shouldSave = (stopReason == StopReason::BUSY) || (stopReason == StopReason::UPDATE && isAppdat);
+    if (restoreTask_ != nullptr &&
+        restoreTask_->info.bundleName == hapFileInfo.packageName &&
+        restoreTask_->info.uid == hapFileInfo.uid) {
+        (void) restoreTask_->TryToStop(stopReason, shouldSave);
+    }
+    if (!shouldSave) {
+        DeleteRefreshInfo(hapFileInfo.packageName, hapFileInfo.uid);
+    }
+
     return SELINUX_SUCC;
 }
 

@@ -1549,7 +1549,6 @@ HWTEST_F(SelinuxUnitTest, UserAndMCSRangeSet002, TestSize.Level1)
     freecon(*secontextPtr);
     context_free(con);
 }
-
 } // namespace SelinuxUnitTest
 } // namespace Security
 } // namespace OHOS

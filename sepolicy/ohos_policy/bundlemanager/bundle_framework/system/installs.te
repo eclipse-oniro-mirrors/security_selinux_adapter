@@ -49,6 +49,8 @@ allow installs data_file:file { getattr open read };
 allow installs data_service_el1_file:dir { remove_name search rmdir getattr setattr rename };
 allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write ioctl map relabelfrom };
 allow installs data_service_el2_file:dir { add_name create open read search setattr write getattr rmdir remove_name rename };
+allow installs data_service_el2_file:file { create getattr ioctl open read write };
+allowxperm installs data_service_el2_file:file ioctl { 0x5413 };
 allow installs data_service_el2_hmdfs:dir { getattr setattr rmdir remove_name rename };
 allow installs data_service_el2_hmdfs:file { open read unlink getattr setattr rename };
 allow installs data_service_el2_hmdfs:lnk_file { unlink rename };
