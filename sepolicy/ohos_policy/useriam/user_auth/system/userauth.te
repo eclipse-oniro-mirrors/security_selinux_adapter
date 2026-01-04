@@ -26,6 +26,9 @@ allow useriam sa_useriam_faceauth_service:samgr_class { add };
 #avc:  denied  { add } for service=943 pid=918 scontext=u:r:fingerprintauth:s0 tcontext=u:object_r:sa_useriam_fingerprintauth_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_fingerprintauth_service:samgr_class { add };
 
+#avc:  denied  { add } for service=945 pid=898 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_companiondeviceauth_service:s0 tclass=samgr_class permissive=1
+allow useriam sa_useriam_companiondeviceauth_service:samgr_class { add };
+
 #avc:  denied  { get } for service=931 pid=515 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_authexecutormgr_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_authexecutormgr_service:samgr_class { get };
 
