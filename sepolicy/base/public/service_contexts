@@ -41,6 +41,7 @@
 941                                    u:object_r:sa_useriam_pinauth_service:s0
 942                                    u:object_r:sa_useriam_faceauth_service:s0
 943                                    u:object_r:sa_useriam_fingerprintauth_service:s0
+945                                    u:object_r:sa_useriam_companiondeviceauth_service:s0
 1000	                               u:object_r:sa_subsys_ccruntime_service:s0
 1100	                               u:object_r:sa_subsys_communication_service:s0
 1108	                               u:object_r:sa_rpc_unregistered_test_service:s0

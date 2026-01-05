@@ -21,4 +21,6 @@ allow system_core_hap_attr sa_useriam_faceauth_service:samgr_class { get };
 
 allow system_core_hap_attr sa_useriam_fingerprintauth_service:samgr_class { get };
 
+allow system_core_hap_attr sa_useriam_companiondeviceauth_service:samgr_class { get };
+
 binder_call(system_core_hap_attr, useriam);
