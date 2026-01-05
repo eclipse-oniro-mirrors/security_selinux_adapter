@@ -14,6 +14,7 @@
 
 type daudio, sadomain, domain;
 type daudio_host, hdfdomain, domain;
+typeattribute daudio_host violator_vendor_system_etc_read;
 type sa_distributed_hardware_audio_source_service, sa_service_attr;
 type sa_distributed_hardware_audio_sink_service, sa_service_attr;
 type hdf_daudio_ext, hdf_service_attr;
