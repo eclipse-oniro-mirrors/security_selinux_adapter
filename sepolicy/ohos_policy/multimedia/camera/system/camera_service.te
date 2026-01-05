@@ -125,3 +125,30 @@ allow camera_service sys_prod_file:dir { search };
 allow camera_service hdf_camera_service_usb:hdf_devmgr_class { get };
 allow camera_service sa_resource_schedule:samgr_class { get };
 allow camera_service resource_schedule_service:binder { call transfer };
+
+# avc: denied { connect } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=tcp_socket permissive=1
+# avc: denied { create } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=tcp_socket permissive=1
+# avc: denied { getattr } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=tcp_socket permissive=1
+# avc: denied { getopt } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=tcp_socket permissive=1
+# avc: denied { read } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=tcp_socket permissive=1
+# avc: denied { setopt } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=tcp_socket permissive=1
+# avc: denied { write } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=tcp_socket permissive=1
+allow camera_service camera_service:tcp_socket { connect create getattr getopt read setopt write };
+
+# avc: denied { bind } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=udp_socket permissive=1
+# avc: denied { create } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=udp_socket permissive=1
+# avc: denied { read } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=udp_socket permissive=1
+# avc: denied { write } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:camera_service:s0 tclass=udp_socket permissive=1
+allow camera_service camera_service:udp_socket { bind create read write };
+
+# avc: denied { append } for pid=1769, comm="/system/bin/sa_main"  path="/data/service/el1/public/camera_service/network_resource/featureId10_typeId12_templateId31_resourceId101.zip" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=54884 scontext=u:r:camera_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow camera_service data_service_el1_file:file { append };
+
+# avc: denied { connectto } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:netsysnative:s0 tclass=unix_stream_socket permissive=1
+allow camera_service netsysnative:unix_stream_socket { connectto };
+
+# avc: denied { node_bind } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:object_r:node:s0 tclass=udp_socket permissive=1
+allow camera_service node:udp_socket { node_bind };
+
+# avc: denied { name_connect } for pid=1769, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=1
+allow camera_service port:tcp_socket { name_connect };
