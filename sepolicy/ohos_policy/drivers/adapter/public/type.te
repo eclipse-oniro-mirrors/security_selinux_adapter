@@ -22,6 +22,7 @@ typeattribute a2dp_host violator_vendor_system_etc_read;
 type sample_host, hdfdomain, domain;
 type light_host, hdfdomain, domain;
 type dcamera_host, hdfdomain, domain;
+typeattribute dcamera_host violator_vendor_system_etc_read;
 type face_auth_host, hdfdomain, domain;
 type pin_auth_host, hdfdomain, domain;
 type user_auth_host, hdfdomain, domain;
