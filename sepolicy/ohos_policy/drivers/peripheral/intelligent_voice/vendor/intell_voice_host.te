@@ -67,9 +67,6 @@ allow intell_voice_host chip_prod_file:file { read open getattr };
 # avc: denied { map } for pid=8490, comm="/vendor/bin/hdf_devhost"  path="/chip_prod/etc/audio/intellvoice/wakeup/vpr/ivector/Ivector2.dm" dev="/dev/block/dm-6" ino=3963639 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
 allow intell_voice_host chip_prod_file:file { map };
 
-# avc:  denied  { search } for  pid=7321 comm="dump_tmp_thread" name="bin" dev="sdd74" ino=237 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
-#allow intell_voice_host system_bin_file:dir { search };
-
 # avc:  denied  { call } for  pid=19731 comm="IPC_1_19745" scontext=u:r:intell_voice_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
 # avc:  denied  { transfer } for  pid=18368 comm="IPC_2_18400" scontext=u:r:intell_voice_host:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
 allow intell_voice_host intell_voice_service:binder { transfer call };
