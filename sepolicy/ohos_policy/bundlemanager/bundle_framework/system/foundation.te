@@ -152,3 +152,6 @@ allow foundation bms_db_file:dir { add_name remove_name search rename create ioc
 
 allowxperm foundation bms_db_file:file ioctl { 0x5413 0xf546 0xf547 0xf50c };
 allowxperm foundation bms_db_file:dir ioctl { 0x5413 0xf546 0xf547 0xf50c };
+
+allow foundation cgroup:dir { search };
+allow foundation cgroup:file { getattr open read };
