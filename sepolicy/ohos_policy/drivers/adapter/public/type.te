@@ -43,6 +43,7 @@ type usb_host, hdfdomain, domain;
 typeattribute usb_host violator_vendor_system_etc_read;
 type vibrator_host, hdfdomain, domain;
 type power_host, hdfdomain, domain;
+typeattribute power_host violator_vendor_system_etc_read;
 type location_host, hdfdomain, domain;
 
 type debugfs_usb, fs_attr, debugfs_attr;
