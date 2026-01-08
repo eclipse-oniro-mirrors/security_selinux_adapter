@@ -134,17 +134,25 @@ ohos_static_library("librestorecon_static") {
 }
 
 ohos_shared_library("libhap_restorecon") {
+  include_dirs = [ "framework/policycoreutils/include" ]
   output_name = "libhap_restorecon"
   sources = [
     "framework/policycoreutils/src/hap_restorecon.cpp",
+    "framework/policycoreutils/src/restore_task.cpp",
     "framework/policycoreutils/src/sehap_contexts_trie.cpp",
+    "framework/policycoreutils/src/seharmony_cjson.cpp",
+    "framework/policycoreutils/src/seharmony_hisysevent_adapter.cpp",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
   ]
-  external_deps = [ "hilog:libhilog" ]
+  external_deps = [
+    "cJSON:cjson",
+    "hilog:libhilog",
+    "hisysevent:libhisysevent",
+  ]
 
   public_external_deps = [ "selinux:libselinux" ]
 
@@ -152,6 +160,7 @@ ohos_shared_library("libhap_restorecon") {
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
+    "-DHAS_HISYSEVENT_PART",
   ]
   if (selinux_adapter_mcs_enable) {
     cflags += [ "-DMCS_ENABLE" ]
@@ -708,7 +717,7 @@ action("build_ignore_cfg") {
   ]
   outputs = [
     target_out_dir + "/ignore_cfg",
-    target_out_dir + "/app_allow_cfg"
+    target_out_dir + "/app_allow_cfg",
   ]
 }
 
@@ -1515,6 +1524,7 @@ group("selinux_group") {
     }
 
     deps += [
+      ":app_allow_cfg",
       ":build_updater_sepolicy",
       ":config",
       ":file_contexts",
@@ -1523,7 +1533,6 @@ group("selinux_group") {
       ":hap_restorecon",
       ":hdf_service_contexts",
       ":ignore_cfg",
-      ":app_allow_cfg",
       ":libpcre2_toolchain",
       ":libselinux_toolchain",
       ":load_policy",

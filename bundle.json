@@ -35,8 +35,10 @@
     "ram": "3072KB",
     "deps": {
       "components": [
+        "cJSON",
         "hilog",
         "bounds_checking_function",
+        "hisysevent",
         "selinux",
         "pcre2"
       ],
