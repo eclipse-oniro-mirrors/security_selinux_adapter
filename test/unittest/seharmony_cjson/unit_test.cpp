@@ -208,7 +208,8 @@ HWTEST_F(SelinuxUnitTest, ReadRefreshInfo005, TestSize.Level1)
     ASSERT_EQ(true, CreateDirectory(RESTORECON_HAP_DATA_DIR));
     ASSERT_EQ(true, CreateCfgFile(RESTORECON_HAP_DATA_FILE));
     // Write something of not json format
-    std::string content = R"([{"bundleName":"com.ohos.test","uid":20020087,"path":[]}])";
+    std::string content = R"({"bundleName":"com.ohos.test","uid":20020087,"path":[{"target": "xxx", "finished": "xxx",
+        "count": 2, "done": false}]}])";
     std::vector<std::string> writeContent;
     writeContent.push_back(content);
     ASSERT_EQ(true, WriteFile(RESTORECON_HAP_DATA_FILE, writeContent));
@@ -220,13 +221,61 @@ HWTEST_F(SelinuxUnitTest, ReadRefreshInfo005, TestSize.Level1)
     pathNameOrig.push_back(TEST_TARGET1_PATH);
     // pathNameOrig contains paths, part of which do not exist
     ASSERT_EQ(true, CreateDirectory(TEST_TARGET1_PATH));
-
     EXPECT_EQ(SELINUX_SUCC, ReadRefreshInfo(readInfo, pathNameOrig));
-    ASSERT_EQ(1, readInfo.paths.size());
-    ASSERT_NE(nullptr, readInfo.paths[TEST_TARGET1_PATH]);
-    ASSERT_EQ(TEST_TARGET1_PATH, readInfo.paths[TEST_TARGET1_PATH]->target);
-    ASSERT_EQ(true, readInfo.paths[TEST_TARGET1_PATH]->finished.empty());
-    ASSERT_EQ(false, readInfo.paths[TEST_TARGET1_PATH]->done);
+    ASSERT_EQ(-1, RemoveFile(RESTORECON_HAP_DATA_FILE));
+
+    ASSERT_EQ(true, CreateCfgFile(RESTORECON_HAP_DATA_FILE));
+    // Write something of not json format
+    content = R"(["bundleName":"com.ohos.test","uid":20020087,"path":[{"target": "xxx", "finished": "xxx",
+        "count": 2, "done": false}]}])";
+    writeContent[0] = content;
+    ASSERT_EQ(true, WriteFile(RESTORECON_HAP_DATA_FILE, writeContent));
+    EXPECT_EQ(SELINUX_SUCC, ReadRefreshInfo(readInfo, pathNameOrig));
+    ASSERT_EQ(-1, RemoveFile(RESTORECON_HAP_DATA_FILE));
+
+    ASSERT_EQ(true, CreateCfgFile(RESTORECON_HAP_DATA_FILE));
+    // Write something of not json format
+    content = R"([{"bundleNa":"com.ohos.test","uid":20020087,"path":[{"target": "xxx", "finished": "xxx",
+        "count": 2, "done": false}]}])";
+    writeContent[0] = content;
+    ASSERT_EQ(true, WriteFile(RESTORECON_HAP_DATA_FILE, writeContent));
+    EXPECT_EQ(SELINUX_SUCC, ReadRefreshInfo(readInfo, pathNameOrig));
+    ASSERT_EQ(-1, RemoveFile(RESTORECON_HAP_DATA_FILE));
+
+    ASSERT_EQ(true, CreateCfgFile(RESTORECON_HAP_DATA_FILE));
+    // Write something of not json format
+    content = R"([{"bundleName":"com.ohos.test","uid":20020087,"path":{"target": "xxx", "finished": "xxx",
+        "count": 2, "done": false}]}])";
+    writeContent[0] = content;
+    ASSERT_EQ(true, WriteFile(RESTORECON_HAP_DATA_FILE, writeContent));
+    EXPECT_EQ(SELINUX_SUCC, ReadRefreshInfo(readInfo, pathNameOrig));
+    ASSERT_EQ(-1, RemoveFile(RESTORECON_HAP_DATA_FILE));
+
+    ASSERT_EQ(true, CreateCfgFile(RESTORECON_HAP_DATA_FILE));
+    // Write something of not json format
+    content = R"([{"bundleName":"com.ohos.test","uid":20020087,"path":["target": "xxx", "finished": "xxx",
+        "count": 2, "done": false}]}])";
+    writeContent[0] = content;
+    ASSERT_EQ(true, WriteFile(RESTORECON_HAP_DATA_FILE, writeContent));
+    EXPECT_EQ(SELINUX_SUCC, ReadRefreshInfo(readInfo, pathNameOrig));
+    ASSERT_EQ(-1, RemoveFile(RESTORECON_HAP_DATA_FILE));
+
+    ASSERT_EQ(true, CreateCfgFile(RESTORECON_HAP_DATA_FILE));
+    // Write something of not json format
+    content = R"([{"bundleName":"com.ohos.test","uid":20020087,"path":[{"targe": "xxx", "finished": "xxx",
+        "count": 2, "done": false}]}])";
+    writeContent[0] = content;
+    ASSERT_EQ(true, WriteFile(RESTORECON_HAP_DATA_FILE, writeContent));
+    EXPECT_EQ(SELINUX_SUCC, ReadRefreshInfo(readInfo, pathNameOrig));
+    ASSERT_EQ(-1, RemoveFile(RESTORECON_HAP_DATA_FILE));
+
+    ASSERT_EQ(true, CreateCfgFile(RESTORECON_HAP_DATA_FILE));
+    // Write something of not json format
+    content = R"([{"bundleName":"com.ohos.test","uid":20020087,"path":[{"target": "xxx", "finished": "xxx",
+        "count": 2, "done": false}]}])";
+    writeContent[0] = content;
+    ASSERT_EQ(true, WriteFile(RESTORECON_HAP_DATA_FILE, writeContent));
+    EXPECT_EQ(SELINUX_SUCC, ReadRefreshInfo(readInfo, pathNameOrig));
 
     ASSERT_EQ(true, RemoveDirectory(TEST_TARGET1_PATH));
     ASSERT_EQ(-1, RemoveFile(RESTORECON_HAP_DATA_FILE));
