@@ -281,8 +281,8 @@ neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver }
 
 #ensure no write access to readonly filesystem.
 
-neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
-neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
+neverallow { domain debug_only(`-rgm_violator_ohos_isula') updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
+neverallow { domain debug_only(`-rgm_violator_ohos_isula') updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
 neverallow { domain developer_only(`-wukong -aa -hdcd -sh -hnp -hnp_hap_domain_attr -perftest') -init -faultloggerd -riladapter_host -appspawn
