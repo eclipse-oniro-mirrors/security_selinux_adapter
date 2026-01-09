@@ -14,7 +14,7 @@
 allow domain accesstoken_perm_param:file { map open read };
 # [  325.498791] audit: type=1400 audit(1501923927.700:2295): avc:  denied  { ioctl } for  pid=2232 comm="SaInit1" path="/data/service/el1/public/access_token" dev="mmcblk0p15" ino=2902 ioctlcmd=0xf546 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
 #avc: denied { create } for pid=1603, comm="/system/bin/sa_main"  name="/service/el1/public/access_token/lock" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=32814 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=0
-allow accesstoken_service accesstoken_data_file:dir { create search add_name ioctl open read write remove_name };
+allow accesstoken_service accesstoken_data_file:dir { create search add_name ioctl open read write remove_name getattr };
 allowxperm accesstoken_service accesstoken_data_file:dir ioctl { 0xf546 };
 # [  324.857258] audit: type=1400 audit(1501923927.060:2293): avc:  denied  { map } for  pid=2232 comm="SaInit1" path="/data/service/el1/public/access_token/access_token.db-shm" dev="mmcblk0p15" ino=3066 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
 # [  324.863783] audit: type=1400 audit(1501923927.066:2294): avc:  denied  { setattr } for  pid=2232 comm="SaInit1" name="access_token.db" dev="mmcblk0p15" ino=3063 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
