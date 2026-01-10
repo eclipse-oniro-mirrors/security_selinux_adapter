@@ -11,19 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow wifi_host bootevent_param:file { map open read };
 allow wifi_host bootevent_samgr_param:file { map open read };
 allow wifi_host build_version_param:file { map open read };
-allow wifi_host const_allow_mock_param:file { map read read open };
 allow wifi_host const_allow_param:file { map open read };
 allow wifi_host const_build_param:file { map open read };
-allow wifi_host const_display_brightness_param:file { map open read };
 allow wifi_host const_param:file { map open read };
-allow wifi_host const_postinstall_fstab_param:file { map open read };
 allow wifi_host const_postinstall_param:file { map open read };
 allow wifi_host const_product_param:file { map open read };
 allow wifi_host debug_param:file { map open read };
-allow wifi_host default_param:file { map open read };
 allow wifi_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow wifi_host dev_unix_socket:dir { search };
 allow wifi_host distributedsche_param:file { map open read };
@@ -35,20 +30,13 @@ allow wifi_host hw_sc_build_param:file { map open read };
 allow wifi_host hw_sc_param:file { map open read };
 allow wifi_host init_param:file { map open read };
 allow wifi_host init_svc_param:file { map open read };
-allow wifi_host input_pointer_device_param:file { map open read };
 allow wifi_host net_param:file { map open read };
-allow wifi_host net_tcp_param:file { map open read };
 allow wifi_host ohos_boot_param:file { map open read };
 allow wifi_host ohos_param:file { map read read open };
-allow wifi_host persist_param:file { map open read };
 allow wifi_host persist_sys_param:file { map open read };
 allow wifi_host sa_device_service_manager:samgr_class { get };
 allow wifi_host samgr:binder { call transfer };
-allow wifi_host security_param:file { map open read };
 allow wifi_host startup_param:file { map open read };
-allow wifi_host sys_param:file { map open read };
-allow wifi_host system_bin_file:dir { search };
-allow wifi_host sys_usb_param:file { map open read };
 allow wifi_host vendor_etc_file:dir { search };
 allow wifi_host vendor_etc_file:file { getattr open read };
 allow wifi_host wifi_hal_service:binder { call };
@@ -115,7 +103,6 @@ allow wifi_host wifi_host:unix_dgram_socket { read };
 allow wifi_host wifi_host:unix_dgram_socket { getopt };
 allow wifi_host wifi_host:unix_dgram_socket { ioctl };
 allow wifi_host dev_hdfwifi:chr_file { read open write getattr ioctl };
-allow wifi_host data_local_tmp:dir { getattr read };
 allow wifi_host sys_file:file { read write open };
 allow wifi_host chip_prod_file:file { getattr open read };
 allow wifi_host data_vendor:dir { search };
