@@ -302,7 +302,7 @@ neverallow isolated_render {domain -isolated_render}:process ptrace;
 # neverallow { domain -init } self:capability chown;
 # means that only init can have the caps of chown.
 # TODO:debug/release
-neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -distributedfiledaemon -rgm_violator_ohos_capability_chown -download_server -media_service -prerogative_app -cloudfiledaemon} self:{ capability cap_userns } chown;
+neverallow { domain -hiview -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown -rgm_violator_cap_chown updater_only(`-updater') -distributedfiledaemon -rgm_violator_ohos_capability_chown -download_server -media_service -prerogative_app -cloudfiledaemon} self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -cjappspawn -init  -chipset_init -ueventd -memmgrservice -resource_schedule_executor
              -installs updater_only(`-updater')
              -storage_daemon -usb_host -ethernet_host -cap_violator_dacoverride developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_capability_dacoverride -violator_sa_capability_dac_override } self:{ capability cap_userns } dac_override;
