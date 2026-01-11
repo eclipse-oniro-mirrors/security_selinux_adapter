@@ -15,7 +15,7 @@
 allow useriam sa_useriam_useridm_service:samgr_class { add };
 
 #avc:  denied  { add } for service=921 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_userauth_service:s0 tclass=samgr_class permissive=1
-allow useriam sa_useriam_userauth_service:samgr_class { add };
+allow useriam sa_useriam_userauth_service:samgr_class { add get };
 
 #avc:  denied  { add } for service=931 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_authexecutormgr_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_authexecutormgr_service:samgr_class { add };
@@ -94,3 +94,9 @@ allow useriam softbus_server:tcp_socket { getopt };
 allowxperm useriam dev_at_file:chr_file ioctl { 0x5413 };
 
 allow useriam data_file:dir { search };
+
+allow useriam dev_at_file:chr_file { ioctl };
+
+allow useriam sys_prod_file:dir { search };
+
+allowxperm useriam dev_at_file:chr_file ioctl { 0x4104 };
