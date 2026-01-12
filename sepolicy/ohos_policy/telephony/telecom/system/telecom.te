@@ -32,6 +32,7 @@ allow telecom sa_media_service:samgr_class { get };
 allow telecom sa_audio_policy_service:samgr_class { get };
 allow telecom sa_pulseaudio_audio_service:samgr_class { get };
 allow telecom sa_multimodalinput_service:samgr_class { get };
+allow telecom multimodalinput:unix_stream_socket { read };
 
 # sepolicy about foundation service
 binder_call(telecom, foundation);
