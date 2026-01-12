@@ -17,6 +17,15 @@ allow wifi_manager_service data_service_el1_file:dir { add_name remove_name sear
 allow wifi_manager_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write append rename };
 allow wifi_manager_service data_file:dir { search };
 allow wifi_manager_service data_service_el1_file:sock_file { write unlink };
+allow wifi_manager_service wifi_el1_data:dir { add_name getattr remove_name search write create read open ioctl };
+allowxperm wifi_manager_service wifi_el1_data:dir ioctl { 0xf546 0xf547 };
+allow wifi_manager_service wifi_el1_data:file { create getattr ioctl lock open read setattr unlink write append rename map lock };
+allowxperm wifi_manager_service wifi_el1_data:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
+allow wifi_manager_service wifi_el1_socket:dir { add_name getattr remove_name search write create read open ioctl };
+allowxperm wifi_manager_service wifi_el1_socket:dir ioctl { 0xf546 0xf547 };
+allow wifi_manager_service wifi_el1_socket:file { create getattr ioctl lock open read setattr unlink write append rename map lock };
+allowxperm wifi_manager_service wifi_el1_socket:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
+allow wifi_manager_service wifi_el1_socket:sock_file { write unlink };
 allow wifi_manager_service accessibility_param:file { read };
 allow wifi_manager_service dev_unix_socket:dir { search };
 allow wifi_manager_service foundation:binder { call transfer };
