@@ -94,7 +94,7 @@ HWTEST_F(SelinuxUnitTest, ReadRefreshInfo001, TestSize.Level1)
     pathNameOrig.push_back(TEST_TARGET1_PATH);
     pathNameOrig.push_back(TEST_TARGET2_PATH);
     pathNameOrig.push_back(TEST_TARGET3_PATH);
-    EXPECT_EQ(-SELINUX_PATH_INVALID, ReadRefreshInfo(readInfo, pathNameOrig));
+    EXPECT_EQ(-SELINUX_NO_FOUND_PATHS, ReadRefreshInfo(readInfo, pathNameOrig));
     ASSERT_EQ(0, readInfo.paths.size());
 }
 

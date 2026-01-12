@@ -98,6 +98,7 @@ ohos_unittest("seharmony_cjson_unittest") {
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
     "../framework/policycoreutils/src/seharmony_cjson.cpp",
+    "../framework/policycoreutils/src/seharmony_hisysevent_adapter.cpp",
     "unittest/common/test_common.cpp",
     "unittest/seharmony_cjson/unit_test.cpp",
   ]

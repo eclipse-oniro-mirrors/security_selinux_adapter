@@ -117,6 +117,14 @@ bool RestoreTask::IsStopping()
     return stopRequested_;
 }
 
+void RestoreTask::GetRestorePaths(std::vector<std::string> &paths)
+{
+    std::lock_guard<std::mutex> infoLock(this->infoMutex);
+    for (const auto& kv : this->info.paths) {
+        paths.emplace_back(kv.first);
+    }
+}
+
 int CompareFtsEnt(const FTSENT * const *a, const FTSENT * const *b)
 {
     return strcmp((*a)->fts_name, (*b)->fts_name);
@@ -204,6 +212,7 @@ int RestoreTask::RestoreTraversal(const std::string &path)
     }
     auto pathInfo = info.paths[path];
     if (pathInfo->done) {
+        selinux_log(SELINUX_INFO, "RestoreTraversal skip, path = %s", path.c_str());
         return SELINUX_SUCC;
     }
 
@@ -213,6 +222,12 @@ int RestoreTask::RestoreTraversal(const std::string &path)
     // summarize the task
     this->successCount += successCount;
     this->failureCount += failureCount;
+    selinux_log(SELINUX_INFO, "Restore path finished ret = %d: " \
+        "path = %s, successCount = %d, failureCount = %d, " \
+        "IsInterrupted = %d, finished = %s, done = %d",
+        ret, path.c_str(), successCount, failureCount,
+        this->IsInterrupted(),
+        AnonymizePath(pathInfo->finished).c_str(), pathInfo->done);
     return ret;
 }
 
@@ -223,9 +238,9 @@ int RestoreTask::RestoreTraversal(
     bool skipping = !pathInfo->finished.empty();
     char *paths[2] = {const_cast<char*>(pathInfo->target.c_str()), nullptr};
     FTS *fts = fts_open(paths, FTS_PHYSICAL | FTS_NOCHDIR, CompareFtsEnt);
-    if (fts == nullptr) {
+    if (fts == nullptr) { // malloc failed
         selinux_log(SELINUX_ERROR, "fts_open failed on %s, errno: %s\n",
-            AnonymizePath(paths[0]).c_str(), strerror(errno));
+            paths[0], strerror(errno));
         return -SELINUX_FTS_OPEN_ERROR;
     }
     FTSENT *ftsent = nullptr;
@@ -261,6 +276,8 @@ int RestoreTask::RestoreTraversal(
                     } else if (checkRet == SKIP_THIS) {
                         continue;
                     }
+                    selinux_log(SELINUX_INFO, "RestoreTraversal starting at %s",
+                        AnonymizePath(ftsent->fts_path).c_str());
                 }
                 if (InnerRestoreconSb(ftsent->fts_path, APPDAT_CONTEXT) == SELINUX_SUCC) {
                     ++successCount;

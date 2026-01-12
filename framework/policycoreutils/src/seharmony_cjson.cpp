@@ -24,6 +24,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "seharmony_hisysevent_adapter.h"
 #include "selinux_error.h"
 #include "selinux_log.h"
 #include "selinux/selinux.h"
@@ -478,7 +479,10 @@ static int32_t InitRefreshInfo(RefreshInfo& refreshInfo, std::vector<std::string
     }
     if (refreshInfo.paths.empty()) {
         selinux_log(SELINUX_ERROR, "None of paths are realpath.");
-        return -SELINUX_PATH_INVALID;
+        Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName,
+            refreshInfo.uid, -SELINUX_PATH_INVALID,
+            "InitRefreshInfo: no found path.");
+        return -SELINUX_NO_FOUND_PATHS;
     }
     return SELINUX_SUCC;
 }
@@ -547,6 +551,9 @@ int32_t ReadRefreshInfo(RefreshInfo& refreshInfo, std::vector<std::string>& path
     if (root == nullptr) {
         RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "CreateJsonFromString failed");
+        Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName,
+            refreshInfo.uid, -SELINUX_JSON_INFO_INVALID,
+            "ReadRefreshInfo: Load json failed.");
         return SELINUX_SUCC;
     }
     RefreshInfo tmp = refreshInfo;
@@ -554,6 +561,8 @@ int32_t ReadRefreshInfo(RefreshInfo& refreshInfo, std::vector<std::string>& path
     if (res != SELINUX_SUCC) {
         refreshInfo = tmp;
         RemoveCfgFile(userId);
+        Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName,
+            refreshInfo.uid, res, "ReadRefreshInfo: Parse info from json failed.");
     }
     return SELINUX_SUCC;
 }
@@ -646,12 +655,17 @@ static CJsonUnique GetJsonRoot(std::string& jsonStr, uint32_t userId, RefreshInf
     if (root == nullptr) {
         RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "CreateJsonFromString failed.");
+        Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName,
+            refreshInfo.uid, -SELINUX_JSON_INFO_INVALID,
+            "GetJsonRoot: Load json failed.");
         return nullptr;
     }
     int32_t res = DeleteRefreshNode(root.get(), refreshInfo.bundleName, refreshInfo.uid);
     if (res != SELINUX_SUCC) {
         RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "Delete refresh info failed.");
+        Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName, refreshInfo.uid,
+                res, "GetJsonRoot: DeleteRefreshNode failed.");
         return nullptr;
     }
     return root;
@@ -674,6 +688,8 @@ int32_t WriteRefreshInfo(RefreshInfo& refreshInfo)
     if (!IsCfgFileExist(userId)) {
         res = CreateCfgFile(userId);
         if (res != SELINUX_SUCC) {
+            Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName, refreshInfo.uid,
+                res, "CreateCfgFile failed.");
             return res;
         }
     }
@@ -692,6 +708,8 @@ int32_t WriteRefreshInfo(RefreshInfo& refreshInfo)
         if (res != SELINUX_SUCC) {
             RemoveCfgFile(userId);
             selinux_log(SELINUX_ERROR, "Add refresh info failed.");
+            Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName, refreshInfo.uid,
+                res, "WriteRefreshInfo: AddRefreshInfo failed.");
             return res;
         }
     }
@@ -699,6 +717,8 @@ int32_t WriteRefreshInfo(RefreshInfo& refreshInfo)
     std::string content = PackJsonToString(root);
     res = WriteJsonFileContent(userId, content);
     if (res != SELINUX_SUCC) {
+        Selinux::ReportSeharmonyRestoreErr(refreshInfo.bundleName, refreshInfo.uid,
+                res, "WriteRefreshInfo: WriteJsonFileContent failed.");
         return res;
     }
     return SELINUX_SUCC;
@@ -731,17 +751,24 @@ int32_t DeleteRefreshInfo(const std::string& bundleName, uint32_t uid)
     if (root == nullptr) {
         RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "Create json from string failed.");
+        Selinux::ReportSeharmonyRestoreErr(bundleName,
+            uid, -SELINUX_JSON_INFO_INVALID,
+            "DeleteRefreshInfo: Load json failed.");
         return -SELINUX_PTR_NULL;
     }
     res = DeleteRefreshNode(root.get(), bundleName, uid);
     if (res != SELINUX_SUCC) {
         RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "Delete refresh info failed.");
+        Selinux::ReportSeharmonyRestoreErr(bundleName, uid,
+                res, "DeleteRefreshInfo: DeleteRefreshNode failed.");
         return res;
     }
     std::string content = PackJsonToString(root);
     res = WriteJsonFileContent(userId, content);
     if (res != SELINUX_SUCC) {
+        Selinux::ReportSeharmonyRestoreErr(bundleName, uid,
+                res, "DeleteRefreshInfo: WriteJsonFileContent failed.");
         return res;
     }
     return SELINUX_SUCC;
