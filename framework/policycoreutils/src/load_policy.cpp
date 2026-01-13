@@ -117,15 +117,16 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
+    fdsan_exchange_owner_tag(fd, 0, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
     struct stat sb;
     if (fstat(fd, &sb) < 0) {
         selinux_log(SELINUX_ERROR, "Stat policy file failed\n");
-        close(fd);
+        fdsan_close_with_tag(fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
     if (sb.st_size < 0) {
-        close(fd);
+        fdsan_close_with_tag(fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
@@ -133,11 +134,11 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
     *data = mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (*data == MAP_FAILED) {
         selinux_log(SELINUX_ERROR, "Mmap policy file failed\n");
-        close(fd);
+        fdsan_close_with_tag(fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
-    close(fd);
+    fdsan_close_with_tag(fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
     DeleteTmpPolicyFile(policyFile);
     return true;
 }

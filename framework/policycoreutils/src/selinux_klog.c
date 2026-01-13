@@ -38,6 +38,7 @@ static void SelinuxOpenLogDevice(void)
 {
     int fd = open("/dev/kmsg", O_WRONLY | O_CLOEXEC);
     if (fd >= 0) {
+        fdsan_exchange_owner_tag(fd, 0, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         g_fd = fd;
     }
     return;
@@ -62,7 +63,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
     va_start(vargs, fmt);
     char tmpFmt[MAX_LOG_SIZE];
     if (vsnprintf_s(tmpFmt, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, fmt, vargs) == -1) {
-        close(g_fd);
+        fdsan_close_with_tag(g_fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         g_fd = -1;
         va_end(vargs);
         return -1;
@@ -77,7 +78,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
         res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "%s", tmpFmt);
     }
     if (res == -1) {
-        close(g_fd);
+        fdsan_close_with_tag(g_fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         g_fd = -1;
         va_end(vargs);
         return -1;
@@ -85,7 +86,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
     va_end(vargs);
 
     if (write(g_fd, logInfo, strlen(logInfo)) < 0) {
-        close(g_fd);
+        fdsan_close_with_tag(g_fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         g_fd = -1;
     }
     return 0;
