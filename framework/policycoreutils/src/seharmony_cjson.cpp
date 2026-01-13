@@ -462,23 +462,19 @@ static int32_t InitRefreshInfo(RefreshInfo& refreshInfo, std::vector<std::string
         selinux_log(SELINUX_ERROR, "Path list is empty.");
         return -SELINUX_PATH_INVALID;
     }
-    char realPath[PATH_MAX + 1];
     for (auto& pathName : pathNameOrig) {
         if (pathName.empty()) {
             continue;
         }
-        char* path = realpath(pathName.c_str(), realPath);
-        if (path == nullptr) {
+        char* realPath = realpath(pathName.c_str(), nullptr);
+        if (realPath == nullptr) {
             continue;
         }
         // Hash collision, we do not handle it.
         auto pathInfo = std::make_shared<PathInfo>();
-        if (pathInfo == nullptr) {
-            selinux_log(SELINUX_ERROR, "pathInfo is null.");
-            return -SELINUX_PTR_NULL;
-        }
         pathInfo->target = realPath;
         refreshInfo.paths[realPath] = pathInfo;
+        free(realPath);
     }
     if (refreshInfo.paths.empty()) {
         selinux_log(SELINUX_ERROR, "None of paths are realpath.");
@@ -549,8 +545,9 @@ int32_t ReadRefreshInfo(RefreshInfo& refreshInfo, std::vector<std::string>& path
     }
     CJsonUnique root = CreateJsonFromString(jsonStr);
     if (root == nullptr) {
+        RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "CreateJsonFromString failed");
-        return -SELINUX_PTR_NULL;
+        return SELINUX_SUCC;
     }
     RefreshInfo tmp = refreshInfo;
     res = UpdateRefreshInfo(root.get(), refreshInfo);
@@ -640,13 +637,14 @@ static bool RefreshInfoAllDone(RefreshInfo& refreshInfo)
     return true;
 }
 
-CJsonUnique GetJsonRoot(std::string& jsonStr, uint32_t userId, RefreshInfo& refreshInfo)
+static CJsonUnique GetJsonRoot(std::string& jsonStr, uint32_t userId, RefreshInfo& refreshInfo)
 {
     if (jsonStr.empty()) {
         return CreateJsonArray();
     }
     CJsonUnique root = CreateJsonFromString(jsonStr);
     if (root == nullptr) {
+        RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "CreateJsonFromString failed.");
         return nullptr;
     }
@@ -731,6 +729,7 @@ int32_t DeleteRefreshInfo(const std::string& bundleName, uint32_t uid)
     }
     CJsonUnique root = CreateJsonFromString(jsonStr);
     if (root == nullptr) {
+        RemoveCfgFile(userId);
         selinux_log(SELINUX_ERROR, "Create json from string failed.");
         return -SELINUX_PTR_NULL;
     }
