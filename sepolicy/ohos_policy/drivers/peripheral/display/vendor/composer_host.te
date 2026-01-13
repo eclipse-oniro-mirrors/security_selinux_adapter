@@ -11,18 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow composer_host accessibility_param:file { map open read };
 allow composer_host allocator_host:fd { use };
 allow composer_host bootanimation:fd { use };
-allow composer_host bootevent_param:file { map open read };
 allow composer_host bootevent_samgr_param:file { map open read };
 allow composer_host build_version_param:file { map open read };
-allow composer_host const_allow_mock_param:file { map open read };
 allow composer_host const_allow_param:file { map open read };
 allow composer_host const_build_param:file { map open read };
-allow composer_host const_display_brightness_param:file { map open read };
 allow composer_host const_param:file { map open read };
-allow composer_host const_postinstall_fstab_param:file { map open read };
 allow composer_host const_postinstall_param:file { map open read };
 allow composer_host const_product_param:file { map open read };
 allow composer_host debug_param:file { map open read };
@@ -46,27 +41,21 @@ allow composer_host hw_sc_build_param:file { map open read };
 allow composer_host hw_sc_param:file { map open read };
 allow composer_host init_param:file { map open read };
 allow composer_host init_svc_param:file { map open read };
-allow composer_host input_pointer_device_param:file { map open read };
 allow composer_host net_param:file { map open read };
-allow composer_host net_tcp_param:file { map open read };
 allow composer_host normal_hap_attr:fd { use };
 allow composer_host ohos_boot_param:file { map read read open };
 allow composer_host ohos_param:file { map open read };
 allow composer_host persist_param:file { map open read };
-allow composer_host persist_sys_param:file { map open read };
 allow composer_host proc_boot_id:file { open read };
 allow composer_host render_service:binder { call };
 allow composer_host render_service:fd { use };
 allow composer_host sa_device_service_manager:samgr_class { get };
 allow composer_host samgr:binder { call };
-allow composer_host security_param:file { map open read };
 allow composer_host startup_param:file { map open read };
 allow composer_host sys_file:file { open read write };
-allow composer_host sys_param:file { map open read };
 allow composer_host system_basic_hap_attr:fd { use };
 allow composer_host system_bin_file:dir { search };
 allow composer_host system_core_hap_attr:fd { use };
-allow composer_host sys_usb_param:file { map open read };
 allow composer_host vendor_etc_file:dir { search };
 allow composer_host vendor_etc_file:file { getattr open read };
 allow composer_host dev_console_file:chr_file { read write };
@@ -78,9 +67,6 @@ allow composer_host tracefs_trace_marker_file:file { open write };
 allow composer_host tracefs:dir { search };
 allow composer_host param_watcher:binder { call transfer };
 allow composer_host sa_param_watcher:samgr_class { get };
-allow composer_host ffrt_param:parameter_service { set };
-allow composer_host ffrt_param:file { read open map };
-allow composer_host bootevent_param:parameter_service { set };
 allow composer_host paramservice_socket:sock_file { write };
 allow composer_host kernel:unix_stream_socket { connectto };
 
