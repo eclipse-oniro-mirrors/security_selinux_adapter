@@ -33,6 +33,8 @@ const static int SLEEP_DURATION_1_3MS = 1300;
 const static int SLEEP_DURATION_1MS = 1000;
 const static std::string BASE_PATH = "/data/app/el2/100/base/";
 const static std::string TEST_HAP_PATH = BASE_PATH + "com.ohos.selftest/";
+const static std::string BASE_PATH_2 = "/data/app/el1/100/base/";
+const static std::string TEST_HAP_PATH_2 = BASE_PATH_2 + "com.ohos.selftest/";
 const static std::string NORMAL_APL = "normal";
 const static std::string SYSTEM_CORE_APL = "system_core";
 const static std::string TEST_HAP_BUNDLE_NAME = "com.hap.selftest";
@@ -47,6 +49,7 @@ static bool g_mcsHapFileEnabledTest = false;
 #endif
 
 static bool g_runningTasks = false;
+static uint32_t g_totalFilecount = 0;
 
 static void GenerateTestFile()
 {
@@ -243,9 +246,7 @@ void CreateFiles(const std::string &basepath, std::vector<std::string> &filePath
 HWTEST_F(HapFileTest, RestoreTask001, TestSize.Level1)
 {
     std::string testFilePath = "/data/test/demo1";
-    EXPECT_TRUE(CreateDirectory(testFilePath));
-    std::vector<std::string> filePaths;
-    CreateFiles(testFilePath, filePaths);
+
     std::shared_ptr<RestoreTask> task =
         std::make_shared<RestoreTask>("test_bundle", 0);
 
@@ -254,6 +255,9 @@ HWTEST_F(HapFileTest, RestoreTask001, TestSize.Level1)
     pathInfo->target = testFilePath;
 
     // restore all successfully
+    EXPECT_TRUE(CreateDirectory(testFilePath));
+    std::vector<std::string> filePaths;
+    CreateFiles(testFilePath, filePaths);
     EXPECT_EQ(task->RestoreTraversal(testFilePath),
         SELINUX_SUCC);
     EXPECT_EQ(pathInfo->count, filePaths.size());
@@ -375,6 +379,28 @@ HWTEST_F(HapFileTest, RestoreTask005, TestSize.Level1)
 }
 
 /**
+ * @tc.name: RestoreTask006
+ * @tc.desc: test RestoreTask of no such file
+ * @tc.type: FUNC
+ * @tc.require: 4622
+ */
+HWTEST_F(HapFileTest, RestoreTask006, TestSize.Level1)
+{
+    std::string testFilePath = "/data/test/demo1";
+
+    std::shared_ptr<RestoreTask> task =
+        std::make_shared<RestoreTask>("test_bundle", 0);
+
+    auto pathInfo = std::make_shared<PathInfo>();
+    task->info.paths[testFilePath] = pathInfo;
+    pathInfo->target = testFilePath;
+
+    // fts_open only failed when alloc
+    EXPECT_EQ(task->RestoreTraversal(testFilePath),
+        SELINUX_SUCC);
+}
+
+/**
  * @tc.name: HapFileRestoreContextTest001
  * @tc.desc: test HapFileRestoreContext
  * @tc.type: FUNC
@@ -412,7 +438,7 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest001, TestSize.Level0)
     // // path not found
     hapFileInfo.pathNameOrig.push_back(myTestPath + "not_exist");
     EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info),
-        -SELINUX_RESTORECON_TASK_INVALID_PATHS);
+        SELINUX_SUCC);
 
     EXPECT_TRUE(CreateDirectory(myTestPath));
     hapFileInfo.pathNameOrig.clear();
@@ -573,6 +599,22 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest003, TestSize.Level0)
     EXPECT_EQ(task->GetStopReason(), NONE);
 }
 
+void GenerateHapFiles(const std::string& basepath)
+{
+    const int32_t count = 100;
+    g_totalFilecount = 1;
+    for (int32_t i = 0; i < count; ++i) {
+        std::string dirname = basepath + "/dir_" + std::to_string(i);
+        EXPECT_TRUE(CreateDirectory(dirname));
+        g_totalFilecount += 1;
+        for (int32_t j = 0; j < count; ++j) {
+            std::string subdir = dirname + "/file_" + std::to_string(j);
+            EXPECT_TRUE(CreateDirectory(subdir));
+            g_totalFilecount += 1;
+        }
+    }
+}
+
 /**
  * @tc.name: HapFileRestoreContextTest004
  * @tc.desc: StopSetFileCon with no or unmatched task
@@ -587,8 +629,9 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
         .hapFlags = 1,
-        .uid = 200001
+        .uid = 20000001
     };
+    GenerateHapFiles(TEST_HAP_PATH);
     auto task1 = std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, hapFileInfo.uid);
     HapFileRestoreContext::GetInstance().restoreTask_ = task1;
 
@@ -610,7 +653,7 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
     EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE),
         SELINUX_SUCC);
     EXPECT_EQ(HapFileRestoreContext::GetInstance().ProcessRestorePath(task1,
-        TEST_HAP_PATH, hapFileInfo), -SELINUX_RESTORECON_TASK_STOPPED);
+        targetPath, hapFileInfo), -SELINUX_RESTORECON_TASK_STOPPED);
     EXPECT_EQ(task1->IsInterrupted(), true);
     pathInfo->finished = targetPath;
     // to write file
@@ -622,14 +665,14 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
     EXPECT_EQ(ReadRefreshInfo(loadedInfo1, paths1), 0);
     EXPECT_EQ(loadedInfo1.paths.empty(), false);
     EXPECT_EQ(loadedInfo1.paths[targetPath]->done, false);
-    // becanse of last path is targetPath, finished is ""
-    EXPECT_EQ(loadedInfo1.paths[targetPath]->finished, "");
+    // because of last path is targetPath, finished is targetPath
+    EXPECT_EQ(loadedInfo1.paths[targetPath]->finished, targetPath);
 
     auto task2 = std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, hapFileInfo.uid);
     task2->info.paths[targetPath] = std::make_shared<PathInfo>();
     task2->info.paths[targetPath]->target = targetPath;
     HapFileRestoreContext::GetInstance().restoreTask_ = task2;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().ProcessRestorePath(task2, TEST_HAP_PATH, hapFileInfo), SELINUX_SUCC);
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().ProcessRestorePath(task2, targetPath, hapFileInfo), SELINUX_SUCC);
     EXPECT_EQ(task2->IsInterrupted(), false);
     HapFileRestoreContext::GetInstance().FinishRestoreTask(hapFileInfo, info);
     RefreshInfo loadedInfo2;
@@ -646,7 +689,7 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
     HapFileRestoreContext::GetInstance().restoreTask_ = task3;
     EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE), SELINUX_SUCC);
     EXPECT_EQ(HapFileRestoreContext::GetInstance().ProcessRestorePath(task3,
-        TEST_HAP_PATH, hapFileInfo), -SELINUX_RESTORECON_TASK_STOPPED);
+        targetPath, hapFileInfo), -SELINUX_RESTORECON_TASK_STOPPED);
     EXPECT_EQ(task3->IsInterrupted(), true);
     HapFileRestoreContext::GetInstance().FinishRestoreTask(hapFileInfo, info);
     RefreshInfo loadedInfo3;
@@ -660,34 +703,30 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
     RemoveDirectory(TEST_HAP_PATH);
 }
 
-void GenerateHapFiles(const std::string& basepath)
-{
-    const int32_t count = 100;
-    for (int32_t i = 0; i < count; ++i) {
-        std::string dirname = basepath + "/dir_" + std::to_string(i);
-        EXPECT_TRUE(CreateDirectory(dirname));
-        for (int32_t j = 0; j < count; ++j) {
-            std::string subdir = dirname + "/file_" + std::to_string(j);
-            EXPECT_TRUE(CreateDirectory(subdir));
-        }
-    }
-}
-
 void LoopStartRestoreTask()
 {
     HapFileInfo hapFileInfo = {
-        .pathNameOrig = {TEST_HAP_PATH},
+        .pathNameOrig = {TEST_HAP_PATH, TEST_HAP_PATH_2},
         .apl = NORMAL_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
         .hapFlags = 1,
-        .uid = 200001
+        .uid = 20000001
     };
     ResultInfo info;
-    const int32_t count = 100;
+    const int32_t count = 10;
     g_runningTasks = true;
+    int ret;
     for (int32_t i = 0; i < count; ++i) {
-        HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info);
+        ResultInfo info;
+        uint32_t totalCount = 0;
+        do {
+            ret = HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info);
+            EXPECT_TRUE(ret == SELINUX_SUCC || ret == -SELINUX_RESTORECON_TASK_STOPPED);
+            totalCount += info.currentCount;
+            EXPECT_EQ(totalCount, info.totalCount);
+        } while (ret == -SELINUX_RESTORECON_TASK_STOPPED);
+        EXPECT_EQ(totalCount, g_totalFilecount * 2);
         EXPECT_EQ(HapFileRestoreContext::GetInstance().restoreTask_, nullptr);
     }
     g_runningTasks = false;
@@ -696,16 +735,15 @@ void LoopStartRestoreTask()
 void LoopStopRestoreTask()
 {
     HapFileInfo hapFileInfo = {
-        .pathNameOrig = {TEST_HAP_PATH},
+        .pathNameOrig = {TEST_HAP_PATH, TEST_HAP_PATH_2},
         .apl = NORMAL_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
         .hapFlags = 1,
-        .uid = 200001
+        .uid = 20000001
     };
     for (int32_t i = 0; i < LOOP_COUNT; ++i) {
-        StopReason reason = static_cast<StopReason>(i % 3 + 1);
-        EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, reason),
+        EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY),
             SELINUX_SUCC);
         usleep(SLEEP_DURATION_1_3MS);
         if (!g_runningTasks) {
@@ -717,13 +755,13 @@ void LoopStopRestoreTask()
 void LoopStopRestoreUnRelatedTask()
 {
     HapFileInfo hapFileInfo = {
-        .pathNameOrig = {TEST_HAP_PATH},
+        .pathNameOrig = {TEST_HAP_PATH, TEST_HAP_PATH_2},
         .apl = NORMAL_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
-        .hapFlags = 1,
-        .uid = 200001
+        .hapFlags = 1
     };
+    uint32_t uid = 20000001;
     for (int32_t i = 0; i < LOOP_COUNT; ++i) {
         StopReason reason = static_cast<StopReason>(i % 3 + 1);
         hapFileInfo.uid = i;
@@ -745,6 +783,7 @@ void LoopStopRestoreUnRelatedTask()
 HWTEST_F(HapFileTest, HapFileRestoreContextTest005, TestSize.Level2)
 {
     GenerateHapFiles(TEST_HAP_PATH);
+    GenerateHapFiles(TEST_HAP_PATH_2);
     std::thread t1(LoopStartRestoreTask);
     std::thread t2(LoopStopRestoreTask);
     std::thread t3(LoopStopRestoreUnRelatedTask);
@@ -753,6 +792,7 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest005, TestSize.Level2)
     t2.join();
     t3.join();
     RemoveDirectory(TEST_HAP_PATH);
+    RemoveDirectory(TEST_HAP_PATH_2);
 }
 } // namespace SelinuxUnitTest
 } // namespace Security

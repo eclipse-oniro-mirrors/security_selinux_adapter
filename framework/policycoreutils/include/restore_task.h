@@ -60,6 +60,7 @@ public:
     int RestoreTraversal(const std::string &path);
     int RestoreTraversal(std::shared_ptr<PathInfo> pathInfo, uint32_t& successCount, uint32_t& failureCount);
     void GetProgress(uint32_t& totalCount, std::vector<std::string>& currentPath);
+    void GetRestorePaths(std::vector<std::string>& paths);
 private:
     bool isInterrupted_ {false};
 
