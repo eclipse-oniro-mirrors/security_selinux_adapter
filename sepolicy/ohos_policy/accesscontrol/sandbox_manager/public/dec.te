@@ -16,10 +16,10 @@ type dev_dec, dev_attr;
 neverallow { domain -sandbox_manager_service -appspawn } dev_dec:chr_file { ioctl open read write };
 
 allow appspawn dev_dec:chr_file { read write open ioctl };
-allowxperm appspawn dev_dec:chr_file ioctl { 0x7306 0x7301 };
+allowxperm appspawn dev_dec:chr_file ioctl { 0x7306 0x7301 0x7308 };
 
 allow sandbox_manager_service dev_dec:chr_file { ioctl open read write };
-allowxperm sandbox_manager_service dev_dec:chr_file ioctl { 0x7301 0x7302 0x7303 0x7304 0x7305 0x7309 };
+allowxperm sandbox_manager_service dev_dec:chr_file ioctl { 0x7301 0x7302 0x7303 0x7304 0x7305 0x7307 0x7309 };
 
 allow ueventd dev_dec:chr_file { relabelto };
 
