@@ -30,7 +30,7 @@ void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)
     if (fd < 0) {
         return NULL;
     }
-
+    fdsan_exchange_owner_tag(fd, 0, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
     int prot = PROT_READ;
     if (!readOnly) {
         prot = PROT_READ | PROT_WRITE;
@@ -38,10 +38,10 @@ void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)
     }
     void *sharedMem = (void *)mmap(NULL, spaceSize, prot, MAP_SHARED, fd, 0);
     if (sharedMem == MAP_FAILED) {
-        close(fd);
+        fdsan_close_with_tag(fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
         return NULL;
     }
-    close(fd);
+    fdsan_close_with_tag(fd, fdsan_create_owner_tag(FDSAN_OWNER_TYPE_FILE, 0xC05A03));
     return sharedMem;
 }
 
