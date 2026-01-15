@@ -60,6 +60,7 @@ allow telecom sa_miscdevice_service:samgr_class { get };
 binder_call(telecom, powermgr);
 binder_call(telecom, resource_schedule_service);
 allow telecom sa_powermgr_powermgr_service:samgr_class { get };
+allow telecom sa_time_service:samgr_class { get };
 allow telecom data_service_el1_shadercache:dir { search };
 allow telecom sysfs_devices_system_cpu:file { getattr open read };
 
