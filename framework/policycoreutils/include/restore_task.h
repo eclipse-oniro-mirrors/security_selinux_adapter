@@ -45,13 +45,13 @@ public:
     uint32_t failureCount = 0;
 public:
     RestoreTask(std::string bundleName, uint32_t uid);
-    bool TryToStop(StopReason stopReason, bool shouldSave);
+    bool TryToStop(StopReason stopReason, const std::string& stopDesc, bool shouldSave);
 
     void SetInterrupted();
 
     bool IsInterrupted();
 
-    StopReason GetStopReason();
+    StopReason GetStopReason(std::string& stopDesc);
 
     bool GetShouldSave();
 
@@ -68,6 +68,7 @@ private:
     std::mutex stopLock_;
     bool stopRequested_ {false};
     StopReason stopReason_ {StopReason::NONE};
+    std::string stopDesc_ = "";
     bool shouldSave_ {true};
 };
 }

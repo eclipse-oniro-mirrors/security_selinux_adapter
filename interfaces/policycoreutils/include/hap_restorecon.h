@@ -126,8 +126,8 @@ class HapFileRestoreContext : public HapContext {
 public:
     static HapFileRestoreContext& GetInstance();
     ~HapFileRestoreContext();
-    int SetFileConForce(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo);
-    int StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason);
+    int SetFileConForce(const HapFileInfo& hapFileInfo, const uint32_t remainingNum, ResultInfo& resultInfo);
+    int StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason, const std::string& stopDesc);
 
 private:
     HapFileRestoreContext();

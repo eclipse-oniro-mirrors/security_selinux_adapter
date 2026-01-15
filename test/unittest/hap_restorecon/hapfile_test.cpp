@@ -341,7 +341,7 @@ HWTEST_F(HapFileTest, RestoreTask004, TestSize.Level0)
     std::string testFilePath = "/data/test/demo1";
     std::shared_ptr<RestoreTask> task =
         std::make_shared<RestoreTask>("test_bundle", 0);
-    EXPECT_TRUE(task->TryToStop(UPDATE, true));
+    EXPECT_TRUE(task->TryToStop(UPDATE, "UPDATE", true));
     auto pathInfo = std::make_shared<PathInfo>();
     task->info.paths[testFilePath] = pathInfo;
     pathInfo->target = testFilePath;
@@ -363,19 +363,20 @@ HWTEST_F(HapFileTest, RestoreTask005, TestSize.Level1)
         std::make_shared<RestoreTask>("test_bundle", 0);
     EXPECT_EQ(task->info.bundleName, "test_bundle");
     EXPECT_EQ(task->info.uid, 0);
-    EXPECT_TRUE(task->TryToStop(UPDATE, true));
+    EXPECT_TRUE(task->TryToStop(UPDATE, "UPDATE", true));
     EXPECT_TRUE(task->IsStopping());
     EXPECT_EQ(task->GetShouldSave(), true);
-    EXPECT_EQ(task->GetStopReason(), UPDATE);
+    std::string stopDesc;
+    EXPECT_EQ(task->GetStopReason(stopDesc), UPDATE);
 
-    EXPECT_TRUE(task->TryToStop(DELETE, false));
+    EXPECT_TRUE(task->TryToStop(DELETE, "DELETE", false));
     EXPECT_EQ(task->GetShouldSave(), false);
-    EXPECT_EQ(task->GetStopReason(), DELETE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), DELETE);
 
     // cannot change to busy
-    EXPECT_FALSE(task->TryToStop(BUSY, true));
+    EXPECT_FALSE(task->TryToStop(BUSY, "BUSY", true));
     EXPECT_EQ(task->GetShouldSave(), false);
-    EXPECT_EQ(task->GetStopReason(), DELETE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), DELETE);
 }
 
 /**
@@ -420,37 +421,37 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest001, TestSize.Level0)
         .uid = 100
     };
 
-    HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE);
+    HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE, "DELETE");
 
     ResultInfo info;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, 1, info),
         SELINUX_SUCC);
 
     hapFileInfo.apl = NORMAL_APL;
     hapFileInfo.packageName = "";
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, 1, info),
         -SELINUX_ARG_INVALID);
 
     hapFileInfo.packageName = TEST_HAP_BUNDLE_NAME;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, 1, info),
         -SELINUX_ARG_INVALID);
 
     // // path not found
     hapFileInfo.pathNameOrig.push_back(myTestPath + "not_exist");
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, 1, info),
         SELINUX_SUCC);
 
     EXPECT_TRUE(CreateDirectory(myTestPath));
     hapFileInfo.pathNameOrig.clear();
     hapFileInfo.pathNameOrig.push_back(myTestPath);
     
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, 1, info),
         SELINUX_SUCC);
     EXPECT_EQ(info.currentCount, 1);
     EXPECT_EQ(info.totalCount, 1);
     
     RemoveDirectory(myTestPath);
-    HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE);
+    HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE, "DELETE");
 }
 
 /**
@@ -469,78 +470,79 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest002, TestSize.Level0)
         .hapFlags = 1,
     };
     // no task, app is appdat, noting to do
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE, "UPDATE"),
         SELINUX_SUCC);
 
     // task is runng, app is appdat, to stop
     std::shared_ptr<RestoreTask> task =
         std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, 0);
     HapFileRestoreContext::GetInstance().restoreTask_ = task;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE, "UPDATE"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_TRUE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), UPDATE);
+    std::string stopDesc;
+    EXPECT_EQ(task->GetStopReason(stopDesc), UPDATE);
     HapFileRestoreContext::GetInstance().restoreTask_ = nullptr;
 
     task = std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, 0);
     HapFileRestoreContext::GetInstance().restoreTask_ = task;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY, "BUSY"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_TRUE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), BUSY);
+    EXPECT_EQ(task->GetStopReason(stopDesc), BUSY);
     HapFileRestoreContext::GetInstance().restoreTask_ = nullptr;
 
     task = std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, 0);
     HapFileRestoreContext::GetInstance().restoreTask_ = task;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE, "DELETE"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_FALSE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), DELETE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), DELETE);
     HapFileRestoreContext::GetInstance().restoreTask_ = nullptr;
 
     // context is change, to delete
     hapFileInfo.apl = SYSTEM_CORE_APL;
         task = std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, 0);
     HapFileRestoreContext::GetInstance().restoreTask_ = task;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE, "UPDATE"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_FALSE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), UPDATE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), UPDATE);
     HapFileRestoreContext::GetInstance().restoreTask_ = nullptr;
     hapFileInfo.apl = NORMAL_APL;
 
     // busy and then delete, reason is change
     task = std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, 0);
     HapFileRestoreContext::GetInstance().restoreTask_ = task;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY, "BUSY"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_TRUE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), BUSY);
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE),
+    EXPECT_EQ(task->GetStopReason(stopDesc), BUSY);
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE, "DELETE"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_FALSE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), DELETE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), DELETE);
     HapFileRestoreContext::GetInstance().restoreTask_ = nullptr;
 
     // delete and then busy, reason is not change
     task = std::make_shared<RestoreTask>(TEST_HAP_BUNDLE_NAME, 0);
     HapFileRestoreContext::GetInstance().restoreTask_ = task;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE, "DELETE"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_FALSE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), DELETE);
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY),
+    EXPECT_EQ(task->GetStopReason(stopDesc), DELETE);
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY, "BUSY"),
         SELINUX_SUCC);
     EXPECT_TRUE(task->IsStopping());
     EXPECT_FALSE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), DELETE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), DELETE);
     HapFileRestoreContext::GetInstance().restoreTask_ = nullptr;
 }
 
@@ -560,13 +562,13 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest003, TestSize.Level0)
         .hapFlags = 1,
     };
     // no task, try to delete
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE, "DELETE"),
         SELINUX_SUCC);
 
     // no task, noting todo
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY, "BUSY"),
         SELINUX_SUCC);
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE, "UPDATE"),
         SELINUX_SUCC);
 
     // delete and then busy, reason is not change
@@ -580,23 +582,24 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest003, TestSize.Level0)
         .flags = 0,
         .hapFlags = 1,
     };
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo2, DELETE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo2, DELETE, "DELETE"),
         SELINUX_SUCC);
     EXPECT_FALSE(task->IsStopping());
     EXPECT_TRUE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), NONE);
+    std::string stopDesc;
+    EXPECT_EQ(task->GetStopReason(stopDesc), NONE);
 
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo2, UPDATE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo2, UPDATE, "UPDATE"),
         SELINUX_SUCC);
     EXPECT_FALSE(task->IsStopping());
     EXPECT_TRUE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), NONE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), NONE);
 
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo2, BUSY),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo2, BUSY, "BUSY"),
         SELINUX_SUCC);
     EXPECT_FALSE(task->IsStopping());
     EXPECT_TRUE(task->GetShouldSave());
-    EXPECT_EQ(task->GetStopReason(), NONE);
+    EXPECT_EQ(task->GetStopReason(stopDesc), NONE);
 }
 
 void GenerateHapFiles(const std::string& basepath)
@@ -637,7 +640,7 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
 
     // cannot start again
     ResultInfo info;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, 1, info),
         -SELINUX_RESTORECON_TASK_ALREADY_RUNNING);
 
     EXPECT_TRUE(CreateDirectory(TEST_HAP_PATH));
@@ -650,7 +653,7 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
     task1->info.paths[targetPath] = pathInfo;
     pathInfo->target = targetPath;
 
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE),
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, UPDATE, "UPDATE"),
         SELINUX_SUCC);
     EXPECT_EQ(HapFileRestoreContext::GetInstance().ProcessRestorePath(task1,
         targetPath, hapFileInfo), -SELINUX_RESTORECON_TASK_STOPPED);
@@ -687,7 +690,7 @@ HWTEST_F(HapFileTest, HapFileRestoreContextTest004, TestSize.Level0)
     task3->info.paths[targetPath] = std::make_shared<PathInfo>();
     task3->info.paths[targetPath]->target = targetPath;
     HapFileRestoreContext::GetInstance().restoreTask_ = task3;
-    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE), SELINUX_SUCC);
+    EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, DELETE, "DELETE"), SELINUX_SUCC);
     EXPECT_EQ(HapFileRestoreContext::GetInstance().ProcessRestorePath(task3,
         targetPath, hapFileInfo), -SELINUX_RESTORECON_TASK_STOPPED);
     EXPECT_EQ(task3->IsInterrupted(), true);
@@ -721,7 +724,7 @@ void LoopStartRestoreTask()
         ResultInfo info;
         uint32_t totalCount = 0;
         do {
-            ret = HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, info);
+            ret = HapFileRestoreContext::GetInstance().SetFileConForce(hapFileInfo, 1, info);
             EXPECT_TRUE(ret == SELINUX_SUCC || ret == -SELINUX_RESTORECON_TASK_STOPPED);
             totalCount += info.currentCount;
             EXPECT_EQ(totalCount, info.totalCount);
@@ -743,7 +746,7 @@ void LoopStopRestoreTask()
         .uid = 20000001
     };
     for (int32_t i = 0; i < LOOP_COUNT; ++i) {
-        EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY),
+        EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, BUSY, "BUSY"),
             SELINUX_SUCC);
         usleep(SLEEP_DURATION_1_3MS);
         if (!g_runningTasks) {
@@ -765,7 +768,7 @@ void LoopStopRestoreUnRelatedTask()
     for (int32_t i = 0; i < LOOP_COUNT; ++i) {
         StopReason reason = static_cast<StopReason>(i % 3 + 1);
         hapFileInfo.uid = i;
-        EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, reason),
+        EXPECT_EQ(HapFileRestoreContext::GetInstance().StopSetFileCon(hapFileInfo, reason, "STOP"),
             SELINUX_SUCC);
         usleep(SLEEP_DURATION_1MS);
         if (!g_runningTasks) {

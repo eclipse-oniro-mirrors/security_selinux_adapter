@@ -28,6 +28,7 @@ SEHM_HAPFILE_RESTORE_START:
   APL: {type: STRING, desc: application type}
   HAP_FLAGS: {type: INT32, desc: hap restore flags}
   FLAGS: {type: INT32, desc: restore flags}
+  REMAINING_NUMBER: {type: INT32, desc: remaining number of bundle}
 
 SEHM_HAPFILE_RESTORE_FINISH:
   __BASE: {type: STATISTIC, level: CRITICAL, desc: Finish restoring the label}
@@ -40,4 +41,5 @@ SEHM_HAPFILE_RESTORE_FINISH:
   COUNT: {type: INT32, desc: number of files processed at this time}
   ERROR_COUNT: {type: INT32, desc: number of errors failed}
   TOTAL_COUNT: {type: INT32, desc: total number of files processed}
+  INTERRUPT_SCENE_DESC: {type: STRING, desc: Scene interruption description}
 

@@ -155,14 +155,14 @@ int main(int argc, char *argv[])
         printf("1. Starting SetFileConForce in background thread...\n");
         std::thread t([&forceTest, hapFileInfo]() {
             ResultInfo resultInfo;
-            int r = forceTest.SetFileConForce(hapFileInfo, resultInfo);
+            int r = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
             printf("Thread finished with result: %d, total: %u, current: %u\n",
                 r, resultInfo.totalCount, resultInfo.currentCount);
         });
         printf("2. Sleeping %ds...\n", WAIT_TIME_5S);
         sleep(WAIT_TIME_5S);
         printf("3. Calling StopSetFileCon...\n");
-        res = forceTest.StopSetFileCon(hapFileInfo, StopReason::BUSY);
+        res = forceTest.StopSetFileCon(hapFileInfo, StopReason::BUSY, "BUSY");
         printf("Stop result: %d\n", res);
         if (t.joinable()) {
             t.join();
@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
         sleep(WAIT_TIME_5S);
         printf("5. Resuming SetFileConForce...\n");
         ResultInfo resultInfo;
-        res = forceTest.SetFileConForce(hapFileInfo, resultInfo);
+        res = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
         printf("Resume finished with result: %d, total: %u, current: %u\n",
             res, resultInfo.totalCount, resultInfo.currentCount);
     } else if (testCmd.force) {
@@ -188,14 +188,14 @@ int main(int argc, char *argv[])
             printf("=== Running with timeout: %d seconds ===\n", testCmd.runTime);
             std::thread t([&forceTest, hapFileInfo]() {
                 ResultInfo resultInfo;
-                int r = forceTest.SetFileConForce(hapFileInfo, resultInfo);
+                int r = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
                 printf("Thread finished with result: %d, total: %u, current: %u\n",
                     r, resultInfo.totalCount, resultInfo.currentCount);
             });
 
             sleep(testCmd.runTime);
             printf("=== Timeout reached, stopping task... ===\n");
-            res = forceTest.StopSetFileCon(hapFileInfo, static_cast<StopReason>(testCmd.stopReason));
+            res = forceTest.StopSetFileCon(hapFileInfo, static_cast<StopReason>(testCmd.stopReason), "STOP");
             printf("Stop result: %d\n", res);
 
             if (t.joinable()) {
@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
             }
         } else {
             ResultInfo resultInfo;
-            res = forceTest.SetFileConForce(hapFileInfo, resultInfo);
+            res = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
             std::cout << GetErrStr(res) << " total: " << resultInfo.totalCount <<
             " current: " << resultInfo.currentCount << std::endl;
         }
@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
             .uid = testCmd.uid
         };
-        res = forceTest.StopSetFileCon(hapFileInfo, static_cast<StopReason>(testCmd.stopReason));
+        res = forceTest.StopSetFileCon(hapFileInfo, static_cast<StopReason>(testCmd.stopReason), "STOP");
         std::cout << "Stop result: " << GetErrStr(res) << std::endl;
     } else if (!testCmd.domain) {
         HapFileInfo hapFileInfo = {
