@@ -59,6 +59,7 @@ allow telecom sa_miscdevice_service:samgr_class { get };
 # sepolicy about system resource management
 binder_call(telecom, powermgr);
 binder_call(telecom, resource_schedule_service);
+binder_call(telecom, time_service);
 allow telecom sa_powermgr_powermgr_service:samgr_class { get };
 allow telecom sa_time_service:samgr_class { get };
 allow telecom data_service_el1_shadercache:dir { search };
