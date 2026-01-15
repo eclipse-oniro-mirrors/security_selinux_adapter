@@ -33,6 +33,7 @@ allow wifi_host init_svc_param:file { map open read };
 allow wifi_host net_param:file { map open read };
 allow wifi_host ohos_boot_param:file { map open read };
 allow wifi_host ohos_param:file { map read read open };
+allow wifi_host persist_sys_param:file { map open read };
 allow wifi_host sa_device_service_manager:samgr_class { get };
 allow wifi_host samgr:binder { call transfer };
 allow wifi_host startup_param:file { map open read };
@@ -75,14 +76,9 @@ allow wifi_host dev_console_file:chr_file { read write };
 allow wifi_host hdf_wpa_interface_service:hdf_devmgr_class { add };
 allow wifi_host musl_param:file { open read map };
 
-allow wifi_host wifi_el1_data:file { create read write open getattr ioctl rename append unlink };
-allowxperm wifi_host wifi_el1_data:file ioctl { 0x5413 };
-allow wifi_host wifi_el1_data:dir { read open create search write getattr add_name remove_name rmdir };
-allow wifi_host wifi_el1_socket:file { create read write open getattr ioctl rename append unlink };
-allowxperm wifi_host wifi_el1_socket:file ioctl { 0x5413 };
-allow wifi_host wifi_el1_socket:dir { read open create search write getattr add_name remove_name rmdir };
-allow wifi_host wifi_el1_socket:sock_file { write setattr getattr unlink create };
-allow wifi_host data_service_el1_file:dir { search };
+allow wifi_host data_service_el1_file:file { create read write open getattr ioctl rename append unlink };
+allow wifi_host data_service_el1_file:sock_file { write setattr getattr unlink create };
+allow wifi_host data_service_el1_file:dir { read open create search write getattr add_name remove_name rmdir };
 allow wifi_host wifi_host:netlink_generic_socket { bind create getattr read setopt write };
 allow wifi_host dev_unix_socket:sock_file { write };
 #avc:  denied  { create } for  pid=521 comm="IPC_1_583" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=netlink_route_socket permissive=0
