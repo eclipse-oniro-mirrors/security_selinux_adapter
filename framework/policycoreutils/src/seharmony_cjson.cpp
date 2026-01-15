@@ -60,6 +60,7 @@ static const std::string COUNT_KEY_NAME = "count";
 static const std::string DONE_KEY_NAME = "done";
 static constexpr uint32_t BASE_USER_RANGE = 200000;
 static std::mutex g_accessJsonLock;
+static constexpr unsigned int SECURITY_SELINUX_ADAPTER = 0xC05A03;
 }
 
 CJsonUnique CreateJsonFromString(const std::string& jsonStr)
@@ -399,7 +400,8 @@ static int32_t CreateCfgFile(uint32_t userId)
         selinux_log(SELINUX_ERROR, "Create file: %s failed, errorNo: %d.", fileName.c_str(), errno);
         return -SELINUX_CREATE_FILE_ERROR;
     }
-    close(fd);
+    fdsan_exchange_owner_tag(fd, 0, SECURITY_SELINUX_ADAPTER);
+    fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
     return SELINUX_SUCC;
 }
 
