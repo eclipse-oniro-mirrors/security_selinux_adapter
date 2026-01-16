@@ -34,6 +34,7 @@ allow audio_host init_svc_param:file { map open read };
 allow audio_host net_param:file { map open read };
 allow audio_host ohos_boot_param:file { map open read };
 allow audio_host ohos_param:file { map open read };
+allow audio_host persist_sys_param:file { map open read };
 allow audio_host samgr:binder { call };
 allow audio_host startup_param:file { map open read };
 allowxperm audio_host dev_hdf_kevent:chr_file ioctl { 0x6203 };
