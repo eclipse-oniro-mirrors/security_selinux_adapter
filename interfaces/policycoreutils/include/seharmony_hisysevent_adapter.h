@@ -33,11 +33,12 @@ struct RestoreFinishInfo {
     int32_t successCount = 0;
     int32_t errorCount = 0;
     int32_t totalCount = 0;
+    std::string stopDesc = "";
 };
 
 void ReportSeharmonyRestoreErr(const std::string& bundleName, int32_t uid,
     int32_t errCode, const std::string& errMsg);
-void ReportSeharmonyHapFileRestoreStart(const HapFileInfo& hapFileInfo);
+void ReportSeharmonyHapFileRestoreStart(const HapFileInfo& hapFileInfo, const uint32_t remainingNum);
 void ReportSeharmonyHapFileRestoreFinish(const HapFileInfo& hapFileInfo, const RestoreFinishInfo& finishInfo);
 
 } // namespace Selinux

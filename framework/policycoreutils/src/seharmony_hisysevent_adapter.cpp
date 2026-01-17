@@ -78,7 +78,7 @@ void ReportSeharmonyRestoreErr(const std::string& bundleName, int32_t uid,
 #endif // HAS_HISYSEVENT_PART
 }
 
-void ReportSeharmonyHapFileRestoreStart(const HapFileInfo& hapFileInfo)
+void ReportSeharmonyHapFileRestoreStart(const HapFileInfo& hapFileInfo, const uint32_t remainingNum)
 {
 #ifdef HAS_HISYSEVENT_PART
     int ret = HiSysEventWrite(SELINUX_DOMAIN, "SEHM_HAPFILE_RESTORE_START",
@@ -88,7 +88,8 @@ void ReportSeharmonyHapFileRestoreStart(const HapFileInfo& hapFileInfo)
         "UID", static_cast<int32_t>(hapFileInfo.uid),
         "APL", hapFileInfo.apl,
         "HAP_FLAGS", static_cast<int32_t>(hapFileInfo.hapFlags),
-        "FLAGS", static_cast<int32_t>(hapFileInfo.flags));
+        "FLAGS", static_cast<int32_t>(hapFileInfo.flags),
+        "REMAINING_NUMBER", static_cast<int32_t>(remainingNum));
     if (ret != 0) {
         selinux_log(SELINUX_ERROR, "hisysevent write failed! ret %d. packageName %s",
             ret, hapFileInfo.packageName.c_str());
@@ -111,7 +112,8 @@ void ReportSeharmonyHapFileRestoreFinish(const HapFileInfo& hapFileInfo, const R
         "CURRENT_PATH", AnonymizePathList(finishInfo.currentPath),
         "COUNT", finishInfo.successCount,
         "ERROR_COUNT", finishInfo.errorCount,
-        "TOTAL_COUNT", finishInfo.totalCount);
+        "TOTAL_COUNT", finishInfo.totalCount,
+        "INTERRUPT_SCENE_DESC", finishInfo.stopDesc);
     if (ret != 0) {
         selinux_log(SELINUX_ERROR, "hisysevent write failed! ret %d. packageName %s",
             ret, hapFileInfo.packageName.c_str());

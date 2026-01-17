@@ -858,7 +858,8 @@ bool HapFileRestoreContext::IsAppdatContext(const HapFileInfo& hapFileInfo)
     return isAppdat;
 }
 
-int HapFileRestoreContext::SetFileConForce(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo)
+int HapFileRestoreContext::SetFileConForce(const HapFileInfo& hapFileInfo, const uint32_t remainingNum,
+    ResultInfo& resultInfo)
 {
     selinux_log(SELINUX_INFO, "SetFileConForce start, bundleName=%s, uid = %u",
             hapFileInfo.packageName.c_str(), hapFileInfo.uid);
@@ -873,7 +874,7 @@ int HapFileRestoreContext::SetFileConForce(const HapFileInfo& hapFileInfo, Resul
             hapFileInfo.packageName.c_str());
         return -SELINUX_ARG_INVALID;
     }
-    Selinux::ReportSeharmonyHapFileRestoreStart(hapFileInfo);
+    Selinux::ReportSeharmonyHapFileRestoreStart(hapFileInfo, remainingNum);
     std::shared_ptr<RestoreTask> task = nullptr;
     int ret = InitRestoreTask(task, hapFileInfo);
     if (ret == -SELINUX_NO_FOUND_PATHS) {
@@ -955,19 +956,22 @@ void HapFileRestoreContext::FinishRestoreTask(const HapFileInfo& hapFileInfo, Re
     }
 
     RestoreFinishInfo finishInfo;
+    std::string stopDesc;
     finishInfo.totalCount = static_cast<int32_t>(total);
     finishInfo.successCount = static_cast<int32_t>(resultInfo.currentCount);
     finishInfo.errorCount = static_cast<int32_t>(restoreTask_->failureCount);
     finishInfo.changeContext = (resultInfo.currentCount > 0);
-    finishInfo.stopReason = static_cast<int32_t>(restoreTask_->GetStopReason());
+    finishInfo.stopReason = static_cast<int32_t>(restoreTask_->GetStopReason(stopDesc));
     finishInfo.currentPath = currentPath;
     finishInfo.isSkipAlias = false;
+    finishInfo.stopDesc = stopDesc;
 
     Selinux::ReportSeharmonyHapFileRestoreFinish(hapFileInfo, finishInfo);
     restoreTask_ = nullptr;
 }
 
-int HapFileRestoreContext::StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason)
+int HapFileRestoreContext::StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason,
+    const std::string& stopDesc)
 {
     std::lock_guard<std::mutex> lock(restoreTaskMutex_);
     bool isAppdat = IsAppdatContext(hapFileInfo);
@@ -975,7 +979,7 @@ int HapFileRestoreContext::StopSetFileCon(const HapFileInfo& hapFileInfo, StopRe
     if (restoreTask_ != nullptr &&
         restoreTask_->info.bundleName == hapFileInfo.packageName &&
         restoreTask_->info.uid == hapFileInfo.uid) {
-        (void) restoreTask_->TryToStop(stopReason, shouldSave);
+        (void) restoreTask_->TryToStop(stopReason, stopDesc, shouldSave);
     }
     if (!shouldSave) {
         DeleteRefreshInfo(hapFileInfo.packageName, hapFileInfo.uid);

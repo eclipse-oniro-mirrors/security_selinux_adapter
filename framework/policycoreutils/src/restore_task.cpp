@@ -76,7 +76,7 @@ RestoreTask::RestoreTask(std::string bundleName, uint32_t uid)
     info.uid = uid;
 }
 
-bool RestoreTask::TryToStop(StopReason stopReason, bool shouldSave)
+bool RestoreTask::TryToStop(StopReason stopReason, const std::string& stopDesc, bool shouldSave)
 {
     std::lock_guard<std::mutex> lock(stopLock_);
     stopRequested_ = true;
@@ -85,6 +85,7 @@ bool RestoreTask::TryToStop(StopReason stopReason, bool shouldSave)
         return false;
     }
     stopReason_ = stopReason;
+    stopDesc_ = stopDesc;
     shouldSave_ = shouldSave;
     return true;
 }
@@ -99,9 +100,10 @@ bool RestoreTask::IsInterrupted()
     return isInterrupted_;
 }
 
-StopReason RestoreTask::GetStopReason()
+StopReason RestoreTask::GetStopReason(std::string& stopDesc)
 {
     std::lock_guard<std::mutex> lock(stopLock_);
+    stopDesc = stopDesc_;
     return stopReason_;
 }
 
