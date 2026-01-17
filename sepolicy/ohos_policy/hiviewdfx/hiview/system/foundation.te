@@ -54,4 +54,6 @@ allow foundation hiview_file:file { write };
 allow foundation proc_stat_file:file { open read getattr };
 #avc:  denied  { ioctl } for  pid=1580 comm="/system/bin/sa_main" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:foundation:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
 allow foundation dev_at_file:chr_file { ioctl };
+# avc:  denied  { open } for  pid=1834 comm="/system/bin/sa_main" path="/proc/3578/stat" dev="" ino=5520028 scontext=u:r:foundation:s0 tcontext=u:object_r:sceneboard:s0 tclass=file permissive=1
+allow foundation hap_domain:file {getattr open read};
 

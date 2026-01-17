@@ -347,4 +347,5 @@ allow hiview data_service_el1_public_print_service_file:dir { search open read }
 allow hiview data_service_el1_public_print_service_file:file { getattr open read };
 
 allow hiview hiview:hmcap { code_protect };
+allow hiview hap_domain:file {getattr open read};
 
