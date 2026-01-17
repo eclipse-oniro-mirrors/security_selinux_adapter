@@ -8,8 +8,6 @@
                 "nwebspawn appspawn_exec",
                 "nwebspawn nwebspawn_exec",
                 "cjappspawn system_bin_file",
-                "audio_host system_bin_file",
-                "camera_host system_bin_file",
                 "camera_host toybox_exec",
                 "cupsd system_bin_file",
                 "cupsd toybox_exec",

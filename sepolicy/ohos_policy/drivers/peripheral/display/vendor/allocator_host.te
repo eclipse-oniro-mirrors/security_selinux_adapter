@@ -11,20 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow allocator_host accessibility_param:file { map open read };
-allow allocator_host bootevent_param:file { map open read };
 allow allocator_host bootevent_samgr_param:file { map open read };
 allow allocator_host build_version_param:file { map open read };
-allow allocator_host const_allow_mock_param:file { map open read };
 allow allocator_host const_allow_param:file { map open read };
 allow allocator_host const_build_param:file { map open read };
-allow allocator_host const_display_brightness_param:file { map open read };
 allow allocator_host const_param:file { map open read };
-allow allocator_host const_postinstall_fstab_param:file { map open read };
 allow allocator_host const_postinstall_param:file { map open read };
 allow allocator_host const_product_param:file { map open read };
 allow allocator_host debug_param:file { map open read };
-allow allocator_host default_param:file { map open read };
 allow allocator_host dev_dri_file:chr_file { getattr ioctl open read write };
 allow allocator_host dev_dri_file:dir { search };
 allow allocator_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
@@ -39,20 +33,13 @@ allow allocator_host hw_sc_build_param:file { map open read };
 allow allocator_host hw_sc_param:file { map open read };
 allow allocator_host init_param:file { map open read };
 allow allocator_host init_svc_param:file { map open read };
-allow allocator_host input_pointer_device_param:file { map open read };
 allow allocator_host net_param:file { map open read };
-allow allocator_host net_tcp_param:file { map open read };
 allow allocator_host ohos_boot_param:file { map open read };
 allow allocator_host ohos_param:file { map open read };
-allow allocator_host persist_param:file { map open read };
-allow allocator_host persist_sys_param:file { map open read };
 allow allocator_host sa_device_service_manager:samgr_class { get };
 allow allocator_host samgr:binder { call };
-allow allocator_host security_param:file { map open read };
 allow allocator_host startup_param:file { map open read };
-allow allocator_host sys_param:file { map open read };
 allow allocator_host system_bin_file:dir { search };
-allow allocator_host sys_usb_param:file { map open read };
 allow allocator_host vendor_etc_file:dir { search };
 allow allocator_host vendor_etc_file:file { getattr open read };
 allow allocator_host camera_service:fd { use };
