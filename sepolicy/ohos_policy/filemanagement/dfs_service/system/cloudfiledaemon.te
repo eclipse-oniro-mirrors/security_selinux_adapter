@@ -59,7 +59,7 @@ allow cloudfiledaemon data_file:dir { search };
 allow cloudfiledaemon dev_ashmem_file:chr_file { open };
 allow cloudfiledaemon distributeddata:binder { transfer call };
 allow cloudfiledaemon distributeddata:fd { use };
-allow cloudfiledaemon data_user_file:dir { read open search add_name write remove_name create rmdir rename reparent };
+allow cloudfiledaemon data_user_file:dir { read open search add_name write remove_name create rmdir rename reparent getattr setattr };
 allow cloudfiledaemon data_user_file:file { read open getattr write create rename unlink append ioctl setattr };
 allow cloudfiledaemon cloudfiledaemon:udp_socket { create bind read write node_bind connect getattr ioctl setopt };
 allowxperm cloudfiledaemon cloudfiledaemon:udp_socket ioctl { 0x8912 0x8913 0x8915 0x891b };
