@@ -323,6 +323,7 @@
                     "/data/service/el1/public/i18n/timezone(/.*)?",
                     "/data/service/el1/public/shader_cache(/.*)?",
                     "/data/service/el0/public/for-all-app/hilog(/.*)?",
+                    "/data/service/el0/public/musl_namespace_config(/.*)?",
                     "/data/service/el1/public/msdp(/.*)?",
                     "/data/service/el1/public/av_session(/.*)?",
                     "/data/service/el1/public/av_session/cache(/.*)?",

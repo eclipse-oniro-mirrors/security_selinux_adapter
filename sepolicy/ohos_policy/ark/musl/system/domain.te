@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type system_etc_musl_file, system_etc_file_attr, system_file_attr, file_attr;
-type data_musl_namespace, file_attr, data_file_attr;
-
+allow domain data_service_file:dir { search };
+allow domain data_musl_namespace:dir { getattr search };
+allow domain data_musl_namespace:file { getattr };
