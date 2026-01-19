@@ -234,7 +234,8 @@
             "motion_host",
             "partitionslot_host",
             "intell_voice_host",
-            "user_auth_host"
+            "user_auth_host",
+            "nfc_host"
         ],
         "native_chipset_domain": [
             "chipset_init"
