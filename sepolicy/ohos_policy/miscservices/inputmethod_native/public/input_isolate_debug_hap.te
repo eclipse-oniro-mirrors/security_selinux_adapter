@@ -74,7 +74,7 @@ developer_only(`
     #avc:  denied { getattr } for pid=7200, comm="/system/bin/appspawn" path="/data/storage/el1/bundle/entry.hap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=19124 scontext=u:r:input_isolate_debug_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
     allow input_isolate_debug_hap data_app_el1_file:file { map read open getattr execute create setattr };
 
-    allow input_isolate_debug_hap data_app_el2_file:dir { add_name search read write create open remove_name setattr getattr };
+    allow input_isolate_debug_hap data_app_el2_file:dir { add_name search read write create open remove_name setattr getattr lock watch watch_reads };
     allow input_isolate_debug_hap data_app_file:dir { search };
     allow input_isolate_debug_hap faultloggerd:fifo_file write;
 
@@ -171,7 +171,7 @@ developer_only(`
     allow input_isolate_debug_hap msdp_sa:binder { call };
 
     allow hiperf input_isolate_debug_hap:lnk_file { read };
-    allow input_isolate_debug_hap data_app_el2_file:file { read open getattr map };
+    allow input_isolate_debug_hap data_app_el2_file:file { read open getattr map lock watch watch_reads };
     allow input_isolate_debug_hap hdf_allocator_service:hdf_devmgr_class { get };
     allow input_isolate_debug_hap sa_device_service_manager:samgr_class { get };
     allow input_isolate_debug_hap allocator_host:binder { call };
