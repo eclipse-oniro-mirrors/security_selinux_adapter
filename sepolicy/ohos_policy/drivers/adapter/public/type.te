@@ -38,6 +38,7 @@ type usb_host, hdfdomain, domain;
 type vibrator_host, hdfdomain, domain;
 type power_host, hdfdomain, domain;
 type location_host, hdfdomain, domain;
+type nfc_host, hdfdomain, domain;
 
 type debugfs_usb, fs_attr, debugfs_attr;
 type hdf_devmgr_exec, exec_attr, file_attr, system_file_attr;
