@@ -27,6 +27,8 @@ using namespace testing::ext;
 using namespace Selinux;
 const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
+const static std::string GROUP_PATH = "/data/app/el1/0/group/";
+const static std::string TEST_GROUP_PATH = GROUP_PATH + "123-abc-def/";
 const static std::string ACCOUNT_PATH = "/data/accounts/account_0/appdata/";
 const static std::string TEST_HAP_PATH = BASE_PATH + "com.ohos.selftest/";
 const static std::string TEST_ACCOUNT_PATH = ACCOUNT_PATH + "com.ohos.selftest/";
@@ -516,6 +518,7 @@ static bool CompareContexts(const std::string &path, const std::string &label)
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 {
     ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_4));
+    ASSERT_EQ(true, CreateDirectory(TEST_GROUP_PATH));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_1)); // should not be restorecon
@@ -526,7 +529,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 
     HapFileInfo hapFileInfo = {
         .pathNameOrig = {TEST_SUB_PATH_1, TEST_SUB_PATH_2, TEST_SUB_PATH_1_FILE_1, TEST_SUB_PATH_1_FILE_2,
-                         TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH},
+                         TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH, TEST_GROUP_PATH},
         .apl = SYSTEM_CORE_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
@@ -540,6 +543,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1_FILE_2, TEST_HAP_DATA_FILE_LABEL));
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_3_FILE_1, TEST_HAP_DATA_FILE_LABEL));
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_4, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_GROUP_PATH, TEST_HAP_DATA_FILE_LABEL));
 
     char *secontext = nullptr;
     getfilecon(TEST_SUB_PATH_2_FILE_1.c_str(), &secontext); // this file should not be restorecon
@@ -550,6 +554,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     secontextOld = nullptr;
 
     ASSERT_EQ(true, RemoveDirectory(TEST_HAP_PATH));
+    ASSERT_EQ(true, RemoveDirectory(TEST_GROUP_PATH));
 }
 
 /**
