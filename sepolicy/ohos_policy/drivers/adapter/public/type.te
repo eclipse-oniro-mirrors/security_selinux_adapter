@@ -32,6 +32,7 @@ type codec_host, hdfdomain, domain;
 typeattribute codec_host violator_vendor_system_etc_read;
 type wifi_host, hdfdomain, domain;
 type audio_host, hdfdomain, domain;
+typeattribute audio_host violator_vendor_system_etc_read;
 type camera_host, hdfdomain, domain;
 typeattribute camera_host violator_vendor_system_etc_read;
 type clearplay_host, hdfdomain, domain;
