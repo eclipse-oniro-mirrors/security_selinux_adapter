@@ -13,3 +13,6 @@
 
 #avc:  denied  { getattr } for  pid=1812 comm="e.myapplication" path="/data/storage/el2/log/hiappevent" dev="mmcblk0p15" ino=6049 scontext=u:r:debug_hap:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
 allow normal_hap_attr data_app_el2_file:dir { getattr };
+
+#avc:  denied  { get } for service=8600 sid=o:r:normal_hap:s0:x235,x334,x512,x868,x1024 scontext=o:r:normal_hap:s0:x235,x334,x512,x868,x1024 tcontext=u:object_r:sa_xperf_service:s0 tclass=samgr_class permissive=0
+allow hap_domain sa_xperf_service:samgr_class { get };
