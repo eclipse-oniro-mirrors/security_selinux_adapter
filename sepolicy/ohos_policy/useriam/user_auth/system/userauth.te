@@ -12,7 +12,8 @@
 # limitations under the License.
 
 #avc:  denied  { add } for service=901 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=1
-allow useriam sa_useriam_useridm_service:samgr_class { add };
+#avc:  denied  { get } for service=901 sid=u:r:useriam:s0 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
+allow useriam sa_useriam_useridm_service:samgr_class { add get };
 
 #avc:  denied  { add } for service=921 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_userauth_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_userauth_service:samgr_class { add get };
