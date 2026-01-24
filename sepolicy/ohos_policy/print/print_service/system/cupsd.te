@@ -62,3 +62,5 @@ allow cupsd print_driver_tmp:dir { create getattr open read search setattr write
 allow cupsd print_driver_tmp:file { create getattr open read rename setattr unlink write };
 allow cupsd print_driver_read:dir { create getattr open read search setattr write add_name remove_name };
 allow cupsd print_driver_read:file { create getattr open read rename setattr unlink write };
+allow cupsd cups_socket:dir { getattr search write add_name remove_name };
+allow cupsd cups_socket:sock_file { create unlink write };
