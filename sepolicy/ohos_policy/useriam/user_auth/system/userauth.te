@@ -83,7 +83,7 @@ allow softbus_server useriam:binder { call };
 
 allow useriam data_service_el1_file:dir { search write add_name remove_name setattr open read };
 
-allow useriam data_service_el1_file:file { create getattr open read unlink write };
+allow useriam data_service_el1_file:file { create getattr open read unlink write setattr };
 
 allow useriam data_service_file:dir { search };
 
