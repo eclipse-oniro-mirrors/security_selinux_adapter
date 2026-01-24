@@ -80,9 +80,11 @@ ohos_shared_library("librestorecon") {
   sources = [ "framework/policycoreutils/src/selinux_restorecon.c" ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_static" ]
-  external_deps = [ "hilog:libhilog" ]
-
-  public_external_deps = [ "selinux:libselinux" ]
+  external_deps = [
+    "FreeBSD:libfreebsd_static",
+    "hilog:libhilog",
+    "selinux:libselinux",
+  ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -121,7 +123,10 @@ ohos_static_library("librestorecon_static") {
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_real_static" ]
 
-  public_external_deps = [ "selinux:libselinux_static" ]
+  external_deps = [
+    "FreeBSD:libfreebsd_static",
+    "selinux:libselinux_static",
+  ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -149,6 +154,7 @@ ohos_shared_library("libhap_restorecon") {
     ":libselinux_hilog_static",
   ]
   external_deps = [
+    "FreeBSD:libfreebsd_static",
     "cJSON:cjson",
     "hilog:libhilog",
     "hisysevent:libhisysevent",
@@ -280,8 +286,10 @@ ohos_shared_library("libparaperm_checker") {
   public_configs = [ ":selinux_core_config" ]
   deps = [ ":libselinux_klog_static" ]
   deps += [ ":libselinux_parameter_static" ]
-  external_deps = [ "bounds_checking_function:libsec_shared" ]
-  public_external_deps = [ "selinux:libselinux" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "selinux:libselinux",
+  ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -307,8 +315,9 @@ ohos_shared_library("libservice_checker") {
   external_deps = [
     "bounds_checking_function:libsec_shared",
     "hilog:libhilog",
+    "selinux:libselinux",
   ]
-  public_external_deps = [ "selinux:libselinux" ]
+
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -415,6 +424,7 @@ ohos_executable("service_check") {
     ":libselinux_error_static",
     ":libservice_checker",
   ]
+  external_deps = [ "selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",

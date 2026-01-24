@@ -22,7 +22,6 @@
 #include <vector>
 #include <mutex>
 #include <atomic>
-#include <selinux/context.h>
 #include "sehap_contexts_trie.h"
 
 #define SELINUX_HAP_RESTORECON_RECURSE 1    // whether the data directory need recurse
@@ -96,12 +95,6 @@ protected:
     int GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNameOrig,
         char **newSecontext, char **oldSecontext);
     int HapLabelLookup(const HapContextParams &params, char **secontextPtr);
-
-    int HapContextsLookup(const HapContextParams &params, context_t con);
-    int TypeSet(const std::string &type, context_t con);
-#ifdef MCS_ENABLE
-    int UserAndMCSRangeSet(uint32_t uid, context_t con, const LevelFrom &levelFrom, const std::string &user);
-#endif
 };
 
 int HapContextLoadConfig(void);

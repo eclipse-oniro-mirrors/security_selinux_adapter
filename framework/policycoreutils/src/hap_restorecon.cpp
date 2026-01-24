@@ -621,6 +621,149 @@ int HapContext::GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNa
     return SELINUX_SUCC;
 }
 
+#ifdef MCS_ENABLE
+static std::string GetMCSLevel(const LevelFrom &levelFrom, uint32_t userId, uint32_t appId)
+{
+    std::string level = "s0";
+    switch (levelFrom) {
+        case LEVELFROM_APP:
+            level = "s0:x" + std::to_string(CATEGORY_SEG0_OFFSET + (appId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG1_OFFSET + ((appId >> SHIFT_8) & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG2_OFFSET + ((appId >> SHIFT_16) & CATEGORY_MASK));
+            break;
+        case LEVELFROM_USER:
+            level = "s0:x" + std::to_string(CATEGORY_SEG3_OFFSET + (userId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG4_OFFSET + ((userId >> SHIFT_8) & CATEGORY_MASK));
+            break;
+        case LEVELFROM_ALL:
+            level = "s0:x" + std::to_string(CATEGORY_SEG0_OFFSET + (appId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG1_OFFSET + ((appId >> SHIFT_8) & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG2_OFFSET + ((appId >> SHIFT_16) & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG3_OFFSET + (userId & CATEGORY_MASK)) +
+                ",x" + std::to_string(CATEGORY_SEG4_OFFSET + ((userId >> SHIFT_8) & CATEGORY_MASK));
+            break;
+        default:
+            break;
+    }
+    return level;
+}
+
+static int UserAndMCSRangeSet(uint32_t uid, context_t con, const LevelFrom &levelFrom, const std::string &user)
+{
+    if (uid < UID_BASE) {
+        return SELINUX_SUCC;
+    }
+    uint32_t userId = uid / UID_BASE;
+    uint32_t appId = uid % UID_BASE;
+    if (userId < USER_BASE) {
+        return SELINUX_SUCC;
+    }
+    int ret = context_user_set(con, user.c_str());
+    if (ret != 0) {
+        selinux_log(SELINUX_ERROR, "Failed to set context user %s\n", user.c_str());
+        return -SELINUX_SET_CONTEXT_USER_ERROR;
+    }
+    std::string level = GetMCSLevel(levelFrom, userId, appId);
+    ret = context_range_set(con, level.c_str());
+    if (ret != 0) {
+        selinux_log(SELINUX_ERROR, "Failed to set context range %s\n", level.c_str());
+        return -SELINUX_SET_CONTEXT_RANGE_ERROR;
+    }
+    return SELINUX_SUCC;
+}
+#endif
+
+static int ContextTypeSet(const std::string &type, context_t con)
+{
+    if (type.empty()) {
+        selinux_log(SELINUX_ERROR, "type is empty in contexts file");
+        return -SELINUX_ARG_INVALID;
+    }
+    if (context_type_set(con, type.c_str())) {
+        selinux_log(SELINUX_ERROR, "%s %s\n", GetErrStr(SELINUX_SET_CONTEXT_TYPE_ERROR), type.c_str());
+        return -SELINUX_SET_CONTEXT_TYPE_ERROR;
+    }
+    return SELINUX_SUCC;
+}
+
+static std::string GetKeyParams(const HapContextParams &params)
+{
+    std::string keyPara;
+    if (params.hapFlags & SELINUX_HAP_ISOLATED_GPU) {
+        keyPara = params.apl + "." + ISOLATED_GPU;
+    } else if (params.hapFlags & SELINUX_HAP_ISOLATED_RENDER) {
+        keyPara = params.apl + "." + ISOLATED_RENDER;
+    } else if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
+        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
+        } else {
+            keyPara = params.apl + "." + INPUT_ISOLATE;
+        }
+    } else if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE_FULL) {
+        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE_FULL;
+        } else {
+            keyPara = params.apl + "." + INPUT_ISOLATE_FULL;
+        }
+    } else if (params.hapFlags & SELINUX_HAP_DLP_READ_ONLY) {
+        keyPara = params.apl + "." + DLP_SANDBOX_READ_ONLY;
+    } else if (params.hapFlags & SELINUX_HAP_DLP_FULL_CONTROL) {
+        keyPara = params.apl + "." + DLPSANDBOX;
+    } else if (params.hapFlags & SELINUX_HAP_CUSTOM_SANDBOX) {
+        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = params.apl + "." + DEBUGGABLE + "." + CUSTOMSANDBOX + "." + params.packageName;
+        } else {
+            keyPara = params.apl + "." + CUSTOMSANDBOX + "." + params.packageName;
+        }
+    } else if (params.hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
+        keyPara = params.apl + "." + params.packageName;
+    } else if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+        keyPara = params.apl + "." + DEBUGGABLE;
+    } else {
+        keyPara = params.apl;
+    }
+    return keyPara;
+}
+
+int HapContextLoadConfig()
+{
+    std::lock_guard<std::mutex> lock(g_loadContextsLock);
+    if (g_sehapContextsTrie != nullptr) {
+        return 0;
+    }
+
+    if (HapContextsLoad()) {
+        return 0;
+    }
+
+    return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+}
+
+static int HapContextsLookup(const HapContextParams &params, context_t con)
+{
+    int ret = HapContextLoadConfig();
+    if (ret != 0) {
+        selinux_log(SELINUX_ERROR, "read config error, ret=%d", ret);
+        return ret;
+    }
+
+    std::string keyPara = GetKeyParams(params);
+    SehapContextInfo contextInfo = g_sehapContextsTrie->Search(keyPara, params.isDomain, params.extension);
+    if (contextInfo.context.empty()) {
+        return -SELINUX_KEY_NOT_FOUND;
+    }
+    int res = ContextTypeSet(contextInfo.context, con);
+    if (res < 0) {
+        return res;
+    }
+#ifdef MCS_ENABLE
+    if (contextInfo.levelFrom != LEVELFROM_NONE && (params.isDomain || g_mcsHapFileEnabled)) {
+        return UserAndMCSRangeSet(params.uid, con, contextInfo.levelFrom, contextInfo.user);
+    }
+#endif
+    return SELINUX_SUCC;
+}
+
 int HapContext::HapLabelLookup(const HapContextParams &params, char **secontextPtr)
 {
     *secontextPtr = strdup(DEFAULT_CONTEXT);
@@ -728,97 +871,6 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
     selinux_log(SELINUX_INFO, "Hap setcon finish for %s\n", hapDomainInfo.packageName.c_str());
 
     FreeContext(oldTypeContext, con);
-    return SELINUX_SUCC;
-}
-
-static std::string GetKeyParams(const HapContextParams &params)
-{
-    std::string keyPara;
-    if (params.hapFlags & SELINUX_HAP_ISOLATED_GPU) {
-        keyPara = params.apl + "." + ISOLATED_GPU;
-    } else if (params.hapFlags & SELINUX_HAP_ISOLATED_RENDER) {
-        keyPara = params.apl + "." + ISOLATED_RENDER;
-    } else if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
-        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
-            keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
-        } else {
-            keyPara = params.apl + "." + INPUT_ISOLATE;
-        }
-    } else if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE_FULL) {
-        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
-            keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE_FULL;
-        } else {
-            keyPara = params.apl + "." + INPUT_ISOLATE_FULL;
-        }
-    } else if (params.hapFlags & SELINUX_HAP_DLP_READ_ONLY) {
-        keyPara = params.apl + "." + DLP_SANDBOX_READ_ONLY;
-    } else if (params.hapFlags & SELINUX_HAP_DLP_FULL_CONTROL) {
-        keyPara = params.apl + "." + DLPSANDBOX;
-    } else if (params.hapFlags & SELINUX_HAP_CUSTOM_SANDBOX) {
-        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
-            keyPara = params.apl + "." + DEBUGGABLE + "." + CUSTOMSANDBOX + "." + params.packageName;
-        } else {
-            keyPara = params.apl + "." + CUSTOMSANDBOX + "." + params.packageName;
-        }
-    } else if (params.hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
-        keyPara = params.apl + "." + params.packageName;
-    } else if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
-        keyPara = params.apl + "." + DEBUGGABLE;
-    } else {
-        keyPara = params.apl;
-    }
-    return keyPara;
-}
-
-int HapContextLoadConfig()
-{
-    std::lock_guard<std::mutex> lock(g_loadContextsLock);
-    if (g_sehapContextsTrie != nullptr) {
-        return 0;
-    }
-
-    if (HapContextsLoad()) {
-        return 0;
-    }
-
-    return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
-}
-
-int HapContext::HapContextsLookup(const HapContextParams &params, context_t con)
-{
-    int ret = HapContextLoadConfig();
-    if (ret != 0) {
-        selinux_log(SELINUX_ERROR, "read config error, ret=%d", ret);
-        return ret;
-    }
-
-    std::string keyPara = GetKeyParams(params);
-    SehapContextInfo contextInfo = g_sehapContextsTrie->Search(keyPara, params.isDomain, params.extension);
-    if (contextInfo.context.empty()) {
-        return -SELINUX_KEY_NOT_FOUND;
-    }
-    int res = TypeSet(contextInfo.context, con);
-    if (res < 0) {
-        return res;
-    }
-#ifdef MCS_ENABLE
-    if (contextInfo.levelFrom != LEVELFROM_NONE && (params.isDomain || g_mcsHapFileEnabled)) {
-        return UserAndMCSRangeSet(params.uid, con, contextInfo.levelFrom, contextInfo.user);
-    }
-#endif
-    return SELINUX_SUCC;
-}
-
-int HapContext::TypeSet(const std::string &type, context_t con)
-{
-    if (type.empty()) {
-        selinux_log(SELINUX_ERROR, "type is empty in contexts file");
-        return -SELINUX_ARG_INVALID;
-    }
-    if (context_type_set(con, type.c_str())) {
-        selinux_log(SELINUX_ERROR, "%s %s\n", GetErrStr(SELINUX_SET_CONTEXT_TYPE_ERROR), type.c_str());
-        return -SELINUX_SET_CONTEXT_TYPE_ERROR;
-    }
     return SELINUX_SUCC;
 }
 
@@ -989,54 +1041,3 @@ int HapFileRestoreContext::StopSetFileCon(const HapFileInfo& hapFileInfo, StopRe
     return SELINUX_SUCC;
 }
 
-#ifdef MCS_ENABLE
-static std::string GetMCSLevel(const LevelFrom &levelFrom, uint32_t userId, uint32_t appId)
-{
-    std::string level = "s0";
-    switch (levelFrom) {
-        case LEVELFROM_APP:
-            level = "s0:x" + std::to_string(CATEGORY_SEG0_OFFSET + (appId & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG1_OFFSET + ((appId >> SHIFT_8) & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG2_OFFSET + ((appId >> SHIFT_16) & CATEGORY_MASK));
-            break;
-        case LEVELFROM_USER:
-            level = "s0:x" + std::to_string(CATEGORY_SEG3_OFFSET + (userId & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG4_OFFSET + ((userId >> SHIFT_8) & CATEGORY_MASK));
-            break;
-        case LEVELFROM_ALL:
-            level = "s0:x" + std::to_string(CATEGORY_SEG0_OFFSET + (appId & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG1_OFFSET + ((appId >> SHIFT_8) & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG2_OFFSET + ((appId >> SHIFT_16) & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG3_OFFSET + (userId & CATEGORY_MASK)) +
-                ",x" + std::to_string(CATEGORY_SEG4_OFFSET + ((userId >> SHIFT_8) & CATEGORY_MASK));
-            break;
-        default:
-            break;
-    }
-    return level;
-}
-
-int HapContext::UserAndMCSRangeSet(uint32_t uid, context_t con, const LevelFrom &levelFrom, const std::string &user)
-{
-    if (uid < UID_BASE) {
-        return SELINUX_SUCC;
-    }
-    uint32_t userId = uid / UID_BASE;
-    uint32_t appId = uid % UID_BASE;
-    if (userId < USER_BASE) {
-        return SELINUX_SUCC;
-    }
-    int ret = context_user_set(con, user.c_str());
-    if (ret != 0) {
-        selinux_log(SELINUX_ERROR, "Failed to set context user %s\n", user.c_str());
-        return -SELINUX_SET_CONTEXT_USER_ERROR;
-    }
-    std::string level = GetMCSLevel(levelFrom, userId, appId);
-    ret = context_range_set(con, level.c_str());
-    if (ret != 0) {
-        selinux_log(SELINUX_ERROR, "Failed to set context range %s\n", level.c_str());
-        return -SELINUX_SET_CONTEXT_RANGE_ERROR;
-    }
-    return SELINUX_SUCC;
-}
-#endif
