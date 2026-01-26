@@ -124,7 +124,7 @@ neverallow * *:{ blk_file chr_file } rename;
 # don't use system v IPC
 neverallow { domain -rgm_violator_system_v_ipc} {domain -rgm_violator_system_v_ipc}:{ shm sem msg msgq } *;
 
-neverallow { domain debug_only(`-domain')} self:lockdown integrity;
+neverallow { domain -init debug_only(`-domain')} self:lockdown integrity;
 
 neverallow * self:memprotect mmap_zero;
 
@@ -215,7 +215,7 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:11230
 #      (allow riladapter_host dev_file (chr_file (ioctl read write open)))
 #    <root>
-neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server') -dev_file_violator -rgm_violator_ohos_dev_char_file } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -init -ueventd -riladapter_host -camera_host debug_only(`-softbus_server') -dev_file_violator -rgm_violator_ohos_dev_char_file } dev_file:{ file chr_file blk_file } *;
 
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
@@ -263,7 +263,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_
 neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -rgm_violator_vendor_file_mounton } vendor_file_attr:dir_file_class_set mounton;
 
 neverallow { domain -init -kernel -hap_domain -locationhub
-             -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
+             -audio_host -allocator_host -render_service -composer_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
 neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool -perftest -uinput') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm -uinput') -data_local_tmp_violator_file_open -processdump -violator_data_local_tmp_file_open } data_local_tmp:file open;
 
@@ -320,7 +320,7 @@ neverallow { domain -init -appspawn -nativespawn -chipset_init -ueventd -wifi_ha
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -netsysnative -cap_violator_netraw -distributedfiledaemon -wifi_host -ethernet_host -rgm_violator_ohos_capability_netraw } self:{ capability cap_userns } net_raw;
 neverallow { domain -hiperf } self:{ capability cap_userns } ipc_lock;
 neverallow * self:{ capability cap_userns } ipc_owner;
-neverallow { domain -cap_violator_sysmodule } self:{ capability cap_userns } sys_module;
+neverallow { domain -init -cap_violator_sysmodule } self:{ capability cap_userns } sys_module;
 neverallow { domain -init -chipset_init -cap_violator_sysrawio} self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init -chipset_init -appspawn -rgm_violator_ohos_capability_syschroot } self:{ capability cap_userns } sys_chroot;
 neverallow { domain -appspawn -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf

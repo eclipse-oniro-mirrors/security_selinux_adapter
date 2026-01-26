@@ -21,9 +21,9 @@ neverallow { system_domain -init -processdump -vendor_file_violator_dir_open } v
 neverallow { system_domain -vendor_file_violator_dir_mounton } vendor_file:dir { mounton };
 neverallow { system_domain -vendor_file_violator_file } vendor_file:file ~{ map open read getattr execute relabelto setattr };
 neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_map } vendor_file:file { map };
-neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_open -teecd } vendor_file:file { open };
-neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_read -teecd } vendor_file:file { read };
-neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_getattr -teecd } vendor_file:file { getattr };
+neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_open -teecd -init } vendor_file:file { open };
+neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_read -teecd -init } vendor_file:file { read };
+neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_getattr -teecd -init } vendor_file:file { getattr };
 neverallow { system_domain -bluetooth_service -distributeddata -foundation -audio_server -resource_schedule_service
     -usb_service -vendor_file_violator_file_execute } vendor_file:file { execute };
 neverallow { system_domain -vendor_file_violator_file_relabelto } vendor_file:file { relabelto };
