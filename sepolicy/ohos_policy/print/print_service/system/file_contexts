@@ -24,3 +24,4 @@
 /data/service/el1/public/print_service/cups/spool/tmp           u:object_r:print_driver_tmp:s0
 /data/service/el1/public/print_service/cups/spool           	u:object_r:print_driver_read:s0
 /data/service/el1/public/print_service/cups/ppd           	    u:object_r:print_driver_read:s0
+/data/service/el1/public/print_service/cups/socket(/.*)?        u:object_r:cups_socket:s0

@@ -111,3 +111,6 @@ allow print_service foundation:fd { use };
 allow print_service edm_sa:binder {call};
 allow print_service sa_enterprise_device_manager_service:samgr_class { get };
 allowxperm print_service print_service:udp_socket ioctl { 0x8912 0x891b };
+allow print_service cups_socket:dir { search };
+allow print_service cups_socket:sock_file { write };
+allow print_service cupsd:unix_stream_socket { connectto };
