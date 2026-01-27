@@ -64,3 +64,5 @@ type intell_voice_host, hdfdomain, domain;
 typeattribute intell_voice_host violator_vendor_system_etc_read;
 
 type ethernet_host, hdfdomain, domain;
+
+type hdf_ctx_file, file_attr, system_file_attr, system_etc_file_attr;

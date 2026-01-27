@@ -232,3 +232,5 @@ allow hdf_devmgr ethernet_host:binder { call transfer };
 allow hdf_devmgr ethernet_host:file { read open };
 allow hdf_devmgr ethernet_host:process { getattr };
 allow hdf_devmgr ethernet_host:dir { search };
+
+allow hdf_devmgr hdf_ctx_file:file { getattr map open read };
