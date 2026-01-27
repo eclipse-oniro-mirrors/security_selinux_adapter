@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Copyright (c) 2026 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,12 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type data_service_scan_service_driver_file, file_attr, data_file_attr;
-type print_driver_exec, exec_attr, file_attr, data_file_attr;
-type print_driver_tmp, file_attr, data_file_attr;
-type print_driver_read, file_attr, data_file_attr;
-type sane_service, sadomain, domain;
-type print_driver, sadomain, domain;
-type scan_service, sadomain, domain;
-domain_auto_transition_pattern(cupsd, print_driver_exec, print_driver);
-type print_isolate_hap
+apl=normal extension=print domain=print_isolate_hap type=appdat
+apl=normal debuggable=true extension=print domain=print_isolate_hap type=appdat
