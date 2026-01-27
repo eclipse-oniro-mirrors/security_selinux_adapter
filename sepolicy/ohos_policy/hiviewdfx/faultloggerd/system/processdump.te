@@ -187,3 +187,11 @@ neverallow { domain -init -processdump -ueventd } dev_lperf:{ chr_file } *;
 neverallow { domain } dev_lperf:{ file blk_file } *;
 
 allow processdump data_app_file:dir {search};
+
+#============ Add backtrace for ArkTS 1.2 arkoala.an  ===================
+# avc:denied { search } for pid=15172,comm="/system/bin/processdump" name="/service/el1/public/for-all-app" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1066 scontext=o:r:processdump:s0:x234,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow processdump data_service_el1_file:dir { search };
+# avc:denied { search } for pid=15172,comm="/system/bin/processdump" name="/service/el1/public/for-all-app/framework_ark_cache" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1762 scontext=o:r:processdump:s0:x234,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=dir permissive=1
+allow processdump data_service_el1_framework_arkcache:dir { search };
+# avc:denied { read open getattr map } for pid=15172,comm="/system/bin/processdump" name="/service/el1/public/for-all-app/framework_ark_cache/arkoala.an" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=43030 scontext=o:r:processdump:s0:x234,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+allow processdump data_service_el1_framework_arkcache:file { read open getattr map };
