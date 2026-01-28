@@ -13,4 +13,5 @@
 
 developer_only(`
     allow foundation uitest:binder { call };
+    allow foundation uitest:fd { use };
 ')
