@@ -1,0 +1,31 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow midi_server dev_snd_file:dir { search }
+allow midi_server data_service_file:dir { search }
+allow midi_server debug_hap:binder { transfer }
+allow midi_server dev_kmsg_file:chr_file { open write }
+allow midi_server dev_unix_socket:dir { search }
+allow midi_server foundation:binder { call transfer }
+allow midi_server midi_server:hmcap { supervsable }
+allow midi_server midi_server:samgr_class { add }
+allow midi_server midi_server:unix_dgram_socket { getopt setopt }
+allow midi_server sa_foundation_cesfwk_service:samgr_class { get }
+allow midi_server sysfs_devices_system_cpu:file { getattr open read }
+allow midi_server dev_ashmem_file:chr_file { open }
+allow midi_server dev_snd_file:chr_file { ioctl open read write read write }
+allow midi_server proc_file:file { getattr open read }
+allowx midi_server dev_snd_file:ioctl chr_file { 0x5500 0x5501 0x5540 0x5541 0x5542 0x5700 0x5701 0x5710 }
+allow midi_server debug_hap:binder { call }
+allow midi_server bluetooth_service:binder { call transfer }
+allow midi_server sa_bluetooth_server:samgr_class { get }

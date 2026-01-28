@@ -41,3 +41,6 @@ sepolicy/hx*
 # py
 __pycache__/
 *.pyc
+
+.codemate
+.gitignore
