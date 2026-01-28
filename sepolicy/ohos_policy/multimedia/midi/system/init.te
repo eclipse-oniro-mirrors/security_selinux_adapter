@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init midi_server:process { rlimitinh siginh transition }
+allow init midi_server:process { rlimitinh siginh transition };
