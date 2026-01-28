@@ -13,7 +13,7 @@
 
 allow midi_server dev_snd_file:dir { search };
 allow midi_server data_service_file:dir { search };
-allow midi_server debug_hap:binder { transfer };
+allow midi_server debug_hap:binder { call transfer };
 allow midi_server dev_kmsg_file:chr_file { open write };
 allow midi_server dev_unix_socket:dir { search };
 allow midi_server foundation:binder { call transfer };
@@ -25,7 +25,6 @@ allow midi_server sysfs_devices_system_cpu:file { getattr open read };
 allow midi_server dev_ashmem_file:chr_file { open };
 allow midi_server dev_snd_file:chr_file { ioctl open read write read write };
 allow midi_server proc_file:file { getattr open read };
-allowxperm midi_server dev_snd_file:ioctl chr_file { 0x5500 0x5501 0x5540 0x5541 0x5542 0x5700 0x5701 0x5710 };
-allow midi_server debug_hap:binder { call };
+allowxperm midi_server dev_snd_file:chr_file ioctl { 0x5500 0x5501 0x5540 0x5541 0x5542 0x5700 0x5701 0x5710 };
 allow midi_server bluetooth_service:binder { call transfer };
 allow midi_server sa_bluetooth_server:samgr_class { get };
