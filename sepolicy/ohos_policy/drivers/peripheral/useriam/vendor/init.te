@@ -22,5 +22,3 @@ allow init useriam:process { getattr rlimitinh siginh transition };
 allow init face_auth_host:process { rlimitinh siginh transition };
 
 allow init fingerprint_auth_host:process { rlimitinh siginh transition };
-
-allow chipset_init pinauth_el1_data:dir { relabelto read open setattr getattr search write add_name create };
