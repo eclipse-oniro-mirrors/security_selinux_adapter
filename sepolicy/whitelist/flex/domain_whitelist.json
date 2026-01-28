@@ -11,7 +11,8 @@
                 "lldb_server",
                 "netdnative",
                 "vpn_isolate_hap",
-                "hnp_native"
+                "hnp_native",
+                "print_isolate_hap"
             ],
             "conflict_domain": [
                 "nwebspawn",
