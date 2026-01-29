@@ -11,5 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow local_code_sign data_app_el1_file:dir { search }; 
+allow local_code_sign data_app_file:dir { search };
 allow local_code_sign data_service_el1_framework_arkcache:dir { search };
 allow local_code_sign data_service_el1_framework_arkcache:file { getattr open read };
