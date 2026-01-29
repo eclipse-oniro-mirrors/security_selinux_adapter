@@ -44,6 +44,7 @@ type input_user_host, hdfdomain, domain;
 typeattribute input_user_host violator_vendor_system_etc_read;
 type motion_host, hdfdomain, domain;
 type riladapter_host, hdfdomain, domain;
+typeattribute riladapter_host violator_vendor_system_etc_read;
 type sensor_host, hdfdomain, domain;
 typeattribute sensor_host violator_vendor_system_etc_read;
 type usb_host, hdfdomain, domain;
