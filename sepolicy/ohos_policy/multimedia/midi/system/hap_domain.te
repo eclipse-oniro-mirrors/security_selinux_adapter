@@ -12,4 +12,4 @@
 # limitations under the License.
 
 binder_call(hap_domain, audio_server);
-allow hap_domain midi_server:samgr_class { get };
+allow hap_domain sa_midi_server:samgr_class { get };
