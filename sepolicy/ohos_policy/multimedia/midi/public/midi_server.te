@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type midi_server, sadomain, domain;
+type sa_midi_server, sa_service_attr;

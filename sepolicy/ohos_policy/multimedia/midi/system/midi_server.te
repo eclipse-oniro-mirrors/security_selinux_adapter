@@ -13,12 +13,11 @@
 
 allow midi_server dev_snd_file:dir { search };
 allow midi_server data_service_file:dir { search };
-allow midi_server debug_hap:binder { call transfer };
+allow midi_server hap_domain:binder { call transfer };
 allow midi_server dev_kmsg_file:chr_file { open write };
 allow midi_server dev_unix_socket:dir { search };
 allow midi_server foundation:binder { call transfer };
-allow midi_server midi_server:hmcap { supervsable };
-allow midi_server midi_server:samgr_class { add };
+allow midi_server sa_midi_server:samgr_class { add };
 allow midi_server midi_server:unix_dgram_socket { getopt setopt };
 allow midi_server sa_foundation_cesfwk_service:samgr_class { get };
 allow midi_server sysfs_devices_system_cpu:file { getattr open read };

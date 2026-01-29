@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow debug_hap midi_server:samgr_class { get };
-allow debug_hap midi_server:binder { call transfer };
-allow debug_hap midi_server:fd { use };
+binder_call(hap_domain, audio_server);
+allow hap_domain midi_server:samgr_class { get };
