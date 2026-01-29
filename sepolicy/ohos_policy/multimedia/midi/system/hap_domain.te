@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-binder_call(hap_domain, audio_server);
+binder_call(hap_domain, midi_server);
 allow hap_domain sa_midi_server:samgr_class { get };
