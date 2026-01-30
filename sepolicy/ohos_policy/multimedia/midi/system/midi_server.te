@@ -27,3 +27,5 @@ allow midi_server proc_file:file { getattr open read };
 allowxperm midi_server dev_snd_file:chr_file ioctl { 0x5500 0x5501 0x5540 0x5541 0x5542 0x5700 0x5701 0x5710 };
 allow midi_server bluetooth_service:binder { call transfer };
 allow midi_server sa_bluetooth_server:samgr_class { get };
+allow midi_server vendor_etc_file:dir { search };
+allow midi_server vendor_etc_file:file { getattr open read };
