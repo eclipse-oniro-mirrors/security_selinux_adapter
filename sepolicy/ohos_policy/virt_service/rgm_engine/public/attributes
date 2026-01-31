@@ -52,3 +52,4 @@ attribute rgm_vendor_bin_file_violator_dir_search;
 
 attribute rgm_violator_system_bin_file;
 attribute rgm_violator_perf_event_cpu;
+attribute rgm_violator_ohos_filesystem_quotaget;
