@@ -41,5 +41,3 @@ sepolicy/hx*
 # py
 __pycache__/
 *.pyc
-.codemate/mcp/mcp_settings.json
-.gitignore
