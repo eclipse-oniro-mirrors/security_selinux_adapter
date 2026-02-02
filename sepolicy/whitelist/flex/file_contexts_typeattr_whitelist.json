@@ -80,8 +80,7 @@
                     "/vendor/etc/passthrough/teeos/ta(/.*)?",
                     "/vendor/etc/passthrough/teeos/dynamic_srv(/.*)?",
                     "/vendor/etc/passthrough/teeos/dynamic_drv(/.*)?",
-                    "/vendor/etc/passthrough/teeos/source(/.*)?",
-                    "/vendor/etc/audio/alsa/share/alsa.conf"
+                    "/vendor/etc/passthrough/teeos/source(/.*)?"
                 ],
                 "developer": []
             }
