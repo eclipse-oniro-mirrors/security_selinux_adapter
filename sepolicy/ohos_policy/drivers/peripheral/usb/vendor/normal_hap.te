@@ -23,3 +23,7 @@ allow normal_hap_attr hdf_usb_interface_service:hdf_devmgr_class { get };
 # avc:  denied  { use } for  pid=499 comm="IPC_2_1896" path="/data/service/el1/public/usb/005_003" dev="mmcblk0p14" ino=2577 scontext=u:r:system_core_hap:s0 tcontext=u:r:usb_host:s0 tclass=fd permissive=1
 allow normal_hap_attr usb_host:fd { use };
 allow normal_hap_attr hdf_scsi_peripheral_ddk_service:hdf_devmgr_class { get };
+
+# avc:  denied  { read write } for  pid=4302 comm="/vendor/bin/hdf_devhost" path="/data/chipset/el1/public/usb/001_002" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=40269 scontext=u:r:normal_hap_attr:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=file permissive=0
+# avc:  denied  { map } for  pid=4302 comm="/system/bin/appspawn" path="/data/chipset/el1/public/usb/001_002" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=40269 scontext=u:r:normal_hap_attr:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=file permissive=0
+allow normal_hap_attr data_chipset_el1_file:file { map read write };

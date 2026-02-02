@@ -29,6 +29,36 @@
             "script": "base/security/selinux_adapter/scripts/selinux_check/check_permissive.py",
             "args": "--cil_file",
             "extra_args": ""
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_file_contexts_typeattr.py",
+            "args": "--cil_file --file_contexts",
+            "extra_args": "--config scripts/selinux_check/config/flex/file_contexts_typeattr_config.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_virtfs_access.py",
+            "args": "--cil_file",
+            "extra_args": "--config scripts/selinux_check/config/flex/virtfs_rules.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_domain.py",
+            "args": "--cil_file",
+            "extra_args": "--config scripts/selinux_check/config/flex/type_group.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_parameter.py",
+            "args": "--cil_file",
+            "extra_args": "--config scripts/selinux_check/config/flex/sub_typeattr_check.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_socket.py",
+            "args": "--cil_file",
+            "extra_args": ""
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_consistency_of_tcontext.py",
+            "args": "--cil_file",
+            "extra_args": "--config scripts/selinux_check/config/cosistency_pair.json"
         }
     ]
 }

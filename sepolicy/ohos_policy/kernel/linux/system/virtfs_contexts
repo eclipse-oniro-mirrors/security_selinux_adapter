@@ -20,10 +20,12 @@ genfscon sysfs /fs/f2fs          u:object_r:f2fs_hc_file:s0
 genfscon sysfs /kernel/mm/transparent_hugepage u:object_r:sysfs_transparent_hugepage:s0
 
 # for sandbox appdata
-genfscon sharefs /currentUser/appdata u:object_r:sharefs_appdata_file:s0
-genfscon sharefs /currentUser/appdata/el1/base/ u:object_r:sharefs_appdata_bundle_file:s0
-genfscon sharefs /currentUser/appdata/el2/base/ u:object_r:sharefs_appdata_bundle_file:s0
-genfscon sharefs /currentUser/appdata/el2/cloud/ u:object_r:sharefs_appdata_bundle_file:s0
-genfscon sharefs /currentUser/appdata/el2/distributedfiles/ u:object_r:sharefs_appdata_bundle_file:s0
-genfscon sharefs /currentUser/appdata/el5/base/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /el1 u:object_r:sharefs_appdata_file:s0
+genfscon sharefs /el2 u:object_r:sharefs_appdata_file:s0
+genfscon sharefs /el5 u:object_r:sharefs_appdata_file:s0
+genfscon sharefs /el1/base/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /el2/base/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /el2/cloud/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /el2/distributedfiles/ u:object_r:sharefs_appdata_bundle_file:s0
+genfscon sharefs /el5/base/ u:object_r:sharefs_appdata_bundle_file:s0
 

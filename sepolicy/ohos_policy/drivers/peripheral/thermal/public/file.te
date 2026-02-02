@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type vendor_etc_thermal_hdi_config_file, vendor_file_attr, file_attr;
+type thermal_el0_data, data_service_file_attr, data_file_attr, file_attr;

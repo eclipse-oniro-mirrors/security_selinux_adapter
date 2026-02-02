@@ -171,7 +171,7 @@ allow appspawn system_bin_file:dir { open read };
 # avc:  denied  { read } for  pid=2058 comm="honydataability" name="el1" dev="tmpfs" ino=159 scontext=u:r:appspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=0
 allow appspawn tmpfs:dir { open read };
 
-#allow appspawn normal_hap_data_file:dir { open read search };
+#allow appspawn normal_app_data:dir { open read search };
 allow appspawn data_misc:dir { open read search };
 allow appspawn data_file:dir { open read search };
 allow appspawn hmdfs:dir { open read search };
@@ -201,7 +201,7 @@ allow appspawn data_app_el3_file:dir { relabelfrom };
 allow appspawn data_app_el4_file:dir { relabelfrom };
 
 # avc:  denied  { relabelto } for pid=5327 comm="/system/bin/appspawn" name="app/el4/100/database/+auid-ohosAnonymousUid0+com.example.myapplication" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=20496 scontext=u:r:appspawn:s0 tcontext=u:r:debug_hap_data_file:s0 tclass=dir permissive=1
-allow appspawn { debug_hap_data_file normal_hap_data_file system_basic_hap_data_file system_core_hap_data_file }:dir { relabelto };
+allow appspawn { debug_hap_data_file normal_app_data system_basic_hap_data_file system_core_hap_data_file }:dir { relabelto };
 
 # avc:  denied  { fsetid } for  pid=274 comm="appspawn" capability=4  scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=capability permissive=0
 

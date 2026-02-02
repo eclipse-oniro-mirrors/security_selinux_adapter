@@ -24,6 +24,8 @@ allow wukong data_hilogd_file:file { getattr open read };
 allow wukong data_local:dir { search read open };
 allow wukong data_log:dir { read watch };
 allow wukong data_log:file { getattr open read };
+allow wukong faultlogger_log_file:dir { read watch };
+allow wukong faultlogger_log_file:file { getattr open read };
 allow wukong data_service_el0_file:dir { search };
 allow wukong data_service_file:dir { search };
 allow wukong devpts:chr_file { read write ioctl };

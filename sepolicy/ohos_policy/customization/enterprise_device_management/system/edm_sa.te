@@ -25,7 +25,7 @@ allow edm_sa const_postinstall_fstab_param:file { map open read };
 allow edm_sa const_postinstall_param:file { map open read };
 allow edm_sa const_product_param:file { map open read };
 allow edm_sa data_file:dir { add_name open read remove_name search write };
-allow edm_sa data_service_el1_file:dir { search read write open add_name remove_name };
+allow edm_sa data_service_el1_file:dir { search read write open add_name remove_name rmdir };
 allow edm_sa time_param:parameter_service { set };
 
 # avc:  denied  { lock } for  pid=3779 comm="IPC_6_3929" path="/data/service/el1/public/edm/edmdb.db-shm" dev="mmcblk0p12" ino=10573 scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
@@ -82,7 +82,7 @@ allow edm_sa normal_hap_attr:binder { call };
 allow edm_sa normal_hap_attr:fd { use };
 
 # avc:  denied { read } for  pid=4149 comm="OS_FFRT_2_17" dev="sdd78" ino=14037 scontext=u:r:edm_sa:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=0
-allow edm_sa normal_hap_data_file_attr:file { read };
+allow edm_sa normal_hap_data_file_attr:file { getattr read };
 
 allow edm_sa ohos_boot_param:file { map open read };
 allow edm_sa ohos_param:file { map open read };
@@ -208,6 +208,7 @@ allow edm_sa useriam:binder { call };
 allow edm_sa sa_pulseaudio_audio_service:samgr_class { get };
 
 allow edm_sa system_core_hap:fd { use };
+allow edm_sa system_core_hap_data_file_attr:file { getattr };
 allow edm_sa render_service:binder { call transfer };
 allow edm_sa sa_render_service:samgr_class { get };
 allow render_service edm_sa:binder { transfer };
@@ -233,8 +234,8 @@ allow edm_sa edm_config_file:dir { add_name create write read open search setatt
 allow edm_sa edm_config_file:file { create write read open getattr ioctl };
 allowxperm edm_sa edm_config_file:file ioctl { 0x5413 };
 
-# avc:  denied  { get } for service=4005 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_foundation_tel_call_manager:s0 tclass=samgr_class permissive=0
-allow edm_sa sa_foundation_tel_call_manager:samgr_class { get };
+# avc:  denied  { get } for service=4005 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_telecom_tel_call_manager:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_telecom_tel_call_manager:samgr_class { get };
 
 # avc: denied { get } for service=1155 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_comm_vpn_manager_service:s0 tclass=samgr_class permissive=1
 allow edm_sa sa_comm_vpn_manager_service:samgr_class { get };
@@ -247,3 +248,12 @@ allow edm_sa privacy_service:binder { call };
 
 # avc: denied { call } for pid=3013, comm="OS_IPC_2_3205"  scontext=u:r:edm_sa:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=0
 allow edm_sa security_guard:binder { call };
+
+# avc: denied  { get } for service=3703 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_inputmethod_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_inputmethod_service:samgr_class { get };
+
+# avc: denied { call } for pid=1545, comm="/system/bin/sa_main"  scontext=u:r:edm_sa:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
+allow edm_sa inputmethod_service:binder { call };
+
+# avc: denied { get } for service=1901 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_resource_schedule:samgr_class { get };

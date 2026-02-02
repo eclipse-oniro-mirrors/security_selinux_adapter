@@ -13,10 +13,10 @@
 
 
 # Prohibit system component processes from accessing vendor files to achieve access isolation
-neverallow { system_domain -vendor_file_violator_dir } vendor_file:dir ~{ search getattr relabelto read open mounton };
+neverallow { system_domain -vendor_file_violator_dir -security_guard } vendor_file:dir ~{ search getattr relabelto read open mounton };
 neverallow { system_domain -hdcd -hidumper_service -init -processdump -vendor_file_violator_dir_getattr -rgm_vendor_file_violator_dir_getattr } vendor_file:dir { getattr };
 neverallow { system_domain -init -vendor_file_violator_dir_relabelto } vendor_file:dir { relabelto };
-neverallow { system_domain -init -processdump -vendor_file_violator_dir_read } vendor_file:dir { read };
+neverallow { system_domain -init -processdump -vendor_file_violator_dir_read -security_guard } vendor_file:dir { read };
 neverallow { system_domain -init -processdump -vendor_file_violator_dir_open } vendor_file:dir { open };
 neverallow { system_domain -vendor_file_violator_dir_mounton } vendor_file:dir { mounton };
 neverallow { system_domain -vendor_file_violator_file } vendor_file:file ~{ map open read getattr execute relabelto setattr };

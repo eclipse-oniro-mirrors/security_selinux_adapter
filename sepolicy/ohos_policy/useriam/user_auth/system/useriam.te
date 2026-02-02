@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -58,6 +58,7 @@ allow useriam security_param:file { map open read };
 allow useriam startup_param:file { map open read };
 allow useriam sys_param:file { map open read };
 allow useriam system_basic_hap_attr:binder { call };
+allow useriam system_core_hap_attr:binder { call };
 allow useriam system_basic_hap_attr:fd { use };
 allow useriam system_bin_file:dir { search };
 allow useriam sys_usb_param:file { map open read };
@@ -93,9 +94,16 @@ allow useriam devinfo_private_param:file { map open read };
 allow sensors useriam:binder { call };
 allow useriam storage_daemon:binder { call };
 
+allow useriam sa_useriam_pinauth_service:samgr_class { add };
+allow useriam hdf_pin_auth_interface_service:hdf_devmgr_class { get };
+binder_call(useriam, pin_auth_host);
+binder_call(pin_auth_host, useriam);
+
 allow useriam useriam_config_param:parameter_service { set };
 allow useriam useriam_config_param:file { map open read };
 allow useriam hdf_device_manager:hdf_devmgr_class { get };
 allow useriam sa_screenlock_service:samgr_class { get };
 allow useriam sa_sysparam_device_service:samgr_class { get };
 allow useriam deviceinfoservice:binder { call };
+
+allow useriam useriam_fwkready_param:parameter_service { set };

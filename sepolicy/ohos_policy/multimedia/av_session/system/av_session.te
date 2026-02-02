@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -31,6 +31,7 @@ allow av_session hilog_param:file { map open read };
 allow av_session multimodalinput:binder { call };
 allow av_session multimodalinput:fd { use };
 allow av_session multimodalinput:unix_stream_socket { read write };
+allow av_session distributeddata:fd { use };
 
 debug_only(`
     allow av_session sh:binder { call transfer };
@@ -72,7 +73,7 @@ allow av_session sa_distributeddata_service:samgr_class { get };
 
 allow av_session dev_ashmem_file:chr_file { open };
 
-allow av_session bgtaskmgr_service:binder { call transfer };
+allow av_session resource_schedule_service:binder { call transfer };
 allow av_session sa_bgtaskmgr:samgr_class { get };
 allow av_session sa_foundation_ans:samgr_class { get };
 allow av_session bootevent_param:file { map open read };
@@ -82,3 +83,5 @@ allow av_session sa_memory_manager_service:samgr_class { get };
 allow av_session memmgrservice:binder { call };
 allow av_session sa_foundation_cesfwk_service:samgr_class { get };
 allow av_session accountmgr:binder { transfer };
+
+allow av_session arkui_param:file { map open read };

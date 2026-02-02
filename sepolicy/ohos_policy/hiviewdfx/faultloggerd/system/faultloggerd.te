@@ -86,3 +86,5 @@ allow faultloggerd sys_file:file { open read };
 allow faultloggerd hiview:binder { call };
 
 allow faultloggerd normal_hap:dir { open read };
+allow isolated_render faultloggerd:fifo_file {write};
+allow isolated_gpu faultloggerd:fifo_file {write};

@@ -20,6 +20,8 @@
 #include <unistd.h>
 #include <stdio.h>
 
+static const unsigned int SECURITY_SELINUX_ADAPTER = 0xC05A03;
+
 void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)
 {
     if (fileName == NULL || spaceSize == 0) {
@@ -30,7 +32,7 @@ void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)
     if (fd < 0) {
         return NULL;
     }
-
+    fdsan_exchange_owner_tag(fd, 0, SECURITY_SELINUX_ADAPTER);
     int prot = PROT_READ;
     if (!readOnly) {
         prot = PROT_READ | PROT_WRITE;
@@ -38,10 +40,10 @@ void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)
     }
     void *sharedMem = (void *)mmap(NULL, spaceSize, prot, MAP_SHARED, fd, 0);
     if (sharedMem == MAP_FAILED) {
-        close(fd);
+        fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
         return NULL;
     }
-    close(fd);
+    fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
     return sharedMem;
 }
 

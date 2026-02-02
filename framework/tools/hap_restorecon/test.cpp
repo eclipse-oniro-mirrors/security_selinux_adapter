@@ -25,13 +25,14 @@
 #include <string>
 #include <unistd.h>
 #include <vector>
+#include <thread>
 
 #include "hap_restorecon.h"
 #include "selinux_error.h"
 
 using namespace Selinux;
 
-static const int ALARM_TIME_S = 5;
+static const int WAIT_TIME_5S = 5;
 static const uint32_t TEST_UID = 20190166;
 struct TestInput {
     std::string name = "";
@@ -42,6 +43,11 @@ struct TestInput {
     bool isPreinstalledApp = false;
     std::string extension = "";
     uint32_t uid = 0;
+    bool force = false;
+    bool stop = false;
+    int stopReason = 0;
+    bool testInterruption = false;
+    int runTime = 0;
 };
 
 static void PrintUsage()
@@ -63,13 +69,18 @@ static void PrintUsage()
            "/data/app/el1/100/base/com.ohos.test2]\n");
     printf(" -i (--preinstalledapp)     setcon preinstalled                     [eg: -i]\n");
     printf(" -e (--extension)           extension info.                         [eg: -e extension_info]\n");
+    printf(" -F (--force-restorecon)    force restorecon.                       [eg: -F]\n");
+    printf(" -S (--stop-restorecon)     stop restorecon.                        [eg: -S]\n");
+    printf(" -R (--stop-reason)         stop reason (0:UNIDLE, 1:UPDATE, 2:DELETE). [eg: -R 0]\n");
+    printf(" -T (--test-interruption)   test interruption logic.                [eg: -T]\n");
+    printf(" -t (--run-time)            run for N seconds then stop.            [eg: -t 5]\n");
     printf("\n");
 }
 
 static void SetOptions(int argc, char *argv[], const option *options, TestInput &input)
 {
     int index = 0;
-    const char *optStr = "hda:p:n:r:m:ie:u";
+    const char *optStr = "hda:p:n:r:m:ie:uFSR:Tt:";
     int para = 0;
     while ((para = getopt_long(argc, argv, optStr, options, &index)) != -1) {
         switch (para) {
@@ -92,6 +103,11 @@ static void SetOptions(int argc, char *argv[], const option *options, TestInput 
             case 'i': input.isPreinstalledApp = true; break;
             case 'e': input.extension = optarg; break;
             case 'u': input.uid = TEST_UID; break;
+            case 'F': input.force = true; break;
+            case 'S': input.stop = true; break;
+            case 'R': input.stopReason = atoi(optarg); break;
+            case 'T': input.testInterruption = true; break;
+            case 't': input.runTime = atoi(optarg); break;
             default:
                 printf("Try 'hap_restorecon -h' for more information.\n");
                 exit(-1);
@@ -107,6 +123,11 @@ int main(int argc, char *argv[])
         {"path", required_argument, nullptr, 'p'},    {"mutilpath", required_argument, nullptr, 'm'},
         {"recurse", required_argument, nullptr, 'r'}, {"preinstalledapp", no_argument, nullptr, 'i'},
         {"extension", required_argument, nullptr, 'e'},
+        {"force-restorecon", no_argument, nullptr, 'F'},
+        {"stop-restorecon", no_argument, nullptr, 'S'},
+        {"stop-reason", required_argument, nullptr, 'R'},
+        {"test-interruption", no_argument, nullptr, 'T'},
+        {"run-time", required_argument, nullptr, 't'},
         {nullptr, no_argument, nullptr, 0},
     };
 
@@ -118,13 +139,91 @@ int main(int argc, char *argv[])
     TestInput testCmd;
     SetOptions(argc, argv, options, testCmd);
     HapContext test;
+    HapFileRestoreContext& forceTest = HapFileRestoreContext::GetInstance();
     int res = 0;
-    if (!testCmd.domain) {
+    if (testCmd.testInterruption) {
         HapFileInfo hapFileInfo = {
             .pathNameOrig = testCmd.multiPath,
             .apl = testCmd.apl,
             .packageName = testCmd.name,
-            .flags = atoi(testCmd.recurse.c_str()),
+            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
+            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
+            .uid = testCmd.uid
+        };
+
+        printf("=== Starting Interruption Test ===\n");
+        printf("1. Starting SetFileConForce in background thread...\n");
+        std::thread t([&forceTest, hapFileInfo]() {
+            ResultInfo resultInfo;
+            int r = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
+            printf("Thread finished with result: %d, total: %u, current: %u\n",
+                r, resultInfo.totalCount, resultInfo.currentCount);
+        });
+        printf("2. Sleeping %ds...\n", WAIT_TIME_5S);
+        sleep(WAIT_TIME_5S);
+        printf("3. Calling StopSetFileCon...\n");
+        res = forceTest.StopSetFileCon(hapFileInfo, StopReason::BUSY, "BUSY");
+        printf("Stop result: %d\n", res);
+        if (t.joinable()) {
+            t.join();
+        }
+        printf("4. Sleeping %ds (simulating pause)...\n", WAIT_TIME_5S);
+        sleep(WAIT_TIME_5S);
+        printf("5. Resuming SetFileConForce...\n");
+        ResultInfo resultInfo;
+        res = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
+        printf("Resume finished with result: %d, total: %u, current: %u\n",
+            res, resultInfo.totalCount, resultInfo.currentCount);
+    } else if (testCmd.force) {
+        HapFileInfo hapFileInfo = {
+            .pathNameOrig = testCmd.multiPath,
+            .apl = testCmd.apl,
+            .packageName = testCmd.name,
+            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
+            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
+            .uid = testCmd.uid
+        };
+
+        if (testCmd.runTime > 0) {
+            printf("=== Running with timeout: %d seconds ===\n", testCmd.runTime);
+            std::thread t([&forceTest, hapFileInfo]() {
+                ResultInfo resultInfo;
+                int r = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
+                printf("Thread finished with result: %d, total: %u, current: %u\n",
+                    r, resultInfo.totalCount, resultInfo.currentCount);
+            });
+
+            sleep(testCmd.runTime);
+            printf("=== Timeout reached, stopping task... ===\n");
+            res = forceTest.StopSetFileCon(hapFileInfo, static_cast<StopReason>(testCmd.stopReason), "STOP");
+            printf("Stop result: %d\n", res);
+
+            if (t.joinable()) {
+                t.join();
+            }
+        } else {
+            ResultInfo resultInfo;
+            res = forceTest.SetFileConForce(hapFileInfo, 1, resultInfo);
+            std::cout << GetErrStr(res) << " total: " << resultInfo.totalCount <<
+            " current: " << resultInfo.currentCount << std::endl;
+        }
+    } else if (testCmd.stop) {
+        HapFileInfo hapFileInfo = {
+            .pathNameOrig = testCmd.multiPath,
+            .apl = testCmd.apl,
+            .packageName = testCmd.name,
+            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
+            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
+            .uid = testCmd.uid
+        };
+        res = forceTest.StopSetFileCon(hapFileInfo, static_cast<StopReason>(testCmd.stopReason), "STOP");
+        std::cout << "Stop result: " << GetErrStr(res) << std::endl;
+    } else if (!testCmd.domain) {
+        HapFileInfo hapFileInfo = {
+            .pathNameOrig = testCmd.multiPath,
+            .apl = testCmd.apl,
+            .packageName = testCmd.name,
+            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
             .uid = testCmd.uid
         };
@@ -140,7 +239,7 @@ int main(int argc, char *argv[])
         };
         res = test.HapDomainSetcontext(hapDomainInfo);
         std::cout << GetErrStr(res) << std::endl;
-        sleep(ALARM_TIME_S);
+        sleep(WAIT_TIME_5S);
     }
     exit(0);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,6 +31,11 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <atomic>
+#include <mutex>
+#include <memory>
+#include <map>
+#include <unistd.h>
 
 #include <include/fts.h>
 #include <pthread.h>
@@ -40,6 +45,10 @@
 #include "src/callbacks.h"
 #include "selinux_error.h"
 #include "selinux_log.h"
+#include "restore_task.h"
+#include "seharmony_cjson.h"
+#include "seharmony_hisysevent_adapter.h"
+
 
 using namespace Selinux;
 
@@ -62,11 +71,15 @@ static const std::string EXTENSION_PREFIX = "extension=";
 static const std::string LEVEL_PREFIX = "levelFrom=";
 static const std::string USER_PREFIX = "user=";
 static const std::string DEBUGGABLE = "debuggable";
+static const std::string DLP_SANDBOX_READ_ONLY = "dlp_sandbox_read_only";
 static const std::string DLPSANDBOX = "dlp_sandbox";
 static const std::string INPUT_ISOLATE = "input_isolate";
+static const std::string INPUT_ISOLATE_FULL = "input_isolate_full";
 static const std::string CUSTOMSANDBOX = "custom_sandbox";
 static const std::string ISOLATED_GPU = "isolated_gpu";
 static const std::string ISOLATED_RENDER = "isolated_render";
+static const char *ORIGINAL_TYPE = "normal_hap_data_file";
+static const char *UPDATED_TYPE = "appdat";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -95,7 +108,7 @@ std::mutex g_loadContextsLock;
 
 static void SelinuxSetCallback()
 {
-    SetSelinuxHilogLevel(SELINUX_HILOG_ERROR);
+    SetSelinuxHilogLevel(SELINUX_HILOG_INFO);
     union selinux_callback cb;
     cb.func_log = SelinuxHilog;
     selinux_set_callback(SELINUX_CB_LOG, cb);
@@ -237,12 +250,16 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
                 contextBuff.extra |= SELINUX_HAP_ISOLATED_GPU;
             } else if (extra == ISOLATED_RENDER) {
                 contextBuff.extra |= SELINUX_HAP_ISOLATED_RENDER;
-            } else if (extra == DLPSANDBOX) {
-                contextBuff.extra |= SELINUX_HAP_DLP;
             } else if (extra == INPUT_ISOLATE) {
                 contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE;
             } else if (extra == CUSTOMSANDBOX) {
                 contextBuff.extra |= SELINUX_HAP_CUSTOM_SANDBOX;
+            } else if (extra == DLP_SANDBOX_READ_ONLY) {
+                contextBuff.extra |= SELINUX_HAP_DLP_READ_ONLY;
+            } else if (extra == DLPSANDBOX) {
+                contextBuff.extra |= SELINUX_HAP_DLP_FULL_CONTROL;
+            } else if (extra == INPUT_ISOLATE_FULL) {
+                contextBuff.extra |= SELINUX_HAP_INPUT_ISOLATE_FULL;
             } else {
                 selinux_log(SELINUX_ERROR, "invalid extra %s\n", extra.c_str());
                 isValid = false;
@@ -256,7 +273,7 @@ static struct SehapInfo DecodeString(const std::string &line, bool &isValid)
 
 static bool CheckPath(const std::string &path)
 {
-    std::regex pathPrefix1("^/data/app/el[1-5]/[0-9]+/(base|database|sharefiles)/.*");
+    std::regex pathPrefix1("^/data/app/el[1-5]/[0-9]+/(base|database|sharefiles|datagroup)/.*");
     std::regex pathPrefix2("^/data/accounts/account_0/appdata/.*");
     std::regex pathPrefix3("^/data/service/el[1-5]/[0-9]+/backup/bundles/.*");
     if (std::regex_match(path, pathPrefix1) || std::regex_match(path, pathPrefix2) ||
@@ -287,7 +304,15 @@ static std::string GetHapContextKey(const struct SehapInfo *hapInfo)
         } else {
             keyPara = hapInfo->apl + "." + INPUT_ISOLATE;
         }
-    } else if (hapInfo->extra & SELINUX_HAP_DLP) {
+    } else if (hapInfo->extra & SELINUX_HAP_INPUT_ISOLATE_FULL) {
+        if (hapInfo->debuggable) {
+            keyPara = hapInfo->apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE_FULL;
+        } else {
+            keyPara = hapInfo->apl + "." + INPUT_ISOLATE_FULL;
+        }
+    } else if (hapInfo->extra & SELINUX_HAP_DLP_READ_ONLY) {
+        keyPara = hapInfo->apl + "." + DLP_SANDBOX_READ_ONLY;
+    } else if (hapInfo->extra & SELINUX_HAP_DLP_FULL_CONTROL) {
         keyPara = hapInfo->apl + "." + DLPSANDBOX;
     } else if (hapInfo->extra & SELINUX_HAP_CUSTOM_SANDBOX) {
         if (hapInfo->debuggable) {
@@ -314,7 +339,6 @@ static bool HapContextsInsert(const SehapInfo &tmpInfo, int lineNum)
         return false;
     }
 
-    selinux_log(SELINUX_INFO, "insert keyPara %s\n", keyPara.c_str());
     SehapInsertParamInfo tmpInsertInfo = {
 #ifdef MCS_ENABLE
         tmpInfo.levelFrom,
@@ -423,6 +447,32 @@ int HapContext::HapFileRestorecon(HapFileInfo& hapFileInfo)
     return failFlag ? -SELINUX_RESTORECON_ERROR : SELINUX_SUCC;
 }
 
+static int IsSkipSetContext(const char *oldSecontext, const char *newSecontext, bool &skipSetCon,
+    const std::string &pathNameOrig)
+{
+    context_t oldContext = context_new(oldSecontext);
+    if (oldContext == nullptr) {
+        selinux_log(SELINUX_ERROR, "Old context is null");
+        return -SELINUX_PTR_NULL;
+    }
+    context_t newContext = context_new(newSecontext);
+    if (newContext == nullptr) {
+        context_free(oldContext);
+        selinux_log(SELINUX_ERROR, "New context is null");
+        return -SELINUX_PTR_NULL;
+    }
+
+    if (!strcmp(context_type_get(oldContext), ORIGINAL_TYPE) && !strcmp(context_type_get(newContext), UPDATED_TYPE)) {
+        selinux_log(SELINUX_INFO, "Skip set the context of path: %s.\n", pathNameOrig.c_str());
+        skipSetCon = true;
+    }
+
+    context_free(oldContext);
+    context_free(newContext);
+
+    return SELINUX_SUCC;
+}
+
 int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& hapFileInfo)
 {
     if (hapFileInfo.apl.empty() || pathNameOrig.empty() || !CheckApl(hapFileInfo.apl)) {
@@ -433,7 +483,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
         return SELINUX_SUCC;
     }
 
-    char realPath[PATH_MAX];
+    char realPath[PATH_MAX + 1];
     if (realpath(pathNameOrig.c_str(), realPath) == nullptr) {
         return -SELINUX_PATH_INVALID;
     }
@@ -452,6 +502,15 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
         selinux_log(SELINUX_ERROR, "oldSecontext or newSecontext is null");
         return -SELINUX_PTR_NULL;
     }
+
+    bool skipSetCon = false;
+    res = IsSkipSetContext(oldSecontext, newSecontext, skipSetCon, pathNameOrig);
+    if ((res != SELINUX_SUCC) || skipSetCon) {
+        freecon(newSecontext);
+        freecon(oldSecontext);
+        return res;
+    }
+
     if (strcmp(oldSecontext, newSecontext) == 0) {
         freecon(newSecontext);
         freecon(oldSecontext);
@@ -682,30 +741,30 @@ static std::string GetKeyParams(const HapContextParams &params)
     } else if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE) {
         if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
             keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE;
-            selinux_log(SELINUX_INFO, "input_isolate debug hap, keyPara: %s", keyPara.c_str());
         } else {
             keyPara = params.apl + "." + INPUT_ISOLATE;
-            selinux_log(SELINUX_INFO, "input_isolate isolate hap, keyPara: %s", keyPara.c_str());
         }
-    } else if (params.hapFlags & SELINUX_HAP_DLP) {
+    } else if (params.hapFlags & SELINUX_HAP_INPUT_ISOLATE_FULL) {
+        if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
+            keyPara = params.apl + "." + DEBUGGABLE + "." + INPUT_ISOLATE_FULL;
+        } else {
+            keyPara = params.apl + "." + INPUT_ISOLATE_FULL;
+        }
+    } else if (params.hapFlags & SELINUX_HAP_DLP_READ_ONLY) {
+        keyPara = params.apl + "." + DLP_SANDBOX_READ_ONLY;
+    } else if (params.hapFlags & SELINUX_HAP_DLP_FULL_CONTROL) {
         keyPara = params.apl + "." + DLPSANDBOX;
-        selinux_log(SELINUX_INFO, "dlpsandbox hap, keyPara: %s", keyPara.c_str());
     } else if (params.hapFlags & SELINUX_HAP_CUSTOM_SANDBOX) {
         if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
             keyPara = params.apl + "." + DEBUGGABLE + "." + CUSTOMSANDBOX + "." + params.packageName;
-            selinux_log(SELINUX_INFO, "customsandbox debug hap, keyPara: %s", keyPara.c_str());
         } else {
             keyPara = params.apl + "." + CUSTOMSANDBOX + "." + params.packageName;
-            selinux_log(SELINUX_INFO, "customsandbox hap, keyPara: %s", keyPara.c_str());
         }
     } else if (params.hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
         keyPara = params.apl + "." + params.packageName;
-        selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
     } else if (params.hapFlags & SELINUX_HAP_DEBUGGABLE) {
         keyPara = params.apl + "." + DEBUGGABLE;
-        selinux_log(SELINUX_INFO, "debuggable hap, keyPara: %s", keyPara.c_str());
     } else {
-        selinux_log(SELINUX_INFO, "not a preinstall hap, apl: %s", params.apl.c_str());
         keyPara = params.apl;
     }
     return keyPara;
@@ -760,6 +819,173 @@ int HapContext::TypeSet(const std::string &type, context_t con)
         selinux_log(SELINUX_ERROR, "%s %s\n", GetErrStr(SELINUX_SET_CONTEXT_TYPE_ERROR), type.c_str());
         return -SELINUX_SET_CONTEXT_TYPE_ERROR;
     }
+    return SELINUX_SUCC;
+}
+
+HapFileRestoreContext& HapFileRestoreContext::GetInstance()
+{
+    static HapFileRestoreContext instance;
+    return instance;
+}
+
+HapFileRestoreContext::HapFileRestoreContext() : HapContext()
+{
+    __selinux_once(g_fcOnce, SelinuxSetCallback);
+}
+
+HapFileRestoreContext::~HapFileRestoreContext() {}
+
+bool HapFileRestoreContext::IsAppdatContext(const HapFileInfo& hapFileInfo)
+{
+    char *secontext = nullptr;
+    HapContextParams params = {hapFileInfo.apl, hapFileInfo.packageName, hapFileInfo.hapFlags};
+    params.uid = hapFileInfo.uid;
+    bool isAppdat = false;
+    
+    if (HapLabelLookup(params, &secontext) == SELINUX_SUCC && secontext != nullptr) {
+        context_t targetContext = context_new(secontext);
+        if (targetContext == nullptr) {
+            selinux_log(SELINUX_ERROR, "Create context is null");
+            freecon(secontext);
+            return isAppdat;
+        }
+        if (strcmp(context_type_get(targetContext), UPDATED_TYPE) == 0) {
+            isAppdat = true;
+        }
+        context_free(targetContext);
+        freecon(secontext);
+    }
+    return isAppdat;
+}
+
+int HapFileRestoreContext::SetFileConForce(const HapFileInfo& hapFileInfo, const uint32_t remainingNum,
+    ResultInfo& resultInfo)
+{
+    selinux_log(SELINUX_INFO, "SetFileConForce start, bundleName=%s, uid = %u",
+            hapFileInfo.packageName.c_str(), hapFileInfo.uid);
+    if (!IsAppdatContext(hapFileInfo)) {
+        selinux_log(SELINUX_INFO, "Skip SetFileConForce for non-appdat context, bundleName=%s",
+            hapFileInfo.packageName.c_str());
+        DeleteRefreshInfo(hapFileInfo.packageName, hapFileInfo.uid);
+        return SELINUX_SUCC;
+    }
+    if (hapFileInfo.packageName.empty() || hapFileInfo.pathNameOrig.empty()) {
+        selinux_log(SELINUX_ERROR, "Invalid args or context check failed for bundleName=%s",
+            hapFileInfo.packageName.c_str());
+        return -SELINUX_ARG_INVALID;
+    }
+    Selinux::ReportSeharmonyHapFileRestoreStart(hapFileInfo, remainingNum);
+    std::shared_ptr<RestoreTask> task = nullptr;
+    int ret = InitRestoreTask(task, hapFileInfo);
+    if (ret == -SELINUX_NO_FOUND_PATHS) {
+        return SELINUX_SUCC;
+    } else if (ret != SELINUX_SUCC) {
+        return ret;
+    }
+
+    std::vector<std::string> paths;
+    task->GetRestorePaths(paths);
+    for (const auto& origPath : paths) {
+        if (task->IsStopping()) {
+            task->SetInterrupted();
+            ret = -SELINUX_RESTORECON_TASK_STOPPED;
+            break;
+        }
+        ret = ProcessRestorePath(task, origPath, hapFileInfo);
+        if (ret == -SELINUX_RESTORECON_TASK_STOPPED) {
+            break;
+        }
+    }
+
+    FinishRestoreTask(hapFileInfo, resultInfo);
+    selinux_log(SELINUX_INFO, "SetFileConForce end, ret=%d, bundlename=%s, count=%u, totalcount=%u",
+        ret, hapFileInfo.packageName.c_str(), resultInfo.currentCount, resultInfo.totalCount);
+    return ret;
+}
+
+int HapFileRestoreContext::InitRestoreTask(std::shared_ptr<RestoreTask>& task, const HapFileInfo& hapFileInfo)
+{
+    std::lock_guard<std::mutex> lock(restoreTaskMutex_);
+    if (restoreTask_ != nullptr) {
+        selinux_log(SELINUX_ERROR, "Restorecon task already in progress for %s", restoreTask_->info.bundleName.c_str());
+        return -SELINUX_RESTORECON_TASK_ALREADY_RUNNING;
+    }
+    task = std::make_shared<RestoreTask>(hapFileInfo.packageName, hapFileInfo.uid);
+    // Load progress
+    std::vector<std::string> pathNameOrig = hapFileInfo.pathNameOrig;
+    int ret = ReadRefreshInfo(task->info, pathNameOrig);
+    if (ret == -SELINUX_NO_FOUND_PATHS) {
+        restoreTask_ = nullptr;
+        return -SELINUX_NO_FOUND_PATHS;
+    } else { // ignore other errors
+        restoreTask_ = task;
+    }
+    return SELINUX_SUCC;
+}
+
+int HapFileRestoreContext::ProcessRestorePath(std::shared_ptr<RestoreTask> task,
+    const std::string& targetPath, const HapFileInfo& hapFileInfo)
+{
+    int ret = task->RestoreTraversal(targetPath);
+    if (ret != SELINUX_SUCC && ret != -SELINUX_RESTORECON_TASK_STOPPED) {
+        Selinux::ReportSeharmonyRestoreErr(hapFileInfo.packageName,
+            hapFileInfo.uid, ret, "RestoreTraversal failed");
+        selinux_log(SELINUX_ERROR, "RestoreTraversal failed for path %s with error %d\n", targetPath.c_str(), ret);
+    }
+    return ret;
+}
+
+void HapFileRestoreContext::FinishRestoreTask(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo)
+{
+    std::lock_guard<std::mutex> lock(restoreTaskMutex_);
+    if (restoreTask_ == nullptr) {
+        return;
+    }
+
+    uint32_t total = 0;
+    std::vector<std::string> currentPath;
+    restoreTask_->GetProgress(total, currentPath);
+    resultInfo.totalCount = total;
+    resultInfo.currentCount = restoreTask_->successCount;
+
+    if (restoreTask_->IsInterrupted() && restoreTask_->GetShouldSave()) {
+        std::lock_guard<std::mutex> infoLock(restoreTask_->infoMutex);
+        WriteRefreshInfo(restoreTask_->info);
+    } else {
+        DeleteRefreshInfo(hapFileInfo.packageName, hapFileInfo.uid);
+    }
+
+    RestoreFinishInfo finishInfo;
+    std::string stopDesc;
+    finishInfo.totalCount = static_cast<int32_t>(total);
+    finishInfo.successCount = static_cast<int32_t>(resultInfo.currentCount);
+    finishInfo.errorCount = static_cast<int32_t>(restoreTask_->failureCount);
+    finishInfo.changeContext = (resultInfo.currentCount > 0);
+    finishInfo.stopReason = static_cast<int32_t>(restoreTask_->GetStopReason(stopDesc));
+    finishInfo.currentPath = currentPath;
+    finishInfo.isSkipAlias = false;
+    finishInfo.stopDesc = stopDesc;
+
+    Selinux::ReportSeharmonyHapFileRestoreFinish(hapFileInfo, finishInfo);
+    restoreTask_ = nullptr;
+}
+
+int HapFileRestoreContext::StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason,
+    const std::string& stopDesc)
+{
+    std::lock_guard<std::mutex> lock(restoreTaskMutex_);
+    bool isAppdat = IsAppdatContext(hapFileInfo);
+    bool shouldSave = (stopReason == StopReason::BUSY) || (stopReason == StopReason::UPDATE && isAppdat);
+    if (restoreTask_ != nullptr &&
+        restoreTask_->info.bundleName == hapFileInfo.packageName &&
+        restoreTask_->info.uid == hapFileInfo.uid) {
+        (void) restoreTask_->TryToStop(stopReason, stopDesc, shouldSave);
+    }
+    if (!shouldSave) {
+        DeleteRefreshInfo(hapFileInfo.packageName, hapFileInfo.uid);
+    }
+    selinux_log(SELINUX_INFO, "StopSetFileCon, bundleName=%s, uid = %u, shouldSave = %d",
+        hapFileInfo.packageName.c_str(), hapFileInfo.uid, shouldSave);
     return SELINUX_SUCC;
 }
 

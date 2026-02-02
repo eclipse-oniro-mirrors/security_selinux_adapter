@@ -1,0 +1,23 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow dlp_sandbox_read_only_hap dlp_fuse_file:file { open read write getattr };	
+allow dlp_sandbox_read_only_hap dlp_fuse_file:dir { search open read write getattr };	
+
+allow dlp_sandbox_read_only_hap dlp_sandbox_read_only_hap_data_file:file { open read write };	
+
+neverallow { hap_domain -dlp_sandbox_read_only_hap -isolated_render } dlp_sandbox_read_only_hap_data_file:file { open read write };	
+
+allow dlp_sandbox_read_only_hap dev_mali:chr_file { ioctl };	
+
+allowxperm dlp_sandbox_read_only_hap dev_mali:chr_file ioctl { 0x800f 0x801b };

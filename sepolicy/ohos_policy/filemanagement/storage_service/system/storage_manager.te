@@ -82,3 +82,9 @@ allow storage_manager foundation:fd { use };
 
 # avc: denied { transfer } for pid=606, comm="/system/bin/sa_main"  scontext=u:r:storage_manager:s0 tcontext=u:r:storage_daemon:s0 tclass=binder permissive=1
 allow storage_manager storage_daemon:binder { transfer };
+
+allow storage_manager data_file:dir { search };
+allow storage_manager data_service_el1_file:dir { ioctl create open read remove_name search getattr add_name write };
+allowxperm storage_manager data_service_el1_file:dir ioctl { 0xf546 };
+allow storage_manager data_service_el1_file:file { ioctl create read write getattr setattr lock map open append unlink rename};
+allowxperm storage_manager data_service_el1_file:file ioctl { 0xf50c 0xf546 };

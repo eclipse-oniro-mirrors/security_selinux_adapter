@@ -59,3 +59,4 @@ allow resource_schedule_executor sysfs_devices_system_cpu:file { getattr open re
 allow resource_schedule_executor sysfs_devices_system_cpu:dir { open read search };
 allow resource_schedule_executor cgroup:dir { search };
 allow resource_schedule_executor cgroup:file { open read write };
+allow resource_schedule_executor proc_file:file { open read write };

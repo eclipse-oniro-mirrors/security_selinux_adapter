@@ -34,7 +34,6 @@
 #avc:  denied  { read } for  pid=2666 comm="hdf_devhost" name="u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 #avc:  denied  { call } for  pid=2582 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:allocator_host:s0 tclass=binder permissive=0
-#avc:  denied  { read } for  pid=3798 comm="hdf_devhost" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=0
 #avc:  denied  { get } for service=3901 pid=3568 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
 #avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
@@ -67,7 +66,6 @@ debug_only(`
 allow dcamera_host const_param:file { open read };
 allow dcamera_host const_postinstall_param:file { open map };
 allow dcamera_host allocator_host:binder { call };
-allow dcamera_host accessibility_param:file { read open map };
 allow dcamera_host normal_hap_attr:binder { call transfer };
 allow dcamera_host sa_param_watcher:samgr_class { get };
 allow dcamera_host system_core_hap_attr:binder { call };
@@ -80,19 +78,14 @@ allow dcamera_host vendor_bin_file:dir { search };
 allow dcamera_host render_service:fd { use };
 allow dcamera_host param_watcher:binder { call transfer };
 
-allow dcamera_host bootevent_param:file { map open read };
 allow dcamera_host bootevent_samgr_param:file { map open read };
 allow dcamera_host build_version_param:file { map open read };
-allow dcamera_host const_allow_mock_param:file { map open read };
 allow dcamera_host const_allow_param:file { map open read };
 allow dcamera_host const_build_param:file { map open read };
-allow dcamera_host const_display_brightness_param:file { map open read };
 allow dcamera_host const_param:file { map open read };
-allow dcamera_host const_postinstall_fstab_param:file { map open read };
 allow dcamera_host const_postinstall_param:file { map open read };
 allow dcamera_host const_product_param:file { map open read };
 allow dcamera_host debug_param:file { map open read };
-allow dcamera_host default_param:file { map open read };
 allow dcamera_host dev_hdf_kevent:chr_file { getattr };
 allow dcamera_host distributedsche_param:file { map open read };
 allow dcamera_host hdf_devmgr:binder { transfer };
@@ -102,17 +95,10 @@ allow dcamera_host hw_sc_build_param:file { map open read };
 allow dcamera_host hw_sc_param:file { map open read };
 allow dcamera_host init_param:file { map open read };
 allow dcamera_host init_svc_param:file { map open read };
-allow dcamera_host input_pointer_device_param:file { map open read };
 allow dcamera_host net_param:file { map open read };
-allow dcamera_host net_tcp_param:file { map open read };
 allow dcamera_host ohos_boot_param:file { map open read };
 allow dcamera_host ohos_param:file { map open read };
-allow dcamera_host persist_param:file { map open read };
-allow dcamera_host persist_sys_param:file { map open read };
-allow dcamera_host security_param:file { map open read };
 allow dcamera_host startup_param:file { map open read };
-allow dcamera_host sys_param:file { map read read open };
-allow dcamera_host system_bin_file:dir { search };
 allow dcamera_host sys_usb_param:file { map open read };
 allow dcamera_host vendor_etc_file:dir { search };
 allow dcamera_host vendor_etc_file:file { getattr open read };

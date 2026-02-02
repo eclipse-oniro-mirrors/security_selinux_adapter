@@ -33,10 +33,14 @@ ohos_unittest("hap_restorecon_unittest") {
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
     "../framework/policycoreutils/src/hap_restorecon.cpp",
+    "../framework/policycoreutils/src/restore_task.cpp",
     "../framework/policycoreutils/src/sehap_contexts_trie.cpp",
+    "../framework/policycoreutils/src/seharmony_cjson.cpp",
+    "../framework/policycoreutils/src/seharmony_hisysevent_adapter.cpp",
     "unittest/common/test_common.cpp",
     "unittest/hap_restorecon/unit_test.cpp",
   ]
+  include_dirs = [ "../framework/policycoreutils/include" ]
   deps = [
     "../:libselinux_error_static",
     "../:libselinux_hilog_static",
@@ -46,6 +50,66 @@ ohos_unittest("hap_restorecon_unittest") {
     cflags += [ "-DMCS_ENABLE" ]
   }
   external_deps = [
+    "cJSON:cjson",
+    "c_utils:utils",
+    "googletest:gtest",
+    "hilog:libhilog",
+    "hisysevent:libhisysevent",
+    "selinux:libselinux",
+  ]
+}
+
+ohos_unittest("hap_restorecon_hapfile_test") {
+  subsystem_name = "accesscontrol"
+  part_name = "selinux_adapter"
+  module_out_path = part_name + "/" + part_name
+  public_configs = [ ":selinux_unittest_config" ]
+  sources = [
+    "../framework/policycoreutils/src/hap_restorecon.cpp",
+    "../framework/policycoreutils/src/restore_task.cpp",
+    "../framework/policycoreutils/src/sehap_contexts_trie.cpp",
+    "../framework/policycoreutils/src/seharmony_cjson.cpp",
+    "../framework/policycoreutils/src/seharmony_hisysevent_adapter.cpp",
+    "unittest/common/test_common.cpp",
+    "unittest/hap_restorecon/hapfile_test.cpp",
+  ]
+  include_dirs = [ "../framework/policycoreutils/include" ]
+  deps = [
+    "../:libselinux_error_static",
+    "../:libselinux_hilog_static",
+  ]
+  cflags = [ "-DSELINUX_TEST" ]
+  if (selinux_adapter_mcs_enable) {
+    cflags += [ "-DMCS_ENABLE" ]
+  }
+  external_deps = [
+    "cJSON:cjson",
+    "googletest:gtest",
+    "hilog:libhilog",
+    "hisysevent:libhisysevent",
+    "selinux:libselinux",
+  ]
+}
+
+ohos_unittest("seharmony_cjson_unittest") {
+  subsystem_name = "accesscontrol"
+  part_name = "selinux_adapter"
+  module_out_path = part_name + "/" + part_name
+  public_configs = [ ":selinux_unittest_config" ]
+  sources = [
+    "../framework/policycoreutils/src/seharmony_cjson.cpp",
+    "../framework/policycoreutils/src/seharmony_hisysevent_adapter.cpp",
+    "unittest/common/test_common.cpp",
+    "unittest/seharmony_cjson/unit_test.cpp",
+  ]
+  include_dirs = [ "../framework/policycoreutils/include" ]
+  deps = [
+    "../:libselinux_error_static",
+    "../:libselinux_hilog_static",
+  ]
+  cflags = [ "-DSELINUX_CJSON_TEST" ]
+  external_deps = [
+    "cJSON:cjson",
     "googletest:gtest",
     "hilog:libhilog",
     "selinux:libselinux",
@@ -123,9 +187,11 @@ ohos_unittest("selinux_common_unittest") {
 group("unittest") {
   testonly = true
   deps = [
+    ":hap_restorecon_hapfile_test",
     ":hap_restorecon_unittest",
     ":parameter_static_unittest",
     ":paraperm_checker_unittest",
+    ":seharmony_cjson_unittest",
     ":selinux_common_unittest",
     ":service_checker_unittest",
   ]

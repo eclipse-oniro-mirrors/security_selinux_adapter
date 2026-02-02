@@ -79,6 +79,7 @@ developer_only(`
     allow hdcd const_postinstall_param:file { map open read };
     allow hdcd const_product_param:file { map open read };
     allow hdcd data_log:dir { search };
+    allow hdcd faultlogger_log_file:dir { search };
     allow hdcd debug_param:file { map open read };
     allow hdcd default_param:file { map open read };
     allow hdcd dev_usb_ffs:dir { open read search };
@@ -290,9 +291,11 @@ developer_only(`
     allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
     allow hdcd hisysevent_exec:file { execute read open getattr execute_no_trans map };
 
-    # for recv /data/log and /data/log/hilog
+    # for recv /data/log and /data/log/hilog and /data/log/faultlog/faultlogger
     allow hdcd data_log:dir { getattr read open };
     allow hdcd data_log:file { getattr read open };
+    allow hdcd faultlogger_log_file:dir { getattr read open };
+    allow hdcd faultlogger_log_file:file { getattr read open };
     allow hdcd data_hilogd_file:dir { getattr read open };
     allow hdcd data_hilogd_file:file { getattr read open };
 
@@ -300,7 +303,7 @@ developer_only(`
     allow hdcd debug_param:file { map read open };
     allow hdcd debug_param:parameter_service { set };
 
-    allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
+    allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh -dlp_sandbox_read_only_hap }:unix_stream_socket { connectto };
 
     domain_auto_transition_pattern(hdcd, sh_exec, sh);
 
@@ -321,6 +324,9 @@ developer_only(`
     allow hdcd proc_file:lnk_file { read };
     # avc:  denied  { search } for  pid=5252 comm="OS_FFRT_2_4" name="/" dev="proc" ino=1 scontext=u:r:hdcd:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
     allow hdcd proc_file:dir { search };
+
+    # avc: denied { signal } for pid=25234, comm="/system/bin/hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:sqlite3:s0 tclass=process permissive=0
+    allow hdcd sqlite3:process { signal };
 ')
 
 neverallow hdcd hmdfs:dir ioctl;

@@ -214,6 +214,25 @@ attribute filesystem_violator;
 # i.e. sh
 attribute develop_domain;
 
+# Attributes for system and chipset files
+attribute vendor_bin_file_attr;
+attribute vendor_lib_file_attr;
+attribute vendor_etc_file_attr;
+attribute sys_prod_bin_file_attr;
+attribute sys_prod_lib_file_attr;
+attribute sys_prod_etc_file_attr;
+attribute chip_prod_bin_file_attr;
+attribute chip_prod_lib_file_attr;
+attribute chip_prod_etc_file_attr;
+attribute chip_prod_passthrough_file_attr;
+attribute data_vendor_file_attr;
+attribute data_service_file_attr;
+attribute data_chipset_file_attr;
+
+# i.e. /system/etc/*
+attribute system_etc_file_attr;
+
+
 # define some violator attribute for neverallows.
 attribute vendor_file_violator_dir;
 attribute vendor_file_violator_dir_getattr;
@@ -306,6 +325,7 @@ attribute rgmli_violator_exec_file_attr;
 attribute violator_code_sign_utils_file_attr;
 attribute violator_dev_code_sign_chr_file_attr;
 attribute violator_dev_encaps_chr_file_attr;
+attribute violator_dev_at_file_chr_file_attr;
 
 # define some hap_domain violator attribute for neverallows
 attribute hap_domain_dev_ptmx_violators;
@@ -345,3 +365,18 @@ attribute violator_appspawn_hap_file_attr_dir;
 attribute violator_appspawn_execute_data_file_attr_violator_file;
 attribute violator_appspawn_execute_hap_file_attr_file;
 attribute violator_domain_sys_boot;
+
+# define type attributes for parameter
+attribute system_parameter_attr;
+attribute system_internal_parameter_attr;
+attribute system_restricted_parameter_attr;
+attribute system_public_parameter_attr;
+
+attribute vendor_parameter_attr;
+attribute vendor_internal_parameter_attr;
+attribute vendor_restricted_parameter_attr;
+attribute vendor_public_parameter_attr;
+
+# define for type of socket
+attribute system_sock_domain;
+attribute chipset_sock_domain;

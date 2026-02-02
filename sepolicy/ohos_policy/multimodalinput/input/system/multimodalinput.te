@@ -67,7 +67,7 @@ allow multimodalinput sa_audio_policy_service:samgr_class { get };
 allow multimodalinput sa_device_service_manager:samgr_class { get };
 allow multimodalinput sa_distributeddata_service:samgr_class { get };
 allow multimodalinput sa_foundation_dms:samgr_class { get };
-allow multimodalinput sa_foundation_tel_call_manager:samgr_class { get };
+allow multimodalinput sa_telecom_tel_call_manager:samgr_class { get };
 allow multimodalinput sa_foundation_wms:samgr_class { get };
 allow multimodalinput sa_media_service:samgr_class { get };
 allow multimodalinput sa_multimodalinput_service:samgr_class { get };
@@ -118,7 +118,7 @@ allow charger multimodalinput:fd { use };
 allow charger multimodalinput:unix_stream_socket { read write };
 allowxperm multimodalinput data_log:file ioctl { 0x5413 };
 allowxperm multimodalinput dev_dri_file:chr_file ioctl { 0x641f };
-allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4503 0x4560 0x4542 0x4548 0x456f 0x450a 0x4559 0x4568 0x455a 0x455b 0x4577 0x4545 0x4549 0x454a 0x4550 0x4551 0x4567 0x4569 0x456c };
+allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4501-0x4503 0x4506-0x450a 0x4518-0x4519 0x451b 0x4520-0x4525 0x4531-0x4532 0x4535 0x4540-0x457e 0x4590 0x45a0 0x45c0 };
 allowxperm multimodalinput data_multimodalinput:file ioctl { 0x5413 };
 debug_only(`
     allow multimodalinput sh:binder { call };
@@ -133,6 +133,8 @@ allow multimodalinput sensors:binder { call transfer };
 allow multimodalinput sensors:unix_stream_socket { read write };
 allow multimodalinput sa_sensor_service:samgr_class { get };
 allow multimodalinput hdf_device_manager:hdf_devmgr_class { get };
+allow multimodalinput sa_accountmgr:samgr_class { get };
+binder_call(multimodalinput, accountmgr);
 # avc:  denied  { get } for service=3505 sid=u:r:multimodalinput:s0 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow multimodalinput sa_privacy_service:samgr_class { get };
 allow multimodalinput privacy_service:binder { call transfer };

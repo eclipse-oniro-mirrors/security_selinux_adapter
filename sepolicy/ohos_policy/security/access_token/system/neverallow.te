@@ -16,7 +16,7 @@ neverallow storage_daemon accesstoken_data_file:dir ~{ getattr read open search 
 neverallow { domain -storage_daemon -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_file updater_only(`-updater') } accesstoken_data_file:file *;
 neverallow storage_daemon accesstoken_data_file:file ~{ getattr };
 
-neverallow accesstoken_service accesstoken_data_file:dir ~{ create search add_name open read write remove_name ioctl };
+neverallow accesstoken_service accesstoken_data_file:dir ~{ create search add_name open read write remove_name ioctl getattr };
 neverallow accesstoken_service accesstoken_data_file:file ~{ open read getattr ioctl lock write create unlink map setattr };
 
 neverallow init accesstoken_data_file:dir ~{ getattr open read relabelto setattr search };

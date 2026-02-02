@@ -69,3 +69,10 @@ allow powermgr sysfs_attr:file { getattr ioctl open read write };
 # avc_audit_slow:276] avc: denied { ioctl } for pid=1434, comm="/system/bin/sa_main"  path="/sys/devices/virtual/thermal/thermal_zone0/percore_num" dev="" ino=37869 ioctlcmd=0x5413 scontext=u:r:powermgr:s0 tcontext=u:object_r:sysfs_pg:s0 tclass=file permissive=1
 allowxperm powermgr sysfs_attr:file ioctl { 0x5413 };
 
+# Fine-grained dir/file permissions. The label is defined in drivers/peripheral/thermal under vendor image
+# avc: denied { search write add_name create read open remove_name setattr getattr } for pid=1536, comm="/system/bin/sa_main" name="/data/service/el0/thermal/sensor" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=dir permissive=1
+# avc: denied { create append open read write getattr } for pid=1430, for pid=1536, comm="/system/bin/sa_main" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2121 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_thermal:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=1535, comm="/system/bin/sa_main" path="data/service/el0/thermal/config/configLevel" dev="/dev/block/platform/fa500000.ufs//by-name/userdata" ino=4812 ioctlcmd=0x5413 scontext=u:r:powermgr:s0  tcontext=u:object_r:data_service_el0_thermal:s0 tclass=file permissive=1
+allow powermgr thermal_el0_data:dir { setattr getattr search add_name create open read write remove_name };
+allow powermgr thermal_el0_data:file { ioctl create append open read write getattr };
+allowxperm powermgr thermal_el0_data:file ioctl { 0x5413 };

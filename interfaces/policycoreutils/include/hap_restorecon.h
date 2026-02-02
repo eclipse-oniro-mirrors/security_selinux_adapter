@@ -20,17 +20,25 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <mutex>
+#include <atomic>
 #include <selinux/context.h>
 #include "sehap_contexts_trie.h"
 
 #define SELINUX_HAP_RESTORECON_RECURSE 1    // whether the data directory need recurse
 #define SELINUX_HAP_RESTORECON_PREINSTALLED_APP 1   // whether it is a pre-built app
 #define SELINUX_HAP_DEBUGGABLE 2 // whether it is a debuggable hap
-#define SELINUX_HAP_DLP 4 // whether it is dlp hap
 #define SELINUX_HAP_INPUT_ISOLATE 8 // whether it is input_isolate hap
 #define SELINUX_HAP_CUSTOM_SANDBOX 16 // whether it is custom sandbox hap
 #define SELINUX_HAP_ISOLATED_GPU 32
 #define SELINUX_HAP_ISOLATED_RENDER 64
+#define SELINUX_HAP_DLP_READ_ONLY 128 // whether it is dlp read only sandbox hap
+#define SELINUX_HAP_DLP_FULL_CONTROL 256 // whether it is dlp full control sandbox hap
+#define SELINUX_HAP_INPUT_ISOLATE_FULL 512 // whether it is input_isolate hap
+
+#ifdef SELINUX_TEST
+#define private public
+#endif
 
 // parameters of each SehapInfo in file sehap_contexts
 struct SehapInfo {
@@ -98,4 +106,41 @@ protected:
 
 int HapContextLoadConfig(void);
 
+enum StopReason {
+    NONE,
+    BUSY,
+    UPDATE,
+    DELETE
+};
+
+struct ResultInfo {
+    uint32_t currentCount = 0;
+    uint32_t totalCount = 0;
+};
+
+namespace Selinux {
+    class RestoreTask;
+}
+
+class HapFileRestoreContext : public HapContext {
+public:
+    static HapFileRestoreContext& GetInstance();
+    ~HapFileRestoreContext();
+    int SetFileConForce(const HapFileInfo& hapFileInfo, const uint32_t remainingNum, ResultInfo& resultInfo);
+    int StopSetFileCon(const HapFileInfo& hapFileInfo, StopReason stopReason, const std::string& stopDesc);
+
+private:
+    HapFileRestoreContext();
+    HapFileRestoreContext(const HapFileRestoreContext&) = delete;
+    HapFileRestoreContext& operator=(const HapFileRestoreContext&) = delete;
+
+    int InitRestoreTask(std::shared_ptr<Selinux::RestoreTask>& task, const HapFileInfo& hapFileInfo);
+    int ProcessRestorePath(std::shared_ptr<Selinux::RestoreTask> task,
+        const std::string& origPath, const HapFileInfo& hapFileInfo);
+    void FinishRestoreTask(const HapFileInfo& hapFileInfo, ResultInfo& resultInfo);
+    bool IsAppdatContext(const HapFileInfo& hapFileInfo);
+
+    std::mutex restoreTaskMutex_;
+    std::shared_ptr<Selinux::RestoreTask> restoreTask_ = nullptr;
+};
 #endif // HAP_RESTORECON_H

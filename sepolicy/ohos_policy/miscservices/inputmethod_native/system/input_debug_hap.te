@@ -1,0 +1,38 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+binder_call(input_debug_hap, aa);
+binder_call(input_debug_hap, cjappspawn);
+binder_call(input_debug_hap, gamecontroller_server);
+binder_call(input_debug_hap, i18n_service);
+binder_call(input_debug_hap, scan_service);
+binder_call(input_debug_hap, usb_service);
+
+allow input_debug_hap arkweb_crashpad_handler_exec:file { execute open read execute_no_trans map };
+allow input_debug_hap cjappspawn:fifo_file { write };
+allow input_debug_hap cjappspawn:unix_dgram_socket { write };
+allow input_debug_hap debug_hap_data_file:sock_file { append create getattr lock map open read rename setattr unlink watch watch_reads write };
+allow input_debug_hap dev_bus_usb_file:chr_file { ioctl read write };
+allow input_debug_hap dev_file:dir { getattr };
+allow input_debug_hap dev_usb_accessory_file:chr_file { read write };
+
+allow input_debug_hap sa_ecological_rule_mgr_service:samgr_class { get };
+allow input_debug_hap sa_gamecontroller_server:samgr_class { get };
+allow input_debug_hap sa_i18n_service:samgr_class { get };
+
+allow input_debug_hap sysfs_devices_system_cpu:file { getattr };
+allow input_debug_hap system_usr_file:dir { open read getattr };
+allow input_debug_hap system_usr_file:file { open read getattr };
+allowxperm input_debug_hap dev_bus_usb_file:chr_file ioctl { 0x5500 0x5504 0x5505 0x5508 0x550a 0x550b 0x550d 0x550f 0x5510 0x5511 0x5512 0x5514 0x5515 0x5516 0x5517 0x551a 0x551b 0x551c 0x551d 0x551e 0x551f };
+')

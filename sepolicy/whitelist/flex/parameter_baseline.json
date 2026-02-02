@@ -1,0 +1,16 @@
+{
+    "baseline": {
+        "user": {
+            "system_restricted_parameter_attr": [],
+            "system_public_parameter_attr": [],
+            "vendor_restricted_parameter_attr": [],
+            "vendor_public_parameter_attr": []
+        },
+        "developer": {
+            "system_restricted_parameter_attr": [],
+            "system_public_parameter_attr": [],
+            "vendor_restricted_parameter_attr": [],
+            "vendor_public_parameter_attr": []
+        }
+    }
+}

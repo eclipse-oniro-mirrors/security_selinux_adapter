@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,12 +14,19 @@
 allow foundation accountmgr:binder { call };
 allow foundation appspawn:unix_stream_socket { connectto };
 allow foundation appspawn_socket:sock_file { write };
-allow foundation bgtaskmgr_service:binder { call };
+allow foundation resource_schedule_service:binder { call };
 allow foundation data_app_el1_file:dir { search };
 allow foundation data_app_el1_file:file { getattr read };
 allow foundation data_app_file:dir { search };
 allow foundation data_service_el1_file:dir { add_name search write };
 allow foundation data_service_el1_file:file { create getattr ioctl open read write open write };
+#avc: denied { read } for pid=1704, comm="/system/bin/sa_main" path="/data/service/el1/public/notification" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=4588 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=dir permissive=0
+#avc: denied { remove_name } for pid=1704, comm="/system/bin/sa_main" name="/service/el1/public/notification" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=4588 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=dir permissive=0
+allow foundation reminder_db_file:dir { add_name search write read remove_name open };
+#avc: denied { lock } for pid=1732, comm="/system/bin/sa_main" path="/data/service/el1/public/notification/notification.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25595 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=file permissive=0
+#avc: denied { map } for pid=1704, comm="/system/bin/sa_main" path="/data/service/el1/public/notification/notification.db-dwr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25733 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=file permissive=0
+#avc: denied { setattr } for pid=1704, comm="/system/bin/sa_main" name="/service/el1/public/notification/notification.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25730 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=file permissive=0
+allow foundation reminder_db_file:file { create getattr ioctl open read write lock map setattr unlink };
 allow foundation data_service_file:dir { search };
 allow foundation dev_mali:chr_file { ioctl };
 allow foundation allocator_host:fd { use };
@@ -36,5 +43,10 @@ allow foundation system_basic_hap_attr:fd { use };
 #avc:  denied  { get } for service=3601 pid=591 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_reminder_agent_service:s0 tclass=samgr_class permissive=1
 allow foundation sa_foundation_reminder_agent_service:samgr_class { add get };
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
+#avc: denied { ioctl } for pid=1732, comm="/system/bin/sa_main" path="/data/service/el1/public/notification/notification.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25595 ioctlcmd=0xf546 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=file permissive=0
+#avc: denied { ioctl } for pid=1732, comm="/system/bin/sa_main" path="/data/service/el1/public/notification/notification.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25595 ioctlcmd=0xf50c scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=file permissive=0
+#avc: denied { ioctl } for pid=1704, comm="/system/bin/sa_main" path="/data/service/el1/public/notification/notification.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25730 ioctlcmd=0xf547 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=file permissive=0
+#avc: denied { ioctl } for pid=1704, comm="/system/bin/sa_main" path="/data/service/el1/public/notification/notification.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=25730 ioctlcmd=0x5413 scontext=u:r:foundation:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=file permissive=0
+allowxperm foundation reminder_db_file:file ioctl { 0xf546 0xf50c 0xf547 0x5413 };
 allowxperm foundation dev_mali:chr_file ioctl { 0x801e };
 allow foundation backup_sa:fd { use };

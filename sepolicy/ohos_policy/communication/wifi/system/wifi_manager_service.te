@@ -265,5 +265,23 @@ allowxperm wifi_manager_service data_service_el1_file:dir ioctl { 0xf546 0xf547 
 allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0xf547 };
 allow wifi_manager_service security_guard:binder { call transfer };
 allow wifi_manager_service sa_sg_classify_service:samgr_class { get };
-# avc: denied  { get } for service=4009 sid=u:r:wifi_manager_service:s0 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_foundation_tel_state_registry:s0 tclass=samgr_class permissive=0
-allow wifi_manager_service sa_foundation_tel_state_registry:samgr_class { get };
+# avc: denied  { get } for service=4009 sid=u:r:wifi_manager_service:s0 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_telecom_tel_state_registry:s0 tclass=samgr_class permissive=0
+allow wifi_manager_service sa_telecom_tel_state_registry:samgr_class { get };
+
+# avc: denied { getattr } for pid=2783, comm="/system/bin/sa_main"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=2783, comm="/system/bin/sa_main"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=2783, comm="/system/bin/sa_main"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
+allow wifi_manager_service proc_meminfo_file:file { getattr open read };
+# avc: denied { read } for pid=2887, comm="/system/bin/sa_main"  path="/data/service/el2/100/hmdfs/account/data/com.youku.next/conn_calidata" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=183329 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
+# avc: denied { open } for pid=2887, comm="/system/bin/sa_main"  path="/data/service/el2/100/hmdfs/account/data/com.youku.next/conn_calidata" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=183329 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=2887, comm="/system/bin/sa_main"  path="/data/service/el2/100/hmdfs/account/data/com.youku.next/conn_calidata" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=183329 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
+allow wifi_manager_service data_service_el2_hmdfs:file { getattr open read };
+#avc: denied { search } for pid=2990, comm="/system/bin/sa_main"  name="/service/el2" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1332 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+allow wifi_manager_service data_service_el2_file:dir { search };
+#avc: denied { search } for pid=2990, comm="/system/bin/sa_main"  name="/service/el2/100/hmdfs" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=8033 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
+allow wifi_manager_service data_service_el2_hmdfs:dir { search };
+
+# avc: denied { create } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
+# avc: denied { setopt } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
+# avc: denied { write } for pid=2643, comm="/system/bin/sa_main"  scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=rawip_socket permissive=1
+allow wifi_manager_service wifi_manager_service:rawip_socket { create setopt write };

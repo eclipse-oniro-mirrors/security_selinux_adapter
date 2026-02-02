@@ -12,10 +12,11 @@
 # limitations under the License.
 
 #avc:  denied  { add } for service=901 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=1
-allow useriam sa_useriam_useridm_service:samgr_class { add };
+#avc:  denied  { get } for service=901 sid=u:r:useriam:s0 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=0
+allow useriam sa_useriam_useridm_service:samgr_class { add get };
 
 #avc:  denied  { add } for service=921 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_userauth_service:s0 tclass=samgr_class permissive=1
-allow useriam sa_useriam_userauth_service:samgr_class { add };
+allow useriam sa_useriam_userauth_service:samgr_class { add get };
 
 #avc:  denied  { add } for service=931 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_authexecutormgr_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_authexecutormgr_service:samgr_class { add };
@@ -25,6 +26,9 @@ allow useriam sa_useriam_faceauth_service:samgr_class { add };
 
 #avc:  denied  { add } for service=943 pid=918 scontext=u:r:fingerprintauth:s0 tcontext=u:object_r:sa_useriam_fingerprintauth_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_fingerprintauth_service:samgr_class { add };
+
+#avc:  denied  { add } for service=945 pid=898 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_companiondeviceauth_service:s0 tclass=samgr_class permissive=1
+allow useriam sa_useriam_companiondeviceauth_service:samgr_class { add };
 
 #avc:  denied  { get } for service=931 pid=515 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_authexecutormgr_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_authexecutormgr_service:samgr_class { get };
@@ -77,3 +81,23 @@ allow useriam softbus_server:tcp_socket { read write setopt shutdown };
 
 # avc:  denied  { call } for  pid=553 comm="OS_IPC_3_1801" scontext=u:r:softbus_server:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=1
 allow softbus_server useriam:binder { call };
+
+allow useriam data_service_el1_file:dir { search write add_name remove_name setattr open read };
+
+allow useriam data_service_el1_file:file { create getattr open read unlink write setattr };
+
+allow useriam data_service_file:dir { search };
+
+allow useriam dev_at_file:chr_file { ioctl };
+
+allow useriam softbus_server:tcp_socket { getopt };
+
+allowxperm useriam dev_at_file:chr_file ioctl { 0x5413 };
+
+allow useriam data_file:dir { search };
+
+allow useriam dev_at_file:chr_file { ioctl };
+
+allow useriam sys_prod_file:dir { search };
+
+allowxperm useriam dev_at_file:chr_file ioctl { 0x4104 };

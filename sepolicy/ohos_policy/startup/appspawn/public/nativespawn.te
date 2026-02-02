@@ -83,7 +83,7 @@ allow init nativespawn_exec:file { execute getattr read open };
 neverallow nativespawn *:process ptrace;
 
 allow nativespawn system_basic_hap_data_file:dir { mounton };
-allow nativespawn normal_hap_data_file:dir { mounton };
+allow nativespawn normal_app_data:dir { mounton };
 allow nativespawn system_core_hap_data_file:dir { mounton };
 allow nativespawn hap_domain:unix_stream_socket { read write };
 allow nativespawn arkcompiler_param:file { map open read };

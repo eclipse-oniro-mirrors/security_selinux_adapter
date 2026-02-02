@@ -28,6 +28,7 @@
 #include "selinux_klog.h"
 
 namespace {
+static constexpr unsigned int SECURITY_SELINUX_ADAPTER = 0xC05A03;
 constexpr int32_t PIPE_NUM = 2;
 constexpr int32_t BUFF_SIZE = 1024;
 constexpr const char UPDATER_EXE[] = "/bin/updater";
@@ -117,15 +118,16 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
+    fdsan_exchange_owner_tag(fd, 0, SECURITY_SELINUX_ADAPTER);
     struct stat sb;
     if (fstat(fd, &sb) < 0) {
         selinux_log(SELINUX_ERROR, "Stat policy file failed\n");
-        close(fd);
+        fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
     if (sb.st_size < 0) {
-        close(fd);
+        fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
@@ -133,11 +135,11 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
     *data = mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (*data == MAP_FAILED) {
         selinux_log(SELINUX_ERROR, "Mmap policy file failed\n");
-        close(fd);
+        fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
-    close(fd);
+    fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
     DeleteTmpPolicyFile(policyFile);
     return true;
 }
@@ -263,29 +265,30 @@ static bool CompilePolicyWithFork(std::vector<const char *> &compileCmd)
         selinux_log(SELINUX_ERROR, "Create pipe failed, %d, %s\n", errno, strerror(errno));
         return false;
     }
+    fdsan_exchange_owner_tag(pipeFd[0], 0, SECURITY_SELINUX_ADAPTER);
+    fdsan_exchange_owner_tag(pipeFd[1], 0, SECURITY_SELINUX_ADAPTER);
     pid_t pid = fork();
     if (pid < 0) {
         selinux_log(SELINUX_ERROR, "Fork subprocess failed, %d, %s\n", errno, strerror(errno));
-        (void)close(pipeFd[0]);
-        (void)close(pipeFd[1]);
+        (void)fdsan_close_with_tag(pipeFd[0], SECURITY_SELINUX_ADAPTER);
+        (void)fdsan_close_with_tag(pipeFd[1], SECURITY_SELINUX_ADAPTER);
         return false;
     }
     if (pid == 0) {
-        (void)close(pipeFd[0]);
+        (void)fdsan_close_with_tag(pipeFd[0], SECURITY_SELINUX_ADAPTER);
         if (dup2(pipeFd[1], STDERR_FILENO) == -1) {
             selinux_log(SELINUX_ERROR, "Dup2 failed, %d, %s\n", errno, strerror(errno));
-            (void)close(pipeFd[1]);
+            (void)fdsan_close_with_tag(pipeFd[1], SECURITY_SELINUX_ADAPTER);
             _exit(1);
         }
-        (void)close(pipeFd[1]);
+        (void)fdsan_close_with_tag(pipeFd[1], SECURITY_SELINUX_ADAPTER);
         if (execv(compileCmd[0], const_cast<char **>(compileCmd.data())) == -1) {
             selinux_log(SELINUX_ERROR, "Execv subprocess failed, %d, %s\n", errno, strerror(errno));
             return false;
         }
         _exit(1);
     }
-    (void)close(pipeFd[1]);
-
+    (void)fdsan_close_with_tag(pipeFd[1], SECURITY_SELINUX_ADAPTER);
     FILE *fp = fdopen(pipeFd[0], "r");
     if (fp != nullptr) {
         char buf[BUFF_SIZE] = {0};
@@ -304,9 +307,8 @@ static bool CompilePolicyWithFork(std::vector<const char *> &compileCmd)
         fclose(fp);
     } else {
         selinux_log(SELINUX_ERROR, "Fopen pipe failed, %d, %s\n", errno, strerror(errno));
-        (void)close(pipeFd[0]);
+        (void)fdsan_close_with_tag(pipeFd[0], SECURITY_SELINUX_ADAPTER);
     }
-
     return WaitForChild(pid);
 }
 

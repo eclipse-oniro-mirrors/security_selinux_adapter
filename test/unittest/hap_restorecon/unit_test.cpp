@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -27,6 +27,8 @@ using namespace testing::ext;
 using namespace Selinux;
 const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
+const static std::string GROUP_PATH = "/data/app/el1/0/group/";
+const static std::string TEST_GROUP_PATH = GROUP_PATH + "123-abc-def/";
 const static std::string ACCOUNT_PATH = "/data/accounts/account_0/appdata/";
 const static std::string TEST_HAP_PATH = BASE_PATH + "com.ohos.selftest/";
 const static std::string TEST_ACCOUNT_PATH = ACCOUNT_PATH + "com.ohos.selftest/";
@@ -64,8 +66,10 @@ const static std::string TEST_HAP_DATA_FILE_LABEL = "u:object_r:selftest_hap_dat
 
 const static std::string TEST_HAP_DOMAIN = "u:r:selftest:s0";
 const static std::string TEST_HAP_DATA_TYPE = "u:r:selftest_hap_data_file:s0";
-const static std::string DLP_HAP_DOMAIN = "u:r:dlp_sandbox_hap:s0";
-const static std::string DLP_HAP_DATA_TYPE = "u:r:dlp_sandbox_hap_data_file:s0";
+const static std::string DLP_READ_ONNLY_HAP_DOMAIN = "u:r:dlp_sandbox_read_only_hap:s0";
+const static std::string DLP_READ_ONNLY_HAP_DATA_TYPE = "u:r:dlp_sandbox_read_only_hap_data_file:s0";
+const static std::string DLP_FULL_CONTROL_HAP_DOMAIN = "u:r:dlp_sandbox_hap:s0";
+const static std::string DLP_FULL_CONTROL_HAP_DATA_TYPE = "u:r:dlp_sandbox_hap_data_file:s0";
 const static std::string TEST_NORMAL_DOMAIN = "u:r:normal_hap:s0";
 const static std::string TEST_NORMAL_TYPE = "u:r:normal_hap_data_file:s0";
 const static std::string TEST_EXTENSION_DOMAIN = "u:r:extension_test_hap:s0";
@@ -91,6 +95,12 @@ const static uint32_t TEST_UID = 20190166;
 const static uint32_t TEST_UID_FAILED = 20008;
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const char *DEFAULT_CONTEXT_FOR_ISOLATED = "u:r:unlabeled:s0";
+const static std::string INPUT_ISOLATE_HAP_DOMAIN = "u:r:input_isolate_hap:s0";
+const static std::string INPUT_ISOLATE_DEBUG_HAP_DOMAIN = "u:r:input_isolate_debug_hap:s0";
+const static std::string INPUT_ISOLATE_HAP_DATA_TYPE = "u:r:input_sandbox_data_file:s0";
+const static std::string INPUT_ISOLATE_FULL_HAP_DOMAIN = "u:r:input_hap:s0";
+const static std::string INPUT_ISOLATE_FULL_DEBUG_HAP_DOMAIN = "u:r:input_debug_hap:s0";
+const static std::string INPUT_ISOLATE_FULL_HAP_DATA_TYPE = "u:r:input_sandbox_data_file:s0";
 
 const static std::string SEHAP_CONTEXTS_FILE = "/data/test/sehap_contexts";
 
@@ -224,6 +234,8 @@ static void GenerateTestFile()
         "apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file",
         "apl=normal name=com.hap.selftest domain=selftest type=normal_hap_data_file",
         "apl=normal name=com.hap.selftest_invalid domain=selftest_invalid type=selftest_invalid_hap_data_file",
+        "apl=normal extra=dlp_sandbox_read_only domain=dlp_sandbox_read_only_hap \
+        type=dlp_sandbox_read_only_hap_data_file",
         "apl=normal extra=invalid_extra domain=dlp_sandbox_hap type=dlp_sandbox_hap_data_file",
         "apl=normal extra=dlp_sandbox domain=dlp_sandbox_hap type=dlp_sandbox_hap_data_file",
         "apl=normal domain=extension_test_hap extension=extension_test_ability",
@@ -239,7 +251,12 @@ static void GenerateTestFile()
         "apl=system_core extra=isolated_gpu domain=isolated_gpu",
         "apl=normal extra=isolated_render domain=isolated_render",
         "apl=system_basic extra=isolated_render domain=isolated_render",
-        "apl=system_core extra=isolated_render domain=isolated_render"};
+        "apl=system_core extra=isolated_render domain=isolated_render",
+        "apl=normal extra=input_isolate domain=input_isolate_hap type=input_sandbox_data_file",
+        "apl=normal debuggable=true extra=input_isolate domain=input_isolate_debug_hap type=input_sandbox_data_file",
+        "apl=normal extra=input_isolate_full domain=input_hap type=input_sandbox_data_file",
+        "apl=normal debuggable=true extra=input_isolate_full domain=input_debug_hap type=input_sandbox_data_file"
+    };
     ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
     std::vector<std::string> productConfig = {
         "defaultLevelFrom=user",
@@ -501,6 +518,7 @@ static bool CompareContexts(const std::string &path, const std::string &label)
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 {
     ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_4));
+    ASSERT_EQ(true, CreateDirectory(TEST_GROUP_PATH));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_1)); // should not be restorecon
@@ -511,7 +529,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 
     HapFileInfo hapFileInfo = {
         .pathNameOrig = {TEST_SUB_PATH_1, TEST_SUB_PATH_2, TEST_SUB_PATH_1_FILE_1, TEST_SUB_PATH_1_FILE_2,
-                         TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH},
+                         TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH, TEST_GROUP_PATH},
         .apl = SYSTEM_CORE_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
@@ -525,6 +543,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1_FILE_2, TEST_HAP_DATA_FILE_LABEL));
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_3_FILE_1, TEST_HAP_DATA_FILE_LABEL));
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_4, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_GROUP_PATH, TEST_HAP_DATA_FILE_LABEL));
 
     char *secontext = nullptr;
     getfilecon(TEST_SUB_PATH_2_FILE_1.c_str(), &secontext); // this file should not be restorecon
@@ -535,6 +554,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     secontextOld = nullptr;
 
     ASSERT_EQ(true, RemoveDirectory(TEST_HAP_PATH));
+    ASSERT_EQ(true, RemoveDirectory(TEST_GROUP_PATH));
 }
 
 /**
@@ -805,20 +825,6 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup001, TestSize.Level1)
     EXPECT_STREQ(context_str(con), TEST_HAP_DOMAIN.c_str());
 
     params.apl = NORMAL_APL;
-    params.packageName = EMPTY_STRING;
-    params.hapFlags = SELINUX_HAP_DLP;
-    params.isDomain = true;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
-    EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = EMPTY_STRING;
-    params.hapFlags = SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE;
-    params.isDomain = true;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
-    EXPECT_STREQ(context_str(con), DLP_HAP_DOMAIN.c_str());
-
-    params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
     params.hapFlags = SELINUX_HAP_CUSTOM_SANDBOX;
     params.isDomain = true;
@@ -869,20 +875,6 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup002, TestSize.Level1)
     params.isDomain = false;
     EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
     EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = EMPTY_STRING;
-    params.hapFlags = SELINUX_HAP_DLP;
-    params.isDomain = false;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
-    EXPECT_STREQ(context_str(con), DLP_HAP_DATA_TYPE.c_str());
-
-    params.apl = NORMAL_APL;
-    params.packageName = EMPTY_STRING;
-    params.hapFlags = SELINUX_HAP_DLP | SELINUX_HAP_DEBUGGABLE;
-    params.isDomain = false;
-    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
-    EXPECT_STREQ(context_str(con), DLP_HAP_DATA_TYPE.c_str());
 
     params.apl = NORMAL_APL;
     params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
@@ -1285,6 +1277,220 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup014, TestSize.Level1)
 }
 
 /**
+ * @tc.name: HapContextsLookup015
+ * @tc.desc: test HapContextsLookup must succeed
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup015, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_DLP_READ_ONLY;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_READ_ONNLY_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_DLP_READ_ONLY | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_READ_ONNLY_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
+    params.hapFlags = SELINUX_HAP_DLP_FULL_CONTROL;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_FULL_CONTROL_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
+    params.hapFlags = SELINUX_HAP_DLP_FULL_CONTROL | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_FULL_CONTROL_HAP_DOMAIN.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup016
+ * @tc.desc: test HapContextsLookup must succeed
+ * @tc.type: FUNC
+ * @tc.require: issueI9MCSP
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup016, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_DLP_READ_ONLY;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_READ_ONNLY_HAP_DATA_TYPE.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_DLP_READ_ONLY | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_READ_ONNLY_HAP_DATA_TYPE.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
+    params.hapFlags = SELINUX_HAP_DLP_FULL_CONTROL;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_FULL_CONTROL_HAP_DATA_TYPE.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = TEST_HAP_BUNDLE_NAME_FOR_TEST_SANDBOX;
+    params.hapFlags = SELINUX_HAP_DLP_FULL_CONTROL | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), DLP_FULL_CONTROL_HAP_DATA_TYPE.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup017
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE_FULL
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup017, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_DEBUG_HAP_DOMAIN.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup018
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE_FULL
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup018, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE_FULL | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup019
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup019, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_HAP_DOMAIN.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = true;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_DEBUG_HAP_DOMAIN.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup020
+ * @tc.desc: test HapContextsLookup with SELINUX_HAP_INPUT_ISOLATE
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup020, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = SELINUX_HAP_INPUT_ISOLATE | SELINUX_HAP_DEBUGGABLE;
+    params.isDomain = false;
+    EXPECT_EQ(SELINUX_SUCC, test.HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), INPUT_ISOLATE_FULL_HAP_DATA_TYPE.c_str());
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
  * @tc.name: TypeSet001
  * @tc.desc: test TypeSet type is empty.
  * @tc.type: FUNC
@@ -1348,7 +1554,6 @@ HWTEST_F(SelinuxUnitTest, UserAndMCSRangeSet002, TestSize.Level1)
     freecon(*secontextPtr);
     context_free(con);
 }
-
 } // namespace SelinuxUnitTest
 } // namespace Security
 } // namespace OHOS

@@ -19,3 +19,4 @@ type sane_service, sadomain, domain;
 type print_driver, sadomain, domain;
 type scan_service, sadomain, domain;
 domain_auto_transition_pattern(cupsd, print_driver_exec, print_driver);
+type print_isolate_hap, domain;

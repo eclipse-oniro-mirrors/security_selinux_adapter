@@ -23,6 +23,7 @@
 
 static int g_logLevel = SELINUX_KERROR;
 static const char *g_logLevelStr[] = {"ERROR", "WARNING", "INFO", "AVC"};
+static const unsigned int SECURITY_SELINUX_ADAPTER = 0xC05A03;
 
 #ifndef UNLIKELY
 #define UNLIKELY(x) __builtin_expect(!!(x), 0)
@@ -38,6 +39,7 @@ static void SelinuxOpenLogDevice(void)
 {
     int fd = open("/dev/kmsg", O_WRONLY | O_CLOEXEC);
     if (fd >= 0) {
+        fdsan_exchange_owner_tag(fd, 0, SECURITY_SELINUX_ADAPTER);
         g_fd = fd;
     }
     return;
@@ -62,7 +64,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
     va_start(vargs, fmt);
     char tmpFmt[MAX_LOG_SIZE];
     if (vsnprintf_s(tmpFmt, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, fmt, vargs) == -1) {
-        close(g_fd);
+        fdsan_close_with_tag(g_fd, SECURITY_SELINUX_ADAPTER);
         g_fd = -1;
         va_end(vargs);
         return -1;
@@ -77,7 +79,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
         res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "%s", tmpFmt);
     }
     if (res == -1) {
-        close(g_fd);
+        fdsan_close_with_tag(g_fd, SECURITY_SELINUX_ADAPTER);
         g_fd = -1;
         va_end(vargs);
         return -1;
@@ -85,7 +87,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
     va_end(vargs);
 
     if (write(g_fd, logInfo, strlen(logInfo)) < 0) {
-        close(g_fd);
+        fdsan_close_with_tag(g_fd, SECURITY_SELINUX_ADAPTER);
         g_fd = -1;
     }
     return 0;

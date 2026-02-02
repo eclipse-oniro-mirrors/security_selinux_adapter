@@ -134,17 +134,25 @@ ohos_static_library("librestorecon_static") {
 }
 
 ohos_shared_library("libhap_restorecon") {
+  include_dirs = [ "framework/policycoreutils/include" ]
   output_name = "libhap_restorecon"
   sources = [
     "framework/policycoreutils/src/hap_restorecon.cpp",
+    "framework/policycoreutils/src/restore_task.cpp",
     "framework/policycoreutils/src/sehap_contexts_trie.cpp",
+    "framework/policycoreutils/src/seharmony_cjson.cpp",
+    "framework/policycoreutils/src/seharmony_hisysevent_adapter.cpp",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
   ]
-  external_deps = [ "hilog:libhilog" ]
+  external_deps = [
+    "cJSON:cjson",
+    "hilog:libhilog",
+    "hisysevent:libhisysevent",
+  ]
 
   public_external_deps = [ "selinux:libselinux" ]
 
@@ -152,6 +160,7 @@ ohos_shared_library("libhap_restorecon") {
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
+    "-DHAS_HISYSEVENT_PART",
   ]
   if (selinux_adapter_mcs_enable) {
     cflags += [ "-DMCS_ENABLE" ]
@@ -559,6 +568,12 @@ action("build_update_policy") {
     script = "scripts/build_policy.py"
   }
   depfile = "$target_gen_dir/$target_name.d"
+
+  if (build_variant == "root") {
+    policy_path = target_out_dir + "/updater_root/policy.31"
+  } else {
+    policy_path = target_out_dir + "/updater/policy.31"
+  }
   args = [
     "--depfile",
     rebase_path(depfile, root_build_dir),
@@ -567,7 +582,7 @@ action("build_update_policy") {
     "--sepolicy-dir-lists",
     sepolicy_dir_lists,
     "--dst-file",
-    rebase_path(target_out_dir + "/updater/policy.31"),
+    rebase_path(policy_path),
     "--tool-path",
     tool_path,
     "--source-root-dir",
@@ -580,6 +595,8 @@ action("build_update_policy") {
     updater_version,
     "--components",
     selinux_adapter_components,
+    "--vendor-policy-version",
+    "$selinux_adapter_vendor_policy_version",
   ]
 
   if (selinux_adapter_extra_args != "default") {
@@ -592,7 +609,11 @@ action("build_update_policy") {
     "selinux:checkpolicy($host_toolchain)",
     "selinux:secilc($host_toolchain)",
   ]
-  outputs = [ target_out_dir + "/updater/policy.31" ]
+  if (build_variant == "root") {
+    outputs = [ target_out_dir + "/updater_root/policy.31" ]
+  } else {
+    outputs = [ target_out_dir + "/updater/policy.31" ]
+  }
 }
 
 action("build_contexts") {
@@ -696,7 +717,7 @@ action("build_ignore_cfg") {
   ]
   outputs = [
     target_out_dir + "/ignore_cfg",
-    target_out_dir + "/app_allow_cfg"
+    target_out_dir + "/app_allow_cfg",
   ]
 }
 
@@ -723,6 +744,11 @@ action("build_updater_contexts") {
     script = "scripts/build_contexts.py"
   }
   depfile = "$target_gen_dir/$target_name.d"
+  if (build_variant == "root") {
+    updater_path = target_out_dir + "/updater_root"
+  } else {
+    updater_path = target_out_dir + "/updater"
+  }
   args = [
     "--depfile",
     rebase_path(depfile, root_build_dir),
@@ -731,11 +757,11 @@ action("build_updater_contexts") {
     "--sepolicy-dir-lists",
     sepolicy_dir_lists,
     "--dst-dir",
-    rebase_path(target_out_dir + "/updater"),
+    rebase_path(updater_path),
     "--tool-path",
     tool_path,
     "--policy-file",
-    rebase_path(target_out_dir + "/updater/policy.31"),
+    rebase_path(updater_path + "/policy.31"),
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -751,26 +777,37 @@ action("build_updater_contexts") {
   deps = [ ":build_update_policy" ]
   external_deps = [ "selinux:sefcontext_compile($host_toolchain)" ]
   outputs = [
-    target_out_dir + "/updater/file_contexts.bin",
-    target_out_dir + "/updater/file_contexts",
-    target_out_dir + "/updater/sehap_contexts",
-    target_out_dir + "/updater/service_contexts",
-    target_out_dir + "/updater/hdf_service_contexts",
-    target_out_dir + "/updater/parameter_contexts",
+    updater_path + "/file_contexts.bin",
+    updater_path + "/file_contexts",
+    updater_path + "/sehap_contexts",
+    updater_path + "/service_contexts",
+    updater_path + "/hdf_service_contexts",
+    updater_path + "/parameter_contexts",
   ]
 }
 
 action("selinux_check") {
   script = "scripts/selinux_check/selinux_check_main.py"
 
-  if (selinux_adapter_build_path == "default") {
-    selinux_adapter_build_path =
-        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
-  }
-
   if (selinux_adapter_check_extend_list != "default") {
     selinux_adapter_build_path =
         selinux_adapter_build_path + ":" + selinux_adapter_check_extend_list
+  }
+
+  if (selinux_adapter_build_path != "default") {
+    sepolicy_dir_lists = rebase_path("sepolicy", root_build_dir)
+    foreach(src, string_split(selinux_adapter_build_path, ":")) {
+      src = "//" + src
+      sepolicy_dir_lists += ":" + rebase_path(src, root_build_dir)
+    }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext != "default") {
+      selinux_adapter_build_path =
+          selinux_adapter_build_path + ":" + selinux_build_path_ext
+    }
+  } else {
+    selinux_adapter_build_path =
+        selinux_adapter_build_path + ":" + OHOS_PRODUCT_DIR
   }
 
   args = [
@@ -819,7 +856,11 @@ copy("selinux_config") {
 
 copy("updater_selinux_config") {
   sources = [ "config/config.enforce" ]
-  outputs = [ "$target_out_dir/updater/config" ]
+  if (build_variant == "root") {
+    outputs = [ "$target_out_dir/updater_root/config" ]
+  } else {
+    outputs = [ "$target_out_dir/updater/config" ]
+  }
 }
 
 ohos_prebuilt_etc("build_sepolicy") {
@@ -842,7 +883,11 @@ ohos_prebuilt_etc("build_sepolicy") {
 
 ohos_prebuilt_etc("build_updater_sepolicy") {
   deps = [ ":build_update_policy" ]
-  source = target_out_dir + "/updater/policy.31"
+  if (build_variant == "root") {
+    source = target_out_dir + "/updater_root/policy.31"
+  } else {
+    source = target_out_dir + "/updater/policy.31"
+  }
   license_file = "LICENSE"
   part_name = "selinux_adapter"
   subsystem_name = "security"
@@ -872,7 +917,11 @@ ohos_prebuilt_etc("config") {
 
 ohos_prebuilt_etc("updater_config") {
   deps = [ ":updater_selinux_config" ]
-  source = target_out_dir + "/updater/config"
+  if (build_variant == "root") {
+    source = target_out_dir + "/updater_root/config"
+  } else {
+    source = target_out_dir + "/updater/config"
+  }
   license_file = "LICENSE"
   part_name = "selinux_adapter"
   subsystem_name = "security"
@@ -974,7 +1023,11 @@ ohos_prebuilt_etc("app_allow_cfg") {
 
 ohos_prebuilt_etc("file_contexts_updater") {
   deps = [ ":build_updater_contexts" ]
-  source = target_out_dir + "/updater/file_contexts"
+  if (build_variant == "root") {
+    source = target_out_dir + "/updater_root/file_contexts"
+  } else {
+    source = target_out_dir + "/updater/file_contexts"
+  }
   license_file = "LICENSE"
   part_name = "selinux_adapter"
   subsystem_name = "security"
@@ -1233,119 +1286,204 @@ ohos_copy("filecontexts_toolchain") {
 }
 
 if (selinux_adapter_components != "default") {
-  copy("eng_system_compatible") {
+  action("eng_system_compatible") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/compatible" ]
     outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/compatible" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_compatible_developer") {
+  action("eng_system_compatible_developer") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/compatible" ]
     outputs = [
       "$root_out_dir/$eng_system_base_dir/etc/selinux/compatible_developer",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_cil") {
+  action("eng_system_system_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/system.cil" ]
     outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_cil_sha256") {
+  action("eng_system_system_cil_sha256") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/system.cil.sha256" ]
     outputs =
         [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_common_cil") {
+  action("eng_system_system_common_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/system_common.cil" ]
     outputs =
         [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_common.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_developer_cil") {
+  action("eng_system_system_developer_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/system.cil" ]
     outputs = [
       "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_system_system_developer_cil_sha256") {
+  action("eng_system_system_developer_cil_sha256") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/system.cil.sha256" ]
     outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_developer_policy") {
+  action("eng_chipset_developer_policy") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/policy.31" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy/developer_policy" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_policy") {
+  action("eng_chipset_policy") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/policy.31" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy/policy.31" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_system_cil_sha256") {
+  action("eng_chipset_system_cil_sha256") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/prebuild_sepolicy.system.cil.sha256" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy.system.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_system_developer_cil_sha256") {
+  action("eng_chipset_system_developer_cil_sha256") {
     deps = [ ":build_policy" ]
     sources =
         [ "$target_out_dir/developer/prebuild_sepolicy.system.cil.sha256" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/prebuild_sepolicy.system_developer.cil.sha256" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_public_cil") {
+  action("eng_chipset_public_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/public.cil" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_public_common_cil") {
+  action("eng_chipset_public_common_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/public_common.cil" ]
     outputs =
         [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public_common.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_public_developer_cil") {
+  action("eng_chipset_public_developer_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/public.cil" ]
     outputs = [
       "$root_out_dir/$eng_chipset_base_dir/etc/selinux/public_developer.cil",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_vendor_cil") {
+  action("eng_chipset_vendor_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/vendor.cil" ]
     outputs = [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_vendor_common_cil") {
+  action("eng_chipset_vendor_common_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/vendor_common.cil" ]
     outputs =
         [ "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor_common.cil" ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
-  copy("eng_chipset_vendor_developer_cil") {
+  action("eng_chipset_vendor_developer_cil") {
     deps = [ ":build_policy" ]
     sources = [ "$target_out_dir/developer/vendor.cil" ]
     outputs = [
       "$root_out_dir/$eng_chipset_base_dir/etc/selinux/vendor_developer.cil",
     ]
+    args = [
+      rebase_path(sources[0]),
+      rebase_path(outputs[0]),
+    ]
+    script = "copy_file_or_dir.sh"
   }
 
   group("eng_system_selinux_group") {
@@ -1386,6 +1524,7 @@ group("selinux_group") {
     }
 
     deps += [
+      ":app_allow_cfg",
       ":build_updater_sepolicy",
       ":config",
       ":file_contexts",
@@ -1394,7 +1533,6 @@ group("selinux_group") {
       ":hap_restorecon",
       ":hdf_service_contexts",
       ":ignore_cfg",
-      ":app_allow_cfg",
       ":libpcre2_toolchain",
       ":libselinux_toolchain",
       ":load_policy",
@@ -1402,11 +1540,13 @@ group("selinux_group") {
       ":parameter_contexts",
       ":restorecon",
       ":sehap_contexts",
-      ":selinux_check",
       ":service_check",
       ":service_contexts",
       ":updater_config",
     ]
+    if (!asan_detector) {
+      deps += [ ":selinux_check" ]
+    }
     external_deps = [
       "selinux:checkpolicy($host_toolchain)",
       "selinux:chkcon",

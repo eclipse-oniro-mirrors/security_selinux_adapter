@@ -14,3 +14,6 @@
 allow foundation app_domain_verify_agent:binder { call transfer };
 allow foundation sa_app_domain_verify_agent:samgr_class { add get };
 allow foundation sa_app_domain_verify_mgr_service:samgr_class { add };
+allow foundation adv_data_file:dir { create search add_name open read write remove_name };
+allow foundation adv_data_file:file { create open read getattr ioctl lock map setattr unlink write };
+allowxperm foundation adv_data_file:file ioctl { 0x5413 0xf50c 0xf546 };

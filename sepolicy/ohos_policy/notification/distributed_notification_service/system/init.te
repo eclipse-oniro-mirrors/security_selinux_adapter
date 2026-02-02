@@ -1,0 +1,16 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { relabelto } for pid=1678 comm="/bin/init" name="/service/el1/public/notification" dev="mmcblk0p12" ino=4587 scontext=u:r:init:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=dir permissive=0
+# avc: denied { open } for pid=1732, comm="/bin/init" path="/data/service/el1/public/notification" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=4618 scontext=u:r:init:s0 tcontext=u:object_r:reminder_db_file:s0 tclass=dir permissive=0
+allow init reminder_db_file:dir { relabelto open read setattr getattr };

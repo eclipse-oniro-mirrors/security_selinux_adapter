@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,7 +14,7 @@
 allow domain accesstoken_perm_param:file { map open read };
 # [  325.498791] audit: type=1400 audit(1501923927.700:2295): avc:  denied  { ioctl } for  pid=2232 comm="SaInit1" path="/data/service/el1/public/access_token" dev="mmcblk0p15" ino=2902 ioctlcmd=0xf546 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
 #avc: denied { create } for pid=1603, comm="/system/bin/sa_main"  name="/service/el1/public/access_token/lock" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=32814 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=0
-allow accesstoken_service accesstoken_data_file:dir { create search add_name ioctl open read write remove_name };
+allow accesstoken_service accesstoken_data_file:dir { create search add_name ioctl open read write remove_name getattr };
 allowxperm accesstoken_service accesstoken_data_file:dir ioctl { 0xf546 };
 # [  324.857258] audit: type=1400 audit(1501923927.060:2293): avc:  denied  { map } for  pid=2232 comm="SaInit1" path="/data/service/el1/public/access_token/access_token.db-shm" dev="mmcblk0p15" ino=3066 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
 # [  324.863783] audit: type=1400 audit(1501923927.066:2294): avc:  denied  { setattr } for  pid=2232 comm="SaInit1" name="access_token.db" dev="mmcblk0p15" ino=3063 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
@@ -107,6 +107,11 @@ allow accesstoken_service multimodalinput:unix_stream_socket { read write };
 # avc:  denied  { get } for service=501 pid=537 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow accesstoken_service sa_foundation_appms:samgr_class { get };
 
+# denied  { get } for service=3524 sid=u:r:accesstoken_service:s0 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow accesstoken_service sa_sg_collect_service:samgr_class { get };
+allow accesstoken_service security_guard:binder { call };
+allow accesstoken_service security_guard:fd use;
+
 allowxperm accesstoken_service data_service_el1_file:file ioctl { 0xf50c };
 
 allow domain dev_at_file:chr_file { ioctl open read write };
@@ -123,10 +128,10 @@ allowxperm av_session dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
 
 allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-neverallowxperm ~{ accesstoken_service } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
+neverallowxperm ~{ accesstoken_service violator_dev_at_file_chr_file_attr } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };
 
-binder_call(accesstoken_service, bgtaskmgr_service);
+binder_call(accesstoken_service, resource_schedule_service);
 binder_call(accesstoken_service, distributeddata);
 binder_call(accesstoken_service, foundation);
 binder_call(accesstoken_service, privacy_service);

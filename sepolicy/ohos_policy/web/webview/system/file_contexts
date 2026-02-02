@@ -12,3 +12,4 @@
 # limitations under the License.
 
 /system/bin/arkweb_crashpad_handler        u:object_r:arkweb_crashpad_handler_exec:s0
+/data/service/el1/public/for-all-app/shared_relro(/.*)?    u:object_r:shared_relro_file:s0

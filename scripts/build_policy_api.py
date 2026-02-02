@@ -34,9 +34,9 @@ SEPOLICY_TYPE_LIST = ["security_classes",
                       "access_vectors",
                       "glb_perm_def.spt",
                       "glb_never_def.spt",
+                      "glb_te_def.spt",
                       "mls",
                       "policy_cap",
-                      "glb_te_def.spt",
                       "attributes",
                       ".te",
                       "glb_roles.spt",
@@ -298,9 +298,8 @@ def build_binary_policy(tool_path, output_policy, check_neverallow, cil_list):
     run_command(build_policy_cmd)
 
 
-def prepare_build_path(dir_list, root_dir, build_dir_list, sepolicy_path):
-    build_policy_list = [os.path.join(sepolicy_path, "base"), os.path.join(sepolicy_path, "ohos_policy")]
-    build_policy_list += dir_list.split(":")
+def prepare_build_path(dir_list_str, root_dir, build_policy_list, build_dir_list):
+    build_policy_list += dir_list_str.split(":")
 
     for i in build_policy_list:
         if i == "" or i == "default":
@@ -314,10 +313,19 @@ def prepare_build_path(dir_list, root_dir, build_dir_list, sepolicy_path):
 
 
 def get_policy_dir_list(args):
-    sepolicy_path = os.path.join(args.source_root_dir, "base/security/selinux_adapter/sepolicy/")
-    dir_list = []
-    prepare_build_path(args.policy_dir_list, args.source_root_dir, dir_list, sepolicy_path)
+    # default policies
+    if hasattr(args, "policy_path") and args.policy_path:
+        sepolicy_path = os.path.join(args.source_root_dir, args.policy_path)
+    else:
+        # use default path
+        sepolicy_path = os.path.join(args.source_root_dir, "base/security/selinux_adapter/sepolicy/")
+
+    build_policy_list = [os.path.join(sepolicy_path, "base"), os.path.join(sepolicy_path, "ohos_policy")]
     min_policy_dir_list = [os.path.join(sepolicy_path, "min")]
+
+    dir_list = []
+    prepare_build_path(args.policy_dir_list, args.source_root_dir, build_policy_list, dir_list)
+
     system_policy = []
     public_policy = []
     vendor_policy = []
@@ -332,7 +340,7 @@ def get_policy_dir_list(args):
     vendor_policy_dir_list = public_policy + vendor_policy + min_policy_dir_list
     public_policy_dir_list = public_policy + min_policy_dir_list
 
-    # add temp dirs base/te folders
+    # add temp dirs base/te folders in default policies
     system_policy_dir_list.append(os.path.join(sepolicy_path, "base/te"))
     vendor_policy_dir_list.append(os.path.join(sepolicy_path, "base/te"))
     public_policy_dir_list.append(os.path.join(sepolicy_path, "base/te"))

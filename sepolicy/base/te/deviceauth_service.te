@@ -51,7 +51,7 @@ allow deviceauth_service sys_usb_param:file { map open read };
 allow deviceauth_service netmanager:binder { call transfer };
 allow netmanager deviceauth_service:binder { call };
 allow deviceauth_service sa_net_conn_manager:samgr_class { get };
-allow deviceauth_service normal_hap_attr:binder { call transfer };
+binder_call(deviceauth_service normal_hap_attr);
 allow deviceauth_service sa_foundation_bms:samgr_class { get };
 allow deviceauth_service sa_foundation_abilityms:samgr_class { get };
 allow deviceauth_service accountmgr:fd { use };

@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2026 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -19,7 +19,6 @@ allow foundation appspawn:fd { use };
 allow foundation appspawn:unix_stream_socket { connectto };
 allow foundation bootevent_param:file { map open read };
 allow foundation bootevent_param:parameter_service { set };
-allow foundation bgtaskmgr_service:binder { call transfer };
 allow foundation configfs:dir { remove_name rmdir search write };
 allow foundation data_app_el1_file:file { getattr map read };
 allow foundation data_file:dir { search };
@@ -58,11 +57,12 @@ allow foundation sa_device_service_manager:samgr_class { get };
 allow foundation sa_distributeddata_service:samgr_class { get };
 allow foundation sa_distributeschedule:samgr_class { get };
 allow foundation sa_foundation_abilityms:samgr_class { add };
+allow foundation sa_foundation_agentmgr:samgr_class { add get };
 allow foundation sa_foundation_ans:samgr_class { add };
 allow foundation sa_foundation_appms:samgr_class { add get };
 allow foundation sa_foundation_bms:samgr_class { add };
 allow foundation sa_foundation_devicemanager_service:samgr_class { add get };
-allow foundation sa_foundation_tel_call_manager:samgr_class { add };
+allow foundation sa_telecom_tel_call_manager:samgr_class { add };
 allow foundation sa_foundation_wms:samgr_class { get };
 allow foundation sa_powermgr_battery_service:samgr_class { get };
 allow foundation sa_powermgr_batterystats_service:samgr_class { get };

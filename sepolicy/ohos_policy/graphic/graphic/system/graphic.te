@@ -60,6 +60,8 @@ allow render_service distributedsched:fd { use };
 allow render_service sharing_service:fd { use };
 allow render_service dscreen:fd { use };
 allow render_service av_codec_service:fd { use };
+allow render_service arkui_param:file { map open read };
+allow render_service sa_foundation_cesfwk_service:samgr_class { get };
 
 debug_only(`
     allow render_service sh:fd { use };
@@ -85,6 +87,8 @@ allow render_service vendor_etc_vulkan_file:file { getattr open read };
 allow hap_domain vendor_etc_file:dir { search };
 allow hap_domain vendor_etc_vulkan_file:dir { open read search };
 allow hap_domain vendor_etc_vulkan_file:file { getattr open read };
+
+allow hap_domain hap_domain:fd { use };
 
 neverallow { domain -nwebspawn } vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
 neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };

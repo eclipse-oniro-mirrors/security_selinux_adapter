@@ -116,6 +116,10 @@ developer_only(`
     allow aa hdcd:fifo_file { ioctl read write };
     allow aa hdcd:unix_stream_socket { read write };
     allow aa hilog_param:file { map read open };
+    allow aa hilog_control_socket:sock_file { write };
+    allow aa hilogd:unix_stream_socket { connectto };
+    allow aa hilog_exec:file { getattr execute execute_no_trans map read open };
+    allow aa hilog_output_socket:sock_file { write };
     allow aa persist_sys_param:file { map open read };
     binder_call(aa, powermgr);
     allow aa sa_foundation_abilityms:samgr_class { get };

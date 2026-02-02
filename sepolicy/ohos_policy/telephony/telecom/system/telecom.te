@@ -1,0 +1,106 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+binder_call(telecom, hap_domain);
+
+# sepolicy about telephony subsystem
+binder_call(telecom, telephony_sa);
+allow telecom sa_telecom_tel_state_registry:samgr_class { add get };
+allow telecom sa_telecom_tel_call_manager:samgr_class { add get };
+allow telecom sa_telephony_tel_core_service:samgr_class { get };
+allow telecom sa_telephony_tel_cellular_data:samgr_class { get };
+allow telecom sa_telephony_tel_cellular_call:samgr_class { get };
+
+# sepolicy about multimedia service
+binder_call(telecom, multimodalinput);
+binder_call(telecom, audio_server);
+binder_call(telecom, media_service);
+binder_call(telecom, media_monitor);
+allow telecom media_library_param:file { map open read };
+allow telecom sa_media_monitor:samgr_class { get };
+allow telecom sa_media_service:samgr_class { get };
+allow telecom sa_audio_policy_service:samgr_class { get };
+allow telecom sa_pulseaudio_audio_service:samgr_class { get };
+allow telecom sa_multimodalinput_service:samgr_class { get };
+allow telecom multimodalinput:unix_stream_socket { read };
+
+# sepolicy about foundation service
+binder_call(telecom, foundation);
+allow telecom sa_foundation_abilityms:samgr_class { get };
+allow telecom sa_foundation_appms:samgr_class { get };
+allow telecom sa_foundation_bms:samgr_class { get };
+allow telecom sa_foundation_cesfwk_service:samgr_class { get };
+allow telecom sa_foundation_devicemanager_service:samgr_class { get };
+allow telecom sa_foundation_dms:samgr_class { get };
+allow telecom sa_foundation_ans:samgr_class { get };
+
+# sepolicy about device and network management
+binder_call(telecom, distributeddata);
+binder_call(telecom, bluetooth_service);
+binder_call(telecom, device_manager);
+binder_call(telecom, netmanager);
+binder_call(telecom, wifi_manager_service);
+binder_call(telecom, sensors);
+binder_call(telecom, softbus_server);
+allow telecom sa_distributeddata_service:samgr_class { get };
+allow telecom sa_bluetooth_server:samgr_class { get };
+allow telecom sa_miscdevice_service:samgr_class { get };
+
+# sepolicy about system resource management
+binder_call(telecom, powermgr);
+binder_call(telecom, resource_schedule_service);
+binder_call(telecom, time_service);
+allow telecom sa_powermgr_powermgr_service:samgr_class { get };
+allow telecom sa_time_service:samgr_class { get };
+allow telecom data_service_el1_shadercache:dir { search };
+allow telecom sysfs_devices_system_cpu:file { getattr open read };
+
+# getting location for earthquake alert
+binder_call(telecom, locationhub);
+allow telecom sa_location_locator_service:samgr_class { get };
+allow telecom sa_locationhub_lbsservice_passive:samgr_class { get };
+
+# dialing in super_provicy mod
+binder_call(telecom, privacy_service);
+binder_call(telecom, sa_privacy_service);
+allow telecom sa_privacy_service:samgr_class { get };
+
+# gesture recognition
+binder_call(telecom, msdp_sa);
+allow telecom sa_msdp_motion_service:samgr_class { get };
+
+allow telecom dev_unix_socket:dir { search };
+allow telecom telecom:unix_dgram_socket { getopt setopt };
+
+binder_call(telecom, accountmgr);
+binder_call(telecom, useriam);
+allow telecom sa_accountmgr:samgr_class { get };
+
+binder_call(telecom, hiview);
+binder_call(telecom, param_watcher);
+allow telecom sa_param_watcher:samgr_class { get };
+
+binder_call(telecom, render_service);
+binder_call(telecom, intell_voice_service);
+binder_call(telecom, el5_filekey_manager);
+
+allow telecom system_usr_file:file { getattr map open read };
+allow telecom data_system:dir { search };
+allow telecom sys_prod_file:dir { search };
+allow telecom chip_prod_file:dir { search };
+allow telecom sys_param:file { map open read };
+allow telecom debug_param:file { map open read };
+allow telecom persist_sys_param:file { map open read };
+allow telecom arkcompiler_param:file { map open read };
+allow telecom dev_kmsg_file:chr_file { write };
+allowxperm telecom dev_at_file:chr_file ioctl { 0x5413 };

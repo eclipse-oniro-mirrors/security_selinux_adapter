@@ -1,0 +1,18 @@
+[
+    {
+        "virtfs": "proc",
+        "typeattr": "proc_attr"
+    },
+    {
+        "virtfs": "sysfs",
+        "typeattr": "sysfs_attr"
+    },
+    {
+        "virtfs": "debugfs",
+        "typeattr": "debugfs_attr"
+    },
+    {
+        "virtfs": "tracefs",
+        "typeattr": "debugfs_attr"
+    }
+]

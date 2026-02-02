@@ -1,0 +1,27 @@
+{
+    "whitelist": {
+        "user": {
+            "missing_domain": [
+                "distributed_isolate_hap",
+                "input_isolate_debug_hap",
+                "input_isolate_hap",
+                "isolated_gpu",
+                "isolated_render",
+                "kernel",
+                "lldb_server",
+                "netdnative",
+                "vpn_isolate_hap",
+                "hnp_native",
+                "print_isolate_hap"
+            ],
+            "conflict_domain": [
+                "nwebspawn",
+                "hidumper"
+            ]
+        },
+        "developer": {
+            "missing_domain": [],
+            "conflict_domain": []
+        }
+    }
+}

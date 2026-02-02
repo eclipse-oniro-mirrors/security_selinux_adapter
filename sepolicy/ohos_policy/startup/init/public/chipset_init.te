@@ -94,11 +94,16 @@ allow chipset_init data_file:sock_file { getattr relabelfrom };
 allowxperm chipset_init data_file:file ioctl { 0x5413 };
 allow chipset_init data_service_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write remove_name };
 allow chipset_init data_service_file:file { ioctl rename relabelfrom create getattr unlink write write open };
+allow chipset_init data_chipset_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write remove_name };
 
 allow chipset_init data_service_el0_file:dir { add_name create getattr open read relabelto search setattr write relabelfrom };
 allow chipset_init data_service_el0_file:file { create getattr read write open relabelfrom };
 allow chipset_init data_service_el1_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow chipset_init data_service_el1_file:file { create getattr setattr relabelto };
+allow chipset_init data_chipset_el1_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+
+# avc: denied { getattr read search setattr create open write add_name} for pid=465 comm="chipset_init" comm="/bin/init" name="/data/vendor/thermal" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=34620 scontext=u:r:chipset_init:s0 tcontext=u:object_r:data_vendor:s0 tclass=dir permissive=1
+allow chipset_init data_vendor:dir { setattr read write getattr search add_name open create };
 
 # for ifup,hostname,domainname
 allow chipset_init chipset_init:udp_socket { create ioctl };
