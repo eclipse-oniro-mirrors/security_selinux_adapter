@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type alsa_fil, vendor_file_attr, vendor_etc_file_attr, file_attr;
+type alsa_file, vendor_file_attr, vendor_etc_file_attr, file_attr;
