@@ -61,7 +61,6 @@ debug_only(`
 allow riladapter_host startup_param:file { map open read };
 allow riladapter_host sys_file:dir { open read };
 allow riladapter_host sys_file:file getattr;
-allow riladapter_host sys_param:file { map open read };
 allow riladapter_host telephony_sa:binder call;
 allow riladapter_host tty_device:chr_file { open read write };
 allow riladapter_host vendor_etc_file:dir search;
