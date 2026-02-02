@@ -60,7 +60,7 @@ neverallow { system_domain -bootanimation -ispserver -media_service -misc -multi
     -nfc_service -wifi_hal_service -telephony_sa -dhardware -dinput -hdf_devmgr -hiview -memmgrservice -msdp_sa -audio_server -av_codec_service -resource_schedule_executor
     -multimodalinput -charger -concurrent_task_service -resource_schedule_service -dlp_permission_service -sensors -appspawn -init -ueventd -telephony_sa
     -module_update_service -sys_installer_sa -updater_binary -nwebspawn -module_update_service -vendor_etc_file_violator_dir_search -cjappspawn
-    -hap_domain -render_service developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_dir_search -teecd } vendor_etc_file:dir { search };
+    -hap_domain -render_service developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_dir_search -teecd -midi_server } vendor_etc_file:dir { search };
 neverallow { system_domain -nfc_service -charger -init -appspawn -cjappspawn -vendor_etc_file_violator_dir_getattr } vendor_etc_file:dir { getattr };
 neverallow { system_domain -init -appspawn -cjappspawn -vendor_etc_file_violator_dir_read } vendor_etc_file:dir { read };
 neverallow { system_domain -init -appspawn -cjappspawn -vendor_etc_file_violator_dir_open } vendor_etc_file:dir { open };
