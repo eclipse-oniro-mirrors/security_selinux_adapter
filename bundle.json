@@ -36,6 +36,8 @@
     "deps": {
       "components": [
         "cJSON",
+        "c_utils",
+        "FreeBSD",
         "hilog",
         "bounds_checking_function",
         "hisysevent",
