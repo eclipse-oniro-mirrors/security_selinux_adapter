@@ -158,9 +158,8 @@ ohos_shared_library("libhap_restorecon") {
     "cJSON:cjson",
     "hilog:libhilog",
     "hisysevent:libhisysevent",
+    "selinux:libselinux",
   ]
-
-  public_external_deps = [ "selinux:libselinux" ]
 
   cflags = [
     "-D_GNU_SOURCE",
