@@ -58,3 +58,6 @@ allowxperm medialibrary_hap dev_at_file:chr_file ioctl { 0x5413 };
 # avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/storage/cloud/files/Photo/6/IMG_1745832970_070.jpg" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068543986 ioctlcmd=0xf205 scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 # avc: denied { ioctl } for pid=3684, comm="/system/bin/appspawn" path="/storage/cloud/files/Photo/11/IMG_1745833015_1579.HEIC" dev="/data/service/el2/100/hmdfs/account" ino=11529250227965747175 ioctlcmd=0xf20a scontext=u:r:medialibrary_hap:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 allowxperm medialibrary_hap hmdfs:file ioctl { 0x5413 0xf205 0xf20a };
+
+allow medialibrary_hap epfs:file { ioctl };
+allowxperm medialibrary_hap epfs:file ioctl { 0x7101 0x7102 };
