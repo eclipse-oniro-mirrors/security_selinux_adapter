@@ -162,3 +162,7 @@ allowxperm distributedfiledaemon system_etc_file:file ioctl { 0xf207 };
 allow distributedfiledaemon dev_ashmem_file:chr_file { open };
 
 allow distributedfiledaemon fuse_file:dir { search };
+
+allow distributedfiledaemon data_log:dir { add_name getattr open read search write create remove_name };
+
+allow distributedfiledaemon data_log:file { create getattr open read rename write unlink append };
