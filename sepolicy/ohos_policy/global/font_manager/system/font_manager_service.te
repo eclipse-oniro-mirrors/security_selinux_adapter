@@ -31,3 +31,4 @@ binder_call(font_manager_server, accountmgr);
 allow font_manager_server sa_accountmgr:samgr_class { get };
 allow font_manager_server ntfs:file { getattr map read };
 allow font_manager_server mnt_external_file:file { getattr map read };
+allow font_manager_server fuse_file:file { getattr map read };
