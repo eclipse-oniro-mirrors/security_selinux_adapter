@@ -20,5 +20,5 @@ neverallow {
 
 allow hap_domain data_user_file:dir create_dir_perms;
 allow hap_domain data_user_file:file create_file_perms;
-allow hap_domain epfs:dir create_dir_perms;
-allow hap_domain epfs:file create_file_perms;
+allow hap_domain epfs:dir create_dir_perms_without_ioctl;
+allow hap_domain epfs:file create_file_perms_without_ioctl;
