@@ -224,12 +224,6 @@ int RestoreTask::RestoreTraversal(const std::string &path)
     // summarize the task
     this->successCount += successCount;
     this->failureCount += failureCount;
-    selinux_log(SELINUX_INFO, "Restore path finished ret = %d: " \
-        "path = %s, successCount = %d, failureCount = %d, " \
-        "IsInterrupted = %d, finished = %s, done = %d",
-        ret, path.c_str(), successCount, failureCount,
-        this->IsInterrupted(),
-        AnonymizePath(pathInfo->finished).c_str(), pathInfo->done);
     return ret;
 }
 
