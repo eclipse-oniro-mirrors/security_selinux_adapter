@@ -69,6 +69,7 @@ allow sh system_etc_ffrt_file:dir { search };
 allow sh system_etc_ffrt_file:file { read open getattr map };
 allow sh system_etc_hilog_file:dir { search };
 allow sh system_etc_hilog_file:file { read open getattr map };
+allow sh system_etc_openssl_file:file { read open getattr map };
 
 allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
 allow sh system_bin_file:lnk_file { read };
