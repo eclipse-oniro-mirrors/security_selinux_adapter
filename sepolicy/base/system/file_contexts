@@ -55,6 +55,7 @@
 /dev/unix/socket/AppSpawn       u:object_r:appspawn_socket:s0
 /dev/unix/socket/NWebSpawn      u:object_r:nwebspawn_socket:s0
 /dev/unix/socket/HybridSpawn    u:object_r:appspawn_socket:s0
+/dev/unix/socket/AppSpawndf     u:object_r:appspawn_socket:s0
 /dev/unix/socket/fd_holder      u:object_r:fd_holder_socket:s0
 /dev/unix/socket/hdcd           u:object_r:hdcd_socket:s0
 /dev/unix/socket/native         u:object_r:native_socket:s0
