@@ -590,3 +590,4 @@ allow init teecd_data_file:filesystem { unmount };
 #avc: denied { open } for pid=10102, comm="/bin/sh" path="/proc/filesystems" dev="" ino=38 scontext=u:r:init:s0 tcontext=u:object_r:proc_filesystems_file:s0 tclass=file permissive=1
 #avc: denied { getattr } for pid=10102, comm="/bin/sh" path="/proc/filesystems" dev="" ino=38 scontext=u:r:init:s0 tcontext=u:object_r:proc_filesystems_file:s0 tclass=file permissive=1
 allow init proc_filesystems_file:file { open read getattr };
+allow domain process_etc_file:file { getattr map read open };

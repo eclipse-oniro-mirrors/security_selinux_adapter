@@ -13,6 +13,8 @@
 
 /system/bin/ueventd             u:object_r:ueventd_exec:s0
 /system/bin/remount             u:object_r:remount_exec:s0
+/system/etc/passwd              u:object_r:process_etc_file:s0
+/system/etc/group               u:object_r:process_etc_file:s0
 
 # for hyperhold
 /data/vendor/hyperhold(/.*)?          u:object_r:hyperhold_sys:s0
