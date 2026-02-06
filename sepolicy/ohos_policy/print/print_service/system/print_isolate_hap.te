@@ -1,0 +1,99 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow accountmgr print_isolate_hap:binder { transfer };
+allow appspawn print_isolate_hap:process { dyntransition };
+allow foundation print_isolate_hap:binder { call transfer };
+allow netmanager print_isolate_hap:binder { call };
+allow param_watcher print_isolate_hap:binder { call };
+allow print_isolate_hap accesstoken_service:binder { call transfer };
+allow print_isolate_hap accountmgr:binder { call transfer };
+allow print_isolate_hap appdat:dir { getattr ioctl open read search create setattr write add_name };
+allow print_isolate_hap normal_hap_data_file:dir { getattr ioctl open read search create setattr write add_name };
+allow print_isolate_hap appdat:file { append getattr ioctl lock map open read setattr write create unlink };
+allow print_isolate_hap normal_hap_data_file:file { append getattr ioctl lock map open read setattr write create unlink };
+allow print_isolate_hap appspawn:fd { use };
+allow print_isolate_hap appspawn:fifo_file { write };
+allow print_isolate_hap appspawn:unix_dgram_socket { write };
+allow print_isolate_hap asset_service:binder { call };
+allow print_isolate_hap data_app_el1_arkprofile:dir { search };
+allow print_isolate_hap data_app_el1_file:dir { search };
+allow print_isolate_hap data_app_el1_file:file { getattr map open read };
+allow print_isolate_hap data_app_el2_file:dir { search };
+allow print_isolate_hap data_service_el1_file:dir { open read search };
+allow print_isolate_hap data_service_el1_file:file { getattr };
+allow print_isolate_hap dev_ashmem_file:chr_file { open };
+allow print_isolate_hap dev_at_file:chr_file { ioctl }
+allow print_isolate_hap dev_unix_socket:dir { search };
+allow print_isolate_hap etc_hosts_file:file { getattr };
+allow print_isolate_hap foundation:binder { call transfer };
+allow print_isolate_hap foundation:fd { use };
+allow print_isolate_hap hiview:binder { call };
+allow print_isolate_hap netmanager:binder { call transfer };
+allow print_isolate_hap netsysnative:unix_stream_socket { connectto };
+allow print_isolate_hap node:tcp_socket { node_bind };
+allow print_isolate_hap node:udp_socket { node_bind };
+allow print_isolate_hap param_watcher:binder { call transfer };
+allow print_isolate_hap port:tcp_socket { name_connect };
+allow print_isolate_hap print_isolate_hap:tcp_socket { accept bind connect create getattr getopt listen read setopt write };
+allow print_isolate_hap print_isolate_hap:udp_socket { bind connect create getattr read write };
+allow print_isolate_hap print_service:binder { call transfer };
+allow print_isolate_hap render_service:binder { call transfer };
+allow print_isolate_hap render_service:fd { use };
+allow print_isolate_hap resource_schedule_service:binder { call };
+allow print_isolate_hap sa_accesstoken_manager_service:samgr_class { get };
+allow print_isolate_hap sa_accountmgr:samgr_class { get };
+allow print_isolate_hap sa_asset_service:samgr_class { get };
+allow print_isolate_hap sa_foundation_abilityms:samgr_class { get };
+allow print_isolate_hap sa_foundation_appms:samgr_class { get };
+allow print_isolate_hap sa_foundation_bms:samgr_class { get };
+allow print_isolate_hap sa_foundation_cesfwk_service:samgr_class { get };
+allow print_isolate_hap sa_foundation_dms:samgr_class { get };
+allow print_isolate_hap sa_hiview_service:samgr_class { get };
+allow print_isolate_hap sa_net_conn_managet:samgr_class { get };
+allow print_isolate_hap sa_netmanager_enhanced_service:samgr_class { get };
+allow print_isolate_hap sa_param_watcher:samgr_class { get };
+allow print_isolate_hap sa_print_service:samgr_class { get };
+allow print_isolate_hap sa_render_service:samgr_class { get };
+allow print_isolate_hap sa_resource_schedule:samgr_class { get };
+allow print_isolate_hap sa_storage_manager_service:samgr_class { get };
+allow print_isolate_hap sa_time_service:samgr_class { get };
+allow print_isolate_hap sa_usb_service:samgr_class { get };
+allow print_isolate_hap sa_wifi_device_ability:samgr_class { get };
+allow print_isolate_hap storage_manager:binder { call };
+allow print_isolate_hap sys_file:file { getattr open read };
+allow print_isolate_hap sysfs_devices_system_cpu:file { getattr open read };
+allow print_isolate_hap samgr:binder { call transfer };
+allow print_isolate_hap system_file:file { getattr map open read };
+allow print_isolate_hap system_lib_file:dir { open read };
+allow print_isolate_hap update_updater_param:file { map open read };
+allow print_isolate_hap usb_service:binder { call transfer };
+allow print_isolate_hap wifi_manager_service:binder { call transfer };
+allowxperm print_isolate_hap appdar:dir ioctl { 0xf546 };
+allowxperm print_isolate_hap normal_hap_data_file:dir ioctl { 0xf546 };
+allowxperm print_isolate_hap appdar:file ioctl { 0x5413 0xf50c 0xf546 };
+allowxperm print_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
+allowxperm print_isolate_hap dev_at_file:chr_file ioctl { 0x5413 };
+allow print_service print_isolate_hap:binder { call };
+allow render_service print_isolate_hap:binder { transfer };
+allow samgr print_isolate_hap:binder { call transfer };
+allow usb_service print_isolate_hap:binder { call };
+allow usb_service print_isolate_hap:fd { use };
+allow wifi_manager_service print_isolate_hap:binder { transfer };
+allow hianalytics print_isolate_hap:binder { call };
+allow print_isolate_hap hianalytics:binder { call transfer };
+allow print_isolate_hap hiview:unix_dgram_socket { sendto };
+allow print_isolate_hap print_isolate_hap:unix_dgram_socket { getopt setopt };
+allow print_isolate_hap sa_hianalytics:samgr_class { get };
+allow print_isolate_hap sa_wifi_p2p_ability:samgr_class { get };
+allow wifi_manager_service print_isolate_hap:binder { call };
