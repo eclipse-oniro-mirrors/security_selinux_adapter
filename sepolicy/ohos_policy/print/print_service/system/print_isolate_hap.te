@@ -61,7 +61,7 @@ allow print_isolate_hap sa_foundation_cesfwk_service:samgr_class { get };
 allow print_isolate_hap sa_foundation_dms:samgr_class { get };
 allow print_isolate_hap sa_hiview_service:samgr_class { get };
 allow print_isolate_hap sa_net_conn_manager:samgr_class { get };
-allow print_isolate_hap sa_netmanager_enhanced_service:samgr_class { get };
+# allow print_isolate_hap sa_netmanager_enhanced_service:samgr_class { get };
 allow print_isolate_hap sa_param_watcher:samgr_class { get };
 allow print_isolate_hap sa_print_service:samgr_class { get };
 allow print_isolate_hap sa_render_service:samgr_class { get };
