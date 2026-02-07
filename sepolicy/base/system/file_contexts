@@ -64,6 +64,7 @@
 /dev/tty[0-9]*                u:object_r:tty_device:s0
 /dev/ttyFIQ0                  u:object_r:tty_device:s0
 /dev/ttyS[0-9]*               u:object_r:tty_device:s0
+/dev/ttyBT0                   u:object_r:tty_device:s0
 /dev/usb-ffs(/.*)?            u:object_r:dev_usb_ffs:s0
 /dev/asanlog(/.*)?                  u:object_r:dev_asanlog_file:s0
 
