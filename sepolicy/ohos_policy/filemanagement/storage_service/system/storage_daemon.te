@@ -344,6 +344,10 @@ allow storage_daemon permissions_mount_file_attr:dir { add_name create mounton s
 allow storage_daemon share_public_file:dir { read open ioctl };
 allowxperm storage_daemon share_public_file:dir ioctl { 0xf546 0xf547 0x581f 0x5820 0x6601 0x6602 };
 
+allow storage_daemon dev_bus_usb_file:chr_file { ioctl };
+allow storage_daemon system_lib_file:dir {open read};
+allowxperm storage_daemon dev_bus_usb_file:chr_file ioctl{ 0x550b 0x5515 };
+
 # avc:  denied  { write } for pid=544 comm="storage_daemon" name="kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { open } for pid=544 comm="storage_daemon" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow storage_daemon dev_kmsg_file:chr_file { write open };
