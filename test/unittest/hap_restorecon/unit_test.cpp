@@ -520,7 +520,6 @@ static bool CompareContexts(const std::string &path, const std::string &label)
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 {
     ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_4));
-    ASSERT_EQ(true, CreateDirectory(TEST_GROUP_PATH));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_1)); // should not be restorecon
@@ -531,7 +530,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 
     HapFileInfo hapFileInfo = {
         .pathNameOrig = {TEST_SUB_PATH_1, TEST_SUB_PATH_2, TEST_SUB_PATH_1_FILE_1, TEST_SUB_PATH_1_FILE_2,
-                         TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH, TEST_GROUP_PATH},
+                         TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH},
         .apl = SYSTEM_CORE_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
@@ -545,7 +544,6 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1_FILE_2, TEST_HAP_DATA_FILE_LABEL));
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_3_FILE_1, TEST_HAP_DATA_FILE_LABEL));
     EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_4, TEST_HAP_DATA_FILE_LABEL));
-    EXPECT_TRUE(CompareContexts(TEST_GROUP_PATH, TEST_HAP_DATA_FILE_LABEL));
 
     char *secontext = nullptr;
     getfilecon(TEST_SUB_PATH_2_FILE_1.c_str(), &secontext); // this file should not be restorecon
@@ -556,7 +554,6 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     secontextOld = nullptr;
 
     ASSERT_EQ(true, RemoveDirectory(TEST_HAP_PATH));
-    ASSERT_EQ(true, RemoveDirectory(TEST_GROUP_PATH));
 }
 
 /**
@@ -1555,6 +1552,21 @@ HWTEST_F(SelinuxUnitTest, UserAndMCSRangeSet002, TestSize.Level1)
 #endif
     freecon(*secontextPtr);
     context_free(con);
+}
+
+/**
+ * @tc.name: CheckPath001
+ * @tc.desc: test CheckPath with no group.
+ * @tc.type: FUNC
+ * @tc.require: AR000GJSDQ
+ */
+HWTEST_F(SelinuxUnitTest, CheckPath001, TestSize.Level1)
+{
+    ASSERT_EQ(true, CreateFile(TEST_GROUP_PATH));
+
+    EXPECT_EQ(SELINUX_SUCC, test.HapFileRestorecon(TEST_GROUP_PATH, g_hapFileInfoWithoutFlags));
+
+    ASSERT_EQ(true, RemoveDirectory(TEST_GROUP_PATH));
 }
 } // namespace SelinuxUnitTest
 } // namespace Security
