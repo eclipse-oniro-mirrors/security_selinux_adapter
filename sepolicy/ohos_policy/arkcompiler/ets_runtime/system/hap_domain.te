@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow hap_domain update_updater_param:file { map read open};
+allow hap_domain data_app_el1_arkstartupcache:dir { open read};
+allow hap_domain data_app_el1_arkstartupcache:file { setattr};
