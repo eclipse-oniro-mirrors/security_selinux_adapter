@@ -27,6 +27,7 @@ allow isolated_render dev_unix_socket:dir { search };
 
 allow isolated_render hap_domain:binder { call };
 allow isolated_render hap_domain:fd { use };
+allow isolated_render isolated_gpu:fd { use };
 
 # avc:  denied  { exec_anon_mem } for  pid=5103 comm=".browser" scontext=u:r:isolated_render:s0 tcontext=u:r:isolated_render:s0 tclass=xpm permissive=0
 allow isolated_render isolated_render:xpm { exec_anon_mem };
