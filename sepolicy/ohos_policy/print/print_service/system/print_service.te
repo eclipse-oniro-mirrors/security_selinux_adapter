@@ -13,6 +13,7 @@
 
 allow print_service accesstoken_service:binder { call };
 allow print_service appspawn:fd { use };
+allow print_service appspawn:unix_dgram_socket { read write };
 allow print_service bootevent_param:file { map open read };
 allow print_service bootevent_samgr_param:file { map open read };
 allow print_service build_version_param:file { map open read };
