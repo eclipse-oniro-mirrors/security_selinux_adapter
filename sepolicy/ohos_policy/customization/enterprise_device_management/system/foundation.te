@@ -16,3 +16,6 @@ allow foundation edm_sa:dir { search };
 
 # avc: denied { getattr } for pid=854 comm="IPC_14_1986" path="/proc/2168/cmdline" dev="proc" ino=28981 scontext=u:r:foundation:s0 tcontext=u:r:edm_sa:s0 tclass=file permissive=1
 allow foundation edm_sa:file { open read getattr };
+
+# avc: denied { use } for pid=1311 comm="system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:foundation:s0 tcontext=u:r:edm_sa:s0 tclass=fd permissive=0
+allow foundation edm_sa:fd { use };
