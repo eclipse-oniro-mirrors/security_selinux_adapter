@@ -144,6 +144,7 @@ allow sh dev_parameters_file:file read_file_perms;
 allow sh debug_param:file { map read open };
 allow sh hilog_param:file { map read open };
 allow sh developtools_hdc_control_param:file { map read open };
+allow sh process_etc_file:file { getattr map read open };
 
 # for bin run
 ## for bm install

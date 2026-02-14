@@ -18,6 +18,7 @@ type ueventd_exec, system_file_attr, exec_attr, file_attr;
 type remount_exec, system_file_attr, exec_attr, file_attr;
 type param_exec, system_file_attr, exec_attr, file_attr;
 type begetctl_exec, system_file_attr, exec_attr, file_attr;
+type process_etc_file, system_file_attr, file_attr, system_etc_file_attr;
 developer_only(`
     allow sh param_exec:file { read getattr map execute open execute_no_trans };
     allow sh begetctl_exec:file { read getattr map execute open execute_no_trans };
