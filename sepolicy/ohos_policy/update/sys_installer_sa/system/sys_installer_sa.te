@@ -138,3 +138,4 @@ allowxperm sys_installer_sa dev_block_file:blk_file ioctl { 0x1277 };
 allow sys_installer_sa updater_binary:dir { search read open };
 
 allow sys_installer_sa sa_time_service:samgr_class { get };
+allow sys_installer_sa time_service:binder { call transfer };
