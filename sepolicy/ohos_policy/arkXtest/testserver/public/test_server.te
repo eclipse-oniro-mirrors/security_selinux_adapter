@@ -11,7 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain developer_only(`-uitest -wukong -perftest -test_server') debug_only(`-uitest -wukong -perftest -test_server') -SP_daemon -sp_daemon_get } sa_test_server:samgr_class { get };
+neverallow { domain developer_only(`-uitest -wukong -perftest -test_server -testhelper') debug_only(`-uitest -wukong -perftest -test_server -testhelper') -SP_daemon -sp_daemon_get } sa_test_server:samgr_class { get };
+
 developer_only(`
     allow test_server sa_test_server:samgr_class { add };
     allow test_server hilog_param:file { read open };
@@ -36,6 +37,12 @@ developer_only(`
     allow test_server sa_distributeddata_service:samgr_class { get };
     allow distributeddata test_server:binder { transfer };
     allow test_server sa_test_server:samgr_class { get };
+    allow test_server sa_time_service:samgr_class { get };
+    allow test_server time_service:binder { call };
+    allow test_server pasteboard_service:fd { use };
+    allow time_service test_server:file { getattr };
+    allow test_server sa_inputmethod_service:samgr_class { get };
+    allow test_server inputmethod_service:binder { call };
 ')
 
 debug_only(`

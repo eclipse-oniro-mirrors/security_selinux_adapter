@@ -196,5 +196,7 @@ developer_only(`
 (allow sh param_exec (file (read getattr map execute open execute_no_trans)))
 (allow sh begetctl_exec (file (read getattr map execute open execute_no_trans)))
 (allow sh arkcompiler_param (parameter_service (set)))
+(allow sh testhelper (process (rlimitinh getattr transition siginh)))
+(allow sh testhelper_exec (file (execute open getattr map ioctl read)))
 (allow sh process_etc_file (file (getattr map read open)))
 ')

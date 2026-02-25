@@ -206,7 +206,8 @@
             "nwebspawn",
             "processdump",
             "uitest",
-            "perftest"
+            "perftest",
+            "testhelper"
         ],
         "hdfdomain": [
             "location_host",
