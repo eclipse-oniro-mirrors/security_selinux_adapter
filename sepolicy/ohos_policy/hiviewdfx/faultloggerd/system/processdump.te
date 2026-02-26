@@ -83,6 +83,7 @@ allow processdump data_local_tmp:file { getattr map open read };
 developer_only(`
 allow processdump data_local_tmp:dir { search };
 allow processdump data_local:dir { search };
+allow debug_hap hilog_param:file { map open read };
 ')
 
 #============ hidumper ==============
