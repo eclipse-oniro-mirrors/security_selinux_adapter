@@ -132,3 +132,5 @@ neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { 
 allow distributedsche sa_foundation_ans:samgr_class { get };
 #avc: denied { get } for service=5100 sid=u:r:distributedsche:s0 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=0
 allow distributedsche sa_device_service_manager:samgr_class { get };
+# avc: denied { transfer } for pid=6242, comm="/system/bin/sa_main"  scontext=u:r:distributedsche:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
+allow distributedsche accountmgr:binder { transfer };
