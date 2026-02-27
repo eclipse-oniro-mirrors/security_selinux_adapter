@@ -291,13 +291,15 @@ developer_only(`
     allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
     allow hdcd hisysevent_exec:file { execute read open getattr execute_no_trans map };
 
-    # for recv /data/log and /data/log/hilog and /data/log/faultlog/faultlogger
+    # for recv /data/log and /data/log/hilog and /data/log/faultlog/faultlogger and /data/log/hitrace/
     allow hdcd data_log:dir { getattr read open };
     allow hdcd data_log:file { getattr read open };
     allow hdcd faultlogger_log_file:dir { getattr read open };
     allow hdcd faultlogger_log_file:file { getattr read open };
     allow hdcd data_hilogd_file:dir { getattr read open };
     allow hdcd data_hilogd_file:file { getattr read open };
+    allow hdcd hitrace_log_file:dir { search getattr read open };
+    allow hdcd hitrace_log_file:file { getattr read open };
 
     # for read hdc.version
     allow hdcd debug_param:file { map read open };
