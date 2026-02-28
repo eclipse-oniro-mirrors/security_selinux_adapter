@@ -14,3 +14,7 @@
 type foundation_data_file, file_attr, data_file_attr;
 type bms_db_file, file_attr, data_file_attr, data_service_file_attr;
 type app_bin_file, file_attr, data_file_attr, data_service_file_attr;
+type data_app_el2_group_file, file_attr, data_file_attr, hap_file_attr;
+type data_app_el3_group_file, file_attr, data_file_attr, hap_file_attr;
+type data_app_el4_group_file, file_attr, data_file_attr, hap_file_attr;
+type data_app_el5_group_file, file_attr, data_file_attr, hap_file_attr;

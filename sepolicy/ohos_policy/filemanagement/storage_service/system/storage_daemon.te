@@ -524,3 +524,7 @@ allow storage_daemon hap_file_attr:lnk_file { getattr read rename unlink };
 allow storage_daemon hap_file_attr:fifo_file { getattr read rename unlink };
 allow storage_daemon hap_file_attr:sock_file { getattr read rename unlink };
 
+allow storage_daemon data_app_el2_group_file:dir { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el3_group_file:dir { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el4_group_file:dir { add_name create getattr open read search setattr write };
+allow storage_daemon data_app_el5_group_file:dir { add_name create getattr open read search setattr write };

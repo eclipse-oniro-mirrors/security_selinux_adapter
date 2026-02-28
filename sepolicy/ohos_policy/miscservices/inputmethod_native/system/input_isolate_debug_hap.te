@@ -37,3 +37,7 @@ developer_only(`
     allow input_isolate_debug_hap hdcd:unix_stream_socket { connectto };
     allow input_isolate_debug_hap dev_unix_socket:dir { search };
 ')
+
+allow input_isolate_debug_hap data_app_el2_group_file:dir { add_name search read write create open remove_name setattr getattr lock watch watch_reads };
+allow input_isolate_debug_hap data_app_el2_group_file:file { read open getattr map lock watch watch_reads };
+

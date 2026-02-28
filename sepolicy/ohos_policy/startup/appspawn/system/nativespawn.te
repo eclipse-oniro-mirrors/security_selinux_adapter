@@ -19,3 +19,4 @@ allow nativespawn data_service_el1_file:file { read write create map open unlink
 allow nativespawn foundation:fd { use };
 # avc: denied { write } for pid=8723, comm="/system/bin/nativespawn" path="pipe:[8763]" dev="tmpfs" ino=53 scontext=u:r:nativespawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
 allow nativespawn foundation:fifo_file { write };
+allow nativespawn data_app_el2_group_file:dir { search };
