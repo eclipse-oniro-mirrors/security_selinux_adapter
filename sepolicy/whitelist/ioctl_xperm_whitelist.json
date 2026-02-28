@@ -349,6 +349,7 @@
             "sh uinput_exec file",
             "sh ime_exec file",
             "sh uitest_exec file",
+            "sh testhelper_exec file",
             "sh wukong_exec file",
             "sh mediatool_exec file"
         ]

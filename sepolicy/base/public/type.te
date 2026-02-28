@@ -107,6 +107,8 @@ type uitest, native_system_domain, domain;
 type perftest_exec, exec_attr, file_attr, system_file_attr;
 type perftest, native_system_domain, domain;
 
+type testhelper, native_system_domain, domain;
+
 type aa, native_system_domain, domain;
 type aa_exec, exec_attr, file_attr, system_file_attr;
 
