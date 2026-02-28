@@ -53,6 +53,7 @@ debug_only(`
     allow bm system_file:file { getattr read open };
     allow bm system_file:dir { open read };
     allow bm data_app_el2_file:dir { search };
+    allow bm data_app_el2_group_file:dir { search };
     allow bm quick_fix:binder { call transfer };
     allow bm sa_foundation_cesfwk_service:samgr_class { get };
     allow bm sa_quick_fix_mgr_service:samgr_class { get };
@@ -110,6 +111,7 @@ developer_only(`
     allow bm system_file:file { getattr read open };
     allow bm system_file:dir { open read };
     allow bm data_app_el2_file:dir { search };
+    allow bm data_app_el2_group_file:dir { search };
     allow bm quick_fix:binder { call transfer };
     allow bm sa_foundation_cesfwk_service:samgr_class { get };
     allow bm sa_quick_fix_mgr_service:samgr_class { get };

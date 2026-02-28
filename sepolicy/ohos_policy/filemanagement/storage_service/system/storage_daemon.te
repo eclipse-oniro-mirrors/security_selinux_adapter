@@ -157,12 +157,17 @@ allow storage_daemon data_service_file:dir { search };
 #avc:  denied  { remove_name } for  pid=257 comm="storage_daemon" name="base" dev="mmcblk0p11" ino=523949 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 allow storage_daemon data_app_el1_file:dir { rw_dir_perms rmdir ioctl };
 allow storage_daemon data_app_el2_file:dir { rw_dir_perms rmdir ioctl };
+allow storage_daemon data_app_el2_group_file:dir { rw_dir_perms rmdir ioctl };
 allow storage_daemon data_app_el3_file:dir { rw_dir_perms rmdir ioctl };
+allow storage_daemon data_app_el3_group_file:dir { rw_dir_perms rmdir ioctl };
 allow storage_daemon data_app_el4_file:dir { rw_dir_perms rmdir ioctl };
+allow storage_daemon data_app_el4_group_file:dir { rw_dir_perms rmdir ioctl };
 
 #avc:  denied  { ioctl } for  pid=271 comm="OS_IPC_1_302" path="/data/app/el5/101" dev="mmcblk0p15" ino=3342 ioctlcmd=0x6613 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el5_file:s0 tclass=dir permissive=1
 allow storage_daemon data_app_el5_file:dir { rw_dir_perms rmdir ioctl };
 allowxperm storage_daemon data_app_el5_file:dir ioctl { 0x6613 };
+allow storage_daemon data_app_el5_group_file:dir { rw_dir_perms rmdir ioctl };
+allowxperm storage_daemon data_app_el5_group_file:dir ioctl { 0x6613 };
 
 #avc:  denied  { remove_name } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=262719 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=dir permissive=1
 #avc:  denied  { rmdir } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=262719 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=dir permissive=1
@@ -370,7 +375,9 @@ storage_daemon_relabel(data_service_el2_share);
 
 # avc: denied { create } for pid=648, comm="/system/bin/storage_daemon" name="/app/el2/100/base/el2_tem" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=5640 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 allow storage_daemon data_app_el2_file:file { unlink create write ioctl open };
+allow storage_daemon data_app_el2_group_file:file { unlink create write ioctl open };
 allowxperm storage_daemon data_app_el2_file:file ioctl { 0x5413 };
+allowxperm storage_daemon data_app_el2_group_file:file ioctl { 0x5413 };
 allow storage_daemon data_chipset_el2_file:file { unlink };
 allow storage_daemon data_app_el5_file:file { unlink };
 allow storage_daemon data_file:dir { create relabelfrom setattr write add_name write remove_name };

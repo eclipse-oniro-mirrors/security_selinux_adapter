@@ -74,15 +74,19 @@ allow sqlite3 data_app_el1_file:dir { search };
 
 # avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el2/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 allow sqlite3 data_app_el2_file:dir { search };
+allow sqlite3 data_app_el2_group_file:dir { search };
 
 # avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el3/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el3_file:s0 tclass=dir permissive=1
 allow sqlite3 data_app_el3_file:dir { search };
+allow sqlite3 data_app_el3_group_file:dir { search };
 
 # avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el4/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el4_file:s0 tclass=dir permissive=1
 allow sqlite3 data_app_el4_file:dir { search };
+allow sqlite3 data_app_el4_group_file:dir { search };
 
 # avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/app/el5/100/database" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=11303 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_app_el5_file:s0 tclass=dir permissive=1
 allow sqlite3 data_app_el5_file:dir { search };
+allow sqlite3 data_app_el5_group_file:dir { search };
 
 # avc: denied { search } for pid=13874, comm="/bin/sqlite3"  name="/service" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=9 scontext=u:r:sqlite3:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
 allow sqlite3 data_service_file:dir { search };

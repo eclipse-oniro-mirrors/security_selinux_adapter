@@ -192,9 +192,13 @@
 /data/app/(.*)?               u:object_r:data_app_file:s0
 /data/app/el1(/.*)?           u:object_r:data_app_el1_file:s0
 /data/app/el2(/.*)?           u:object_r:data_app_el2_file:s0
+/data/app/el2/[0-9]+/group(/.*)?       u:object_r:data_app_el2_group_file:s0
 /data/app/el3(/.*)?           u:object_r:data_app_el3_file:s0
+/data/app/el3/[0-9]+/group(/.*)?       u:object_r:data_app_el3_group_file:s0
 /data/app/el4(/.*)?           u:object_r:data_app_el4_file:s0
+/data/app/el4/[0-9]+/group(/.*)?       u:object_r:data_app_el4_group_file:s0
 /data/app/el5(/.*)?           u:object_r:data_app_el5_file:s0
+/data/app/el5/[0-9]+/group(/.*)?       u:object_r:data_app_el5_group_file:s0
 /data/service                 u:object_r:data_service_file:s0
 /data/service/(.*)?           u:object_r:data_service_file:s0
 /data/service/el0(/.*)?       u:object_r:data_service_el0_file:s0

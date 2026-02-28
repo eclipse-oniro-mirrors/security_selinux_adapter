@@ -34,6 +34,7 @@ allow nativespawn system_bin_file:dir { getattr mounton };
 allow nativespawn system_lib_file:dir { getattr mounton };
 allow nativespawn vendor_lib_file:dir { getattr mounton };
 allow nativespawn data_app_el2_file:dir { search };
+allow nativespawn data_app_el2_group_file:dir { search };
 allow nativespawn data_app_file:dir { search };
 allow nativespawn data_file:dir { search };
 allow nativespawn data_service_el1_file:dir { search };

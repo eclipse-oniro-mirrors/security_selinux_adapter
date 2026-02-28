@@ -25,6 +25,7 @@ allow nwebspawn const_product_param:file { map open read };
 allow nwebspawn data_app_el1_file:dir { mounton search };
 allow nwebspawn data_app_el1_file:file { execute getattr map open read };
 allow nwebspawn data_app_el2_file:dir { search };
+allow nwebspawn data_app_el2_group_file:dir { search };
 allow nwebspawn data_app_file:dir { search };
 allow nwebspawn debug_param:file { map open read };
 allow nwebspawn default_param:file { map open read };

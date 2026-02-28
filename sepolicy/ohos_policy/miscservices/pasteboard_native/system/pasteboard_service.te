@@ -100,6 +100,7 @@ allow pasteboard_service data_app_file:dir { search };
 
 #avc:  denied  { search } for  pid=2175 comm="IPC_2_2479" name="el2" dev="sdd91" ino=67 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
 allow pasteboard_service data_app_el2_file:dir { search };
+allow pasteboard_service data_app_el2_group_file:dir { search };
 
 #avc:  denied  { create } for  pid=2147 comm="IPC_3_2709" name="t3.jpeg" scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=lnk_file permissive=0
 allow pasteboard_service data_service_el2_hmdfs:lnk_file { create };

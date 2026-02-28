@@ -54,6 +54,7 @@ allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:sa
 allow distributedfiledaemon data_app_file:dir { search };
 
 allow distributedfiledaemon data_app_el2_file:dir { search };
+allow distributedfiledaemon data_app_el2_group_file:dir { search };
 
 allow distributedfiledaemon dev_at_file:chr_file { ioctl };
 
