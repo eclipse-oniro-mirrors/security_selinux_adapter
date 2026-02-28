@@ -225,3 +225,4 @@ allow hap_domain data_app_el5_file:sock_file { create read write open lock unlin
 allowxperm hap_domain data_app_el5_file:sock_file ioctl { 0x5413 };
 allow hap_domain data_app_el5_file:fifo_file { create read write open lock unlink map setattr getattr rename };
 allowxperm hap_domain data_app_el5_file:fifo_file ioctl { 0x5413 };
+allow installs app_bin_file:file { relabelfrom relabelto unlink getattr rename setattr};
