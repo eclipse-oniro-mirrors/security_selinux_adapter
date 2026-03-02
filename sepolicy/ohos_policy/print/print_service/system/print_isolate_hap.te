@@ -30,6 +30,7 @@ allow print_isolate_hap data_app_el1_arkprofile:dir { search };
 allow print_isolate_hap data_app_el1_file:dir { search };
 allow print_isolate_hap data_app_el1_file:file { getattr map open read };
 allow print_isolate_hap data_app_el2_file:dir { search };
+allow print_isolate_hap data_app_el2_group_file:dir { search };
 allow print_isolate_hap data_service_el1_file:dir { open read search };
 allow print_isolate_hap data_service_el1_file:file { getattr };
 allow print_isolate_hap dev_ashmem_file:chr_file { open };
