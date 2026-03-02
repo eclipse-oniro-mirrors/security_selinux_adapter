@@ -258,12 +258,12 @@ neverallow { domain -cgroup_creator -rgm_violator_ohos_cgroup_file_create } cgro
 
 neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 
-neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -system_fonts_file_violator_dir_mounton -rgm_violator_system_file_mounton } system_file_attr:dir_file_class_set mounton;
+neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -system_fonts_file_violator_dir_mounton -rgm_violator_system_file_mounton -vpn_isolate_hap } system_file_attr:dir_file_class_set mounton;
 
 neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_hap_attr -rgm_violator_vendor_file_mounton } vendor_file_attr:dir_file_class_set mounton;
 
 neverallow { domain -init -kernel -hap_domain -locationhub
-             -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
+             -audio_host updater_only(`-updater -updater_binary') -vpn_isolate_hap } data_file:file never_write_file;
 
 neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool -perftest -uinput') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm -uinput') -data_local_tmp_violator_file_open -processdump -violator_data_local_tmp_file_open } data_local_tmp:file open;
 
@@ -290,9 +290,9 @@ neverallow { domain developer_only(`-wukong -aa -hdcd -sh -hnp -hnp_hap_domain_a
     -wifi_hal_service -sh_exec_violator -rgm_violator_ohos_sh_exec_file_execute -cupsd -print_driver} sh_exec:file execute;
 
 #limit execmem use
-neverallow { domain -appspawn -hap_domain -isolated_render -rgm_violator_execmem } self:process execmem;
+neverallow { domain -appspawn -hap_domain -isolated_render -rgm_violator_execmem -vpn_isolate_hap } self:process execmem;
 
-neverallow { domain -processdump -hap_domain -isolated_render -isolated_gpu developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') -violator_lldb_server_ptrace } domain:process ptrace;
+neverallow { domain -processdump -hap_domain -isolated_render -isolated_gpu developer_only(`-lldb_server -hiperf -native_daemon') debug_only(`-hiperf') -violator_lldb_server_ptrace -vpn_isolate_hap } domain:process ptrace;
 
 neverallow isolated_gpu {domain -isolated_gpu}:process ptrace;
 neverallow isolated_render {domain -isolated_render}:process ptrace;
