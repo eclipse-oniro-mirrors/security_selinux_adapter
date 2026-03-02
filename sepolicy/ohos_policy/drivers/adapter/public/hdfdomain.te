@@ -26,9 +26,9 @@ allow domain chip_prod_file:dir { open read search getattr };
 
 #neverallow
 # let every hdf_host join hdf_domain
-neverallow { domain -hdfdomain -sadomain -init -hap_domain -isolated_gpu developer_only(`-input_isolate_debug_hap') -input_isolate_hap } hdf_devmgr:binder call;
+neverallow { domain -hdfdomain -sadomain -init -hap_domain -isolated_gpu developer_only(`-input_isolate_debug_hap') -input_isolate_hap -vpn_isolate_hap } hdf_devmgr:binder call;
 
-neverallow { domain -hdfdomain -sadomain -hap_domain -isolated_gpu -binder_call_hdfdomain_violators developer_only(`-input_isolate_debug_hap') -input_isolate_hap } hdfdomain:binder call;
+neverallow { domain -hdfdomain -sadomain -hap_domain -isolated_gpu -binder_call_hdfdomain_violators developer_only(`-input_isolate_debug_hap') -input_isolate_hap -vpn_isolate_hap } hdfdomain:binder call;
 
 neverallow isolated_gpu { hdfdomain -codec_host -allocator_host -cap_violator_binder_hmc }: binder call;
 

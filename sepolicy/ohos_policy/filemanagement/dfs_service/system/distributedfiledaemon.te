@@ -47,7 +47,7 @@ allow distributedfiledaemon dslm_service:binder { call };
 #avc:  denied  { get } for service=3299 pid=609 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
 
-neverallow { domain -pasteboard_service -dslm_service -foundation -softbus_server -accountmgr -device_manager -param_watcher -sadomain -hidumper_service -hap_domain } distributedfiledaemon:binder { call };
+neverallow { domain -pasteboard_service -dslm_service -foundation -softbus_server -accountmgr -device_manager -param_watcher -sadomain -hidumper_service -hap_domain -vpn_isolate_hap } distributedfiledaemon:binder { call };
 
 allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:samgr_class { add_remote get_remote };
 
