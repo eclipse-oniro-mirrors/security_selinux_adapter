@@ -26,9 +26,15 @@ allow font_manager_server dev_unix_socket:dir { search };
 allow font_manager_server dev_kmsg_file:chr_file { write };
 allow font_manager_server sa_foundation_cesfwk_service:samgr_class { get };
 allow font_manager_server sharefs_appdata_bundle_file:file { getattr map read };
-allow font_manager_server hmdfs:file { map read };
+# avc:  denied  { getattr } for  pid=22943 comm="font_manager_se" dev="hmdfs" ino=2305843009214514834 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
+allow font_manager_server hmdfs:file { getattr map read };
 binder_call(font_manager_server, accountmgr);
 allow font_manager_server sa_accountmgr:samgr_class { get };
 allow font_manager_server ntfs:file { getattr map read };
 allow font_manager_server mnt_external_file:file { getattr map read };
 allow font_manager_server fuse_file:file { getattr map read };
+# avc:  denied  { search } for  pid=22943 comm="font_manager_se" name="/" dev="vdd" ino=2 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow font_manager_server data_file:dir { search };
+# avc:  denied  { read } for  pid=22943 comm="font_manager_se"  dev="vdd" ino=820882 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=22943 comm="font_manager_se"  dev="vdd" ino=820882 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
+allow font_manager_server data_user_file:file { getattr read };
