@@ -116,3 +116,7 @@ allowxperm print_service print_service:udp_socket ioctl { 0x8912 0x891b };
 allow print_service cups_socket:dir { search };
 allow print_service cups_socket:sock_file { write };
 allow print_service cupsd:unix_stream_socket { connectto };
+# avc: denied { get } for service=3203 sid=u:r:print_service:s0 scontext=u:r:print_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=1
+allow print_service sa_foundation_ans:samgr_class { get };
+# avc: denied { getattr map open read } for pid=14437, comm="/system/bin/sa_main" path="/system/usr/icu/icudt741.dat" dev="overlay" ino=3073 scontext=u:r:print_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow print_service system_usr_file:file { getattr map open read };
