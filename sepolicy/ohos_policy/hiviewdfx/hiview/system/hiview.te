@@ -41,9 +41,13 @@ allow hiview hitrace_log_file:dir getattr;
 #avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
 allow hiview data_log:file { create setattr getattr lock map open read write unlink rename append ioctl };
 allow hiview hitrace_log_file:file { create setattr getattr lock map open read write unlink rename append };
+#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/log/hitrace/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=44179 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
+#avc:  denied  { read } for pid=36349, comm="/system/bin/hiview" name="/log/hitrace/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=44179 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
 allow hiview hitrace_log_file:lnk_file { getattr read };
 allow hiview faultlogger_log_file:dir { add_name open read search watch write create remove_name };
 allow hiview faultlogger_log_file:file { create setattr getattr lock map open read write unlink rename append };
+#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/log/faultlog/faultlogger/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=47086 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
+#avc:  denied  { read } for pid=36349, comm="/system/bin/hiview" name="/log/faultlog/faultlogger/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=47086 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
 allow hiview faultlogger_log_file:lnk_file { getattr read };
 allowxperm hiview data_log:file ioctl { 0x5413 0xf546 0xf547 };
 allow hiview data_system:dir { search getattr };
@@ -302,6 +306,8 @@ allow hiview pstorefs:file { open read unlink };
 
 allow hiview hiview_sys_def_file:dir { search write add_name getattr read open };
 allow hiview hiview_sys_def_file:file { create open ioctl getattr write read };
+#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=453 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
+#avc:  denied  { read } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=453 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
 allow hiview hiview_sys_def_file:lnk_file { getattr read };
 allowxperm hiview hiview_sys_def_file:file ioctl { 0x5413 };
 
