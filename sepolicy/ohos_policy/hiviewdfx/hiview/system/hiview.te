@@ -306,9 +306,9 @@ allow hiview wifi_manager_service:fd { use };
 allow hiview pstorefs:dir { open read remove_name search write };
 allow hiview pstorefs:file { open read unlink };
 
-#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
-#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
-#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
+#avc:  denied  { getattr } for pid=36341, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
+#avc:  denied  { read } for pid=36341, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
+#avc:  denied  { open } for pid=36341, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
 allow hiview hiview_sys_def_file:dir { search write add_name getattr read open };
 allow hiview hiview_sys_def_file:file { create open ioctl getattr write read };
 #avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=453 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=link_file permissive=0
