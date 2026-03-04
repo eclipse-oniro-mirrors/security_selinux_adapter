@@ -656,6 +656,16 @@ allow web_native_messaging_service vpn_isolate_hap:fd { use };
 allow web_native_messaging_service vpn_isolate_hap:fifo_file { read write };
 allow foundation vpn_isolate_hap:binder { call };
 
+# 03-03 22:52:38 <3> [3430.774856]  -;[4] pid=57602 tid=57602 comm=connect.vpn:vpn [hmseh:392]avc: denied { supervsable } for pid=57602, comm="/system/bin/appspawn"  scontext=u:r:vpn_isolate_hap:s0 tcontext=u:r:vpn_isolate_hap:s0 tclass=hmcap permissive=0
+allow vpn_isolate_hap vpn_isolate_hap:hmcap { supervsable };
+
+# 03-03 22:52:38 <3> [3430.798952]  -;[4] pid=57602 tid=57602 comm=connect.vpn:vpn [hmseh:392]avc: denied { ioctl } for pid=57602, comm="/system/bin/appspawn"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:vpn_isolate_hap:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
+allow vpn_isolate_hap dev_at_file:chr_file { ioctl };
+allowxperm vpn_isolate_hap dev_at_file:chr_file ioctl { 0x5413 };
+
+# 03-03 22:52:40 <3> [3433.310309]  -;[9] pid=57602 tid=57681 comm=OS_FFRT_2_1     [hmseh:392]avc: denied { write } for pid=57602, comm="/system/bin/appspawn"  path="/dev/unix/socket/tunfd" dev="" ino=1009 scontext=u:r:vpn_isolate_hap:s0 tcontext=u:object_r:dev_unix_file:s0 tclass=sock_file permissive=0
+allow vpn_isolate_hap dev_unix_file:sock_file { write };
+
 allowxperm vpn_isolate_hap data_app_el1_arkprofile:file ioctl { 0x5413 };
 allowxperm vpn_isolate_hap data_app_el1_arkstartupcache:file ioctl { 0x5413 };
 allowxperm vpn_isolate_hap data_app_el1_arkstartupcache:file ioctl { 0x6685 };
