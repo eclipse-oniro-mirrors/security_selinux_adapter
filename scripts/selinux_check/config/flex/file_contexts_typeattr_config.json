@@ -32,6 +32,10 @@
         "typeattr": "vendor_etc_file_attr"
     },
     {
+        "path": "/vendor/modules",
+        "typeattr": "vendor_module_file_attr"
+    },
+    {
         "path": "/sys_prod",
         "typeattr": "sys_prod_file_attr"
     },
