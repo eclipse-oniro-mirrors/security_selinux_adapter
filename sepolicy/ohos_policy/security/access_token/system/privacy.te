@@ -73,6 +73,8 @@ allow privacy_service sa_foundation_wms:samgr_class { get };
 allow privacy_service sa_param_watcher:samgr_class { get };
 allow privacy_service sa_privacy_service:samgr_class { add get };
 allow privacy_service sa_pulseaudio_audio_service:samgr_class { get };
+# avc:  denied  { get } for service=200 sid=u:r:privacy_service:s0 scontext=u:r:privacy_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow privacy_service sa_accountmgr:samgr_class { get };
 allow privacy_service security_param:file { map open read };
 allow privacy_service startup_param:file { map open read };
 allow privacy_service sys_param:file { map open read };
