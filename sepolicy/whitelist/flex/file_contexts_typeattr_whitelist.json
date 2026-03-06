@@ -299,6 +299,7 @@
                     "/data/service/el1/public/account/base_os_account_constraints.json",
                     "/data/service/el1/public/account/global_os_account_constraints.json",
                     "/data/service/el1/public/account/specific_os_account_constraints.json",
+                    "/data/service/el1/public/for-all-app/account(/.*)?",
                     "/data/service/el1/public/for-all-app/framework_ark_cache(/.*)?",
                     "/data/service/el1/public/edm/config(/.*)?",
                     "/data/service/el1/public/edm/config/application(/.*)?",

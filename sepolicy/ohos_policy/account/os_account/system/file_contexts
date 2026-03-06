@@ -26,3 +26,6 @@
 
 # for acm tool
 /system/bin/acm u:object_r:acm_exec:s0
+
+# for posix map file
+/data/service/el1/public/for-all-app/account(/.*)?       u:object_r:account_posix_map_file:s0

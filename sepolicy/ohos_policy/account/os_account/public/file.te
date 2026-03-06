@@ -14,3 +14,4 @@
 # Filesystem types
 type account_data_file, file_attr, data_file_attr;
 type account_data_el2_file, file_attr, data_file_attr;
+type account_posix_map_file, file_attr, data_file_attr;
