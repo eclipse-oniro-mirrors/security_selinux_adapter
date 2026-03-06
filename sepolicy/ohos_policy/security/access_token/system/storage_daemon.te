@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2026 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,10 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/service/el1/public/access_token(/.*)?    u:object_r:accesstoken_data_file:s0
-/data/service/el2/[0-9]+/access_token(/.*)?    u:object_r:accesstoken_data_el2_file:s0
-/data/service/el0/access_token/nativetoken.json u:object_r:accesstoken_data_file:s0
-/data/service/el0/access_token/nativetoken.json.lock u:object_r:accesstoken_data_file:s0
+allow storage_daemon accesstoken_data_el2_file:{ file dir sock_file } { relabelto setattr };
+allow storage_daemon accesstoken_data_el2_file:dir { search };
 
-# for atm tool
-/system/bin/atm u:object_r:atm_exec:s0
+allow storage_daemon accesstoken_data_el2_file:dir { getattr open read search rmdir write remove_name };
+allow storage_daemon accesstoken_data_el2_file:file { getattr open read unlink };
