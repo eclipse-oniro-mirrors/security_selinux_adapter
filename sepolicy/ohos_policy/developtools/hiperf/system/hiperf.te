@@ -246,7 +246,8 @@ allow hiview data_local:dir { search };
 allow hiview proc_file:file { getattr };
 allow hiview debug_param:parameter_service { set };
 
-allow hiperf system_file:file { getattr open read };
+# avc: denied { map } for pid=28304,comm="/bin/hiperf" path="/system/app/Browser/HuaweiBrowser.hap" dev="overlay" ino=7889 scontext=u:r:hiperf:s0 tcontext-u:object_r:system_file:so tclass-file permissive=0
+allow hiperf system_file:file { getattr map open read };
 allow hiperf SP_daemon_exec:file { getattr open read };
 allow hiperf data_app_el1_arkcache:dir { search };
 allow hiperf data_app_el1_arkcache:file { getattr open read };
