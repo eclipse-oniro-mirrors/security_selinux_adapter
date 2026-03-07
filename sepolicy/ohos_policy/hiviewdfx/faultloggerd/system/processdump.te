@@ -78,6 +78,10 @@ allow processdump processdump:unix_dgram_socket { create connect write };
 allow processdump processdump:unix_stream_socket { create setopt connect write read };
 allow processdump data_app_el1_arkcache:file { getattr open read map };
 allow processdump data_app_el1_arkcache:dir { search };
+#avc:denied { getattr open read } for pid = 13224, comm="/system/bin/processdump" path="/data/storage/el2/log/com.sample.eventsub_CppCrash_AppMerge.log" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" info=35016 scontext=o:r:processdump:s0 tcontext=o:object_r:data_app_el2_file tclass= file permissive=0
+allow processdump data_app_el2_file:file { getattr open read };
+#avc:denied { search } for pid = 13224, comm="/system/bin/processdump" path="/data/storage/el2/log/com.sample.eventsub_CppCrash_AppMerge.log" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" info=35016 scontext=o:r:processdump:s0 tcontext=o:object_r:data_app_el2_file tclass= dir permissive=0
+allow processdump data_app_el2_file:dir { search };
 allow processdump data_local_tmp:file { getattr map open read };
 
 developer_only(`
