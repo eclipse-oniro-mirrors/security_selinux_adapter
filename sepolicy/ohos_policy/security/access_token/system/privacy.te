@@ -97,6 +97,8 @@ binder_call(privacy_service, powermgr);
 binder_call(system_basic_hap_attr, privacy_service);
 binder_call(system_core_hap_attr, privacy_service);
 binder_call(privacy_service, resource_schedule_service);
+# avc:  denied  { call } for  pid=636 comm="privacy_service" scontext=u:r:privacy_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+binder_call(privacy_service, accountmgr);
 
 debug_only(`
     binder_call(privacy_service, sh);
