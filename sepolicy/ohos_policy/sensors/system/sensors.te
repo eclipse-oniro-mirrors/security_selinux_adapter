@@ -247,6 +247,7 @@ allow sensors hiview:fd { use };
 
 allow sensors concurrent_task_service:binder { call };
 
+#avc: denied { get } for service=1913 sid=u:r:sensors:s0 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_concurrent_task_service:s0 tclass=samgr_class permissive=0
 allow sensors sa_concurrent_task_service:samgr_class { get };
 
 debug_only(`
