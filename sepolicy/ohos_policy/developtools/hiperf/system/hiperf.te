@@ -196,9 +196,11 @@ developer_only(`
     allow hiperf sh:process signull;
     allow hiperf data_log:fifo_file { create open read unlink write };
     allow hiperf debug_hap:process { ptrace };
+    # avc: denied { ptrace } for pid=31856, comm="/bin/hiperf"  scontext=u:r:hiperf:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+    allow hiperf isolated_render:process { ptrace };
 ')
 
-neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap -input_debug_hap') debug_only(`-vpn_isolate_hap') }:process ptrace;
+neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap -input_debug_hap -isolated_render') debug_only(`-vpn_isolate_hap') }:process ptrace;
 allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;
@@ -281,3 +283,6 @@ allow hiperf hiperf:hmcap { code_protect };
 # define data_log_hiperf_file attribute for neverallows
 attribute violator_data_log_hiperf_file_write;
 neverallow { domain -hiperf -hiview -violator_data_log_hiperf_file_write } data_log_hiperf_file:file { write };
+
+# avc: denied { search } for pid=31856, comm="/bin/hiperf"  name="/app" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=991 scontext=u:r:hiperf:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
+allow hiperf data_app_file:dir { search };

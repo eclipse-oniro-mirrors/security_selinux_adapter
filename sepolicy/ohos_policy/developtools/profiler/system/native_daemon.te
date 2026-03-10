@@ -14,9 +14,11 @@
 developer_only(`
     allow native_daemon debug_hap:process { ptrace };
     allow native_daemon native_daemon:hmcap { code_protect };
+    # avc: denied { ptrace } for pid=33750, comm="/system/bin/native_daemon"  scontext=u:r:native_daemon:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+    allow native_daemon isolated_render:process { ptrace };
 ')
 
-neverallow native_daemon { domain debug_only(`-hap_domain') developer_only(`-debug_hap -input_debug_hap') }:process ptrace;
+neverallow native_daemon { domain debug_only(`-hap_domain') developer_only(`-debug_hap -input_debug_hap -isolated_render') }:process ptrace;
 neverallow { domain -hiprofiler_cmd -hiprofilerd -hiprofiler_plugins -native_daemon -hitrace -hiview -bytrace -hiperf -hiviewdfx_profiler_param_violator } hiviewdfx_profiler_param:parameter_service { set };
 
 debug_only(`
@@ -125,3 +127,6 @@ allow native_daemon sys_prod_file:file { getattr map open read };
 allow native_daemon system_usr_file:file { getattr map open read };
 allow native_daemon data_service_el1_file:file { getattr map open read };
 allow native_daemon isolated_render:lnk_file { read };
+
+# avc: denied { search } for pid=33750, comm="/system/bin/native_daemon"  name="/app" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=991 scontext=u:r:native_daemon:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
+allow native_daemon data_app_file:dir { search };
