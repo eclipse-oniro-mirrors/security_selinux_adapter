@@ -55,6 +55,7 @@ type vendor_file, vendor_file_attr, file_attr;
 type vendor_bin_file, vendor_file_attr, file_attr;
 type vendor_lib_file, vendor_file_attr, file_attr;
 type vendor_etc_file, vendor_file_attr, file_attr;
+type vendor_module_file, vendor_file_attr, file_attr;
 
 type sysfs_rtc, fs_attr, sysfs_attr;
 type system_file, system_file_attr, file_attr;

@@ -64,6 +64,7 @@
 /dev/tty[0-9]*                u:object_r:tty_device:s0
 /dev/ttyFIQ0                  u:object_r:tty_device:s0
 /dev/ttyS[0-9]*               u:object_r:tty_device:s0
+/dev/ttyBT0                   u:object_r:tty_device:s0
 /dev/usb-ffs(/.*)?            u:object_r:dev_usb_ffs:s0
 /dev/asanlog(/.*)?                  u:object_r:dev_asanlog_file:s0
 
@@ -185,6 +186,7 @@
 /eng_chipset/lib(/.*)?       u:object_r:vendor_lib_file:s0
 /eng_chipset/lib64(/.*)?     u:object_r:vendor_lib_file:s0
 /eng_chipset/etc(/.*)?       u:object_r:vendor_etc_file:s0
+/eng_chipset/modules(/.*)?   u:object_r:vendor_module_file:s0
 
 /data(/.*)?                   u:object_r:data_file:s0
 /data/app                     u:object_r:data_app_file:s0
@@ -300,6 +302,7 @@
 /vendor/lib(/.*)?       u:object_r:vendor_lib_file:s0
 /vendor/lib64(/.*)?       u:object_r:vendor_lib_file:s0
 /vendor/etc(/.*)?       u:object_r:vendor_etc_file:s0
+/vendor/modules(/.*)?       u:object_r:vendor_module_file:s0
 
 /system/bin/init                u:object_r:init_exec:s0
 

@@ -218,6 +218,7 @@ attribute develop_domain;
 attribute vendor_bin_file_attr;
 attribute vendor_lib_file_attr;
 attribute vendor_etc_file_attr;
+attribute vendor_module_file_attr;
 attribute sys_prod_bin_file_attr;
 attribute sys_prod_lib_file_attr;
 attribute sys_prod_etc_file_attr;
