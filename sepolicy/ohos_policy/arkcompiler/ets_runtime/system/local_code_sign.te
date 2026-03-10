@@ -17,3 +17,10 @@ allow local_code_sign data_service_el1_file:dir { search };
 allow local_code_sign data_service_file:dir { search };
 allow local_code_sign data_service_el1_framework_arkcache:dir { search };
 allow local_code_sign data_service_el1_framework_arkcache:file { getattr open read };
+
+# avc: denied { search } for pid=6268, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1989 scontext=u:r:local_code_sign:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+allow local_code_sign data_service_el1_shared_bundles:dir { search };
+# avc: denied { getattr } for pid=6268, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 scontext=u:r:local_code_sign:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { open } for pid=6268, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 scontext=u:r:local_code_sign:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { read } for pid=6268, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 scontext=u:r:local_code_sign:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+allow local_code_sign data_service_el1_shared_bundles:file { getattr open read };

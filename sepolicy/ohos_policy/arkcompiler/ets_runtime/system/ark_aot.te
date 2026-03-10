@@ -62,3 +62,20 @@ allow ark_aot arkcompiler_param:file { map open read };
 allow ark_aot data_service_el1_framework_arkcache:dir { getattr search write add_name search };
 allow ark_aot data_service_el1_framework_arkcache:file { create getattr ioctl open write };
 allowxperm ark_aot data_service_el1_framework_arkcache:file ioctl { 0x5413 };
+
+# avc: denied { getattr } for pid=8101, comm="/system/bin/ark_aot"  path="/data/app/el1/bundle/public/com.example.myapplication/v1000000/library/library.hsp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40053 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
+allow ark_aot data_app_el1_file:file { getattr };
+
+# avc: denied { getattr } for pid=9302, comm="/system/bin/ark_aot"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39027 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+# avc: denied { write add_name search } for pid=9302, comm="/system/bin/ark_aot"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39027 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+allow ark_aot data_service_el1_shared_bundles:dir { getattr write add_name search };
+
+# avc: denied { create } for pid=9302, comm="/system/bin/ark_aot"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=9302, comm="/system/bin/ark_aot"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=9302, comm="/system/bin/ark_aot"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 ioctlcmd=0x5413 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { open } for pid=9302, comm="/system/bin/ark_aot"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { write } for pid=9302, comm="/system/bin/ark_aot"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+allow ark_aot data_service_el1_shared_bundles:file { create getattr ioctl open write };
+
+# avc: denied { ioctl } for pid=9302, comm="/system/bin/ark_aot"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39070 ioctlcmd=0x5413 scontext=u:r:ark_aot:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+allowxperm ark_aot data_service_el1_shared_bundles:file ioctl { 0x5413 };
