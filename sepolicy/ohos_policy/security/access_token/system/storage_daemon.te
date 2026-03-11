@@ -11,8 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# avc:  denied  { relabelto } for  pid=241 comm="storage_daemon" path="/data/service/el2/101/access_token" dev="mmcblk0p15" ino=6217 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:accesstoken_data_el2_file:s0 tclass=dir permissive=1
+# avc:  denied  { rmdir } for  pid=241 comm="storage_daemon" path="/data/service/el2/101/access_token" dev="mmcblk0p15" ino=6217 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:accesstoken_data_el2_file:s0 tclass=dir permissive=1
+# avc:  denied  { write remove_name } for  pid=241 comm="storage_daemon" path="/data/service/el2/101/access_token" dev="mmcblk0p15" ino=6217 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:accesstoken_data_el2_file:s0 tclass=dir permissive=1
+# avc:  denied  { unlink } for  pid=241 comm="storage_daemon" path="/data/service/el2/101/access_token/remote_permission_used_record.db" dev="mmcblk0p15" ino=7332 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:accesstoken_data_el2_file:s0 tclass=file permissive=1
 allow storage_daemon accesstoken_data_el2_file:{ file dir sock_file } { relabelto setattr };
-allow storage_daemon accesstoken_data_el2_file:dir { search };
-
 allow storage_daemon accesstoken_data_el2_file:dir { getattr open read search rmdir write remove_name };
 allow storage_daemon accesstoken_data_el2_file:file { getattr open read unlink };
