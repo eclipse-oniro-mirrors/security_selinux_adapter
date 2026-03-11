@@ -99,7 +99,8 @@ developer_only(`
 	allow hiprofilerd rootfs:file read;
 
 	allow hiprofilerd data_local_tmp:file { getattr read ioctl lock create read open write unlink };
-	allow hiprofilerd data_local_tmp:dir { search add_name remove_name write open getattr };
+	# avc: denied { read } for pid=15556, comm="/system/bin/hiprofilerd" path="/data/local/tmp" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=1466 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+	allow hiprofilerd data_local_tmp:dir { search add_name remove_name write open getattr read };
 	allow hiprofilerd dev_unix_socket:sock_file write;
 	allow hiprofilerd hiprofiler_cmd:unix_stream_socket connectto;
 	allow hiprofilerd ohos_dev_param:file { open read map};
