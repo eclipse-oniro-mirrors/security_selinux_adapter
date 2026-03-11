@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type accesstoken_data_el2_file, file_attr, data_file_attr, data_service_file_attr;
+type accesstoken_data_el2_file, file_attr, data_file_attr, data_service_file_attr, system_sock_domain;

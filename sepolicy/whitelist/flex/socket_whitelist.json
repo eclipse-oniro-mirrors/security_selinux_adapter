@@ -2,7 +2,6 @@
     "whitelist": {
         "user": [
             "accesstoken_data_file",
-            "accesstoken_data_el2_file",
             "account_data_el2_file",
             "account_data_file",
             "appspawn_socket",
