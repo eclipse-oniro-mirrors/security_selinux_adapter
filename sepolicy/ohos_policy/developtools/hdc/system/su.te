@@ -370,5 +370,8 @@ debug_only(`
     allow hdcd su:fd { use };
     #avc: denied { connect write } for pid=696 comm="async-55" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=0
     allow hdcd su:unix_dgram_socket { connect write };
+    
+    # avc: denied { transfer } for pid=9696, comm="/system/bin/sa_main"  scontext=u:r:midi_server:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
+    allow midi_server su:binder { transfer };
 ')
 
