@@ -47,4 +47,4 @@ neverallow { domain debug_only(`-su') } hidebug_private_param:parameter_service 
 
 neverallow { domain -native_daemon } sa_native_daemon:samgr_class { add };
 
-neverallow { domain -hiview } sa_native_daemon:samgr_class { get };
+neverallow { domain -hiview -hap_domain } sa_native_daemon:samgr_class { get };
