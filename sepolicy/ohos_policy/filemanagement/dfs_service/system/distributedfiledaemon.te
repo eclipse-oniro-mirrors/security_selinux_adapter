@@ -163,7 +163,7 @@ allowxperm distributedfiledaemon system_etc_file:file ioctl { 0xf207 };
 allow distributedfiledaemon dev_ashmem_file:chr_file { open };
 
 allow distributedfiledaemon fuse_file:dir { search };
-
+# avc: denied { add_name getattr open read search write create remove_name } for pid=6868, comm="/system/bin/sa_main" name = "/log/hiaudit" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=395 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=0
 allow distributedfiledaemon data_log:dir { add_name getattr open read search write create remove_name };
-
+# avc: denied { create getattr open read rename write unlink append } for pid=6868, comm="/system/bin/sa_main" name = "/log/hiaudit" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=395 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=0
 allow distributedfiledaemon data_log:file { create getattr open read rename write unlink append };
