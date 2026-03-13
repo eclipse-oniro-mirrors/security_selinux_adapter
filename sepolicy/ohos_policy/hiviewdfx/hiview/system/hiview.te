@@ -175,7 +175,6 @@ allow hiview data_app_el2_file:file { open getattr read write create ioctl setat
 #avc:  denied  { getattr } for pid=12318, comm="/system/bin/hiview" name="/data/app/el2/0/log/com.huawei.hmos.hiviewx/sys_event_export/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=23120 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=link_file permissive=0
 #avc:  denied  { read } for pid=12318, comm="/system/bin/hiview" name="/data/app/el2/0/log/com.huawei.hmos.hiviewx/sys_event_export/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=23120 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=link_file permissive=0
 allow hiview data_app_el2_file:lnk_file { getattr read };
-allow hiview data_app_el2_group_file:file { open getattr read write create ioctl setattr append rename unlink };
 allowxperm hiview data_app_el2_file:file ioctl { 0x5413 };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
