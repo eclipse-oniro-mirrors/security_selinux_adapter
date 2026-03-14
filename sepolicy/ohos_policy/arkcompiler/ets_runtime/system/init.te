@@ -12,3 +12,10 @@
 # limitations under the License.
 
 allow init compiler_service:process { rlimitinh siginh transition };
+
+# avc: denied { getattr } for pid=1, comm="/bin/init"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=51877 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=1, comm="/bin/init"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=51877 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=1, comm="/bin/init"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=51877 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+# avc: denied { relabelto } for pid=1, comm="/bin/init"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=51877 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+# avc: denied { setattr } for pid=1, comm="/bin/init"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=51877 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+allow init data_service_el1_shared_bundles:dir { getattr open read relabelto setattr };

@@ -14,3 +14,13 @@
 allow hap_domain update_updater_param:file { map read open};
 allow hap_domain data_app_el1_arkstartupcache:dir { open read};
 allow hap_domain data_app_el1_arkstartupcache:file { setattr};
+
+# avc: denied { search } for pid=9037, comm="/system/bin/appspawn"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2007 scontext=o:r:debug_hap:s0:x239,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+allow hap_domain data_service_el1_shared_bundles:dir { search };
+
+# avc: denied { getattr } for pid=9037, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39904 scontext=o:r:debug_hap:s0:x239,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { map } for pid=9037, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39904 scontext=o:r:debug_hap:s0:x239,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { open } for pid=9037, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39904 scontext=o:r:debug_hap:s0:x239,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { read execute } for pid=9037, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39904 scontext=o:r:debug_hap:s0:x239,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { read } for pid=9037, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39904 scontext=o:r:debug_hap:s0:x239,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+allow hap_domain data_service_el1_shared_bundles:file { map execute read open getattr };
