@@ -41,8 +41,14 @@ allow hiview hitrace_log_file:dir getattr;
 #avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
 allow hiview data_log:file { create setattr getattr lock map open read write unlink rename append ioctl };
 allow hiview hitrace_log_file:file { create setattr getattr lock map open read write unlink rename append };
+#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/log/hitrace/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=44179 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
+#avc:  denied  { read } for pid=36349, comm="/system/bin/hiview" name="/log/hitrace/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=44179 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
+allow hiview hitrace_log_file:lnk_file { getattr read };
 allow hiview faultlogger_log_file:dir { add_name open read search watch write create remove_name };
 allow hiview faultlogger_log_file:file { create setattr getattr lock map open read write unlink rename append };
+#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/log/faultlog/faultlogger/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=47086 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
+#avc:  denied  { read } for pid=36349, comm="/system/bin/hiview" name="/log/faultlog/faultlogger/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=47086 scontext=u:r:hiview:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=link_file permissive=0
+allow hiview faultlogger_log_file:lnk_file { getattr read };
 allowxperm hiview data_log:file ioctl { 0x5413 0xf546 0xf547 };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
@@ -166,6 +172,9 @@ allow hiview data_app_el2_file:dir { search read open add_name write create seta
 #avc:  denied  { ioctl } for  pid=2716 comm="freeze_detector" path="/data/app/el2/100/log/com.example.myapplication/hiappevent/APP_FREEZE_1501994090092_2792.log" dev="mmcblk0p15" ino=2352 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 #avc:  denied  { setattr } for  pid=263 comm="plat_shared" name="APP_CRASH_1501997026177_1964.log" dev="mmcblk0p15" ino=2180 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=0
 allow hiview data_app_el2_file:file { open getattr read write create ioctl setattr append rename unlink };
+#avc:  denied  { getattr } for pid=12318, comm="/system/bin/hiview" name="/data/app/el2/0/log/com.huawei.hmos.hiviewx/sys_event_export/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=23120 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=link_file permissive=0
+#avc:  denied  { read } for pid=12318, comm="/system/bin/hiview" name="/data/app/el2/0/log/com.huawei.hmos.hiviewx/sys_event_export/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=23120 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=link_file permissive=0
+allow hiview data_app_el2_file:lnk_file { getattr read };
 allowxperm hiview data_app_el2_file:file ioctl { 0x5413 };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
@@ -294,8 +303,14 @@ allow hiview wifi_manager_service:fd { use };
 allow hiview pstorefs:dir { open read remove_name search write };
 allow hiview pstorefs:file { open read unlink };
 
-allow hiview hiview_sys_def_file:dir { search write add_name };
+#avc:  denied  { getattr } for pid=36341, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
+#avc:  denied  { read } for pid=36341, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
+#avc:  denied  { open } for pid=36341, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=496 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=dir permissive=0
+allow hiview hiview_sys_def_file:dir { search write add_name getattr read open };
 allow hiview hiview_sys_def_file:file { create open ioctl getattr write read };
+#avc:  denied  { getattr } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=453 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=link_file permissive=0
+#avc:  denied  { read } for pid=36349, comm="/system/bin/hiview" name="/data/system/hiview/unzip_configs/sys_event_def/link_file" dev="dev/block/platform/fa500000.ufs/by-name/userdata" ino=453 scontext=u:r:hiview:s0 tcontext=u:object_r:hiview_sys_def_file:s0 tclass=link_file permissive=0
+allow hiview hiview_sys_def_file:lnk_file { getattr read };
 allowxperm hiview hiview_sys_def_file:file ioctl { 0x5413 };
 
 # avc: denied { get } for service=1158 sid=u:r:hiview:s0 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_netsys_native_manager:s0	tclass=samgr_class permissive=O
