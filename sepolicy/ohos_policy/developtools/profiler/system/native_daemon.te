@@ -149,5 +149,6 @@ allow native_daemon data_app_el2_file:dir { search };
 allow native_daemon { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr }:dir { search };
 # avc: denied { write } for pid=10316, comm="/system/bin/sa_main" path="/data/app/el2/100/base/com.debug.myapplication/haps/entry/files/fd-com.debug.myapplication-9823-20260311_101820.htrace" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=93286 scontext=u:r:native_daemon:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 # avc: denied { open } for pid=10316, comm="/system/bin/sa_main" path="/data/app/el2/100/base/com.debug.myapplication/haps/entry/files/fd-com.debug.myapplication-9823-20260311_101820.htrace" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=93286 scontext=u:r:native_daemon:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
-allow native_daemon { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr }:file { open write };
+allow native_daemon { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr }:file { open read write };
+allow native_daemon hap_domain:fd { use };
 
