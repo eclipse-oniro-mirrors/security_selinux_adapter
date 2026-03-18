@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
  
-type gphotofs, sadomain, domain;
+type gphotofs, native_system_domain, domain;
 type gphotofs_exec, exec_attr, file_attr, system_file_attr;
 
