@@ -62,6 +62,8 @@ allow render_service dscreen:fd { use };
 allow render_service av_codec_service:fd { use };
 allow render_service arkui_param:file { map open read };
 allow render_service sa_foundation_cesfwk_service:samgr_class { get };
+# avc: denied { use } for pid=1619, comm="/system/bin/render_service" path="/dev/ashmem" dev="" ino=1 scontext=u:r:render_service:s0 tcontext=u:r:av_session:s0 tclass=fd permissive=1
+allow render_service av_session:fd { use };
 
 debug_only(`
     allow render_service sh:fd { use };
