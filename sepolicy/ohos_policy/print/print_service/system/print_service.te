@@ -120,3 +120,6 @@ allow print_service cupsd:unix_stream_socket { connectto };
 allow print_service sa_foundation_ans:samgr_class { get };
 # avc: denied { getattr map open read } for pid=14437, comm="/system/bin/sa_main" path="/system/usr/icu/icudt741.dat" dev="overlay" ino=3073 scontext=u:r:print_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
 allow print_service system_usr_file:file { getattr map open read };
+
+# avc: denied { call } for pid = 26273, comn="/system/bin/sa_main" scontext=u:r:print_service:s0 tcontext=u:r:file_guard_server:s0 tclass=binder permissive=0
+allow print_service file_guard_server:binder { call };
