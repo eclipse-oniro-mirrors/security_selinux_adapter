@@ -1,0 +1,83 @@
+{
+    "whitelist": {
+        "file_contexts": [
+            "u:object_r:data_service_el1_i18n_timezone_file:s0",
+            "u:object_r:data_service_el1_public_asset_service_file:s0",
+            "u:object_r:data_service_el1_public_security_guard_file:s0",
+            "u:object_r:data_service_el2_user_id_asset_service_file:s0",
+            "u:object_r:data_service_el1_public_bundle_usage:s0",
+            "u:object_r:data_service_el1_public_print_service_file:s0",
+            "u:object_r:data_service_sane_service_config_file:s0",
+            "u:object_r:data_service_el1_i18n_libphonenumber_file:s0",
+            "u:object_r:data_service_scan_service_driver_file:s0",
+            "u:object_r:data_service_storage_daemon_sd_file:s0",
+            "u:object_r:data_service_el4_userId_huksService_file:s0",
+            "u:object_r:data_service_el1_public_asset_clone_file:s0",
+            "u:object_r:data_service_el2_pasteboard_service:s0",
+            "u:object_r:data_service_el1_public_device_attest:s0",
+            "u:object_r:data_service_el2_userId_huksService_file:s0",
+            "u:object_r:data_service_el2_public_huksService_file:s0",
+            "u:object_r:data_service_el1_public_deviceauthService_file:s0",
+            "u:object_r:data_service_el1_framework_arkcache:s0",
+            "u:object_r:data_service_el1_public_sharing_service_file:s0",
+            "u:object_r:data_service_el1_public_huksService_file:s0"
+        ],
+        "service_contexts": [
+            "u:object_r:sa_comm_net_tethering_manager_service:s0",
+            "u:object_r:sa_distributed_scenario_mgr_service:s0",
+            "u:object_r:sa_useriam_companiondeviceauth_service:s0",
+            "u:object_r:sa_distributed_bundle_mgr_service_service:s0",
+            "u:object_r:sa_distributed_sched_adapter_service:s0",
+            "u:object_r:sa_subsys_sourcecodetransformer_service:s0",
+            "u:object_r:sa_subsys_distributedschedule_service:s0",
+            "u:object_r:sa_wearable_distributed_net_service:s0",
+            "u:object_r:sa_foundation_continuation_manager_service:s0",
+            "u:object_r:sa_device_security_level_manager_service:s0",
+            "u:object_r:sa_msdp_multimodal_awareness_service:s0",
+            "u:object_r:sa_subsys_intelliaccessories_service:s0",
+            "u:object_r:sa_subsys_distributeddatamng_service:s0",
+            "u:object_r:sa_resource_schedule_socperf_server:s0",
+            "u:object_r:sa_enterprise_device_manager_service:s0",
+            "u:object_r:sa_filemanagement_cloud_disk_service:s0",
+            "u:object_r:sa_distributed_sched_test_incomplete:s0",
+            "u:object_r:sa_distributed_sched_test_connection:s0",
+            "u:object_r:sa_foundation_reminder_agent_service:s0",
+            "u:object_r:sa_subsys_distributed_hardware_service:s0",
+            "u:object_r:sa_foundation_devicemanager_service:s0",
+            "u:object_r:sa_distributed_hardware_audio_source_service:s0",
+            "u:object_r:sa_distributed_hardware_audio_sink_service:s0",
+            "u:object_r:sa_distributed_hardware_input_source_service:s0",
+            "u:object_r:sa_distributed_hardware_input_sink_service:s0",
+            "u:object_r:sa_filemanagement_distributed_file_daemon_service:s0",
+            "u:object_r:sa_filemanagement_distributed_file_service_service:s0",
+            "u:object_r:sa_filemanagement_backup_service_service:s0",
+            "u:object_r:sa_filemanagement_cloud_sync_service:s0",
+            "u:object_r:sa_filemanagement_cloud_daemon_service:s0",
+            "u:object_r:hdf_bluetooth_audio_session_service:s0",
+            "u:object_r:hdf_safe_location_interface_service:s0",
+            "u:object_r:hdf_distributed_camera_provider_service:s0",
+            "u:object_r:hdf_codec_component_manager_service:s0",
+            "u:object_r:hdf_intell_voice_engine_manager_service:s0",
+            "u:object_r:hdf_intell_voice_trigger_manager_service:s0",
+            "u:object_r:hdf_fingerprint_auth_interface_service:s0"
+        ],
+        "parameter_contexts": [
+            
+        ],
+        "hdf_service_contexts": [
+            "u:object_r:hdf_bluetooth_audio_session_service:s0",
+            "u:object_r:hdf_safe_location_interface_service:s0",
+            "u:object_r:hdf_distributed_camera_provider_service:s0",
+            "u:object_r:hdf_codec_component_manager_service:s0",
+            "u:object_r:hdf_intell_voice_engine_manager_service:s0",
+            "u:object_r:hdf_intell_voice_trigger_manager_service:s0",
+            "u:object_r:hdf_fingerprint_auth_interface_service:s0"
+        ],
+        "virtfs_contexts": [
+            
+        ],
+        "sehap_contexts": [
+            "apl=normal extra=dlp_sandbox_read_only domain=dlp_sandbox_read_only_hap type=dlp_sandbox_read_only_hap_data_file"
+        ]
+    }
+}

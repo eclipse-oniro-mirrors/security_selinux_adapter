@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Copyright (c) 2023 Huawei Device Co., Ltd.
+Copyright (c) 2023-2026 Huawei Device Co., Ltd.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -32,6 +32,20 @@ def get_request_args(args, request):
             if not os.path.exists(file_context_path):
                 file_context_path = os.path.join(args.output_path, "file_contexts")
             request_args.append(file_context_path)
+        if arg == "--all_contexts":
+            request_args.append(arg)
+            all_contexts_list = []
+            contexts_files = ["file_contexts", "service_contexts", "hdf_service_contexts", "parameter_contexts", "sehap_contexts"]
+            for contexts_file in contexts_files:
+                contexts_path = os.path.join(args.output_path, "all_" + contexts_file)
+                if not os.path.exists(contexts_path):
+                    contexts_path = os.path.join(args.output_path, contexts_file)
+                all_contexts_list.append(contexts_path)
+            request_args.append(":".join(all_contexts_list))
+            request_args.append("--cil_file")
+            request_args.append(os.path.join(args.output_path, "all.cil"))
+            request_args.append("--developer_cil_file")
+            request_args.append(os.path.join(args.output_path, "developer/all.cil"))
         if arg == "--cil_file":
             request_args.append(arg)
             request_args.append(os.path.join(args.output_path, "all.cil"))
