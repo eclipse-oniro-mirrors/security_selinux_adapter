@@ -257,3 +257,6 @@ allow edm_sa inputmethod_service:binder { call };
 
 # avc: denied { get } for service=1901 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
 allow edm_sa sa_resource_schedule:samgr_class { get };
+
+# avc: denied { get } for service=1153 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_comm_net_stats_manager_service:s0 tclass=samgr_class permissive=1
+allow edm_sa sa_comm_net_stats_manager_service:samgr_class { get };
