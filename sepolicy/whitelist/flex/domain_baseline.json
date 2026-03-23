@@ -207,7 +207,8 @@
             "processdump",
             "uitest",
             "perftest",
-            "testhelper"
+            "testhelper",
+            "gphotofs"
         ],
         "hdfdomain": [
             "location_host",

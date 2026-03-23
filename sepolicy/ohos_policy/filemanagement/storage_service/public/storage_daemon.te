@@ -49,3 +49,11 @@ allow storage_daemon storage_daemon_exec:file { getattr open };
 # avc: denied { open } for pid=12230, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mtpfs_exec:s0 tclass=file permissive=0
 # avc: denied { read } for pid=12230, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mtpfs_exec:s0 tclass=file permissive=0
 allow storage_daemon mtpfs_exec:file { execute execute_no_trans map open read };
+
+# avc: denied { read } for pid=27654, comm="/system/bin/storage_daemon"  path="/system/bin/gphotofs" dev="overlay" ino=953 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:gphotofs_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=27654, comm="/system/bin/storage_daemon"  path="/system/bin/gphotofs" dev="overlay" ino=953 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:gphotofs_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=8125, comm="/system/bin/storage_daemon"  path="/system/bin/gphotofs" dev="overlay" ino=809 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:gphotofs_exec:s0 tclass=file permissive=0
+# avc: denied { execute_no_trans } for pid=8120, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:gphotofs_exec:s0 tclass=file permissive=0
+# avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/gphotofs" dev="overlay" ino=809 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:gphotofs_exec:s0 tclass=file permissive=0
+allow storage_daemon gphotofs_exec:file { execute execute_no_trans map open read };
+
