@@ -95,12 +95,12 @@ The table below lists the repositories involved.
 
 | Repository| Source Code| Description|
 | --- | --- | --- |
-| [selinux_adapter](https://gitee.com/openharmony/security_selinux_adapter.git) | `base/security/selinux_adapter/` | Provides policies and self-developed APIs.|
-| [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux main repository.|
-| [productdefine_common](https://gitee.com/openharmony/productdefine_common.git) | `productdefine/common/` | Provides SELinux component definitions.|
-| [third_party_toybox](https://gitee.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | Provides the support for SELinux of `ls`.|
-| [startup_init_lite](https://gitee.com/openharmony/startup_init_lite.git) | `base/startup/init_lite/` | Provides the init_lite module, which starts the first application.|
-| [third_party_FreeBSD](https://gitee.com/openharmony/third_party_FreeBSD.git) | `third_party/FreeBSD/` | Provides the fts library.|
-| [third_party_pcre](https://gitee.com/openharmony/third_party_pcre2.git) | `third_party/pcre/` | Provides the pcre2 library.|
-| [build](https://gitee.com/openharmony/build.git) | `build/` | Provides the code for build.|
+| [selinux_adapter](https://gitcode.com/openharmony/security_selinux_adapter.git) | `base/security/selinux_adapter/` | Provides policies and self-developed APIs.|
+| [third_party_selinux](https://gitcode.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux main repository.|
+| [productdefine_common](https://gitcode.com/openharmony/productdefine_common.git) | `productdefine/common/` | Provides SELinux component definitions.|
+| [third_party_toybox](https://gitcode.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | Provides the support for SELinux of `ls`.|
+| [startup_init](https://gitcode.com/openharmony/startup_init.git) | `base/startup/init/` | Provides the init module, which starts the first application.|
+| [third_party_FreeBSD](https://gitcode.com/openharmony/third_party_FreeBSD.git) | `third_party/FreeBSD/` | Provides the fts library.|
+| [third_party_pcre](https://gitcode.com/openharmony/third_party_pcre2.git) | `third_party/pcre/` | Provides the pcre2 library.|
+| [build](https://gitcode.com/openharmony/build.git) | `build/` | Provides the code for build.|
 
