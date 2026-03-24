@@ -21,7 +21,7 @@ neverallow { domain -kernel } init:process transition;
 neverallow init { domain debug_only(`-domain')}:process {noatsecure};
 debug_only(`neverallow init processdump:process {noatsecure};')
 
-neverallow { domain -processdump } init:process ptrace;
+neverallow { domain develop_domain -processdump } init:process ptrace;
 
 neverallow init self:perf_event { kernel tracepoint read write };
 
