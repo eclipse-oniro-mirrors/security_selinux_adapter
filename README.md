@@ -94,12 +94,12 @@ allow hdcd selinuxfs:file open;
 
 | 仓库 | 源码目录 | 说明 |
 | --- | --- | --- |
-| [selinux_adapter](https://gitee.com/openharmony/security_selinux_adapter.git) | `base/security/selinux_adapter/` | 策略和一些自研接口 |
-| [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux 的主仓库 |
-| [productdefine_common](https://gitee.com/openharmony/productdefine_common.git) | `productdefine/common/` | 添加 SELinux 组件定义 |
-| [third_party_toybox](https://gitee.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | 完善了 `ls` 的 SELinux 支持 |
-| [startup_init_lite](https://gitee.com/openharmony/startup_init_lite.git) | `base/startup/init_lite/` | 系统启动加载策略并分化服务的标签 |
-| [third_party_FreeBSD](https://gitee.com/openharmony/third_party_FreeBSD.git) | `third_party/FreeBSD/` | 提供 fts 库 |
-| [third_party_pcre](https://gitee.com/openharmony/third_party_pcre2.git) | `third_party/pcre/` | 提供 pcre2 库 |
-| [build](https://gitee.com/openharmony/build.git) | `build/` | 编译控制 |
+| [selinux_adapter](https://gitcode.com/openharmony/security_selinux_adapter.git) | `base/security/selinux_adapter/` | 策略和一些自研接口 |
+| [third_party_selinux](https://gitcode.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux 的主仓库 |
+| [productdefine_common](https://gitcode.com/openharmony/productdefine_common.git) | `productdefine/common/` | 添加 SELinux 组件定义 |
+| [third_party_toybox](https://gitcode.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | 完善了 `ls` 的 SELinux 支持 |
+| [startup_init](https://gitcode.com/openharmony/startup_init.git) | `base/startup/init/` | 系统启动加载策略并分化服务的标签 |
+| [third_party_FreeBSD](https://gitcode.com/openharmony/third_party_FreeBSD.git) | `third_party/FreeBSD/` | 提供 fts 库 |
+| [third_party_pcre](https://gitcode.com/openharmony/third_party_pcre2.git) | `third_party/pcre/` | 提供 pcre2 库 |
+| [build](https://gitcode.com/openharmony/build.git) | `build/` | 编译控制 |
 
