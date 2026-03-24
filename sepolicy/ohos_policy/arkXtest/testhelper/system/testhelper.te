@@ -34,4 +34,8 @@ developer_only(`
     allow testhelper sh:fd { use };
     allow testhelper hdcd:fd { use };
     allow testhelper hdcd:fifo_file { read write };
+    # avc: denied { search } for pid=34108, comm="/bin/testhelper"  name="/unix/socket" dev="" ino=207 scontext=u:r:testhelper:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0    
+    allow testhelper dev_unix_socket:dir { search };
+    # avc: denied { write } for pid=8339, comm="/bin/testhelper"  name="0" dev="0" major=136 minor=0 scontext=u:r:testhelper:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1    
+    allow testhelper tty_device:chr_file { write };
 ')
