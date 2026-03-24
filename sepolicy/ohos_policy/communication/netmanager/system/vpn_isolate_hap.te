@@ -697,8 +697,6 @@ debug_only(`
     allow vpn_isolate_hap su:fd { use };
     allow uinput vpn_isolate_hap:fd { use };
     allow vpn_isolate_hap console:binder { call };
-    allow vpn_isolate_hap sh:binder { call };
-    allow vpn_isolate_hap sh:binder { transfer };
 ')
 
 developer_only(`
