@@ -28,3 +28,5 @@ allow system_core_hap_attr sa_netsys_ext_service:samgr_class { add get };
 allow system_core_hap_attr sa_distributed_net_service:samgr_class { add get };
 
 allow system_core_hap_attr sa_comm_vpn_manager_service:samgr_class { get };
+# avc: denied { create } for pid=11187, comm="/system/bin/appspawn"  scontext=u:r:system_core_hap:s0:x868,x1024 tcontext=u:r:system_core_hap:s0:x868,x1024 tclass=icmp_socket permissive=0
+allow system_core_hap_attr self:icmp_socket { create write read connect bind setopt getattr getopt shutdown };
