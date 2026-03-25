@@ -285,6 +285,9 @@ allow netsysnative sa_net_conn_manager:samgr_class { get };
 
 allow netsysnative hap_domain:icmp_socket { setopt getopt };
 
+# avc: denied { create } for pid=44444, comm="/system/bin/ip"  scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_generic_socket permissive=0
+allow netsysnative netsysnative:netlink_generic_socket { create };
+
 allowxperm hap_domain self:udp_socket ioctl { 0x8906-0x8907 0x8910 0x8912-0x8913 0x8915 0x8917 0x8919 0x891b 0x8921 0x8933 0x8938 0x8942 };
 allowxperm hap_domain self:udp_socket ioctl { 0x8b01 0x8b05 0x8b07 0x8b09 0x8b0b 0x8b0d 0x8b0f 0x8b11-0x8b13 0x8b21 0x8b23 0x8b25 0x8b27 0x8b29 0x8b2d };
 allowxperm hap_domain self:udp_socket ioctl { 0x5401-0x5404 0x540b 0x540e-0x5411 0x5413-0x5414 0x5450-0x5451 };
