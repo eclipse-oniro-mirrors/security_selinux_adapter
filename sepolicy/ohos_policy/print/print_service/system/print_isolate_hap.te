@@ -46,7 +46,8 @@ allow print_isolate_hap node:tcp_socket { node_bind };
 allow print_isolate_hap node:udp_socket { node_bind };
 allow print_isolate_hap param_watcher:binder { call transfer };
 allow print_isolate_hap port:tcp_socket { name_connect };
-allow print_isolate_hap print_isolate_hap:tcp_socket { accept bind connect create getattr getopt listen read setopt write };
+#avc: denied { shutdown } for pid=8022, comm="system/bin/appspawn" scontext=u:r:print_isolate_hap:s0 tcontext=u:r:print_isolate_hap:s0 tclass=tcp_socket permissive=1
+allow print_isolate_hap print_isolate_hap:tcp_socket { accept bind connect create getattr getopt listen read setopt write shutdown };
 allow print_isolate_hap print_isolate_hap:udp_socket { bind connect create getattr read write };
 allow print_isolate_hap print_service:binder { call transfer };
 allow print_isolate_hap render_service:binder { call transfer };
@@ -98,3 +99,7 @@ allow print_isolate_hap print_isolate_hap:unix_dgram_socket { getopt setopt };
 # allow print_isolate_hap sa_hianalytics:samgr_class { get };
 allow print_isolate_hap sa_wifi_p2p_ability:samgr_class { get };
 allow wifi_manager_service print_isolate_hap:binder { call };
+#avc: denied { read } for pid=8022, comm="system/bin/appspawn" path="/dev/__parameters__/u:object_r:ark_profile:s0" dev="" ino=312 scontext=u:r:print_isolate_hap:s0 tcontext=u:r:ark_profile:s0 tclass=file permissive=1
+#avc: denied { open } for pid=8022, comm="system/bin/appspawn" path="/dev/__parameters__/u:object_r:ark_profile:s0" dev="" ino=312 scontext=u:r:print_isolate_hap:s0 tcontext=u:r:ark_profile:s0 tclass=file permissive=1
+#avc: denied { map } for pid=8022, comm="system/bin/appspawn" path="/dev/__parameters__/u:object_r:ark_profile:s0" dev="" ino=312 scontext=u:r:print_isolate_hap:s0 tcontext=u:r:ark_profile:s0 tclass=file permissive=1
+allow print_isolate_hap ark_profile:file { read open map};
