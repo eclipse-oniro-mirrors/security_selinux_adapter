@@ -56,3 +56,5 @@ allow hidumper_service sys_usb_param:file { map open read };
 allow hidumper_service tracefs:dir { search };
 allow hidumper_service tracefs_trace_marker_file:file { open write };
 allow hidumper_service hiview_file:file { write };
+# avc:  denied  { get } for service=3014 sid=u:r:hidumper_service:s0 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_midi_server:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_midi_server:samgr_class { get };
