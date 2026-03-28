@@ -13,3 +13,6 @@
 
 type data_service_el1_shared_bundles, file_attr, data_file_attr, data_service_file_attr;
 typeattribute data_service_el1_shared_bundles shared_bundle_violator_exec_file_attr;
+
+type ark_aptool, native_system_domain, domain;
+type ark_aptool_exec, exec_attr, file_attr, system_file_attr;
