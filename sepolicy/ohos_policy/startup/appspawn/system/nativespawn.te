@@ -20,3 +20,6 @@ allow nativespawn foundation:fd { use };
 # avc: denied { write } for pid=8723, comm="/system/bin/nativespawn" path="pipe:[8763]" dev="tmpfs" ino=53 scontext=u:r:nativespawn:s0 tcontext=u:r:foundation:s0 tclass=fifo_file permissive=1
 allow nativespawn foundation:fifo_file { write };
 allow nativespawn data_app_el2_group_file:dir { search };
+
+# avc: denied { execute_no_trans } for pid=8165, comm="/system/bin/nativespawn" scontext=u:r:nativespawn:s0 tcontext=u:object_r:nativespawn_exec:s0 tclass=file permissive=1
+allow nativespawn nativespawn_exec:file { execute_no_trans };
