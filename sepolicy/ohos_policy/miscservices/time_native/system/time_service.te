@@ -12,6 +12,8 @@
 # limitations under the License.
 
 allow time_service sa_foundation_abilityms:samgr_class { get };
+#avc:  denied  { get } for service=501 sid=u:r:time_service:s0 scontext=u:r:time_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow time_service sa_foundation_appms:samgr_class { get };
 allow time_service foundation:binder { call transfer };
 allow time_service accountmgr:binder { call transfer };
 allow time_service accesstoken_service:binder { call };
