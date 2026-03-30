@@ -157,6 +157,7 @@
         ],
         "native_system_domain": [
             "ark_aot",
+            "ark_aptool",
             "hiperf",
             "aa",
             "cjappspawn",

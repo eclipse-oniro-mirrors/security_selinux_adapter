@@ -1,0 +1,36 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { write add_name remove_name search } for pid=10300, comm="/bin/ark_aptool" name="/app/el1/100/aot_compiler/ark_profile/com.example.myapplication" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36561 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=dir permissive=1
+allow ark_aptool data_app_el1_arkprofile:dir { search write add_name remove_name };
+
+# avc: denied { create } for pid=10300, comm="/bin/ark_aptool" name="/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/merge.map.0.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40219 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=10300, comm="/bin/ark_aptool" path="/data/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/merge.map.0.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40219 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=10300, comm="/bin/ark_aptool" path="/data/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/merge.map.0.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40219 ioctlcmd=0x5413 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=file permissive=1
+# avc: denied { open } for pid=10300, comm="/bin/ark_aptool" path="/data/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/merge.map.0.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40219 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=file permissive=1
+# avc: denied { read } for pid=10300, comm="/bin/ark_aptool" path="/data/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/module.ap" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=39581 scontext=u:r:ark_aptool:s0 tcontext=o:object_r:data_app_el1_arkprofile:s0:x239,x334,x512,x868,x1024 tclass=file permissive=1
+# avc: denied { rename } for pid=10300, comm="/bin/ark_aptool" name="/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/merge.map.0.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40219 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=file permissive=1
+# avc: denied { unlink } for pid=10300, comm="/bin/ark_aptool" name="/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/merge.map" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40212 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=file permissive=1
+# avc: denied { write } for pid=10300, comm="/bin/ark_aptool" path="/data/app/el1/100/aot_compiler/ark_profile/com.example.myapplication/merge.map.0.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40219 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_arkprofile:s0 tclass=file permissive=1
+allow ark_aptool data_app_el1_arkprofile:file { ioctl create getattr open read rename unlink write };
+allowxperm ark_aptool data_app_el1_arkprofile:file ioctl { 0x5413 };
+allow ark_aptool compiler_service:fd { use };
+
+# avc: denied { search } for pid=10300, comm="/bin/ark_aptool" name="/app/el1/100" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=9676 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+allow ark_aptool data_app_el1_file:dir { search };
+
+# avc: denied { search } for pid=10300, comm="/bin/ark_aptool" name="/app" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1032 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
+allow ark_aptool data_app_file:dir { search };
+
+# avc: denied { search } for pid=35098, comm="/bin/ark_aptool" name="/unix/socket" dev="" ino=228 scontext=u:r:ark_aptool:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow ark_aptool dev_unix_socket:dir { search };

@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Copyright (c) 2024-2026 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,6 +13,7 @@
 
 domain_auto_transition_pattern(compiler_service, ark_aot_compiler_exec, ark_aot_compiler);
 domain_auto_transition_pattern(compiler_service, ark_aot_exec, ark_aot);
+domain_auto_transition_pattern(compiler_service, ark_aptool_exec, ark_aptool);
 allow compiler_service sa_local_code_sign:samgr_class { add get };
 allow compiler_service compiler_service:capability { setgid setuid };
 allow compiler_service sa_local_code_sign:samgr_class { get };
