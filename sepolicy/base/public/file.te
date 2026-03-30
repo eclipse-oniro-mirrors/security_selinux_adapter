@@ -309,6 +309,7 @@ type dev_usb_ffs, dev_attr;
 type dev_uinput, dev_attr;
 type dev_hdmi_hdcp1x, dev_attr;
 type dev_xpm, dev_attr;
+type dev_vha, dev_attr;
 
 type debugfs_kprobes, fs_attr, debugfs_attr;
 type debugfs_wakeup_sources, fs_attr, debugfs_attr;
