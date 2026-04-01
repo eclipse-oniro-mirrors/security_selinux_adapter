@@ -38,6 +38,13 @@ allowxperm hiview hiview_file:dir ioctl { 0xf546 };
 allow hiview data_file:dir { search };
 allow hiview { data_log hitrace_log_file }:dir { add_name open read search watch write create remove_name };
 allow hiview hitrace_log_file:dir getattr;
+#avc:  denied  { write } for  pid=2634 comm="HitraceDump" name="tmp" dev="mmcblk0p15" ino=164 scontext=u:r:hiview:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+#avc:  denied  { search } for  pid=2136 comm="HitraceDump" name="tmp" dev="mmcblk0p15" ino=166 scontext=u:r:hiview:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+#avc:  denied  { add_name } for  pid=1988 comm="HitraceDump" name="test" scontext=u:r:hiview:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+allow hiview data_local_tmp:dir { write search add_name };
+#avc:  denied  { create } for  pid=2358 comm="HitraceDump" name="test" scontext=u:r:hiview:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+#avc:  denied  { write open } for  pid=2198 comm="HitraceDump" path="/data/local/tmp/test2" dev="mmcblk0p15" ino=4219 scontext=u:r:hiview:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+allow hiview data_local_tmp:file { create write open};
 #avc:  denied  { ioctl } for  pid=2354 comm="plat_shared" path="/data/log/faultlog/JS_ERROR1501989881389" dev="mmcblk0p15" ino=9492 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=1
 allow hiview data_log:file { create setattr getattr lock map open read write unlink rename append ioctl };
 allow hiview hitrace_log_file:file { create setattr getattr lock map open read write unlink rename append };
