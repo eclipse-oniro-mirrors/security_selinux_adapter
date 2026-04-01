@@ -15,3 +15,6 @@ allow foundation netmanager:binder { call transfer };
 allow foundation sa_net_conn_manager:samgr_class { add get };
 
 allow foundation mdnsmanager:binder { call };
+
+#avc:  denied  { get } for service=1155 sid=u:r:foundation:s0 scontext=u:r: :s0 tcontext=u:object_r:sa_comm_vpn_manager_service:s0 tclass=samgr_class permissive=0
+allow foundation sa_comm_vpn_manager_service:samgr_class { get };
