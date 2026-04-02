@@ -94,6 +94,9 @@ developer_only(`
     allow uitest system_usr_file:file { getattr map open read };
 
     allow uitest hiview:unix_dgram_socket { sendto };
-
     allow uitest system_file:file { getattr open read };
+
+    allow uitest accountmgr:binder { call };
+    allow accountmgr uitest:binder { transfer };
+    allow uitest sa_accountmgr:samgr_class { get };
 ')
