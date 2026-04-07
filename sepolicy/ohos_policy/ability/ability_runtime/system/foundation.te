@@ -126,3 +126,12 @@ allowxperm foundation data_service_el1_file:dir ioctl { 0xf546 };
 
 # add for nwebspawn
 allow foundation nwebspawn:unix_stream_socket { connectto };
+
+# avc: denied { open } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { read write } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe004 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe000 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe007 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe008 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+allow foundation checkpoint:file { open ioctl read write };
+allowxperm foundation checkpoint:file ioctl { 0xe000 0xe004 0xe007 0xe008 };
