@@ -314,6 +314,10 @@ def check_unused_whitelist_entries(context_whitelist, max_length):
 def print_invalid_contexts(max_length):
     err = False
     
+    if (invalid_file_contexts or invalid_service_contexts or invalid_hdf_service_contexts or invalid_parameter_contexts
+        or invalid_virtfs_contexts or invalid_sehap_contexts):
+        print("Check context length failed.")
+
     if len(invalid_file_contexts) > 0:
         err = True
         print("file_contexts context length exceeds {}:".format(max_length))
