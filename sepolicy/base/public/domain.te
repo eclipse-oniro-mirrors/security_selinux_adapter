@@ -266,7 +266,7 @@ neverallow { domain -init -appspawn -nwebspawn -cjappspawn -nativespawn -normal_
 neverallow { domain -init -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary') -vpn_isolate_hap } data_file:file never_write_file;
 
-neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool -perftest -uinput') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace -hiview debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm -uinput') -data_local_tmp_violator_file_open -processdump -violator_data_local_tmp_file_open } data_local_tmp:file open;
+neverallow { domain developer_only(`-wukong -atm -snapshot_display -hiprofiler_cmd -bm -mediatool -perftest -uinput -foundation') -uitest -SP_daemon -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace -hiview debug_only(`-hiprofiler_cmd -hiebpf -camera_host -snapshot_display -bm -uinput') -data_local_tmp_violator_file_open -processdump -violator_data_local_tmp_file_open } data_local_tmp:file open;
 
 #forbid root process access network;
 #

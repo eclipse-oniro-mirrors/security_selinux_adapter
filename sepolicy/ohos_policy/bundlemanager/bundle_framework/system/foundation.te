@@ -158,3 +158,14 @@ allowxperm foundation bms_db_file:dir ioctl { 0x5413 0xf546 0xf547 0xf50c };
 
 allow foundation cgroup:dir { search };
 allow foundation cgroup:file { getattr open read };
+
+# avc: denied { getattr } for pid=1148, comm="/system/bin/sa_main" name="/local/tmp" dev="/dev/block/platform/ee5600000.ufs/by-name/userdata" ino=1530 scontext=u:r:foundation:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+# avc: denied { read } for pid=1148, comm="/system/bin/sa_main" name="/local/tmp" dev="/dev/block/platform/ee5600000.ufs/by-name/userdata" ino=1530 scontext=u:r:foundation:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+# avc: denied { open } for pid=1148, comm="/system/bin/sa_main" name="/local/tmp" dev="/dev/block/platform/ee5600000.ufs/by-name/userdata" ino=1530 scontext=u:r:foundation:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+# avc: denied { search } for pid=1148, comm="/system/bin/sa_main" name="/local/tmp" dev="/dev/block/platform/ee5600000.ufs/by-name/userdata" ino=1530 scontext=u:r:foundation:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+# avc: denied { search } for pid=1148, comm="/system/bin/sa_main" name="/local/tmp" dev="/dev/block/platform/ee5600000.ufs/by-name/userdata" ino=1530 scontext=u:r:foundation:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=0
+developer_only(`
+    allow foundation data_local_tmp:file { getattr read open };
+    allow foundation data_local_tmp:dir { search };
+    allow foundation data_local:dir { search };
+')
