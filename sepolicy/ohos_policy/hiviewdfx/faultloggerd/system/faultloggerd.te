@@ -88,3 +88,22 @@ allow faultloggerd hiview:binder { call };
 allow faultloggerd normal_hap:dir { open read };
 allow isolated_render faultloggerd:fifo_file {write};
 allow isolated_gpu faultloggerd:fifo_file {write};
+
+# avc: denied { ioctl } for pid=7881, comm="/system/bin/faultloggerd" path="/dev/pdump" dev="" ino=23 ioctlcmd=0x7003 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:dev_pdump:s0 tclass=chr_file permissive=1
+# avc: denied { open } for pid=7881, comm="/system/bin/faultloggerd" path="/dev/pdump" dev="" ino=23 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:dev_pdump:s0 tclass=chr_file permissive=1
+# avc: denied { read } for pid=7807, comm="/system/bin/faultloggerd" path="/dev/pdump" dev="" ino=23 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:dev_pdump:s0 tclass=chr_file permissive=0
+allow faultloggerd dev_pdump:chr_file { ioctl open read };
+
+# avc: denied { ioctl } for pid=7881, comm="/system/bin/faultloggerd" path="/dev/pdump" dev="" ino=23 ioctlcmd=0x7001 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:dev_pdump:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=7881, comm="/system/bin/faultloggerd" path="/dev/pdump" dev="" ino=23 ioctlcmd=0x7002 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:dev_pdump:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=7881, comm="/system/bin/faultloggerd" path="/dev/pdump" dev="" ino=23 ioctlcmd=0x7003 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:dev_pdump:s0 tclass=chr_file permissive=1
+allowxperm faultloggerd dev_pdump:chr_file ioctl { 0x7001 0x7002 0x7003 };
+
+# avc: denied { use } for pid=7881, comm="/system/bin/faultloggerd" path="pipe:[894]" dev="tmpfs" ino=894 scontext=u:r:faultloggerd:s0 tcontext=o:r:debug_hap:s0:x233,x334,x512,x868,x1024 tclass=fd permissive=1
+allow faultloggerd hap_domain:fd { use };
+
+# avc: denied { read } for pid=7881, comm="/system/bin/faultloggerd" path="pipe:[894]" dev="tmpfs" ino=894 scontext=u:r:faultloggerd:s0 tcontext=o:r:debug_hap:s0:x233,x334,x512,x868,x1024 tclass=fifo_file permissive=1
+allow faultloggerd hap_domain:fifo_file { read };
+
+#avc: denied { rename } for pid=18364, comm="/system/bin/faultloggerd" name="/log/faultlog/temp/minidump-18931-1775736218786.dmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=26057 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=file permissive=1
+allow faultloggerd faultloggerd_temp_file:file { rename };
