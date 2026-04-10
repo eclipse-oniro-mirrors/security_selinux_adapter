@@ -272,3 +272,11 @@ allow appspawn data_service_el0_file:dir { mounton };
 #avc: denied { ioctl } for pid=579, comm="/system/bin/appspawn" path="/dev/bbox" dev="" ino=54 ioctlcmd=0xab09 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=0
 allow appspawn dev_bbox:chr_file { ioctl };
 allowxperm appspawn dev_bbox:chr_file ioctl { 0xab09 };
+
+# avc: denied { open } for pid=530, comm="/system/bin/appspawn"  path="/proc/checkpoint/checkpoint" dev="" ino=309 scontext=u:r:appspawn:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { read write } for pid=530, comm="/system/bin/appspawn"  path="/proc/checkpoint/checkpoint" dev="" ino=309 scontext=u:r:appspawn:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { ioctl } for pid=530, comm="/system/bin/appspawn"  path="/proc/checkpoint/checkpoint" dev="" ino=309 ioctlcmd=0xe001 scontext=u:r:appspawn:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=530, comm="/system/bin/appspawn"  path="/proc/checkpoint/checkpoint" dev="" ino=309 ioctlcmd=0xe004 scontext=u:r:appspawn:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=530, comm="/system/bin/appspawn"  path="/proc/checkpoint/checkpoint" dev="" ino=309 ioctlcmd=0xe000 scontext=u:r:appspawn:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+allow appspawn checkpoint:file { open ioctl read write };
+allowxperm appspawn checkpoint:file ioctl { 0xe001 0xe004 0xe000 };

@@ -327,3 +327,5 @@ type system_module_update_file, system_file_attr, file_attr;
 
 # for hyperhold
 type zram_device, dev_attr;
+# for snapshot
+type checkpoint, fs_attr, proc_attr;
