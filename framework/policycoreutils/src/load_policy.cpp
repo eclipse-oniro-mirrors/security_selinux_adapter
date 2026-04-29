@@ -284,9 +284,8 @@ static bool CompilePolicyWithFork(std::vector<const char *> &compileCmd)
         (void)fdsan_close_with_tag(pipeFd[1], SECURITY_SELINUX_ADAPTER);
         if (execv(compileCmd[0], const_cast<char **>(compileCmd.data())) == -1) {
             selinux_log(SELINUX_ERROR, "Execv subprocess failed, %d, %s\n", errno, strerror(errno));
-            return false;
+            _exit(1);
         }
-        _exit(1);
     }
     (void)fdsan_close_with_tag(pipeFd[1], SECURITY_SELINUX_ADAPTER);
     FILE *fp = fdopen(pipeFd[0], "r");
