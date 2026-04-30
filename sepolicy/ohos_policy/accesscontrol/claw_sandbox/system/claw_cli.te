@@ -57,6 +57,13 @@ allow claw_cli foundation:binder { call transfer };
 # avc: denied { transfer } comm="/system/bin/sa_main" scontext=u:r:foundation:s0 tcontext=u:r:claw_cli:s0 tclass=binder
 allow foundation claw_cli:binder { transfer };
 
+# avc: denied { call } comm="/bin/location_cli" scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=binder
+# avc: denied { transfer } comm="/bin/bm" scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=binder
+allow claw_cli aimgr:binder { call transfer };
+
+# avc: denied { transfer } comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0 tclass=binder
+allow aimgr claw_cli:binder { transfer };
+
 debug_only(`
     allow claw_cli sh_exec:file { execute execute_no_trans map open read getattr };
 

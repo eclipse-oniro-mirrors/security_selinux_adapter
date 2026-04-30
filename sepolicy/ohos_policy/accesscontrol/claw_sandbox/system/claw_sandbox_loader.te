@@ -13,10 +13,18 @@
 
 type claw_sandbox_exec, system_file_attr, exec_attr, file_attr;
 
-domain_auto_transition_pattern(foundation, claw_sandbox_exec, claw_sandbox_loader);
+domain_auto_transition_pattern(aimgr, claw_sandbox_exec, claw_sandbox_loader);
 
 # avc: denied { read write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file
 allow claw_sandbox_loader bms_db_file:file { read write };
+
+# avc: denied { search } comm="/system/bin/claw_sandbox" name="/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=dir
+# avc: denied { read } comm="/system/bin/claw_sandbox" name="/9531/ns/mnt" dev="" ino=24703 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=lnk_file
+# avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=file
+# avc: denied { open } comm="/system/bin/claw_sandbox" name="<not_found>" dev="" ino=59052 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=file
+allow claw_sandbox_loader system_basic_hap_attr:dir { search };
+allow claw_sandbox_loader system_basic_hap_attr:lnk_file { read };
+allow claw_sandbox_loader system_basic_hap_attr:file { open read };
 
 # avc: denied { dyntransition } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_cli:s0 tclass=process
 allow claw_sandbox_loader claw_cli:process { dyntransition };
@@ -45,18 +53,18 @@ allow claw_sandbox_loader dev_kmsg_file:chr_file { open write };
 # avc: denied { search } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir
 allow claw_sandbox_loader dev_unix_socket:dir { search };
 
-# avc: denied { use } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fd
-allow claw_sandbox_loader foundation:fd { use };
+# avc: denied { use } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=fd
+allow claw_sandbox_loader aimgr:fd { use };
 
-# avc: denied { read } comm="/system/bin/claw_sandbox" path="pipe:[111]" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fifo_file
-# avc: denied { write } comm="/system/bin/claw_sandbox" path="pipe:[111]" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fifo_file
-# avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="pipe:[3571]" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fifo_file
-allow claw_sandbox_loader foundation:fifo_file { read write ioctl };
-allowxperm claw_sandbox_loader foundation:fifo_file ioctl { 0x5413 };
+# avc: denied { read } comm="/system/bin/claw_sandbox" path="pipe:[111]" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file
+# avc: denied { write } comm="/system/bin/claw_sandbox" path="pipe:[111]" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file
+# avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="pipe:[3571]" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file
+allow claw_sandbox_loader aimgr:fifo_file { read write ioctl };
+allowxperm claw_sandbox_loader aimgr:fifo_file ioctl { 0x5413 };
 
-# avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=unix_stream_socket
-# avc: denied { write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=unix_stream_socket
-allow claw_sandbox_loader foundation:unix_stream_socket { read write };
+# avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=unix_stream_socket
+# avc: denied { write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=unix_stream_socket
+allow claw_sandbox_loader aimgr:unix_stream_socket { read write };
 
 # avc: denied { sendto } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket
 allow claw_sandbox_loader hiview:unix_dgram_socket { sendto };
@@ -154,4 +162,4 @@ debug_only(`
     allow claw_sandbox_loader su:unix_stream_socket { read write };
 ')
 
-neverallow { domain develop_domain debug_only(`-su') -foundation -claw_sandbox_loader } claw_sandbox_exec:file { execute };
+neverallow { domain develop_domain debug_only(`-su') -aimgr -claw_sandbox_loader } claw_sandbox_exec:file { execute };
