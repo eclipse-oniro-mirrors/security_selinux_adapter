@@ -15,3 +15,5 @@ type quick_fix, sadomain, domain;
 type sa_quick_fix_mgr_service, sa_service_attr;
 type sa_foundation_agentmgr, sa_service_attr;
 type aimgr, sadomain, domain;
+type sa_aimgr_climgr_exec_file, system_file_attr, file_attr, exec_attr;
+type sa_aimgr_climgr_config_file, system_file_attr, file_attr;

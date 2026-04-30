@@ -13,3 +13,5 @@
 
 # for aa tool
 /system/bin/aa u:object_r:aa_exec:s0
+/system/bin/cli_tool/executable(/.*)? u:object_r:sa_aimgr_climgr_exec_file:s0
+/system/bin/cli_tool/configs(/.*)? u:object_r:sa_aimgr_climgr_config_file:s0

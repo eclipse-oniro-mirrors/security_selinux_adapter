@@ -22,12 +22,12 @@ allow aimgr sa_distributeddata_service:samgr_class { get };
 
 # avc: denied { read } for pid=5696, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs" dev="overlay" ino=1098 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
 # avc: denied { open } for pid=23693, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs" dev="overlay" ino=1058 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
-allow aimgr system_bin_file:dir { open read };
+allow aimgr sa_aimgr_climgr_config_file:dir { open read };
 
 # avc: denied { read } for pid=34492, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs/ohos-aa.json" dev="overlay" ino=1046 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
 # avc: denied { open } for pid=30480, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs/ohos-aa.json" dev="overlay" ino=1051 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
 # avc: denied { getattr } for pid=18167, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs/ohos-aa.json" dev="overlay" ino=1055 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
-allow aimgr system_bin_file:file { open read getattr };
+allow aimgr sa_aimgr_climgr_config_file:file { open read getattr };
 
 # avc:  denied  { call } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
