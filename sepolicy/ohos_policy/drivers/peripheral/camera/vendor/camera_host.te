@@ -102,3 +102,11 @@ allowxperm camera_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allowxperm camera_host dev_mpp:chr_file ioctl { 0x7601 };
 allowxperm camera_host dev_rga:chr_file ioctl { 0x5017 0x5019 0x601b 0x7201 0x7202 0x7203 };
 allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 0x5605 0x5608 0x5609 0x560f 0x5611 0x5612 0x5613 0x561b 0x564a 0x5602 0x5624 0x564b 0x5625 0x5616 };
+
+# avc: denied { search } for pid=8375, comm="/vendor/bin/hdf_devhost"  name="/devices/platform/hiusb/hiusb_port/hiusb-port2/ea300000.hiusbc/xhci-hcd.2/usb1/1-1" dev="" ino=81757 scontext=u:r:camera_host:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+allow camera_host dev_bus_usb_file:dir { search };
+
+# avc: denied { getattr } for pid=8375, comm="/vendor/bin/hdf_devhost"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port2/ea300000.hiusbc/xhci-hcd.2/usb1/1-1/idProduct" dev="" ino=81766 scontext=u:r:camera_host:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=8375, comm="/vendor/bin/hdf_devhost"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port2/ea300000.hiusbc/xhci-hcd.2/usb1/1-1/idProduct" dev="" ino=81766 scontext=u:r:camera_host:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=8375, comm="/vendor/bin/hdf_devhost"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port2/ea300000.hiusbc/xhci-hcd.2/usb1/1-1/idProduct" dev="" ino=81766 scontext=u:r:camera_host:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+allow camera_host dev_bus_usb_file:file { getattr open read };
