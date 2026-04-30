@@ -43,8 +43,9 @@ allow aimgr data_service_el1_file:dir { add_name create getattr open read remove
 # avc:  denied  { lock } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow aimgr data_service_el1_file:file { create getattr setattr ioctl unlink write open read map lock };
 
-# avc:  denied  { 0xf546 } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf546 scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allowxperm aimgr data_service_el1_file:dir ioctl { 0xf546 };
+# avc:  denied  { ioctl } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf546 scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { ioctl } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf547 scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allowxperm aimgr data_service_el1_file:dir ioctl { 0xf546 0xf547 };
 
 # avc:  denied  { 0xf50c } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf50c scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { 0xf50c } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf546 scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
