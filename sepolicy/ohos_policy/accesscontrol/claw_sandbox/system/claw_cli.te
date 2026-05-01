@@ -15,9 +15,11 @@
 # avc: denied { open } comm="/system/bin/claw_sandbox" path="/system/bin/location_cli" scontext=u:r:claw_cli:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file
 allow claw_cli system_bin_file:dir { search getattr read open };
 allow claw_cli system_bin_file:file { entrypoint execute execute_no_trans getattr map read open };
+allow claw_sandbox_loader system_bin_file:file { entrypoint execute getattr map read open };
 
 # power-shell cli
 allow claw_cli power_shell_exec:file { execute execute_no_trans getattr map open read };
+allow claw_sandbox_loader power_shell_exec:file { execute getattr map open read };
 
 # avc: denied { getattr } comm="/system/bin/ls" path="/system/bin/zcat" scontext=u:r:claw_cli:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file
 # avc: denied { read } comm="/system/bin/claw_sandbox" path="/bin/help" scontext=u:r:claw_cli:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file
@@ -64,12 +66,20 @@ allow claw_cli aimgr:binder { call transfer };
 # avc: denied { transfer } comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0 tclass=binder
 allow aimgr claw_cli:binder { transfer };
 
+allow claw_sandbox_loader claw_cli:process2 { nnp_transition };
+
+allow claw_cli claw_sandbox_loader:fd { use };
+
 debug_only(`
+    domain_auto_transition_pattern(claw_sandbox_loader, sh_exec, claw_cli);
+    domain_auto_transition_pattern(claw_sandbox_loader, toybox_exec, claw_cli);
     allow claw_cli sh_exec:file { execute execute_no_trans map open read getattr };
+    allow claw_sandbox_loader sh_exec:file { execute map open read getattr execute_no_trans };
 
     # avc: denied { read } comm="/system/bin/claw_sandbox" path="/bin/toybox" scontext=u:r:claw_cli:s0 tcontext=u:object_r:toybox_exec:s0 tclass=file
     # avc: denied { open } comm="/system/bin/claw_sandbox" path="/bin/toybox" scontext=u:r:claw_cli:s0 tcontext=u:object_r:toybox_exec:s0 tclass=file
     allow claw_cli toybox_exec:file { execute execute_no_trans getattr map open read };
+    allow claw_sandbox_loader toybox_exec:file { execute getattr map open read };
 
     # avc: denied { use } comm="/system/bin/claw_sandbox" path="/dev/pts/0" scontext=u:r:claw_cli:s0 tcontext=u:r:su:s0 tclass=fd
     allow claw_cli su:fd { use };
@@ -81,3 +91,6 @@ debug_only(`
     allow claw_cli su:fifo_file { write ioctl };
     allowxperm claw_cli su:fifo_file ioctl { 0x5413 };
 ')
+
+domain_auto_transition_pattern(claw_sandbox_loader, system_bin_file, claw_cli);
+domain_auto_transition_pattern(claw_sandbox_loader, power_shell_exec, claw_cli);

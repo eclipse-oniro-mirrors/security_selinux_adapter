@@ -287,7 +287,7 @@ neverallow { domain debug_only(`-rgm_violator_ohos_isula') updater_only(`-init -
 
 #limit domain access to sh_exec
 neverallow { domain developer_only(`-wukong -aa -hdcd -sh -hnp -hnp_hap_domain_attr -perftest') -init -faultloggerd -riladapter_host -appspawn
-    debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa -claw_cli') -hidumper_service -SP_daemon -test_server -netsysnative
+    debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host -aa -claw_cli -claw_sandbox_loader') -hidumper_service -SP_daemon -test_server -netsysnative
     -wifi_hal_service -sh_exec_violator -rgm_violator_ohos_sh_exec_file_execute -cupsd -print_driver} sh_exec:file execute;
 
 #limit execmem use

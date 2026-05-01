@@ -26,18 +26,12 @@ allow claw_sandbox_loader system_basic_hap_attr:dir { search };
 allow claw_sandbox_loader system_basic_hap_attr:lnk_file { read };
 allow claw_sandbox_loader system_basic_hap_attr:file { open read };
 
-# avc: denied { dyntransition } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_cli:s0 tclass=process
-allow claw_sandbox_loader claw_cli:process { dyntransition };
-
 # avc: denied { setuid } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 # avc: denied { setgid } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 # avc: denied { sys_admin } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 # avc: denied { sys_chroot } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 # avc: denied { sys_ptrace } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 allow claw_sandbox_loader claw_sandbox_loader:capability { setuid setgid sys_admin sys_chroot sys_ptrace };
-
-# avc: denied { setcurrent } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=process
-allow claw_sandbox_loader claw_sandbox_loader:process { setcurrent };
 
 # avc: denied { setopt } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=unix_dgram_socket
 # avc: denied { getopt } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=unix_dgram_socket
