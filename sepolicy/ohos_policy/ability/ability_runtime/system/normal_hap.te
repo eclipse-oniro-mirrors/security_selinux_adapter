@@ -23,5 +23,10 @@ allow normal_hap_attr sa_service_router_mgr_service:samgr_class { get };
 allow normal_hap_attr service_router:binder { call transfer };
 allow normal_hap_attr data_app_el2_file:file { append };
 allow normal_hap_attr data_app_el2_group_file:file { append };
+
+#avc:  denied  { get } for service=186 pid=4594 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=1
+allow normal_hap_attr sa_aimgr_climgr:samgr_class { get };
+
 # avc:  denied  { call } for  pid=21830 comm="claw_test" scontext=u:r:normal_hap_attr:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=1
-allow normal_hap_attr aimgr:binder { call };
+# avc: denied { transfer } for pid=8089, comm="/system/bin/appspawn"  scontext=o:r:normal_hap:s0:x226,x334,x512,x868,x1024 tcontext=u:r:aimgr:s0 tclass=binder permissive=0
+allow normal_hap_attr aimgr:binder { call transfer };
