@@ -22,7 +22,8 @@ allow aimgr sa_distributeddata_service:samgr_class { get };
 
 # avc: denied { read } for pid=5696, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs" dev="overlay" ino=1098 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
 # avc: denied { open } for pid=23693, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs" dev="overlay" ino=1058 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
-allow aimgr sa_aimgr_climgr_config_file:dir { open read };
+# avc: denied { search } for pid=10908, comm="/system/bin/sa_main"  name="/system/bin/cli_tool/configs" dev="/dev/block/dm-2" ino=85103058 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_aimgr_climgr_config_file:s0 tclass=dir permissive=0
+allow aimgr sa_aimgr_climgr_config_file:dir { open read search };
 
 # avc: denied { read } for pid=34492, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs/ohos-aa.json" dev="overlay" ino=1046 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
 # avc: denied { open } for pid=30480, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs/ohos-aa.json" dev="overlay" ino=1051 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
@@ -59,3 +60,13 @@ allow aimgr aimgr:unix_dgram_socket { getopt setopt };
 # avc:  denied  { open } for pid=11754, comm="/system/bin/sa_main" path="/dev/kmsg" dev="" scontext=u:r:aimgr:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { write } for pid=11754, comm="/system/bin/sa_main" path="/dev/kmsg" dev="" scontext=u:r:aimgr:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow aimgr dev_kmsg_file:chr_file { open write };
+
+# avc:  denied  { get } for service=1301 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class
+allow aimgr sa_foundation_bms:samgr_class { get };
+
+# avc:  denied  { get } for service=1301 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class
+allow aimgr sa_foundation_appms:samgr_class { get };
+
+# avc: denied { call } for pid=11575, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
+# avc: denied  { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow aimgr foundation:binder { call transfer };
