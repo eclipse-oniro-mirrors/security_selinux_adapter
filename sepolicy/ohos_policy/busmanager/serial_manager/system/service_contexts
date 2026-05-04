@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type serial_service, sadomain, domain;
-type sa_serial_service, sa_service_attr;
+4202 u:object_r:sa_serial_service:s0
