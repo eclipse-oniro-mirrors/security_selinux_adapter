@@ -70,6 +70,20 @@ allow claw_sandbox_loader claw_cli:process2 { nnp_transition };
 
 allow claw_cli claw_sandbox_loader:fd { use };
 
+# avc: denied { use } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4143]" dev="tmpfs" ino=4143 ioctlcmd=0xaaaa scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fd permissive=1
+allow claw_cli aimgr:fd { use };
+
+# avc: denied { ioctl } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4143]" dev="tmpfs" ino=4143 ioctlcmd=0x5413 scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
+# avc: denied { read } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4110]" dev="tmpfs" ino=4110 scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
+# avc: denied { write } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4143]" dev="tmpfs" ino=4143 scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
+allow claw_cli aimgr:fifo_file { ioctl read write };
+
+# avc: denied { ioctl } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4143]" dev="tmpfs" ino=4143 ioctlcmd=0x5413 scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
+allowxperm claw_cli aimgr:fifo_file ioctl { 0x5413 };
+
+# avc: denied { search } for pid=22394, comm="/system/bin/claw_sandbox"  name="/bin/cli_tool/executable" dev="overlay" ino=1109 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:sa_aimgr_climgr_exec_file:s0 tclass=dir permissive=1
+allow claw_sandbox_loader sa_aimgr_climgr_exec_file:dir { search };
+
 debug_only(`
     domain_auto_transition_pattern(claw_sandbox_loader, sh_exec, claw_cli);
     domain_auto_transition_pattern(claw_sandbox_loader, toybox_exec, claw_cli);
@@ -94,3 +108,6 @@ debug_only(`
 
 domain_auto_transition_pattern(claw_sandbox_loader, system_bin_file, claw_cli);
 domain_auto_transition_pattern(claw_sandbox_loader, power_shell_exec, claw_cli);
+
+allow claw_sandbox_loader sa_aimgr_climgr_exec_file:file { entrypoint execute getattr map read open };
+domain_auto_transition_pattern(claw_sandbox_loader, sa_aimgr_climgr_exec_file, claw_cli);
