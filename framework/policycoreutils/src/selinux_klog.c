@@ -51,6 +51,10 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
         return -1;
     }
 
+    if (fmt == NULL) {
+        return -1;
+    }
+
     if ((logLevel < 0) || (logLevel >= MAX_LEVEL_SIZE)) {
         return -1;
     }
