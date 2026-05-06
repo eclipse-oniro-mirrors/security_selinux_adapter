@@ -29,10 +29,14 @@ allow system_core_hap_attr quick_fix:binder { call };
 allow system_core_hap_attr system_file:file { map };
 allow system_core_hap_attr data_service_el1_file:file { map };
 # avc: denied { call } for pid=11520, comm="/system/bin/appspawn" scontext=u:r:system_core_hap:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=1
-allow system_core_hap_attr aimgr:binder { call };
+# avc: denied { transfer } for pid=8089, comm="/system/bin/appspawn" scontext=o:r:system_core_hap:s0:x226,x334,x512,x868,x1024 tcontext=u:r:aimgr:s0 tclass=binder permissive=0
+allow system_core_hap_attr aimgr:binder { call transfer };
 
 #avc: denied { get } for service=186 pid=8861 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=1
 allow system_core_hap_attr sa_aimgr_climgr:samgr_class { get };
+
+# avc: denied { use } for pid=10686, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:system_core_hap:s0 tcontext=u:r:aimgr:s0 tclass=fd permissive=0
+allow system_core_hap_attr aimgr:fd { use };
 
 debug_only(`
     allow system_core_hap_attr sh:binder { call transfer };
