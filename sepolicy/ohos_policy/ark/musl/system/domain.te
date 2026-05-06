@@ -13,4 +13,4 @@
 
 allow domain data_service_file:dir { search };
 allow domain data_musl_namespace:dir { getattr search };
-allow domain data_musl_namespace:file { getattr };
+allow domain data_musl_namespace:file { getattr open read };
