@@ -18,4 +18,5 @@ allow hap_domain ohos_sa_object_editor_service:samgr_class { get };
 # avc: denied { call } for pid=10323, comm="/system/bin/appspawn"  scontext=u:r:normal_hap:s0 tcontext=u:r:ohos_object_editor_service:s0 tclass=binder
 allow hap_domain ohos_object_editor_service:binder { transfer call };
 
+# avc: denied { use } for pid=41732, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:normal_hap:s0 tcontext=u:r:ohos_object_editor_service:s0 tclass=fd
 allow hap_domain ohos_object_editor_service:fd { use };
