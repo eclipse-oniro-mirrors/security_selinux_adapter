@@ -132,7 +132,8 @@ allow usb_host normal_hap_attr:fd { use };
 allow usb_host hmdfs:file { read write };
 allow usb_host data_user_file:file { read write};
 allow usb_host dev_usb_accessory_file:chr_file { open ioctl read write };
-allowxperm usb_host dev_usb_accessory_file:chr_file ioctl { 0x4d01 0x4d02 0x4d03 0x4d04 0x4d06 0x4dc0 };
+#avc:  denied  { ioctl } for  pid=245 comm="/vendor/bin/hdf_devhost" path="/dev/usb_accessory" dev="" ino=199 ioctlcmd=0x4dc4 scontext=u:r:usb_host:s0 tcontext=u:object_r:dev_usb_accessory_file:s0 tclass=chr_file permissive=0
+allowxperm usb_host dev_usb_accessory_file:chr_file ioctl { 0x4d01 0x4d02 0x4d03 0x4d04 0x4d06 0x4dc0 0x4dc4};
 allow usb_host sa_accesstoken_manager_service:samgr_class { get };
 allow usb_host accesstoken_service:binder { call };
 allow usb_host ntfs:file { read write };
