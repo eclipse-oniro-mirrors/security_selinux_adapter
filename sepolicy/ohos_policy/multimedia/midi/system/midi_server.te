@@ -36,4 +36,4 @@ allow midi_server alsa_file:file { getattr open read };
 allow midi_server proc_asound_file:file { getattr open read };
 
 # avc: denied { sys_nice } for pid=6912, comm="/system/bin/sa_main"  capability=23 scontext=u:r:midi_server:s0 tcontext=u:r:midi_server:s0 tclass=capability permissive=1
-allow midi_server midi_server::capability {sys_nice};
+allow midi_server midi_server:capability {sys_nice};
