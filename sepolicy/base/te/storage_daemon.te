@@ -46,7 +46,6 @@ allow storage_daemon data_user_file:dir { open read read open relabelto setattr 
 allow storage_daemon debug_param:file { map open read };
 allow storage_daemon default_param:file { map open read };
 allow storage_daemon dev_unix_socket:dir { search };
-allow storage_daemon dev_block_sda:blk_file { read open ioctl };
 allow storage_daemon distributedfiledaemon:fd { use };
 allow storage_daemon distributedsche_param:file { map open read };
 allow storage_daemon hilog_param:file { map open read };
