@@ -13,3 +13,6 @@
 
 #avc:  denied { call } for pid=1253, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:mechbody:s0 tclass=binder permissive=1
 allow foundation mechbody:binder { call };
+
+#avc: denied { transfer } for pid=1183, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:mechbody:s0 tclass=binder permissive=0
+allow foundation mechbody:binder {transfer};
