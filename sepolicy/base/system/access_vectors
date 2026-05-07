@@ -592,6 +592,7 @@ class hmcap
     sec_mode_trusted
     audio_rec_mem_map
     deep_sleep_snap
+    devmem_isolation
 }
 
 class dmaheap
