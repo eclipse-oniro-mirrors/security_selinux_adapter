@@ -138,3 +138,7 @@ allowxperm foundation checkpoint:file ioctl { 0xe000 0xe004 0xe007 0xe008 };
 
 # avc: denied { call } for pid=12707, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=0
 allow foundation aimgr:binder { call };
+
+# avc: denied { call } for pid=1398, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:serial_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1398, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:serial_service:s0 tclass=binder permissive=1
+allow foundation serial_service:binder { call transfer };
