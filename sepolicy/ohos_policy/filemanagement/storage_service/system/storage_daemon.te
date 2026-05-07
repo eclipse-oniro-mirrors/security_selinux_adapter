@@ -355,6 +355,7 @@ allow storage_daemon dev_bus_usb_file:chr_file { ioctl };
 allow storage_daemon system_lib_file:dir {open read};
 allowxperm storage_daemon dev_bus_usb_file:chr_file ioctl{ 0x550b 0x5515 };
 
+allow storage_daemon dev_block_sda:blk_file { read open ioctl };
 allowxperm storage_daemon dev_block_sda:blk_file ioctl { 0x30d };
 
 # avc:  denied  { write } for pid=544 comm="storage_daemon" name="kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
