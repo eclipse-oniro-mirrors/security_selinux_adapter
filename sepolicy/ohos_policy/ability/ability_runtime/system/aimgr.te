@@ -79,6 +79,9 @@ allow aimgr sa_foundation_bms:samgr_class { get };
 # avc:  denied  { get } for service=1301 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class
 allow aimgr sa_foundation_appms:samgr_class { get };
 
+# avc: denied { kill } for pid=54233, comm="/system/bin/sa_main" capability=5 scontext=u:r:aimgr:s0 tcontext=u:r:aimgr:s0 tclass=capability permissive=0
+allow aimgr aimgr:capability { kill };
+
 # avc: denied { call } for pid=11575, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
 # avc: denied  { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 allow aimgr foundation:binder { call transfer };
