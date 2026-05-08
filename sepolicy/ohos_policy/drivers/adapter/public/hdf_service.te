@@ -27,6 +27,7 @@ type hdf_codec_hdi_omx_service, hdf_service_attr;
 type hdf_codec_component_manager_service, hdf_service_attr;
 type hdf_codec_hdi_service, hdf_service_attr;
 type hdf_codec_image_service, hdf_service_attr;
+type hdf_zcodec_factory_service, hdf_service_attr;
 type hdf_battery_interface_service, hdf_service_attr;
 type hdf_power_interface_service, hdf_service_attr;
 type hdf_light_interface_service, hdf_service_attr;
