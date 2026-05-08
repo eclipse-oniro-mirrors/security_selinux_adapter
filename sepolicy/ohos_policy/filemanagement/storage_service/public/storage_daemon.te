@@ -14,6 +14,7 @@
 type storage_daemon, sadomain, domain;
 type storage_daemon_exec, exec_attr, file_attr, system_file_attr;
 type dev_block_volfile, dev_attr;
+type dev_block_sda, dev_attr;
 
 define(`storage_daemon_relabel', `
     allow storage_daemon $1:{ file dir sock_file } { relabelto setattr };
