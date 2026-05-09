@@ -535,3 +535,12 @@ allow storage_daemon data_app_el5_group_file:dir { add_name create getattr open 
 allow storage_daemon sa_resource_schedule:samgr_class { get };
 # avc: denied { call } for pid=617, comm="/system/bin/sa_main"  scontext=u:r:storage_daemon:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=0
 allow storage_daemon resource_schedule_service:binder { call };
+
+# avc: denied { ioctl open write } for pid=12561, comm="/bin/genisoimage" path="/mnt/data/external/EBEF-0385/dsajpjas.iso" dev="/dev/block/vol-8-18" ino=5 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=1
+allow storage_daemon ntfs:file { ioctl open write };
+allowxperm storage_daemon ntfs:file ioctl { 0x5413 };
+# avc: denied { ioctl open write } for pid=12561, comm="/bin/genisoimage" path="/mnt/data/external/41F3-1B17/dsajpjas.iso" dev="/dev/block/vol-8-18" ino=5 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+allow storage_daemon vfat:file { ioctl open write };
+allowxperm storage_daemon vfat:file ioctl { 0x5413 };
+# avc: denied { open read } for pid=8801, comm="/bin/genisoimage" path="/mnt/data/external/72E8082C-5969-8F53-7693-F839C6D3A969E5A4/2.txt" dev="/dev/block/vol-11-0" ino=1410 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=0
+allow storage_daemon mnt_external_file:file { open read };
