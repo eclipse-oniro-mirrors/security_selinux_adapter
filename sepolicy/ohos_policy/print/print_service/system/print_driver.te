@@ -18,7 +18,8 @@ allow print_driver print_driver_exec:dir { search };
 allow print_driver print_driver_exec:file { execute execute_no_trans };
 allow print_driver print_driver_tmp:dir { create getattr open read search setattr write add_name remove_name };
 allow print_driver print_driver_tmp:file { append create getattr open read write rename setattr unlink map };
-allow print_driver print_driver_read:file { open read };
+# avc: denied { getattr } for pid = 29538, comm="/data/service/el1/public/print_service/cups/serverbin/fileter/com.test" path="/data/service/el1/public/print_service/cups/spool/d00047-001" dev="dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42508 scontext=u:r:print_driver:s0 tcontext=u:object_r:print_driver_read:s0 tclass=file permissive=1
+allow print_driver print_driver_read:file { open read getattr };
 allow print_driver print_driver_read:dir { search };
 allow print_driver data_service_el1_file:dir { search };
 allow print_driver data_service_file:dir { search };
