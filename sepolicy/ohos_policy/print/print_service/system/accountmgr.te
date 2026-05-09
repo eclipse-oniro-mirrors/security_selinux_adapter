@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow accountmgr print_service:binder { transfer };
+# avc: denied { transfer } for pid=1704, comm="/system/bin/sa_main"  scontext=u:r:accountmgr:s0 tcontext=u:r:scan_service:s0 tclass=binder permissive=1
+allow accountmgr scan_service:binder { transfer };

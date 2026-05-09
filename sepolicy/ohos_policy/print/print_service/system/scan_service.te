@@ -77,3 +77,10 @@ allowxperm scan_service data_service_sane_service_config_file:file ioctl 0x5413;
 allow scan_service data_service_scan_service_driver_file:dir { write add_name search };
 allow scan_service data_service_scan_service_driver_file:lnk_file { create getattr read };
 allow scan_service sa_foundation_appms:samgr_class { get };
+# avc: denied { call } for pid=8238, comm="/system/bin/sa_main"  scontext=u:r:scan_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+allow scan_service accountmgr:binder { call };
+# avc:  denied  { get } for service=200 sid=u:r:scan_service:s0 scontext=u:r:scan_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
+allow scan_service sa_accountmgr:samgr_class { get };
+# avc: denied { open } for pid=8785, comm="/system/bin/sa_main"  path="/data/service/el2/100/print_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=22971 scontext=u:r:scan_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=8785, comm="/system/bin/sa_main"  path="/data/service/el2/100/print_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=22971 scontext=u:r:scan_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+allow scan_service data_service_el2_file:dir { open read };
