@@ -58,7 +58,8 @@ allowxperm aimgr data_service_el1_file:file ioctl { 0xf50c 0xf546 0xf547 };
 allow aimgr aimgr:unix_dgram_socket { getopt setopt };
 
 # avc: denied { getpgid } for pid=19669, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0 tclass=process permissive=1
-allow aimgr claw_cli:process { getpgid };
+# avc: denied { signal } for pid=10041, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0 tclass=process permissive=0
+allow aimgr claw_cli:process { getpgid signal };
 
 # avc: denied { call } for pid=19669, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=o:r:normal_hap:s0:x227,x334,x512,x868,x1024 tclass=binder permissive=1
 allow aimgr normal_hap_attr:binder { call };
