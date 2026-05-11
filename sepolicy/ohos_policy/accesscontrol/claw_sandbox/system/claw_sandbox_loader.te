@@ -77,7 +77,10 @@ allow claw_sandbox_loader normal_hap_attr:fd { use };
 allow claw_sandbox_loader normal_hap_attr:file { read open };
 
 # avc: denied { search } comm="/system/bin/claw_sandbox" name="/19325" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=dir
-allow claw_sandbox_loader normal_hap_attr:dir { search };
+# avc: denied { read } comm="/system/bin/claw_sandbox" name="/proc/19325" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0:x55,x334,x512,x868,x1024 tclass=dir
+# avc: denied { open } comm="/system/bin/claw_sandbox" name="/proc/19325" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0:x55,x334,x512,x868,x1024 tclass=dir
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" name="/proc/19325" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0:x55,x334,x512,x868,x1024 tclass=dir
+allow claw_sandbox_loader normal_hap_attr:dir { search read open getattr };
 
 # avc: denied { read } comm="/system/bin/claw_sandbox" name="/19325/ns/mnt" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=lnk_file
 allow claw_sandbox_loader normal_hap_attr:lnk_file { read };
@@ -126,8 +129,9 @@ allow claw_sandbox_loader usb_service:fd { use };
 
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4102 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4104 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 allow claw_sandbox_loader dev_at_file:chr_file { ioctl };
-allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 };
+allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 };
 
 # avc: denied { call } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:samgr:s0 tclass=binder
 allow claw_sandbox_loader samgr:binder { call };
@@ -154,6 +158,26 @@ debug_only(`
     # avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket
     # avc: denied { write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket
     allow claw_sandbox_loader su:unix_stream_socket { read write };
+
+    allow claw_sandbox_loader sh_exec:file { execute map open read getattr };
+    allow claw_sandbox_loader toybox_exec:file { execute getattr map open read };
+    allow claw_sandbox_loader system_bin_file:file { entrypoint execute getattr map read open };
+    allow claw_sandbox_loader power_shell_exec:file { execute getattr map open read };
+    # avc: denied { read } comm="/system/bin/claw_sandbox" name="/bin/ls" dev="/dev/block/dm-2" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file
+    allow claw_sandbox_loader system_bin_file:lnk_file { read };
+
+    domain_auto_transition_pattern(claw_sandbox_loader, sh_exec, claw_cli);
+    domain_auto_transition_pattern(claw_sandbox_loader, toybox_exec, claw_cli);
+    domain_auto_transition_pattern(claw_sandbox_loader, system_bin_file, claw_cli);
+    domain_auto_transition_pattern(claw_sandbox_loader, power_shell_exec, claw_cli);
 ')
 
 neverallow { domain develop_domain debug_only(`-su') -aimgr -claw_sandbox_loader } claw_sandbox_exec:file { execute };
+
+allow claw_sandbox_loader claw_cli:process2 { nnp_transition };
+
+# avc: denied { search } for pid=22394, comm="/system/bin/claw_sandbox"  name="/bin/cli_tool/executable" dev="overlay" ino=1109 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:sa_aimgr_climgr_exec_file:s0 tclass=dir permissive=1
+allow claw_sandbox_loader sa_aimgr_climgr_exec_file:dir { search };
+
+allow claw_sandbox_loader sa_aimgr_climgr_exec_file:file { entrypoint execute getattr map read open };
+domain_auto_transition_pattern(claw_sandbox_loader, sa_aimgr_climgr_exec_file, claw_cli);

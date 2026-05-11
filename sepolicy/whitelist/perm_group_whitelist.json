@@ -123,7 +123,6 @@
                 "SP_daemon aa_exec",
                 "SP_daemon snapshot_display_exec",
                 "init system_bin_module_update_exec",
-                "claw_cli power_shell_exec",
                 "claw_cli system_bin_file",
                 "claw_cli toybox_exec",
                 "claw_cli hilog_exec",
