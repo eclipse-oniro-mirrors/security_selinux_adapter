@@ -48,3 +48,11 @@ allowxperm wifi_host wifi_host:udp_socket ioctl { 0x89f1 0x8924 };
 
 #avc: denied { get } for service=3510 sid=u:r:wifi_host:s0 scontext=u:r:wifi_host:s0 tcontext=u:object_r:sa_huks_service:s0 tclass=samgr_class permissive=0
 allow wifi_host sa_huks_service:samgr_class { get };
+
+# avc: defined { set } for parameter=persist.wlan.pluggable.state pid=3026 gid=3026 scontext=u:r:wifi_host:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=1
+allow wifi_host persist_param:parameter_service { set };
+
+# avc: denied { getattr } for pid=1437, comm="/vendor/bin/hdf_devhost"  path= "/proc/devhost/root/connectivity/wifi_chip_no_support" dev="" ino=944 scontext=u:r:wifi_host:s0 tcontext=u:object_r:proc_connectivity:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1437, comm="/vendor/bin/hdf_devhost"  path= "/proc/devhost/root/connectivity/wifi_chip_no_support" dev="" ino=944 scontext=u:r:wifi_host:s0 tcontext=u:object_r:proc_connectivity:s0 tclass=file permissive=1
+# avc: denied { read } for pid=1437, comm="/vendor/bin/hdf_devhost"  path= "/proc/devhost/root/connectivity/wifi_chip_no_support" dev="" ino=944 scontext=u:r:wifi_host:s0 tcontext=u:object_r:proc_connectivity:s0 tclass=file permissive=1
+allow wifi_host proc_connectivity:file { getattr open read };
