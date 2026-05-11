@@ -73,12 +73,3 @@ allow blue_host data_vendor:dir { add_name write };
 #avc:  denied  { read write } for  pid=1007 comm="IPC_3_3026" name="btmac.txt" dev="sdd78" ino=8371 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=0
 allow blue_host data_vendor:file { create read write open };
 allow blue_host blue_host:capability { sys_nice };
-
-#avc:  denied  { write } for  pid=1470 comm="/vendor/bin/hdf_devhost"  path="dev/unix/socket/paramservice" dev="" ino=273 scontext=u:r:blue_host:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
-allow blue_host paramservice_socket:sock_file { write };
-
-#avc:  denied  { connectto } for  pid=1470 comm="/vendor/bin/hdf_devhost"  scontext=u:r:blue_host:s0 tcontext=u:object_r:kernel:s0 tclass=unix_stream_socket permissive=1
-allow blue_host kernel:unix_stream_socket { connectto };
-
-#avc:  denied { set } for parameter=persist.bluetooth.pluggable.state pid=1470 uid=3021 gid=3021 scontext=u:r:blue_host:s0 tcontext=u:object_r:bluetooth_param:s0 tclass=parameter_service permissive=1
-allow blue_host bluetooth_param:parameter_service { set };
