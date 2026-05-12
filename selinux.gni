@@ -17,6 +17,7 @@ OHOS_PRODUCT_DIR = "base/security/selinux_adapter/sepolicy/ohos_product"
 
 declare_args() {
   selinux_adapter_build_path = "default"
+  selinux_adapter_build_path_flex_overlay = "default"
   selinux_adapter_components = "default"
   selinux_adapter_vendor_policy_version = "40"
   selinux_adapter_special_build_policy_script = "default"
@@ -24,13 +25,16 @@ declare_args() {
   special_build_ignore_cfg = "default"
   special_selinux_check_config = "default"
   selinux_adapter_extra_args = "default"
+  selinux_adapter_extra_args_flex_overlay = "default"
   selinux_adapter_contexts_extra_args = "default"
   selinux_adapter_support_developer_mode = false
   selinux_adapter_special_build_selinux_gni_path = ""
   selinux_adapter_check_extend_list = "default"
+  selinux_adapter_check_extend_list_flex_overlay = "default"
 }
 
 declare_args() {
+  is_flex = false
   selinux_adapter_enforce = true
   selinux_adapter_mcs_enable = true
 }
