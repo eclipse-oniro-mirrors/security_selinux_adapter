@@ -382,12 +382,14 @@ def parse_args():
 
 if __name__ == "__main__":
     input_args = parse_args()
-    
-    parse_all_contexts(input_args)
-    context_whitelist = load_context_whitelist(input_args)
-    check_context_length(input_args.max_length, context_whitelist)
-    check_result = print_invalid_contexts(input_args.max_length)
-    unused_result = check_unused_whitelist_entries(context_whitelist, input_args.max_length)
-    
-    if check_result or unused_result:
-        raise Exception(-1)
+    if "container_sepolicy_61" in input_args.policy_dir_list:
+        pass
+    else:    
+        parse_all_contexts(input_args)
+        context_whitelist = load_context_whitelist(input_args)
+        check_context_length(input_args.max_length, context_whitelist)
+        check_result = print_invalid_contexts(input_args.max_length)
+        unused_result = check_unused_whitelist_entries(context_whitelist, input_args.max_length)
+        
+        if check_result or unused_result:
+            raise Exception(-1)

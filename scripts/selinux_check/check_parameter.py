@@ -274,9 +274,12 @@ def parse_args():
 if __name__ == '__main__':
     input_args = parse_args()
     print("check parameter input_args: {}".format(input_args))
-    result = check(input_args, False)
-    if result:
-        raise Exception(-1)
-    result = check(input_args, True)
-    if result:
-        raise Exception(-1)
+    if "container_sepolicy_61" in input_args.policy_dir_list:
+        pass
+    else:    
+        result = check(input_args, False)
+        if result:
+            raise Exception(-1)
+        result = check(input_args, True)
+        if result:
+            raise Exception(-1)

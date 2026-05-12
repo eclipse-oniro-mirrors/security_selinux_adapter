@@ -20,6 +20,12 @@ if (!use_musl) {
   startup_init_with_param_base = true
 }
 
+if (is_flex) {
+  selinux_adapter_build_path = selinux_adapter_build_path_flex_overlay
+  selinux_adapter_extra_args = selinux_adapter_extra_args_flex_overlay
+  selinux_adapter_check_extend_list = selinux_adapter_check_extend_list_flex_overlay
+}
+
 if (!ohos_indep_compiler_enable) {
   tool_path =
       rebase_path(root_build_dir + "/clang_${host_cpu}/thirdparty/selinux/")
