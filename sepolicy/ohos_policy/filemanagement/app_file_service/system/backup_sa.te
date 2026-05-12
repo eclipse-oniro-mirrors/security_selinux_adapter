@@ -110,3 +110,7 @@ allow backup_sa sa_distributeddata_service:samgr_class { get };
 # avc: denied { chown } for pid=11524, comm="/system/bin/sa_main"  capability=0 scontext=u:r:backup_sa:s0 tcontext=u:r:backup_sa:s0 tclass=capability permissive=0
 # avc: denied { fowner } for pid=11524, comm="/system/bin/sa_main"  capability=3 scontext=u:r:backup_sa:s0 tcontext=u:r:backup_sa:s0 tclass=capability permissive=0
 allow backup_sa backup_sa:capability { chown fowner };
+
+# avc: denied { ioctl lock map setattr } for pid=15873, comm="/system/bin/sa_main" name="/service/el2/100/backup/clone_file_info_restore.db" dev="/dev/block by name/userdata" ino=67064 scontext=u:r:backup_sa:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=0
+allow backup_sa data_service_el2_file:file { ioctl lock map setattr };
+allowxperm backup_sa data_service_el2_file:file ioctl { 0x5413 };
