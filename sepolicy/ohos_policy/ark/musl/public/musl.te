@@ -11,4 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# denied { search } for pid=588, comm="/system/bin/hilogd"  name="/etc/MUSL" dev="overlay" ino=1000 scontext=u:r:hilogd:s0 tcontext=u:object_r:system_etc_musl_file:s0 tclass=dir permissive=0
+# [hmseh:392]avc: denied { getattr } for pid=11410, comm="/vendor/bin/storage_info"  path="/system/etc/MUSL/generic/version.txt" dev="/dev/block/dm-2" ino=84292667 scontext=u:r:storage_info:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=0
+allow domain system_etc_musl_file:dir { getattr search };
 allow domain system_etc_musl_file:file { getattr map open read };

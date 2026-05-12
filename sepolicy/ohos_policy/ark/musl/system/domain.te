@@ -13,4 +13,6 @@
 
 allow domain data_service_file:dir { search };
 allow domain data_musl_namespace:dir { getattr search };
-allow domain data_musl_namespace:file { getattr };
+# [hmseh:392]avc: denied { read } for pid=10845, comm="/system/bin/sa_main"  path="/data/service/el0/public/for-all-app/musl_namespace_config/version.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=38879 scontext=u:r:cloud_interface_auth:s0 tcontext=u:object_r:data_musl_namespace:s0 tclass=file permissive=0
+# [hmseh:392]avc: denied { open } for pid=2260, comm="/system/bin/hdcd"  path="/data/service/el0/public/for-all-app/musl_namespace_config/version.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=38879 scontext=u:r:su:s0 tcontext=u:object_r:data_musl_namespace:s0 tclass=file permissive=1
+allow domain data_musl_namespace:file { getattr open read };
