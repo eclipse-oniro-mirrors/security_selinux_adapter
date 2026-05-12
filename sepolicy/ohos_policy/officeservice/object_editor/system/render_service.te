@@ -1,2 +1,2 @@
-# avc: denied { use } for pid=41732, comm="/system/bin/appspawn"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:render_service:s0 tcontext=u:r:ohos_object_editor_service:s0 tclass=fd
+# avc: denied { use } for pid=8887, comm="/system/bin/appspawn"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:render_service:s0 tcontext=u:r:ohos_object_editor_service:s0 tclass=fd
 allow render_service ohos_object_editor_service:fd { use };
