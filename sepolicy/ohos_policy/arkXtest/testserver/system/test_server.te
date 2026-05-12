@@ -34,4 +34,8 @@ developer_only(`
     allow test_server sa_font_manager_server:samgr_class { get };
     # avc: denied { call } for pid=9966, comm="/system/bin/sa_main" scontext=u:r:test_server:s0 tcontext=u:r:font_manager_server:s0 tclass=binder permissive=0
     allow test_server font_manager_server:binder { call };
+    # avc: denied { get } for service=2802 sid=u:r:test_server:s0 scontext=u:r:test_server:s0 tcontext=u:r:sa_location_locator_service:s0 tclass=samgr_class permissive=0
+    allow test_server sa_location_locator_service:samgr_class { get };
+    # avc: denied { call } for pid=24150, comm="/system/bin/sa_main" scontext=u:r:test_server:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
+    allow test_server locationhub:binder { call };
 ')
