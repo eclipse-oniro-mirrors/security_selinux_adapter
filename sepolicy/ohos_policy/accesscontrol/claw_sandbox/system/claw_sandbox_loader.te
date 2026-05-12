@@ -113,7 +113,9 @@ allow claw_sandbox_loader system_usr_file:lnk_file { read };
 # avc: denied { rmdir } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx/.old_root" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
 # avc: denied { write add_name } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
 # avc: denied { write remove_name } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
-allow claw_sandbox_loader tmpfs:dir { create mounton rmdir write add_name remove_name };
+# avc: denied { read } comm="/system/bin/claw_sandbox"  path="/mnt/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+# avc: denied { open } comm="/system/bin/claw_sandbox"  path="/mnt/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+allow claw_sandbox_loader tmpfs:dir { create mounton rmdir write add_name remove_name read open };
 
 # avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem
 allow claw_sandbox_loader labeledfs:filesystem { unmount };
