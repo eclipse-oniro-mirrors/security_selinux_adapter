@@ -17,6 +17,7 @@ type sa_foundation_abilityms, sa_service_attr;
 type sa_accountmgr, sa_service_attr;
 type sa_foundation_bms, sa_service_attr;
 type sa_foundation_appms, sa_service_attr;
+type sa_foundation_ams, sa_service_attr;
 type sa_accessibleabilityms, sa_service_attr;
 type sa_wifi_device_ability, sa_service_attr;
 type sa_wifi_hotspot_ability, sa_service_attr;

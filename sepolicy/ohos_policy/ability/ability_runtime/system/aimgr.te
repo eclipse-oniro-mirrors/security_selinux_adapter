@@ -77,6 +77,9 @@ allow aimgr dev_kmsg_file:chr_file { open write };
 # avc:  denied  { get } for service=1301 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class
 allow aimgr sa_foundation_bms:samgr_class { get };
 
+# avc:  denied  { get } for service=1301 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_foundation_ams:s0 tclass=samgr_class
+allow aimgr sa_foundation_ams:samgr_class { get };
+
 # avc:  denied  { get } for service=1301 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class
 allow aimgr sa_foundation_appms:samgr_class { get };
 
