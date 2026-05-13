@@ -169,3 +169,6 @@ debug_only(`
 # avc: denied { sendto } for pid=3621, comm="/vendor/bin/hdf_devhost"  scontext=u:r:wifi_host:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=0
 allow wifi_host wifi_host:unix_dgram_socket { setopt };
 allow wifi_host hiview:unix_dgram_socket { sendto };
+
+# avc: defined { set } for parameter=persist.wlan.pluggable.state pid=3026 gid=3026 scontext=u:r:wifi_host:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=1
+allow wifi_host persist_param:parameter_service { set };
