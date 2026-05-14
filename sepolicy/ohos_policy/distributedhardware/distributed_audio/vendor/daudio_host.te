@@ -60,4 +60,5 @@ allow daudio_host dev_kmsg_file:chr_file { write };
 
 allow daudio_host chip_prod_file:file { open getattr write };
 
+# avc: denied { sys_nice } for pid=28702, comm="/vendor/bin/hdf_devhost"  capability=23 scontext=u:r:daudio_host:s0 tcontext=u:r:daudio_host:s0 tclass=capability permissive=0
 allow daudio_host daudio_host:capability { sys_nice };
