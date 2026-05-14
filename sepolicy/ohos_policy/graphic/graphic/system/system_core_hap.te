@@ -11,4 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# avc: denied { transfer } for pid=8892, comm="/system/bin/appspawn"
+# scontext=u:r:system_core_hap:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
 allow system_core_hap_attr system_basic_hap:binder { transfer };
