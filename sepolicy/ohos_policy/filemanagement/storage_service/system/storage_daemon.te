@@ -550,3 +550,26 @@ allow storage_daemon vfat:file { ioctl open write };
 allowxperm storage_daemon vfat:file ioctl { 0x5413 };
 # avc: denied { open read } for pid=8801, comm="/bin/genisoimage" path="/mnt/data/external/72E8082C-5969-8F53-7693-F839C6D3A969E5A4/2.txt" dev="/dev/block/vol-11-0" ino=1410 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=0
 allow storage_daemon mnt_external_file:file { open read };
+
+# avc: denied { ioctl } for pid=16988, comm="/bin/newfs_msdos"  path="/dev/block/sda3" dev="" ino=895 ioctlcmd=0x1272 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { open } for pid=16988, comm="/bin/newfs_msdos"  path="/dev/block/sda3" dev="" ino=895 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { read write } for pid=16988, comm="/bin/newfs_msdos"  path="/dev/block/sda3" dev="" ino=895 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { open } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { read write } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { read } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { open } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { read write } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+allow storage_daemon dev_block_file:blk_file { ioctl open read write };
+# avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1268 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16988, comm="/bin/newfs_msdos"  path="/dev/block/sda3" dev="" ino=895 ioctlcmd=0x1268 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16988, comm="/bin/newfs_msdos"  path="/dev/block/sda3" dev="" ino=895 ioctlcmd=0x1272 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x125e scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x1268 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x1272 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x127b scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x127c scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x125e 0x1268 0x1272 0x1277 0x127b 0x127c };
