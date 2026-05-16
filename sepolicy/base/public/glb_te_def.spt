@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2026 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -91,6 +91,83 @@ define(`debug_only', ifelse(build_with_debug, `enable', $1, ))
 # ')
 #
 define(`updater_only', ifelse(build_with_updater, `enable', $1, ))
+
+# policy only for pc version
+# pc_only(`
+#    pc_only_policy
+# ')
+#
+define(`pc_only', ifelse(build_with_pc, `enable', $1, ))
+
+# policy only for watch version
+# watch_only(`
+#    watch_only_policy
+# ')
+#
+define(`watch_only', ifelse(build_with_watch, `enable', $1, ))
+
+# policy only for glasses version
+# glasses_only(`
+#    glasses_only_policy
+# ')
+#
+define(`glasses_only', ifelse(build_with_glasses, `enable', $1, ))
+
+# policy only for phone version
+# phone_only(`
+#    phone_only_policy
+# ')
+#
+define(`phone_only', ifelse(build_with_phone, `enable', $1, ))
+
+# policy only for tablet version
+# tablet_only(`
+#    tablet_only_policy
+# ')
+#
+define(`tablet_only', ifelse(build_with_tablet, `enable', $1, ))
+
+# policy only for tv version
+# tv_only(`
+#    tv_only_policy
+# ')
+#
+define(`tv_only', ifelse(build_with_tv, `enable', $1, ))
+
+# policy only for smarthomehost version
+# smarthomehost_only(`
+#    smarthomehost_only_policy
+# ')
+#
+define(`smarthomehost_only', ifelse(build_with_smarthomehost, `enable', $1, ))
+
+# policy only for tablet_hybrid version
+# tablet_hybrid_only(`
+#    tablet_hybrid_only_policy
+# ')
+#
+define(`tablet_hybrid_only', ifelse(build_with_tablet_hybrid, `enable', $1, ))
+
+# policy only for emulator version
+# emulator_only(`
+#    emulator_only_policy
+# ')
+#
+define(`emulator_only', ifelse(build_with_emulator, `enable', $1, ))
+
+# policy only for car version
+# car_only(`
+#    car_only_policy
+# ')
+#
+define(`car_only', ifelse(build_with_car, `enable', $1, ))
+
+# policy only for ohos version
+# ohos_only(`
+#    ohos_only_policy
+# ')
+#
+define(`ohos_only', ifelse(build_with_ohos, `enable', $1, ))
 
 ###################
 ## Macro define: ##
