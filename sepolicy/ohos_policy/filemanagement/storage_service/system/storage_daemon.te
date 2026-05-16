@@ -573,3 +573,6 @@ allow storage_daemon dev_block_file:blk_file { ioctl open read write };
 # avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x127b scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x127c scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x125e 0x1268 0x1272 0x1277 0x127b 0x127c };
+
+# avc: denied { read } for pid=12118, comm="/bin/genisoimage" name="/fd" dev="" ino=905 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=lnk_file permissive=0
+allow storage_daemon dev_file:lnk_file { read };
