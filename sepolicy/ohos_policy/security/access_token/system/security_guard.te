@@ -1,0 +1,20 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc denied { watch } for pid=1657,common="system/bin/sa_main" path="/data/service/el0/access_token/nativetoken.json" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=18 scontext=u:r:security_guard:s0 tconetxt=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
+# avc denied { read } for pid=1657,common="system/bin/sa_main" path="/data/service/el0/access_token/nativetoken.json" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=18 scontext=u:r:security_guard:s0 tconetxt=u:object_r:accesstoken_data_file:s0 tclass=file permissive=1
+allow security_guard accesstoken_data_file:file { watch read };
+
+# avc denied { watch } for pid=1657,common="system/bin/sa_main" path="/data/service/el1/public/access_token" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=2066 scontext=u:r:security_guard:s0 tconetxt=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
+# avc denied { read } for pid=1657,common="system/bin/sa_main" path="/data/service/el1/public/access_token" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=2066 scontext=u:r:security_guard:s0 tconetxt=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
+allow security_guard accesstoken_data_file:dir { watch read };
