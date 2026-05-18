@@ -70,7 +70,8 @@ allow installs data_app_el5_group_file:sock_file { unlink rename };
 allow installs data_app_el5_group_file:fifo_file { unlink rename };
 allowxperm installs data_app_el5_group_file:dir ioctl { 0xf546 0xf547 0xf554 };
 allow installs data_app_file:dir { search rename };
-allow installs data_file:file { getattr open read };
+# avc: denied { map } for pid=1824, comm="/system/bin/sa_main" path="/data/hap_crl" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=46615 scontext=u:r:installs:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+allow installs data_file:file { getattr open read map };
 allow installs data_service_el1_file:dir { remove_name search rmdir getattr setattr rename };
 allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write ioctl map relabelfrom };
 allow installs data_service_el2_file:dir { add_name create open read search setattr write getattr rmdir remove_name rename };
@@ -289,3 +290,5 @@ allow installs proc_cmdline_file:file { open read };
 # avc: denied { open } for pid=1548, comm="/system/bin/sa_main" path="/dev/parameters/u:object_r:devinfo_private_param:s0" dev="" ino=224 scontext=u:r:installs:s0 tcontext=u:object_r:devinfo_private_param:s0 tclass=file permissive=1
 # avc: denied { map } for pid=1548, comm="/system/bin/sa_main" path="/dev/parameters/u:object_r:devinfo_private_param:s0" dev="" ino=224 scontext=u:r:installs:s0 tcontext=u:object_r:devinfo_private_param:s0 tclass=file permissive=1
 allow installs devinfo_private_param:file { map open read };
+# avc: denied { open } for pid=1824, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:installs:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow installs dev_ashmem_file:chr_file { open };
