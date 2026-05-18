@@ -227,7 +227,7 @@ neverallow { module_update_service } {dev_attr -dev_block_file}:blk_file { open 
 # fs operation limit
 neverallow { domain -filesystem_violator -clouddiskservice } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
 neverallow clouddiskservice ~{ labeledfs }:filesystem ~{ getattr watch };
-neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nativespawn_mount_filesystem_violator -netsysnative -rgm_violator_filesystem_mount updater_only(`-updater') -module_update_service -security_collector -filesystem_mount_violator } *:filesystem mount;
+neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nativespawn_mount_filesystem_violator -netsysnative -rgm_violator_filesystem_mount updater_only(`-updater') -module_update_service -security_collector -filesystem_mount_violator -claw_sandbox_loader } *:filesystem mount;
 neverallow { domain -init -appspawn -rgm_violator_ohos_filesystem_remount } *:filesystem remount;
 neverallow { domain -init -storage_daemon -appspawn -cjappspawn -nwebspawn -nativespawn updater_only(`-updater') -rgm_violator_ohos_filesystem_unmount -module_update_service -claw_sandbox_loader -filesystem_unmount_violator } *:filesystem unmount;
 neverallow { domain -init -storage_daemon -rgm_violator_filesystem_relabelfrom -appspawn } *:filesystem relabelfrom;

@@ -40,6 +40,17 @@ allow claw_sandbox_loader claw_sandbox_loader:unix_dgram_socket { setopt getopt 
 # avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/dev" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_file:s0 tclass=dir
 allow claw_sandbox_loader dev_file:dir { getattr };
 
+# avc: denied { read write } comm="/system/bin/claw_sandbox" path="/sys/fs/selinux/context" dev="selinuxfs" ino=4294967295 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file
+# avc: denied { open } comm="/system/bin/claw_sandbox" path="/sys/fs/selinux/context" dev="selinuxfs" ino=4294967295 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file
+allow claw_sandbox_loader selinuxfs:file { open read write };
+
+# avc: denied { check_context } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:security:s0 tclass=security
+allow claw_sandbox_loader security:security { check_context };
+
+# avc: denied { setcurrent } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=process
+# avc: denied { dyntransition } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0:x53,x334,x512,x868,x1024 tclass=process
+allow claw_sandbox_loader claw_sandbox_loader:process { setcurrent dyntransition };
+
 # avc: denied { open } comm="/system/bin/claw_sandbox" path="/dev/kmsg" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file
 # avc: denied { write } comm="/system/bin/claw_sandbox" path="/dev/kmsg" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file
 allow claw_sandbox_loader dev_kmsg_file:chr_file { open write };
@@ -110,6 +121,9 @@ allow claw_sandbox_loader system_usr_file:dir { getattr read search };
 
 # avc: denied { read } comm="/system/bin/claw_sandbox" path="/usr" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_usr_file:s0 tclass=lnk_file
 allow claw_sandbox_loader system_usr_file:lnk_file { read };
+
+# avc: denied { mount } comm="/system/bin/claw_sandbox" dev="proc" ino=1 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:proc_file:s0 tclass=filesystem
+allow claw_sandbox_loader proc_file:filesystem { mount };
 
 # avc: denied { create } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx/.old_root" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
 # avc: denied { mounton } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
