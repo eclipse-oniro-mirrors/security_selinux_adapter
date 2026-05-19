@@ -13,6 +13,8 @@
 
 init_daemon_domain(render_service);
 
+domain_auto_transition_pattern(render_service, render_service_exec, render_process);
+
 allow render_service data_log:file { write };
 allow render_service data_file:dir { search };
 allow render_service dev_ashmem_file:chr_file { open };
@@ -102,7 +104,241 @@ allow render_service sa_foundation_bms:samgr_class { get };
 # avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/render_process" dev="overlay" ino=1545 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 # avc: denied { open } for pid=8596, comm="/system/bin/render_service"  path="/system/bin/render_process" dev="overlay" ino=1545 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=8596, comm="/system/bin/render_process"  path="/system/bin/render_process" dev="/dev/block/dm-2" ino=86846604 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-allow render_service system_bin_file:file { execute execute_no_trans map open read };
+allow render_service render_service_exec:file { execute execute_no_trans map open read };
+
+hdi_call(render_process, hdf_allocator_service)
+
+#avc: denied { call } for pid=2862, comm="/system/bin/render_process" scontext=u:r:render_process:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
+#avc: denied { transfer } for pid=2862, comm="/system/bin/render_process" scontext=u:r:render_process:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
+allow render_process accessibility:binder { call transfer };
+
+#avc: denied { call } for pid=2862, comm="/system/bin/render_process" scontext=u:r:render_process:s0 tcontext=u:r:allocator_host:s0 tclass=binder permissive=1
+allow render_process allocator_host:binder { call };
+
+#avc: denied { call } for pid=2862, comm="/system/bin/render_service" path="anon_inode:dmabuf" dev="(null)" ino=0 scontext=u:r:render_process:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=1
+allow render_process allocator_host:fd { use };
+
+allow render_process aps_manager:binder { call transfer };
+
+allow render_process arkcompiler_param:file { map open read };
+
+allow render_process av_codec_service:binder { call };
+
+allow render_process bootanimation:binder { transfer };
+
+allow render_process concurrent_task_service:binder { call };
+
+allow render_process data_app_el1_file:dir { search };
+
+allow render_process data_app_el1_shadercache:dir { read search };
+
+allow render_process data_service_el0_file:dir { getattr };
+
+allow render_process data_service_el1_shadercache:dir { open read search write };
+
+allow render_process debug_param:file { map open read };
+
+allow render_process dev_ashmem_file:chr_file { open };
+
+allow render_process dev_at_file:chr_file { ioctl };
+
+allow render_process dev_hisi_perf:chr_file { ioctl open read write };
+
+allow render_process distributeddata:binder { call transfer };
+
+allow render_process distributeddata:fd { use };
+
+allow render_process ffrt_param:file { map open read };
+
+allow render_process flo_device:chr_file { ioctl open read };
+
+allow render_process formrenderservice_hap:binder { call transfer };
+
+allow render_process formrenderservice_hap:fd { use };
+
+allow render_process foundation:binder { call transfer };
+
+allow render_process gpu_device:chr_file { ioctl map open read write };
+
+allow render_process hdf_devmgr:binder { call };
+
+aloow render_process hiview:unix_dgram_socket { sendto };
+
+allow render_process hwstartupguide_hap:binder { call transfer };
+
+allow render_process hwstartupguide_hap:fd { use };
+
+aloow render_process memmgrservice:binder { call transfer };
+
+aloow render_process mhcserver:binder { call transfer };
+
+aloow render_process normal_hap_attr:binder { call transfer };
+
+aloow render_process ohos_boot_param:file { map open read };
+
+aloow render_process param_watcher:binder { call transfer };
+
+aloow render_process persist_sys_param:file { map open read };
+
+aloow render_process powermgr:binder { call transfer };
+
+allow render_process render_process:capability { sys_nice };
+
+allow render_process render_process:hmcap {supervsable };
+
+allow render_process render_process:unix_dgram_socket { getopt setopt };
+
+allow render_process render_service:binder { call transfer };
+
+allow render_process render_service:fd { use };
+
+allow render_process render_service:unix_stream_socket { read };
+
+allow render_process resource_schedule_service:binder { call transfer };
+
+allow render_process resourceschedule_writeable_param:file { map open read };
+
+allow render_process sa_foundation_appms:samgr_class { get };
+
+allow render_process samgr:binder { call transfer };
+
+allow render_process sceneboard_hap:binder { call transfer };
+
+allow render_process sceneboard_hap:fd { use };
+
+allow render_process sys_param:file { map open read };
+
+allow render_process sys_prod_file:file { getattr map open read };
+
+allow render_process sysfs_devices_system_cpu:dir { open read };
+
+allow render_process system_file:file { getattr open read };
+
+allow render_process system_fonts_file:file { getattr map open read };
+
+allow render_process vendor_etc_file:dir { search };
+
+allow render_process vendor_etc_vulkan_file:dir { open read search };
+
+allow render_process vendor_etc_vulkan_file:file { getattr read search };
+
+allowxperm render_process dev_at_file:chr_file ioctl { 0x5413 };
+
+allowxperm render_process dev_hisi_perf:chr_file ioctl { 0x5413 0x781c };
+
+allowxperm render_process flo_device:chr_file ioctl { 0x4600 0x4601 };
+
+allowxperm render_process gpu_device:chr_file ioctl { 0x5100 0x5101 0x5102 0x5103 0x5105 0x510a 0x510c 0x5300 0x5301 0x5302 0x5308 0x530e 0x5400 0x5402 0x5403 0x5404 0x5484 0x5488 0x548e };
+
+allow render_service arkcompiler_param:file { map open read };
+
+allow render_service data_storage:dir { search };
+
+allow render_service dev_kmsg_file:chr_file { write };
+
+allow render_service render_process:binder { call transfer };
+
+allow render_service render_process:fd { use };
+
+allow render_service sa_gameservice_server:samgr_class { get };
+
+allow render_process cameradeamon:binder { call transfer };
+
+allow render_process data_app_file:dir { search };
+
+allow render_process data_service_el0_file:dir { write add_name write remove_name };
+
+allow render_process data_service_el0_file:file { create ioctl open read write unlink write };
+
+allow render_process data_service_el1_file:dir { search };
+
+allow render_process data_service_el1_shadercache:dir { add_name create };
+
+allow render_process data_service_el1_shadercache:file { create };
+
+allow render_process data_storage:dir { search };
+
+allow render_process dev_unix_socket:dir { search };
+
+allow render_process gpu_device:chr_file { ioctl };
+
+allow render_process hiview:binder { call };
+
+allow render_process kernel:unix_stream_socket { connectto };
+
+allow render_process paramservice_socket:sock_file { write };
+
+allow render_process sa_accessibleabilityms:samgr_class { get };
+
+allow render_process sa_aps_manager:samgr_class { get };
+
+allow render_process sa_concurrent_task_service:samgr_class { get };
+
+allow render_process sa_dataobs_mgr_service_service:samgr_class { get };
+
+allow render_process sa_device_service_manager:samgr_class { get };
+
+allow render_process sa_distributeddata_service:samgr_class { get };
+
+allow render_process sa_foundation_bms:samgr_class { get };
+
+allow render_process sa_foundation_cesfwk_service:samgr_class { get };
+
+allow render_process sa_gameservice_server:samgr_class { get };
+
+allow render_process sa_memory_manager_service:samgr_class { get };
+
+allow render_process sa_param_watcher:samgr_class { get };
+
+allow render_process sa_powermgr_thermal_service:samgr_class { get };
+
+allow render_process sa_render_service:samgr_class { get };
+
+allow render_process sa_resource_schedule:samgr_class { get };
+
+allow render_process system_fonts_file:dir { search };
+
+allowxperm render_process data_service_el0_file:file ioctl { 0x5413 };
+
+allowxperm render_process gpu_device:chr_file ioctl { 0x5483 };
+
+allow render_service data_service_el0_file:dir { getattr };
+
+allow render_process data_service_el1_shadercache:file { setattr };
+
+allow render_process proc_gpu_memory:file { getattr open read };
+
+allow render_process system_basic_hap_attr:binder { call transfer };
+
+allow render_process data_service_el1_shadercache:dir { getattr remove_name };
+
+allow render_process data_service_el1_shadercache:file { unlink };
+
+allow render_process arkui_param:file { map open read };
+
+allow render_process sa_foundation_abilityms:samgr_class { get };
+
+allow render_process settings_hap:binder { call transfer };
+
+allow render_process normal_hap_attr:fd { use };
+
+allow render_process debug_param:parameter_service { set };
+
+allow render_process sa_resource_schedule_socperf_server:samgr_class { get };
+
+allow render_service data_service_el0_file:file { ioctl };
+
+allow render_service dev_at_file:chr_file { ioctl };
+
+allow render_service dev_hisi_perf:chr_file { ioctl };
+
+allowxperm render_service data_service_el0_file:file ioctl { 0x5413 };
+
+allowxperm render_service dev_at_file:chr_file ioctl { 0x5413 };
+
+allowxperm render_service dev_hisi_perf:chr_file ioctl { 0x5413 };
+
+allow render_process devinfo_type_param:file { read };
 
 neverallow { domain -nwebspawn } vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
 neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };

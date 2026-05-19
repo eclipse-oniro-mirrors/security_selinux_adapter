@@ -79,7 +79,7 @@
                 "netsysnative system_bin_file",
                 "netsysnative toybox_exec",
                 "nwebspawn system_bin_file",
-                "render_service system_bin_file",
+                "render_service render_service_exec",
                 "softbus_server system_bin_file",
                 "storage_daemon system_bin_file",
                 "storage_daemon toybox_exec",
