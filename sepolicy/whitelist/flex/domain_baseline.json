@@ -236,6 +236,7 @@
             "fingerprint_auth_host",
             "pin_auth_host",
             "blue_host",
+            "fusion_host",
             "ethernet_host",
             "riladapter_host",
             "a2dp_host",
