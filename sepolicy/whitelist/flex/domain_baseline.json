@@ -27,7 +27,6 @@
             "quick_fix",
             "i18n_service",
             "render_service",
-            "render_process",
             "faultloggerd",
             "usb_service",
             "serial_service",
