@@ -34,3 +34,8 @@ allow midi_server alsa_file:file { getattr open read };
 # avc: denied { open } for pid=8453, comm="/system/bin/sa_main"  path="/proc/devhost/root/asound/card2/usbid" dev="" ino=21015 scontext=u:r:midi_server:s0 tcontext=u:object_r:proc_asound_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=8453, comm="/system/bin/sa_main"  path="/proc/devhost/root/asound/card2/usbid" dev="" ino=21015 scontext=u:r:midi_server:s0 tcontext=u:object_r:proc_asound_file:s0 tclass=file permissive=1
 allow midi_server proc_asound_file:file { getattr open read };
+
+# avc: denied { call } for pid=8018, comm="/system/bin/sa_main"  scontext=u:r:midi_server:s0 tcontext=u:r:concurrent_task_service:s0 tclass=binder permissive=1
+allow midi_server concurrent_task_service:binder { call };
+# avc:  denied  { get } for service=1912 sid=u:r:midi_server:s0 scontext=u:r:midi_server:s0 tcontext=u:object_r:sa_concurrent_task_service:s0 tclass=samgr_class permissive=1
+allow midi_server sa_concurrent_task_service:samgr_class { get };
