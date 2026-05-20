@@ -57,3 +57,6 @@ allow compiler_service data_service_el1_framework_arkcache:dir { search };
 allow compiler_service data_service_el1_shared_bundles:dir { open read search };
 # avc: denied { getattr } for pid=8073, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=38618 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
 allow compiler_service data_service_el1_shared_bundles:file { getattr };
+
+# avc: denied { sigkill } for pid=12640, comm="/system/bin/sa_main"  scontext=u:r:compiler_service:s0 tcontext=u:r:ark_aot:s0 tclass=process permissive=0
+allow compiler_service ark_aot:process { sigkill };
