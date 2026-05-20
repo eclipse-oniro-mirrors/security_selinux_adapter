@@ -122,13 +122,25 @@ allowxperm hiview dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm privacy_service dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm token_sync_service dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
-allowxperm init dev_at_file:chr_file ioctl { 0x4104 };
+# avc: denied { ioctl } comm="/system/bin/init" path="/dev/access_token_id" ioctlcmd=0x4105 scontext=u:r:init:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/init" path="/dev/access_token_id" ioctlcmd=0x4110 scontext=u:r:init:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# 0x4105: ADD_PERMISSIONS, 0x4110: ADD_SPM_ENTRIES
+allowxperm init dev_at_file:chr_file ioctl { 0x4104 0x4105 0x4110 };
 allowxperm distributedsche dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm av_session dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
 
-allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
-neverallowxperm ~{ accesstoken_service violator_dev_at_file_chr_file_attr } dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
+# avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x410b scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4110 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4111 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4112 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4113 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4117 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4119 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# 0x4105: ADD_PERMISSIONS, 0x4106: REMOVE_PERMISSIONS, 0x4108: SET_PERMISSION 0x410b: GET_ALL_PERMISSIONS, 0x4110: ADD_SPM_ENTRIES, 0x4111: SET_SPM_ENTRIES
+# 0x4112: GET_SPM_ENTRY, 0x4113: REMOVE_SPM_ENTRY, 0x4115: GET_REFCNT_UID, 0x4117: GET_REFCNT_TOKENID 0x4119: GET_SPM_VERSION
+allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 0x410b 0x4110 0x4111 0x4112 0x4113 0x4115 0x4117 0x4119};
+neverallowxperm ~{ accesstoken_service violator_dev_at_file_chr_file_attr init} dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };
 
 binder_call(accesstoken_service, resource_schedule_service);
