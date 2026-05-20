@@ -15,8 +15,6 @@ typealias render_service alias render_process;
 
 init_daemon_domain(render_service);
 
-domain_auto_transition_pattern(render_service, render_service_exec, render_process);
-
 allow render_service data_log:file { write };
 allow render_service data_file:dir { search };
 allow render_service dev_ashmem_file:chr_file { open };
