@@ -20,7 +20,7 @@ limitations under the License.
 import argparse
 import os
 import re
-from check_common import read_json_file, traverse_file_in_each_type
+from check_common import load_json_objects_in_dir_list
 
 VIRTFS_CONTEXTS = "virtfs_contexts"
 FILE_CONTEXTS = "file_contexts"
@@ -60,8 +60,7 @@ invalid_virtfs_contexts = []
 invalid_sehap_contexts = []
 
 
-def parse_file_contexts(path):
-    global file_contexts_set
+def parse_simple_contexts(path, target_set):
     if not os.path.exists(path):
         return
     with open(path, 'r', encoding='utf-8') as f:
@@ -72,52 +71,7 @@ def parse_file_contexts(path):
             parts = line.split()
             if len(parts) < 2:
                 continue
-            file_contexts_set.add(parts[-1])
-
-
-def parse_service_contexts(path):
-    global service_contexts_set
-    if not os.path.exists(path):
-        return
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'):
-                continue
-            parts = line.split()
-            if len(parts) < 2:
-                continue
-            service_contexts_set.add(parts[-1])
-
-
-def parse_hdf_service_contexts(path):
-    global hdf_service_contexts_set
-    if not os.path.exists(path):
-        return
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'):
-                continue
-            parts = line.split()
-            if len(parts) < 2:
-                continue
-            hdf_service_contexts_set.add(parts[-1])
-
-
-def parse_parameter_contexts(path):
-    global parameter_contexts_set
-    if not os.path.exists(path):
-        return
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'):
-                continue
-            parts = line.split()
-            if len(parts) < 2:
-                continue
-            parameter_contexts_set.add(parts[-1])
+            target_set.add(parts[-1])
 
 
 def parse_sehap_contexts(path):
@@ -171,10 +125,9 @@ def generate_sehap_context(type_value, levelFrom):
 
 
 def load_context_whitelist(input_args):
-    config_file_list = traverse_file_in_each_type(input_args.policy_dir_list, CONTEXT_LENGTH_WHITELIST)
     context_map = {}
-    for config_file in config_file_list:
-        baseline_data = read_json_file(config_file)
+    for _, baseline_data in load_json_objects_in_dir_list(input_args.policy_dir_list,
+                                                          CONTEXT_LENGTH_WHITELIST):
         if 'whitelist' not in baseline_data:
             continue
         for context_type, items in baseline_data['whitelist'].items():
@@ -190,7 +143,7 @@ def load_context_whitelist(input_args):
 
 def get_virtfs_contexts_data(args):
     global virtfs_contexts_set
-    virtfs_contexts_file_list = [input_args.developer_cil_file, input_args.cil_file]
+    virtfs_contexts_file_list = [args.developer_cil_file, args.cil_file]
     for path in virtfs_contexts_file_list:
         with open(path, 'r', encoding='utf-8') as f:
             for line in f:
@@ -211,13 +164,13 @@ def parse_all_contexts(input_args):
     for contexts_file in contexts_files:
         filename = os.path.basename(contexts_file)
         if filename == FILE_CONTEXTS or filename == "all_{}".format(FILE_CONTEXTS):
-            parse_file_contexts(contexts_file)
+            parse_simple_contexts(contexts_file, file_contexts_set)
         elif filename == SERVICE_CONTEXTS or filename == "all_{}".format(SERVICE_CONTEXTS):
-            parse_service_contexts(contexts_file)
+            parse_simple_contexts(contexts_file, service_contexts_set)
         elif filename == HDF_SERVICE_CONTEXTS or filename == "all_{}".format(HDF_SERVICE_CONTEXTS):
-            parse_hdf_service_contexts(contexts_file)
+            parse_simple_contexts(contexts_file, hdf_service_contexts_set)
         elif filename == PARAMETER_CONTEXTS or filename == "all_{}".format(PARAMETER_CONTEXTS):
-            parse_parameter_contexts(contexts_file)
+            parse_simple_contexts(contexts_file, parameter_contexts_set)
         elif (filename == SEHAP_CONTEXTS or filename == "all_{}".format(SEHAP_CONTEXTS)):
             parse_sehap_contexts(contexts_file)
     
@@ -384,7 +337,7 @@ if __name__ == "__main__":
     input_args = parse_args()
     if "container_sepolicy_61" in input_args.policy_dir_list:
         pass
-    else:    
+    else:
         parse_all_contexts(input_args)
         context_whitelist = load_context_whitelist(input_args)
         check_context_length(input_args.max_length, context_whitelist)

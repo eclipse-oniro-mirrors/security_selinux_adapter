@@ -17,11 +17,15 @@
             "conflict_domain": [
                 "nwebspawn",
                 "hidumper"
-            ]
+            ],
+            "special_system_domain": [],
+            "special_chipset_domain": []
         },
         "developer": {
             "missing_domain": [],
-            "conflict_domain": []
+            "conflict_domain": [],
+            "special_system_domain": [],
+            "special_chipset_domain": []
         }
     }
 }

@@ -76,7 +76,7 @@ def is_subpath(subpath, path):
         for i in range(len(parts) - 1):
             if not sub_parts[i] == parts[i]:
                 return False
-        maybe_match_part = sub_parts[len(parts) - 1].strip("\(")
+        maybe_match_part = sub_parts[len(parts) - 1].strip("(")
         try:
             if re.fullmatch(maybe_match_part, parts[-1]):
                 return True

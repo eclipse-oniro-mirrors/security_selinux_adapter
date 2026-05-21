@@ -20,42 +20,18 @@ limitations under the License.
 import argparse
 import os
 from collections import defaultdict
-from check_common import read_json_file, traverse_file_in_each_type
+from check_common import read_json_file, load_json_objects_in_dir_list
+from cil_parser import parse_policy_db
 
 WHITELIST_FILE_NAME = "parameter_whitelist.json"
 BASELINE_FILE_NAME = "parameter_baseline.json"
 
 
-def simplify_string(string):
-    return string.strip().replace('(', '').replace(')', '')
-
-
-def deal_with_typeattributeset(cil_file, attributes_map):
-    with open(cil_file, 'r', encoding='utf-8') as cil_read:
-        for line in cil_read:
-            if not line.startswith('(typeattributeset '):
-                continue
-            sub_string = simplify_string(line)
-            elem_list = sub_string.split(' ')
-            if len(elem_list) < 3:
-                continue
-            attributes_map[elem_list[1]] += elem_list[2:]
-
-
-def get_attributes_map(args, with_developer):
-    attributes_map = defaultdict(list)
-    if with_developer:
-        deal_with_typeattributeset(args.developer_cil_file, attributes_map)
-    else:
-        deal_with_typeattributeset(args.cil_file, attributes_map)
-    return attributes_map
-
-
 def get_whitelist(args, with_developer):
-    whitelist_file_list = traverse_file_in_each_type(args.policy_dir_list, WHITELIST_FILE_NAME)
     missing_whitelist_map = defaultdict(set)
-    for path in whitelist_file_list:
-        white_list = read_json_file(path).get('whitelist')
+    conflict_whitelist_map = defaultdict(set)
+    for _, data in load_json_objects_in_dir_list(args.policy_dir_list, WHITELIST_FILE_NAME):
+        white_list = data.get('whitelist')
         user_data = white_list.get('user').get('missing_parameter')
         for k, v in user_data.items():
             missing_whitelist_map[k] |= set(v)
@@ -63,10 +39,6 @@ def get_whitelist(args, with_developer):
             dev_data = white_list.get('developer').get('missing_parameter')
             for k, v in dev_data.items():
                 missing_whitelist_map[k] |= set(v)
-
-    conflict_whitelist_map = defaultdict(set)
-    for path in whitelist_file_list:
-        white_list = read_json_file(path).get('whitelist')
         user_data = white_list.get('user').get('conflict_parameter')
         for k, v in user_data.items():
             conflict_whitelist_map[k] |= set(v)
@@ -82,10 +54,9 @@ def get_whitelist(args, with_developer):
 
 
 def get_baseline(args, with_developer):
-    baseline_file_list = traverse_file_in_each_type(args.policy_dir_list, BASELINE_FILE_NAME)
     baseline_map = defaultdict(set)
-    for path in baseline_file_list:
-        baseline = read_json_file(path).get('baseline')
+    for _, data in load_json_objects_in_dir_list(args.policy_dir_list, BASELINE_FILE_NAME):
+        baseline = data.get('baseline')
         user_data = baseline.get('user')
         for k, v in user_data.items():
             baseline_map[k] |= set(v)
@@ -98,7 +69,7 @@ def get_baseline(args, with_developer):
 
 def get_config_check(args):
     config_file = os.path.join(os.path.dirname(
-        os.path.dirname(os.path.dirname(os.path.realpath(__file__)))), input_args.config)
+        os.path.dirname(os.path.dirname(os.path.realpath(__file__)))), args.config)
     check_rules = read_json_file(config_file).get('checks')
     return check_rules
 
@@ -243,7 +214,8 @@ def check_whitelist(args, with_developer, check_map, whitelist_map, attributes_m
 
 
 def check(args, with_developer):
-    attributes_map = get_attributes_map(args, with_developer)
+    policy_db = parse_policy_db(args.developer_cil_file if with_developer else args.cil_file)
+    attributes_map = policy_db.attributes_map
     whitelist_map = get_whitelist(args, with_developer)
     baseline_map = get_baseline(args, with_developer)
     check_result = False

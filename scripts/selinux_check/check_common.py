@@ -21,18 +21,23 @@ import json
 import os
 import subprocess
 
+_JSON_CACHE = {}
+_TRAVERSE_CACHE = {}
+
 
 def read_json_file(input_file):
-    data = None
+    if input_file in _JSON_CACHE:
+        return _JSON_CACHE[input_file]
     try:
         with open(input_file, 'r') as input_f:
             data = json.load(input_f)
     except json.decoder.JSONDecodeError:
         print('The file \'{}\' format is incorrect.'.format(input_file))
         raise
-    except:
+    except Exception:
         print('read file \'{}\' failed.'.format(input_file))
         raise
+    _JSON_CACHE[input_file] = data
     return data
 
 
@@ -63,7 +68,14 @@ def check_empty_row(policy_file):
     return err
 
 
+def split_policy_dir_list(dir_list):
+    return [folder for folder in dir_list.split(":") if folder]
+
+
 def traverse_folder_in_type(search_dir, file_suffix):
+    cache_key = (search_dir, file_suffix)
+    if cache_key in _TRAVERSE_CACHE:
+        return _TRAVERSE_CACHE[cache_key]
     policy_file_list = []
     flag = 0
     for root, _, files in sorted(os.walk(search_dir)):
@@ -73,14 +85,15 @@ def traverse_folder_in_type(search_dir, file_suffix):
                 flag |= check_empty_row(path)
                 policy_file_list.append(path)
     policy_file_list.sort()
-    return policy_file_list, flag
+    result = (policy_file_list, flag)
+    _TRAVERSE_CACHE[cache_key] = result
+    return result
 
 
 def traverse_file_in_each_type(dir_list, file_suffix):
     policy_files_list = []
     err = 0
-    folder_list = dir_list.split(":")
-    for folder in folder_list:
+    for folder in split_policy_dir_list(dir_list):
         type_file_list, flag = traverse_folder_in_type(
             folder, file_suffix)
         err |= flag
@@ -90,3 +103,8 @@ def traverse_file_in_each_type(dir_list, file_suffix):
     if err:
         raise Exception(err)
     return policy_files_list
+
+
+def load_json_objects_in_dir_list(dir_list, file_name):
+    return [(path, read_json_file(path))
+            for path in traverse_file_in_each_type(dir_list, file_name)]
