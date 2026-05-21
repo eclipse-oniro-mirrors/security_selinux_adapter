@@ -19,3 +19,5 @@ allow init data_service_el1_i18n_taboo_file:file { create getattr map open read 
 allow init data_service_el1_i18n_timezone_file:dir { create getattr open read write add_name remove_name rmdir };
 allow init data_service_el1_i18n_timezone_file:file { create getattr map open read write unlink };
 allow init system_etc_file:dir { mounton };
+allow init system_usr_file:dir { search };
+allow init system_usr_file:file { getattr map open read };
