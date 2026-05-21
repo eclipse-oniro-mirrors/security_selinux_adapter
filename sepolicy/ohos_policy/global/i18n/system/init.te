@@ -19,5 +19,12 @@ allow init data_service_el1_i18n_taboo_file:file { create getattr map open read 
 allow init data_service_el1_i18n_timezone_file:dir { create getattr open read write add_name remove_name rmdir };
 allow init data_service_el1_i18n_timezone_file:file { create getattr map open read write unlink };
 allow init system_etc_file:dir { mounton };
+
+# avc: denied { search } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  name="/usr" dev="overlay" ino=102 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
 allow init system_usr_file:dir { search };
+
+# avc: denied { getattr } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2641 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2641 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2641 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2641 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
 allow init system_usr_file:file { getattr map open read };
