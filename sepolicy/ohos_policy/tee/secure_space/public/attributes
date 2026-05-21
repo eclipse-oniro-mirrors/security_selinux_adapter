@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attribute filesystem_mount_violator;
 attribute filesystem_unmount_violator;
-attribute system_lib_file_violator_mounton;
