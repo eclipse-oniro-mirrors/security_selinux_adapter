@@ -83,7 +83,7 @@ allow telephony_sa system_basic_hap_attr:fd use;
 allow telephony_sa system_core_hap_attr:binder call;
 allow telephony_sa sys_file:dir { open read };
 allow telephony_sa sys_file:file { open read };
-allow telephony_sa sys_prod_file:dir search;
+allow telephony_sa sys_prod_file:dir { search getattr read open };
 allow telephony_sa time_service:binder call;
 allow telephony_sa vendor_etc_file:dir search;
 allow telephony_sa sa_telecom_tel_call_manager:samgr_class get;
