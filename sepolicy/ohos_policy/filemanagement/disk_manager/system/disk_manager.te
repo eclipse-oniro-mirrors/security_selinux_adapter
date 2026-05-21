@@ -27,3 +27,9 @@ allow disk_manager sa_foundation_cesfwk_service:samgr_class { get };
 
 # avc: denied { call } for pid=7689, comm="/system/bin/sa_main"  scontext=u:r:disk_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
 allow disk_manager foundation:binder { call };
+
+# avc: denied { search } for pid=7312, comm="/system/bin/sa_main"  scontext=u:r:disk_manager:s0 tcontext=u:r:dev_unix_socket:s0 tclass=dir permissive=0
+allow disk_manager dev_unix_socket:dir { search };
+
+# avc: denied { search } for pid=3567, comm="/system/bin/sa_main"  name="/external" dev="tmpfs" ino=2 scontext=u:r:disk_manager:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=0
+allow disk_manager mnt_external_file:dir { search };
