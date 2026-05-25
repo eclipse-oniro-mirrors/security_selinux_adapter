@@ -184,9 +184,11 @@ allow hiview data_log_hiperf_file:file { getattr open read unlink };
 #allow hiperf data_file:file { create write };
 #allow hiperf devpts:chr_file ioctl;
 
+# avc: denied { dac_read_search } for pid=19591, comm="/bin/hiperf"  capability=2 scontext=u:r:hiperf:s0 tcontext=u:r:hiperf:s0 tclass=capability permissive=1
 debug_only(`
     allow hiperf self:capability2 syslog;
     allow hiperf hap_domain:process { ptrace };
+    allow hiperf self:capability { dac_read_search };
 ')
 
 developer_only(`
