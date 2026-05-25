@@ -127,3 +127,5 @@ allow print_service file_guard_server:binder { call };
 allow print_service sa_huks_service:samgr_class { get };
 # avc: denied { call } for pid = 9557, comm="/system/bin/sa_main" scontext=u:r:print_service:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=0
 allow print_service huks_service:binder { call };
+# avc: denied { transfer } for pid=9558, comm="/system/bin/sa_main"  scontext=u:r:print_service:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=0
+allow print_service normal_hap_attr:binder { transfer };
