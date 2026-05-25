@@ -167,3 +167,6 @@ allow native_daemon hiprofiler_file:dir { add_name open read remove_name search 
 allow hap_domain hiprofiler_file:file { write };
 # avc: denied { write } for pid=1994, comm="hidumper" path="/data/log/hiprofiler/hidumper/native_memory.txt" scontext=u:r:hidumper_service:s0 tcontext=u:object_r:hiprofiler_file:s0 tclass=file permissive=1
 allow { sadomain -hilogd } hiprofiler_file:file { write };
+# avc: denied { open } for pid=10098, comm="/system/bin/native_daemon"  path="/data/local/tmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1385 scontext=u:r:native_daemon:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=10098, comm="/system/bin/native_daemon"  path="/data/local/tmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1385 scontext=u:r:native_daemon:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+allow native_daemon data_local_tmp:dir { open read };
