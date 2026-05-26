@@ -19,12 +19,30 @@ domain_auto_transition_pattern(aimgr, claw_sandbox_exec, claw_sandbox_loader);
 allow claw_sandbox_loader bms_db_file:file { read write };
 
 # avc: denied { search } comm="/system/bin/claw_sandbox" name="/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=dir
+# avc: denied { read } comm="/system/bin/claw_sandbox" name="/proc/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=dir
+# avc: denied { open } comm="/system/bin/claw_sandbox" name="/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=dir
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" name="/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=dir
+allow claw_sandbox_loader system_basic_hap_attr:dir { search read open getattr };
+
 # avc: denied { read } comm="/system/bin/claw_sandbox" name="/9531/ns/mnt" dev="" ino=24703 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=lnk_file
+allow claw_sandbox_loader system_basic_hap_attr:lnk_file { read };
+
 # avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=file
 # avc: denied { open } comm="/system/bin/claw_sandbox" name="<not_found>" dev="" ino=59052 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_basic_hap:s0 tclass=file
-allow claw_sandbox_loader system_basic_hap_attr:dir { search };
-allow claw_sandbox_loader system_basic_hap_attr:lnk_file { read };
 allow claw_sandbox_loader system_basic_hap_attr:file { open read };
+
+# avc: denied { search } comm="/system/bin/claw_sandbox" name="/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_core_hap:s0 tclass=dir
+# avc: denied { read } comm="/system/bin/claw_sandbox" name="/proc/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_core_hap:s0 tclass=dir
+# avc: denied { open } comm="/system/bin/claw_sandbox" name="/proc/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_core_hap:s0 tclass=dir
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" name="/proc/9531" dev="" ino=24117 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_core_hap:s0 tclass=dir
+allow claw_sandbox_loader system_core_hap_attr:dir { search read open getattr };
+
+# avc: denied { read } comm="/system/bin/claw_sandbox" name="/9531/ns/mnt" dev="" ino=38190 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_core_hap:s0 tclass=lnk_file
+allow claw_sandbox_loader system_core_hap_attr:lnk_file { read };
+
+# avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_core_hap:s0 tclass=file
+# avc: denied { open } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:system_core_hap:s0 tclass=file
+allow claw_sandbox_loader system_core_hap_attr:file { open read };
 
 # avc: denied { setuid } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 # avc: denied { setgid } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
