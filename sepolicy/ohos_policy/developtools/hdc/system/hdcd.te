@@ -352,5 +352,5 @@ neverallow { domain -hdcd -hdcd_user_permit -system_basic_hap_attr -parent_contr
 neverallow hdcd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr -debug_hap_data_file }:{ dir file } *;
 
 # hdc report
-neverallow { domain } developtools_hdc_report_param:parameter_service { set };
-neverallow { domain -hdcd -init -param_watcher } developtools_hdc_report_param:file { read map open };
+neverallow { domain -violator_hdc_report_param_set } developtools_hdc_report_param:parameter_service { set };
+neverallow { domain -hdcd -init -param_watcher -violator_hdc_report_param_get } developtools_hdc_report_param:file { read map open };
