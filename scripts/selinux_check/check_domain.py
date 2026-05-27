@@ -25,6 +25,15 @@ DOMAIN_BASELINE = "domain_baseline.json"
 TYPE_GROUP_FILE_NAME = "type_group.json"
 WHITELIST_FILE_NAME = "domain_whitelist.json"
 HISTORY_LEGACY_DOMAIN = 'history_legacy_domain.txt'
+SPECIAL_SYSTEM_DOMAIN = "special_system_domain"
+SPECIAL_CHIPSET_DOMAIN = "special_chipset_domain"
+SPECIAL_DOMAIN_GROUP_MAP = {
+    SPECIAL_SYSTEM_DOMAIN: "system_domain",
+    SPECIAL_CHIPSET_DOMAIN: "chipset_domain",
+}
+GROUP_SPECIAL_DOMAIN_MAP = {
+    value: key for key, value in SPECIAL_DOMAIN_GROUP_MAP.items()
+}
 
 
 def simplify_string(string):
@@ -88,15 +97,17 @@ def get_whitelist(args, with_developer):
     whitelist_map = {}
     whitelist_map['missing_domain'] = set()
     whitelist_map['conflict_domain'] = set()
+    whitelist_map[SPECIAL_SYSTEM_DOMAIN] = set()
+    whitelist_map[SPECIAL_CHIPSET_DOMAIN] = set()
     for path in whitelist_file_list:
         white_list = read_json_file(path).get('whitelist')
         user_data = white_list.get('user')
-        for k, v in user_data.items():
-            whitelist_map[k] |= set(v)
+        for k in whitelist_map.keys():
+            whitelist_map[k] |= set(user_data.get(k, []))
         if with_developer:
             dev_data = white_list.get('developer')
-            for k, v in dev_data.items():
-                whitelist_map[k] |= set(v)
+            for k in whitelist_map.keys():
+                whitelist_map[k] |= set(dev_data.get(k, []))
     return whitelist_map
 
 
@@ -114,12 +125,19 @@ def output_file(file_path, data):
         f.writelines(lines)
 
 
-def write_domain(args, domain_set, domain_map, group_map):
-    history_legacy_domain = domain_set
+def get_manual_special_domains(whitelist_map):
+    return whitelist_map[SPECIAL_SYSTEM_DOMAIN] | whitelist_map[SPECIAL_CHIPSET_DOMAIN]
+
+
+def write_domain(args, domain_set, domain_map, group_map, whitelist_map):
+    history_legacy_domain = set(domain_set)
     for name, values in group_map.items():
         domain_union = set()
         for key in values:
             domain_union |= domain_map[key]
+        special_key = GROUP_SPECIAL_DOMAIN_MAP.get(name)
+        if special_key:
+            domain_union |= whitelist_map.get(special_key, set())
         domain_path = os.path.join(os.path.dirname(args.cil_file), '{}_new.txt'.format(name))
         output_file(domain_path, domain_union)
         history_legacy_domain -= domain_union
@@ -166,6 +184,49 @@ def non_unique_domain_data(args, with_developer, domain_map, whitelist_map):
             "developer" if with_developer else "user"),
             '\t2. Add the above list to "conflict_domain" field under "{}" field in {} file.\n'.format(
             "developer" if with_developer else "user", WHITELIST_FILE_NAME))
+    return check_result
+
+
+def check_special_domain_overlap(with_developer, whitelist_map):
+    check_result = False
+    overlap_map = {
+        '"missing_domain" and "{}"'.format(SPECIAL_SYSTEM_DOMAIN):
+            whitelist_map['missing_domain'] & whitelist_map[SPECIAL_SYSTEM_DOMAIN],
+        '"missing_domain" and "{}"'.format(SPECIAL_CHIPSET_DOMAIN):
+            whitelist_map['missing_domain'] & whitelist_map[SPECIAL_CHIPSET_DOMAIN],
+        '"{}" and "{}"'.format(SPECIAL_SYSTEM_DOMAIN, SPECIAL_CHIPSET_DOMAIN):
+            whitelist_map[SPECIAL_SYSTEM_DOMAIN] & whitelist_map[SPECIAL_CHIPSET_DOMAIN],
+    }
+    for overlap_desc, overlap_items in overlap_map.items():
+        if len(overlap_items) == 0:
+            continue
+        check_result = True
+        print('\tCheck whitelist overlap in {} mode failed.'.format(
+            "developer" if with_developer else "user"))
+        print('\tViolation list (type):')
+        for violation in sorted(list(overlap_items)):
+            print('\t\t"{}",'.format(violation))
+        print('\tSolution: keep each type in only one of {} in {} file.\n'.format(
+            overlap_desc, WHITELIST_FILE_NAME))
+    return check_result
+
+
+def check_special_domain_whitelist(with_developer, history_data, whitelist_map):
+    check_result = False
+    for special_key, group_name in SPECIAL_DOMAIN_GROUP_MAP.items():
+        notallow = whitelist_map[special_key] - history_data
+        if len(notallow) == 0:
+            continue
+        check_result = True
+        print('\tCheck whitelist of "{}" in {} mode failed.'.format(
+            special_key, "developer" if with_developer else "user"))
+        print('\tViolation list (type):')
+        for diff in sorted(list(notallow)):
+            print('\t\t"{}",'.format(diff))
+        print('\tSolution: delete any unused data from "{}" field under "{}" field in {} file, '
+              'or keep it in "{}" only when the type requires manual calibration to {}.\n'.format(
+                special_key, "developer" if with_developer else "user",
+                WHITELIST_FILE_NAME, special_key, group_name))
     return check_result
 
 
@@ -230,15 +291,18 @@ def check(args, with_developer):
     group_map = get_type_group(args)
     domain_map = construct_domain_map(group_map)
     domain_set = get_domain_set(args, with_developer, domain_map)
-    write_domain(args, domain_set, domain_map, group_map)
-    history_data = get_notallow(domain_set, domain_map)
     whitelist_map = get_whitelist(args, with_developer)
+    write_domain(args, domain_set, domain_map, group_map, whitelist_map)
+    history_data = get_notallow(domain_set, domain_map)
+    special_domain_set = get_manual_special_domains(whitelist_map)
     baseline_result = check_baseline(args, domain_map, with_developer)
     multiple_mapping_result = non_unique_domain_data(args, with_developer, domain_map, whitelist_map)
+    overlap_result = check_special_domain_overlap(with_developer, whitelist_map)
+    special_whitelist_result = check_special_domain_whitelist(with_developer, history_data, whitelist_map)
     contexts_list = whitelist_map['missing_domain']
 
     whitelist_result = False
-    notallow = history_data - contexts_list
+    notallow = history_data - contexts_list - special_domain_set
     if len(notallow) > 0 :
         domain_list = []
         for v in group_map.values():
@@ -249,11 +313,15 @@ def check(args, with_developer):
         print('\tViolation list (type):')
         for diff in sorted(list(notallow)):
             print('\t\t"{}",'.format(diff))
-        print('\tThere are two solutions:\n',
+        print('\tThere are three solutions:\n',
             '\t1. Associate the types to one of domains:\n',
             "\t\t{}\n".format(", ".join(domain_list)),
-            '\t2. Add the above list to "missing_domain" field under "{}" field in {} file.\n'.format(
-            "developer" if with_developer else "user", WHITELIST_FILE_NAME))
+            '\t2. If the type cannot be distinguished by attributes, add it to "{}" or "{}" '
+            'under "{}" field in {} file.\n'.format(
+                SPECIAL_SYSTEM_DOMAIN, SPECIAL_CHIPSET_DOMAIN,
+                "developer" if with_developer else "user", WHITELIST_FILE_NAME),
+            '\t3. Add the above list to "missing_domain" field under "{}" field in {} file.\n'.format(
+                "developer" if with_developer else "user", WHITELIST_FILE_NAME))
 
     notallow = contexts_list - history_data
     if len(notallow) > 0 :
@@ -265,7 +333,8 @@ def check(args, with_developer):
         print('\tSolution: delete any unused data from "missing_domain" field under '
             '"{}" field in {} file.\n'.format(
             "developer" if with_developer else "user", WHITELIST_FILE_NAME))
-    return whitelist_result | baseline_result | multiple_mapping_result
+    return (whitelist_result | baseline_result | multiple_mapping_result |
+            overlap_result | special_whitelist_result)
 
 
 def parse_args():

@@ -19,18 +19,12 @@ limitations under the License.
 
 import argparse
 import os
-from collections import defaultdict
 import subprocess
 from check_common import read_json_file, traverse_file_in_each_type
+from collections import defaultdict
+from cil_parser import parse_policy_db
 
 BASELINE_SUFFIX = ".baseline"
-
-
-class PolicyDb(object):
-    def __init__(self, attributes_map, allow_map, class_map):
-        self.attributes_map = attributes_map
-        self.allow_map = allow_map
-        self.class_map = class_map
 
 
 def simplify_string(string):
@@ -82,60 +76,6 @@ def split_attribute(elem_list, allow_map, attributes_map):
             allow_map[scon][(tcontext, tclass)] += perm
 
 
-def deal_with_typeattributeset(cil_file, attributes_map):
-    with open(cil_file, 'r', encoding='utf-8') as cil_read:
-        for line in cil_read:
-            if not line.startswith('(typeattributeset '):
-                continue
-            sub_string = simplify_string(line)
-            elem_list = sub_string.split(' ')
-            if len(elem_list) < 3:
-                continue
-            attributes_map[elem_list[1]] += elem_list[2:]
-
-
-def deal_with_class(cil_file, class_map):
-    with open(cil_file, 'r', encoding='utf-8') as cil_read:
-        common_map = defaultdict(list)
-        for line in cil_read:
-            if not line.startswith('(common '):
-                continue
-            sub_string = simplify_string(line)
-            elem_list = sub_string.split(' ')
-            if len(elem_list) < 3:
-                continue
-            common_map[elem_list[1]] += elem_list[2:]
-
-    with open(cil_file, 'r', encoding='utf-8') as cil_read:
-        for line in cil_read:
-            if not line.startswith('(class '):
-                continue
-            sub_string = simplify_string(line)
-            elem_list = sub_string.split(' ')
-            if len(elem_list) > 2:
-                class_map[elem_list[1]] += elem_list[2:]
-
-    with open(cil_file, 'r', encoding='utf-8') as cil_read:
-        for line in cil_read:
-            if not line.startswith('(classcommon '):
-                continue
-            sub_string = simplify_string(line)
-            elem_list = sub_string.split(' ')
-            if len(elem_list) < 3:
-                continue
-            class_map[elem_list[1]] += common_map[elem_list[2]]
-
-
-def generate_database(cil_file):
-    attributes_map = defaultdict(list)
-    class_map = defaultdict(list)
-    allow_map = defaultdict(lambda: defaultdict(list))
-    deal_with_typeattributeset(cil_file, attributes_map)
-    deal_with_allow(cil_file, allow_map, attributes_map)
-    deal_with_class(cil_file, class_map)
-    return PolicyDb(attributes_map, allow_map, class_map)
-
-
 def build_conf(output_conf, file_list, with_developer=False):
     m4_args = []
     if with_developer:
@@ -167,20 +107,20 @@ def generate_baseline_database(args, domain, attributes_map, with_developer):
 def check_baseline(args, domain, policy_db, with_developer):
     baseline_map = generate_baseline_database(args, domain, policy_db.attributes_map, with_developer)
     none_baseline_list = set()
-    domain_policy = policy_db.allow_map[domain]
+    domain_policy = policy_db.allow_by_source[domain]
     baseline_diff = domain_policy.keys() ^ baseline_map.keys()
     for diff in baseline_diff:
-        expect_perm = ''.join(['(', ' '.join(set(baseline_map.get(diff, ''))), ')))'])
+        expect_perm = ''.join(['(', ' '.join(set(baseline_map.get(diff, []))), ')))'])
         expect = ' '.join(['expect rule: (allow', domain, ' ('.join(diff), expect_perm])
-        actual_perm = ''.join(['(', ' '.join(set(domain_policy.get(diff, ''))), ')))'])
+        actual_perm = ''.join(['(', ' '.join(set(domain_policy.get(diff, set()))), ')))'])
         actual = ' '.join(['actual rule: (allow', domain, ' ('.join(diff), actual_perm])
         none_baseline_list.add('; '.join([expect, actual]))
 
     for contexts in domain_policy.keys():
-        if set(baseline_map.get(contexts, '')) != set(domain_policy.get(contexts, '')):
-            expect_perm = ''.join(['(', ' '.join(set(baseline_map.get(contexts, ''))), ')))'])
+        if set(baseline_map.get(contexts, [])) != set(domain_policy.get(contexts, set())):
+            expect_perm = ''.join(['(', ' '.join(set(baseline_map.get(contexts, []))), ')))'])
             expect = ' '.join(['expect rule: (allow', domain, ' ('.join(contexts), expect_perm])
-            actual_perm = ''.join(['(', ' '.join(set(domain_policy.get(contexts, ''))), ')))'])
+            actual_perm = ''.join(['(', ' '.join(set(domain_policy.get(contexts, set()))), ')))'])
             actual = ' '.join(['actual rule: (allow', domain, ' ('.join(contexts), actual_perm])
             none_baseline_list.add('; '.join([expect, actual]))
 
@@ -213,8 +153,8 @@ if __name__ == '__main__':
     input_args = parse_args()
     script_dir = os.path.dirname(os.path.realpath(__file__))
 
-    user_policy_db = generate_database(input_args.cil_file)
-    developer_policy_db = generate_database(input_args.developer_cil_file)
+    user_policy_db = parse_policy_db(input_args.cil_file)
+    developer_policy_db = parse_policy_db(input_args.developer_cil_file)
     baselines = read_json_file(os.path.join(script_dir, input_args.config)).get('baseline')
     check_result = False
     for label_name in baselines:

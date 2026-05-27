@@ -18,26 +18,10 @@ limitations under the License.
 
 import argparse
 import os
-import re
-from check_common import read_json_file, traverse_file_in_each_type
+from check_common import read_json_file, traverse_file_in_each_type, load_json_objects_in_dir_list
+from te_scanner import get_tokens, normalize_rule_text, scan_te_policy_dir_list, strip_comment
 
-AUTH_RULE_NAMES = ("allow", "allowxperm", "auditallow", "auditallowxperm")
-AUTH_RULE_PATTERN = re.compile(r'^\s*({})\b'.format("|".join(AUTH_RULE_NAMES)))
-MACRO_CALL_PATTERN = re.compile(r'\b([A-Za-z_][A-Za-z0-9_]*)\s*\(')
-TOKEN_PATTERN = re.compile(r'-?[A-Za-z_][A-Za-z0-9_]*')
 WHITELIST_FILE_NAME = "restricted_common_type_whitelist.txt"
-
-
-def strip_comment(line):
-    return line.split("#", 1)[0]
-
-
-def normalize_rule_text(text):
-    return " ".join(text.split())
-
-
-def get_tokens(text):
-    return [token.lstrip("-") for token in TOKEN_PATTERN.findall(text)]
 
 
 def get_restricted_tokens(text, restricted_types):
@@ -61,8 +45,7 @@ def get_restricted_type_config(args):
     restricted_types, suggestions = load_restricted_type_config(config_path)
 
     extra_config_name = os.path.basename(args.config)
-    extra_config_list = traverse_file_in_each_type(args.policy_dir_list, extra_config_name)
-    for path in extra_config_list:
+    for path, _ in load_json_objects_in_dir_list(args.policy_dir_list, extra_config_name):
         extra_restricted_types, extra_suggestions = load_restricted_type_config(path)
         restricted_types.update(extra_restricted_types)
         suggestions.update(extra_suggestions)
@@ -94,101 +77,18 @@ def collect_auth_rule(statement, start_line_no, policy_file, restricted_types, v
         record_violation(violations, policy_file, start_line_no, rule_name, statement, restricted_tokens)
 
 
-def clean_macro_body_text(text):
-    return text.replace("`", " ").replace("'", " ").strip()
-
-
-def collect_inline_policy_text(text, line_no, policy_file, restricted_types, violations):
-    body = clean_macro_body_text(text)
-    for statement in body.split(";"):
-        statement = statement.strip()
-        if not statement:
-            continue
-        if AUTH_RULE_PATTERN.match(statement):
-            collect_auth_rule("{};".format(statement), line_no, policy_file, restricted_types, violations)
-            continue
-        collect_macro_calls("{};".format(statement), line_no, policy_file, restricted_types, violations)
-
-
-def find_matching_right_paren(line, left_paren_index):
-    depth = 0
-    for index in range(left_paren_index, len(line)):
-        if line[index] == "(":
-            depth += 1
-        elif line[index] == ")":
-            depth -= 1
-            if depth == 0:
-                return index
-    return -1
-
-
-def collect_macro_calls(line, line_no, policy_file, restricted_types, violations):
-    skip_until = -1
-    for macro_match in MACRO_CALL_PATTERN.finditer(line):
-        if macro_match.start() < skip_until:
-            continue
-        macro_name = macro_match.group(1)
-        if macro_name in AUTH_RULE_NAMES:
-            continue
-        args_start = macro_match.end()
-        left_paren_index = args_start - 1
-        args_end = find_matching_right_paren(line, left_paren_index)
-        if args_end == -1:
-            args_text = line[args_start:]
-            skip_until = len(line)
-        else:
-            args_text = line[args_start:args_end]
-            skip_until = args_end + 1
-        if macro_name.endswith("_only"):
-            collect_inline_policy_text(args_text, line_no, policy_file, restricted_types, violations)
-            continue
-        restricted_tokens = get_restricted_tokens(args_text, restricted_types)
-        if restricted_tokens:
-            record_violation(violations, policy_file, line_no, macro_name, line.strip(), restricted_tokens)
-
-
-def collect_violations_from_te(policy_file, restricted_types):
-    violations = []
-    in_auth_rule = False
-    auth_rule_lines = []
-    auth_rule_start_line = 0
-
-    with open(policy_file, 'r', encoding='utf-8') as policy_read:
-        for line_no, raw_line in enumerate(policy_read, 1):
-            line = strip_comment(raw_line).strip()
-            if not line:
-                continue
-            if in_auth_rule:
-                auth_rule_lines.append(line)
-                if ";" in line:
-                    collect_auth_rule(" ".join(auth_rule_lines), auth_rule_start_line,
-                                      policy_file, restricted_types, violations)
-                    in_auth_rule = False
-                    auth_rule_lines = []
-                continue
-
-            if AUTH_RULE_PATTERN.match(line):
-                in_auth_rule = True
-                auth_rule_start_line = line_no
-                auth_rule_lines = [line]
-                if ";" in line:
-                    collect_auth_rule(line, line_no, policy_file, restricted_types, violations)
-                    in_auth_rule = False
-                    auth_rule_lines = []
-                continue
-
-            collect_macro_calls(line, line_no, policy_file, restricted_types, violations)
-
-    if in_auth_rule:
-        collect_auth_rule(" ".join(auth_rule_lines), auth_rule_start_line,
-                          policy_file, restricted_types, violations)
-    return violations
-
-
 def collect_violations(policy_dir_list, restricted_types):
     violations = []
-    for policy_file in traverse_file_in_each_type(policy_dir_list, ".te"):
-        violations.extend(collect_violations_from_te(policy_file, restricted_types))
+    for statement in scan_te_policy_dir_list(policy_dir_list):
+        if statement.kind == "auth_rule":
+            collect_auth_rule(statement.raw_text, statement.start_line,
+                              statement.policy_file, restricted_types, violations)
+            continue
+        if statement.kind == "macro_call":
+            restricted_tokens = get_restricted_tokens(statement.args_text or "", restricted_types)
+            if restricted_tokens:
+                record_violation(violations, statement.policy_file, statement.start_line,
+                                 statement.macro_name, statement.raw_text, restricted_tokens)
     return violations
 
 
