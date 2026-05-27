@@ -14,6 +14,30 @@
 type svc, native_system_domain, domain;
 type svc_exec, exec_attr, file_attr, system_file_attr;
 
+developer_only(`
+    domain_auto_transition_pattern(sh, svc_exec, svc);
+ 
+    allow svc sh:fd { use };
+    allow svc tty_device:chr_file { read write };
+    allow svc devpts:chr_file { read write };
+    allow svc sh:unix_stream_socket { read write };
+    allow svc dev_console_file:chr_file { read write };
+    allow svc dev_unix_socket:dir { search };
+    allow svc sh:fifo_file { read write };
+ 
+    allow svc system_usr_file:dir { search };
+    allow svc hdcd:fifo_file { read write };
+    allow svc hdcd:fd { use };
+    allow svc hdcd:unix_stream_socket { read write };
+    allow svc system_usr_file:lnk_file { read };
+    allow svc samgr:binder { call };
+    allow svc wifi_manager_service:binder { call };
+    allow svc sa_wifi_device_ability:samgr_class { get };
+    allow svc samgr:binder { transfer };
+    allow samgr svc:binder { transfer call };
+    allow sadomain svc:fd { use };
+')
+
 debug_only(`
     domain_auto_transition_pattern(su, svc_exec, svc);
 

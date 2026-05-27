@@ -199,4 +199,6 @@ developer_only(`
 (allow sh testhelper (process (rlimitinh getattr transition siginh)))
 (allow sh testhelper_exec (file (execute open getattr map ioctl read)))
 (allow sh process_etc_file (file (getattr map read open)))
+(allow sh svc (process (siginh rlimitinh transition getattr)))
+(allow sh svc_exec (file (execute getattr map open ioctl read)))
 ')
