@@ -130,6 +130,16 @@ allowxperm distributedsche dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm av_session dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
 
+# avc: denied { getattr map read } for service=501 pid=535 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=0
+# avc: denied { getattr search } for service=501 pid=535 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=0
+# avc: denied { search } for service=501 pid=535 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
+allow accesstoken_service data_app_el1_file:file { getattr map read };
+allow accesstoken_service data_app_el1_file:dir { getattr search };
+allow accesstoken_service data_app_file:dir { search };
+allowxperm { appspawn cjappspawn nativespawn nwebspawn } dev_at_file:chr_file ioctl { 0x4112 0x4114 0x4116 0x4118 };
+# avc: denied { open read } for pid=1066, comm="/system/bin/sa_main" path="/proc/cmdline" dev="" ino=36 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:proc_cmdline_file:s0 tclass=file premissive=0
+allow accesstoken_service proc_cmdline_file:file { open read };
+
 # avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x410b scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4110 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4111 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
