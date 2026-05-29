@@ -13,3 +13,4 @@
 
 /data/data/.pulse_dir(/.*)?               u:object_r:data_data_pulse_dir:s0
 
+/data/data/hvs(/.*)?               u:object_r:data_data_hvs_dir:s0

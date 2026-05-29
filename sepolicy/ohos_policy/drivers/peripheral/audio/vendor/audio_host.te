@@ -129,3 +129,11 @@ allow audio_host audio_host:unix_dgram_socket { getopt setopt };
 allow audio_host hiview:unix_dgram_socket { sendto };
 
 allow audio_host alsa_file:file { getattr open read };
+
+allow audio_host data_data_file:dir search;
+
+allow audio_host data_data_hvs_dir:dir { create getattr search write add_name };
+
+allow audio_host data_data_hvs_dir:file { create getattr ioctl open read write };
+
+allowxperm audio_host data_data_hvs_dir:file ioctl 0x5413;

@@ -223,3 +223,11 @@ allow audio_server sa_xperf_service:samgr_class { get };
 allow audio_server arkui_param:file { map open read };
 
 allow audio_server hap_domain:process { setsched };
+
+allow audio_server appdat:file read;
+
+allow audio_server normal_hap_attr:file read;
+
+allow audio_server data_data_hvs_dir:dir { search create write add_name };
+
+allow audio_server data_data_hvs_dir:file { open write create getattr read };

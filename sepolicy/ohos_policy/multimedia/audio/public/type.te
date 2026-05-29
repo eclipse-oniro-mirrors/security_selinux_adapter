@@ -20,3 +20,4 @@ type hdf_audio_hdi_service, hdf_service_attr;
 type hdf_audio_hdi_usb_service, hdf_service_attr;
 type hdf_audio_hdi_a2dp_service, hdf_service_attr;
 
+type data_data_hvs_dir, file_attr, data_file_attr;
