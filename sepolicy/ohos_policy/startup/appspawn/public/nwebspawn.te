@@ -15,3 +15,5 @@ typeattribute nwebspawn native_system_domain;
 type nwebspawn_exec, system_file_attr, exec_attr, file_attr;
 
 neverallow nwebspawn *:process ptrace;
+allowxperm nwebspawn dev_at_file:chr_file ioctl { 0x410b 0x4112 0x4114 0x4115 0x4116 0x4118 };
+

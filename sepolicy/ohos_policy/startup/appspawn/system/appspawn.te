@@ -132,7 +132,7 @@ allow appspawn tmpfs:file { create mounton open unlink};
 allow appspawn tmpfs:lnk_file { create };
 allow appspawn vendor_lib_file:dir { mounton getattr };
 allow appspawn self:process execmem;
-allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 };
+allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 0x410b 0x4112 0x4114 0x4115 0x4116 0x4118 };
 allow appspawn dev_xpm:chr_file { open read write ioctl };
 allow appspawn system_file:file { map };
 allow appspawn nwebspawn:process{ dyntransition };

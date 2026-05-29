@@ -225,7 +225,7 @@ allow cjappspawn sys_usb_param:file { map open read };
 allow cjappspawn tmpfs:dir { add_name create mounton write };
 allow cjappspawn tmpfs:lnk_file { create };
 allow cjappspawn vendor_lib_file:dir { mounton };
-allowxperm cjappspawn dev_at_file:chr_file ioctl { 0x4102 };
+allowxperm cjappspawn dev_at_file:chr_file ioctl { 0x4102 0x410b 0x4112 0x4114 0x4115 0x4116 0x4118 };
 allow cjappspawn dev_xpm:chr_file { open read write ioctl };
 allowxperm cjappspawn dev_xpm:chr_file ioctl { 0x7801 0x7802 };
 allow cjappspawn system_file:file { map };
