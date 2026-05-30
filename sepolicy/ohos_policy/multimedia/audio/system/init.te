@@ -32,5 +32,3 @@ allow init data_data_file:dir { relabelfrom };
 allow init data_data_pulse_dir:dir { add_name create getattr open read relabelto remove_name search setattr write };
 
 allow init native_socket:sock_file { unlink };
-
-allow init data_data_hvs_dir:dir { add_name create getattr open read relabelto remove_name search setattr write };
