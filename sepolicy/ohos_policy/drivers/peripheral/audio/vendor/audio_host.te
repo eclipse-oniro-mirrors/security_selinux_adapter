@@ -130,10 +130,22 @@ allow audio_host hiview:unix_dgram_socket { sendto };
 
 allow audio_host alsa_file:file { getattr open read };
 
+# avc: denied { search } for pid=1346, comm="/vendor/bin/hdf_devhost"  name="/data" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1895 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
 allow audio_host data_data_file:dir search;
 
+# avc: denied { create } for pid=1346, comm="/vendor/bin/hdf_devhost"  name="/data/hvs/dsp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48619 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=dir permissive=1
+# avc: denied { getattr } for pid=1346, comm="/vendor/bin/hdf_devhost"  path="/data/data/hvs/dsp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48619 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=1346, comm="/vendor/bin/hdf_devhost"  name="/data/hvs/dsp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48619 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=dir permissive=1
+# avc: denied { write add_name search } for pid=1346, comm="/vendor/bin/hdf_devhost"  name="/data/hvs/dsp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48619 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=dir permissive=1
 allow audio_host data_data_hvs_dir:dir { create getattr search write add_name };
 
+# avc: denied { create } for pid=1346, comm="/vendor/bin/hdf_devhost"  name="/data/hvs/dsp/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48620 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=1346, comm="/vendor/bin/hdf_devhost"  path="/data/data/hvs/dsp/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48620 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=1346, comm="/vendor/bin/hdf_devhost"  path="/data/data/hvs/dsp/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48620 ioctlcmd=0x5413 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1346, comm="/vendor/bin/hdf_devhost"  path="/data/data/hvs/dsp/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48620 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { read } for pid=1346, comm="/vendor/bin/hdf_devhost"  path="/data/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48613 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { write } for pid=1346, comm="/vendor/bin/hdf_devhost"  path="/data/data/hvs/dsp/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48620 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
 allow audio_host data_data_hvs_dir:file { create getattr ioctl open read write };
 
+# avc: denied { ioctl } for pid=1346, comm="/vendor/bin/hdf_devhost"  path="/data/data/hvs/dsp/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48620 ioctlcmd=0x5413 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
 allowxperm audio_host data_data_hvs_dir:file ioctl 0x5413;
