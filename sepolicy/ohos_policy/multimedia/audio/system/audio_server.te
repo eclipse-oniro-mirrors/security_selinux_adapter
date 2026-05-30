@@ -226,7 +226,7 @@ allow audio_server hap_domain:process { setsched };
 
 allow audio_server appdat:file read;
 
-allow audio_server normal_hap_attr:file read;
+allow audio_server normal_hap_data_file:file read;
 
 allow audio_server data_data_hvs_dir:dir { search create write add_name };
 
