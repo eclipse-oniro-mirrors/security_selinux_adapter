@@ -24,3 +24,6 @@ allowxperm ark_aot_compiler data_app_el1_arkprofile:file ioctl { 0x5413 };
 allow ark_aot_compiler ark_aot_compiler:hmcap { code_protect };
 
 allow ark_aot_compiler arkcompiler_param:file { map open read };
+ 
+# avc: denied { setattr } for pid=10936, comm="/system/bin/ark_aot_compiler"  name="/app/el1/100/aot_compiler/ark_profile/com.kuaishou.hmapp/merged_kwai.ap" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=56178 scontext=u:r:ark_aot_compiler:s0 tcontext=o:object_r:data_app_el1_arkprofile:s0:x234,x334,x512,x868,x1024 tclass=file permissive=1
+allow ark_aot_compiler data_app_el1_arkprofile:file { setattr };

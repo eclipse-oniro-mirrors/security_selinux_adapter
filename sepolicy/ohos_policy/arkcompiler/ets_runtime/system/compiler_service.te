@@ -60,3 +60,47 @@ allow compiler_service data_service_el1_shared_bundles:file { getattr };
 
 # avc: denied { sigkill } for pid=12640, comm="/system/bin/sa_main"  scontext=u:r:compiler_service:s0 tcontext=u:r:ark_aot:s0 tclass=process permissive=0
 allow compiler_service ark_aot:process { sigkill };
+ 
+# avc: denied { chown } for pid=13870, comm="/system/bin/sa_main"  capability=0 scontext=u:r:compiler_service:s0 tcontext=u:r:compiler_service:s0 tclass=capability permissive=1
+allow compiler_service compiler_service:capability { chown };
+ 
+# avc: denied { code_protect } for pid=10918, comm="/system/bin/sa_main"  scontext=u:r:compiler_service:s0 tcontext=u:r:compiler_service:s0 tclass=hmcap permissive=1
+# avc: denied { supervsable } for pid=14861, comm="/bin/init"  scontext=u:r:compiler_service:s0 tcontext=u:r:compiler_service:s0 tclass=hmcap permissive=1
+allow compiler_service compiler_service:hmcap { code_protect };
+ 
+# avc: denied { setattr } for pid=10918, comm="/system/bin/sa_main"  name="/app/el1/public/aot_compiler/ark_cache/com.kuaishou.hmapp/arm64/kwai.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=60025 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_app_el1_arkcache:s0 tclass=file permissive=1
+allow compiler_service data_app_el1_arkcache:file { setattr };
+ 
+# avc: denied { setattr } for pid=13870, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2037 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=dir permissive=1
+# avc: denied { write add_name } for pid=13870, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2037 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=dir permissive=1
+allow compiler_service data_service_el1_framework_arkcache:dir { setattr write add_name };
+ 
+# avc: denied { create } for pid=10855, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache/arkoala.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=61117 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=10855, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache/assembled_advanced_ets_abc.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=61285 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+# avc: denied { open } for pid=10855, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/framework_ark_cache/arkoala.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=61117 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+# avc: denied { read write } for pid=10855, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/framework_ark_cache/arkoala.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=61117 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+# avc: denied { read } for pid=10855, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache/assembled_advanced_ets_abc.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=61285 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+# avc: denied { setattr } for pid=10855, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache/assembled_advanced_ets_abc.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=61285 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+# avc: denied { write } for pid=10855, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache/assembled_advanced_ets_abc.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=61285 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=file permissive=1
+allow compiler_service data_service_el1_framework_arkcache:file { create getattr open read write read setattr write };
+
+# avc: denied { getattr } for pid=12404, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/framework_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1833 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=dir permissive=1
+# avc: denied { write } for pid=12404, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/framework_ark_cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1833 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_framework_arkcache:s0 tclass=dir permissive=1
+allow compiler_service data_service_el1_framework_arkcache:dir { getattr write };
+
+# avc: denied { getattr } for pid=10846, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=84007 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+# avc: denied { setattr } for pid=10846, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=84007 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+# avc: denied { write add_name } for pid=10846, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=84007 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=dir permissive=1
+allow compiler_service data_service_el1_shared_bundles:dir { getattr setattr write add_name };
+
+# avc: denied { create } for pid=10846, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=84010 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { open } for pid=10846, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=84010 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { read write } for pid=10846, comm="/system/bin/sa_main"  path="/data/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=84010 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+# avc: denied { setattr } for pid=10846, comm="/system/bin/sa_main"  name="/service/el1/public/for-all-app/shared_bundles_ark_cache/com.example.myapplication/1000000/arm64/library.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=84010 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_service_el1_shared_bundles:s0 tclass=file permissive=1
+allow compiler_service data_service_el1_shared_bundles:file { create open read write setattr };
+
+# avc: denied { remove_name } for pid=10383, comm="/system/bin/sa_main"  name="/app/el1/public/aot_compiler/ark_cache/com.gotokeep.hm.keep/arm64" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=42690 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_app_el1_arkcache:s0 tclass=dir permissive=1
+allow compiler_service data_app_el1_arkcache:dir { remove_name };
+
+# avc: denied { unlink } for pid=10383, comm="/system/bin/sa_main"  name="/app/el1/public/aot_compiler/ark_cache/com.gotokeep.hm.keep/arm64/foundation.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=42854 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_app_el1_arkcache:s0 tclass=file permissive=1
+allow compiler_service data_app_el1_arkcache:file { unlink };

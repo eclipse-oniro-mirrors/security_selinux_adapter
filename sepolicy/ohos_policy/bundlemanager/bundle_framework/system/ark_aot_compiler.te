@@ -35,7 +35,7 @@ allow ark_aot_compiler data_app_el1_arkcache:dir { add_name create setattr getat
 allow ark_aot_compiler data_app_el1_arkcache:file { create getattr ioctl setattr unlink map read open write };
 allowxperm ark_aot_compiler data_app_el1_arkcache:file ioctl { 0x6685 };
 
-allow ark_aot_compiler data_app_el1_file:file { map read open read };
+allow ark_aot_compiler data_app_el1_file:file { map read };
 allow ark_aot_compiler data_app_file:dir { search };
 allow ark_aot_compiler data_app_el1_file:dir { search };
 allow ark_aot_compiler sys_prod_file:dir { search };
