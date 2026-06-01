@@ -34,9 +34,12 @@ static int GroupNodeNodeCompare(const HashNode *node1, const HashNode *node2)
     return strcmp(groupNode1->name, groupNode2->name);
 }
 
-static int GroupNodeKeyCompare(const HashNode *node1, const char *key)
+static int GroupNodeKeyCompare(const HashNode *node1, const char *key, uint32_t len)
 {
     ParamHashNode *groupNode1 = HASHMAP_ENTRY(node1, ParamHashNode, hashNode);
+    if (len != groupNode1->nameLen) {
+        return -1;
+    }
     return strncmp(groupNode1->name, key, groupNode1->nameLen);
 }
 
@@ -78,10 +81,10 @@ static HashNode *GetHashNodeByNode(HashNode *root, const HashNode *nodeKey)
     return NULL;
 }
 
-static HashNode *GetHashNodeByKey(HashNode *root, const char *key)
+static HashNode *GetHashNodeByKey(HashNode *root, const char *key, uint32_t len)
 {
     while (root != NULL) {
-        int ret = GroupNodeKeyCompare(root, key);
+        int ret = GroupNodeKeyCompare(root, key, len);
         if (ret == 0) {
             return root;
         }
@@ -119,7 +122,7 @@ HashNode *HashMapGet(HashTab *handle, const char *key, uint32_t len)
     hashCode = (hashCode < 0) ? -hashCode : hashCode;
     hashCode = hashCode % MAX_BUCKET;
 
-    return GetHashNodeByKey(handle->buckets[hashCode], key);
+    return GetHashNodeByKey(handle->buckets[hashCode], key, len);
 }
 
 static void HashListFree(HashNode *root)

@@ -75,3 +75,5 @@ accesstoken.permission.                 u:object_r:accesstoken_perm_param:s0
 persist.bluetooth.                      u:object_r:bluetooth_param:s0
 persist.global.                         u:object_r:i18n_param:s0
 const.global.                           u:object_r:const_i18n_param:s0
+persist.arkwebcore.package_name         u:object_r:arkcompiler_param:s0
+persist.arkwebcore.install_path         u:object_r:arkcompiler_param:s0
