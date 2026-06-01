@@ -32,7 +32,6 @@ allow perftest normal_hap:dir { search getattr open read };
 allow perftest normal_hap:file { read open getattr };
 allow scan_service normal_hap:binder { call };
 allow scan_service normal_hap:fd { use };
-allow print_isolate_hap normal_hap:fd { use };
 allow test_server normal_hap:dir { getattr search };
 allow test_server normal_hap:file { getattr read open };
 allow vpn_isolate_hap normal_hap:binder { call };
