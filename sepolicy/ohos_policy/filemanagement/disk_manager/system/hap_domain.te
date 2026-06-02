@@ -23,3 +23,6 @@ allow hap_domain disk_manager:binder { call };
 # avc: denied { get } for pid=4254, comm="/system/bin/appspawn"  scontext=u:r:sceneboard_hap:s0 tcontext=u:r:disk_manager:s0 tclass=binder permissive=0
 # avc: denied { get } for pid=8175, comm="/system/bin/appspawn"  scontext=u:r:filemanager_hap:s0 tcontext=u:r:disk_manager:s0 tclass=binder permissive=0
 allow hap_domain sa_disk_manager_service:samgr_class { get };
+
+# avc: denied { watch } for pid=8806, comm="/system/bin/appspawn"  path="/storage/voldata/data1/screen.jpg" dev="/dev/block/vol-8-1" ino=11 scontext=u:r:filemanager_hap:s0:x868,x1024 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=0
+allow hap_domain mnt_external_file:file { watch };
