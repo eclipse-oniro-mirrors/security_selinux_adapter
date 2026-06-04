@@ -223,3 +223,19 @@ allow audio_server sa_xperf_service:samgr_class { get };
 allow audio_server arkui_param:file { map open read };
 
 allow audio_server hap_domain:process { setsched };
+
+# avc: denied { read } for pid=820, comm="/system/bin/sa_main"  path="/data/storage/el2/base/haps/entry/files/hrtfConfig.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=34299 scontext=u:r:audio_server:s0 tcontext=u:object_r:appdat:s0 tclass=file permissive=1
+allow audio_server appdat:file read;
+allow audio_server normal_hap_data_file:file read;
+
+# avc: denied { create } for pid=820, comm="/system/bin/sa_main"  name="/data/hvs/arm" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48612 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=820, comm="/system/bin/sa_main"  name="/data/hvs/arm" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48612 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=dir permissive=1
+# avc: denied { write add_name search } for pid=820, comm="/system/bin/sa_main"  name="/data/hvs/arm" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48612 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=dir permissive=1
+allow audio_server data_data_hvs_dir:dir { search create write add_name };
+
+# avc: denied { create } for pid=820, comm="/system/bin/sa_main"  name="/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48613 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { open } for pid=820, comm="/system/bin/sa_main"  path="/data/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48613 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { write } for pid=820, comm="/system/bin/sa_main"  path="/data/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=48613 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=831, comm="/system/bin/sa_main"  path="/data/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36358 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+# avc: denied { read } for pid=831, comm="/system/bin/sa_main"  path="/data/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36358 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
+allow audio_server data_data_hvs_dir:file { open write create getattr read };
