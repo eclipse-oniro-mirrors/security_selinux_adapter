@@ -102,7 +102,7 @@ allow render_service sa_foundation_bms:samgr_class { get };
 # avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/render_process" dev="overlay" ino=1545 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 # avc: denied { open } for pid=8596, comm="/system/bin/render_service"  path="/system/bin/render_process" dev="overlay" ino=1545 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=8596, comm="/system/bin/render_process"  path="/system/bin/render_process" dev="/dev/block/dm-2" ino=86846604 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-allow render_service system_bin_file:file { execute execute_no_trans map open read };
+allow render_service render_process_exec:file { execute execute_no_trans map open read };
 
 neverallow { domain -nwebspawn } vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
 neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };
