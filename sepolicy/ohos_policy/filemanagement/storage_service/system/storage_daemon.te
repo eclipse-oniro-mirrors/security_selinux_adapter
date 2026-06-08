@@ -561,6 +561,7 @@ allow storage_daemon mnt_external_file:file { open read };
 # avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { open } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { read write } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc: denied { ioctl } for pid=706, comm="/system/bin/storage_daemon" path="/dev/block/sr0" dev="" ino=7057 ioctlcmd=0x2285 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
 allow storage_daemon dev_block_file:blk_file { ioctl open read write };
 # avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1268 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
@@ -572,7 +573,26 @@ allow storage_daemon dev_block_file:blk_file { ioctl open read write };
 # avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x127b scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { ioctl } for pid=16864, comm="/bin/mke2fs"  path="/dev/block/sda4" dev="" ino=896 ioctlcmd=0x127c scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
-allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x125e 0x1268 0x1272 0x1277 0x127b 0x127c };
+# avc: denied { ioctl } for pid=706, comm="/system/bin/storage_daemon" path="/dev/block/sr0" dev="" ino=7057 ioctlcmd=0x2285 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
+allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x125e 0x1268 0x1272 0x1277 0x127b 0x127c 0x2285 };
 
 # avc: denied { read } for pid=12118, comm="/bin/genisoimage" name="/fd" dev="" ino=905 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=lnk_file permissive=0
 allow storage_daemon dev_file:lnk_file { read };
+
+# avc: denied { read write } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { open } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 ioctlcmd=0x2282 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 ioctlcmd=0x5382 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 ioctlcmd=0x5386 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 ioctlcmd=0x2201 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { getattr } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 ioctlcmd=0x2272 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 ioctlcmd=0x2275 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9740, comm="/bin/wodim" path="/dev/sg0" dev="" ino=847 ioctlcmd=0x2285 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_sg_file:s0 tclass=chr_file permissive=1
+allow storage_daemon dev_sg_file:chr_file { getattr ioctl open read write };
+allowxperm storage_daemon dev_sg_file:chr_file ioctl { 0x2201 0x2272 0x2275 0x2282 0x2285 0x5382 0x5386 };
+
+# avc: denied { write } for pid=10626, comm="/bin/genisoimage" path="/mnt/data/external/mtp-4817-4353/1312312名称.iso" dev="mtpfs" ino=6 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=10626, comm="/bin/genisoimage" path="/mnt/data/external/mtp-4817-4353/1312312名称.iso" dev="mtpfs" ino=6 ioctlcmd=0x5413 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=1
+allow storage_daemon mnt_external_file:file { ioctl write };
+allowxperm storage_daemon mnt_external_file:file ioctl { 0x5413 };
