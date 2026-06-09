@@ -49,6 +49,9 @@ use_faultloggerd_sdkdump({ hiview hidumper foundation })
 neverallow { domain -processdump } faultloggerd_socket_crash:sock_file { write read ioctl };
 neverallow { domain -processdump -foundation -hidumper -hiview -dumpcatcher -appspawn -violator_faultloggerd_socket_sdkdump_write } faultloggerd_socket_sdkdump:sock_file { write };
 neverallow { domain -processdump -foundation -hidumper -hiview -dumpcatcher -appspawn } faultloggerd_socket_sdkdump:sock_file { read ioctl };
+
+neverallow faultloggerd {file_attr -faultloggerd_temp_file}:file setattr;
+
 #########################
 ## faultloggerd rules: ##
 #########################
@@ -61,7 +64,9 @@ allow faultloggerd domain:process signal;
 allow faultloggerd data_file:dir search;
 allow faultloggerd data_init_agent:dir search;
 allow faultloggerd dev_unix_socket:dir search;
-allow faultloggerd data_log:dir search;
+
+allow faultloggerd data_log:dir { add_name open read search write };
+allow faultloggerd data_log:file { create read write open };
 
 allow faultloggerd tty_device:chr_file { open read write };
 allow faultloggerd system_bin_file:file { execute execute_no_trans getattr map open read };
@@ -108,3 +113,6 @@ allow faultloggerd hap_domain:fifo_file { read };
 
 #avc: denied { rename } for pid=18364, comm="/system/bin/faultloggerd" name="/log/faultlog/temp/minidump-18931-1775736218786.dmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=26057 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=file permissive=1
 allow faultloggerd faultloggerd_temp_file:file { rename };
+
+#avc: denied { chown } for pid=15860, comm="/system/bin/faultloggerd" capability=0 scontext=u:r:faultloggerd:s0 tcontext=u:r:faultloggerd:s0 tclass=capability permissive=0
+allow faultloggerd faultloggerd:capability chown;
