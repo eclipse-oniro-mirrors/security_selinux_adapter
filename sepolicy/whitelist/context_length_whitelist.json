@@ -3,6 +3,7 @@
         "file_contexts": [
             "u:object_r:data_service_el1_i18n_timezone_file:s0",
             "u:object_r:data_service_el1_public_asset_service_file:s0",
+            "u:object_r:data_service_el1_public_secure_access_fence_file:s0",
             "u:object_r:data_service_el1_public_security_guard_file:s0",
             "u:object_r:data_service_el2_user_id_asset_service_file:s0",
             "u:object_r:data_service_el1_public_bundle_usage:s0",
@@ -62,7 +63,7 @@
             "u:object_r:hdf_fingerprint_auth_interface_service:s0"
         ],
         "parameter_contexts": [
-            
+
         ],
         "hdf_service_contexts": [
             "u:object_r:hdf_bluetooth_audio_session_service:s0",
@@ -74,7 +75,7 @@
             "u:object_r:hdf_fingerprint_auth_interface_service:s0"
         ],
         "virtfs_contexts": [
-            
+
         ],
         "sehap_contexts": [
             "apl=normal extra=dlp_sandbox_read_only domain=dlp_sandbox_read_only_hap type=dlp_sandbox_read_only_hap_data_file"

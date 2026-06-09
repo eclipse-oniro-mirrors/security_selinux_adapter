@@ -1,0 +1,55 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type secure_access_fence, sadomain, domain;
+
+allow secure_access_fence sa_secure_access_fence:samgr_class { add };
+
+# avc: denied { search } for pid=16130, comm="/system/bin/sa_main"  name="/unix/socket" dev="" ino=208 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow secure_access_fence dev_unix_socket:dir { search };
+
+allow secure_access_fence data_service_file:dir { search };
+
+# avc: denied { search } for pid=16130, comm="/system/bin/sa_main"  name="/service/el1/public" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=694 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow secure_access_fence data_service_el1_file:dir { search };
+
+# avc: denied { create } for pid=10072, comm="/system/bin/sa_main"  name="/service/el1/public/secure_access_fence/access_record/0/key" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=56844 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+# avc: denied { getattr } for pid=10072, comm="/system/bin/sa_main"  path="/data/service/el1/public/secure_access_fence/access_record/0" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=56766 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=10072, comm="/system/bin/sa_main"  path="/data/service/el1/public/secure_access_fence/access_record/0" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=56766 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=10072, comm="/system/bin/sa_main"  path="/data/service/el1/public/secure_access_fence/access_record/0" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=56766 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=10072, comm="/system/bin/sa_main"  name="/service/el1/public/secure_access_fence/access_record/0" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=56766 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+# avc: denied { write add_name remove_name search } for pid=10072, comm="/system/bin/sa_main"  name="/service/el1/public/secure_access_fence" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1923 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+# avc: denied { write add_name search } for pid=10072, comm="/system/bin/sa_main"  name="/service/el1/public/secure_access_fence" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1923 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+# avc: denied { write remove_name search } for pid=10072, comm="/system/bin/sa_main"  name="/service/el1/public/secure_access_fence" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1923 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=dir permissive=1
+allow secure_access_fence data_service_el1_public_secure_access_fence_file:dir { create getattr open read setattr write add_name search write remove_name };
+
+# avc: denied { ioctl } for pid=16130, comm="/system/bin/sa_main"  path="/data/service/el1/public/secure_access_fence/saf_temp_event.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=53344 ioctlcmd=0x5413 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=file permissive=1
+allow secure_access_fence data_service_el1_public_secure_access_fence_file:file { append create getattr ioctl lock map open read write unlink };
+
+# avc: denied { ioctl } for pid=16130, comm="/system/bin/sa_main"  path="/data/service/el1/public/secure_access_fence/saf_temp_event.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=53344 ioctlcmd=0x5413 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:data_service_el1_public_secure_access_fence_file:s0 tclass=file permissive=1
+allowxperm secure_access_fence data_service_el1_public_secure_access_fence_file:file ioctl { 0x5413 };
+
+allow secure_access_fence sa_foundation_bms:samgr_class { get };
+
+# avc: denied { use } for pid=1166, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:secure_access_fence:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=1
+allow secure_access_fence foundation:fd { use };
+
+# avc: denied { call } for pid=19646, comm="/system/bin/sa_main"  scontext=u:r:secure_access_fence:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=19646, comm="/system/bin/sa_main"  scontext=u:r:secure_access_fence:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow secure_access_fence foundation:binder { call transfer };
+
+# avc: denied { call } for pid=19646, comm="/system/bin/sa_main"  scontext=u:r:secure_access_fence:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=1
+binder_call(secure_access_fence, aimgr);
+
+# avc:  denied  { get } for service=186 sid=u:r:secure_access_fence:s0 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=1
+allow secure_access_fence sa_aimgr_climgr:samgr_class { get };
