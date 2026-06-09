@@ -593,6 +593,7 @@ class hmcap
     audio_rec_mem_map
     deep_sleep_snap
     devmem_isolation
+    prelink_bypass
 }
 
 class dmaheap

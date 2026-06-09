@@ -23,3 +23,5 @@ allow nwebspawn data_service_el1_file:file { read write create map open unlink }
 allow nwebspawn nwebspawn_exec:file { entrypoint execute execute_no_trans map read open };
 allow nwebspawn dev_kmsg_file:chr_file { open write };
 allow nwebspawn data_app_el2_group_file:dir { search };
+
+allow nwebspawn self:hmcap { prelink_bypass };
