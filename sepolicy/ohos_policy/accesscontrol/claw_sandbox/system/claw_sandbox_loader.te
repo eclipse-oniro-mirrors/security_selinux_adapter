@@ -141,7 +141,7 @@ allow claw_sandbox_loader system_usr_file:dir { getattr read search };
 allow claw_sandbox_loader system_usr_file:lnk_file { read };
 
 # avc: denied { mount } comm="/system/bin/claw_sandbox" dev="proc" ino=1 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:proc_file:s0 tclass=filesystem
-allow claw_sandbox_loader proc_file:filesystem { mount };
+allow claw_sandbox_loader proc_file:filesystem { mount unmount };
 
 # avc: denied { create } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx/.old_root" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
 # avc: denied { mounton } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
@@ -165,7 +165,27 @@ allow claw_sandbox_loader usb_service:fd { use };
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4102 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4104 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 allow claw_sandbox_loader dev_at_file:chr_file { ioctl };
-allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 };
+allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 0x4112 };
+ 
+# avc: denied { search } for pid=12743 ... name="/device_view/local/files/Docs" ... tcontext=u:object_r:hmdfs:s0 tclass=dir
+allow claw_sandbox_loader hmdfs:dir search;
+ 
+# avc: denied { write } for pid=12743 ... name="1" ... tcontext=u:object_r:tty_device:s0 tclass=chr_file
+# avc: denied { ioctl } for pid=8922 comm="claw_sandbox" name="2" dev="2" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file
+allow claw_sandbox_loader tty_device:chr_file { write ioctl };
+allowxperm claw_sandbox_loader tty_device:chr_file ioctl { 0x5413 };
+ 
+# avc: denied { unmount } for pid=12743 ... tcontext=u:object_r:sys_file:s0 tclass=filesystem
+allow claw_sandbox_loader sys_file:filesystem unmount;
+ 
+# avc: denied { search } for pid=12978 ... name="/service/el2/100/hmdfs/account/files/Docs" ... tcontext=u:object_r:data_user_file:s0 tclass=dir
+allow claw_sandbox_loader data_user_file:dir search;
+ 
+# avc: denied { remount } for pid=12978 ... tcontext=u:object_r:hmdfs:s0 tclass=filesystem
+allow claw_sandbox_loader hmdfs:filesystem remount;
+
+# avc: denied { unmount } for pid=21678 comm="claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:configfs:s0 tclass=filesystem
+allow claw_sandbox_loader configfs:filesystem { unmount };
 
 # avc: denied { call } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:samgr:s0 tclass=binder
 allow claw_sandbox_loader samgr:binder { call };
