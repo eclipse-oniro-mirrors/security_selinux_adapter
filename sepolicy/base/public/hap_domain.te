@@ -37,7 +37,7 @@ neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw
 neverallow { hap_domain -system_basic_hap_attr -hap_domain_kernel_violators } system_basic_hap_attr:file never_rw_file;
 neverallow { domain -system_basic_hap_attr -processdump debug_only(`-hiperf -native_daemon') } system_basic_hap_attr:process ptrace;
 
-neverallow { hap_domain -system_basic_hap } ~{ tmpfs_data_file dev_file proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file hap_domain_lnk_file_operation_viloator developer_only(`hnp_file_attr hnp_file private_hnp_file') hnp_file_attr_violator}:lnk_file *;
+neverallow { hap_domain -system_basic_hap -system_core_hap } ~{ tmpfs_data_file dev_file proc_attr tmpfs system_bin_file toybox_exec data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file hap_domain_lnk_file_operation_viloator developer_only(`hnp_file_attr hnp_file private_hnp_file') hnp_file_attr_violator}:lnk_file *;
 neverallow hap_domain { proc_attr tmpfs system_bin_file rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file developer_only(`hnp_file_attr') hnp_file_attr_violator}:lnk_file ~{ getattr read };
 neverallow hap_domain hap_domain:lnk_file ~{ read_file_perms };
 neverallow { hap_domain -hap_domain_lnk_file_violators } data_user_file:lnk_file *;
@@ -102,8 +102,8 @@ neverallow hap_domain vendor_file_attr:dir never_write_dir;
 neverallow hap_domain { vendor_file_attr -vendor_lib_file -vendor_etc_vulkan_file -vendor_etc_graphic_xengine_file_violator_dir_open_read_search -violator_hap_domain_file_sock_file }:{ file fifo_file lnk_file sock_file } *;
 
 #hap never access blk_file.
-neverallow { hap_domain -system_basic_hap } dev_attr:blk_file open;
-neverallow { hap_domain -system_basic_hap } dev_attr:blk_file read;
+neverallow { hap_domain -system_basic_hap -system_core_hap } dev_attr:blk_file open;
+neverallow { hap_domain -system_basic_hap -system_core_hap } dev_attr:blk_file read;
 neverallow hap_domain dev_attr:blk_file write;
 neverallow hap_domain dev_attr:blk_file ioctl;
 

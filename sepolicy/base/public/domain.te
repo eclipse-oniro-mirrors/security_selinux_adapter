@@ -221,7 +221,7 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server'
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
 
 neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -write_updater -rgm_violator_ohos_dev_blk_file -module_update_service
-        -render_service -codec_host -bootanimation -camera_host -location_host -riladapter_host -system_basic_hap } dev_attr:blk_file { open read write };
+        -render_service -codec_host -bootanimation -camera_host -location_host -riladapter_host -system_basic_hap -system_core_hap } dev_attr:blk_file { open read write };
 neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file -dev_block_file}:blk_file { open read write };
 neverallow { render_service codec_host bootanimation camera_host location_host riladapter_host system_basic_hap } {dev_attr -sml_block_file }:blk_file { open read write };
 neverallow { module_update_service } {dev_attr -dev_block_file}:blk_file { open read write };
