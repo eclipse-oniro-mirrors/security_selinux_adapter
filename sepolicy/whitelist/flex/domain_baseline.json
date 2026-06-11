@@ -4,6 +4,7 @@
             "sdc",
             "work_scheduler_service",
             "asset_service",
+            "secure_access_fence",
             "netmanager",
             "deviceauth_service",
             "multimodalinput",
