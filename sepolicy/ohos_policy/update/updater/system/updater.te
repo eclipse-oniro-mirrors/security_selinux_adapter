@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type updater_binary_exec system_file_attr;
+type updater_binary_exec, system_file_attr;
 
 updater_only(`
 
