@@ -15,7 +15,7 @@ domain_auto_transition_pattern(updater, processdump_exec, processdump);
 domain_auto_transition_pattern(updater_binary, processdump_exec, processdump);
 
 type updater_binary, native_system_domain, domain;
-type updater_binary_exec, exec_attr, file_attr, system_file_attr;
+type exec_attr, file_attr, system_file_attr;
 
 type write_updater, native_system_domain, domain;
 type write_updater_exec, exec_attr, file_attr, system_file_attr;
