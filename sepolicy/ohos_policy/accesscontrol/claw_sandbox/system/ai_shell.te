@@ -1,0 +1,123 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { use } for pid=unknown, ... scontext=u:r:ai_shell:s0:... tcontext=u:r:claw_sandbox_loader:s0:... tclass=fd permissive=1
+allow ai_shell claw_sandbox_loader:fd { use };
+
+# avc: denied { read write } for pid=9137, comm="/bin/sh"  path="/dev/tty" dev="" ino=30 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+# avc: denied { open } for pid=9137, comm="/bin/sh"  path="/dev/tty" dev="" ino=30 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9137, comm="/bin/sh"  name="0" dev="0" major=136 minor=0 ioctlcmd=0x5413 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=9436, comm="/bin/sh" ... ioctlcmd=0x5410 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=10857, comm="/data/service/hnp/python.org/python_3.12/bin/python3.12" ... ioctlcmd=0x5414 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=10857, comm="/data/service/hnp/python.org/python_3.12/bin/python3.12" ... ioctlcmd=0x5401 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=10857, comm="/data/service/hnp/python.org/python_3.12/bin/python3.12" ... ioctlcmd=0x5403 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=8963, comm="/bin/sh" ... ioctlcmd=0x540f ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+allow ai_shell tty_device:chr_file { open read write ioctl };
+# avc: denied { ioctl } for pid=20277, comm="/usr/bin/vi" ... ioctlcmd=0x5402 ... tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+allowxperm ai_shell tty_device:chr_file ioctl { 0x5401 0x5402 0x5403 0x540f 0x5410 0x5413 0x5414 };
+
+# avc: denied { getattr } for pid=10857 ... path="/dev/pts/0" dev="" ino=2545 ... tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+allow ai_shell devpts:chr_file { open read write ioctl getattr };
+allowxperm ai_shell devpts:chr_file ioctl { 0x5413 };
+
+# avc: denied { execute_no_trans } for pid=43209, comm="/bin/sh"  scontext=u:r:ai_shell:s0:x136,x334,x512,x868,x1024 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
+allow ai_shell sh_exec:file { execute execute_no_trans map open read getattr };
+
+# avc: denied { getattr } comm="/system/bin/ls" path="/system/bin/zcat" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file
+# avc: denied { read } comm="/system/bin/claw_sandbox" path="/bin/help" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file
+allow ai_shell system_bin_file:lnk_file { getattr read };
+
+# avc: denied { search read getattr open } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir
+allow ai_shell system_bin_file:dir { search getattr read open };
+
+# avc: denied { open } comm="/system/bin/claw_sandbox" path="/system/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file
+# avc: denied { read } comm="/system/bin/claw_sandbox" path="/system/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file
+# avc: denied { execute } comm="/system/bin/claw_sandbox" path="/system/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file
+# avc: denied { execute_no_trans } comm="/system/bin/claw_sandbox" path="/system/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file
+# avc: denied { map } comm="/system/bin/claw_sandbox" path="/system/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/system/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file
+allow ai_shell system_bin_file:file { entrypoint execute execute_no_trans getattr map read open };
+
+# avc: denied { search read getattr } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir
+allow ai_shell system_usr_file:dir { search getattr read };
+
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file
+# avc: denied { open read } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file
+# avc: denied { map } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:ai_shell:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file
+allow ai_shell system_usr_file:file { getattr map open read };
+
+# avc: denied { read } for pid=22394 ... path="pipe:[4110]" dev="tmpfs" ino=4110 ... tclass=fifo_file permissive=1
+# avc: denied { write } for pid=22394 ... path="pipe:[4143]" dev="tmpfs" ino=4143 ... tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
+# avc: denied { getattr } for pid=23986 ... path="pipe:[16350]" dev="tmpfs" ino=16350 ... tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=0
+# avc: denied { ioctl } for pid=22394 ... path="pipe:[4143]" dev="tmpfs" ino=4143 ioctlcmd=0x5413 ... tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
+allow ai_shell aimgr:fifo_file { ioctl read write getattr };
+allowxperm ai_shell aimgr:fifo_file ioctl { 0x5413 };
+
+# avc: denied { use } for pid=22394 ... path="pipe:[4143]" dev="tmpfs" ino=4143 ioctlcmd=0xaaaa ... tcontext=u:r:aimgr:s0 tclass=fd permissive=1
+allow ai_shell aimgr:fd { use };
+
+# avc: denied { call } comm="/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:r:aimgr:s0 tclass=binder
+# avc: denied { transfer } comm="/bin/bm" scontext=u:r:ai_shell:s0 tcontext=u:r:aimgr:s0 tclass=binder
+allow ai_shell aimgr:binder { call transfer };
+ 
+# avc: denied { transfer } comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:ai_shell:s0 tclass=binder
+allow aimgr ai_shell:binder { transfer };
+
+# avc: denied { write } comm="/system/bin/claw_sandbox" scontext=u:r:ai_shell:s0 tcontext=u:object_r:claw_sandbox_loader:s0 tclass=unix_dgram_socket
+allow ai_shell claw_sandbox_loader:unix_dgram_socket { write };
+
+# avc: denied { search } comm="/bin/power-shell" name="/unix/socket" scontext=u:r:ai_shell:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir
+allow ai_shell dev_unix_socket:dir { search };
+
+# avc: denied { getopt } comm="/bin/power-shell" scontext=u:r:ai_shell:s0 tcontext=u:r:ai_shell:s0 tclass=unix_dgram_socket
+allow ai_shell ai_shell:unix_dgram_socket { getopt };
+
+# avc: denied { sendto } comm="/bin/power-shell" name="/unix/socket" scontext=u:r:ai_shell:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket
+allow ai_shell hiview:unix_dgram_socket { sendto };
+
+# avc: denied { call } comm="/bin/power-shell" scontext=u:r:ai_shell:s0 tcontext=u:r:samgr:s0 tclass=binder
+# avc: denied { transfer } comm="/bin/power-shell" scontext=u:r:ai_shell:s0 tcontext=u:r:samgr:s0 tclass=binder
+allow ai_shell samgr:binder { call transfer };
+
+# avc: denied { call } comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:ai_shell:s0 tclass=binder
+# avc: denied { transfer } comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:ai_shell:s0 tclass=binder
+allow samgr ai_shell:binder { call transfer };
+
+# avc: denied { call } comm="/bin/location_cli" scontext=u:r:ai_shell:s0 tcontext=u:r:foundation:s0 tclass=binder
+# avc: denied { transfer } comm="/bin/bm" scontext=u:r:ai_shell:s0 tcontext=u:r:foundation:s0 tclass=binder
+allow ai_shell foundation:binder { call transfer };
+
+# avc: denied { transfer } comm="/system/bin/sa_main" scontext=u:r:foundation:s0 tcontext=u:r:ai_shell:s0 tclass=binder
+allow foundation ai_shell:binder { transfer };
+
+pc_only(`
+    # avc: denied { getattr } for pid=10096, comm="/bin/ls"  path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
+    # avc: denied { read } for pid=10096, comm="/bin/ls"  path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
+    # avc: denied { open } for pid=10096, comm="/bin/ls"  path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
+    # avc: denied { search } for pid=9436, comm="/bin/sh"  name="/app/el1/bundle/100/hnppublic" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
+    allow ai_shell hnp_file:dir { getattr open read search };
+
+    # avc: denied { getattr } for pid=10467, comm="/bin/ls"  path="/data/service/hnp/bin/node" ... tcontext=u:object_r:hnp_file:s0 tclass=lnk_file permissive=1
+    # avc: denied { read } for pid=10467, comm="/bin/ls"  name="/app/el1/bundle/100/hnppublic/bin/node" ... tcontext=u:object_r:hnp_file:s0 tclass=lnk_file permissive=1
+    allow ai_shell hnp_file:lnk_file { read getattr };
+
+    # avc: denied { getattr } for pid=10857, comm="./python"  path="/data/service/hnp/bin" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
+    # avc: denied { map } for pid=unknown ... path="/data/service/hnp/python.org/python_3.12/bin/python3.12" ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
+    # avc: denied { read } for pid=10857 ... path="/data/service/hnp/python.org/python_3.12/lib/python3.12" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
+    # avc: denied { open } for pid=10857 ... path="/data/service/hnp/python.org/python_3.12/lib/python3.12" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
+    # avc: denied { ioctl } for pid=10857 ... path="/data/service/hnp/python.org/python_3.12/lib/python3.12/encodings/__pycache__/__init__.cpython-312.pyc" ... ioctlcmd=0x5413 ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
+    # avc: denied { execute } for pid=9436, comm="/bin/sh"  path="/data/service/hnp/python.org/python_3.12/bin/python3" ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
+    # avc: denied { execute_no_trans } for pid=10857, comm="/bin/sh"  ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
+    allow ai_shell hnp_file:file { getattr read open execute execute_no_trans map };
+')
+

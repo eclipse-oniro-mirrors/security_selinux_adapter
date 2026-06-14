@@ -76,6 +76,17 @@ allow claw_sandbox_loader dev_kmsg_file:chr_file { open write };
 # avc: denied { search } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir
 allow claw_sandbox_loader dev_unix_socket:dir { search };
 
+pc_only(`
+    # avc: denied { search read open getattr } for pid=12551, ... path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=0
+    allow claw_sandbox_loader hnp_file:dir { search read open getattr };
+')
+
+# avc: denied { read write } for pid=10303, comm="/system/bin/claw_sandbox"  path="/dev/xpm" ... tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc: denied { open } for pid=10303, comm="/system/bin/claw_sandbox"  path="/dev/xpm" dev="" ... tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=10303, comm="/system/bin/claw_sandbox"  path="/dev/xpm" dev="" ... tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+allow claw_sandbox_loader dev_xpm:chr_file { read write open ioctl };
+allowxperm claw_sandbox_loader dev_xpm:chr_file ioctl { 0x7802 };
+
 # avc: denied { use } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=fd
 allow claw_sandbox_loader aimgr:fd { use };
 
@@ -220,15 +231,19 @@ debug_only(`
     # avc: denied { read } comm="/system/bin/claw_sandbox" name="/bin/ls" dev="/dev/block/dm-2" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file
     allow claw_sandbox_loader system_bin_file:lnk_file { read };
 
-    domain_auto_transition_pattern(claw_sandbox_loader, sh_exec, claw_cli);
     domain_auto_transition_pattern(claw_sandbox_loader, toybox_exec, claw_cli);
     domain_auto_transition_pattern(claw_sandbox_loader, system_bin_file, claw_cli);
     domain_auto_transition_pattern(claw_sandbox_loader, power_shell_exec, claw_cli);
 ')
 
+domain_auto_transition_pattern(claw_sandbox_loader, sh_exec, ai_shell);
+
 neverallow { domain develop_domain debug_only(`-su') -aimgr -claw_sandbox_loader } claw_sandbox_exec:file { execute };
 
 allow claw_sandbox_loader claw_cli:process2 { nnp_transition };
+
+# avc: denied { nnp_transition } for pid=21200, comm="/system/bin/claw_sandbox" ... tcontext=u:object_r:ai_shell:s0 tclass=process2 permissive=1
+allow claw_sandbox_loader ai_shell:process2 { nnp_transition };
 
 # avc: denied { search } for pid=22394, comm="/system/bin/claw_sandbox"  name="/bin/cli_tool/executable" dev="overlay" ino=1109 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:sa_aimgr_climgr_exec_file:s0 tclass=dir permissive=1
 allow claw_sandbox_loader sa_aimgr_climgr_exec_file:dir { search };
