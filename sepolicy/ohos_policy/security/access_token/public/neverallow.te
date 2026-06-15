@@ -13,3 +13,11 @@
 
 neverallowxperm { domain develop_domain -violator_dev_at_file_chr_file_attr } dev_at_file:chr_file ioctl { 0x410C };
 neverallowxperm { domain develop_domain } dev_at_file:chr_file ioctl { 0x410E };
+
+# 0x4110: ADD_SPM_ENTRIES, 0x4111: SET_SPM_ENTRIES 0x4112: GET_SPM_ENTRY, 0x4113: REMOVE_SPM_ENTRY, 0x4114: SET_REFCNT_UID,
+# 0x4115: GET_REFCNT_UID, 0x4116: SET_REFCNT_TOKENID, 0x4117: GET_REFCNT_TOKENID, 0x4118: CLEAR_REFCNT_SPAWNID, 0x4119: GET_SPM_VERSION
+neverallowxperm { domain develop_domain -init -accesstoken_service } dev_at_file:chr_file ioctl { 0x4110 0x4111 0x4113 };
+neverallowxperm { domain develop_domain -init -accesstoken_service -appspawn -nwebspawn -cjappspawn -nativespawn -claw_sandbox_loader } dev_at_file:chr_file ioctl { 0x4112 };
+neverallowxperm { domain develop_domain -accesstoken_service -appspawn -nwebspawn -cjappspawn -nativespawn } dev_at_file:chr_file ioctl { 0x4115 };
+neverallowxperm { domain develop_domain -appspawn -nwebspawn -cjappspawn -nativespawn } dev_at_file:chr_file ioctl { 0x4114 0x4116 0x4118 };
+neverallowxperm { domain develop_domain -accesstoken_service } dev_at_file:chr_file ioctl { 0x4117 };
