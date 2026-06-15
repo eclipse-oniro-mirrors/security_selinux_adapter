@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+type updater_binary_exec, exec_attr, file_attr, system_file_attr;
+domain_auto_transition_pattern(updater, updater_binary_exec, updater_binary);
+
 updater_only(`
 
 #avc: denied { read } for pid=240 comm="updater" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=34 scontext=u:r:updater:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
