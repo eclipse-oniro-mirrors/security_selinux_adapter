@@ -25,3 +25,4 @@ allow appspawn hap_file_attr:file { read write } ;
 allow appspawn nativespawn:process { dyntransition sigkill };
 neverallow appspawn *:process ptrace;
 
+neverallow normal_hap normal_hap_attr:process { ptrace };
