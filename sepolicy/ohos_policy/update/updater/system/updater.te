@@ -11,7 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type updater_binary_exec, system_file_attr;
+type updater_binary_exec, exec_attr, file_attr, system_file_attr;
+domain_auto_transition_pattern(updater, updater_binary_exec, updater_binary);
 
 updater_only(`
 
