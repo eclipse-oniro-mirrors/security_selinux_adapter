@@ -155,5 +155,5 @@ allow isolated_gpu data_service_el1_file:dir { search };
 allow isolated_gpu shared_relro_file:dir { search };
 allow isolated_gpu shared_relro_file:file { getattr map open read };
 
-# avc: denied { get } for service=66568 sid=u:r:isolated_gpu:s0 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:histogram_service:s0 tclass=samger_class permissive=0
+# avc: denied { get } for service=66568 sid=u:r:isolated_gpu:s0 scontext=u:r:isolated_gpu:s0 tcontext=u:object_r:histogram_service:s0 tclass=samgr_class permissive=0
 allow isolated_gpu histogram_service:samgr_class { get };
