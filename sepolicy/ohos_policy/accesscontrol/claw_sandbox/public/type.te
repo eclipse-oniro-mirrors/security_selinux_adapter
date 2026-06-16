@@ -12,4 +12,5 @@
 # limitations under the License.
 
 type claw_cli, normal_hap_attr, hap_domain, domain;
+type ai_shell, normal_hap_attr, hap_domain, domain;
 type claw_sandbox_loader, native_system_domain, domain;

@@ -159,6 +159,7 @@
             "ringtonelibrary_hap",
             "formrenderservice_hap",
             "claw_cli",
+            "ai_shell",
             "input_hap",
             "input_debug_hap"
         ],

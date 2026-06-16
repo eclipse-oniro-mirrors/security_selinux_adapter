@@ -91,6 +91,7 @@ developer_only(`
 (allow hdcd native_daemon_exec (file (ioctl read open map execute getattr)))
 (allow hdcd selinuxfs (file (getattr)))
 (allow hdcd system_core_hap (unix_stream_socket (connectto)))
+(allow hdcd ai_shell (unix_stream_socket (connectto)))
 (allow hdcd const_build_param (file (read open map)))
 (allow hdcd hdcd (udp_socket (bind create setopt)))
 (allow hdcd data_log_sanitizer_file (file (rename ioctl read open create append write getattr unlink)))
