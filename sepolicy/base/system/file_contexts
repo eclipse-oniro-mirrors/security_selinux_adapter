@@ -39,10 +39,6 @@
 /dev/block/mmcblk0p2            u:object_r:updater_block_file:s0
 /dev/block/by-name/bootctrl     u:object_r:updater_block_file:s0
 /dev/block/mmcblk0p3            u:object_r:updater_block_file:s0
-/dev/block/by-name/sml_a        u:object_r:sml_block_file:s0
-/dev/block/sda6                 u:object_r:sml_block_file:s0
-/dev/block/by-name/sml_b        u:object_r:sml_block_file:s0
-/dev/block/sda7                 u:object_r:sml_block_file:s0
 /dev/bus(/.*)?                u:object_r:dev_bus_file:s0
 /dev/bus/usb(/.*)?                u:object_r:dev_bus_usb_file:s0
 /dev/char(/.*)?                u:object_r:dev_char_file:s0
