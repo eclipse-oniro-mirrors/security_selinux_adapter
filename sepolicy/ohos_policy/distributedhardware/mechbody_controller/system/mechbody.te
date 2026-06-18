@@ -91,3 +91,6 @@ allow mechbody sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { get } for service=3203 sid=u:r:mechbody:s0 scontext=u:r:mechbody:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
 allow mechbody sa_foundation_ans:samgr_class { get };
+
+# avc:  denied  { get } for service=3704 sid=u:r:mechbody:s0 scontext=u:r:mechbody:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
+allow mechbody sa_screenlock_service:samgr_class { get };
