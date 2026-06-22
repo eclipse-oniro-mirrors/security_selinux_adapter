@@ -596,3 +596,11 @@ allowxperm storage_daemon dev_sg_file:chr_file ioctl { 0x2201 0x2272 0x2275 0x22
 # avc: denied { ioctl } for pid=10626, comm="/bin/genisoimage" path="/mnt/data/external/mtp-4817-4353/1312312名称.iso" dev="mtpfs" ino=6 ioctlcmd=0x5413 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=1
 allow storage_daemon mnt_external_file:file { ioctl write };
 allowxperm storage_daemon mnt_external_file:file ioctl { 0x5413 };
+
+# avc: denied { ioctl } for pid=26957, comm="/bin/wodim" path="/dev/block/sr0" dev="" ino=19056 ioctlcmd=0x5382 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
+# avc: denied { ioctl } for pid=26957, comm="/bin/wodim" path="/dev/block/sr0" dev="" ino=19056 ioctlcmd=0x2282 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
+# avc: denied { ioctl } for pid=26957, comm="/bin/wodim" path="/dev/block/sr0" dev="" ino=19056 ioctlcmd=0x2201 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
+# avc: denied { ioctl } for pid=26957, comm="/bin/wodim" path="/dev/block/sr0" dev="" ino=19056 ioctlcmd=0x2272 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
+# avc: denied { ioctl } for pid=26957, comm="/bin/wodim" path="/dev/block/sr0" dev="" ino=19056 ioctlcmd=0x5386 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
+allow storage_daemon dev_block_file:blk_file { ioctl };
+allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x2201 0x2272 0x2282 0x5382 0x5386 };
