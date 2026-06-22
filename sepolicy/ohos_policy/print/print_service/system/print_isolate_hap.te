@@ -386,7 +386,7 @@ allow print_isolate_hap huaweiid_service:binder { call transfer };
 #avc: denied { read } for pid=12067, comm="/system/bin/appspawn"  path="/proc/cpuinfo" dev="" ino=37 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 #avc: denied { open } for pid=12067, comm="/system/bin/appspawn"  path="/proc/cpuinfo" dev="" ino=37 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 #avc: denied { getattr } for pid=12067, comm="/system/bin/appspawn"  path="/proc/cpuinfo" dev="" ino=37 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
-allow print_isolate_hap proc_cpuinfo_file:file { getattr open read }
+allow print_isolate_hap proc_cpuinfo_file:file { getattr open read };
 
 #avc: denied { read } for pid=12067, comm="/system/bin/appspawn"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
 #avc: denied { open } for pid=12067, comm="/system/bin/appspawn"  path="/proc/meminfo" dev="" ino=6 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:proc_meminfo_file:s0 tclass=file permissive=1
