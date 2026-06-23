@@ -38,3 +38,8 @@ allow font_manager_server data_file:dir { search };
 # avc:  denied  { read } for  pid=22943 comm="font_manager_se"  dev="vdd" ino=820882 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
 # avc:  denied  { getattr } for  pid=22943 comm="font_manager_se"  dev="vdd" ino=820882 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
 allow font_manager_server data_user_file:file { getattr read };
+
+# avc:  denied  { getattr } for  pid=9168 comm="font_manager_se" dev="/dev/block/vol-8-1" ino=3 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=9168 comm="font_manager_se" dev="/dev/block/vol-8-1" ino=3 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=9168 comm="font_manager_se" dev="/dev/block/vol-8-1" ino=3 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+allow font_manager_server vfat:file { getattr map read };
