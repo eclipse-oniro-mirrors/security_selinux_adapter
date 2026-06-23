@@ -101,7 +101,7 @@ allowxperm print_isolate_hap appdat:dir ioctl { 0xf546 0xf547 };
 allowxperm print_isolate_hap normal_hap_data_file:dir ioctl { 0xf546 0xf547 };
 #avc: denied { ioctl } for pid=12067, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases/appevent.db-journal" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=33944 ioctlcmd=0xf547 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:appdat:s0 tclass=file permissive=1
 allowxperm print_isolate_hap appdat:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
-allowxperm print_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
+allowxperm print_isolate_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
 allowxperm print_isolate_hap dev_at_file:chr_file ioctl { 0x5413 };
 allow print_service print_isolate_hap:binder { call };
 allow render_service print_isolate_hap:binder { transfer };
@@ -415,7 +415,6 @@ allow print_isolate_hap data_app_el2_file:file { create };
 #avc: denied { call } for pid=1657, comm="/system/bin/sa_main"  scontext=u:r:huaweiid_service:s0 tcontext=u:r:print_isolate_hap:s0 tclass=binder permissive=1
 allow huaweiid_service print_isolate_hap:binder { call };
 
-
 developer_only(`
     # avc: denied { getattr } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/cache" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45375 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
     # avc: denied { ioctl } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45942 ioctlcmd=0xf546 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
@@ -447,5 +446,4 @@ developer_only(`
     # avc: denied { ioctl } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45946 ioctlcmd=0xf50c scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
     # avc: denied { ioctl } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases/appevent.db" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45946 ioctlcmd=0xf546 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
     allowxperm print_isolate_hap debug_hap_data_file:file ioctl { 0x5413 0xf50c 0xf546 };
-
 ')
