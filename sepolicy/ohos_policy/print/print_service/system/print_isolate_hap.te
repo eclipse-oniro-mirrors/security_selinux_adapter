@@ -408,6 +408,9 @@ allow print_isolate_hap data_app_el1_arkprofile:dir { search };
 #avc: denied { create } for pid=12067, comm="/system/bin/appspawn"  name="/app/el2/100/log/com.huawei.hmos.ailife/applog/AILife_0.log" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=34321 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 allow print_isolate_hap data_app_el2_file:file { create };
 
+#avc:  denied  { get } for service=182 sid=u:r:print_isolate_hap:s0 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:sa_dataobs_mgr_service_service:s0 tclass=samgr_class permissive=1
+allow print_isolate_hap sa_dataobs_mgr_service_service:samgr_class { get };
+
 developer_only(`
     # avc: denied { getattr } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/cache" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45375 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
     # avc: denied { ioctl } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45942 ioctlcmd=0xf546 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
