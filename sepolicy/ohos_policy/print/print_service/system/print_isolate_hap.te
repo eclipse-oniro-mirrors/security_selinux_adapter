@@ -23,7 +23,7 @@ allow print_isolate_hap accountmgr:binder { call transfer };
 #avc: denied { remove_name } for pid=12067, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.huawei.hmos.ailife/files/hiappevent/databases" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=33766 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:appdat:s0 tclass=dir permissive=1
 #avc: denied { rmdir } for pid=8355, comm="/system/bin/appspawn"  name="/app/el2/100/base/com.huawei.hmos.ailife/haps/phone/cache/cv81/filestemp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=77802 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:appdat:s0 tclass=dir permissive=0
 allow print_isolate_hap appdat:dir { getattr ioctl open read search create setattr write add_name remove_name rmdir };
-allow print_isolate_hap normal_hap_data_file:dir { getattr ioctl open read search create setattr write add_name };
+allow print_isolate_hap normal_hap_data_file:dir { getattr ioctl open read search create setattr write add_name remove_name rmdir };
 allow print_isolate_hap appdat:file { append getattr ioctl lock map open read setattr write create unlink };
 allow print_isolate_hap normal_hap_data_file:file { append getattr ioctl lock map open read setattr write create unlink };
 allow print_isolate_hap appspawn:fd { use };
