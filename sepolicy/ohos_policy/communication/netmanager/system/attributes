@@ -12,3 +12,4 @@
 # limitations under the License.
 
 attribute netsysnative_violator_binder_call;
+attribute cap_violator_iptables_exec_file_execute;
