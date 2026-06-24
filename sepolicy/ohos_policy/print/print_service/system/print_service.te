@@ -131,3 +131,14 @@ allow print_service huks_service:binder { call };
 allow print_service normal_hap_attr:binder { transfer };
 # avc: denied { open } for pid=15209, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:print_service:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow print_service dev_ashmem_file:chr_file { open };
+
+# avc: denied { search } for pid=9853, comm="/system/bin/sa_main"  name="/service/el1/public/update/param_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=2361 scontext=u:r:print_service:s0 tcontext=u:object_r:update_param_file:s0 tclass=dir permissive=1
+allow print_service update_param_file:dir { search };
+# avc: denied { search } for pid=9853, comm="/system/bin/sa_main"  name="/service/el1/public/update/param_service/install" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=2364 scontext=u:r:print_service:s0 tcontext=u:object_r:update_param_install_file:s0 tclass=dir permissive=1
+allow print_service update_param_install_file:dir { search };
+# avc: denied { search } for pid=9853, comm="/system/bin/sa_main"  name="/service/el1/public/update/param_service/install/system" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=2367 scontext=u:r:print_service:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=dir permissive=1
+allow print_service update_param_install_file_system:dir { search };
+# avc: denied { read } for pid=9853, comm="/system/bin/sa_main"  path="/data/service/el1/public/update/param_service/install/system/etc/com.huawei.hmos.spooler/PRINTER/version.txt" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=47714 scontext=u:r:print_service:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
+# avc: denied { open } for pid=9853, comm="/system/bin/sa_main"  path="/data/service/el1/public/update/param_service/install/system/etc/com.huawei.hmos.spooler/PRINTER/version.txt" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=47714 scontext=u:r:print_service:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=9853, comm="/system/bin/sa_main"  path="/data/service/el1/public/update/param_service/install/system/etc/com.huawei.hmos.spooler/PRINTER/version.txt" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=47714 scontext=u:r:print_service:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
+allow print_service update_param_install_file_system:file { getattr open read };
