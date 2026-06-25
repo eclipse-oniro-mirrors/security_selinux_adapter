@@ -309,7 +309,8 @@ allow sh storage_daemon:key { search };
 allow hnp_native hnp_file:dir { search getattr read open };
 allow hnp_native hnp_file:file { execute execute_no_trans getattr map read open };
 allow hnp_native hnp_file:lnk_file { read };
-allow hnp_native self:xpm { exec_allow_debug_id};
+#avc:  denied  { exec_allow_debug_ownerid } for  pid=4827 comm="hnpsample" path="/data/app/el1/bundle/100/hnppublic/hnpsample.org/hnpsample_1.1/bin/hnpsample" dev="sdd78" ino=19111  scontext=u:r:hnp_native:s0 tcontext=u:object_r:hnp_file:s0 tclass=xpm permissive=0                                                                                                                                       
+allow hnp_native hnp_file:xpm { exec_allow_debug_ownerid};
 allow hnp_native data_app_el1_file:dir { search };
 allow hnp_native data_app_file:dir { search };
 allow hnp_native dev_unix_socket:dir { search };
