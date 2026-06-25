@@ -25,6 +25,10 @@ allow font_manager_server sysfs_devices_system_cpu:file { getattr read open };
 allow font_manager_server dev_unix_socket:dir { search };
 allow font_manager_server dev_kmsg_file:chr_file { write };
 allow font_manager_server sa_foundation_cesfwk_service:samgr_class { get };
+
+allow font_manager_server sa_storage_manager_service:samgr_class { get };
+allow font_manager_server storage_manager:binder { call };
+
 allow font_manager_server sharefs_appdata_bundle_file:file { getattr map read };
 # avc:  denied  { getattr } for  pid=22943 comm="font_manager_se" dev="hmdfs" ino=2305843009214514834 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 allow font_manager_server hmdfs:file { getattr map read };
