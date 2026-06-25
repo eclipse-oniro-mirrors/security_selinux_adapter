@@ -49,7 +49,8 @@ allow claw_sandbox_loader system_core_hap_attr:file { open read };
 # avc: denied { sys_admin } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 # avc: denied { sys_chroot } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
 # avc: denied { sys_ptrace } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
-allow claw_sandbox_loader claw_sandbox_loader:capability { setuid setgid sys_admin sys_chroot sys_ptrace };
+# avc: denied { dac_read_search } for pid=53122, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 
+allow claw_sandbox_loader claw_sandbox_loader:capability { setuid setgid sys_admin sys_chroot sys_ptrace dac_read_search };
 
 # avc: denied { setopt } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=unix_dgram_socket
 # avc: denied { getopt } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=unix_dgram_socket
@@ -129,7 +130,8 @@ allow claw_sandbox_loader normal_hap_attr:lnk_file { read };
 allow claw_sandbox_loader proc_file:file { write };
 
 # avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/data/storage/el1/bundle" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir
-allow claw_sandbox_loader data_app_el1_file:dir { getattr };
+# avc: denied { search } for pid=23673, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir
+allow claw_sandbox_loader data_app_el1_file:dir { getattr search };
 
 # avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir
 allow claw_sandbox_loader system_bin_file:dir { getattr };
@@ -164,7 +166,8 @@ allow claw_sandbox_loader proc_file:filesystem { mount unmount };
 allow claw_sandbox_loader tmpfs:dir { create mounton rmdir write add_name remove_name read open };
 
 # avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem
-allow claw_sandbox_loader labeledfs:filesystem { unmount };
+# avc: denied { remount } for pid=9339, comm="/system/bin/claw_sandbox"  scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem
+allow claw_sandbox_loader labeledfs:filesystem { unmount remount };
 
 # avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem
 allow claw_sandbox_loader tmpfs:filesystem { unmount };
@@ -250,3 +253,30 @@ allow claw_sandbox_loader sa_aimgr_climgr_exec_file:dir { search };
 
 allow claw_sandbox_loader sa_aimgr_climgr_exec_file:file { entrypoint execute getattr map read open };
 domain_auto_transition_pattern(claw_sandbox_loader, sa_aimgr_climgr_exec_file, claw_cli);
+
+# avc: denied { read write } for pid=10718, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:aimgr:s0 tclass=file permissive=0
+allow claw_sandbox_loader aimgr:file { read write };
+
+# avc: denied { search } for pid=12978 ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir
+# avc: denied { getattr } for pid=11110, comm="/system/bin/claw_sandbox" ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir
+# avc: denied { read write } for pid=23477, comm="/system/bin/claw_sandbox" ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir
+allow claw_sandbox_loader data_user_file:dir { search getattr read write };
+
+# avc: denied { search } for pid=11110, comm="/system/bin/claw_sandbox"  name="/service/el2/100/hmdfs" ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir
+allow claw_sandbox_loader data_service_el2_hmdfs:dir { search };
+
+# avc: denied { search } for pid=22236, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=0
+allow claw_sandbox_loader data_service_el2_file:dir { search };
+
+# avc: denied { search } for pid=22236, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
+allow claw_sandbox_loader data_app_file:dir { search };
+
+# avc: denied { search } for pid=9151, comm="/system/bin/claw_sandbox"  scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir
+allow claw_sandbox_loader data_app_el2_file:dir { search };
+
+# avc: denied { search } for pid=9339, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:appdat:s0 tclass=dir
+# avc: denied { getattr } for pid=9339, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:appdat:s0 tclass=dir
+# avc: denied { read write } for pid=11920, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:appdat:s0 tclass=dir
+allow claw_sandbox_loader appdat:dir { search getattr read write };
+allow claw_sandbox_loader normal_hap_data_file:dir { search getattr read write };
+
