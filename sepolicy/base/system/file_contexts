@@ -39,6 +39,10 @@
 /dev/block/mmcblk0p2            u:object_r:updater_block_file:s0
 /dev/block/by-name/bootctrl     u:object_r:updater_block_file:s0
 /dev/block/mmcblk0p3            u:object_r:updater_block_file:s0
+/dev/block/by-name/sml_a        u:object_r:sml_block_file:s0
+/dev/block/sda6                 u:object_r:sml_block_file:s0
+/dev/block/by-name/sml_b        u:object_r:sml_block_file:s0
+/dev/block/sda7                 u:object_r:sml_block_file:s0
 /dev/bus(/.*)?                u:object_r:dev_bus_file:s0
 /dev/bus/usb(/.*)?                u:object_r:dev_bus_usb_file:s0
 /dev/char(/.*)?                u:object_r:dev_char_file:s0
@@ -147,6 +151,7 @@
 /dev/sw_sync                        u:object_r:dev_sw_sync:s0
 /dev/usb-ffs                        u:object_r:dev_usb_ffs:s0
 /dev/uinput                         u:object_r:dev_uinput:s0
+/dev/vha[0-9]                       u:object_r:dev_vha:s0
 
 /dev/hdmi_hdcp1x                    u:object_r:dev_hdmi_hdcp1x:s0
 /dev/xpm                            u:object_r:dev_xpm:s0
