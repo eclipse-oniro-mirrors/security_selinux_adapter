@@ -81,9 +81,22 @@ allowxperm accessibility system_etc_file:file ioctl { 0xf207 };
 allow accessibility accountmgr:binder { call transfer };
 allow accessibility sa_time_service:samgr_class { get };
 
+# avc: denied { call } for pid=820, comm="/system/bin/sa_main"  scontext=u:r:accessibility:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=820, comm="/system/bin/sa_main"  scontext=u:r:accessibility:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
 allow accessibility camera_service:binder { call transfer };
+
+# avc:  denied  { get } for service=3008 sid=u:r:accessibility:s0 scontext=u:r:accessibility:s0 tcontext=u:object_r:sa_camera_service:s0 tclass=samgr_class permissive=1
 allow accessibility sa_camera_service:samgr_class { get };
+
+# avc: denied { call } for pid=817, comm="/system/bin/sa_main"  scontext=u:r:accessibility:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=817, comm="/system/bin/sa_main"  scontext=u:r:accessibility:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow accessibility sensors:binder { call transfer };
+
+# avc:  denied  { get } for service=3601 sid=u:r:accessibility:s0 scontext=u:r:accessibility:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=1
 allow accessibility sa_sensor_service:samgr_class { get };
+
+# avc: denied { use } for pid=1592, comm="/system/bin/sa_main"  ioctlcmd=0x0  scontext=u:r:sensors:s0 tcontext=u:r:accessibility:s0 tclass=fd permissive=1
 allow sensors accessibility:fd { use };
+
+# avc: denied { write } for pid=1617, comm="/system/bin/sa_main"  scontext=u:r:sensors:s0 tcontext=u:r:accessibility:s0 tclass=unix_stream_socket permissive=1
 allow sensors accessibility:unix_stream_socket { write };
