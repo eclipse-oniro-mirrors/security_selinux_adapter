@@ -380,6 +380,7 @@ allow storage_daemon data_service_el2_hmdfs:file { read open write };
 allow storage_daemon data_service_el2_hmdfs:lnk_file { unlink rename };
 
 storage_daemon_relabel(data_service_el2_share);
+storage_daemon_relabel(data_service_el1_i18n_icu_file);
 
 # avc: denied { create } for pid=648, comm="/system/bin/storage_daemon" name="/app/el2/100/base/el2_tem" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=5640 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=file permissive=1
 allow storage_daemon data_app_el2_file:file { unlink create write ioctl open };
