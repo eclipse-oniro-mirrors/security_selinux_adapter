@@ -19,3 +19,9 @@ allow normal_hap_attr i18n_service:binder { call };
 allow normal_hap_attr i18n_service:fd { use };
 # avc: denied { getattr } for pid=32477, comm="/system/bin/chrome_crashpad_handler"  path="/dev" dev="" ino=0 scontext=u:r:normal_hap_attr:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
 allow normal_hap_attr dev_file:dir { getattr };
+
+# avc: denied { getattr } for pid=11720, comm="/system/bin/appspawn"  path="/system/usr/ohos_icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=44610 scontext=o:r:normal_hap:s0:x227,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=11720, comm="/system/bin/appspawn"  path="/system/usr/ohos_icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=44610 scontext=o:r:normal_hap:s0:x227,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=11720, comm="/system/bin/appspawn"  path="/system/usr/ohos_icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=44610 scontext=o:r:normal_hap:s0:x227,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=11720, comm="/system/bin/appspawn"  path="/system/usr/ohos_icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=44610 scontext=o:r:normal_hap:s0:x227,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+allow normal_hap_attr data_service_el1_i18n_icu_file:file { getattr map open read };
