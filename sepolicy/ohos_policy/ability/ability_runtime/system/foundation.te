@@ -112,6 +112,8 @@ allow foundation key_enable:key { search };
 allow foundation accountmgr:fd { use };
 neverallow foundation *:process ptrace;
 allow foundation sa_sandbox_manager_service:samgr_class { get };
+# avc: denied { get } for service=5204, sid:=u:r:foundation:s0 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_filemanagement_cloud_sync_service:s0 tclass=samgr_class permissive=0
+allow foundation sa_filemanagement_cloud_sync_service:samgr_class { get };
 binder_call(foundation, sa_sandbox_manager_service);
 
 # add for hiperf
