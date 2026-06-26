@@ -80,3 +80,10 @@ allowxperm accessibility system_etc_file:file ioctl { 0xf207 };
 
 allow accessibility accountmgr:binder { call transfer };
 allow accessibility sa_time_service:samgr_class { get };
+
+allow accessibility camera_service:binder { call transfer };
+allow accessibility sa_camera_service:samgr_class { get };
+allow accessibility sensors:binder { call transfer };
+allow accessibility sa_sensor_service:samgr_class { get };
+allow sensors accessibility:fd { use };
+allow sensors accessibility:unix_stream_socket { write };
