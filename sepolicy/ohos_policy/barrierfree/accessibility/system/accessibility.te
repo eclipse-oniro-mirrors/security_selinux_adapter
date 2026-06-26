@@ -87,4 +87,3 @@ allow accessibility sensors:binder { call transfer };
 allow accessibility sa_sensor_service:samgr_class { get };
 allow sensors accessibility:fd { use };
 allow sensors accessibility:unix_stream_socket { write };
-allow accessibility sa_foundation_tel_call_manager:samgr_class { get };
