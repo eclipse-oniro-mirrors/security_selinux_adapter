@@ -85,6 +85,7 @@
                 "storage_daemon toybox_exec",
                 "storage_daemon mtpfs_exec",
                 "storage_daemon gphotofs_exec",
+                "storage_daemon optical_disk_exec",
                 "updater_binary tmpfs",
                 "updater_binary system_bin_file",
                 "updater_binary toybox_exec",
