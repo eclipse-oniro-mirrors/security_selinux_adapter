@@ -317,7 +317,6 @@
                     "/data/service/el1/public/storage_daemon/sd(/.*)?",
                     "/data/service/el0/storage_daemon/sd(/.*)?",
                     "/data/service/el1/public/storage_daemon/share/public(/.*)?",
-                    "/data/service/el1/public/i18n/icu(/.*)?",
                     "/data/service/el1/public/i18n/libphonenumber(/.*)?",
                     "/data/service/el1/public/i18n/taboo(/.*)?",
                     "/data/service/el1/public/i18n/timezone(/.*)?",
