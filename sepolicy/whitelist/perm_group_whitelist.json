@@ -67,6 +67,7 @@
                 "init toybox_exec",
                 "init param_exec",
                 "init begetctl_exec",
+                "init i18n_exec",
                 "installs system_bin_file",
                 "multimodalinput system_bin_file",
                 "native_daemon system_bin_file",

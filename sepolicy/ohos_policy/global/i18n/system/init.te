@@ -27,4 +27,26 @@ allow init system_usr_file:dir { search };
 # avc: denied { read } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2641 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
 # avc: denied { open } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2641 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
 # avc: denied { map } for pid=1200, comm="/system/bin/hmos_cust_timezone_mount"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2641 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
-allow init system_usr_file:file { getattr map open read };
+# avc: denied { mounton } for pid=1248, comm="/system/bin/icu72_dat_mount"  path="/system/usr/ohos_icu/icudt72l.dat" dev="overlay" ino=5722 scontext=u:r:init:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow init system_usr_file:file { getattr map open read mounton };
+ 
+# avc: denied { getattr } for pid=1, comm="/bin/init"  path="/data/service/el1/public/i18n/icu" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=4581 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=dir permissive=1
+# avc: denied { write add_name } for pid=1255, comm="/system/bin/icu72_dat_mount"  name="/service/el1/public/i18n/icu" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=4890 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=dir permissive=1
+allow init data_service_el1_i18n_icu_file:dir { getattr write add_name };
+ 
+# avc: denied { getattr } for pid=1248, comm="/system/bin/icu72_dat_mount"  path="/data/service/el1/public/i18n/icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=49185 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=1248, comm="/system/bin/icu72_dat_mount"  path="/data/service/el1/public/i18n/icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=49185 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1248, comm="/system/bin/icu72_dat_mount"  path="/data/service/el1/public/i18n/icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=49185 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { write } for pid=1248, comm="/system/bin/icu72_dat_mount"  path="/data/service/el1/public/i18n/icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=49185 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { create } for pid=1255, comm="/system/bin/icu72_dat_mount"  name="/service/el1/public/i18n/icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=41412 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+allow init data_service_el1_i18n_icu_file:file { getattr ioctl open write create };
+ 
+# avc: denied { execute_no_trans } for pid=1248, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:object_r:i18n_exec:s0 tclass=file permissive=1
+# avc: denied { execute } for pid=1248, comm="/bin/init"  path="/system/bin/icu72_dat_mount" dev="overlay" ino=1188 scontext=u:r:init:s0 tcontext=u:object_r:i18n_exec:s0 tclass=file permissive=1
+# avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/icu72_dat_mount" dev="overlay" ino=1188 scontext=u:r:init:s0 tcontext=u:object_r:i18n_exec:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1248, comm="/bin/init"  path="/system/bin/icu72_dat_mount" dev="overlay" ino=1188 scontext=u:r:init:s0 tcontext=u:object_r:i18n_exec:s0 tclass=file permissive=1
+# avc: denied { read } for pid=1248, comm="/bin/init"  path="/system/bin/icu72_dat_mount" dev="overlay" ino=1188 scontext=u:r:init:s0 tcontext=u:object_r:i18n_exec:s0 tclass=file permissive=1
+allow init i18n_exec:file { execute_no_trans execute map open read };
+ 
+# avc: denied { ioctl } for pid=1248, comm="/system/bin/icu72_dat_mount"  path="/data/service/el1/public/i18n/icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=49185 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+allowxperm init data_service_el1_i18n_icu_file:file ioctl { 0x5413 };

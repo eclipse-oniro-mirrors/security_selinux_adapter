@@ -1,0 +1,16 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+ 
+# avc: denied { open } for pid=985, comm="/system/bin/sa_main"  path="/system/usr/ohos_icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=44610 scontext=u:r:resource_schedule_executor:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=985, comm="/system/bin/sa_main"  path="/system/usr/ohos_icu/icudt72l.dat" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=44610 scontext=u:r:resource_schedule_executor:s0 tcontext=u:object_r:data_service_el1_i18n_icu_file:s0 tclass=file permissive=1
+allow resource_schedule_executor data_service_el1_i18n_icu_file:file { open read };
