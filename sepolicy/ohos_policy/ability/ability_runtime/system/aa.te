@@ -76,10 +76,6 @@ debug_only(`
     allow aa watchdog_service:dir { getattr search };
     allow accessibility aa:binder { call transfer };
     allow foundation aa:binder { call };
-    # avc: denied { use } for pid=8327, comm="/system/bin/sa_main" path="pipe:[1637]" dev="tmpfs" ino=1637 scontext=u:r:foundation:s0 tcontext=u:r:aa:s0 tclass=fd permissive=0
-    allow foundation aa:fd { use };
-    # avc: denied { use } for pid=1284, comm="/system/bin/sa_main" path="pipe:[1831]" dev="tmpfs" ino=1831 scontext=u:r:foundation:s0 tcontext=u:r:aa:s0 tclass=fifo_file permissive=0
-    allow foundation aa:fifo_file { write };
     allow hap_domain aa:binder { call };
     allow hdcd aa:process { signal };
     allow hidumper aa:fd { use };
@@ -144,10 +140,6 @@ developer_only(`
     allow aa tty_device:chr_file { read write open ioctl };
     allow debug_hap_attr aa:binder { call };
     allow foundation aa:binder { call transfer };
-    # avc: denied { use } for pid=8327, comm="/system/bin/sa_main" path="pipe:[1637]" dev="tmpfs" ino=1637 scontext=u:r:foundation:s0 tcontext=u:r:aa:s0 tclass=fd permissive=0
-    allow foundation aa:fd { use };
-    # avc: denied { use } for pid=1284, comm="/system/bin/sa_main" path="pipe:[1831]" dev="tmpfs" ino=1831 scontext=u:r:foundation:s0 tcontext=u:r:aa:s0 tclass=fifo_file permissive=0
-    allow foundation aa:fifo_file { write };
     allow hdcd aa:process { signal };
     allow hidumper_service aa:dir { search };
     allow hidumper_service aa:file { getattr open read };
