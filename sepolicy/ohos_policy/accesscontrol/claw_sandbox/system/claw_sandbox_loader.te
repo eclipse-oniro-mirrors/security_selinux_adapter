@@ -178,8 +178,9 @@ allow claw_sandbox_loader usb_service:fd { use };
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4102 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4104 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } for pid=12151, comm="/system/bin/claw_sandbox"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x411a ... tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
 allow claw_sandbox_loader dev_at_file:chr_file { ioctl };
-allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 0x4112 };
+allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 0x4112 0x411a };
  
 # avc: denied { search } for pid=12743 ... name="/device_view/local/files/Docs" ... tcontext=u:object_r:hmdfs:s0 tclass=dir
 allow claw_sandbox_loader hmdfs:dir search;
