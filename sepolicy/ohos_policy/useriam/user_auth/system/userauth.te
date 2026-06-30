@@ -28,7 +28,7 @@ allow useriam sa_useriam_faceauth_service:samgr_class { add };
 allow useriam sa_useriam_fingerprintauth_service:samgr_class { add };
 
 #avc:  denied  { add } for service=945 pid=898 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_companiondeviceauth_service:s0 tclass=samgr_class permissive=1
-allow useriam sa_useriam_companiondeviceauth_service:samgr_class { add };
+allow useriam sa_useriam_companiondeviceauth_service:samgr_class { add get };
 
 #avc:  denied  { get } for service=931 pid=515 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_authexecutormgr_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_authexecutormgr_service:samgr_class { get };
@@ -84,7 +84,7 @@ allow softbus_server useriam:binder { call };
 
 allow useriam data_service_el1_file:dir { search write add_name remove_name setattr open read };
 
-allow useriam data_service_el1_file:file { create getattr open read unlink write setattr };
+allow useriam data_service_el1_file:file { create getattr open read unlink write setattr rename };
 
 allow useriam data_service_file:dir { search };
 
