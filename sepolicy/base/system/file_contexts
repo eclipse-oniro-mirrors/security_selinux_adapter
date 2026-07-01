@@ -322,20 +322,6 @@
 
 /system/bin/gphotofs       u:object_r:gphotofs_exec:s0
 
-/system/bin/genisoimage       u:object_r:optical_disk_exec:s0
-
-/system/bin/wodim       u:object_r:optical_disk_exec:s0
-
-/system/bin/dvd\+rw-format       u:object_r:optical_disk_exec:s0
-
-/system/bin/growisofs       u:object_r:optical_disk_exec:s0
-
-/system/bin/isoinfo       u:object_r:optical_disk_exec:s0
-
-/system/bin/udfinfo       u:object_r:optical_disk_exec:s0
-
-/system/bin/dvd\+rw-mediainfo       u:object_r:optical_disk_exec:s0
-
 /system/bin/thermal_protector        u:object_r:thermal_protector_exec:s0
 
 /system/bin/sh        u:object_r:sh_exec:s0
