@@ -20,7 +20,8 @@ allow av_session data_file:dir { search add_name write };
 allow av_session data_service_el1_file:dir { add_name search write };
 allow av_session data_service_el1_file:file { create ioctl open read write };
 # avc: denied { read } for pid=1881, comm="/system/bin/sa_main"  path="/data/service/el2/100/av_session/cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=46560 scontext=u:r:av_session:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=0
-allow av_session data_service_el2_file:dir { add_name create getattr read remove_name search write };
+# avc: denied { open } for pid=1811, comm="/system/bin/sa_main"  path="/data/service/el2/100/av_session/cache" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=40169 scontext=u:r:av_session:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=0
+allow av_session data_service_el2_file:dir { add_name create getattr open read remove_name search write };
 allow av_session data_service_el2_file:file { create ioctl open read unlink write getattr };
 allow av_session data_service_file:dir { search };
 allow av_session render_service:binder { transfer };
