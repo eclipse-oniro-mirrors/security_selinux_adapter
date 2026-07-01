@@ -58,5 +58,3 @@ allow storage_daemon mtpfs_exec:file { execute execute_no_trans map open read };
 # avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/gphotofs" dev="overlay" ino=809 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:gphotofs_exec:s0 tclass=file permissive=0
 allow storage_daemon gphotofs_exec:file { execute execute_no_trans map open read };
 
-allow storage_daemon optical_disk_exec:file { execute execute_no_trans map open read };
-
