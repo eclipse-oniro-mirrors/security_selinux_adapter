@@ -14,3 +14,6 @@
 allow foundation configfs:dir { add_name create search };
 allow foundation data_service_el1_file:file { ioctl lock map read append open };
 allow foundation normal_hap_data_file_attr:file { write };
+
+# avc: denied { call } for pid=1216, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:storage_space_manager:s0 tclass=binder permissive=1
+allow foundation storage_space_manager:binder { call };

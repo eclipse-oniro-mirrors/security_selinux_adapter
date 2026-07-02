@@ -62,6 +62,7 @@ type sa_telephony_tel_ims, sa_service_attr;
 type sa_softbus_service, sa_service_attr;
 type sa_foundation_devicemanager_service, sa_service_attr;
 type sa_storage_manager_service, sa_service_attr;
+type sa_storage_space_manager_service, sa_service_attr;
 type sa_device_service_manager, sa_service_attr;
 
 type sa_subsys_ccruntime_service, sa_service_attr;
