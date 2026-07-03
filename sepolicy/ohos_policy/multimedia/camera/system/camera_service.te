@@ -180,3 +180,6 @@ allow camera_service sa_storage_manager_service:samgr_class { get };
 
 # avc: denied { call } for pid=9033, comm="/system/bin/sa_main" scontext=u:r:camera_service:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=0
 allow camera_service storage_manager:binder { call };
+
+# avc: denied { use } for pid=10009, comm="/system/bin/appspawn" path="dev/ashmem" dev="" ino=1 scontext=u:r:camera_service:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
+allow camera_service system_core_hap:fd { use };
