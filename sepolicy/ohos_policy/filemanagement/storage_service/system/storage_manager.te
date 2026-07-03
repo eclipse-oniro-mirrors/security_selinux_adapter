@@ -97,3 +97,8 @@ allow storage_manager resource_schedule_service:binder { call };
 allow storage_manager sa_sg_collect_service:samgr_class { get };
 # avc: denied { call } for pid=674, comm="/system/bin/sa_main" scontext=u:r:storage_manager:s0 tcontext=u:security_guard:s0 tclass=binder permissive=0
 allow storage_manager security_guard:binder { call };
+
+# avc: denied { get } for service=8650 sid=u:r:storage_manager:s0 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sa_storage_space_manager_service:s0 tclass=samgr_class permissive=0
+allow storage_manager sa_storage_space_manager_service:samgr_class { get };
+# avc: denied { call } for pid=674, comm="/system/bin/sa_main" scontext=u:r:storage_manager:s0 tcontext=u:security_guard:s0 tclass=binder permissive=0
+allow storage_manager storage_space_manager:binder { call };

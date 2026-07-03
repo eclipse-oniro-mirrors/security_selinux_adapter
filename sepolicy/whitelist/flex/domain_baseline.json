@@ -142,7 +142,8 @@
             "midi_server",
             "ohos_object_editor_service",
             "disk_manager",
-            "histogram_sa"
+            "histogram_sa",
+            "storage_space_manager"
         ],
         "rgm_violator_sadomain": [],
         "hap_domain": [

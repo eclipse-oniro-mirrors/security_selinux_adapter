@@ -43,3 +43,8 @@ allow init proc_version_file:file { open read };
 allow init kernel:system { module_request };
 allow init data_service_storage_daemon_sd_file:dir { open read relabelto setattr search write };
 allow init data_service_storage_daemon_sd_file:file { relabelto getattr read open };
+
+# avc: denied { rlimitinh } for pid=14870, comm=""/system/bin/sa_main""  scontext=u:r:init:s0 tcontext=u:r:storage_space_manager:s0 tclass=process permissive=1
+# avc: denied { siginh } for pid=14870, comm=""/system/bin/sa_main""  scontext=u:r:init:s0 tcontext=u:r:storage_space_manager:s0 tclass=process permissive=1
+# avc: denied { transition } for pid=14870, comm=""/bin/init""  scontext=u:r:init:s0 tcontext=u:r:storage_space_manager:s0 tclass=process permissive=1
+allow init storage_space_manager:process { rlimitinh siginh transition };
