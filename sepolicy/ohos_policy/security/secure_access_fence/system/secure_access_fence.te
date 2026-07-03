@@ -53,3 +53,6 @@ binder_call(secure_access_fence, aimgr);
 
 # avc:  denied  { get } for service=186 sid=u:r:secure_access_fence:s0 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=1
 allow secure_access_fence sa_aimgr_climgr:samgr_class { get };
+
+# avc:  denied  { get } for service=3704 sid=u:r:secure_access_fence:s0 scontext=u:r:secure_access_fence:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
+allow secure_access_fence sa_screenlock_service:samgr_class { get };
