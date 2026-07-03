@@ -97,8 +97,11 @@ allow print_service sa_wifi_device_ability:samgr_class { get };
 allow print_service sa_wifi_p2p_ability:samgr_class { get };
 allow print_service wifi_manager_service:binder { call };
 allow print_service data_service_el1_public_print_service_file:lnk_file { create getattr };
-allow print_service data_service_el2_file:dir { add_name search write create read open remove_name };
-allow print_service data_service_el2_file:file { create getattr read open write unlink };
+# avc: denied { getattr } for pid=10964, comm="/system/bin/sa_main"  path="/data/service/el2/public/print_service/ipp_raw_data" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=68721 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=0
+allow print_service data_service_el2_file:dir { add_name search write create read open remove_name getattr };
+# avc: denied { ioctl } for pid=10586, comm="/system/bin/sa_main"  path="/data/service/el2/public/print_service/printers/192.168.2.106.json" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=91511 ioctlcmd=0x5413 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=1
+# avc: denied { rename } for pid=10586, comm="/system/bin/sa_main"  path="/service/el2/public/print_service/ipp_raw_data/192.168.2.106_1782389414" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=89801 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=1
+allow print_service data_service_el2_file:file { create getattr read open write unlink ioctl rename };
 allow print_service tty_device:chr_file { read write };
 allow print_service print_driver_exec:dir { search write add_name };
 allow print_service print_driver_exec:lnk_file { create getattr };
@@ -131,3 +134,6 @@ allow print_service huks_service:binder { call };
 allow print_service normal_hap_attr:binder { transfer };
 # avc: denied { open } for pid=15209, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:print_service:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow print_service dev_ashmem_file:chr_file { open };
+
+# avc: denied { ioctl } for pid=10596, comm="/system/bin/sa_main"  path="/data/service/el2/public/print_service/ipp_raw_data/192.168.2.106_1782389414" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=50629 ioctlcmd=0x5413 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=1
+allowxperm print_service data_service_el2_file:file ioctl { 0x5413 };
