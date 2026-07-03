@@ -148,6 +148,7 @@
 3002                                   u:object_r:sa_media_service:s0
 3003	                               u:object_r:sa_radio_ivi_service:s0
 3004	                               u:object_r:sa_audio_swift_service:s0
+3015                                   u:object_r:sa_audio_suite_service:s0
 3006	                               u:object_r:sa_update_distributed_service:s0
 3007	                               u:object_r:sa_media_library_service:s0
 3008	                               u:object_r:sa_camera_service:s0
