@@ -23,4 +23,5 @@ type hdf_audio_hdi_a2dp_service, hdf_service_attr;
 type data_data_hvs_dir, file_attr, data_file_attr;
 
 type audio_suite_server, sadomain, domain;
+type sa_audio_suite_service, sa_service_attr;
 type audio_suite_server_exec, exec_attr, file_attr, system_file_attr;
