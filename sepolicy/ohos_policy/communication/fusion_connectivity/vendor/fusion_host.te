@@ -1,0 +1,44 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { write } for  pid=1470 comm="/vendor/bin/hdf_devhost"  path="dev/unix/socket/paramservice" dev="" ino=273 scontext=u:r:fusion_host:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
+allow fusion_host paramservice_socket:sock_file { write };
+
+#avc:  denied  { connectto } for  pid=1470 comm="/vendor/bin/hdf_devhost"  scontext=u:r:fusion_host:s0 tcontext=u:object_r:kernel:s0 tclass=unix_stream_socket permissive=1
+allow fusion_host kernel:unix_stream_socket { connectto };
+
+#avc:  denied { set } for parameter=persist.bluetooth.pluggable.state pid=7819 scontext=u:r:fusion_host:s0 tcontext=u:object_r:bluetooth_param:s0 tclass=parameter_service permissive=1
+allow fusion_host bluetooth_param:parameter_service { set };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=7819 scontext=u:r:fusion_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+allow fusion_host hdf_device_manager:hdf_devmgr_class { get };
+
+#avc:  denied  { add } for service=hci_interface_service pid=7819 scontext=u:r:fusion_host:s0 tcontext=u:object_r:hdf_hci_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow fusion_host hdf_hci_interface_service:hdf_devmgr_class { add };
+
+# avc: denied { call } for pid=7819 comm="/vendor/bin/hdf_devhost" scontext=u:r:fusion_host:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
+binder_call(fusion_host, bluetooth_service);
+
+#avc:  denied  { map } for  pid=7819 comm="/vendor/bin/hdf_devhost" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=221  scontext=u:r:fusion_host:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=7819 comm="/vendor/bin/hdf_devhost" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=221  scontext=u:r:fusion_host:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=7819 comm="/vendor/bin/hdf_devhost" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=221  scontext=u:r:fusion_host:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+allow fusion_host ohos_boot_param:file { map open read };
+
+# avc: denied { read } for pid=7819, comm="/vendor/bin/hdf_devhost" path="/proc/cmdline" dev="" ino=36 scontext=u:r:fusion_host:s0 tcontext=u:object_r:proc_cmdline_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=7819, comm="/vendor/bin/hdf_devhost" path="/proc/cmdline" dev="" ino=36 scontext=u:r:fusion_host:s0 tcontext=u:object_r:proc_cmdline_file:s0 tclass=file permissive=1
+allow fusion_host proc_cmdline_file:file { open read };
+
+# avc: denied { read } for path="/vendor/bin/hdf_devhost" scontext=u:r:fusion_host:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+# avc: denied { open } for path="/vendor/bin/hdf_devhost" scontext=u:r:fusion_host:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+allow fusion_host sysfs_devices_system_cpu:dir { read open };
+
