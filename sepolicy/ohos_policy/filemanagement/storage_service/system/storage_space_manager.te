@@ -86,19 +86,5 @@ allow storage_space_manager system_usr_file:dir { search };
 # avc: denied { read } for pid=14870, comm=/system/bin/sa_main  name=/usr dev=/dev/block/dm-2 ino=184 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:system_usr_file:s0 tclass=lnk_file permissive=1
 allow storage_space_manager system_usr_file:lnk_file { read };
 
-# avc: denied { search } for pid=7992, comm=/system/bin/sa_main  name=/service/el1/public/update/param_service dev=/dev/block/platform/fa500000.ufs/by-name/userdata ino=1967 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:update_param_file:s0 tclass=dir permissive=1
-allow storage_space_manager update_param_file:dir { search };
-
-# avc: denied { search } for pid=7992, comm=/system/bin/sa_main  name=/service/el1/public/update/param_service/install dev=/dev/block/platform/fa500000.ufs/by-name/userdata ino=1969 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:update_param_install_file:s0 tclass=dir permissive=1
-allow storage_space_manager update_param_install_file:dir { search };
-
-# avc: denied { search } for pid=7992, comm=/system/bin/sa_main  name=/service/el1/public/update/param_service/install/system/etc/StorageSpaceMgr/generic dev=/dev/block/platform/fa500000.ufs/by-name/userdata ino=51139 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=dir permissive=1
-allow storage_space_manager update_param_install_file_system:dir { search };
-
-# avc: denied { getattr } for pid=7992, comm=/system/bin/sa_main  path=/data/service/el1/public/update/param_service/install/system/etc/StorageSpaceMgr/generic/clean_bundle_cache_config.json dev=/dev/block/platform/fa500000.ufs/by-name/userdata ino=51141 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
-# avc: denied { open } for pid=7992, comm=/system/bin/sa_main  path=/data/service/el1/public/update/param_service/install/system/etc/StorageSpaceMgr/generic/clean_bundle_cache_config.json dev=/dev/block/platform/fa500000.ufs/by-name/userdata ino=51141 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
-# avc: denied { read } for pid=7992, comm=/system/bin/sa_main  path=/data/service/el1/public/update/param_service/install/system/etc/StorageSpaceMgr/generic/clean_bundle_cache_config.json dev=/dev/block/platform/fa500000.ufs/by-name/userdata ino=51141 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
-allow storage_space_manager update_param_install_file_system:file { getattr open read };
-
 # avc:  denied  { get } for service=8650 sid=u:r:storage_space_manager:s0 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:sa_storage_space_manager_service:s0 tclass=samgr_class permissive=1
 allowxperm storage_space_manager data_service_el1_file:file ioctl { 0x5413 };
