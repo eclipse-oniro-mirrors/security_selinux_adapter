@@ -86,6 +86,7 @@
             "thermal_sa",
             "hidumper",
             "audio_server",
+            "audio_suite_server",
             "nfc_service",
             "softbus_server",
             "wifi_hal_service",
