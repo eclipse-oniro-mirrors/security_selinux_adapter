@@ -20,8 +20,13 @@ binder_call(audio_suite_server, audio_server);
 allow audio_suite_server powermgr:binder { call };
 
 # SAMgr service access
+#avc:  denied  { add } for service=3015 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_audio_suite_service:s0 tclass=samgr_class permissive=1
 allow audio_suite_server sa_audio_suite_service:samgr_class { add };
+
+#avc:  denied  { get } for service=3302 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_powermgr_battery_service:s0 tclass=samgr_class permissive=1
 allow audio_suite_server sa_powermgr_battery_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3301 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
 allow audio_suite_server sa_powermgr_powermgr_service:samgr_class { get };
 
 # Self permissions
