@@ -605,3 +605,7 @@ allowxperm storage_daemon mnt_external_file:file ioctl { 0x5413 };
 # avc: denied { ioctl } for pid=26957, comm="/bin/wodim" path="/dev/block/sr0" dev="" ino=19056 ioctlcmd=0x5386 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
 allow storage_daemon dev_block_file:blk_file { ioctl };
 allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x2201 0x2272 0x2282 0x5382 0x5386 };
+
+# avc: denied { read } for pid=11868, comm="/bin/wodim" path="/" dev="/dev/block/dm-2" ino=75 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=11868, comm="/bin/wodim" path="/" dev="/dev/block/dm-2" ino=75 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+allow storage_daemon rootfs:dir { read open };
