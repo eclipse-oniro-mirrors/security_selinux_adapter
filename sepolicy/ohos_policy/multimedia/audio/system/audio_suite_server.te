@@ -31,10 +31,19 @@ allow audio_suite_server sa_powermgr_powermgr_service:samgr_class { get };
 
 # Self permissions
 # allow audio_suite_server audio_suite_server:hmcap { supervsable };
+#avc: denied { getopt } for pid=8406, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:audio_suite_server:s0 tclass=unix_dgram_socket permissive=1
+#avc: denied { setopt } for pid=8406, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:audio_suite_server:s0 tclass=unix_dgram_socket permissive=1
 allow audio_suite_server audio_suite_server:unix_dgram_socket { getopt setopt };
 
 # File and directory access
+#avc: denied { search } for pid=8406, comm="/system/bin/sa_main"  name="/misc" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=5061 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:data_misc:s0 tclass=dir permissive=1
 allow audio_suite_server data_misc:dir { search };
+
+#avc: denied { write } for pid=8406, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=30 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow audio_suite_server dev_kmsg_file:chr_file { open write };
+
+#avc: denied { search } for pid=8406, comm="/system/bin/sa_main"  name="/unix/socket" dev="" ino=363 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow audio_suite_server dev_unix_socket:dir { search };
+
+#avc: denied { read } for pid=8406, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=103 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 allow audio_suite_server sysfs_devices_system_cpu:file { getattr open read };

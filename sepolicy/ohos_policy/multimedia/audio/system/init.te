@@ -15,6 +15,10 @@
 #avc:  denied  { siginh } for  pid=355 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:audio_server:s0 tclass=process permissive=1
 #avc:  denied  { transition } for  pid=355 comm="init" path="/system/bin/sa_main" dev="mmcblk0p5" ino=336 scontext=u:r:init:s0 tcontext=u:r:audio_server:s0 tclass=process permissive=1
 allow init audio_server:process { rlimitinh siginh transition };
+
+#avc: denied { rlimitinh } for pid=8406, comm="/system/bin/sa_main"  scontext=u:r:init:s0 tcontext=u:r:audio_suite_server:s0 tclass=process permissive=1
+#avc: denied { siginh } for pid=8406, comm="/system/bin/sa_main"  scontext=u:r:init:s0 tcontext=u:r:audio_suite_server:s0 tclass=process permissive=1
+#avc: denied { transition } for pid=8406, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:audio_suite_server:s0 tclass=process permissive=1
 allow init audio_suite_server:process { rlimitinh siginh transition };
 
 #avc:  denied  { relabelfrom } for  pid=1 comm="init" name=".pulse_dir" dev="mmcblk0p11" ino=783368 scontext=u:r:init:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
