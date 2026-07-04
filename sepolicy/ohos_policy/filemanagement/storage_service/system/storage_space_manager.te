@@ -88,3 +88,6 @@ allow storage_space_manager system_usr_file:lnk_file { read };
 
 # avc:  denied  { get } for service=8650 sid=u:r:storage_space_manager:s0 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:sa_storage_space_manager_service:s0 tclass=samgr_class permissive=1
 allowxperm storage_space_manager data_service_el1_file:file ioctl { 0x5413 };
+
+# avc:  denied  { get } for service=3299 sid=u:r:storage_space_manager:s0 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow storage_space_manager sa_foundation_cesfwk_service:samgr_class { get };
