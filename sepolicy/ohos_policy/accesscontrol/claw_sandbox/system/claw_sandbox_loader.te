@@ -172,6 +172,9 @@ allow claw_sandbox_loader labeledfs:filesystem { unmount remount };
 # avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem
 allow claw_sandbox_loader tmpfs:filesystem { unmount };
 
+# avc: denied { create } for pid=22787 comm="claw_sandbox" name="/sandbox/claw/ed419558d046e11c/lib" dev="tmpfs" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=lnk_file
+allow claw_sandbox_loader tmpfs:lnk_file { create };
+
 # avc: denied { use } comm="/system/bin/claw_sandbox" path="/dev/ashmem" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:usb_service:s0 tclass=fd
 allow claw_sandbox_loader usb_service:fd { use };
 
