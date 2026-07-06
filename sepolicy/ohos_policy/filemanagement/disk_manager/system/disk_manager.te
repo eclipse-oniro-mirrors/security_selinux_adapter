@@ -48,3 +48,8 @@ allow disk_manager mnt_external_fuse_file:dir { search };
 
 # avc: denied { use } for pid=679, comm="/system/bin/storage_daemon"  path="/dev/fuse" dev="" ino=17 scontext=u:r:disk_manager:s0 tcontext=u:r:storage_daemon:s0 tclass=fd permissive=1
 allow disk_manager storage_daemon:fd { use };
+
+# avc: denied { get } for service=3524 sid=u:r:disk_manager:s0 scontext=u:r:disk_manager:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=1
+allow disk_manager sa_sg_collect_service:samgr_class { get };
+# avc: denied { call } for pid=3737, comm="/system/bin/sa_main" scontext=u:r:disk_manager:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=1
+allow disk_manager security_guard:binder { call };
