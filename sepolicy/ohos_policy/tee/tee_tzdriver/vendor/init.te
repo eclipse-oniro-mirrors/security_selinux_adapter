@@ -11,8 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dev_tee_public, dev_attr;
-type dev_tee_container_public, dev_attr;
-type dev_tee_private, dev_attr;
-type dev_tee_log, dev_attr;
-type dev_tee_secure_space, dev_attr;
+#avc: denied { setattr } for pid=1, comm="init" name="/dev/tc_ns_secure_space_container" dev="" ino=701 scontext=u:r:init:s0 tcontext=u:object_r:dev_tee_secure_space:s0 tclass=chr_file permissive=1
+allow init dev_tee_secure_space:chr_file { setattr };
