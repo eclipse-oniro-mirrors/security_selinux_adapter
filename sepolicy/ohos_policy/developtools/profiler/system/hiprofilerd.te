@@ -130,5 +130,11 @@ developer_only(`
 	allow hiprofilerd dev_file:dir getattr;
 
 	allow hiprofilerd sysfs_devices_system_cpu:file { read open getattr };
+
+	allow hiprofilerd accesstoken_service:dir { search };
+	allow hiprofilerd accesstoken_service:file { getattr open read };
+	allow hiprofilerd sa_foundation_bms:samgr_class get;
+	allow hiprofilerd faultloggerd_temp_file:dir { open read search };
+	allow hiprofilerd faultloggerd_temp_file:file { getattr open read };
 ')
 
