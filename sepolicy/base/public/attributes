@@ -354,6 +354,7 @@ attribute vendor_public_parameter_attr;
 # define for type of socket
 attribute system_sock_domain;
 attribute chipset_sock_domain;
- 
+
+# define mcs category separation for user groups
 attribute us_restricted_hap_domain;
 attribute isolated_hap_domain;
