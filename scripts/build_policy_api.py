@@ -484,6 +484,8 @@ def generate_special_policy(args, policy, cil_list, with_developer=False):
     if args.components == "system":
         generate_hash_file([system_cil_path, type_version_cil_path],
                            os.path.join(output_path, SYSTEM_CIL_HASH))
+        generate_hash_file([system_cil_path, type_version_cil_path],
+                           os.path.join(output_path, PREBUILD_SEPOLICY_SYSTEM_CIL_HASH))
 
     elif args.components == "vendor":
         generate_hash_file([system_cil_path, type_version_cil_path], os.path.join(

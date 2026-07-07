@@ -779,7 +779,7 @@ action("build_updater_contexts") {
     "--sepolicy-dir-lists",
     sepolicy_dir_lists,
     "--dst-dir",
-    rebase_path(updater_path),
+    rebase_path(updater_path + "/"),
     "--tool-path",
     tool_path,
     "--policy-file",
