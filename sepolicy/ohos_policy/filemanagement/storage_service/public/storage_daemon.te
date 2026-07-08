@@ -58,3 +58,23 @@ allow storage_daemon mtpfs_exec:file { execute execute_no_trans map open read };
 # avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/gphotofs" dev="overlay" ino=809 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:gphotofs_exec:s0 tclass=file permissive=0
 allow storage_daemon gphotofs_exec:file { execute execute_no_trans map open read };
 
+# avc: denied { read } for pid=33218, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-growisofs" dev="overlay" ino=77 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=33218, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-growisofs" dev="overlay" ino=77 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=33218, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-growisofs" dev="overlay" ino=77 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { read } for pid=39555, comm="/system/bin/storage_daemon"  path="/system/bin/wodim" dev="overlay" ino=81 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=39555, comm="/system/bin/storage_daemon"  path="/system/bin/wodim" dev="overlay" ino=81 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=39555, comm="/system/bin/storage_daemon"  path="/system/bin/wodim" dev="overlay" ino=81 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { read } for pid=49075, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-mediainfo" dev="overlay" ino=77 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=49075, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-mediainfo" dev="overlay" ino=77 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=49075, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-mediainfo" dev="overlay" ino=77 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { read } for pid=63800, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-format" dev="overlay" ino=1163 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=63800, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-format" dev="overlay" ino=1163 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=63800, comm="/system/bin/storage_daemon"  path="/system/bin/dvd+rw-format" dev="overlay" ino=1163 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { read } for pid=12163, comm="/system/bin/storage_daemon"  path="/system/bin/genisoimage" dev="overlay" ino=1017 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=12163, comm="/system/bin/storage_daemon"  path="/system/bin/genisoimage" dev="overlay" ino=1017 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=12163, comm="/system/bin/storage_daemon"  path="/system/bin/genisoimage" dev="overlay" ino=1017 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { read } for pid=46115, comm="/system/bin/storage_daemon"  path="/system/bin/isoinfo" dev="overlay" ino=2225 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { execute } for pid=46115, comm="/system/bin/storage_daemon"  path="/system/bin/isoinfo" dev="overlay" ino=2225 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+# avc: denied { open } for pid=46115, comm="/system/bin/storage_daemon"  path="/system/bin/isoinfo" dev="overlay" ino=2225 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
+allow storage_daemon optical_disk_exec:file { execute execute_no_trans open read };
+
