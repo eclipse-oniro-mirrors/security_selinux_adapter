@@ -101,23 +101,8 @@ allow ai_shell foundation:binder { call transfer };
 allow foundation ai_shell:binder { transfer };
 
 pc_only(`
-    # avc: denied { getattr } for pid=10096, comm="/bin/ls"  path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
-    # avc: denied { read } for pid=10096, comm="/bin/ls"  path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
-    # avc: denied { open } for pid=10096, comm="/bin/ls"  path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
-    # avc: denied { search } for pid=9436, comm="/bin/sh"  name="/app/el1/bundle/100/hnppublic" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
-    allow ai_shell hnp_file:dir { getattr open read search };
-
-    # avc: denied { getattr } for pid=10467, comm="/bin/ls"  path="/data/service/hnp/bin/node" ... tcontext=u:object_r:hnp_file:s0 tclass=lnk_file permissive=1
-    # avc: denied { read } for pid=10467, comm="/bin/ls"  name="/app/el1/bundle/100/hnppublic/bin/node" ... tcontext=u:object_r:hnp_file:s0 tclass=lnk_file permissive=1
-    allow ai_shell hnp_file:lnk_file { read getattr };
-
-    # avc: denied { getattr } for pid=10857, comm="./python"  path="/data/service/hnp/bin" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
-    # avc: denied { map } for pid=unknown ... path="/data/service/hnp/python.org/python_3.12/bin/python3.12" ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
-    # avc: denied { read } for pid=10857 ... path="/data/service/hnp/python.org/python_3.12/lib/python3.12" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
-    # avc: denied { open } for pid=10857 ... path="/data/service/hnp/python.org/python_3.12/lib/python3.12" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=1
-    # avc: denied { ioctl } for pid=10857 ... path="/data/service/hnp/python.org/python_3.12/lib/python3.12/encodings/__pycache__/__init__.cpython-312.pyc" ... ioctlcmd=0x5413 ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
-    # avc: denied { execute } for pid=9436, comm="/bin/sh"  path="/data/service/hnp/python.org/python_3.12/bin/python3" ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
-    # avc: denied { execute_no_trans } for pid=10857, comm="/bin/sh"  ... tcontext=u:object_r:hnp_file:s0 tclass=file permissive=1
-    allow ai_shell hnp_file:file { getattr read open execute execute_no_trans map };
+    # avc: denied { read } for pid=31723, comm="/usr/bin/netstat"  path="/proc/31723/net/tcp" dev="" ino=71739 scontext=u:r:ai_shell:s0:x209,x334,x512,x868,x1024 tcontext=u:object_r:proc_net_tcp_udp:s0 tclass=file permissive=1
+    # avc: denied { open } for pid=31723, comm="/usr/bin/netstat"  path="/proc/31723/net/tcp" dev="" ino=71739 scontext=u:r:ai_shell:s0:x209,x334,x512,x868,x1024 tcontext=u:object_r:proc_net_tcp_udp:s0 tclass=file permissive=1
+    # avc: denied { getattr } for pid=31723, comm="/usr/bin/netstat"  path="/proc/31723/net/tcp" dev="" ino=71739 scontext=u:r:ai_shell:s0:x209,x334,x512,x868,x1024 tcontext=u:object_r:proc_net_tcp_udp:s0 tclass=file permissive=1
+    allow ai_shell proc_net_tcp_udp:file { open read getattr };
 ')
-
