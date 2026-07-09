@@ -76,5 +76,5 @@ allow storage_daemon gphotofs_exec:file { execute execute_no_trans map open read
 # avc: denied { read } for pid=46115, comm="/system/bin/storage_daemon"  path="/system/bin/isoinfo" dev="overlay" ino=2225 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
 # avc: denied { execute } for pid=46115, comm="/system/bin/storage_daemon"  path="/system/bin/isoinfo" dev="overlay" ino=2225 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
 # avc: denied { open } for pid=46115, comm="/system/bin/storage_daemon"  path="/system/bin/isoinfo" dev="overlay" ino=2225 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:optical_disk_exec:s0 tclass=file permissive=0
-allow storage_daemon optical_disk_exec:file { execute execute_no_trans open read };
+allow storage_daemon optical_disk_exec:file { execute execute_no_trans map open read };
 
