@@ -607,3 +607,5 @@ allow init data_spawn_shm:dir { open read relabelto setattr };
 allow init hiprofiler_file:dir { getattr open read relabelto setattr };
 # avc: denied { deep_sleep_snap } for pid=1, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=hmcap permissive=0
 allow init self:hmcap { deep_sleep_snap };
+# avc: denied { module_load } for pid =1. comm="/bin/init" scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=system permissive=0
+allow init init:system { module_load };
