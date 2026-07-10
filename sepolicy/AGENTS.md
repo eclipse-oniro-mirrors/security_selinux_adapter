@@ -1,5 +1,20 @@
 # SEPolicy
 
+## Before Adding or Modifying Policy Rules
+
+**CRITICAL: Check `neverallow` constraints first**
+
+Build will **FAIL** if new rules violate `neverallow` constraints. Common violations:
+- Adding overly permissive rules that `neverallow` blocks
+- Creating type transitions that `neverallow` prohibits
+- Granting permissions to types that `neverallow` protects
+
+**Verification step:**
+```bash
+hb build selinux_adapter -i
+# Look for "neverallow" in build output
+```
+
 ### Policy Organization
 
 Policies are under `sepolicy/`. Each feature collects necessary policies in its own directory, which always has three sub-directories carrying different policies:
