@@ -98,7 +98,8 @@ developer_only(`
 	allow hiprofilerd hiprofiler_cmd:fd use;
 	allow hiprofilerd rootfs:file read;
 
-	allow hiprofilerd data_local_tmp:file { getattr read ioctl lock create read open write unlink };
+	# avc: denied { append } for pid=9300, comm="/system/bin/hiprofilerd" path="/data/local/tmp/jsheap-8964-8964-1783649855350.rawheap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=44676 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+	allow hiprofilerd data_local_tmp:file { getattr read ioctl lock create read open write unlink append };
 	# avc: denied { read } for pid=15556, comm="/system/bin/hiprofilerd" path="/data/local/tmp" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=1466 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
 	allow hiprofilerd data_local_tmp:dir { search add_name remove_name write open getattr read };
 	allow hiprofilerd dev_unix_socket:sock_file write;
@@ -145,7 +146,8 @@ developer_only(`
 	# avc: denied { open } for pid=8992, comm="/system/bin/hiprofilerd"  path="/data/log/faultlog/temp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=85 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=dir permissive=1
 	# avc: denied { read } for pid=8992, comm="/system/bin/hiprofilerd"  path="/data/log/faultlog/temp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=85 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=dir permissive=1
 	# avc: denied { search } for pid=8992, comm="/system/bin/hiprofilerd"  name="/log/faultlog/temp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=85 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=dir permissive=1
-	allow hiprofilerd faultloggerd_temp_file:dir { open read search };
+	# avc: denied { watch } for pid=13959, comm="/system/bin/hiprofilerd"  path="/data/log/faultlog/temp" dev="/dev/block/by-name/userdata" ino=58696 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=dir permissive=1
+	allow hiprofilerd faultloggerd_temp_file:dir { open read search watch };
 
 	# avc: denied { getattr } for pid=8992, comm="/system/bin/hiprofilerd"  path="/data/log/faultlog/temp/js_map-8290-1783480112328" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=49076 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=file permissive=1
 	# avc: denied { open } for pid=8992, comm="/system/bin/hiprofilerd"  path="/data/log/faultlog/temp/js_map-8290-1783480112328" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=49076 scontext=u:r:hiprofilerd:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=file permissive=1
