@@ -91,3 +91,6 @@ allowxperm storage_space_manager data_service_el1_file:file ioctl { 0x5413 };
 
 # avc:  denied  { get } for service=3299 sid=u:r:storage_space_manager:s0 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
 allow storage_space_manager sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc: denied { read } for pid=11668, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/cache_clean_config.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=33713 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow storage_space_manager data_service_el1_file:file { read };
