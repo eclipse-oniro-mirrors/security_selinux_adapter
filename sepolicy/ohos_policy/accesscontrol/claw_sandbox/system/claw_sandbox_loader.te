@@ -185,9 +185,10 @@ allow claw_sandbox_loader usb_service:fd { use };
 allow claw_sandbox_loader dev_at_file:chr_file { ioctl };
 allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 0x4112 0x411a };
  
+# avc: denied { read write } for pid=51681, comm="claw_sandbox" path="/storage/Users/currentUser/Download" ... tcontext=u:object_r:hmdfs:s0 tclass=dir
 # avc: denied { search } for pid=12743 ... name="/device_view/local/files/Docs" ... tcontext=u:object_r:hmdfs:s0 tclass=dir
-allow claw_sandbox_loader hmdfs:dir search;
- 
+allow claw_sandbox_loader hmdfs:dir { search read write };
+
 # avc: denied { write } for pid=12743 ... name="1" ... tcontext=u:object_r:tty_device:s0 tclass=chr_file
 # avc: denied { ioctl } for pid=8922 comm="claw_sandbox" name="2" dev="2" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file
 allow claw_sandbox_loader tty_device:chr_file { write ioctl };
@@ -201,6 +202,11 @@ allow claw_sandbox_loader data_user_file:dir search;
  
 # avc: denied { remount } for pid=12978 ... tcontext=u:object_r:hmdfs:s0 tclass=filesystem
 allow claw_sandbox_loader hmdfs:filesystem remount;
+
+# avc: denied { read write } for pid=9371, comm="/system/bin/claw_sandbox"  path="/dev/encaps" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=0
+# avc: denied { ioctl } for pid=14206, comm="/system/bin/claw_sandbox"  path="/dev/encaps" ioctlcmd=0x451f scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=0
+allow claw_sandbox_loader dev_encaps:chr_file { read write open ioctl };
+allowxperm claw_sandbox_loader dev_encaps:chr_file ioctl { 0x451f };
 
 # avc: denied { unmount } for pid=21678 comm="claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:configfs:s0 tclass=filesystem
 allow claw_sandbox_loader configfs:filesystem { unmount };
