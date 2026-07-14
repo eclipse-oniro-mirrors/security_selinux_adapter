@@ -142,6 +142,8 @@ allow hiperf rootfs:dir read;
 allow hiperf self:perf_event tracepoint;
 allow hiperf system_basic_hap_attr:dir { open read };
 allow hiperf system_basic_hap_attr:process signull;
+# avc:denied { read } for pid = 12390,comm="/bin/hiperf" name="/11127/root" dev="" ino=28696 scontext=u:r:hiperf:s0 tcontext=u:r:system_basic_hap:s0 tclass=lnk_file permissive=0
+allow hiperf system_basic_hap:lnk_file { read };
 allow hiperf system_bin_file:lnk_file read;
 allow hiperf toybox_exec:lnk_file read;
 allow hiperf ui_service:dir { open read };
