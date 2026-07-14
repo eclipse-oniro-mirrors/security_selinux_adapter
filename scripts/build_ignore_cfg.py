@@ -208,6 +208,5 @@ if __name__ == "__main__":
     if input_args.depfile:
         dep_file = find.get_all_sepolicy_file(input_args.sepolicy_dir_lists)
         dep_file.sort()
-        dst_relpath = os.path.relpath(os.path.join(input_args.dst_dir, "ignore_cfg"), os.getcwd())
-        build_utils.write_depfile(input_args.depfile, dst_relpath, dep_file, add_pydeps=False)
+        build_utils.write_depfile(input_args.depfile, input_args.output_file, dep_file, add_pydeps=False)
     main(input_args)
