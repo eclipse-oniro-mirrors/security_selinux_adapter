@@ -95,16 +95,6 @@ static bool CompareHash(const std::string &file1, const std::string &file2)
     return (!line1.empty()) && (!line2.empty()) && (line1 == line2);
 }
 
-#ifdef EMULATOR_MODE
-static bool HasDeveloperPolicyArtifacts()
-{
-    if (access(DEFAULT_DEVELOPER_POLICY, R_OK) == 0 || access(PRECOMPILED_DEVELOPER_POLICY, R_OK) == 0) {
-        return true;
-    }
-    return access(SYSTEM_DEVELOPER_CIL, R_OK) == 0 && access(VENDOR_DEVELOPER_CIL, R_OK) == 0;
-}
-#endif
-
 static void DeleteTmpPolicyFile(const std::string &policyFile)
 {
     if ((policyFile == COMPILE_OUTPUT_POLICY) && (access(policyFile.c_str(), R_OK) == 0)) {
@@ -367,12 +357,11 @@ static bool CompilePolicy(bool devMode)
 static bool IsDeveloperMode()
 {
 #ifdef EMULATOR_MODE
-    if (HasDeveloperPolicyArtifacts()) {
-        selinux_log(SELINUX_WARNING, "Emulator mode with developer policy artifacts, enable developer mode\n");
+    #ifdef WITH_DEVELOPER
         return true;
-    }
-    selinux_log(SELINUX_ERROR, "Emulator mode but no developer policy artifacts found, fallback to normal mode\n");
-    return false;
+    #else
+        return false;
+    #endif
 #elif WITH_DEVELOPER
     if ((access(SYSTEM_DEVELOPER_CIL, R_OK) != 0) || (access(VENDOR_DEVELOPER_CIL, R_OK) != 0)) {
         selinux_log(SELINUX_ERROR, "No developer cil file found, fallback to normal mode\n");
