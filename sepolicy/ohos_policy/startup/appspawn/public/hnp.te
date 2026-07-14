@@ -13,7 +13,7 @@
 
 type hnp, native_system_domain, domain;
 type hnp_exec, system_file_attr, exec_attr, file_attr;
-type hnp_file, exec_attr, file_attr, data_file_attr;
+type hnp_file, exec_attr, file_attr, data_file_attr, exec_allow_ownerid_attr;
 type private_hnp_file, exec_attr, file_attr, data_file_attr;
 type hnp_native, domain;
 allow hnp_native {system_bin_file toybox_exec hilog_exec}:file { execute execute_no_trans };

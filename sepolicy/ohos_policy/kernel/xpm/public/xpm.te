@@ -12,3 +12,4 @@
 # limitations under the License.
 
 neverallow { domain -print_driver -sane_service } self:xpm {exec_allow_sa_plugin};
+neverallow domain { file_attr -exec_allow_ownerid_attr }:xpm { exec_allow_release_ownerid exec_allow_debug_ownerid };
