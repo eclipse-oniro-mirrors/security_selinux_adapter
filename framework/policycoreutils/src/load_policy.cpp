@@ -357,7 +357,11 @@ static bool CompilePolicy(bool devMode)
 static bool IsDeveloperMode()
 {
 #ifdef EMULATOR_MODE
-    return true;
+    #ifdef WITH_DEVELOPER
+        return true;
+    #else
+        return false;
+    #endif
 #elif WITH_DEVELOPER
     if ((access(SYSTEM_DEVELOPER_CIL, R_OK) != 0) || (access(VENDOR_DEVELOPER_CIL, R_OK) != 0)) {
         selinux_log(SELINUX_ERROR, "No developer cil file found, fallback to normal mode\n");
