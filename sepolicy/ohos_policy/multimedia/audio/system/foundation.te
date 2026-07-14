@@ -12,3 +12,7 @@
 # limitations under the License.
 
 binder_call(foundation, audio_server);
+
+# Binder communication from foundation
+#avc: denied { call } for pid=1763, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:audio_suite_server:s0 tclass=binder permissive=1
+allow foundation audio_suite_server:binder { call };

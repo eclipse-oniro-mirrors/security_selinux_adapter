@@ -19,6 +19,15 @@ binder_call(audio_suite_server, audio_server);
 # Binder communication with powermgr
 allow audio_suite_server powermgr:binder { call };
 
+# Binder communication with foundation
+#avc: denied { call } for pid=9192, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+#avc: denied { transfer } for pid=9192, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow audio_suite_server foundation:binder { call transfer };
+
+# Binder communication with netmanager
+#avc: denied { call } for pid=9192, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=1
+allow audio_suite_server netmanager:binder { call };
+
 # SAMgr service access
 #avc:  denied  { add } for service=3015 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_audio_suite_service:s0 tclass=samgr_class permissive=1
 allow audio_suite_server sa_audio_suite_service:samgr_class { add };
@@ -29,15 +38,28 @@ allow audio_suite_server sa_powermgr_battery_service:samgr_class { get };
 #avc:  denied  { get } for service=3301 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
 allow audio_suite_server sa_powermgr_powermgr_service:samgr_class { get };
 
+#avc:  denied  { get } for service=1151 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
+allow audio_suite_server sa_foundation_cesfwk_service:samgr_class { get };
+
+#avc:  denied  { get } for service=1151 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
+allow audio_suite_server sa_net_conn_manager:samgr_class { get };
+
 # Self permissions
 # allow audio_suite_server audio_suite_server:hmcap { supervsable };
 #avc: denied { getopt } for pid=8406, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:audio_suite_server:s0 tclass=unix_dgram_socket permissive=1
 #avc: denied { setopt } for pid=8406, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:audio_suite_server:s0 tclass=unix_dgram_socket permissive=1
 allow audio_suite_server audio_suite_server:unix_dgram_socket { getopt setopt };
 
+# Capability permissions
+#allow audio_suite_server audio_suite_server:capability { sys_nice };
+
 # File and directory access
 #avc: denied { search } for pid=8406, comm="/system/bin/sa_main"  name="/misc" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=5061 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:data_misc:s0 tclass=dir permissive=1
 allow audio_suite_server data_misc:dir { search };
+
+#avc: denied { read } for pid=9192, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu" dev="" ino=6 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+#avc: denied { open } for pid=9192, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu" dev="" ino=6 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+allow audio_suite_server sysfs_devices_system_cpu:dir { open read };
 
 #avc: denied { write } for pid=8406, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=30 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow audio_suite_server dev_kmsg_file:chr_file { open write };
