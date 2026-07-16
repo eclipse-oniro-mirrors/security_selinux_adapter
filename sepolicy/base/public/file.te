@@ -97,7 +97,7 @@ type config_usb_gadget, fs_attr;
 
 type data_file, file_attr, data_file_attr;
 type data_app_file, file_attr, data_file_attr, hap_file_attr;
-type data_app_el1_file, file_attr, data_file_attr, hap_file_attr, exec_allow_ownerid_attr;
+type data_app_el1_file, file_attr, data_file_attr, hap_file_attr;
 type data_app_el2_file, file_attr, data_file_attr, hap_file_attr;
 type data_app_el3_file, file_attr, data_file_attr, hap_file_attr;
 type data_app_el4_file, file_attr, data_file_attr, hap_file_attr;
