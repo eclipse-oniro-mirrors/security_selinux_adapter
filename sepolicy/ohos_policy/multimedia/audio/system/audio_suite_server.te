@@ -44,6 +44,9 @@ allow audio_suite_server sa_foundation_cesfwk_service:samgr_class { get };
 #avc:  denied  { get } for service=1151 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
 allow audio_suite_server sa_net_conn_manager:samgr_class { get };
 
+#avc:  denied  { get } for service=3704 sid=u:r:audio_suite_server:s0 scontext=u:r:audio_suite_server:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
+allow audio_suite_server sa_screenlock_service:samgr_class { get };
+
 # Self permissions
 # allow audio_suite_server audio_suite_server:hmcap { supervsable };
 #avc: denied { getopt } for pid=8406, comm="/system/bin/sa_main"  scontext=u:r:audio_suite_server:s0 tcontext=u:r:audio_suite_server:s0 tclass=unix_dgram_socket permissive=1
