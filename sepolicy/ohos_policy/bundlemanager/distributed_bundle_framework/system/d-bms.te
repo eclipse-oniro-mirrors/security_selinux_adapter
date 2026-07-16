@@ -47,3 +47,7 @@ allow distributeddata d-bms:binder { call transfer };
 allow foundation d-bms:binder { call transfer };
 allow foundation data_service_el1_file:file { ioctl };
 allow d-bms accountmgr:fd { use };
+# avc:  denied  { get } for service=402 sid=o:r:normal_hap:s0:x60,x334,x512,x868,x1024 scontext=o:r:normal_hap:s0:x60,x334,x512,x868,x1024 tcontext=u:object_r:sa_distributed_bundle_mgr_service_service:s0 tclass=samgr_class permissive=0
+allow normal_hap_attr sa_distributed_bundle_mgr_service_service:samgr_class { get };
+# avc: denied { call } for pid=3574, comm="/system/bin/appspawn"  scontext=o:r:normal_hap:s0:x59,x334,x512,x868,x1024 tcontext=u:r:d-bms:s0 tclass=binder permissive=0
+allow normal_hap_attr d-bms:binder { call };
