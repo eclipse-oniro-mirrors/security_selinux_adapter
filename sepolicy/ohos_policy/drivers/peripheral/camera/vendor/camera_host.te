@@ -18,7 +18,7 @@ allow camera_host allocator_host:binder { call };
 allow camera_host allocator_host:fd { use };
 allow camera_host bootevent_samgr_param:file { map open read };
 allow camera_host build_version_param:file { map open read };
-allow camera_host camera_host:netlink_kobject_uevent_socket { bind create read };
+allow camera_host camera_host:netlink_kobject_uevent_socket { bind create read setopt };
 allow camera_host camera_service:binder { call transfer };
 allow camera_host const_allow_param:file { map open read };
 allow camera_host const_build_param:file { map open read };
