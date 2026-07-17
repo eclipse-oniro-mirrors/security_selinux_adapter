@@ -195,4 +195,5 @@ allow media_service hiview:binder { call transfer };
 allow media_service sa_telecom_tel_call_manager:samgr_class { get };
 
 allow media_service telephony_sa:binder { transfer };
+
 allow media_service bootanimation:fd { use };
