@@ -196,4 +196,5 @@ allow media_service sa_telecom_tel_call_manager:samgr_class { get };
 
 allow media_service telephony_sa:binder { transfer };
 
+#avc:  denied  { use } for  pid=1741 comm="/system/bin/bootanimation" path="/sys_prod/etc/bootanimation/cust_bootvideo.mp4" dev="overlay" ino=216 scontext=u:r:media_service:s0 tcontext=u:r:bootanimation:s0 tclass=fd permissive=0
 allow media_service bootanimation:fd { use };
