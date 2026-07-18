@@ -112,3 +112,17 @@ allow cloudfiledaemon cloudfile_data_file:file { append };
 allow cloudfiledaemon sa_powermgr_thermal_service:samgr_class { get };
 allow cloudfiledaemon powermgr:binder { call transfer };
 allow cloudfiledaemon cloudfiledaemon:capability { chown };
+
+#avc: denied { call } for pid=10624, comm="/system/bin/sa_main"  scontext=u:r:cloudfiledaemon:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+#avc: denied { transfer } for pid=10624, comm="/system/bin/sa_main"  scontext=u:r:cloudfiledaemon:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow cloudfiledaemon wifi_manager_service:binder { call transfer };
+
+#avc: denied { get } for service=1120 sid=u:r:cloudfiledaemon:s0 scontext=u:r:cloudfiledaemon:s0 tcontext=u:object_r:sa_wifi_device_ability:s0 tclass=samgr_class permissive=1
+allow cloudfiledaemon sa_wifi_device_ability:samgr_class { get };
+
+#avc: denied { get } for service=4007 sid=u:r:cloudfiledaemon:s0 scontext=u:r:cloudfiledaemon:s0 tcontext=u:object_r:sa_telephony_tel_cellular_data:s0 tclass=samgr_class permissive=1
+allow cloudfiledaemon sa_telephony_tel_cellular_data:samgr_class { get };
+
+#avc: denied { call } for pid=37359, comm="/system/bin/sa_main"  scontext=u:r:cloudfiledaemon:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=1
+#avc: denied { transfer } for pid=37359, comm="/system/bin/sa_main"  scontext=u:r:cloudfiledaemon:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=1
+allow cloudfiledaemon telephony_sa:binder { call transfer };
