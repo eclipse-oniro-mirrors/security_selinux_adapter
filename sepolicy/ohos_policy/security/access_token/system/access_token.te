@@ -139,6 +139,8 @@ allow accesstoken_service data_app_file:dir { search };
 allowxperm { appspawn cjappspawn nativespawn nwebspawn } dev_at_file:chr_file ioctl { 0x4112 0x4114 0x4116 0x4118 };
 # avc: denied { open read } for pid=1066, comm="/system/bin/sa_main" path="/proc/cmdline" dev="" ino=36 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:proc_cmdline_file:s0 tclass=file premissive=0
 allow accesstoken_service proc_cmdline_file:file { open read };
+# avc:  denied  { get } for service=200 sid=u:r:accesstoken_service:s0 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow accesstoken_service sa_accountmgr:samgr_class { get };
 
 # avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x410b scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/sa_main" path="/dev/access_token_id" ioctlcmd=0x4110 scontext=u:r:accesstoken_service:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
@@ -158,6 +160,8 @@ binder_call(accesstoken_service, distributeddata);
 binder_call(accesstoken_service, foundation);
 binder_call(accesstoken_service, privacy_service);
 binder_call(accesstoken_service, softbus_server);
+# avc:  denied  { call } for  pid=636 comm="accesstoken_service" scontext=u:r:accesstoken_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+binder_call(accesstoken_service, accountmgr);
 
 debug_only(`
     binder_call(accesstoken_service, sh);
