@@ -18,7 +18,8 @@ allow camera_host allocator_host:binder { call };
 allow camera_host allocator_host:fd { use };
 allow camera_host bootevent_samgr_param:file { map open read };
 allow camera_host build_version_param:file { map open read };
-allow camera_host camera_host:netlink_kobject_uevent_socket { bind create read };
+#avc: denied { setopt } for pid=1490, comm="/vendor/bin/hdf_devhost"  scontext=u:r:camera_host:s0 tcontext=u:r:camera_host:s0 tclass=netlink_kobject_uevent_socket permissive=0
+allow camera_host camera_host:netlink_kobject_uevent_socket { bind create read setopt };
 allow camera_host camera_service:binder { call transfer };
 allow camera_host const_allow_param:file { map open read };
 allow camera_host const_build_param:file { map open read };
