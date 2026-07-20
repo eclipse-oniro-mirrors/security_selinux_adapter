@@ -853,9 +853,6 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         return -SELINUX_PTR_NULL;
     }
 
-    selinux_log(SELINUX_INFO, "Hap type for %s is changing from %s to %s\n",
-        hapDomainInfo.packageName.c_str(), oldTypeContext, typeContext);
-
     if (security_check_context(typeContext) < 0) {
         selinux_log(SELINUX_ERROR, "context: %s, %s\n", typeContext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         FreeContext(oldTypeContext, con);
@@ -868,7 +865,8 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
             return -SELINUX_SET_CONTEXT_ERROR;
         }
     }
-    selinux_log(SELINUX_INFO, "Hap setcon finish for %s\n", hapDomainInfo.packageName.c_str());
+    selinux_log(SELINUX_INFO, "Hap setcon finish, context for %s is relabeled to %s\n",
+        hapDomainInfo.packageName.c_str(), typeContext);
 
     FreeContext(oldTypeContext, con);
     return SELINUX_SUCC;
