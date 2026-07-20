@@ -41,7 +41,8 @@ allow cloudfiledaemon data_service_el2_hmdfs:file { create setattr getattr read 
 allow cloudfiledaemon hmdfs:dir { search write remove_name add_name create open read rmdir rename reparent ioctl };
 allowxperm cloudfiledaemon hmdfs:dir ioctl { 0xf20b 0xf281 };
 allow cloudfiledaemon hmdfs:file { read open getattr create append rename unlink ioctl };
-allowxperm cloudfiledaemon hmdfs:file ioctl { 0xf202 0x5413 };
+# avc: denied { ioctl } for pid=40495, comm="/system/bin/sa_main"  path="/storage/cloud/100/files/Photo/10/VID_1784445319_010.mp4" dev="/data/service/el2/100/hmdfs/account" ino=11529250228080407909 ioctlcmd=0xf282 scontext=u:r:cloudfiledaemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=0
+allowxperm cloudfiledaemon hmdfs:file ioctl { 0xf202 0x5413 0xf282 };
 allow cloudfiledaemon storage_daemon:fd { use };
 allow cloudfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add add_remote get_remote get };
 allow cloudfiledaemon hap_domain:binder { call transfer };
