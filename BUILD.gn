@@ -66,7 +66,6 @@ ohos_shared_library("libload_policy") {
   install_enable = true
   install_images = [
     "system",
-    "ramdisk",
     "updater",
   ]
   license_file = "LICENSE"
@@ -95,7 +94,6 @@ ohos_shared_library("librestorecon") {
   install_enable = true
   install_images = [
     "system",
-    "ramdisk",
     "updater",
   ]
   innerapi_tags = [ "platformsdk_indirect" ]
