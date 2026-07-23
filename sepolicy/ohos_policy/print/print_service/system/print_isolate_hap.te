@@ -413,6 +413,10 @@ allow print_isolate_hap data_app_el2_file:file { create };
 #avc:  denied  { get } for service=182 sid=u:r:print_isolate_hap:s0 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:sa_dataobs_mgr_service_service:s0 tclass=samgr_class permissive=1
 allow print_isolate_hap sa_dataobs_mgr_service_service:samgr_class { get };
 
+#avc: denied { getattr } for pid=11858, comm="/system/bin/appspawn"  path="/data/service/el2/100/print_service/1784555530910_819_0000" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=47452 scontext=o:r:print_isolate_hap:s0:x240,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=11858, comm="/system/bin/appspawn"  path="/data/service/el2/100/print_service/1784555530910_819_0000" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=47452 scontext=o:r:print_isolate_hap:s0:x240,x334,x512,x868,x1024 tcontext=u:object_r:data_service_el2_file:s0 tclass=file permissive=1
+allow print_isolate_hap data_service_el2_file:file { getattr read };
+
 developer_only(`
     # avc: denied { getattr } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/cache" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45375 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
     # avc: denied { ioctl } for pid=9537, comm="/system/bin/appspawn"  path="/data/storage/el2/base/files/hiappevent/databases" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=45942 ioctlcmd=0xf546 scontext=u:r:print_isolate_hap:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
