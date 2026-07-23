@@ -47,4 +47,6 @@ developer_only(`
     # avc: denied { read } for pid=20954, comm="/bin/testhelper"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
     # avc: denied { open } for pid=20954, comm="/bin/testhelper"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
     allow testhelper data_local_tmp:file { getattr map read open };
+    # avc:  denied  { search } for  pid=28244 comm="testhelper" name="/" dev="mmcblk0p15" ino=3 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+    allow testhelper data_file:dir { search };
 ')
