@@ -609,3 +609,7 @@ allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x2201 0x2272 0x2282 0
 # avc: denied { read } for pid=11868, comm="/bin/wodim" path="/" dev="/dev/block/dm-2" ino=75 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
 # avc: denied { open } for pid=11868, comm="/bin/wodim" path="/" dev="/dev/block/dm-2" ino=75 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
 allow storage_daemon rootfs:dir { read open };
+
+# avc: denied { ioctl } for pid=32414, comm="/bin/mount.exfat" path="/dev/fuse" dev="" ino=17 ioctlcmd=0xe580 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=0
+allow storage_daemon dev_fuse_file:chr_file { ioctl };
+allowxperm storage_daemon dev_fuse_file:chr_file ioctl { 0xe580 };
