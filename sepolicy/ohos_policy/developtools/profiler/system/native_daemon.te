@@ -170,3 +170,6 @@ allow { sadomain -hilogd } hiprofiler_file:file { write };
 # avc: denied { open } for pid=10098, comm="/system/bin/native_daemon"  path="/data/local/tmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1385 scontext=u:r:native_daemon:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
 # avc: denied { read } for pid=10098, comm="/system/bin/native_daemon"  path="/data/local/tmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1385 scontext=u:r:native_daemon:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
 allow native_daemon data_local_tmp:dir { open read };
+# avc: denied { write } for pid=1, comm="/system/bin/nwebspawn" path="/data/log/hiprofiler/native_hook_cache_BBnnlA" dev="/dev/block/platform/fa50000.ufs/by-name/userdata" ino=111946 scontext=o:r:isolated_render:s0:x253,x334,x512,x868,x1024 tcontext=u:object_r:hiprofiler_file:s0 tclass=file permissive=1
+allow isolated_render hiprofiler_file:file { write };
+
