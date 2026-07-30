@@ -82,3 +82,5 @@ allow huks_service paramservice_socket:sock_file { write };
 allow huks_service sa_memory_manager_service:samgr_class { get };
 allow huks_service memmgrservice:binder { call };
 
+allow huks_service sa_screenlock_service:samgr_class { get };
+
