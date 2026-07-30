@@ -66,3 +66,10 @@ allow power_host dev_block_file:lnk_file { read };
 allow power_host dev_block_volfile:dir { search };
 allowxperm power_host data_power:file ioctl { 0x660b 0xf520 };
 allowxperm power_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+
+# avc: denied { set } for parameter=persist.hdi_power.ulsr_result pid=1569 uid=3025 gid=3025 scontext=u:r:power_host:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=1
+# avc: denied { write } for pid=1756, comm="/vendor/bin/hdf_devhost"  path="/dev/unix/socket/paramservice" dev="" ino=275 scontext=u:r:power_host:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
+# avc: denied { connectto } for pid=1569, comm="/vendor/bin/hdf_devhost"  scontext=u:r:power_host:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+allow power_host persist_param:parameter_service { set };
+allow power_host paramservice_socket:sock_file { write };
+allow power_host kernel:unix_stream_socket { connectto };
