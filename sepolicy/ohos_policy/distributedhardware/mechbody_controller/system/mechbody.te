@@ -95,4 +95,8 @@ allow mechbody sa_foundation_ans:samgr_class { get };
 # avc:  denied  { get } for service=3704 sid=u:r:mechbody:s0 scontext=u:r:mechbody:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
 allow mechbody sa_screenlock_service:samgr_class { get };
 
+# avc: denied { write } for pid=17778, comm="/system/bin/sa_main"  path="/dev/unix/socket/paramservice" dev="" ino=365 scontext=u:r:mechbody:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow mechbody paramservice_socket:sock_file { write };
+# avc: denied { connectto } for pid=11321, comm="/system/bin/sa_main"  scontext=u:r:mechbody:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
+allow mechbody kernel:unix_stream_socket { connectto };
 allow mechbody persist_param:parameter_service { set };
