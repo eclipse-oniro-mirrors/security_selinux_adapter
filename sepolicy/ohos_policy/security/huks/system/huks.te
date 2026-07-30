@@ -83,4 +83,3 @@ allow huks_service sa_memory_manager_service:samgr_class { get };
 allow huks_service memmgrservice:binder { call };
 
 allow huks_service sa_screenlock_service:samgr_class { get };
-
