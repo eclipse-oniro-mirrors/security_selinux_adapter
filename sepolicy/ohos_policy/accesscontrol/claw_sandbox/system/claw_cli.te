@@ -65,6 +65,9 @@ allow claw_cli claw_sandbox_loader:fd { use };
 # avc: denied { use } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4143]" dev="tmpfs" ino=4143 ioctlcmd=0xaaaa scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fd permissive=1
 allow claw_cli aimgr:fd { use };
 
+# avc:  denied  { get } for service=2905 sid=u:r:claw_cli:s0:x0,x335,x512,x868,x1024 scontext=u:r:claw_cli:s0:x0,x335,x512,x868,x1024 tcontext=u:object_r:sa_msdp_geofence_service:s0 tclass=samgr_class permissive=1
+allow claw_cli sa_msdp_geofence_service:samgr_class { get };
+
 # avc: denied { ioctl } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4143]" dev="tmpfs" ino=4143 ioctlcmd=0x5413 scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
 # avc: denied { read } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4110]" dev="tmpfs" ino=4110 scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
 # avc: denied { write } for pid=22394, comm="/system/bin/cli_tool/executable/ohos-timer"  path="pipe:[4143]" dev="tmpfs" ino=4143 scontext=u:r:claw_cli:s0 tcontext=u:r:aimgr:s0 tclass=fifo_file permissive=1
