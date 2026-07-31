@@ -124,8 +124,9 @@ allowxperm token_sync_service dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
 # avc: denied { ioctl } comm="/system/bin/init" path="/dev/access_token_id" ioctlcmd=0x4105 scontext=u:r:init:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/init" path="/dev/access_token_id" ioctlcmd=0x4110 scontext=u:r:init:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
-# 0x4105: ADD_PERMISSIONS, 0x4110: ADD_SPM_ENTRIES
-allowxperm init dev_at_file:chr_file ioctl { 0x4104 0x4105 0x4110 };
+# avc: denied { ioctl } comm="/system/bin/init" path="/dev/access_token_id" ioctlcmd=0x4119 scontext=u:r:init:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# 0x4105: ADD_PERMISSIONS, 0x4110: ADD_SPM_ENTRIES, 0x4119: GET_SPM_VERSION
+allowxperm init dev_at_file:chr_file ioctl { 0x4104 0x4105 0x4110 0x4119 };
 allowxperm distributedsche dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm av_session dev_at_file:chr_file ioctl { 0x4104 };
 allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
