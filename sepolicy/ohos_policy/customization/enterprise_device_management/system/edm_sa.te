@@ -12,7 +12,8 @@
 # limitations under the License.
 
 allow edm_sa accesstoken_service:binder { call };
-allow edm_sa accountmgr:binder { call };
+# avc: denied { transfer } for pid=9940, comm="/system/bin/sa_main" scontext=u:r:edm_sa:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
+allow edm_sa accountmgr:binder { call transfer };
 allow edm_sa bootevent_param:file { map open read };
 allow edm_sa bootevent_samgr_param:file { map open read };
 allow edm_sa build_version_param:file { map read read open };
@@ -281,3 +282,6 @@ allow edm_sa time_service:binder { transfer };
 
 # avc: denied { get } for service=403 sid=u:r:edm_sa:s0 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_form_mgr_service:s0 tclass=samgr_class permissive=1
 allow edm_sa sa_form_mgr_service:samgr_class { get };
+
+# avc: denied { call } for pid=2169, comm="/system/bin/sa_main" scontext=u:r:accountmgr:s0 tcontext=u:r:edm_sa:s0 tclass=binder permissive=0
+allow accountmgr edm_sa:binder { call };
