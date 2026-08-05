@@ -663,6 +663,9 @@ allow vpn_isolate_hap sa_telecom_tel_call_manager:samgr_class { get };
 # avc: denied { get } for service=4009 sid=u:r:vpn_isolate_hap:s0 scontext=u:r:vpn_isolate_hap:s0 tcontext=u:object_r:sa_telecom_tel_state_registry:s0 tclass=samgr_class permissive=1
 allow vpn_isolate_hap sa_telecom_tel_state_registry:samgr_class { get };
 
+# avc: denied { get } for service=66568 sid=o:r:vpn_isolate_hap:s0:x252,x334,x512,x868,x1024 scontext=o:r:vpn_isolate_hap:s0:x252,x334,x512,x868,x1024 tcontext=u:object_r:histogram_service:s0 tclass=samgr_class permissive=0
+allow vpn_isolate_hap histogram_service:samgr_class { get };
+
 allowxperm vpn_isolate_hap data_app_el1_arkprofile:file ioctl { 0x5413 };
 allowxperm vpn_isolate_hap data_app_el1_arkstartupcache:file ioctl { 0x5413 };
 allowxperm vpn_isolate_hap data_app_el1_arkstartupcache:file ioctl { 0x6685 };
