@@ -53,3 +53,9 @@ allow disk_manager storage_daemon:fd { use };
 allow disk_manager sa_sg_collect_service:samgr_class { get };
 # avc: denied { call } for pid=3737, comm="/system/bin/sa_main" scontext=u:r:disk_manager:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=1
 allow disk_manager security_guard:binder { call };
+
+# avc: denied { add_name getattr open read search write create remove_name } for pid=6868, comm="/system/bin/sa_main" name = "/log/hiaudit" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=395 scontext=u:r:disk_manager:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=0
+allow disk_manager data_log:dir { add_name getattr open read search write create remove_name };
+
+# avc: denied { create getattr open read rename write unlink append } for pid=6868, comm="/system/bin/sa_main" name = "/log/hiaudit" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=395 scontext=u:r:disk_manager:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=0
+allow disk_manager data_log:file { create getattr open read rename write unlink append };
