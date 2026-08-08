@@ -184,8 +184,7 @@
                 "perftest toybox_exec",
                 "sh param_exec",
                 "sh begetctl_exec",
-                "input_debug_hap arkweb_crashpad_handler_exec",
-                "storage_daemon ohos_fixparts_exec"
+                "input_debug_hap arkweb_crashpad_handler_exec"
             ]
         }
     ]
