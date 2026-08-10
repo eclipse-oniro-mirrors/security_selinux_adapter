@@ -182,23 +182,6 @@ allow SP_daemon data_service_el2_file:dir { search read open getattr };
 allow SP_daemon data_service_el2_file:file { read open getattr };
 allow SP_daemon data_service_file:dir { search };
 
-#[hmseh:392]avc: denied { read } for pid=8919, comm="/bin/sh"  path="/data/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache/shader_dfx/shader_report_info.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=47290 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
-#[hmseh:392]avc: denied { open } for pid=8919, comm="/bin/sh"  path="/data/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache/shader_dfx/shader_report_info.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=47290 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
-#[hmseh:392]avc: denied { getattr } for pid=8905, comm="/bin/SP_daemon"  path="/data/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache/shader_dfx/shader_report_info.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=47290 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=1
-allow SP_daemon data_app_el1_file:file { open read getattr };
-#[hmseh:392]avc: denied { search } for pid=7395, comm="/bin/sh"  name="/app" dev="/dev/block/platform/fa500000.ufs/vy-nam/userdata" ino=636 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
-allow SP_daemon data_app_el1_file:dir { search };
-#[hmseh:392]avc: denied { read } for pid=8905, comm="/bin/SP_daemon"  name="/usr" dev="/dev/block/dm-2" ino=182 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:system_usr_file:s0 tclass=lnk_file permissive=1
-allow SP_daemon system_usr_file:lnk_file { read };
-#[hmseh:392]avc: denied { search } for pid=8196, comm="/bin/SP_daemon"  name="/app" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=605 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
-allow SP_daemon data_app_file:dir { search };
-#[hmseh:392]avc: denied { search } for pid=8196, comm="/bin/SP_daemon"  name="/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=46884 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:data_app_el1_shadercache:s0 tclass=dir permissive=1
-allow SP_daemon data_app_el1_shadercache:dir { search };
-#[hmseh:392]avc: denied { read } for pid=8196, comm="/bin/SP_daemon"  path="/data/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache/shader_dfx/shader_report_info.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=50968 scontext=u:r:SP_daemon:s0 tcontext=o:object_r:data_app_el1_shadercache:s0:x238,x334,x512,x868,x1024 tclass=file permissive=1
-#[hmseh:392]avc: denied { open } for pid=8196, comm="/bin/SP_daemon"  path="/data/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache/shader_dfx/shader_report_info.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=50968 scontext=u:r:SP_daemon:s0 tcontext=o:object_r:data_app_el1_shadercache:s0:x238,x334,x512,x868,x1024 tclass=file permissive=1
-#[hmseh:392]avc: denied { getattr } for pid=8196, comm="/bin/SP_daemon"  path="/data/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache/shader_dfx/shader_report_info.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=50968 scontext=u:r:SP_daemon:s0 tcontext=o:object_r:data_app_el1_shadercache:s0:x238,x334,x512,x868,x1024 tclass=file permissive=1
-allow SP_daemon data_app_el1_shadercache:file { open read getattr };
-
 # avc: denied { getattr } for pid=22749, comm="/bin/cp" path="/data/log/hitrace/trace_20260423102907@104-5995.sys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata"ino=7575 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=22749, comm="/bin/cp" path="/data/log/hitrace/trace_20260423102907@104-5995.sys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata"ino=7575 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=1
 # avc: denied { open } for pid=22749, comm="/bin/cp" path="/data/log/hitrace/trace_20260423102907@104-5995.sys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata"ino=7575 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=1
