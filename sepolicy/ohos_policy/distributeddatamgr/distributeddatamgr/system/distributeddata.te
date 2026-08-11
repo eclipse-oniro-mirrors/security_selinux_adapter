@@ -240,3 +240,9 @@ allowxperm distributeddata data_service_el2_pasteboard_service:file ioctl { 0xf5
 allow distributeddata usb_service:binder { transfer };
 allow distributeddata concurrent_task_service:binder { call };
 allow distributeddata sa_concurrent_task_service:samgr_class { get };
+
+# avc: denied { call } for pid=1785, comm="/system/bin/sa_main"  scontext=u:r:distributeddata:s0 tcontext=u:r:storage_space_manager:s0 tclass=binder permissive=1
+allow distributeddata storage_space_manager:binder { call };
+
+# avc:  denied  { get } for service=8650 sid=u:r:distributeddata:s0 scontext=u:r:distributeddata:s0 tcontext=u:object_r:sa_storage_space_manager_service:s0 tclass=samgr_class permissive=1
+allow distributeddata sa_storage_space_manager_service:samgr_class { get };
