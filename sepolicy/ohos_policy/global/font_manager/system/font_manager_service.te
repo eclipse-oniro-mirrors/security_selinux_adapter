@@ -15,7 +15,7 @@ allow font_manager_server data_service_el1_file:dir { create getattr setattr add
 allow font_manager_server data_service_el1_file:file { create getattr setattr ioctl read write open unlink rename map };
 allowxperm font_manager_server data_service_el1_file:file ioctl {  0x5413  };
 allow font_manager_server font_manager_server:unix_dgram_socket { getopt setopt };
-allow font_manager_server foundation:binder { call };
+allow font_manager_server foundation:binder { call transfer };
 allow font_manager_server init:fifo_file { write };
 allow font_manager_server chip_prod_file:dir { search };
 allow font_manager_server sharefs:file { getattr read map };
@@ -48,3 +48,6 @@ allow font_manager_server data_user_file:file { getattr read };
 # avc:  denied  { map } for  pid=9168 comm="font_manager_se" dev="/dev/block/vol-8-1" ino=3 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=9168 comm="font_manager_se" dev="/dev/block/vol-8-1" ino=3 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
 allow font_manager_server vfat:file { getattr map read };
+allow font_manager_server debug_hap_data_file:file { getattr map read };
+allow font_manager_server appdat:file { getattr map read };
+allow font_manager_server normal_hap_attr:fd { use };
