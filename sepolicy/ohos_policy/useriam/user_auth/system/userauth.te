@@ -101,3 +101,8 @@ allow useriam dev_at_file:chr_file { ioctl };
 allow useriam sys_prod_file:dir { search };
 
 allowxperm useriam dev_at_file:chr_file ioctl { 0x4104 };
+
+# avc: denied { map } for pid=1742, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:update_updater_param:s0" dev="" ino=449 scontext=u:r:useriam:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
+# avc: denied { open } for pid=1742, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:update_updater_param:s0" dev="" ino=449 scontext=u:r:useriam:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
+# avc: denied { read } for pid=1742, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:update_updater_param:s0" dev="" ino=449 scontext=u:r:useriam:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
+allow useriam update_updater_param:file { map open read };
