@@ -613,3 +613,11 @@ allow storage_daemon rootfs:dir { read open };
 # avc: denied { ioctl } for pid=32414, comm="/bin/mount.exfat" path="/dev/fuse" dev="" ino=17 ioctlcmd=0xe580 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=0
 allow storage_daemon dev_fuse_file:chr_file { ioctl };
 allowxperm storage_daemon dev_fuse_file:chr_file ioctl { 0xe580 };
+
+# avc: denied { execute } for pid=22270, comm="/system/bin/storage_daemon"  path="/system/bin/ohos_fixparts" dev="overlay" ino=1097 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:ohos_fixparts_exec:s0 tclass=file permissive=1
+# avc: denied { execute_no_trans } for pid=22270, comm="/system/bin/storage_daemon"  scontext=u:r:storage_daemon:s0 tcontext=u:object_r:ohos_fixparts_exec:s0 tclass=file permissive=1
+# avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/ohos_fixparts" dev="overlay" ino=1097 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:ohos_fixparts_exec:s0 tclass=file permissive=1
+# avc: denied { open } for pid=22270, comm="/system/bin/storage_daemon"  path="/system/bin/ohos_fixparts" dev="overlay" ino=1097 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:ohos_fixparts_exec:s0 tclass=file permissive=1
+# avc: denied { read } for pid=22270, comm="/system/bin/storage_daemon"  path="/system/bin/ohos_fixparts" dev="overlay" ino=1097 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:ohos_fixparts_exec:s0 tclass=file permissive=1
+allow storage_daemon ohos_fixparts_exec:file { execute execute_no_trans map open read };
+
