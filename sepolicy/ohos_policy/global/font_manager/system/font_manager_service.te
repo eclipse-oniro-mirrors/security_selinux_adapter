@@ -74,4 +74,4 @@ allow font_manager_server system_fonts_file:file { getattr map open read };
 allow font_manager_server debug_hap_data_file:file { getattr map read };
 
 # avc: denied  { getattr map read } for pid=13270 comm="/system/bin/sa_main" path="/data/storage/el2/base/haps/entry/files/fonts/aidianfengyahei.ttf" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=40386 scontext=u:r:font_manager_server:s0 tcontext=o:object_r:appdat:s0 tclass=file permissive=1
-allow font_manager_server appdat:file { getattr map read };
+allow font_manager_server normal_app_data:file { getattr map read };
