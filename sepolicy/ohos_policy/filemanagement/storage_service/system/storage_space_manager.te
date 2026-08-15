@@ -94,3 +94,67 @@ allow storage_space_manager sa_foundation_cesfwk_service:samgr_class { get };
 
 # avc: denied { read } for pid=11668, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/cache_clean_config.json" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=33713 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow storage_space_manager data_service_el1_file:file { read };
+
+# avc: denied { map } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=257 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=257 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=257 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow storage_space_manager arkcompiler_param:file { map open read };
+
+# avc: denied { ioctl } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1013 ioctlcmd=0xf546 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1013 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1013 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc: denied { remove_name } for pid=17547, comm="/system/bin/sa_main"  name="/service/el1/public/storage_space_manager" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1013 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow storage_space_manager data_service_el1_file:dir { ioctl open read remove_name };
+
+# avc: denied { append } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/app_cache_clean_record.db-compare" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=45549 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/app_cache_clean_record.db-dwr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=48785 ioctlcmd=0xf546 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { lock } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/app_cache_clean_record.db-shm" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=47250 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/app_cache_clean_record.db-dwr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=48785 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { setattr } for pid=17547, comm="/system/bin/sa_main"  name="/service/el1/public/storage_space_manager/app_cache_clean_record.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=48012 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { unlink } for pid=17547, comm="/system/bin/sa_main"  name="/service/el1/public/storage_space_manager/app_cache_clean_record.db-journal" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=48775 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow storage_space_manager data_service_el1_file:file { append ioctl lock map setattr unlink };
+
+# avc: denied { map } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=244 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=244 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=244 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow storage_space_manager debug_param:file { map open read };
+
+# avc: denied { map } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+allow storage_space_manager ohos_boot_param:file { map open read };
+
+# avc: denied { map } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=243 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=243 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=17547, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=243 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+allow storage_space_manager persist_sys_param:file { map open read };
+
+# avc:  denied  { get } for service=1909 sid=u:r:storage_space_manager:s0 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=1
+allow storage_space_manager sa_memory_manager_service:samgr_class { get };
+
+# avc: denied { getattr } for pid=17547, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="/dev/block/dm-2" ino=124307968 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=17547, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="/dev/block/dm-2" ino=124307968 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=17547, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="/dev/block/dm-2" ino=124307968 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=17547, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="/dev/block/dm-2" ino=124307968 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow storage_space_manager system_usr_file:file { getattr map open read };
+
+# avc: denied { ioctl } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1013 ioctlcmd=0xf546 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc: denied { ioctl } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1013 ioctlcmd=0xf547 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allowxperm storage_space_manager data_service_el1_file:dir ioctl { 0xf546 0xf547 };
+
+# avc: denied { ioctl } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/app_cache_clean_record.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=48012 ioctlcmd=0xf50c scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/app_cache_clean_record.db-dwr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=48785 ioctlcmd=0xf546 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { ioctl } for pid=17547, comm="/system/bin/sa_main"  path="/data/service/el1/public/storage_space_manager/app_cache_clean_record.db-journal" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=48775 ioctlcmd=0xf547 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allowxperm storage_space_manager data_service_el1_file:file ioctl { 0xf50c 0xf546 0xf547 };
+
+# avc: denied { open } for pid=11851, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:storage_space_manager:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow storage_space_manager dev_ashmem_file:chr_file { open };
+
+# avc: denied { transfer } for pid=11851, comm="/system/bin/sa_main"  scontext=u:r:storage_space_manager:s0 tcontext=o:r:normal_hap:s0:x241,x334,x512,x868,x1024 tclass=binder permissive=1
+allow storage_space_manager normal_hap_attr:binder { transfer };
+
+#avc:  denied  { call } for  pid=11002 comm="IPC_7_11213" scontext=u:r:normal_hap:s0 tcontext=u:r: storage_space_manager:s0 tclass=binder permissive=0
+allow normal_hap_attr storage_space_manager:binder { call };
+
+#avc:  denied  { get } for service=8650 pid=4594 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_storage_space_manager_service:s0 tclass=samgr_class permissive=1
+allow normal_hap_attr sa_storage_space_manager_service:samgr_class { get };
