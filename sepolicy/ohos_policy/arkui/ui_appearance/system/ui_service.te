@@ -32,3 +32,7 @@ allow ui_service distributeddata:binder { call };
 allow time_service ui_service:file { getattr };
 allow time_service ui_service:binder { call transfer };
 allow distributeddata ui_service:binder { call transfer };
+# avc: denied { call } for pid=24150 comm="/system/bin/sa_main" scontext=u:r:ui_service:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
+allow ui_service locationhub:binder { call };
+# avc: denied { get } for service=2802 sid=u:r:ui_service:s0 scontext=u:r:ui_service:s0 tcontext=u:object_r:sa_location_locator_service:s0 tclass=samgr_class permissive=0
+allow ui_service sa_location_locator_service:samgr_class { get };
