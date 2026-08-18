@@ -12,4 +12,4 @@
 # limitations under the License.
 
 # avc: denied { getattr } for comm="storage_deamon" scontext=u:r:storage_deamon:s0 tcontext=u:r:font_manager_server:s0 tclass=file permissive=1
-allow storage_deamon font_manager_server:file { getattr };
+allow storage_daemon font_manager_server:file { getattr };
