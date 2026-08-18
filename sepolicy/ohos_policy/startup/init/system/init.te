@@ -230,7 +230,9 @@ allow init data_parameters:dir { add_name getattr open read relabelto remove_nam
 allow init data_parameters:file { create ioctl open read read append relabelto rename unlink write write open };
 allow init data_preloads:dir { getattr open read relabelto setattr };
 allow init data_resourcecache:dir { getattr open read relabelto setattr };
-allow init data_service_el0_file:dir { add_name create getattr open read relabelto search setattr write };
+# avc:  denied  { remove_name } for  pid=1 comm="init" name="nativetoken.json" dev="mmcblk0p15" ino=3574 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+# avc:  denied  { rmdir } for  pid=1 comm="init" name="nativetoken.json" dev="mmcblk0p15" ino=3574 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+allow init data_service_el0_file:dir { add_name create getattr open read relabelto remove_name rmdir search setattr write };
 allow init data_service_el0_file:file { create getattr read write open relabelfrom };
 allow init data_service_el1_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_el1_file:file { getattr setattr relabelto };
