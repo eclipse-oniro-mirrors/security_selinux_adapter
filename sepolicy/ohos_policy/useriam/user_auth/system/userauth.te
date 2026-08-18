@@ -106,3 +106,8 @@ allowxperm useriam dev_at_file:chr_file ioctl { 0x4104 };
 # avc: denied { open } for pid=1742, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:update_updater_param:s0" dev="" ino=449 scontext=u:r:useriam:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
 # avc: denied { read } for pid=1742, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:update_updater_param:s0" dev="" ino=449 scontext=u:r:useriam:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=0
 allow useriam update_updater_param:file { map open read };
+
+# avc: denied { ioctl } for pid=1702, comm="/system/bin/sa_main"  path="/mnt/useriam_status" dev="tmpfs" ino=4628 ioctlcmd=0x5413 scontext=u:r:useriam:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=1702, comm="/system/bin/sa_main"  path="/mnt/useriam_status" dev="tmpfs" ino=4628 scontext=u:r:useriam:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+allow useriam tmpfs:file { open ioctl getattr };
+allowxperm useriam tmpfs:file ioctl { 0x5413 };
