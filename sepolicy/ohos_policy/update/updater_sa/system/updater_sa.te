@@ -54,7 +54,7 @@ allow updater_sa update_dupdate_engine_file:file { create getattr ioctl lock map
 allowxperm updater_sa update_dupdate_engine_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
 
 allow updater_sa update_update_service_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
-allow updater_sa update_update_service_file:file { create getattr ioctl lock map open read rename setattr unlink write };
+allow updater_sa update_update_service_file:file { append create getattr ioctl lock map open read rename setattr unlink write };
 allowxperm updater_sa update_update_service_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
 
 allow updater_sa servicectrl_param:parameter_service { set };
@@ -83,4 +83,18 @@ allow updater_sa foundation:binder { transfer };
 allow updater_sa sa_storage_manager_service:samgr_class { get };
 
 binder_call(updater_sa, storage_manager);
+
+allow updater_sa persist_param:parameter_service { set };
+
+allow updater_sa sa_powermgr_powermgr_service:samgr_class { get };
+binder_call(updater_sa, telecom);
+allow updater_sa sa_telecom_tel_call_manager:samgr_class { get };
+binder_call(updater_sa, audio_server);
+allow updater_sa sa_audio_policy_service:samgr_class { get };
+
+allow updater_sa system_core_hap_attr:binder { call };
+binder_call(updater_sa, accountmgr);
+allow updater_sa sa_accountmgr:samgr_class { get };
+allow updater_sa sa_foundation_cesfwk_service:samgr_class { get };
+allowxperm updater_sa update_update_service_file:dir ioctl { 0xf546 };
 
