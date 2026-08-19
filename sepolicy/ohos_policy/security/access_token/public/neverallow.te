@@ -21,3 +21,5 @@ neverallowxperm { domain develop_domain -init -accesstoken_service -appspawn -nw
 neverallowxperm { domain develop_domain -accesstoken_service -appspawn -nwebspawn -cjappspawn -nativespawn } dev_at_file:chr_file ioctl { 0x4115 };
 neverallowxperm { domain develop_domain -appspawn -nwebspawn -cjappspawn -nativespawn } dev_at_file:chr_file ioctl { 0x4114 0x4116 0x4118 };
 neverallowxperm { domain develop_domain -accesstoken_service } dev_at_file:chr_file ioctl { 0x4117 };
+
+neverallow init accesstoken_data_file:{ lnk_file fifo_file } ~{ getattr unlink };

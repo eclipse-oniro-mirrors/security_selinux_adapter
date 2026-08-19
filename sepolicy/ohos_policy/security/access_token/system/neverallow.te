@@ -19,7 +19,7 @@ neverallow storage_daemon accesstoken_data_file:file ~{ getattr };
 neverallow accesstoken_service accesstoken_data_file:dir ~{ create search add_name open read write remove_name ioctl getattr };
 neverallow accesstoken_service accesstoken_data_file:file ~{ open read getattr ioctl lock write create unlink map setattr };
 
-neverallow init accesstoken_data_file:dir ~{ getattr open read relabelto setattr search };
+neverallow init accesstoken_data_file:dir ~{ getattr open read relabelto setattr search rmdir };
 neverallow init accesstoken_data_file:file ~{ read write getattr setattr relabelto open lock };
 
 neverallow privacy_service accesstoken_data_file:dir ~{ search add_name open read write remove_name ioctl };
