@@ -15,5 +15,16 @@
 # avc:  denied  { read } for  pid=1 comm="init" name="access_token" dev="mmcblk0p12" ino=7387 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
 # avc:  denied  { open } for  pid=1 comm="init" path="/data/service/el1/public/access_token" dev="mmcblk0p12" ino=7387 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
 # avc:  denied  { getattr } for  pid=1 comm="init" path="/data/service/el1/public/access_token" dev="mmcblk0p12" ino=140 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=0
-allow init accesstoken_data_file:dir { getattr open read relabelto setattr};
+# avc:  denied  { rmdir } for pid=1 comm="init" name="nativetoken.json" scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=dir permissive=1
+allow init accesstoken_data_file:dir { getattr open read relabelto setattr rmdir };
+
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/data/service/el0/access_token/nativetoken.json" dev="mmcblk0p15" ino=3703 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=lnk_file permissive=1
+# avc:  denied  { unlink } for  pid=1 comm="init" name="nativetoken.json" dev="mmcblk0p15" ino=3703 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=lnk_file permissive=1
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/data/service/el0/access_token/nativetoken.json" dev="mmcblk0p15" ino=3648 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=fifo_file permissive=1
+# avc:  denied  { unlink } for  pid=1 comm="init" name="nativetoken.json" dev="mmcblk0p15" ino=3648 scontext=u:r:init:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=fifo_file permissive=1
+allow init data_service_el0_file:{ lnk_file fifo_file } { getattr unlink };
+
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/data/service/el0/access_token/nativetoken.json" dev="mmcblk0p15" ino=3701 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=fifo_file permissive=1
+# avc:  denied  { unlink } for  pid=1 comm="init" name="nativetoken.json" dev="mmcblk0p15" ino=3701 scontext=u:r:init:s0 tcontext=u:object_r:accesstoken_data_file:s0 tclass=fifo_file permissive=1
+allow init accesstoken_data_file:{ lnk_file fifo_file } { getattr unlink };
 allow init privacy_service:process { rlimitinh siginh transition };
