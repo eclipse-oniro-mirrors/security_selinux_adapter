@@ -172,4 +172,8 @@ allow { sadomain -hilogd } hiprofiler_file:file { write };
 allow native_daemon data_local_tmp:dir { open read };
 # avc: denied { write } for pid=1, comm="/system/bin/nwebspawn" path="/data/log/hiprofiler/native_hook_cache_BBnnlA" dev="/dev/block/platform/fa50000.ufs/by-name/userdata" ino=111946 scontext=o:r:isolated_render:s0:x253,x334,x512,x868,x1024 tcontext=u:object_r:hiprofiler_file:s0 tclass=file permissive=1
 allow isolated_render hiprofiler_file:file { write };
+# avc: denied {call} for pid=16806, comm="/system/bin/native_daemon" scontext=u:r:native_daemon:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
+allow native_daemon resource_schedule_service:binder { call };
+# avc: denied { get } for service=1901 sid=u:r:native_daemon:s0 scontext=u:r:native_daemon:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=1
+allow native_daemon sa_resource_schedule:samgr_class { get };
 
