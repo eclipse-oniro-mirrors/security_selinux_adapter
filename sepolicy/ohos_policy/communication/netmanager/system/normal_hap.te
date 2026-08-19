@@ -26,3 +26,5 @@ allow normal_hap_attr sa_net_policy_manager:samgr_class { get };
 
 allow normal_hap_attr sa_comm_vpn_manager_service:samgr_class { get };
 allow normal_hap_attr port:udp_socket { name_bind };
+
+neverallow { normal_hap_attr pc_only(`-normal_hap_attr') } *:{ netlink_netfilter_socket } *;
