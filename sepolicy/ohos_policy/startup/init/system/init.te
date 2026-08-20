@@ -405,6 +405,7 @@ allow init persist_sys_param:file { map open read relabelto };
 allow init power_host:process { rlimitinh siginh transition };
 allow init proc_cmdline_file:file { getattr open read setattr };
 allow init proc_file:file { getattr open setattr write };
+allow init proc_file:dir { getattr open setattr };
 allow init proc_interrupts_file:file { setattr };
 allow init proc_kmsg_file:file { setattr };
 allow init proc_net:file { setattr };

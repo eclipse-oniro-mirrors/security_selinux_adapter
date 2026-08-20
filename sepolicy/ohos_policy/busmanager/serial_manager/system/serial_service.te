@@ -168,3 +168,8 @@ allow serial_service sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { get } for service=401 sid=u:r:serial_service:s0 scontext=u:r:serial_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
 allow serial_service sa_foundation_bms:samgr_class { get };
+
+# avc: denied { open } for path="/proc/devhost/root/tty/driver/serial" scontext=u:r:serial_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+# avc: denied { read } for path="/proc/devhost/root/tty/driver/serial" scontext=u:r:serial_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+# avc: denied { getattr } for path="/proc/devhost/root/tty/driver/serial" scontext=u:r:serial_service:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+allow serial_service proc_file:file { open read getattr };
