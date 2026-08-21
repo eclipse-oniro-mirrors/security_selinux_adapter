@@ -54,7 +54,7 @@ allow updater_sa update_dupdate_engine_file:file { create getattr ioctl lock map
 allowxperm updater_sa update_dupdate_engine_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
 
 allow updater_sa update_update_service_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
-allow updater_sa update_update_service_file:file { append create getattr ioctl lock map open read rename setattr unlink write };
+allow updater_sa update_update_service_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 allowxperm updater_sa update_update_service_file:file ioctl { 0x5413 0xf50c 0xf546 0xf547 };
 
 allow updater_sa servicectrl_param:parameter_service { set };
