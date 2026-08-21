@@ -27,6 +27,11 @@ allow powermgr SP_daemon:fifo_file { write };
 #avc:  denied  { get } for service=3001 sid=u:r:powermgr:s0 scontext=u:r:powermgr:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=0
 allow powermgr sa_pulseaudio_audio_service:samgr_class { get };
 
+# avc: denied { use } for pid=19531, comm="/system/bin/sa_main"  path="pipe:[925902]" dev="tmpfs" ino=925902 scontext=u:r:powermgr:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
+allow powermgr sh:fd { use };
+# avc:  denied  { write } for  pid=587 comm="powermgr" path="pipe:[16612]" dev="pipefs" ino=16612 scontext=u:r:powermgr:s0 tcontext=u:r:sh:s0 tclass=fifo_file permissive=1
+allow powermgr sh:fifo_file { write };
+
 debug_only(`
     allow powermgr su:fd { use };
 ')
