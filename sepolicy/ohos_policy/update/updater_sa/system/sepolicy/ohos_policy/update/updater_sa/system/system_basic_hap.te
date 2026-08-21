@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { get } for service=3006 sid=u:r:system_core_hap:s0 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_update_distributed_service:s0 tclass=samgr_class permissive=0
-allow system_core_hap_attr sa_update_distributed_service:samgr_class { get };
-allow system_core_hap_attr updater_sa:binder { call transfer };
+#avc:  denied  { get } for service=3006 sid=u:r:system_basic_hap:s0 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_update_distributed_service:s0 tclass=samgr_class permissive=0
+allow system_basic_hap_attr sa_update_distributed_service:samgr_class { get };
+allow system_basic_hap_attr updater_sa:binder { call transfer };
 
