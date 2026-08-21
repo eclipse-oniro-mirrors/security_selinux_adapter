@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap_attr edm_sa:binder { call };
+allow system_basic_hap_attr edm_sa:binder { call transfer };
 allow system_basic_hap_attr sa_enterprise_device_manager_service:samgr_class { get };
 allow system_basic_hap_attr edm_sa:fd { use };
 allow system_basic_hap_attr edm_application_config_file:dir { read execute search open getattr };
