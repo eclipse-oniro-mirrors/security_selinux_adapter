@@ -11,4 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#avc:  denied  { call } for pid=39586 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for pid=39586 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
 allow distributeddata media_service:binder { call transfer };
