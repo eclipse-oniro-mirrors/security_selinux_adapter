@@ -99,6 +99,3 @@ allow updater_sa sa_telecom_tel_call_manager:samgr_class { get };
 binder_call(updater_sa, audio_server);
 allow updater_sa sa_audio_policy_service:samgr_class { get };
 
-#avc: denied { call } for pid=2894 comm="OS_FFRT_2_2" scontext=u:r:updater_sa:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
-
-
