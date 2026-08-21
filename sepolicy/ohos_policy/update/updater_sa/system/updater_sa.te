@@ -84,6 +84,7 @@ allow updater_sa sa_storage_manager_service:samgr_class { get };
 
 binder_call(updater_sa, storage_manager);
 
+#avc: denied { set } for parameter=persist.graphic.bootsound.enabled pid=2894 uid=6666 gid=6666 scontext=u:r:updater_sa:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=1
 allow updater_sa persist_param:parameter_service { set };
 
 #avc: denied { get } for service=3301 sid=u:r:updater_sa:s0 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
@@ -98,9 +99,7 @@ allow updater_sa sa_telecom_tel_call_manager:samgr_class { get };
 binder_call(updater_sa, audio_server);
 allow updater_sa sa_audio_policy_service:samgr_class { get };
 
+#avc: denied { call } for pid=2894 comm="OS_FFRT_2_2" scontext=u:r:updater_sa:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
 allow updater_sa system_core_hap_attr:binder { call };
-binder_call(updater_sa, accountmgr);
-allow updater_sa sa_accountmgr:samgr_class { get };
-allow updater_sa sa_foundation_cesfwk_service:samgr_class { get };
-allowxperm updater_sa update_update_service_file:dir ioctl { 0xf546 };
+
 
