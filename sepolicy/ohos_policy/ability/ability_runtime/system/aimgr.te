@@ -34,6 +34,9 @@ allow aimgr sa_aimgr_climgr_config_file:file { open read getattr };
 # avc:  denied  { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
 allow aimgr distributeddata:binder { call transfer };
 
+# avc:  denied  { search } for  pid=8937 comm="SaInit1" name="/" dev="vdd" ino=2 scontext=u:r:aimgr:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow aimgr data_file:dir { search };
+
 # avc:  denied  { rmdir } for pid=11754, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { search } for pid=11754, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { ioctl } for pid=11754, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
