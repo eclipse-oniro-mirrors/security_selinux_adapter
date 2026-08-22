@@ -47,30 +47,30 @@ def search_data(source_data_list, target_data_set):
         target_data_set.add(source_data_list[i])
 
 
+def collect_domain_attribute(line, domain_set, domain_map):
+    if line.startswith('(typeattributeset domain ('):
+        elem_list = simplify_string(line).split(' ')
+        if len(elem_list) < 3:
+            return
+        domain_set.update(elem_list[2:])
+        return
+    if not line.startswith('(typeattributeset '):
+        return
+    elem_list = simplify_string(line).split(' ')
+    if len(elem_list) < 3:
+        return
+    key = elem_list[1]
+    if key in domain_map:
+        search_data(elem_list, domain_map[key])
+
+
 def deal_with_allow(cil_file, domain_set, domain_map):
     with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
             line = line.strip()
             if not line:
                 continue
-            if line.startswith('(typeattributeset domain ('):
-                # typeattributeset domain SP_daemon a2dp_host aa access_control_level_manager
-                sub_string = simplify_string(line)
-                elem_list = sub_string.split(' ')
-                if len(elem_list) < 3:
-                    continue
-                domain_set |= set(elem_list[2:])
-                continue
-            if line.startswith('(typeattributeset '):
-                # typeattributeset 
-                sub_string = simplify_string(line)
-                elem_list = sub_string.split(' ')
-                if len(elem_list) < 3:
-                    continue
-                key = elem_list[1]
-                if key not in domain_map:
-                    continue
-                search_data(elem_list, domain_map[key])
+            collect_domain_attribute(line, domain_set, domain_map)
 
 
 def get_domain_set(args, with_developer, domain_map):
@@ -303,7 +303,7 @@ def check(args, with_developer):
 
     whitelist_result = False
     notallow = history_data - contexts_list - special_domain_set
-    if len(notallow) > 0 :
+    if len(notallow) > 0:
         domain_list = []
         for v in group_map.values():
             domain_list.extend(v)
@@ -324,9 +324,10 @@ def check(args, with_developer):
                 "developer" if with_developer else "user", WHITELIST_FILE_NAME))
 
     notallow = contexts_list - history_data
-    if len(notallow) > 0 :
+    if len(notallow) > 0:
         whitelist_result = True
-        print('\tCheck whitelist of "missing_domain" in {} mode failed.'.format( "developer" if with_developer else "user"))
+        print('\tCheck whitelist of "missing_domain" in {} mode failed.'.format(
+            "developer" if with_developer else "user"))
         print('\tViolation list (type):')
         for diff in sorted(list(notallow)):
             print('\t\t"{}",'.format(diff))

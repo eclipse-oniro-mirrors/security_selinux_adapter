@@ -44,7 +44,7 @@ def deal_with_allow(cil_file, allow_set):
 def split_attribute(elem_list, allow_set):
     rulename = elem_list[0]
     scontext = elem_list[1]
-    if rulename == 'typepermissive' :
+    if rulename == 'typepermissive':
         allow_set.add(scontext)
 
 
@@ -72,7 +72,7 @@ def check(args, with_developer):
     permissive_set = get_permissive_set(args, with_developer)
     contexts_list = get_whitelist(args, with_developer)
     notallow = permissive_set - set(contexts_list)
-    if len(notallow) > 0 :
+    if len(notallow) > 0:
         print('check permissive rule in {} mode failed.'.format("developer" if with_developer else "user"))
         print('violation list (scontext):')
         for diff in sorted(list(notallow)):
@@ -102,4 +102,3 @@ if __name__ == '__main__':
     result = check(input_args, True)
     if result:
         raise Exception(-1)
-

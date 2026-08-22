@@ -92,15 +92,21 @@ def collect_violations(policy_dir_list, restricted_types):
     return violations
 
 
+def load_whitelist_file(whitelist_file):
+    whitelist = set()
+    with open(whitelist_file, 'r', encoding='utf-8') as whitelist_read:
+        for line in whitelist_read:
+            text = normalize_rule_text(strip_comment(line).strip())
+            if text:
+                whitelist.add(text)
+    return whitelist
+
+
 def load_whitelist(policy_dir_list):
     whitelist = set()
     whitelist_files = traverse_file_in_each_type(policy_dir_list, WHITELIST_FILE_NAME)
     for whitelist_file in whitelist_files:
-        with open(whitelist_file, 'r', encoding='utf-8') as whitelist_read:
-            for line in whitelist_read:
-                text = normalize_rule_text(strip_comment(line).strip())
-                if text:
-                    whitelist.add(text)
+        whitelist.update(load_whitelist_file(whitelist_file))
     return whitelist
 
 

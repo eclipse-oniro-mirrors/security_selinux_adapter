@@ -25,7 +25,7 @@ import shutil
 import find
 
 PUBLIC_CIL_FILES = ["public.cil", "public_common.cil"]
-DEVELOPER_PUBLIC_CIL_FILES = [ "public_developer.cil", "public_common.cil"]
+DEVELOPER_PUBLIC_CIL_FILES = ["public_developer.cil", "public_common.cil"]
 DEVELOPER_SUB_PATH = "developer"
 
 
@@ -371,43 +371,53 @@ def get_compiled_file_path(input_args, version, is_developer, filename):
         raise Exception(-1)
 
 
-def flex_check(input_args, is_developer):
+def get_default_type_sets(input_args, is_developer):
     old_type_set = set()
     new_type_set = set()
 
     old_file_path = input_args.compat_policy_object
     new_file_path = input_args.latest_policy_object
 
+    if is_developer:
+        old_file_path = os.path.join(old_file_path, DEVELOPER_SUB_PATH)
+        new_file_path = os.path.join(new_file_path, DEVELOPER_SUB_PATH)
+        if not os.path.exists(old_file_path) or not os.path.exists(new_file_path):
+            print("[INFO] {} or {} no found, developer mode not supported.".format(
+                old_file_path, new_file_path))
+    old_type_set = get_type_set(os.path.join(old_file_path, "system.cil"))
+    new_type_set = get_type_set(os.path.join(new_file_path, "system.cil"))
+
+    old_vendor_type_set = get_type_set(os.path.join(old_file_path, "vendor.cil"))
+    new_vendor_type_set = get_type_set(os.path.join(new_file_path, "vendor.cil"))
+
+    old_type_set = old_type_set & old_vendor_type_set
+    new_type_set = new_type_set & new_vendor_type_set
+    return old_type_set, new_type_set
+
+
+def get_public_type_sets(input_args, is_developer):
+    old_type_set = set()
+    new_type_set = set()
+    all_cil_files = DEVELOPER_PUBLIC_CIL_FILES if is_developer else PUBLIC_CIL_FILES
+
+    for cil_file in all_cil_files:
+        old_policy_file = os.path.join(input_args.compat_policy_object, cil_file)
+        new_policy_file = os.path.join(input_args.latest_policy_object, cil_file)
+
+        if not os.path.exists(old_policy_file) or not os.path.exists(new_policy_file):
+            if input_args.updater_version == "disable":
+                print("[ERROR] {} or {} no found.".format(old_policy_file, new_policy_file))
+            continue
+        old_type_set.update(get_type_set(old_policy_file))
+        new_type_set.update(get_type_set(new_policy_file))
+    return old_type_set, new_type_set
+
+
+def flex_check(input_args, is_developer):
     if input_args.components == "default":
-        if is_developer:
-            old_file_path = os.path.join(old_file_path, DEVELOPER_SUB_PATH)
-            new_file_path = os.path.join(new_file_path, DEVELOPER_SUB_PATH)
-            if not os.path.exists(old_file_path) or not os.path.exists(new_file_path):
-                print("[INFO] {} or {} no found, developer mode not supported.".format(
-                    old_file_path, new_file_path))
-        old_type_set = get_type_set(os.path.join(old_file_path, "system.cil"))
-        new_type_set = get_type_set(os.path.join(new_file_path, "system.cil"))
-
-        old_vendor_type_set = get_type_set(os.path.join(old_file_path, "vendor.cil"))
-        new_vendor_type_set = get_type_set(os.path.join(new_file_path, "vendor.cil"))
-        
-        old_type_set = old_type_set & old_vendor_type_set
-        new_type_set = new_type_set & new_vendor_type_set
+        old_type_set, new_type_set = get_default_type_sets(input_args, is_developer)
     else:
-        all_cil_files = PUBLIC_CIL_FILES
-        if is_developer:
-            all_cil_files = DEVELOPER_PUBLIC_CIL_FILES
-
-        for cil_file in all_cil_files:
-            old_policy_file = os.path.join(old_file_path, cil_file)
-            new_policy_file = os.path.join(new_file_path, cil_file)
-
-            if not os.path.exists(old_policy_file) or not os.path.exists(new_policy_file):
-                if input_args.updater_version == "disable":
-                    print("[ERROR] {} or {} no found.".format(old_policy_file, new_policy_file))
-                continue
-            old_type_set.update(get_type_set(old_policy_file))
-            new_type_set.update(get_type_set(new_policy_file))
+        old_type_set, new_type_set = get_public_type_sets(input_args, is_developer)
 
     if input_args.use_mode == "generate":
         generate_compat_cil_file(input_args, old_type_set, new_type_set, is_developer)

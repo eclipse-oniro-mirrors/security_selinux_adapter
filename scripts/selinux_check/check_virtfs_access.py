@@ -73,7 +73,8 @@ def deal_with_genfscon(cil_file_path, genfscon_dict, virtfs_list):
             line = line.strip()
             if not line.startswith('(genfscon '):
                 continue
-            m = re.match(r'\(genfscon\s+(\S+)\s+"([^"]+)"\s+\(u\s+object_r\s+(\S+)\s+', line, flags = re.M|re.S)
+            m = re.match(r'\(genfscon\s+(\S+)\s+"([^"]+)"\s+\(u\s+object_r\s+(\S+)\s+', line,
+                         flags=re.M | re.S)
             virtfs = m.group(1) # virtfs index
             label = m.group(3) # label index
             path = m.group(2) # path index
@@ -84,6 +85,19 @@ def deal_with_genfscon(cil_file_path, genfscon_dict, virtfs_list):
             genfscon_dict[virtfs].add(label)
 
 
+def classify_virtfs_labels(virtfs, typeattr, labels, whitelist_dict, typeattributeset_dict):
+    add_labels = set()
+    allowed_by_whitelist = set()
+    for label in labels:
+        if typeattr in typeattributeset_dict and label in typeattributeset_dict[typeattr]:
+            continue
+        if label in whitelist_dict[virtfs]:
+            allowed_by_whitelist.add(label)
+        else:
+            add_labels.add(label)
+    return add_labels, allowed_by_whitelist
+
+
 def check_virtfs_typeattr(config_dict, whitelist_dict, genfscon_dict, typeattributeset_dict):
     add_path_to_virtfs = defaultdict(set)
     del_path_from_virtfs = defaultdict(set)
@@ -92,19 +106,13 @@ def check_virtfs_typeattr(config_dict, whitelist_dict, genfscon_dict, typeattrib
         typeattr = config.get('typeattr')
         if not virtfs in genfscon_dict:
             continue
-        labels = genfscon_dict[virtfs]
-        incorrectlist = set()
-        for label in labels:
-            if not typeattr in typeattributeset_dict or \
-                not label in typeattributeset_dict[typeattr]:
-                # incorrect, see withlist
-                if not label in whitelist_dict[virtfs]:
-                    add_path_to_virtfs[virtfs].add(label)
-                else:
-                    incorrectlist.add(label)
+        add_labels, allowed_by_whitelist = classify_virtfs_labels(
+            virtfs, typeattr, genfscon_dict[virtfs], whitelist_dict, typeattributeset_dict)
+        if add_labels:
+            add_path_to_virtfs[virtfs].update(add_labels)
 
-        tmp = set(whitelist_dict[virtfs]) - incorrectlist
-        if  tmp:
+        tmp = set(whitelist_dict[virtfs]) - allowed_by_whitelist
+        if tmp:
             del_path_from_virtfs[virtfs] = tmp
 
     return add_path_to_virtfs, del_path_from_virtfs

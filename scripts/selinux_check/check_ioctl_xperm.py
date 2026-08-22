@@ -114,10 +114,10 @@ def check(args, with_developer):
     diff_set = policy_db.allow_set - policy_db.allowx_set - policy_db.typetransition_set - set(contexts_list)
     notallow = list()
     for diff in diff_set:
-        if not (diff.endswith(tuple(ALLOW_TCONTEXT_CLASS_LIST))) :
+        if not (diff.endswith(tuple(ALLOW_TCONTEXT_CLASS_LIST))):
             notallow.append(diff)
     
-    if len(notallow) > 0 :
+    if len(notallow) > 0:
         print('check ioctl rule in {} mode failed.'.format("developer" if with_developer else "user"))
         print('violation list (allow scontext tcontext:tclass ioctl)')
         for e in sorted(notallow):
@@ -145,4 +145,3 @@ if __name__ == '__main__':
     result = check(input_args, True)
     if result:
         raise Exception(-1)
-

@@ -34,7 +34,7 @@ def simplify_string(string):
 def split_attribute(elem_list, allow_set):
     guest = elem_list[GUEST_INDEX]
     rulename = elem_list[SOCK_FILE_INDEX]
-    if rulename == 'sock_file' :
+    if rulename == 'sock_file':
         if guest == 'self':
             guest = elem_list[SUBJECT_INDEX]
         allow_set.add(guest)
@@ -99,7 +99,7 @@ def get_whitelist(args, with_developer):
 # Only check
 def check_sock_unique(with_developer, rule_system_set, rule_chipset_set):
     notallow = rule_system_set & rule_chipset_set
-    if len(notallow) > 0 :
+    if len(notallow) > 0:
         print('Check sock_file with correct socket attribute in {} mode failed.'.format(
             "developer" if with_developer else "user"))
         print('Violation list (type):')
@@ -118,7 +118,7 @@ def check(args, with_developer):
     unique_rule = check_sock_unique(with_developer, rule_system_set, rule_chipset_set)
     contexts_list = get_whitelist(args, with_developer)
     notallow = socket_set - set(contexts_list)
-    if len(notallow) > 0 :
+    if len(notallow) > 0:
         check_result = True
         print('Check sock_file with single socket attribute in {} mode failed.'.format(
             "developer" if with_developer else "user"))
@@ -131,7 +131,7 @@ def check(args, with_developer):
                 "developer" if with_developer else "user", WHITELIST_FILE_NAME))
 
     notallow = set(contexts_list) - socket_set
-    if len(notallow) > 0 :
+    if len(notallow) > 0:
         check_result = True
         print('Check whitelist of socket rule in {} mode failed.'.format(
             "developer" if with_developer else "user"))
