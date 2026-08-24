@@ -12,3 +12,6 @@
 # limitations under the License.
 
 attribute filesystem_unmount_violator;
+
+# define secure space xpm attr
+attribute violator_xpm_exec_allow_ownerid;
