@@ -198,3 +198,13 @@ allow media_service telephony_sa:binder { transfer };
 
 #avc:  denied  { use } for  pid=1741 comm="/system/bin/bootanimation" path="/sys_prod/etc/bootanimation/cust_bootvideo.mp4" dev="overlay" ino=216 scontext=u:r:media_service:s0 tcontext=u:r:bootanimation:s0 tclass=fd permissive=0
 allow media_service bootanimation:fd { use };
+
+#avc:  denied  { get } for service=1301 pid=39586 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=1
+allow media_service sa_distributeddata_service:samgr_class { get };
+
+#avc:  denied  { call } for pid=39586 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for pid=39586 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+allow media_service distributeddata:binder { call transfer };
+
+#avc:  denied  { use } for pid=39586 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
+allow media_service distributeddata:fd { use };
