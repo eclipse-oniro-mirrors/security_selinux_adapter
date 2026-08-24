@@ -611,3 +611,10 @@ allow init hiprofiler_file:dir { getattr open read relabelto setattr };
 allow init self:hmcap { deep_sleep_snap };
 # avc: denied { module_load } for pid =1. comm="/bin/init" scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=system permissive=0
 allow init init:system { module_load };
+
+# avc: denied { ioctl } for pid=1, comm="/bin/init" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x411d scontext=u:r:init:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+allow init dev_at_file:chr_file { ioctl };
+
+# avc: denied { ioctl } for pid=1, comm="/bin/init" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x411d scontext=u:r:init:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=1, comm="/bin/init" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x411e scontext=u:r:init:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+allowxperm init dev_at_file:chr_file ioctl { 0x411d 0x411e };
