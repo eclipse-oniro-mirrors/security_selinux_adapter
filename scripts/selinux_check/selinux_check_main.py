@@ -22,35 +22,45 @@ import os
 from check_common import read_json_file, run_command
 
 
+def append_file_contexts_args(args, request_args):
+    request_args.append("--file_contexts")
+    file_context_path = os.path.join(args.output_path, "all_file_contexts")
+    if not os.path.exists(file_context_path):
+        file_context_path = os.path.join(args.output_path, "file_contexts")
+    request_args.append(file_context_path)
+
+
+def append_cil_args(args, request_args):
+    request_args.append("--cil_file")
+    request_args.append(os.path.join(args.output_path, "all.cil"))
+    request_args.append("--developer_cil_file")
+    request_args.append(os.path.join(args.output_path, "developer/all.cil"))
+
+
+def append_all_contexts_args(args, request_args):
+    request_args.append("--all_contexts")
+    all_contexts_list = []
+    contexts_files = ["file_contexts", "service_contexts", "hdf_service_contexts",
+                      "parameter_contexts", "sehap_contexts"]
+    for contexts_file in contexts_files:
+        contexts_path = os.path.join(args.output_path, "all_{}".format(contexts_file))
+        if not os.path.exists(contexts_path):
+            contexts_path = os.path.join(args.output_path, contexts_file)
+        all_contexts_list.append(contexts_path)
+    request_args.append(":".join(all_contexts_list))
+    append_cil_args(args, request_args)
+
+
 def get_request_args(args, request):
     arg_list = request.split()
     request_args = []
     for arg in arg_list:
         if arg == "--file_contexts":
-            request_args.append(arg)
-            file_context_path = os.path.join(args.output_path, "all_file_contexts")
-            if not os.path.exists(file_context_path):
-                file_context_path = os.path.join(args.output_path, "file_contexts")
-            request_args.append(file_context_path)
+            append_file_contexts_args(args, request_args)
         if arg == "--all_contexts":
-            request_args.append(arg)
-            all_contexts_list = []
-            contexts_files = ["file_contexts", "service_contexts", "hdf_service_contexts", "parameter_contexts", "sehap_contexts"]
-            for contexts_file in contexts_files:
-                contexts_path = os.path.join(args.output_path, "all_{}".format(contexts_file))
-                if not os.path.exists(contexts_path):
-                    contexts_path = os.path.join(args.output_path, contexts_file)
-                all_contexts_list.append(contexts_path)
-            request_args.append(":".join(all_contexts_list))
-            request_args.append("--cil_file")
-            request_args.append(os.path.join(args.output_path, "all.cil"))
-            request_args.append("--developer_cil_file")
-            request_args.append(os.path.join(args.output_path, "developer/all.cil"))
+            append_all_contexts_args(args, request_args)
         if arg == "--cil_file":
-            request_args.append(arg)
-            request_args.append(os.path.join(args.output_path, "all.cil"))
-            request_args.append("--developer_cil_file")
-            request_args.append(os.path.join(args.output_path, "developer/all.cil"))
+            append_cil_args(args, request_args)
     return request_args
 
 

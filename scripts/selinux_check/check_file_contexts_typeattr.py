@@ -138,13 +138,14 @@ def check_file_label_context_attr(file_path, file_label, config_dict, whitelist_
         target_path = config.get('path')
         target_typeattr = config.get('typeattr')
         permissive_list = whitelist_dict[target_path]
-        if is_subpath(file_path, target_path):
-            types_of_typeattr = typeattributeset_dict.get(target_typeattr)
-            if not types_of_typeattr or not file_label in types_of_typeattr:
-                # incorrect path
-                if not file_path in permissive_list:
-                    add_to_path_list.append(target_path)
-                violate_list.append(target_path)
+        if not is_subpath(file_path, target_path):
+            continue
+        types_of_typeattr = typeattributeset_dict.get(target_typeattr)
+        if types_of_typeattr and file_label in types_of_typeattr:
+            continue
+        if not file_path in permissive_list:
+            add_to_path_list.append(target_path)
+        violate_list.append(target_path)
 
     return add_to_path_list, violate_list
 

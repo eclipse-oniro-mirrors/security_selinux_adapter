@@ -115,45 +115,55 @@ def parse_macro_calls(line, line_no, policy_file):
     return statements
 
 
+def finish_auth_rule(statements, policy_file, start_line, end_line, auth_rule_lines):
+    statement_text = " ".join(auth_rule_lines)
+    statements.append(create_statement(
+        "auth_rule", policy_file, start_line, end_line, statement_text))
+
+
+def scan_te_line(line, line_no, policy_file, state):
+    statements = state["statements"]
+    if state["in_auth_rule"]:
+        state["auth_rule_lines"].append(line)
+        if ";" in line:
+            finish_auth_rule(statements, policy_file, state["auth_rule_start_line"],
+                             line_no, state["auth_rule_lines"])
+            state["in_auth_rule"] = False
+            state["auth_rule_lines"] = []
+        return
+
+    if AUTH_RULE_PATTERN.match(line):
+        state["in_auth_rule"] = True
+        state["auth_rule_start_line"] = line_no
+        state["auth_rule_lines"] = [line]
+        if ";" in line:
+            finish_auth_rule(statements, policy_file, line_no, line_no, state["auth_rule_lines"])
+            state["in_auth_rule"] = False
+            state["auth_rule_lines"] = []
+        return
+
+    statements.extend(parse_macro_calls(line, line_no, policy_file))
+
+
 def scan_te_file(policy_file):
-    statements = []
-    in_auth_rule = False
-    auth_rule_lines = []
-    auth_rule_start_line = 0
+    state = {
+        "statements": [],
+        "in_auth_rule": False,
+        "auth_rule_lines": [],
+        "auth_rule_start_line": 0,
+    }
 
     with open(policy_file, 'r', encoding='utf-8') as policy_read:
         for line_no, raw_line in enumerate(policy_read, 1):
             line = strip_comment(raw_line).strip()
             if not line:
                 continue
-            if in_auth_rule:
-                auth_rule_lines.append(line)
-                if ";" in line:
-                    statement_text = " ".join(auth_rule_lines)
-                    statements.append(create_statement(
-                        "auth_rule", policy_file, auth_rule_start_line, line_no, statement_text))
-                    in_auth_rule = False
-                    auth_rule_lines = []
-                continue
+            scan_te_line(line, line_no, policy_file, state)
 
-            if AUTH_RULE_PATTERN.match(line):
-                in_auth_rule = True
-                auth_rule_start_line = line_no
-                auth_rule_lines = [line]
-                if ";" in line:
-                    statements.append(create_statement(
-                        "auth_rule", policy_file, line_no, line_no, line))
-                    in_auth_rule = False
-                    auth_rule_lines = []
-                continue
-
-            statements.extend(parse_macro_calls(line, line_no, policy_file))
-
-    if in_auth_rule:
-        statement_text = " ".join(auth_rule_lines)
-        statements.append(create_statement(
-            "auth_rule", policy_file, auth_rule_start_line, auth_rule_start_line, statement_text))
-    return statements
+    if state["in_auth_rule"]:
+        finish_auth_rule(state["statements"], policy_file, state["auth_rule_start_line"],
+                         state["auth_rule_start_line"], state["auth_rule_lines"])
+    return state["statements"]
 
 
 def scan_te_policy_dir_list(policy_dir_list):

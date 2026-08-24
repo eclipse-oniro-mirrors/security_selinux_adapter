@@ -111,7 +111,6 @@ def check_unique(with_developer, check_map, whitelist_map, attributes_map):
     for subtype in subtypeattr:
         if subtype not in attributes_map:
             continue
-        # for item in (set(attributes_map.get(subtype)) - whitelist):
         for item in set(attributes_map.get(subtype)):
             if item not in temp_set:
                 temp_set.add(item)

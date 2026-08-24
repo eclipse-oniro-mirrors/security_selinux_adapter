@@ -74,36 +74,37 @@ def parse_simple_contexts(path, target_set):
             target_set.add(parts[-1])
 
 
+def parse_sehap_line(line):
+    line = line.strip()
+    if not line or line.startswith('#') or not line.startswith('apl='):
+        return None
+    apl = None
+    type_value = None
+    level_from = None
+    for part in line.split():
+        if part.startswith('apl='):
+            apl = part.split('=')[1]
+        elif part.startswith('type='):
+            type_value = part.split('=')[1]
+        elif part.startswith('levelFrom='):
+            level_from = part.split('=')[1]
+    if not apl or not type_value:
+        return None
+    return SehapContextEntry(generate_sehap_context(type_value, level_from), line)
+
+
 def parse_sehap_contexts(path):
     global sehap_contexts_set
     if not os.path.exists(path):
         return
     with open(path, 'r', encoding='utf-8') as f:
         for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'):
-                continue
-            if not line.startswith('apl='):
-                continue
-            parts = line.split()
-            apl = None
-            type_value = None
-            levelFrom = None
-            for part in parts:
-                if part.startswith('apl='):
-                    apl = part.split('=')[1]
-                elif part.startswith('type='):
-                    type_value = part.split('=')[1]
-                elif part.startswith('levelFrom='):
-                    levelFrom = part.split('=')[1]
-            if not apl or not type_value:
-                continue
-            context = generate_sehap_context(type_value, levelFrom)
-            entry = SehapContextEntry(context, line)
-            sehap_contexts_set.add(entry)
+            entry = parse_sehap_line(line)
+            if entry:
+                sehap_contexts_set.add(entry)
 
 
-def generate_sehap_context(type_value, levelFrom):
+def generate_sehap_context(type_value, level_from):
     """
     Generate sehap context based on type and levelFrom.
     Generation rules rules reference hap_restore::GetMCSLevel method.
@@ -116,7 +117,7 @@ def generate_sehap_context(type_value, levelFrom):
         'all': 's0:x255,x511,x515,x1023,x1279'
     }
     
-    level = level_map.get(levelFrom, 's0')
+    level = level_map.get(level_from, 's0')
 
     if type_value:
         return 'u:object_r:{}:{}'.format(type_value, level)
@@ -131,14 +132,31 @@ def load_context_whitelist(input_args):
         if 'whitelist' not in baseline_data:
             continue
         for context_type, items in baseline_data['whitelist'].items():
-            if context_type not in context_map:
-                context_map[context_type] = set()
-            for item in items:
-                if isinstance(item, str):
-                    context_map[context_type].add(item)
-                elif 'context' in item:
-                    context_map[context_type].add(item['context'])
+            context_map.setdefault(context_type, set())
+            context_map[context_type].update(get_whitelist_items(items))
     return context_map
+
+
+def get_whitelist_items(items):
+    whitelist_items = set()
+    for item in items:
+        if isinstance(item, str):
+            whitelist_items.add(item)
+        elif 'context' in item:
+            whitelist_items.add(item['context'])
+    return whitelist_items
+
+
+def parse_genfscon_context(line):
+    pattern = r'\(genfscon\s+(\S+)\s+"([^"]+)"\s+\((\w+)\s+(\w+)\s+(\w+)\s+\(\((\w+)\)\s+\((\w+)\)\)'
+    m = re.match(pattern, line)
+    if not m:
+        return None
+    user = m.group(3)
+    role = m.group(4)
+    type_ = m.group(5)
+    level = m.group(7)
+    return '{}:{}:{}:{}'.format(user, role, type_, level)
 
 
 def get_virtfs_contexts_data(args):
@@ -149,13 +167,8 @@ def get_virtfs_contexts_data(args):
             for line in f:
                 if not line.startswith('(genfscon '):
                     continue
-                m = re.match(r'\(genfscon\s+(\S+)\s+"([^"]+)"\s+\((\w+)\s+(\w+)\s+(\w+)\s+\(\((\w+)\)\s+\((\w+)\)\)', line)
-                if m:
-                    user = m.group(3)
-                    role = m.group(4)
-                    type_ = m.group(5)
-                    level = m.group(7)
-                    context = '{}:{}:{}:{}'.format(user, role, type_, level)
+                context = parse_genfscon_context(line)
+                if context:
                     virtfs_contexts_set.add(context)
 
 
@@ -219,49 +232,47 @@ def check_unused_whitelist_entries(context_whitelist, max_length):
     Check if there are unused entries in whitelist configuration.
     Unused entries are those not in actual used contexts or length not exceeding max_length.
     """
-    err = False
-    
-    file_used = set(file_contexts_set)
-    service_used = set(service_contexts_set)
-    hdf_used = set(hdf_service_contexts_set)
-    param_used = set(parameter_contexts_set)
-    virtfs_used = set(virtfs_contexts_set)
-    sehap_used = set(entry.line for entry in sehap_contexts_set)
-    
     used_map = {
-        FILE_CONTEXTS: file_used,
-        SERVICE_CONTEXTS: service_used,
-        HDF_SERVICE_CONTEXTS: hdf_used,
-        PARAMETER_CONTEXTS: param_used,
-        VIRTFS_CONTEXTS: virtfs_used,
-        SEHAP_CONTEXTS: sehap_used
+        FILE_CONTEXTS: set(file_contexts_set),
+        SERVICE_CONTEXTS: set(service_contexts_set),
+        HDF_SERVICE_CONTEXTS: set(hdf_service_contexts_set),
+        PARAMETER_CONTEXTS: set(parameter_contexts_set),
+        VIRTFS_CONTEXTS: set(virtfs_contexts_set),
+        SEHAP_CONTEXTS: set(entry.line for entry in sehap_contexts_set)
     }
-    
+
+    err = False
     for context_type in [FILE_CONTEXTS, SERVICE_CONTEXTS, HDF_SERVICE_CONTEXTS,
                          PARAMETER_CONTEXTS, VIRTFS_CONTEXTS, SEHAP_CONTEXTS]:
-        whitelist = context_whitelist.get(context_type, set())
-        used = used_map.get(context_type, set())
-        unused = set()
-        for item in whitelist:
-            if item not in used:
-                unused.add(item)
-                continue
-            if context_type != SEHAP_CONTEXTS and len(item) <= max_length:
-                unused.add(item)
-        
-        if len(unused) > 0:
+        unused = get_unused_whitelist(context_whitelist.get(context_type, set()),
+                                      used_map.get(context_type, set()), context_type, max_length)
+        if unused:
             err = True
-            print("Unused whitelist entries in {}:".format(context_type))
-            print("Please check whitelist file: {}".format(CONTEXT_LENGTH_WHITELIST))
-            if context_type == SEHAP_CONTEXTS:
-                for item in sorted(unused):
-                    print("  '{}'".format(item))
-            else:
-                for item in sorted(unused):
-                    print("  Context: '{}' (length: {})".format(item, len(item)))
-            print()
-    
+            print_unused_whitelist(context_type, unused)
     return err
+
+
+def get_unused_whitelist(whitelist, used, context_type, max_length):
+    unused = set()
+    for item in whitelist:
+        if item not in used:
+            unused.add(item)
+            continue
+        if context_type != SEHAP_CONTEXTS and len(item) <= max_length:
+            unused.add(item)
+    return unused
+
+
+def print_unused_whitelist(context_type, unused):
+    print("Unused whitelist entries in {}:".format(context_type))
+    print("Please check whitelist file: {}".format(CONTEXT_LENGTH_WHITELIST))
+    if context_type == SEHAP_CONTEXTS:
+        for item in sorted(unused):
+            print("  '{}'".format(item))
+    else:
+        for item in sorted(unused):
+            print("  Context: '{}' (length: {})".format(item, len(item)))
+    print()
 
 
 def print_invalid_contexts(max_length):

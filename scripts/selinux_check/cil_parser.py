@@ -31,6 +31,39 @@ def simplify_string(string):
     return string.strip().replace('(', '').replace(')', '')
 
 
+def parse_cil_statement(line, attributes_map, common_map, class_map, allow_rules):
+    # (typeattributeset chip_ckm_file_attr (chip_ckm_file)
+    if line.startswith('(typeattributeset '):
+        elem_list = simplify_string(line).split()
+        if len(elem_list) >= 3:
+            attributes_map[elem_list[1]].update(elem_list[2:])
+        return
+    # (common ipc (create destroy getattr setattr read write associate unix_read unix_write))
+    if line.startswith('(common '):
+        elem_list = simplify_string(line).split()
+        if len(elem_list) >= 3:
+            common_map[elem_list[1]].update(elem_list[2:])
+        return
+    if line.startswith('(class '):
+        elem_list = simplify_string(line).split()
+        if len(elem_list) >= 3:
+            class_map[elem_list[1]].update(elem_list[2:])
+        return
+    if line.startswith('(allow ') or line.startswith('(auditallow '):
+        elem_list = simplify_string(line).split()
+        if len(elem_list) >= 5:
+            allow_rules.append(elem_list)
+
+
+def parse_classcommon(line, common_map, class_map):
+    # (classcommon capability cap)
+    if not line.startswith('(classcommon '):
+        return
+    elem_list = simplify_string(line).split(' ')
+    if len(elem_list) >= 3:
+        class_map[elem_list[1]].update(common_map[elem_list[2]])
+
+
 def _parse_cil_file(cil_file):
     attributes_map = defaultdict(set)
     common_map = defaultdict(set)
@@ -41,42 +74,11 @@ def _parse_cil_file(cil_file):
             line = raw_line.strip()
             if not line:
                 continue
-            # (typeattributeset chip_ckm_file_attr (chip_ckm_file))
-            if line.startswith('(typeattributeset '):
-                elem_list = simplify_string(line).split()
-                if len(elem_list) >= 3:
-                    attributes_map[elem_list[1]].update(elem_list[2:])
-                continue
-            # (common ipc (create destroy getattr setattr read write associate unix_read unix_write))
-            if line.startswith('(common '):
-                elem_list = simplify_string(line).split()
-                if len(elem_list) >= 3:
-                    common_map[elem_list[1]].update(elem_list[2:])
-                continue
-            # (class fd (use))
-            if line.startswith('(class '):
-                elem_list = simplify_string(line).split()
-                if len(elem_list) >= 3:
-                    class_map[elem_list[1]].update(elem_list[2:])
-                continue
-
-            # (allow SP_daemon data_app_file (dir (search)))
-
-            if line.startswith('(allow ') or line.startswith('(auditallow '):
-                elem_list = simplify_string(line).split()
-                if len(elem_list) >= 5:
-                    allow_rules.append(elem_list)
+            parse_cil_statement(line, attributes_map, common_map, class_map, allow_rules)
 
     with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
-            # (classcommon capability cap)
-            if not line.startswith('(classcommon '):
-                continue
-            sub_string = simplify_string(line)
-            elem_list = sub_string.split(' ')
-            if len(elem_list) < 3:
-                continue
-            class_map[elem_list[1]].update(common_map[elem_list[2]])
+            parse_classcommon(line, common_map, class_map)
 
     return attributes_map, class_map, allow_rules
 
