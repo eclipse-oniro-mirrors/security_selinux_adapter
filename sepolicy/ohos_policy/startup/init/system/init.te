@@ -405,6 +405,8 @@ allow init persist_sys_param:file { map open read relabelto };
 allow init power_host:process { rlimitinh siginh transition };
 allow init proc_cmdline_file:file { getattr open read setattr };
 allow init proc_file:file { getattr open setattr write };
+# avc: denied { getattr open setattr } for pid=1 comm="init" path="/proc/devhost/root/tty/driver" dev="proc" scontext=u:r:init:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
+allow init proc_file:dir { getattr open setattr };
 allow init proc_interrupts_file:file { setattr };
 allow init proc_kmsg_file:file { setattr };
 allow init proc_net:file { setattr };
