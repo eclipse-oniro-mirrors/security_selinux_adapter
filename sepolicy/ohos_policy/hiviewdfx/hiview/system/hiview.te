@@ -281,7 +281,8 @@ allowxperm hiview normal_hap_data_file_attr:file ioctl { 0x5413 };
 allow hiview sa_distributeddata_service:samgr_class { get };
 allow hiview processdump:fd { use };
 allow hiview processdump:fifo_file { read };
-allow hiview processdump:process { getattr };
+# avc: denied { read } for pid=626, comm="/system/bin/hiview"  name="/22980/exe" dev="" ino=52433 scontext=u:r:hiview:s0 tcontext=o:r:processdump:s0:x239,x334,x512,x868,x1024 tclass=lnk_file permissive=1
+allow hiview processdump:lnk_file { read };
 
 allow hiview distributeddata:binder { call transfer };
 allow hiview distributeddata:fd { use };
