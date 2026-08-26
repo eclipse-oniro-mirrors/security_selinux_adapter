@@ -59,3 +59,8 @@ allow disk_manager data_log:dir { add_name getattr open read search write create
 
 # avc: denied { create getattr open read rename write unlink append } for pid=6868, comm="/system/bin/sa_main" name = "/log/hiaudit" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=395 scontext=u:r:disk_manager:s0 tcontext=u:object_r:data_log:s0 tclass=file permissive=0
 allow disk_manager data_log:file { create getattr open read rename write unlink append };
+
+# avc: denied { read } for pid=1595, comm="/system/bin/sa_main"  path="/sys/devices/platform/bfa00000.sata/ata1/host0/target0:0:0/0:0:0:0/block/sda/sda1/size" dev="" ino=51692 scontext=u:r:disk_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1595, comm="/system/bin/sa_main"  path="/sys/devices/platform/bfa00000.sata/ata1/host0/target0:0:0/0:0:0:0/block/sda/sda1/size" dev="" ino=51692 scontext=u:r:disk_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=1595, comm="/system/bin/sa_main"  path="/sys/devices/platform/bfa00000.sata/ata1/host0/target0:0:0/0:0:0:0/block/sda/sda1/size" dev="" ino=51692 scontext=u:r:disk_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow disk_manager sys_file:file { read open getattr };
