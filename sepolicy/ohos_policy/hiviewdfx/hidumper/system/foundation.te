@@ -12,3 +12,6 @@
 # limitations under the License.
 
 allow foundation hidumper:fd { use };
+
+# avc:  denied  { call } for  pid=415 comm="OS_IPC_15_3836" scontext=u:r:foundation:s0 tcontext=u:r:hidumper_service:s0 tclass=binder permissive=1
+allow foundation hidumper_service:binder { call };
