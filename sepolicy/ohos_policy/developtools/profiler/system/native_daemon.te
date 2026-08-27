@@ -29,7 +29,8 @@ allow domain hiprofiler_socket:sock_file { getattr write unlink };
 allow init hiprofiler_socket:sock_file { relabelto };
 
 # avc: denied { unlink } for pid=14869, comm="/system/bin/sa_main" name="/local/tmp/native_memory_63815.htrace" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=88023 scontext=u:r:native_daemon:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
-allow native_daemon data_local_tmp:file { create read open write lock getattr ioctl map unlink };
+# avc: denied { append } for pid=9747, comm="/system/bin/sa_main" path="/data/local/tmp/jsheap-8975-8975-1787800149053.rawheap" dev="/dev/block/platform/fa50000.ufs/by-name/userdata" ino=44685 scontest=u:r:native_daemon:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+allow native_daemon data_local_tmp:file { create read open write lock getattr ioctl map unlink append };
 # avc: denied { remove_name } for pid=14869, comm="/system/bin/sa_main" name="/local/tmp" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=1800 scontext=u:r:native_daemon:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
 allow native_daemon data_local_tmp:dir { search add_name write getattr remove_name };
 allow native_daemon self:capability { kill sys_ptrace };
