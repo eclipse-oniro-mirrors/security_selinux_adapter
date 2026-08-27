@@ -64,3 +64,9 @@ allow disk_manager data_log:file { create getattr open read rename write unlink 
 # avc: denied { open } for pid=1595, comm="/system/bin/sa_main"  path="/sys/devices/platform/bfa00000.sata/ata1/host0/target0:0:0/0:0:0:0/block/sda/sda1/size" dev="" ino=51692 scontext=u:r:disk_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 # avc: denied { getattr } for pid=1595, comm="/system/bin/sa_main"  path="/sys/devices/platform/bfa00000.sata/ata1/host0/target0:0:0/0:0:0:0/block/sda/sda1/size" dev="" ino=51692 scontext=u:r:disk_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 allow disk_manager sys_file:file { read open getattr };
+
+# avc: denied { get } for service=1601 sid=u:r:disk_manager:s0 scontext=u:r:disk_manager:s0 tcontext=u:object_r:sa_enterprise_device_manager_service:s0 tclass=samgr_class permissive=0
+allow disk_manager sa_enterprise_device_manager_service:samgr_class { get };
+
+# avc: denied { call } for pid=1643, comm="/system/bin/sa_main" scontext=u:r:disk_manager:s0 tcontext=u:r:edm_sa:s0 tclass=binder permissive=0
+allow disk_manager edm_sa:binder { call };
