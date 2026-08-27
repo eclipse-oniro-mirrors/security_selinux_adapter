@@ -620,3 +620,5 @@ allow init dev_at_file:chr_file { ioctl };
 # avc: denied { ioctl } for pid=1, comm="/bin/init" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x411d scontext=u:r:init:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
 # avc: denied { ioctl } for pid=1, comm="/bin/init" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x411e scontext=u:r:init:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
 allowxperm init dev_at_file:chr_file ioctl { 0x411d 0x411e };
+
+allowxperm init dev_at_file:chr_file ioctl { 0x410c 0x410d };

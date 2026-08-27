@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallowxperm { domain develop_domain -violator_dev_at_file_chr_file_attr } dev_at_file:chr_file ioctl { 0x410C };
+neverallowxperm { domain develop_domain -init -violator_dev_at_file_chr_file_attr } dev_at_file:chr_file ioctl { 0x410C };
 neverallowxperm { domain develop_domain } dev_at_file:chr_file ioctl { 0x410E };
 
 # 0x4110: ADD_SPM_ENTRIES, 0x4111: SET_SPM_ENTRIES 0x4112: GET_SPM_ENTRY, 0x4113: REMOVE_SPM_ENTRY, 0x4114: SET_REFCNT_UID,
