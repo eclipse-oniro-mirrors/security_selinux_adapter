@@ -136,8 +136,9 @@ allow foundation nwebspawn:unix_stream_socket { connectto };
 # avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe000 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
 # avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe007 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
 # avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe008 scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
+# avc: denied { ioctl } for pid=1384, comm="/system/bin/sa_main"  path="/proc/checkpoint/checkpoint" dev="" ino=307 ioctlcmd=0xe00c scontext=u:r:foundation:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
 allow foundation checkpoint:file { open ioctl read write };
-allowxperm foundation checkpoint:file ioctl { 0xe000 0xe004 0xe007 0xe008 };
+allowxperm foundation checkpoint:file ioctl { 0xe000 0xe004 0xe007 0xe008 0xe00c};
 
 # avc: denied { call } for pid=12707, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=0
 allow foundation aimgr:binder { call };
