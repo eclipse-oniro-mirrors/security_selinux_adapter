@@ -122,3 +122,6 @@ allow samgr system_file:dir { open read };
 
 allow samgr rootfs:dir { open read };
 allow samgr rootfs:file { getattr open read };
+
+# avc: denied { ioctl } for pid=703, comm="/system/bin/samgr" path="/dev/binder" dev="" ino=13 ioctlcmd=0x62aa scontext=u:r:samgr:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=1
+allowxperm samgr dev_binder_file:chr_file ioctl { 0x62aa };
