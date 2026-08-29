@@ -70,3 +70,11 @@ allow disk_manager sa_enterprise_device_manager_service:samgr_class { get };
 
 # avc: denied { call } for pid=1643, comm="/system/bin/sa_main" scontext=u:r:disk_manager:s0 tcontext=u:r:edm_sa:s0 tclass=binder permissive=0
 allow disk_manager edm_sa:binder { call };
+
+# avc: denied { search } for pid=9959, comm="/system/bin/sa_main"  name="/devices/platform/hiusb/hiusb_port/hiusb-port1" dev="" ino=53290 scontext=u:r:disk_manager:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=dir permissive=1
+allow disk_manager dev_bus_usb_file:dir { search };
+
+# avc: denied { getattr } for pid=9959, comm="/system/bin/sa_main"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port1/ea200000.hiusbc/xhci-hcd.1/usb2/2-1/2-1:1.0/uevent" dev="" ino=82208 scontext=u:r:disk_manager:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=9959, comm="/system/bin/sa_main"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port1/ea200000.hiusbc/xhci-hcd.1/usb2/2-1/2-1:1.0/uevent" dev="" ino=82208 scontext=u:r:disk_manager:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=9959, comm="/system/bin/sa_main"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port1/ea200000.hiusbc/xhci-hcd.1/usb2/2-1/2-1:1.0/uevent" dev="" ino=82208 scontext=u:r:disk_manager:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
+allow disk_manager dev_bus_usb_file:file { getattr open read };
