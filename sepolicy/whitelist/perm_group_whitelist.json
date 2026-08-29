@@ -16,7 +16,6 @@
                 "download_server system_bin_file",
                 "download_server toybox_exec",
                 "faultloggerd system_bin_file",
-                "faultloggerd toybox_exec",
                 "debug_hap hilog_exec",
                 "input_debug_hap hilog_exec",
                 "dlpmanager_hap hilog_exec",
