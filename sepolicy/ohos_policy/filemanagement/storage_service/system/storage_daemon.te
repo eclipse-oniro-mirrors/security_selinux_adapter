@@ -635,3 +635,75 @@ allowxperm storage_daemon dev_mapper_control_file:chr_file ioctl { 0xfd03 0xfd06
 allow storage_daemon dev_block_sda:blk_file { getattr ioctl };
 allowxperm storage_daemon dev_block_sda:blk_file ioctl { 0x1272 };
 
+pc_only(`
+    # avc: denied { ioctl } for pid=9244, comm="/bin/cryptsetup"  path="/dev/block/loop0" dev="" ino=527 ioctlcmd=0x1263 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+    # avc: denied { ioctl } for pid=9268, comm="/bin/losetup"  path="/dev/block/loop0" dev="" ino=526 ioctlcmd=0x4c01 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+    allow storage_daemon dev_block_file:blk_file { ioctl };
+ 
+    # avc: denied { ioctl } for pid=9175, comm="/bin/losetup"  path="/dev/block/loop0" dev="" ino=526 ioctlcmd=0x4c00 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+    # avc: denied { ioctl } for pid=9268, comm="/bin/losetup"  path="/dev/block/loop0" dev="" ino=526 ioctlcmd=0x4c01 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+    # avc: denied { ioctl } for pid=9175, comm="/bin/losetup"  path="/dev/block/loop0" dev="" ino=526 ioctlcmd=0x4c04 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+    # avc: denied { ioctl } for pid=9268, comm="/bin/losetup"  path="/dev/block/loop0" dev="" ino=526 ioctlcmd=0x4c05 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+    # avc: denied { ioctl } for pid=9244, comm="/bin/cryptsetup"  path="/dev/block/loop0" dev="" ino=527 ioctlcmd=0x1263 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+    allowxperm storage_daemon dev_block_file:blk_file ioctl { 0x4c00 0x4c01 0x4c04 0x4c05 0x1263 };
+ 
+    # avc: denied { ioctl } for pid=9175, comm="/bin/losetup"  path="/dev/loop-control" dev="" ino=461 ioctlcmd=0x4c82 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_loop_control_file:s0 tclass=chr_file permissive=1
+    # avc: denied { open } for pid=9175, comm="/bin/losetup"  path="/dev/loop-control" dev="" ino=461 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_loop_control_file:s0 tclass=chr_file permissive=1
+    # avc: denied { read write } for pid=9175, comm="/bin/losetup"  path="/dev/loop-control" dev="" ino=461 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_loop_control_file:s0 tclass=chr_file permissive=1
+    allow storage_daemon dev_loop_control_file:chr_file { ioctl open read write };
+ 
+    # avc: denied { ioctl } for pid=9175, comm="/bin/losetup"  path="/dev/loop-control" dev="" ino=461 ioctlcmd=0x4c82 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_loop_control_file:s0 tclass=chr_file permissive=1
+    allowxperm storage_daemon dev_loop_control_file:chr_file ioctl { 0x4c82 };
+ 
+    # avc: denied { search } for pid=9268, comm="/bin/losetup"  name="/usr" dev="overlay" ino=102 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+    allow storage_daemon system_usr_file:dir { search };
+ 
+    # avc: denied { read } for pid=9268, comm="/bin/losetup"  name="/usr" dev="/dev/block/dm-2" ino=196 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_usr_file:s0 tclass=lnk_file permissive=1
+    allow storage_daemon system_usr_file:lnk_file { read };
+ 
+    # avc: denied { write add_name } for pid=9244, comm="/bin/cryptsetup"  name="/mapper" dev="" ino=70 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
+    allow storage_daemon dev_file:dir { write add_name };
+ 
+    # avc: denied { create } for pid=9244, comm="/bin/cryptsetup"  name="/mapper/zxc" dev="" ino=6558 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { setattr } for pid=9244, comm="/bin/cryptsetup"  name="/mapper/zxc" dev="" ino=6558 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { getattr } for pid=9526, comm="/bin/mount.ntfs"  path="/dev/mapper/zxc" dev="" ino=6399 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { ioctl } for pid=9526, comm="/bin/mount.ntfs"  path="/dev/mapper/zxc" dev="" ino=6399 ioctlcmd=0x1271 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { lock } for pid=9526, comm="/bin/mount.ntfs"  path="/dev/mapper/zxc" dev="" ino=6399 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { open } for pid=9526, comm="/bin/mount.ntfs"  path="/dev/mapper/zxc" dev="" ino=6399 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { read write } for pid=9526, comm="/bin/mount.ntfs"  path="/dev/mapper/zxc" dev="" ino=6399 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { read } for pid=9521, comm="/bin/blkid"  path="/dev/mapper/zxc" dev="" ino=6399 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    allow storage_daemon dev_file:blk_file { create setattr getattr ioctl lock open read write };
+ 
+    # avc: denied { ioctl } for pid=9526, comm="/bin/mount.ntfs"  path="/dev/mapper/zxc" dev="" ino=6399 ioctlcmd=0x125e scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    # avc: denied { ioctl } for pid=9526, comm="/bin/mount.ntfs"  path="/dev/mapper/zxc" dev="" ino=6399 ioctlcmd=0x1271 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+    allowxperm storage_daemon dev_file:blk_file ioctl { 0x125e 0x1271  0x1268 0x1272 };
+ 
+    # avc: denied { getattr } for pid=9244, comm="/bin/cryptsetup"  path="/dev/mapper/control" dev="" ino=71 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_mapper_control_file:s0 tclass=chr_file permissive=1
+    # avc: denied { ioctl } for pid=9244, comm="/bin/cryptsetup"  path="/dev/mapper/control" dev="" ino=71 ioctlcmd=0xfd0d scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_mapper_control_file:s0 tclass=chr_file permissive=1
+    allow storage_daemon dev_mapper_control_file:chr_file { getattr ioctl };
+ 
+    # avc: denied { ioctl } for pid=9244, comm="/bin/cryptsetup"  path="/dev/mapper/control" dev="" ino=71 ioctlcmd=0xfd00 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_mapper_control_file:s0 tclass=chr_file permissive=1
+    # avc: denied { ioctl } for pid=9244, comm="/bin/cryptsetup"  path="/dev/mapper/control" dev="" ino=71 ioctlcmd=0xfd0c scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_mapper_control_file:s0 tclass=chr_file permissive=1
+    # avc: denied { ioctl } for pid=9244, comm="/bin/cryptsetup"  path="/dev/mapper/control" dev="" ino=71 ioctlcmd=0xfd0d scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_mapper_control_file:s0 tclass=chr_file permissive=1
+    allowxperm storage_daemon dev_mapper_control_file:chr_file ioctl { 0xfd00 0xfd0c 0xfd0d 0xfd04 };
+ 
+    # avc: denied { write add_name remove_name } for pid=9521, comm="/bin/blkid"  name="/upper/etc" dev="/dev/block/dm-3" ino=33 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=1
+    # avc: denied { write add_name } for pid=9521, comm="/bin/blkid"  name="/upper/etc" dev="/dev/block/dm-3" ino=33 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=1
+    # avc: denied { write remove_name } for pid=9521, comm="/bin/blkid"  name="/upper/etc" dev="/dev/block/dm-3" ino=33 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=1
+    allow storage_daemon system_etc_file:dir { write add_name remove_name write add_name write remove_name };
+ 
+    # avc: denied { create } for pid=9521, comm="/bin/blkid"  name="/upper/etc/blkid.tab.old" dev="/dev/block/dm-3" ino=37 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { ioctl } for pid=9521, comm="/bin/blkid"  path="/system/etc/blkid.tab-JGPIIe" dev="overlay" ino=9633 ioctlcmd=0x5413 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { link } for pid=9521, comm="/bin/blkid"  name="/etc/blkid.tab" dev="overlay" ino=8363 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { relabelfrom } for pid=9521, comm="/bin/blkid"  name="/upper/etc/blkid.tab-JGPIIe" dev="/dev/block/dm-3" ino=47 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { relabelto } for pid=9521, comm="/bin/blkid"  name="/upper/etc/blkid.tab-JGPIIe" dev="/dev/block/dm-3" ino=47 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { rename } for pid=9521, comm="/bin/blkid"  name="/upper/etc/blkid.tab-JGPIIe" dev="/dev/block/dm-3" ino=47 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { setattr } for pid=9521, comm="/bin/blkid"  name="/upper/etc/blkid.tab-JGPIIe" dev="/dev/block/dm-3" ino=47 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { unlink } for pid=9521, comm="/bin/blkid"  name="/upper/etc/blkid.tab" dev="/dev/block/dm-3" ino=37 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    # avc: denied { write } for pid=9521, comm="/bin/blkid"  name="/etc/blkid.tab" dev="overlay" ino=8363 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    allow storage_daemon system_etc_file:file { create ioctl link relabelfrom relabelto rename setattr unlink write };
+ 
+    # avc: denied { ioctl } for pid=9521, comm="/bin/blkid"  path="/system/etc/blkid.tab-JGPIIe" dev="overlay" ino=9633 ioctlcmd=0x5413 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
+    allowxperm storage_daemon system_etc_file:file ioctl { 0x5413 };
+')
+
