@@ -153,6 +153,8 @@ allow accesstoken_service sa_accountmgr:samgr_class { get };
 # 0x4105: ADD_PERMISSIONS, 0x4106: REMOVE_PERMISSIONS, 0x4108: SET_PERMISSION 0x410b: GET_ALL_PERMISSIONS, 0x4110: ADD_SPM_ENTRIES, 0x4111: SET_SPM_ENTRIES
 # 0x4112: GET_SPM_ENTRY, 0x4113: REMOVE_SPM_ENTRY, 0x4115: GET_REFCNT_UID, 0x4117: GET_REFCNT_TOKENID 0x4119: GET_SPM_VERSION
 allowxperm accesstoken_service dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 0x410b 0x4110 0x4111 0x4112 0x4113 0x4115 0x4117 0x4119};
+allowxperm sadomain dev_at_file:chr_file ioctl { 0x4112 };
+
 neverallowxperm ~{ accesstoken_service violator_dev_at_file_chr_file_attr init} dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };
 
