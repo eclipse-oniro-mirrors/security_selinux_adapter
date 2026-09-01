@@ -49,13 +49,33 @@ allow accountmgr inputmethod_service:binder { transfer };
 #avc:  denied  { read } for  pid=1607 comm="SaInit0" name="ime_cfg.json" dev="mmcblk0p12" ino=2292 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 #avc:  denied  { write } for  pid=634 comm="SaInit0" name="ime_cfg.json" dev="mmcblk0p12" ino=2310 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 #avc:  denied  { open } for  pid=621 comm="SaInit2" path="/data/service/el1/public/imf/ime_cfg/ime_cfg.json" dev="mmcblk0p12" ino=2310 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc: denied { read } for pid=1664 comm="/system/bin/sa_main" path="/data/service/el1/public/imf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2531 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { open } for pid=1664 comm="/system/bin/sa_main" path="/data/service/el1/public/imf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2531 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { remove_name } for pid=1648 comm="/system/bin/sa_main" name="/service/el1/public/imf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2632 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+#avc: denied { setattr } for pid=1594, comm="/system/bin/sa_main"  name="/service/el1/public/imf/ime_usage_log.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42383 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc: denied { map } for pid=1594, comm="/system/bin/sa_main"  path="/data/service/el1/public/imf/ime_usage_log.db-dwr" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=57658 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc: denied { lock } for pid=1594, comm="/system/bin/sa_main"  path="/data/service/el1/public/imf/ime_usage_log.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42383 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc: denied { append } for pid=1594, comm="/system/bin/sa_main"  path="/data/service/el1/public/imf/ime_usage_log.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42383 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc: denied { unlink } for pid=1594, comm="/system/bin/sa_main"  path="/data/service/el1/public/imf/ime_usage_log.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42383 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 allow inputmethod_service dev_console_file:chr_file { read write };
 allow inputmethod_service musl_param:file { read open map };
 allow inputmethod_service data_service_file:dir { search };
-allow inputmethod_service data_service_el1_file:dir { search write add_name create };
-allow inputmethod_service data_service_el1_file:file {create read write open };
-allow inputmethod_service data_service_el1_file:file { getattr };
+allow inputmethod_service data_service_el1_file:dir { search write add_name create read open ioctl remove_name };
+allow inputmethod_service data_service_el1_file:file {create read write open ioctl map lock append unlink };
+allow inputmethod_service data_service_el1_file:file { getattr setattr };
 allow inputmethod_service sysfs_devices_system_cpu:file { open read getattr };
+
+#avc: denied { ioctl } for pid=1664 comm="/system/bin/sa_main" path="/data/service/el1/public/imf/ime_usage_log.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=39213 ioctlcmd=0xf546 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { ioctl } for pid=1664 comm="/system/bin/sa_main" path="/data/service/el1/public/imf/ime_usage_log.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=39213 ioctlcmd=0xf50c scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { ioctl } for pid=1664 comm="/system/bin/sa_main" path="/data/service/el1/public/imf/ime_usage_log.db-compare" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=59678 ioctlcmd=0x5413 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc: denied { ioctl } for pid=1664 comm="/system/bin/sa_main" path="/data/service/el1/public/imf/ime_usage_log.db-wal" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=59676 ioctlcmd=0xf546 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allowxperm inputmethod_service data_service_el1_file:file ioctl { 0xf546 0xf50c 0x5413 };
+
+#avc: denied { ioctl } for pid=1664 comm="/system/bin/sa_main" path="/data/service/el1/public/imf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=2531 ioctlcmd=0xf546 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allowxperm inputmethod_service data_service_el1_file:dir ioctl { 0xf546 };
+
+#avc: denied { open } for pid=1664 comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow inputmethod_service dev_ashmem_file:chr_file { open };
 
 #avc:  denied  { search } for  pid=528 comm="IPC_2_1183" name="app" dev="mmcblk0p12" ino=38 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
 allow inputmethod_service data_app_file:dir { search };
