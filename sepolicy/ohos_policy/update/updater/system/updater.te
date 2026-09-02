@@ -345,9 +345,6 @@ allow updater sh:process { dyntransition signal sigkill };
 allow updater su:process { dyntransition };
 ')
 
-# avc:  denied  { set } for process="unknown process" parameter=updater.flashd.configfs pid=235 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:updater_flashd_param:s0 tclass=parameter_service permissive=1
-allow updater updater_flashd_param:parameter_service { set };
-
 # avc:  denied  { map } for  pid=233 comm="updater" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=38 scontext=u:r:updater:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=233 comm="updater" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=38 scontext=u:r:updater:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=233 comm="updater" name="u:object_r:debug_param:s0" dev="tmpfs" ino=38 scontext=u:r:updater:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
@@ -443,10 +440,10 @@ allow updater updater_block_file:lnk_file { read };
 # avc:  denied  { read } for  pid=261 comm="hdcd_shellfork" name="u:object_r:persist_param:s0" dev="tmpfs" ino=34 scontext=u:r:updater:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
 allow updater persist_param:file { map open read };
 
-# avc:  denied  { map } for  pid=265 comm="hdcd_shellfork" path="/dev/__parameters__/u:object_r:updater_flashd_param:s0" dev="tmpfs" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:updater_flashd_param:s0 tclass=file permissive=1
-# avc:  denied  { open } for  pid=265 comm="hdcd_shellfork" path="/dev/__parameters__/u:object_r:updater_flashd_param:s0" dev="tmpfs" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:updater_flashd_param:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=265 comm="hdcd_shellfork" name="u:object_r:updater_flashd_param:s0" dev="tmpfs" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:updater_flashd_param:s0 tclass=file permissive=1
-allow updater updater_flashd_param:file { map open read };
+# avc:  denied  { map } for  pid=265 comm="hdcd_shellfork" path="/dev/__parameters__/u:object_r:update_updater_param:s0" dev="tmpfs" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=265 comm="hdcd_shellfork" path="/dev/__parameters__/u:object_r:update_updater_param:s0" dev="tmpfs" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=265 comm="hdcd_shellfork" name="u:object_r:update_updater_param:s0" dev="tmpfs" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=file permissive=1
+allow updater update_updater_param:file { map open read };
 
 # avc:  denied  { set } for parameter=update.part.slot pid=172 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:update_updater_param:s0 tclass=parameter_service permissive=0
 allow updater update_updater_param:parameter_service { set };

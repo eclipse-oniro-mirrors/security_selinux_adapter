@@ -13,5 +13,4 @@
 
 
 type update_updater_param, parameter_attr;
-type updater_flashd_param, parameter_attr;
 

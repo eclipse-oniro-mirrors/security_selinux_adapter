@@ -86,7 +86,6 @@
                     "thermal_log_param",
                     "time_param",
                     "update_updater_param",
-                    "updater_flashd_param",
                     "usb_setting_param",
                     "useriam_config_param",
                     "useriam_fwkready_param",
