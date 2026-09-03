@@ -251,3 +251,6 @@ allow audio_server data_data_hvs_dir:dir { search create write add_name };
 # avc: denied { getattr } for pid=831, comm="/system/bin/sa_main"  path="/data/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36358 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
 # avc: denied { read } for pid=831, comm="/system/bin/sa_main"  path="/data/data/hvs/arm/personalized_hrtf.bin" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36358 scontext=u:r:audio_server:s0 tcontext=u:object_r:data_data_hvs_dir:s0 tclass=file permissive=1
 allow audio_server data_data_hvs_dir:file { open write create getattr read };
+
+# avc: denied { read } for pid=811, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:media_library_param:s0" dev="" ino=309 scontext=u:r:audio_server:s0 tcontext=u:object_r:media_library_param:s0 tclass=file permissive=0
+allow audio_server media_library_param:file { open map read };
