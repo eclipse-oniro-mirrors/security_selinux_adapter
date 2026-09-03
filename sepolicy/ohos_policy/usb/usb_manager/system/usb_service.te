@@ -148,3 +148,6 @@ allow usb_service media_service:fd { use };
 allow usb_service nfc_service:fd { use };
 allow usb_service security_guard:binder { call };
 allow usb_service sa_sg_collect_service:samgr_class { get };
+# avc: denied { open } for pid=6563, comm="/system/bin/sa_main"  path="/sys/devices/platform/battery/power_supply/Battery/status" dev="" ino=53514 scontext=u:r:usb_service:s0 tcontext=u:object_r:sysfs_hisi_power:s0 tclass=file permissive=0
+# avc: denied { read } for pid=5827, comm="/system/bin/sa_main"  path="/sys/devices/platform/battery/power_supply/Battery/status" dev="" ino=53514 scontext=u:r:usb_service:s0 tcontext=u:object_r:sysfs_hisi_power:s0 tclass=file permissive=0
+allow usb_service sysfs_hisi_power:file { open read };
