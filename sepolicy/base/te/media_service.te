@@ -81,9 +81,7 @@ allow media_service tracefs:dir { search };
 allow media_service tracefs_trace_marker_file:file { open write };
 allowxperm media_service dev_dri_file:chr_file ioctl { 0x641f };
 allow media_service sys_prod_file:dir { search };
-# avc:  denied  { ioctl } for  pid=1068 comm="PlayerRequest" path=2F7379735F70726F642F76617269616E742F726567696F6E5F636F6D6D2F6368696E612F7265736F757263652F6D656469612F617564696F2F72696E67746F6E65732FE4B88BE99BA82E6F6767 dev="sda49" ino=29 ioctlcmd=0xf207 scontext=u:r:media_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=1
-# avc:  denied  { ioctl } for  pid=1068 comm="PlayerEngine" path=2F7379735F70726F642F76617269616E742F726567696F6E5F636F6D6D2F6368696E612F7265736F757263652F6D656469612F617564696F2F72696E67746F6E65732FE4B88BE99BA82E6F6767 dev="sda49" ino=29 ioctlcmd=0xf207 scontext=u:r:media_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=1
-# path decode: /sys_prod/variant/region_comm/china/resource/media/audio/ringtones/下雨.ogg
+# avc:  denied  { ioctl } for  pid=1068 comm="PlayerEngine" path=xxx dev="sda49" ino=29 ioctlcmd=0xf207 scontext=u:r:media_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=1
 allow media_service sys_prod_file:file { ioctl };
 allowxperm media_service sys_prod_file:file ioctl 0xf207;
 allow media_service chip_prod_file:dir { search };
