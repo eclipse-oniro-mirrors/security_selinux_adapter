@@ -20,4 +20,8 @@ allow system_basic_hap_attr media_service:binder { call transfer };
 
 allow system_basic_hap sys_prod_file:dir { search };
 
+# avc:  denied  { read open } for  pid=3740 comm="OS_FFRT_2_2" path=xxx dev="sda49" ino=29 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=3740 comm="OS_AVPlayerNapi" name=E4B88BE99BA82E6F6767 dev="sda49" ino=29 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=1
+allow system_basic_hap sys_prod_file:file { getattr open read };
+
 allow system_basic_hap system_core_hap:binder { transfer };
