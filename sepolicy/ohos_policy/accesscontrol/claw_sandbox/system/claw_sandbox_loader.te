@@ -77,11 +77,6 @@ allow claw_sandbox_loader dev_kmsg_file:chr_file { open write };
 # avc: denied { search } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir
 allow claw_sandbox_loader dev_unix_socket:dir { search };
 
-pc_only(`
-    # avc: denied { search read open getattr } for pid=12551, ... path="/data/service/hnp" ... tcontext=u:object_r:hnp_file:s0 tclass=dir permissive=0
-    allow claw_sandbox_loader hnp_file:dir { search read open getattr };
-')
-
 # avc: denied { read write } for pid=10303, comm="/system/bin/claw_sandbox"  path="/dev/xpm" ... tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
 # avc: denied { open } for pid=10303, comm="/system/bin/claw_sandbox"  path="/dev/xpm" dev="" ... tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
 # avc: denied { ioctl } for pid=10303, comm="/system/bin/claw_sandbox"  path="/dev/xpm" dev="" ... tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
@@ -166,8 +161,7 @@ allow claw_sandbox_loader proc_file:filesystem { mount unmount };
 allow claw_sandbox_loader tmpfs:dir { create mounton rmdir write add_name remove_name read open };
 
 # avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem
-# avc: denied { remount } for pid=9339, comm="/system/bin/claw_sandbox"  scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem
-allow claw_sandbox_loader labeledfs:filesystem { unmount remount };
+allow claw_sandbox_loader labeledfs:filesystem { unmount };
 
 # avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem
 allow claw_sandbox_loader tmpfs:filesystem { unmount };
@@ -200,14 +194,6 @@ allow claw_sandbox_loader sys_file:filesystem unmount;
  
 # avc: denied { search } for pid=12978 ... name="/service/el2/100/hmdfs/account/files/Docs" ... tcontext=u:object_r:data_user_file:s0 tclass=dir
 allow claw_sandbox_loader data_user_file:dir search;
- 
-# avc: denied { remount } for pid=12978 ... tcontext=u:object_r:hmdfs:s0 tclass=filesystem
-allow claw_sandbox_loader hmdfs:filesystem remount;
-
-# avc: denied { read write } for pid=9371, comm="/system/bin/claw_sandbox"  path="/dev/encaps" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=0
-# avc: denied { ioctl } for pid=14206, comm="/system/bin/claw_sandbox"  path="/dev/encaps" ioctlcmd=0x451f scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=0
-allow claw_sandbox_loader dev_encaps:chr_file { read write open ioctl };
-allowxperm claw_sandbox_loader dev_encaps:chr_file ioctl { 0x451f };
 
 # avc: denied { unmount } for pid=21678 comm="claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:configfs:s0 tclass=filesystem
 allow claw_sandbox_loader configfs:filesystem { unmount };
