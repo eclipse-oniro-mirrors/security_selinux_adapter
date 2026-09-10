@@ -40,10 +40,6 @@ allow input_isolate_hap data_app_el2_group_file:dir { add_name search read write
 
 allow input_isolate_hap histogram_service:samgr_class { get };
 
-#avc:  denied  { get } for service=8600 sid=o:r:input_isolate_hap:s0:x15,x335,x512,x868,x1024 scontext=o:r:input_isolate_hap:s0:x15,x335,x512,x868,x1024 tcontext=u:object_r:sa_xperf_service:s0 tclass=samgr_class permissive=0
-
-allow input_isolate_hap sa_xperf_service:samgr_class { get };
-
 #avc:  denied  { get } for service=1201 sid=o:r:input_isolate_hap:s0:x15,x335,x512,x868,x1024 scontext=o:r:input_isolate_hap:s0:x15,x335,x512,x868,x1024 tcontext=u:object_r:sa_hiview_service:s0 tclass=samgr_class permissive=0
 
 allow input_isolate_hap sa_hiview_service:samgr_class { get };
