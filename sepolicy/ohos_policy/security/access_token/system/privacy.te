@@ -104,6 +104,15 @@ allow privacy_service sa_foundation_cesfwk_service:samgr_class { get };
 allow privacy_service sa_screenlock_service:samgr_class { get };
 allow privacy_service sa_bgtaskmgr:samgr_class { get };
 
+# avc: denied { ioctl } for pid=1757, comm="/system/bin/sa_main"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x4109 scontext=u:r:privacy_service:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
+allow privacy_service dev_at_file:chr_file { ioctl };
+# avc: denied { ioctl } for pid=1757, comm="/system/bin/sa_main"  path="/dev/binder" dev="" ino=13 ioctlcmd=0x62aa scontext=u:r:privacy_service:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=0
+allow privacy_service dev_binder_file:chr_file { ioctl };
+# avc: denied { ioctl } for pid=1757, comm="/system/bin/sa_main"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x4109 scontext=u:r:privacy_service:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
+allowxperm privacy_service dev_at_file:chr_file ioctl { 0x4109 };
+# avc: denied { ioctl } for pid=1757, comm="/system/bin/sa_main"  path="/dev/binder" dev="" ino=13 ioctlcmd=0x62aa scontext=u:r:privacy_service:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=0
+allowxperm privacy_service dev_binder_file:chr_file ioctl { 0x62aa };
+
 binder_call(foundation, privacy_service);
 binder_call(powermgr, privacy_service);
 binder_call(privacy_service, accesstoken_service);
