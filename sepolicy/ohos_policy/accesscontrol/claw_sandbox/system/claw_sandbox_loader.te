@@ -184,6 +184,12 @@ allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104
 # avc: denied { search } for pid=12743 ... name="/device_view/local/files/Docs" ... tcontext=u:object_r:hmdfs:s0 tclass=dir
 allow claw_sandbox_loader hmdfs:dir { search read write };
 
+# avc: denied { getattr } for pid=12201, ... path="/storage/Users/currentUser/xjx/a" ... tcontext=u:object_r:hmdfs:s0 tclass=file permissive=0
+allow claw_sandbox_loader hmdfs:file { getattr };
+
+# avc: denied { getattr } for pid=12201, ... path="/storage/Users/currentUser/Desktop/dl" ... tcontext=u:object_r:hmdfs:s0 tclass=lnk_file permissive=0
+allow claw_sandbox_loader hmdfs:lnk_file { getattr };
+
 # avc: denied { write } for pid=12743 ... name="1" ... tcontext=u:object_r:tty_device:s0 tclass=chr_file
 # avc: denied { ioctl } for pid=8922 comm="claw_sandbox" name="2" dev="2" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file
 allow claw_sandbox_loader tty_device:chr_file { write ioctl };
@@ -222,7 +228,8 @@ debug_only(`
 
     # avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket
     # avc: denied { write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket
-    allow claw_sandbox_loader su:unix_stream_socket { read write };
+    # avc: denied { connectto } for pid=13407, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket permissive=1
+    allow claw_sandbox_loader su:unix_stream_socket { read write connectto };
 
     allow claw_sandbox_loader sh_exec:file { execute map open read getattr };
     allow claw_sandbox_loader toybox_exec:file { execute getattr map open read };
@@ -276,6 +283,42 @@ allow claw_sandbox_loader data_app_el2_file:dir { search };
 # avc: denied { read write } for pid=11920, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:appdat:s0 tclass=dir
 allow claw_sandbox_loader appdat:dir { search getattr read write };
 allow claw_sandbox_loader normal_hap_data_file:dir { search getattr read write };
+
+# avc: denied { write } for pid=11105, comm="/system/bin/claw_sandbox" path="/data/storage/el2/base/files/monitor.socket" tcontext=u:object_r:appdat:s0 tclass=sock_file permissive=1
+allow claw_sandbox_loader appdat:sock_file { write };
+
+# avc: denied { write } for pid=11105, comm="/system/bin/claw_sandbox" path="/data/storage/el2/base/files/monitor.socket" tcontext=u:object_r:normal_hap_data_file:s0 tclass=sock_file permissive=1
+allow claw_sandbox_loader normal_hap_data_file:sock_file { write };
+
+# avc: denied { search } for pid=16319, ... name="/app/el2/100/base/<redacted>" ... tcontext=u:object_r:hishell_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { getattr } for pid=16319, ... path="/data/storage/el2/base" ... tcontext=u:object_r:hishell_hap_data_file:s0 tclass=dir permissive=1
+allow claw_sandbox_loader normal_hap_data_file_attr:dir { search getattr };
+
+# avc: denied { getattr } for pid=16319, ... path="/data/storage/el2/base/t.txt" ... tcontext=u:object_r:hishell_hap_data_file:s0 tclass=file permissive=1
+allow claw_sandbox_loader normal_hap_data_file_attr:file { getattr };
+
+# avc: denied { getattr } for pid=16319, ... path="/data/storage/el2/base/tl" ... tcontext=u:object_r:hishell_hap_data_file:s0 tclass=lnk_file permissive=1
+allow claw_sandbox_loader normal_hap_data_file_attr:lnk_file { getattr };
+
+# avc: denied { getattr } for pid=63461, ... path="/data/storage/el2/base" ... tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=63461, ... name="/app/el2/100/base/com.example.clidemo" ... tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
+allow claw_sandbox_loader system_core_hap_data_file:dir { search getattr };
+
+# avc: denied { getattr } for pid=63461, ... path="/data/storage/el2/base/t.txt" ... tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
+allow claw_sandbox_loader system_core_hap_data_file:file { getattr };
+
+# avc: denied { getattr } for pid=63461, ... path="/data/storage/el2/base/tl" ... tcontext=u:object_r:system_core_hap_data_file:s0 tclass=lnk_file permissive=1
+allow claw_sandbox_loader system_core_hap_data_file:lnk_file { getattr };
+
+# avc: denied { getattr } for pid=15847, ... path="/data/storage/el2/base" ... tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=15847, ... name="/app/el2/100/base/com.example.clidemo" ... tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
+allow claw_sandbox_loader system_basic_hap_data_file:dir { search getattr };
+
+# avc: denied { getattr } for pid=15847, ... path="/data/storage/el2/base/t.txt" ... tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
+allow claw_sandbox_loader system_basic_hap_data_file:file { getattr };
+
+# avc: denied { getattr } for pid=15847, ... path="/data/storage/el2/base/tl" ... tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=lnk_file permissive=1
+allow claw_sandbox_loader system_basic_hap_data_file:lnk_file { getattr };
 
 # avc: denied { getattr } for pid=9960, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:normal_hap:s0 tclass=process permissive=0
 allow claw_sandbox_loader normal_hap_attr:process { getattr };
