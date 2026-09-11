@@ -1,0 +1,60 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+{
+  global:
+    HdfAddServiceCheck;
+    HdfGetServiceCheck;
+    HdfListServiceCheck;
+    SelinuxHilog;
+    SetSelinuxHilogLevel;
+    _ZN14ServiceChecker11GetInstanceEv;
+    _ZN14ServiceChecker15AddServiceCheckERKNSt3__h12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEES8_;
+    _ZN14ServiceChecker15GetServiceCheckERKNSt3__h12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEES8_;
+    _ZN14ServiceChecker16ListServiceCheckERKNSt3__h12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE;
+    _ZN14ServiceChecker17GetServiceContextERKNSt3__h12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEERS6_;
+    _ZN14ServiceChecker21AddRemoteServiceCheckERKNSt3__h12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEES8_;
+    _ZN14ServiceChecker21GetRemoteServiceCheckERKNSt3__h12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEES8_;
+    _ZN14ServiceChecker9CheckPermERKNSt3__h12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEES8_S6_;
+    _ZN14ServiceCheckerC1Eb;
+    _ZN14ServiceCheckerC2Eb;
+    _ZN7Selinux9GetErrStrEi;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE4syncEv;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE5imbueERKNS_6localeE;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE6setbufEPc[il];
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE7seekoffExNS_8ios_base7seekdirEj;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE7seekposENS_4fposI11__mbstate_tEEj;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE8overflowEi;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE9pbackfailEi;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE9underflowEv;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEEC2Ev;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEED0Ev;
+    _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEED2Ev;
+    _ZNSt3__h15basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE3strERKNS_12basic_stringIcS2_S4_EE;
+    _ZNSt3__h15basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE7seekoffExNS_8ios_base7seekdirEj;
+    _ZNSt3__h15basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE8overflowEi;
+    _ZNSt3__h15basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE9pbackfailEi;
+    _ZNSt3__h15basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE9underflowEv;
+    _ZTCNSt3__h14basic_ifstreamIcNS_11char_traitsIcEEEE0_NS_13basic_istreamIcS2_EE;
+    _ZTCNSt3__h18basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE0_NS_13basic_istreamIcS2_EE;
+    _ZTCNSt3__h18basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE0_NS_14basic_iostreamIcS2_EE;
+    _ZTCNSt3__h18basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE8_NS_13basic_ostreamIcS2_EE;
+    _ZTTNSt3__h14basic_ifstreamIcNS_11char_traitsIcEEEE;
+    _ZTTNSt3__h18basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE;
+    _ZTVNSt3__h13basic_filebufIcNS_11char_traitsIcEEEE;
+    _ZTVNSt3__h14basic_ifstreamIcNS_11char_traitsIcEEEE;
+    _ZTVNSt3__h15basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEE;
+    _ZTVNSt3__h18basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE;
+  local:
+    *;
+};
