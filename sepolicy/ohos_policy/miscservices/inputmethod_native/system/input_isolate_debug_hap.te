@@ -41,3 +41,6 @@ developer_only(`
 allow input_isolate_debug_hap data_app_el2_group_file:dir { add_name search read write create open remove_name setattr getattr lock watch watch_reads };
 allow input_isolate_debug_hap data_app_el2_group_file:file { read open getattr map lock watch watch_reads };
 
+#avc: denied { use } for pid=1521, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=o:r:input_isolate_debug_hap:s0:x242,x334,x512,x868,x1024 tcontext=u:r:foundation:s0 tclass=fd permissive=0
+allow input_isolate_hap foundation:fd  { use };
+
