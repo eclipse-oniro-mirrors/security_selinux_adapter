@@ -22,9 +22,12 @@ allow clouddiskservice data_service_file:dir { open read search watch_sb };
 # avc: denied { remove_name } for pid=4544, comm="/system/bin/sa_main" name="/service/el2/100/hmdfs/account/files/Docs/Download/1" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=69374 scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
 allow clouddiskservice data_user_file:dir { getattr open read search setattr write remove_name };
 
+# avc: denied { open } for pid=4275, comm="/system/bin/sa_main" path="/service/el2/100/hmdfs/account/files/Docs/Download/1" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=69374 scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
 # avc: denied { unlink } for  pid=4544, comm="/system/bin/sa_main" name="/service/el2/100/hmdfs/account/files/Docs/Download/1" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=69374 scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
-allow clouddiskservice data_user_file:file { getattr read setattr write unlink };
+allow clouddiskservice data_user_file:file { getattr open read setattr write unlink };
 
+# avc: denied { read write } for pid=4275, comm="/system/bin/sa_main" path="/dev/fuse" dev="tmpfs" scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file
+allow clouddiskservice dev_fuse_file:chr_file { read write };
 allow clouddiskservice dev_unix_socket:dir { search };
 allow clouddiskservice file_access_service:binder { call };
 allow clouddiskservice foundation:binder { call transfer };
@@ -45,3 +48,17 @@ allow clouddiskservice sa_accountmgr:samgr_class { get };
 allow clouddiskservice sa_file_access_service:samgr_class { get };
 allow clouddiskservice sa_filemanagement_cloud_disk_service:samgr_class { add get };
 allow clouddiskservice sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc: denied { get } for pid=4275, service=5003 sid=u:r:clouddiskservice:s0 scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class
+allow clouddiskservice sa_storage_manager_service:samgr_class { get };
+
+# avc: denied { use } for pid=4275, path="/dev/fuse" scontext=u:r:clouddiskservice:s0 tcontext=u:r:storage_daemon:s0 tclass=fd
+allow clouddiskservice storage_daemon:fd { use };
+
+# avc: denied { call } for pid=4275, comm="/system/bin/sa_main" scontext=u:r:clouddiskservice:s0 tcontext=u:r:storage_manager:s0 tclass=binder
+allow clouddiskservice storage_manager:binder { call };
+
+# avc: denied { write add_name } for pid=4275, comm="/system/bin/sa_main" path="/mnt/data/xxxx" dev="tmpfs" scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+# avc: denied { create } for pid=4275, comm="/system/bin/sa_main" path="/mnt/data/xxxx/cloud_disk_fuse" dev="tmpfs" scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+# avc: denied { setattr } for pid=4275, comm="/system/bin/sa_main" path="/mnt/data/xxxx/cloud_disk_fuse/clouddiskservice" dev="tmpfs" scontext=u:r:clouddiskservice:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+allow clouddiskservice tmpfs:dir { add_name create setattr write };
