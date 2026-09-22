@@ -872,7 +872,15 @@ action("selinux_check") {
     ]
   }
 
-  outputs = [ "$target_out_dir" ]
+  # Fix: Declare specific output files instead of the entire target_out_dir.
+  # The script produces all.cil and developer/all.cil via checkpolicy -o.
+  # Declaring the directory as output caused repeated rebuilds because other
+  # actions (build_policy, build_contexts, etc.) write to the same directory,
+  # updating its mtime after selinux_check.stamp is created.
+  outputs = [
+    "$target_out_dir/all.cil",
+    "$target_out_dir/developer/all.cil",
+  ]
 
   deps = [
     ":build_contexts",
