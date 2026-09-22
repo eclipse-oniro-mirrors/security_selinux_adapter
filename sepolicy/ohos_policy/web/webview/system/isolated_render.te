@@ -210,3 +210,7 @@ allow isolated_render debug_param:file { read open map };
 
 allow isolated_render shared_relro_file:dir { search };
 allow isolated_render shared_relro_file:file { getattr map open read };
+
+neverallow isolated_render sharefs_appdata_bundle_file:file open;
+neverallow isolated_render sharefs_appdata_bundle_file:dir *;
+allow isolated_render sharefs_appdata_bundle_file:file { read write getattr append };
