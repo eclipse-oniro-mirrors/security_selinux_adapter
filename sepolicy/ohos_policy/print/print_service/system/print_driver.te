@@ -14,6 +14,10 @@
 allow print_driver data_file:dir { search };
 allow print_driver cupsd:fd { use };
 allow print_driver cupsd:fifo_file { read write };
+
+# avc: denied { read write } for pid=13724, comm="/data/service/el1/public/print_service/cups/serverbin/filter/com.xxx.driver_entry_demo_filter" scontext=u:r:print_driver:s0 tcontext=u:r:cupsd:s0 tclass=unix_stream_socket permissive=0
+allow print_driver cupsd:unix_stream_socket { read write };
+
 allow print_driver print_driver_exec:dir { search };
 allow print_driver print_driver_exec:file { execute execute_no_trans };
 allow print_driver print_driver_tmp:dir { create getattr open read search setattr write add_name remove_name };
@@ -21,7 +25,16 @@ allow print_driver print_driver_tmp:file { append create getattr open read write
 # avc: denied { getattr } for pid = 29538, comm="/data/service/el1/public/print_service/cups/serverbin/fileter/com.test" path="/data/service/el1/public/print_service/cups/spool/d00047-001" dev="dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42508 scontext=u:r:print_driver:s0 tcontext=u:object_r:print_driver_read:s0 tclass=file permissive=1
 allow print_driver print_driver_read:file { open read getattr };
 allow print_driver print_driver_read:dir { search };
-allow print_driver data_service_el1_file:dir { search };
+
+# avc: denied { getattr } for pid=14018, comm="/data/service/el1/public/print_service/cups/serverbin/filter/com.xxx.driver_entry_demo_filter" path="/data/service/el1/100/print_service/data/com.xxx.driver" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=105217 scontext=u:r:print_driver:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+# avc: denied { write add_name } for pid=14018, comm="/data/service/el1/public/print_service/cups/serverbin/filter/com.xxx.driver_entry_demo_filter" name="/service/el1/100/print_service/data/com.xxx.driver" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=105217 scontext=u:r:print_driver:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+allow print_driver data_service_el1_file:dir { search getattr write add_name };
+
+# avc: denied { getattr } for pid=13724, comm="/data/service/el1/public/print_service/cups/serverbin/filter/com.xxx.driver_entry_demo_filter" path="/data/service/el1/100/print_service/data/com.xxx.driver/config.json" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=126149 scontext=u:r:print_driver:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+# avc: denied { read } for pid=13724, comm="/data/service/el1/public/print_service/cups/serverbin/filter/com.xxx.driver_entry_demo_filter" path="/data/service/el1/100/print_service/data/com.xxx.driver/config.json" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=126149 scontext=u:r:print_driver:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+# avc: denied { create } for pid=13724, comm="/data/service/el1/public/print_service/cups/serverbin/filter/com.xxx.driver_entry_demo_filter" name="/service/el1/100/print_service/data/com.xxx.driver/status.json" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=127239 scontext=u:r:print_driver:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow print_driver data_service_el1_file:file { read write open create getattr setattr };
+
 allow print_driver data_service_file:dir { search };
 allow print_driver data_service_el1_public_print_service_file:dir { search };
 allow print_driver sh_exec:file { execute execute_no_trans map open read };
