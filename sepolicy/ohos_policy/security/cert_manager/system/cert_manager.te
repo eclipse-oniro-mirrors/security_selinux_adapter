@@ -84,3 +84,12 @@ allow cert_manager_service normal_hap_attr:fd { use };
  
 # avc:  denied  { get } for service=180 sid=u:r:cert_manager_service:s0 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow cert_manager_service sa_foundation_abilityms:samgr_class { get };
+
+# avc: denied { call } for pid=13039, comm="/system/bin/sa_main"  scontext=u:r:cert_manager_service:s0 tcontext=u:r:debug_hap:s0 tclass=binder permissive=0
+allow cert_manager_service debug_hap_attr:binder { call };
+
+# avc: denied { call } for pid=13039, comm="/system/bin/sa_main"  scontext=u:r:cert_manager_service:s0 tcontext=u:r:debug_hap:s0 tclass=binder permissive=0
+allow cert_manager_service normal_hap_attr:binder { call };
+
+# avc: denied { call } for pid=12983, comm="/system/bin/sa_main"  scontext=u:r:cert_manager_service:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
+allow cert_manager_service normal_hap_attr:binder { call };
