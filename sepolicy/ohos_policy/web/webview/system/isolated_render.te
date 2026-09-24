@@ -211,7 +211,5 @@ allow isolated_render debug_param:file { read open map };
 allow isolated_render shared_relro_file:dir { search };
 allow isolated_render shared_relro_file:file { getattr map open read };
 
-# avc: denied { write } for pid=1, comm="/system/bin/nwebspawn"  path="/storage/Users/currentUser/appdata/appdata/el2/com.huawei.hmos.filemanager/测试网址汇总.mhtml" dev="/mnt/user/100/nosharefs/appdata" ino=6917581803491784005 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sharefs_appdata_bundle_file:s0 tclass=file permissive=0
-neverallow isolated_render sharefs_appdata_bundle_file:file open;
-neverallow isolated_render sharefs_appdata_bundle_file:dir ~getattr;
+# avc: denied { write } for pid=1, comm="/system/bin/nwebspawn"  path="/storage/Users/currentUser/appdata/appdata/el2/xxx/xxx.mhtml" dev="/mnt/user/100/nosharefs/appdata" ino=6917581803491784005 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sharefs_appdata_bundle_file:s0 tclass=file permissive=0
 allow isolated_render sharefs_appdata_bundle_file:file { read write getattr append };
