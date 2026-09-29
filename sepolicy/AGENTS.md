@@ -1,143 +1,112 @@
-# SEPolicy
+# SEPolicy（sepolicy/ 子目录指导）
 
-## Before Adding or Modifying Policy Rules
+## 定位
 
-**CRITICAL: Check `neverallow` constraints first**
+本文件覆盖 `sepolicy/` 下 TE 策略（`.te`）与上下文文件（`*_contexts`）的改动指导；仓库级流程、技能调用与总体约束见根目录 `AGENTS.md`。改动前需按根目录 `AGENTS.md`「改动前确认」声明任务类别、已读文档、技能与适用约束。
 
-Build will **FAIL** if new rules violate `neverallow` constraints. Common violations:
-- Adding overly permissive rules that `neverallow` blocks
-- Creating type transitions that `neverallow` prohibits
-- Granting permissions to types that `neverallow` protects
+目录职责：
+- `sepolicy/base/`：框架策略，修改需架构评审（全局宏与 `neverallow` 定义在 `base/public/glb_*.spt`）
+- `sepolicy/ohos_policy/`：OpenHarmony 子系统策略
+- `sepolicy/ohos_product/`：产品策略
+- `sepolicy/min/`：最小策略集
+- `sepolicy/whitelist/`：selinux_check 校验用的基线与白名单
 
-**Verification step:**
-```bash
-hb build selinux_adapter -i
-# Look for "neverallow" in build output
+## 知识索引
+
+改动前按场景读取：
+
+| 场景 | 先读 |
+| --- | --- |
+| 新增系统 SA 的完整策略落地 | 完整样例 `sepolicy/ohos_policy/update/module_update/`：`public/type.te` 定义域类型，`system/` 下 `service.te`、`service_contexts`、`file_contexts`、`init.te` |
+| 新增 vendor 组件策略 | 参照 `sepolicy/ohos_policy/powermgr/battery_manager/`（`public/system/vendor` 三目录完整样例） |
+| 构建日志出现 `neverallow` 冲突 | 本文件「neverallow 先行」；`sepolicy/base/public/glb_never_def.spt` |
+| 通用 SELinux 开发背景、AVC 日志格式 | [SELinux Development Introduction](https://gitcode.com/openharmony/docs/blob/master/en/device-dev/subsystems/subsys-security-selinux-develop-intro.md) |
+| 各类上下文文件的配置样例 | 下表官方样例文档 |
+| 策略合入自检 | [SELinux checklist](https://gitcode.com/openharmony/docs/blob/master/zh-cn/device-dev/subsystems/subsys-security-selinux-checklist.md) |
+
+上下文文件与官方样例（文本 `*_contexts` 是定义源头，编译产物禁止手改）：
+
+| 文件 | 作用 | 样例文档 |
+| --- | --- | --- |
+| file_contexts | 物理文件路径到标签的映射 | [Configuring policy for a File](https://gitcode.com/openharmony/docs/blob/master/en/device-dev/subsystems/subsys-security-selinux-sample-file.md) |
+| virtfs_contexts | 虚拟文件路径到标签的映射 | [File in a Virtual File System](https://gitcode.com/openharmony/docs/blob/master/en/device-dev/subsystems/subsys-security-selinux-sample-file.md#file-in-a-virtual-file-system) |
+| sehap_contexts | 应用信息到进程/数据目录标签的映射 | [Application Process](https://gitcode.com/openharmony/docs/blob/master/en/device-dev/subsystems/subsys-security-selinux-sample-domain.md#application-process) |
+| parameter_contexts | 系统参数到标签的映射 | [Configuring policy for a Parameter](https://gitcode.com/openharmony/docs/blob/master/en/device-dev/subsystems/subsys-security-selinux-sample-param.md) |
+| service_contexts | SA 到标签的映射 | [SA](https://gitcode.com/openharmony/docs/blob/master/en/device-dev/subsystems/subsys-security-selinux-sample-sa.md#sa) |
+| hdf_service_contexts | HDF 服务到标签的映射 | [HDF Service](https://gitcode.com/openharmony/docs/blob/master/en/device-dev/subsystems/subsys-security-selinux-sample-sa.md#hdf-service) |
+
+## 核心规则（添加/修改策略前必查）
+
+### neverallow 先行
+
+- 添加任何 `allow` 前先核对 `sepolicy/base/public/glb_never_def.spt` 及相关目录 `public/` 下的全部 `neverallow` 规则；违反 `neverallow` 会直接构建失败
+- 禁止添加过度宽松规则（如 `allow *:* *`、`allow domain *:file *`）；任何 `allow` 规则必须在提交信息中说明理由
+- 验证：`./build.sh --product-name rk3568 --build-target selinux_adapter` 或 `hb build selinux_adapter -i`，检查构建日志无 `neverallow` 违规
+
+### 新增 sadomain 域必须登记基线
+
+任何携带 `sadomain` 属性的新域必须同步登记 `sepolicy/whitelist/flex/domain_baseline.json`（追加到 `user.sadomain` 数组），否则 `scripts/selinux_check/check_domain.py` 校验会使构建失败。
+
+### 策略放置
+
+- 系统组件策略放 `**/system/`，厂商组件策略放 `**/vendor/`，跨组件类型定义放 `**/public/`
+- `allow` 规则按**主体归属**放置：主体属系统组件即写 `**/system/*.te`（即使客体在 vendor 侧），厂商主体同理
+- 策略按 base → ohos_policy → ohos_product 顺序编译，后序可覆盖先序
+
+### 应用策略必须用属性
+
+允许应用访问、或允许进程访问应用数据文件的策略，必须用属性而非具体 type：
+
+| 对象 | 属性 |
+| --- | --- |
+| normal 应用 | `normal_hap_attr` |
+| system_basic 应用 | `system_basic_hap_attr` |
+| system_core 应用 | `system_core_hap_attr` |
+| 全部应用 | `hap_domain` |
+| 各级应用数据目录 | `normal_hap_data_file_attr` / `system_basic_hap_data_file_attr` / `system_core_hap_data_file_attr` |
+
+### 框架文件改动需架构评审
+
+`sepolicy/base/` 下的 `security_classes`、`initial_sids`、`access_vectors`、`mls`、`attributes`、`users`、`glb_roles.spt`、`fs_use`、`initial_sid_contexts`，以及 `base/public/` 下的 `glb_*.spt`；新增 SELinux class/permission 同属架构级改动。
+
+## AVC 排查
+
+典型 AVC denial：
+
+```
+avc: denied { open } for pid=1658 comm="xxx" path="..."
+  scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
 ```
 
-### Policy Organization
+- `{ open }`：被拒操作；`scontext`：主体标签；`tcontext`：客体标签；`tclass`：对象类
+- 转换为策略：`allow <scontext 的域> <tcontext 的类型>:<tclass> <操作>;`，如 `allow hdcd selinuxfs:file open;`
+- `permissive=1` 表示仅记录未拦截，**不等于问题已修复**
 
-Policies are under `sepolicy/`. Each feature collects necessary policies in its own directory, which always has three sub-directories carrying different policies:
+排查流程：定位 dmesg/hilog 中的 AVC → 按上方规则写 `.te` → 构建验证（命令见「neverallow 先行」）无 `neverallow` 违规 → 刷机验证 denial 消失。
 
-1. **\*/system/\*** - Policies for system components.
-2. **\*/vendor/\*** - Policies for vendor components.
-3. **\*/public/\*** - Policies for cross-component access, e.g., the type definition of config files in vendor image which should be accessed by system services.
-
-The build system concatenates these in order, allowing product-specific policies to override base policies.
-
-### Universal Policy and Context Files
-
-The universal policy and context files contain SELinux policies to be configured during the development.
-
-| File Name| Description| Document |
-| -------- | -------- | -------- |
-| *.te | SELinux policy source file, which defines the types and **allow** and **neverallow** rules.| [AVC Log Information and Policy Format](../../../docs/en/device-dev/subsystems/subsys-security-selinux-develop-intro.md#avc-log-information) |
-| file_contexts | Defines the mappings between the paths of physical files and labels (contexts). | [Configuring policy for a File](../../../docs/en/device-dev/subsystems/subsys-security-selinux-sample-file.md) |
-| virtfs_contexts | Defines the mappings between the paths of virtual files and labels.| [Configuring policy for a File in a Virtual File System](../../../docs/en/device-dev/subsystems/subsys-security-selinux-sample-file.md#file-in-a-virtual-file-system) |
-| sehap_contexts | Defines the mappings between key application information, labels of application processes, and labels of application data directories.| [Configuring policy for Application Process](../../../docs/en/device-dev/subsystems/subsys-security-selinux-sample-domain.md#application-process) |
-| parameter_contexts | Defines the mappings between parameters and labels.| [Configuring policy for a Parameter](../../../docs/en/device-dev/subsystems/subsys-security-selinux-sample-param.md) |
-| service_contexts | Defines the mappings between SAs and labels.| [Configuring policy for an SA](../../../docs/en/device-dev/subsystems/subsys-security-selinux-sample-sa.md#sa) |
-| hdf_service_contexts | Defines the mappings between HDF services and labels.| [Configuring policy for an HDF Service](../../../docs/en/device-dev/subsystems/subsys-security-selinux-sample-sa.md#hdf-service) |
-
-### SELinux Framework Policy Files
-
-The following table lists the SELinux framework policy files, which should not be modified generally.
-
-| File Name| Description|
-| -------- | -------- |
-| security_classes | Defines the classes.|
-| initial_sids | Defines the SIDs.|
-| access_vectors | Defines the permissions supported by classes.|
-| glb_perm_def.spt | Defines the global macros for classes and permissions. Global macros help simplify policy statements.|
-| glb_never_def.spt | Defines global macros for **neverallow** rules.|
-| mls | Defines the multi-level security (MLS) levels.|
-| glb_te_def.spt | Defines global macros for TE rules.|
-| attributes | Defines universal sets of attributes (access control rules). When defining a policy type, you can specify attributes. Then, the policy type inherits the permissions of the attributes.|
-| glb_roles.spt | Defines roles.|
-| users | Defines users.|
-| initial_sid_contexts | Defines the initial SID contexts.|
-| fs_use | Defines the default labels for different file systems.|
-
-### Key Build Outputs
-
-| Output | Location | Purpose |
-|--------|----------|---------|
-| policy.31 | `/etc/selinux/targeted/policy/` | Binary policy loaded by kernel |
-| file_contexts | `/etc/selinux/targeted/contexts/` | file security contexts |
-| parameter_contexts | `/etc/selinux/targeted/contexts/` | System parameter contexts |
-| service_contexts | `/etc/selinux/targeted/contexts/` | Service security contexts |
-| hdf_service_contexts | `/etc/selinux/targeted/contexts/` | HDF service contexts |
-| sehap_contexts | `/etc/selinux/targeted/contexts/` | Application process and file security contexts |
-
-## Policy Development Workflow
-
-1. **Identify the denial** - Check dmesg or hilog for AVC messages
-2. **Write the rule** - Add to appropriate `.te` file in `sepolicy/`
-3. **Build policy** - Run `./build.sh --product-name=rk3568 -T selinux_adapter --ccache`
-4. **Test on device** - Flash image and verify the denial is resolved
-
-Details for [SELinux Development Introduction](../../../docs/en/device-dev/subsystems/subsys-security-selinux-develop-intro.md).
-
-### Policy Organization
-
-Place rules in the appropriate location:
-- `sepolicy/ohos_policy/**/system/` - System component policies
-- `sepolicy/ohos_policy/**/vendor/` - Vendor-specific policies
-- `sepolicy/ohos_policy/**/public/` - Cross-component access (type definitions, etc.)
-
-The build concatenates these in order, allowing product-specific policies to override base policies.
-
-## Debugging SELinux Issues
-
-### Interpreting AVC Denials
-
-When SELinux blocks an operation, it logs an AVC denial. Example:
-```
-audit: type=1400 audit(1502458430.566:4): avc: denied { open } for pid=1658 comm="setenforce"
-  path="/sys/fs/selinux/enforce" scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
-```
-
-Key fields:
-- `{ open }` - The operation that was denied
-- `scontext=u:r:hdcd:s0` - Source (process) label
-- `tcontext=u:object_r:selinuxfs:s0` - Target (object) label
-- `tclass=file` - Object class
-- `permissive=1` - 0 = blocked (enforcing), 1 = logged only (permissive)
-
-Converting to policy rule:
-```te
-allow hdcd selinuxfs:file open;
-```
-
-### Device Verification Commands
+设备验证命令：
 
 ```bash
-ls -lZ /                    # View file labels
-ps -eZ                      # View process labels
-getenforce                  # Check current mode (enforcing/permissive)
-setenforce 1                # Enable enforcing mode
-setenforce 0                # Enable permissive mode
+ls -lZ /path   # 查看文件标签
+ps -eZ         # 查看进程标签
+getenforce     # 查看当前模式（enforcing/permissive）
 ```
 
-## Common Issues
+## 构建产物与设备位置
 
-- **SELinux Policies for Applications** - The policies, which allow application to access or allow a process to access application data file, should use attribute instead of type. For example, if a file can be read by system basic applications, the policy should be `allow system_basic_hap_attr example_file_type:file {read}` rather than `allow system_basic_hap example_file_type:file {read}`.
+`policy.31` 与二进制 `*_contexts` 为编译产物（源头是 `.te` 与文本 `*_contexts`，禁止手改），部署在设备 `/etc/selinux/targeted/`（策略在 `policy/`，上下文在 `contexts/`）。
 
-   | Application	| Attribute |
-   | -------- | -------- |
-   | normal applications	| normal_hap_attr |
-   | system_basic applications |	system_basic_hap_attr |
-   | system_core applications	| system_core_hap_attr |
-   | All applications | hap_domain |
+## 完成定义
 
-   | Application Data | Attribute|
-   | -------- | -------- |
-   | Directories of normal applications| normal_hap_data_file_attr |
-   | Directories of system_basic applications| system_basic_hap_data_file_attr |
-   | Directories of system_core applications| system_core_hap_data_file_attr |
-   | All application directories| normal_hap_data_file_attr & system_basic_hap_data_file_attr & system_core_hap_data_file_attr |
+- 构建通过（`./build.sh --product-name rk3568 --build-target selinux_adapter` 或 `hb build selinux_adapter -i`），日志无 `neverallow` 违规
+- 新增 `sadomain` 域已登记 `domain_baseline.json`
+- 策略改动：设备 dmesg/hilog 无预期外 AVC denied（无法设备验证时必须列为剩余风险）
+- 说明运行的命令、结果与剩余风险；任务完成报告按根目录 `AGENTS.md`「最终响应要求」执行
 
+## 历史记录
 
-- **Policies for system and vendor component** - An `allow` policy should be written under `sepolicy/**/system/*.te` if the access subject belongs to system component, even though its type is defined in `sepolicy/**/public/*.te` and the rule grant it permission to access object in vendor component. For vendor component access subjects, the policies should also be written under `sepolicy/**/vendor/*.te`. 
-
-Details for [SELinux checklist](../../../docs/en/device-dev/subsystems/subsys-security-selinux-checklist.md).
+| version | date | modify content | writer |
+|------|------|---------|--------|
+| v1.0 | 2026-02-12 | Init sepolicy/AGENTS.md | lihehe |
+| v2.0 | 2026-09-23 | 参照 access_token 子目录 AGENTS.md 风格重构：中文化；删除框架文件逐项描述与重复章节；保留并强化约束（neverallow 先行、sadomain 基线登记、策略放置、应用属性、框架文件评审）；合并 AVC 排查流程与完成定义 | lihehe, AI |
+| v2.1 | 2026-09-23 | Quality review optimization: pre-edit declaration pointer to root, vendor example and neverallow vocabulary routing, overly-permissive rule prohibition, build.sh verification variant | lihehe, AI |
