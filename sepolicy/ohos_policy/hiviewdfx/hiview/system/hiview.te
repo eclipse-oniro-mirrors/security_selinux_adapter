@@ -378,3 +378,13 @@ allow hiview data_service_el1_public_print_service_file:file { getattr open read
 allow hiview hiview:hmcap { code_protect };
 allow hiview hap_domain:file {getattr open read};
 
+# avc: denied { open } for pid = 629,comm="/system/bin/hiview" path="" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=31887 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
+# avc: denied { read } for pid = 629,comm="/system/bin/hiview" path="" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=31887 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
+# avc: denied { search } for pid = 629,comm="/system/bin/hiview" name="" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=31887 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
+allow hiview data_service_el2_hmdfs:dir { open read search };
+
+# avc: denied { getattr } for pid = 629,comm="/system/bin/hiview" path="" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=31889 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
+# avc: denied { open } for pid = 629,comm="/system/bin/hiview" path="" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=31889 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
+# avc: denied { read } for pid = 629,comm="/system/bin/hiview" path="" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=31889 scontext=u:r:hiview:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
+allow hiview data_service_el2_hmdfs:file { getattr open read };
+
