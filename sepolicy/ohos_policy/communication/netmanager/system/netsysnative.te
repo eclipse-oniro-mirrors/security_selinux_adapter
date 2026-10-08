@@ -60,11 +60,6 @@ allow netsysnative normal_hap_attr:tcp_socket { read write getopt setopt getattr
 allow netsysnative normal_hap_attr:unix_dgram_socket { read write getopt setopt getattr };
 allow netsysnative normal_hap_attr:udp_socket { read write getopt setopt getattr };
 allow netsysnative normal_hap_attr:unix_stream_socket { read write getopt setopt getattr };
-allow netsysnative vpn_isolate_hap:fd { use };
-allow netsysnative vpn_isolate_hap:tcp_socket { read write getopt setopt getattr };
-allow netsysnative vpn_isolate_hap:unix_dgram_socket { read write getopt setopt getattr };
-allow netsysnative vpn_isolate_hap:udp_socket { read write getopt setopt getattr };
-allow netsysnative vpn_isolate_hap:unix_stream_socket { read write getopt setopt getattr };
 
 allow init dev_unix_file:sock_file { unlink };
 allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8933 0x8953 0x8955 0x8915 0x891b 0x8913 0x8927 0x8914 0x8916 0x891c 0x8922 };
