@@ -116,3 +116,7 @@ allow aimgr dev_at_file:chr_file { ioctl };
 
 # avc: denied { ioctl } for pid=11376, comm="/system/bin/sa_main" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:aimgr:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
 allowxperm aimgr dev_at_file:chr_file ioctl { 0x5413 };
+
+# avc:  denied  { get } for service=1909 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
+allow aimgr sa_memory_manager_service:samgr_class { get };
+allow aimgr memmgrservice:binder { call };
