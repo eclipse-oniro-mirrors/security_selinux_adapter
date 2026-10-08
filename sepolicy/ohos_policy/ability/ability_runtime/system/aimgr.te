@@ -119,4 +119,6 @@ allowxperm aimgr dev_at_file:chr_file ioctl { 0x5413 };
 
 # avc:  denied  { get } for service=1909 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
 allow aimgr sa_memory_manager_service:samgr_class { get };
+
+# avc: denied { call } for pid=11134, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:memmgrservice:s0 tclass=binder permissive=0
 allow aimgr memmgrservice:binder { call };
