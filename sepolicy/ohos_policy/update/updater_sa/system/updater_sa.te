@@ -104,3 +104,4 @@ allow updater_sa sa_sg_collect_service:samgr_class { get };
 
 # avc: denied { call } for pid=3005, comm="OS_IPC_2_3205"  scontext=u:r:updater_sa:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=0
 allow updater_sa security_guard:binder { call };
+
