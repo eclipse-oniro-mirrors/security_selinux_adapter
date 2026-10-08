@@ -358,3 +358,10 @@ attribute chipset_sock_domain;
 # define mcs category separation for user groups
 attribute us_restricted_hap_domain;
 attribute isolated_hap_domain;
+
+# define type attributes for filesystem_violator
+attribute violator_filesystem_mount;
+attribute violator_filesystem_remount;
+attribute violator_filesystem_unmount;
+attribute violator_filesystem_relabelfrom;
+attribute violator_filesystem_relabelto;
