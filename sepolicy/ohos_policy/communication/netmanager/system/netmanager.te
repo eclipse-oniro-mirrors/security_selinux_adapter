@@ -162,3 +162,5 @@ allow netmanager sa_xperf_service:samgr_class { get };
 
 allow netmanager drm_service:binder { call };
 
+# avc:  denied { get } for service=3524 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow netmanager sa_sg_collect_service:samgr_class { get };
