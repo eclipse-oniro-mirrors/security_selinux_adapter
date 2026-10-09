@@ -60,7 +60,9 @@ allow netsysnative netsysnative:process { setfscreate };
 
 allow netsysnative normal_hap_attr:fd { use };
 allow netsysnative normal_hap_attr:tcp_socket { read write getopt setopt getattr };
+allow netsysnative normal_hap_attr:unix_dgram_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:udp_socket { read write getopt setopt getattr };
+allow netsysnative normal_hap_attr:unix_stream_socket { read write getopt setopt };
 allow netsysnative netmanager:udp_socket { read write getattr };
 allow netsysnative vpn_isolate_hap:udp_socket { getattr };
 
