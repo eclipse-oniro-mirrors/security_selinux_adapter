@@ -213,3 +213,6 @@ allow isolated_render shared_relro_file:file { getattr map open read };
 
 # avc: denied { write } for pid=1, comm="/system/bin/nwebspawn"  path="/storage/Users/currentUser/appdata/appdata/el2/xxx/xxx.mhtml" dev="/mnt/user/100/nosharefs/appdata" ino=6917581803491784005 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sharefs_appdata_bundle_file:s0 tclass=file permissive=0
 allow isolated_render sharefs_appdata_bundle_file:file { read write getattr append };
+
+# avc: denied { write } for pid=1, comm="/system/bin/nwebspawn"  path="/storage/External/xxx/02/xxx.mhtml" dev="mtpfs" ino=285 scontext=u:r:isolated_render:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=0
+allow isolated_render mnt_external_file:file { read write getattr append };
