@@ -14,7 +14,7 @@
 type cadaemon, sadomain, domain;
 
 neverallow { domain -teecd -cadaemon } tee_src_file:dir *;
-neverallow { domain -teecd -cadaemon pc_only(`-netstat') } tee_src_file:file *;
+neverallow { domain -teecd -cadaemon } tee_src_file:file *;
 
 allow cadaemon system_bin_file: dir { search };
 allow cadaemon system_bin_file: file { read open getattr };

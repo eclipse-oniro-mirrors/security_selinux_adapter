@@ -13,7 +13,7 @@
 
 neverallow { domain -storage_daemon -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_dir -security_guard updater_only(`-updater') } accesstoken_data_file:dir *;
 neverallow storage_daemon accesstoken_data_file:dir ~{ getattr read open search };
-neverallow { domain -storage_daemon -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_file pc_only(`-netstat') -security_guard updater_only(`-updater') } accesstoken_data_file:file *;
+neverallow { domain -storage_daemon -accesstoken_service -init -privacy_service -accesstoken_data_file_violator_file -security_guard updater_only(`-updater') } accesstoken_data_file:file *;
 neverallow storage_daemon accesstoken_data_file:file ~{ getattr };
 
 neverallow accesstoken_service accesstoken_data_file:dir ~{ create search add_name open read write remove_name ioctl getattr };

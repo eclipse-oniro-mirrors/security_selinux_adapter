@@ -23,12 +23,12 @@ neverallow { system_domain -vendor_file_violator_file } vendor_file:file ~{ map 
 neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_map } vendor_file:file { map };
 neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_open -teecd } vendor_file:file { open };
 neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_read -teecd } vendor_file:file { read };
-neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_getattr -teecd pc_only(`-netstat') } vendor_file:file { getattr };
+neverallow { system_domain -sadomain -processdump -vendor_file_violator_file_getattr -teecd } vendor_file:file { getattr };
 neverallow { system_domain -bluetooth_service -distributeddata -foundation -audio_server -resource_schedule_service
-    -usb_service -vendor_file_violator_file_execute pc_only(`-netstat') } vendor_file:file { execute };
+    -usb_service -vendor_file_violator_file_execute } vendor_file:file { execute };
 neverallow { system_domain -vendor_file_violator_file_relabelto } vendor_file:file { relabelto };
 neverallow { system_domain -vendor_file_violator_file_setattr } vendor_file:file { setattr };
-neverallow { system_domain pc_only(`-netstat') } vendor_file:{ blk_file chr_file fifo_file lnk_file sock_file } *;
+neverallow { system_domain } vendor_file:{ blk_file chr_file fifo_file lnk_file sock_file } *;
 
 # Prohibit system component processes from accessing vendor bin files to achieve access isolation
 neverallow { system_domain -vendor_bin_file_violator_dir } vendor_bin_file:dir ~{ search getattr open read mounton relabelto };
@@ -45,14 +45,14 @@ neverallow { system_domain -ispserver -vendor_bin_file_violator_file_entrypoint 
 neverallow { system_domain -ispserver -init -vendor_bin_file_violator_file_execute -sys_installer_sa } vendor_bin_file:file { execute };
 neverallow { system_domain -ispserver -hiebpf -hidumper_service -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_map -sys_installer_sa debug_only(`-native_daemon') } vendor_bin_file:file { map };
 neverallow { system_domain -ispserver -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_read -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { read };
-neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_getattr -sys_installer_sa debug_only(`-native_daemon') pc_only(`-netstat') -teecd } vendor_bin_file:file { getattr };
-neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_open -sys_installer_sa debug_only(`-native_daemon') pc_only(`-netstat') -teecd } vendor_bin_file:file { open };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_getattr -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { getattr };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump -hiview -vendor_bin_file_violator_file_open -sys_installer_sa debug_only(`-native_daemon') -teecd } vendor_bin_file:file { open };
 neverallow { system_domain -vendor_bin_file_violator_file_execute_no_trans -sys_installer_sa } vendor_bin_file:file { execute_no_trans };
 neverallow { system_domain -vendor_bin_file_violator_file_relabelto } vendor_bin_file:file { relabelto };
 neverallow { system_domain -vendor_bin_file_violator_file_setattr } vendor_bin_file:file { setattr };
 neverallow { system_domain -vendor_bin_file_violator_file_lnk_file } vendor_bin_file:lnk_file ~{ read };
 neverallow { system_domain -vendor_bin_file_violator_file_lnk_file_read } vendor_bin_file:lnk_file { read };
-neverallow { system_domain pc_only(`-netstat') } vendor_bin_file:{ blk_file chr_file fifo_file sock_file } *;
+neverallow { system_domain } vendor_bin_file:{ blk_file chr_file fifo_file sock_file } *;
 
 # Prohibit system component processes from accessing vendor etc files to achieve access isolation
 neverallow { system_domain -vendor_etc_file_violator_dir } vendor_etc_file:dir ~{ search getattr read open mounton relabelto };
@@ -77,6 +77,6 @@ neverallow { system_domain -bootanimation -ispserver -media_service -misc -accou
     -resource_schedule_service -appspawn -cjappspawn -init -telephony_sa -vendor_etc_file_violator_file_read developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_read -teecd } vendor_etc_file:file { read };
 neverallow { system_domain -bootanimation -ispserver -media_service -misc -accountmgr -wifi_hal_service -dhardware -dinput -foundation -powermgr
     -hdf_devmgr -memmgrservice -audio_server -sensors -av_codec_service -multimodalinput -charger -concurrent_task_service
-    -resource_schedule_service -appspawn -cjappspawn -init -vendor_etc_file_violator_file_getattr developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_getattr -teecd pc_only(`-netstat') } vendor_etc_file:file { getattr };
+    -resource_schedule_service -appspawn -cjappspawn -init -vendor_etc_file_violator_file_getattr developer_only(`-hnp') -hnp_violator -rgm_violator_ohos_vendor_etc_file_getattr -teecd } vendor_etc_file:file { getattr };
 neverallow { system_domain -vendor_etc_file_violator_file_relabelto } vendor_etc_file:file { relabelto };
-neverallow { system_domain pc_only(`-netstat') } vendor_etc_file:{ blk_file chr_file fifo_file lnk_file sock_file } *;
+neverallow { system_domain } vendor_etc_file:{ blk_file chr_file fifo_file lnk_file sock_file } *;

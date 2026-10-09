@@ -399,7 +399,7 @@ allow storage_daemon data_service_storage_daemon_sd_file:file { create ioctl set
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:dir { create relabelto };
 neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:dir { read write getattr rename open add_name remove_name search rmdir };
 neverallow { domain -storage_daemon -init } data_service_storage_daemon_sd_file:file { create ioctl setattr open read write relabelto };
-neverallow { domain -storage_daemon -init updater_only(`-updater') pc_only(`-netstat') } data_service_storage_daemon_sd_file:file { unlink getattr };
+neverallow { domain -storage_daemon -init updater_only(`-updater') } data_service_storage_daemon_sd_file:file { unlink getattr };
 
 neverallow storage_daemon *:process ptrace;
 
