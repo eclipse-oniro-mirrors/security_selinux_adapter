@@ -85,4 +85,5 @@ allow huks_service memmgrservice:binder { call };
 # avc:  denied  { get } for service=3510 sid=u:r:huks_service:s0 scontext=u:r:huks_service:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
 allow huks_service sa_screenlock_service:samgr_class { get };
 
+# avc:  denied  { call } for pid=977, comm="/system/bin/sa_main" scontext=u:r:huks_service:s0 tcontext=u:r:cert_manager_service:s0 tclass=binder permissive=1
 allow huks_service cert_manager_service:binder { call };
