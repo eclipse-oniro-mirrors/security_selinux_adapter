@@ -95,8 +95,9 @@ binder_call(updater_sa, audio_server);
 allow updater_sa sa_audio_policy_service:samgr_class { get };
  
 #avc: denied { get } for service=200 sid=u:r:updater_sa:s0 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
-binder_call(updater_sa, accountmgr);
 allow updater_sa sa_accountmgr:samgr_class { get };
+#avc:  denied  { call } for  pid=7961 comm="SaInit7" scontext=u:r:updater_sa:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
+binder_call(updater_sa, accountmgr);
  
 #avc: denied { get } for service=3299 sid=u:r:updater_sa:s0 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow updater_sa sa_foundation_cesfwk_service:samgr_class { get };
