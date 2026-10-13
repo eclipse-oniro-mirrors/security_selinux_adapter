@@ -25,3 +25,11 @@ allow nwebspawn dev_kmsg_file:chr_file { open write };
 allow nwebspawn data_app_el2_group_file:dir { search };
 
 allow nwebspawn self:hmcap { prelink_bypass };
+
+# avc: denied { open } for pid=3525, comm="/system/bin/nwebspawn"  path="/dev/xpm" dev="" ino=5 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc: denied { read write } for pid=3525, comm="/system/bin/nwebspawn"  path="/dev/xpm" dev="" ino=5 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=1, comm="/system/bin/nwebspawn"  path="/dev/xpm" dev="" ino=5 ioctlcmd=0x7801 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=1, comm="/system/bin/nwebspawn"  path="/dev/xpm" dev="" ino=5 ioctlcmd=0x7802 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=1, comm="/system/bin/nwebspawn"  path="/dev/xpm" dev="" ino=5 ioctlcmd=0x7803 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+allow nwebspawn dev_xpm:chr_file { open read write ioctl };
+allowxperm nwebspawn dev_xpm:chr_file ioctl { 0x7801 0x7802 0x7803 };
