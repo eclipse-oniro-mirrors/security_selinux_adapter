@@ -1,6 +1,7 @@
 {
     "user": {
         "sadomain": [
+            "assessment_service",
             "sdc",
             "work_scheduler_service",
             "asset_service",
