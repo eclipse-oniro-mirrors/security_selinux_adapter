@@ -11,8 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc: denied { transfer } for pid=1285, comm="/system/bin/sa_main"  scontext=u:r:msdp_sa:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1185, comm="/system/bin/sa_main"  scontext=u:r:msdp_sa:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
 allow msdp_sa bluetooth_service:binder { transfer };
+ 
+# avc: denied { call } for pid=1467, comm="/system/bin/sa_main"  scontext=u:r:bluetooth_service:s0 tcontext=u:r:msdp_sa:s0 tclass=binder permissive=0
+allow bluetooth_service msdp_sa:binder { call };
 
 #avc:  denied  { getopt } for  pid=563 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_dgram_socket permissive=1
 #avc:  denied  { setopt } for  pid=563 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_dgram_socket permissive=1
