@@ -295,32 +295,18 @@ allow edm_sa sa_disk_manager_service:samgr_class { get };
 # avc: denied { call } for pid=1779, comm="/system/bin/sa_main"  scontext=u:r:edm_sa:s0 tcontext=u:r:disk_manager:s0 tclass=binder permissive=0
 allow edm_sa disk_manager:binder { call };
 
-# avc: denied { read } for pid=11979, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=408 scontext=u:r:edm_sa:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
-allow edm_sa arkcompiler_param:file { read };
-
-# avc: denied { getattr } for pid=1559, comm="/system/bin/sa_main"  path="/data" dev="/dev/block/by-name/userdata" ino=3 scontext=u:r:edm_sa:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
-allow edm_sa data_file:dir { getattr };
-
-# avc: denied { ioctl } for pid=11979, comm="/system/bin/sa_main"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:edm_sa:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
-allow edm_sa dev_at_file:chr_file { ioctl };
-
-# avc: denied { write } for pid=11979, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=29 scontext=u:r:edm_sa:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
-allow edm_sa dev_kmsg_file:chr_file { write };
-
 # avc: denied { getattr } for pid=14660, comm="/system/bin/sa_main"  path="/data/service/el1/public/edm" dev="/dev/block/by-name/userdata" ino=37348 scontext=u:r:edm_sa:s0 tcontext=u:object_r:edm_base_file:s0 tclass=dir permissive=0
-allow edm_sa edm_base_file:dir { ioctl read open add_name getattr create write search remove_name };
+# avc: denied { setattr } for pid=14660, comm="/system/bin/sa_main"  path="/data/service/el1/public/edm" dev="/dev/block/by-name/userdata" ino=37348 scontext=u:r:edm_sa:s0 tcontext=u:object_r:edm_base_file:s0 tclass=dir permissive=0
+allow edm_sa edm_base_file:dir { ioctl read open add_name getattr setattr create write search remove_name };
 
 # avc: denied { lock } for pid=14884, comm="/system/bin/sa_main"  path="/data/service/el1/public/edm/edmdb.db-shm" dev="/dev/block/by-name/userdata" ino=35598 scontext=u:r:edm_sa:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=0
 allow edm_sa edm_base_file:file { write getattr read open lock ioctl map create setattr rename unlink append };
-
-# avc: denied { read } for pid=11979, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu" dev="" ino=6 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
-allow edm_sa sysfs_devices_system_cpu:dir { open read };
-
-# avc: denied { ioctl } for pid=11979, comm="/system/bin/sa_main"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:edm_sa:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
-allowxperm edm_sa dev_at_file:chr_file ioctl 0x5413;
 
 # avc: denied { getattr } for pid=14660, comm="/system/bin/sa_main"  path="/data/service/el1/public/edm" dev="/dev/block/by-name/userdata" ino=37348 scontext=u:r:edm_sa:s0 tcontext=u:object_r:edm_base_file:s0 tclass=dir permissive=0
 allowxperm edm_sa edm_base_file:dir ioctl 0xf547;
 
 # avc: denied { lock } for pid=14884, comm="/system/bin/sa_main"  path="/data/service/el1/public/edm/edmdb.db-shm" dev="/dev/block/by-name/userdata" ino=35598 scontext=u:r:edm_sa:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=0
 allowxperm edm_sa edm_base_file:file ioctl 0x5413;
+
+# avc: denied { ioctl } for pid=2890, comm="/system/bin/sa_main"  path="/data/service/el1/public/edm" dev="/dev/block/by-name/userdata" ino=3909 ioctlcmd=0xf546 scontext=u:r:edm_sa:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=0
+allowxperm edm_sa edm_base_file:dir ioctl 0xf546;

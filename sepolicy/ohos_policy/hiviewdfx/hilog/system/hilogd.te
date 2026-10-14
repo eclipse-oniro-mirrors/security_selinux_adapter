@@ -104,13 +104,12 @@ neverallow {
     -hdcd               # write is covered next
     updater_only(`-updater')
     updater_only(`-hiview_light')
-    pc_only(`-netstat')
 } data_hilogd_file:file { rw_file_perms };
 
 neverallow storage_daemon data_hilogd_file:file ~{ getattr };
 
 # shell can read but cannot write hilogd files
-neverallow { domain -hilogd -installs pc_only(`-netstat') } data_hilogd_file:file { append create rename setattr write };
+neverallow { domain -hilogd -installs } data_hilogd_file:file { append create rename setattr write };
 
 allow hilogd hilog_private_param:parameter_service { set };
 

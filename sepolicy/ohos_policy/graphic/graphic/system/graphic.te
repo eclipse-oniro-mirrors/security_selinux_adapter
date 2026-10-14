@@ -107,9 +107,9 @@ allow render_service render_process_exec:file { execute execute_no_trans map ope
 neverallow { domain -nwebspawn } vendor_etc_vulkan_file:dir ~{ open read search getattr mounton };
 neverallow { domain } vendor_etc_vulkan_file:file ~{ getattr open read };
 neverallow { domain -hap_domain -render_service -vendor_etc_vulkan_file_violator_dir_open_read_search -nwebspawn -isolated_gpu -vpn_isolate_hap } vendor_etc_vulkan_file:dir { open read search };
-neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read -isolated_gpu -vpn_isolate_hap pc_only(`-netstat') } vendor_etc_vulkan_file:file { getattr open read };
-neverallow { domain -init pc_only(`-netstat') } vendor_etc_vulkan_file:dir { getattr };
-neverallow { domain -init -nwebspawn pc_only(`-netstat') } vendor_etc_vulkan_file:dir { mounton };
-neverallow { domain pc_only(`-netstat') } dev_graphics_file:file ~{ getattr open read };
-neverallow { domain -render_service pc_only(`-netstat') } drawing_engine_sample:file { getattr map open read };
-neverallow { domain -render_service pc_only(`-netstat') } drawing_sample_replayer:file { getattr map open read };
+neverallow { domain -hap_domain -render_service -init -vendor_etc_vulkan_file_violator_file_getattr_open_read -isolated_gpu -vpn_isolate_hap } vendor_etc_vulkan_file:file { getattr open read };
+neverallow { domain -init } vendor_etc_vulkan_file:dir { getattr };
+neverallow { domain -init -nwebspawn } vendor_etc_vulkan_file:dir { mounton };
+neverallow { domain } dev_graphics_file:file ~{ getattr open read };
+neverallow { domain -render_service } drawing_engine_sample:file { getattr map open read };
+neverallow { domain -render_service } drawing_sample_replayer:file { getattr map open read };

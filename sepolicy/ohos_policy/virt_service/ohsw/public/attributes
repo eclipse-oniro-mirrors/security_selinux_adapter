@@ -11,5 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc: denied { getattr } for pid=639, comm="/system/bin/samgr"  path="/proc/35358/cmdline" dev="" ino=77546 scontext=u:r:samgr:s0 tcontext=u:r:edm_sa:s0 tclass=file permissive=0
-allow samgr edm_sa:file { getattr };
+attribute violator_filesystem_mount;
+attribute violator_filesystem_remount;
+attribute violator_filesystem_unmount;
+attribute violator_filesystem_relabelfrom;
+attribute violator_filesystem_relabelto;
