@@ -16,29 +16,14 @@
 # avc: denied { transition } for pid=13767, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:assessment_service:s0 tclass=process permissive=1
 allow init assessment_service:process { rlimitinh siginh transition };
 
-# The param job in assessment_service.cfg needs init to read and set the
-# persist.assessment.* parameters. Those two rules are deferred together with the
-# assessment_writable_param label they would target, because introducing that
-# label needs a platform memory registration: every parameter label gets its own
-# shared memory file under /dev/__parameters__/, created for every label in
-# parameter_contexts at boot, and a file occupies a whole page even though the
-# logical region defaults to PARAM_WORKSPACE_MIN (1024).
-#
-# Effect while deferred: under enforcing init is denied the job condition
-# evaluation and the ${persist.assessment.is_active} expansion, so
-# persist.assessment.is_examination_running is not published. Nothing in this
-# tree reads it, and the job has never actually run anyway because the command it
-# names, "ohsetprop", is not in init's command table; a separate change fixes
-# that to "setparam".
-#
-# Shape of the two rules when they land, for the follow-up change:
+# TODO(exam-mode): the two rules the cfg param job needs are deferred with the
+# assessment_writable_param label, which needs a platform memory registration (one
+# page-sized shared memory file per label). init evaluates the job condition,
+# expands ${persist.assessment.is_active}, then its command sets
+# persist.assessment.is_examination_running, so it needs read and set:
 #   allow init assessment_writable_param:file { map open read };
 #   allow init assessment_writable_param:parameter_service { set };
-# following the MAC access control steps in
-# docs/zh-cn/device-dev/subsystems/subsys-boot-init-sysparam.md and mirroring
-# edm_writable_param and samgr_writable_param. tmpfs associate and
-# relabelto/relabelfrom will not be needed, both being granted globally to
-# parameter_attr. No domain-wide read will be added: the CI policy check forbids
-# a native attribute from base/public/attributes, such as domain, as subject or
-# object, and no consumer is known, so readers get granted individually as their
-# AVCs appear.
+# tmpfs associate and relabelto are already granted globally to parameter_attr. No
+# domain-wide read: the CI check forbids a native attribute such as domain as
+# subject or object. That job command is "ohsetprop", registered by a closed-source
+# init module via AddCmdExecutor(), so it is not in the open-source command table.

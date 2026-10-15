@@ -11,21 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# exam client apps call AssessmentService (SAID 8660)
-# Permission ohos.permission.ASSESSMENT_CONFIGURATION is system_basic level,
-# so only system_basic_hap and system_core_hap apps can hold it.
-# Per subsys-security-selinux-checklist: use system_basic_hap_attr /
-# system_core_hap_attr instead of hap_domain to avoid over-granting
-# to normal_hap / debug_hap.
+# Exam client apps call AssessmentService (SAID 8660). The permission is
+# system_basic level, so use the attrs rather than hap_domain, which would
+# over-grant to normal_hap and debug_hap.
 
 # avc: denied { call } for pid=15098, comm="/system/bin/appspawn"  scontext=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 tcontext=u:r:assessment_service:s0 tclass=binder permissive=1
 # avc: denied { transfer } for pid=15098, comm="/system/bin/appspawn"  scontext=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 tcontext=u:r:assessment_service:s0 tclass=binder permissive=1
-# AVC captured debug_hap in permissive mode; production grants only
-# system_basic_hap_attr and system_core_hap_attr
+# AVC captured debug_hap in permissive mode; production grants only the two attrs.
 allow system_basic_hap_attr assessment_service:binder { call transfer };
 allow system_core_hap_attr assessment_service:binder { call transfer };
 
 # avc: denied { get } for service=8660 sid=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 scontext=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 tcontext=u:object_r:sa_assessment_service:s0 tclass=samgr_class permissive=0
-# SA query: exam client apps get AssessmentService SA handle
 allow system_basic_hap_attr sa_assessment_service:samgr_class { get };
 allow system_core_hap_attr sa_assessment_service:samgr_class { get };
