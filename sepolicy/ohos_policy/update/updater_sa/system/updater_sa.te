@@ -100,3 +100,10 @@ allow updater_sa sa_accountmgr:samgr_class { get };
  
 #avc: denied { get } for service=3299 sid=u:r:updater_sa:s0 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow updater_sa sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc:  denied  { get } for service=3524 sid=u:r:updater_sa:s0 scontext=u:r:updater_sa:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow updater_sa sa_sg_collect_service:samgr_class { get };
+
+# avc: denied { call } for pid=3005, comm="OS_IPC_2_3205"  scontext=u:r:updater_sa:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=0
+binder_call(updater_sa, security_guard);
+
