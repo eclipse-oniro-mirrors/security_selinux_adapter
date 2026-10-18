@@ -170,3 +170,7 @@ debug_only(`
     binder_call(accesstoken_service, sh);
     binder_call(accesstoken_service, su);
 ')
+
+# rdb audit dumps records to /data/log/hiaudit/rdb
+allow accesstoken_service data_log:dir { add_name getattr open read search write create remove_name };
+allow accesstoken_service data_log:file { create getattr open read rename write unlink append };
