@@ -173,4 +173,4 @@ allow nwebspawn data_service_file:dir { search };
 allow nwebspawn data_storage:dir { search };
 allow nwebspawn data_service_el1_file:dir { relabelfrom };
 allow nwebspawn shared_relro_file:dir { search write add_name remove_name open read relabelto setattr getattr };
-allow nwebspawn shared_relro_file:file { create map open write read unlink };
+allow nwebspawn shared_relro_file:file { create map open write read unlink getattr };
