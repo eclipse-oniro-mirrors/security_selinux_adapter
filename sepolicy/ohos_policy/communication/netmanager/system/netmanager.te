@@ -62,6 +62,8 @@ allow netmanager kernel:system { module_request };
 allow netmanager accessibility_param:file { read open map };
 allow netmanager fwmark_service:sock_file { write };
 allow netmanager dnsproxy_service:sock_file { write };
+#avc: denied { write } for pid=1084, comm="/system/bin/sa_main"  path="/dev/unix/socket/tunfd" dev="" ino=1287 scontext=u:r:netmanager:s0 tcontext=u:object_r:dev_unix_file:s0 tclass=sock_file permissive=0
+allow netmanager dev_unix_file:sock_file { write };
 allow netmanager netmanager:process { setfscreate };
 allow netmanager usb_service:binder { call };
 allow netmanager sa_usb_service:samgr_class { get };
