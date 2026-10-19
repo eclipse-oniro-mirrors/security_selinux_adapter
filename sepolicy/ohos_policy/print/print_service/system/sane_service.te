@@ -42,3 +42,6 @@ allow sane_service sys_file:file { open read };
 allow sane_service data_service_scan_service_driver_file:xpm { exec_allow_release_ownerid exec_allow_debug_ownerid };
 allow sane_service self:hmcap { prelink_bypass };
 allow sane_service data_service_scan_service_driver_file:lnk_file { read };
+#storage_daemon runs restorecon on the sane tmp dir during user-data mount/restore, relabeling /data/service/el2/public/print_service/sane back to data_service_sane_service_tmp_file; without this, sane_service cannot access the dir after boot, breaking scanning.
+# avc: denied {relabelto} for pid=612, comm="/system/bin/storage_daemon" name="/service/el2/public/print_service/sane" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1612 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_sane_service_tmp_file:s0 tclass=dir permissive=0
+allow storage_daemon data_service_sane_service_tmp_file:dir { relabelto };
