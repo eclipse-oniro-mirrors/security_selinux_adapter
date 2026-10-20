@@ -1,0 +1,16 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { relabelto } for pid=690, comm="/system/bin/storage_daemon"  name="/service/el1/105/print_service/data" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=52563 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:print_driver_shared_file:s0 tclass=dir permissive=1
+# avc: denied { rmdir } for pid=690, comm="/system/bin/storage_daemon"  name="/service/el1/105/print_service/data" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=52563 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:print_driver_shared_file:s0 tclass=dir permissive=1
+allow storage_daemon print_driver_shared_file:dir { relabelto rmdir };
