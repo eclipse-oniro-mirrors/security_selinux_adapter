@@ -173,4 +173,6 @@ allow nwebspawn data_service_file:dir { search };
 allow nwebspawn data_storage:dir { search };
 allow nwebspawn data_service_el1_file:dir { relabelfrom };
 allow nwebspawn shared_relro_file:dir { search write add_name remove_name open read relabelto setattr getattr };
+
+# avc: denied { getattr } for pid=3279 comm="nwebspawn" path="/data/service/el1/public/for-all-app/shared_relro/libwebviewchromium64.relro" scontext=u:r:nwebspawn:s0 tcontext=u:object_r:shared_relro_file:s0 tclass=file permissive=0
 allow nwebspawn shared_relro_file:file { create map open write read unlink getattr };
