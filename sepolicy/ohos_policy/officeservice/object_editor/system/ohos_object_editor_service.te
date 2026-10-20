@@ -136,3 +136,6 @@ allow ohos_object_editor_service data_app_el1_file:dir { search };
 
 # avc: denied { search } for pid=11657, comm="/system/bin/sa_main"  name="/unix/socket" dev="" ino=259 scontext=u:r:ohos_object_editor_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir
 allow ohos_object_editor_service dev_unix_socket:dir { search };
+
+# avc:  denied  { search } for  pid=12149 comm="object_editor_s" name="/" dev="vdd" ino=2 scontext=u:r:ohos_object_editor_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow ohos_object_editor_service data_file:dir { search };
