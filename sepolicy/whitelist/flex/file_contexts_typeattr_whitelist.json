@@ -339,6 +339,7 @@
                     "/data/service/el1/public/print_service/cups/ppd",
                     "/data/service/el1/public/bundle_usage(/.*)?",
                     "/data/service/el1/public/access_token(/.*)?",
+                    "/data/service/el1/public/database/access_token(/.*)?",
                     "/data/service/el0/access_token/nativetoken.json.*",
                     "/data/service/el0/access_token/access_token_backup(/.*)?",
                     "/data/service/el1/public/asset_service(/.*)?",
