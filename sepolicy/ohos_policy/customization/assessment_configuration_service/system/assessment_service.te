@@ -200,3 +200,6 @@ allow assessment_service system_usr_file:file { getattr map open read };
 # both must be read together). Exemption needs vendor_etc_file_violator_dir_search,
 # i.e. security review, and base/ needs architecture review.
 # allow assessment_service vendor_etc_file:dir { search };
+
+# avc: denied { set } for parameter=persist.assessment.is_active pid=13414 uid=1000 gid=1000 scontext=u:r:assessment_service:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=0
+allow assessment_service persist_param:parameter_service { set };
