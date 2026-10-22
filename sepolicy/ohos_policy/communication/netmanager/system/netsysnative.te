@@ -76,10 +76,12 @@ allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8933 0x8953 0x8955 0x8
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
 allow netsysnative system_basic_hap_attr:fd { use };
-allow netsysnative system_basic_hap_attr:tcp_socket { read write getopt setopt };
+#avc: denied { getattr } for pid=1631, comm="/system/bin/sa_main" ioctlcmd=0x0 scontext=u:r:netsysnative:s0 tcontext=u:r:system_basic_hap:s0 tclass=tcp_socket permissive=0
+allow netsysnative system_basic_hap_attr:tcp_socket { read write getopt setopt getattr };
 allow netsysnative dev_tun_file:chr_file { open read write ioctl };
 allow netsysnative netsysnative:tun_socket { create relabelfrom relabelto };
-allow netsysnative system_basic_hap_attr:udp_socket { read write getopt setopt };
+#avc: denied { getattr } for pid=1631, comm="/system/bin/sa_main" ioctlcmd=0x0 scontext=u:r:netsysnative:s0 tcontext=u:r:system_basic_hap:s0 tclass=udp_socket permissive=0
+allow netsysnative system_basic_hap_attr:udp_socket { read write getopt setopt getattr };
 
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
 
