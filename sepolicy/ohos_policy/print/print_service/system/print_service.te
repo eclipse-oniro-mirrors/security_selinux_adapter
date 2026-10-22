@@ -108,6 +108,7 @@ allow print_service print_driver_exec:dir { search write add_name remove_name };
 # avc: denied { read } for pid=28741, comm="/system/bin/sa_main" name="/service/el1/public/print_service/cups/serverbin/backend/bsUniBackend" dev="/dev/block/platfrom/b0000000.hi_pcie/by-name/userdata" ino=38969 scontext=u:r:print_service:s0 tcontext=u:object_r:print_driver_exec:s0 tclass=lnk_file permissive=1
 # avc: denied { unlink } for pid=28741, comm="/system/bin/sa_main" name="/service/el1/public/print_service/cups/serverbin/backend/lpd" dev="/dev/block/platfrom/b0000000.hi_pcie/by-name/userdata" ino=120929 scontext=u:r:print_service:s0 tcontext=u:object_r:print_driver_exec:s0 tclass=lnk_file permissive=1
 allow print_service print_driver_exec:lnk_file { create getattr read unlink };
+
 # avc: denied { read open } for pid=28741, comm="/system/bin/sa_main" name="/data/service/el1/public/print_service/cups/spool/tmp" scontext=u:r:print_service:s0 tcontext=u:object_r:print_driver_tmp:s0 tclass=dir permissive=0
 allow print_service print_driver_tmp:dir { search write remove_name read open };
 
