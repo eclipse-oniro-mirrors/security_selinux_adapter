@@ -581,7 +581,9 @@ allow init hdf_devhost_exec:dir { getattr mounton { search } };
 # avc: denide { read write } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
 # avc: denide { open } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
 # avc: denide { ioctl } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 ioctlcmd=0x7802 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
-allow init dev_xpm:chr_file { ioctl read write open };
+# avc: denied { setattr } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
+# avc: denied { relabelto } for pid=656, comm="/bin/init" path="/dev/xpm" dev="" ino=5 scontext=u:r:init:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=0
+allow init dev_xpm:chr_file { ioctl read write open setattr relabelto };
 allowxperm init dev_xpm:chr_file ioctl { 0x7802 };
 
 # avc: denied { getattr } for pid=1, comm="/bin/init" path="/system/bin/nwebspawn" dev="overlay" ino=835 scontext=u:r:init:s0 tcontext=u:object_r:nwebspawn_exec:s0 tclass=file permissive=0
