@@ -181,3 +181,6 @@ allow foundation installs:fd { use };
 
 # avc: denied { use } for pid=1173, comm = "/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:foundation:s0 tcontext=u:r:accesstoken_service:s0 tclass=fd permissive=1
 binder_call(foundation, accesstoken_service);
+
+# avc: denied { getattr } for pid=1540, comm="/system/bin/sa_main" path="/data/log/hiaudit/rdb" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=1130 scontext=u:r:foundation:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=0
+allow foundation data_log:dir { getattr };
