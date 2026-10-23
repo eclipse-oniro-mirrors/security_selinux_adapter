@@ -11,18 +11,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc: denied { getattr ioctl open read search setattr } for pid=11754, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allow subfoundation data_service_el1_file:dir { getattr ioctl open read search setattr };
+# avc: denied { search } for pid=2479, comm="sa_main" name="socket" dev="tmpfs" ino=43 scontext=u:r:subfoundation:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow subfoundation dev_unix_socket:dir { search };
+
+# avc: denied { add_name create getattr ioctl open read remove_name rmdir search setattr write } for pid=11754, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow subfoundation data_service_el1_file:dir { add_name create getattr ioctl open read remove_name rmdir search setattr write };
 
 # avc: denied { getattr ioctl lock map open read write setattr } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allow subfoundation data_service_el1_file:file { getattr ioctl lock map open read write setattr };
+allow subfoundation data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 
 # avc: denied { ioctl } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir ioctlcmd=0xf546 permissive=1
-allowxperm subfoundation data_service_el1_file:dir ioctl { 0xf546 };
+allowxperm subfoundation data_service_el1_file:dir ioctl { 0xf546 0xf547 };
 
 # avc: denied { ioctl } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctlcmd=0xf50c permissive=1
 # avc: denied { ioctl } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file ioctlcmd=0xf546 permissive=1
-allowxperm subfoundation data_service_el1_file:file ioctl { 0xf50c 0xf546 };
+allowxperm subfoundation data_service_el1_file:file ioctl { 0xf50c 0xf546 0x5413 0xf547 };
 
 # avc: denied { call } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
 # avc: denied { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
@@ -30,3 +33,68 @@ allow subfoundation distributeddata:binder { call transfer };
 
 # avc: denied { get } for service=1301 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class
 allow subfoundation sa_distributeddata_service:samgr_class { get };
+
+# avc: denied { call } for pid=1670, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1670, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow subfoundation system_basic_hap_attr:binder { call transfer };
+
+# avc: denied { open } for pid=11376, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:subfoundation:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+allow subfoundation dev_ashmem_file:chr_file { open };
+
+# avc: denied { use } for pid=1878, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:subfoundation:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=0
+allow subfoundation foundation:fd { use };
+
+# avc:  denied  { get } for service=1301 sid=u:r:subfoundation:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class
+allow subfoundation sa_foundation_abilityms:samgr_class { get };
+
+# avc: denied { call } for pid=19669, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=o:r:system_core_hap:s0:x227,x334,x512,x868,x1024 tclass=binder permissive=1
+allow subfoundation system_core_hap_attr:binder { call transfer };
+
+# avc: denied { call } for pid=14561, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+allow subfoundation accountmgr:binder { call };
+
+# avc:  denied  { open } for pid=11754, comm="/system/bin/sa_main" path="/dev/kmsg" dev="" scontext=u:r:subfoundation:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { write } for pid=11754, comm="/system/bin/sa_main" path="/dev/kmsg" dev="" scontext=u:r:subfoundation:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow subfoundation dev_kmsg_file:chr_file { open write };
+
+# avc: denied { call } for pid=1691, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1691, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow subfoundation foundation:binder { call transfer };
+
+# avc:  denied  { get } for service=200 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_accountmgr:samgr_class { get };
+
+# avc:  denied  { get } for service=200 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { get } for service=200 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_bms:samgr_class { get };
+
+# avc: denied { search } for pid=1657, comm="/system/bin/sa_main"  name="/app/el1/bundle/public/com.example.agentserver" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=62400 scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+allow subfoundation data_app_el1_file:dir { search };
+
+# avc: denied { map } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=370 scontext=u:r:subfoundation:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=370 scontext=u:r:subfoundation:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=370 scontext=u:r:subfoundation:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+allow subfoundation ohos_boot_param:file { map open read };
+
+# avc: denied { ioctl } for pid=11376, comm="/system/bin/sa_main" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:subfoundation:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
+allow subfoundation dev_at_file:chr_file { ioctl };
+
+# avc: denied { ioctl } for pid=11376, comm="/system/bin/sa_main" path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:subfoundation:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
+allowxperm subfoundation dev_at_file:chr_file ioctl { 0x5413 };
+
+# avc: denied { getopt } for pid=14561, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:subfoundation:s0 tclass=unix_dgram_socket permissive=1
+# avc: denied { setopt } for pid=14561, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:subfoundation:s0 tclass=unix_dgram_socket permissive=1
+allow subfoundation subfoundation:unix_dgram_socket { getopt setopt };
+
+# avc: denied { search } for pid=1657, comm="/system/bin/sa_main"  name="/app" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2070 scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
+allow subfoundation data_app_file:dir { search };
+
+# avc:  denied  { add } for service=185 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_agentmgr:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_agentmgr:samgr_class { add };
+
+# avc: denied { map } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=389 scontext=u:r:subfoundation:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=389 scontext=u:r:subfoundation:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=389 scontext=u:r:subfoundation:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+allow subfoundation persist_sys_param:file { map open read };
