@@ -107,3 +107,6 @@ allow useriam sa_sysparam_device_service:samgr_class { get };
 allow useriam deviceinfoservice:binder { call };
 
 allow useriam useriam_fwkready_param:parameter_service { set };
+
+# avc:  denied  { call } for pid=1625 comm="/system/bin/sa_main" scontext=u:r:useriam:s0 tcontext=u:object_r:secure_access_fence:s0 tclass=binder permissive=0
+binder_call(useriam, secure_access_fence)
