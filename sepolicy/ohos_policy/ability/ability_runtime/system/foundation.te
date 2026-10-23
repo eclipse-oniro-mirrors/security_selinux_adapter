@@ -153,3 +153,7 @@ allow foundation processdump:dir { search };
 # avc: denied { read } for pid=1532, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=o:r:processdump:s0:x244,x334,x512,x868,x1024 tclass=file permissive=0
 # avc: denied { open } for pid=1532, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=o:r:processdump:s0:x244,x334,x512,x868,x1024 tclass=file permissive=0
 allow foundation processdump:file { open read };
+
+# avc: denied { call } for pid=12707, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+# avc: denied { transfer } for pid=12707, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow foundation subfoundation:binder { call transfer };
