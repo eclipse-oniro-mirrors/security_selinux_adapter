@@ -22,7 +22,11 @@ allow cert_manager_service accesstoken_service:binder { call };
 allow cert_manager_service data_file:dir { search };
 allow cert_manager_service data_service_el1_file:dir { search };
 allow cert_manager_service cert_manager_service_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
-allow cert_manager_service cert_manager_service_file:file { create getattr ioctl open read setattr unlink write append rename };
+allow cert_manager_service cert_manager_service_file:file { create getattr ioctl open read setattr unlink write };
+# revocation cache under for-all-app carries its dedicated label; cache-only
+# operations (no rdb ioctl/lock/map, which stay on cert_manager_service_file)
+allow cert_manager_service cert_manager_for_all_app_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow cert_manager_service cert_manager_for_all_app_file:file { create getattr open read setattr unlink write };
 allow cert_manager_service data_service_file:dir { search };
 allow cert_manager_service debug_param:file { read open map };
 allow cert_manager_service dev_console_file:chr_file { read write };

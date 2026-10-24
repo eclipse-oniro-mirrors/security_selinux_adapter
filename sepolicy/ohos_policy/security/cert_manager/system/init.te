@@ -13,3 +13,5 @@
 
 allow init cert_manager_service_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init cert_manager_service_file:file { relabelto };
+allow init cert_manager_for_all_app_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init cert_manager_for_all_app_file:file { relabelto };
