@@ -31,6 +31,9 @@ allow security_component_service foundation:binder { call transfer };
 # avc:  denied  { read } for  pid=3239 comm="sa_main" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=102 scontext=u:r:security_component_service:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
 allow security_component_service hilog_param:file { map open read };
 
+# avc:  denied  { get } for service=1909 sid=u:r:security_component_service:s0 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
+allow security_component_service memmgrservice:binder { call };
+
 # avc:  denied  { map } for  pid=3239 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=108 scontext=u:r:security_component_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
 # avc:  denied  { open } for  pid=3239 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=108 scontext=u:r:security_component_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=3239 comm="sa_main" name="u:object_r:musl_param:s0" dev="tmpfs" ino=108 scontext=u:r:security_component_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
@@ -49,6 +52,9 @@ allow security_component_service sa_accesstoken_manager_service:samgr_class { ge
 
 # avc:  denied  { get } for service=501 pid=3239 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=1
 allow security_component_service sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { get } for service=1909 sid=u:r:security_component_service:s0 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
+allow security_component_service sa_memory_manager_service:samgr_class { get };
 
 # avc:  denied  { get } for service=3901 pid=3239 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
 allow security_component_service sa_param_watcher:samgr_class { get };

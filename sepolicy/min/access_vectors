@@ -544,6 +544,7 @@ class xpm
     exec_allow_sa_plugin
     exec_allow_debug_ownerid
     exec_allow_release_ownerid
+    exec_advsec_anon_mem
 }
 
 class hideaddr

@@ -158,6 +158,13 @@ allowxperm sadomain dev_at_file:chr_file ioctl { 0x4112 };
 neverallowxperm ~{ accesstoken_service violator_dev_at_file_chr_file_attr init} dev_at_file:chr_file ioctl { 0x4105 0x4106 0x4108 };
 neverallowxperm hap_domain dev_at_file:chr_file ioctl { 0x4102 0x4104 };
 
+# update arkwebcore
+allow accesstoken_service module_update_file:dir { search };
+allow accesstoken_service module_update_file:file { getattr open read };
+
+# read from /data/bms_app_clone/dataclone
+allow accesstoken_service data_file:file { getattr map open read };
+
 binder_call(accesstoken_service, resource_schedule_service);
 binder_call(accesstoken_service, distributeddata);
 binder_call(accesstoken_service, foundation);
@@ -170,3 +177,7 @@ debug_only(`
     binder_call(accesstoken_service, sh);
     binder_call(accesstoken_service, su);
 ')
+
+# rdb audit dumps records to /data/log/hiaudit/rdb
+allow accesstoken_service data_log:dir { add_name getattr open read search write create remove_name };
+allow accesstoken_service data_log:file { create getattr open read rename write unlink append };

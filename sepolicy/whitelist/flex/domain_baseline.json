@@ -1,6 +1,7 @@
 {
     "user": {
         "sadomain": [
+            "assessment_service",
             "sdc",
             "work_scheduler_service",
             "asset_service",
@@ -55,6 +56,7 @@
             "useriam",
             "distributedfileservice",
             "foundation",
+            "subfoundation",
             "storage_daemon",
             "inputmethod_service",
             "local_code_sign",

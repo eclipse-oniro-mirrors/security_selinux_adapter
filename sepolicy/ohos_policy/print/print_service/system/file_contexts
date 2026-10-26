@@ -25,3 +25,4 @@
 /data/service/el1/public/print_service/cups/spool           	u:object_r:print_driver_read:s0
 /data/service/el1/public/print_service/cups/ppd           	    u:object_r:print_driver_read:s0
 /data/service/el1/public/print_service/cups/socket(/.*)?        u:object_r:cups_socket:s0
+/data/service/el1/[0-9]+/print_service/data(/.*)?       u:object_r:print_driver_shared_file:s0

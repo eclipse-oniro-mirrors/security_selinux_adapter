@@ -82,11 +82,15 @@ allow useriam softbus_server:tcp_socket { read write setopt shutdown };
 # avc:  denied  { call } for  pid=553 comm="OS_IPC_3_1801" scontext=u:r:softbus_server:s0 tcontext=u:r:useriam:s0 tclass=binder permissive=1
 allow softbus_server useriam:binder { call };
 
-allow useriam data_service_el1_file:dir { search write add_name remove_name setattr open read };
+# avc: denied { getattr } for pid=1455, comm="system/bin/sa_main" path="/data/service/el1/100/useriam/pinauth" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=65106 scontext=u:r:useriam:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow useriam data_service_el1_file:dir { search write add_name remove_name getattr setattr open read };
 
 allow useriam data_service_el1_file:file { create getattr open read unlink write setattr rename };
 
 allow useriam data_service_file:dir { search };
+
+# avc: denied { getattr } for pid=1455, comm="system/bin/sa_main" path="memfd:pin_policy_tmp {deleted}" dev="none" ino=43 scontext=u:r:useriam:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+allow useriam tmpfs:file { getattr };
 
 allow useriam dev_at_file:chr_file { ioctl };
 

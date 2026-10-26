@@ -15,6 +15,7 @@ type data_service_scan_service_driver_file, file_attr, data_file_attr, exec_allo
 type print_driver_exec, exec_attr, file_attr, data_file_attr, exec_allow_ownerid_attr;
 type print_driver_tmp, file_attr, data_file_attr;
 type print_driver_read, file_attr, data_file_attr;
+type print_driver_shared_file, file_attr, data_file_attr, data_service_file_attr;
 type sane_service, sadomain, domain;
 type print_driver, sadomain, domain;
 type scan_service, sadomain, domain;

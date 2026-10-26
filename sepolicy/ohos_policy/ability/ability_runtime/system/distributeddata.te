@@ -14,3 +14,7 @@
 # avc:  denied  { call } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=1
 allow distributeddata aimgr:binder { call transfer };
+
+# avc: denied { call } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow distributeddata subfoundation:binder { call transfer };

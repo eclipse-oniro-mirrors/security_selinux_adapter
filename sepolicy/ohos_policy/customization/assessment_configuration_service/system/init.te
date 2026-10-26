@@ -1,0 +1,29 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { rlimitinh } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:init:s0 tcontext=u:r:assessment_service:s0 tclass=process permissive=1
+# avc: denied { siginh } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:init:s0 tcontext=u:r:assessment_service:s0 tclass=process permissive=1
+# avc: denied { transition } for pid=13767, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:assessment_service:s0 tclass=process permissive=1
+allow init assessment_service:process { rlimitinh siginh transition };
+
+# TODO(exam-mode): the two rules the cfg param job needs are deferred with the
+# assessment_writable_param label, which needs a platform memory registration (one
+# page-sized shared memory file per label). init evaluates the job condition,
+# expands ${persist.assessment.is_active}, then its command sets
+# persist.assessment.is_examination_running, so it needs read and set:
+#   allow init assessment_writable_param:file { map open read };
+#   allow init assessment_writable_param:parameter_service { set };
+# tmpfs associate and relabelto are already granted globally to parameter_attr. No
+# domain-wide read: the CI check forbids a native attribute such as domain as
+# subject or object. That job command is "ohsetprop", registered by a closed-source
+# init module via AddCmdExecutor(), so it is not in the open-source command table.

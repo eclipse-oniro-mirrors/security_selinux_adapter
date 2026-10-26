@@ -1,0 +1,205 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { call } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=1
+allow assessment_service accessibility:binder { call transfer };
+
+# avc: denied { map } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=257 scontext=u:r:assessment_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=257 scontext=u:r:assessment_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=257 scontext=u:r:assessment_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow assessment_service arkcompiler_param:file { map open read };
+
+# avc: denied { supervsable } for pid=13767, comm="/bin/init"  scontext=u:r:assessment_service:s0 tcontext=u:r:assessment_service:s0 tclass=hmcap permissive=1
+# Skip: neverallow in kernel/linux/public/kernel.te; we are not in any
+# hmcap_supervsable_* attribute and that list is the kernel team's to change.
+# allow assessment_service assessment_service:hmcap { supervsable };
+
+# avc: denied { getopt } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:assessment_service:s0 tclass=unix_dgram_socket permissive=1
+# avc: denied { setopt } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:assessment_service:s0 tclass=unix_dgram_socket permissive=1
+allow assessment_service assessment_service:unix_dgram_socket { getopt setopt };
+
+# avc:  denied  { set } for parameter=persist.assessment.is_active pid=13767 uid=1000 gid=1000 scontext=u:r:assessment_service:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=1
+# TODO(exam-mode): deferred with the assessment_writable_param label, which needs a
+# platform memory registration (one page-sized shared memory file per label).
+# tcontext reads persist_param only because the capture device had not loaded our
+# parameter_contexts. Do not grant set on persist_param instead: "persist." is a
+# catch-all prefix, so that would allow writing almost every persist.* parameter.
+# Meanwhile these writes are denied under enforcing, but SaveState()/ClearState()
+# only publish a trace event and do not abort, and LoadState() has no caller.
+# allow assessment_service assessment_writable_param:parameter_service { set };
+
+# avc: denied { map } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=244 scontext=u:r:assessment_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=244 scontext=u:r:assessment_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=244 scontext=u:r:assessment_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow assessment_service debug_param:file { map open read };
+
+# avc: denied { ioctl } for pid=15366, comm="/system/bin/sa_main"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x5413 scontext=u:r:assessment_service:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+# From the earlier capture. The global allowx for dev_at_file only carries
+# 0x4101/0x4103/0x4107, so 0x5413 must be granted per domain. The plain ioctl
+# permission is globally covered, but the pair is kept as aimgr/acm and others do.
+allow assessment_service dev_at_file:chr_file { ioctl };
+allowxperm assessment_service dev_at_file:chr_file ioctl { 0x5413 };
+
+# avc: denied { ioctl } for pid=9316, comm="/system/bin/sa_main"  path="/dev/binder" dev="" ino=13 ioctlcmd=0x62aa scontext=u:r:assessment_service:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=0
+# From the latest capture. The global rules only grant
+# (allowx domain dev_binder_file (ioctl chr_file ((0x6201 0x6205 (range 0x6208
+# 0x6209) (range 0x621e 0x6220) 0x62a1)))), coming from base/public/domain.te
+# plus samgr/public/domain.te. 0x62aa is not among them, so it has to be
+# granted per domain, as samgr and privacy_service already do for this command.
+# The plain ioctl allow below is already covered by
+# (allow domain dev_binder_file (chr_file (ioctl map open read write))) and a
+# redundancy scan reports it as such; it is kept because an ioctl allow must be
+# paired with its allowxperm, as privacy_service does and as the dev_at_file
+# entry above does.
+allow assessment_service dev_binder_file:chr_file { ioctl };
+allowxperm assessment_service dev_binder_file:chr_file ioctl { 0x62aa };
+
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=28 scontext=u:r:assessment_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+# avc: denied { write } for pid=13767, comm="/system/bin/sa_main"  path="/dev/kmsg" dev="" ino=28 scontext=u:r:assessment_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow assessment_service dev_kmsg_file:chr_file { open write };
+
+# avc: denied { search } for pid=13767, comm="/system/bin/sa_main"  name="/unix/socket" dev="" ino=213 scontext=u:r:assessment_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow assessment_service dev_unix_socket:dir { search };
+
+# avc: denied { map } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:devinfo_type_param:s0" dev="" ino=287 scontext=u:r:assessment_service:s0 tcontext=u:object_r:devinfo_type_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:devinfo_type_param:s0" dev="" ino=287 scontext=u:r:assessment_service:s0 tcontext=u:object_r:devinfo_type_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:devinfo_type_param:s0" dev="" ino=287 scontext=u:r:assessment_service:s0 tcontext=u:object_r:devinfo_type_param:s0 tclass=file permissive=1
+# No allow here: assessment_service is admitted to devinfo_type_allow_attr in
+# startup/init/public/parameter.te, which already grants that attribute
+# devinfo_type_param:file {open read map}. Needed by GetDeviceType().
+
+# avc: denied { call } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow assessment_service foundation:binder { call transfer };
+
+# avc:  denied  { get } for service=66568 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:histogram_service:s0 tclass=samgr_class permissive=1
+allow assessment_service histogram_service:samgr_class { get };
+
+# avc: denied { connectto } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+allow assessment_service kernel:unix_stream_socket { connectto };
+
+# avc: denied { call } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow assessment_service media_service:binder { call transfer };
+
+# avc: denied { map } for pid=15366, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:assessment_service:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=15366, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:assessment_service:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=15366, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:assessment_service:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+# From the earlier capture; not seen in the latest run but kept, being a normal read.
+allow assessment_service ohos_boot_param:file { map open read };
+
+# avc: denied { call } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+allow assessment_service param_watcher:binder { call transfer };
+
+# avc: denied { write } for pid=13767, comm="/system/bin/sa_main"  path="/dev/unix/socket/paramservice" dev="" ino=220 scontext=u:r:assessment_service:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
+allow assessment_service paramservice_socket:sock_file { write };
+
+# avc: denied { map } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=243 scontext=u:r:assessment_service:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=243 scontext=u:r:assessment_service:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+# avc: denied { read } for pid=13767, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=243 scontext=u:r:assessment_service:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+allow assessment_service persist_sys_param:file { map open read };
+
+# avc: denied { call } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+allow assessment_service powermgr:binder { call transfer };
+
+# avc:  denied  { get } for service=801 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_accessibleabilityms:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_accessibleabilityms:samgr_class { get };
+
+# avc:  denied  { add } for service=8660 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_assessment_service:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_assessment_service:samgr_class { add };
+
+# avc:  denied  { get } for service=180 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_foundation_abilityms:samgr_class { get };
+
+# avc:  denied  { get } for service=501 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_foundation_appms:samgr_class { get };
+
+# avc:  denied  { get } for service=401 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_foundation_bms:samgr_class { get };
+
+# avc:  denied  { get } for service=3299 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc:  denied  { get } for service=4607 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_foundation_dms:samgr_class { get };
+
+# avc:  denied  { get } for service=4005 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_tel_call_manager:s0 tclass=samgr_class permissive=1
+# NOTE: this capture ran on a build still carrying the sa_foundation_tel_* naming.
+# Upstream reverted "split_process" (75b9a4576) and then renamed the whole telecom
+# policy back in 946301902 "revert_to_telcom dir", so SAID 4005 and 4009 now map
+# to sa_telecom_tel_call_manager and sa_telecom_tel_state_registry, as recorded in
+# base/public/service_contexts. The AVC above is kept verbatim as evidence; the
+# rule uses the name that exists in this tree.
+allow assessment_service sa_telecom_tel_call_manager:samgr_class { get };
+
+# avc:  denied  { get } for service=4009 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_tel_state_registry:s0 tclass=samgr_class permissive=1
+# Same naming note as the SAID 4005 entry above.
+allow assessment_service sa_telecom_tel_state_registry:samgr_class { get };
+
+# avc:  denied  { get } for service=3002 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_media_service:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_media_service:samgr_class { get };
+
+# avc:  denied  { get } for service=3901 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_param_watcher:samgr_class { get };
+
+# avc:  denied  { get } for service=3301 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=1
+allow assessment_service sa_powermgr_powermgr_service:samgr_class { get };
+
+# avc:  denied  { get } for service=66818 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:service_66818:s0 tclass=samgr_class permissive=1
+# Dropped, not suspended: service_66818 is a label samgr synthesises at runtime for
+# an SAID with no static mapping (66818 is absent from system_ability_definition.h
+# and no service_contexts covers 668xx), so it is undefined here and a fallback
+# label may not be targeted. The owning component must register a real label first.
+
+# avc:  denied  { set } for parameter=ohos.servicectrl.stop.softbus_server pid=13767 uid=1000 gid=1000 scontext=u:r:assessment_service:s0 tcontext=u:object_r:servicectrl_param:s0 tclass=parameter_service permissive=1
+allow assessment_service servicectrl_param:parameter_service { set };
+
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu" dev="" ino=6 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=13767, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu" dev="" ino=6 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+allow assessment_service sysfs_devices_system_cpu:dir { open read };
+
+# avc: denied { getattr } for pid=13767, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=99 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=99 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+# avc: denied { read } for pid=13767, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=99 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow assessment_service sysfs_devices_system_cpu:file { getattr open read };
+
+# avc: denied { call } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=18460, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
+# AVCs show concrete hap types, but application policy uses attributes. The
+# permission is system_basic level, so hap_domain would over-authorise.
+# transfer: InvokeSystemDialog() connects the SceneBoard sysDialog extension and
+# hands it the AssessmentAbilityConnection node created in this process.
+allow assessment_service system_basic_hap_attr:binder { call transfer };
+allow assessment_service system_core_hap_attr:binder { call transfer };
+
+# avc: denied { search } for pid=13767, comm="/system/bin/sa_main"  name="/usr/icu" dev="overlay" ino=2857 scontext=u:r:assessment_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+allow assessment_service system_usr_file:dir { search };
+
+# avc: denied { getattr } for pid=13767, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2860 scontext=u:r:assessment_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=13767, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2860 scontext=u:r:assessment_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=13767, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2860 scontext=u:r:assessment_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=13767, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2860 scontext=u:r:assessment_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow assessment_service system_usr_file:file { getattr map open read };
+
+# avc: denied { search } for pid=13767, comm="/system/bin/sa_main"  name="/etc" dev="overlay" ino=5 scontext=u:r:assessment_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+# Skip: neverallow in base/system/system_domain.te ending "vendor_etc_file:dir
+# { search }" does not exempt us (the rule above it, using ~{ search ... }, does --
+# both must be read together). Exemption needs vendor_etc_file_violator_dir_search,
+# i.e. security review, and base/ needs architecture review.
+# allow assessment_service vendor_etc_file:dir { search };
+
+# avc: denied { set } for parameter=persist.assessment.is_active pid=13414 uid=1000 gid=1000 scontext=u:r:assessment_service:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=0
+allow assessment_service persist_param:parameter_service { set };
