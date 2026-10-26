@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow netsysnative download_server:udp_socket { getopt setopt };
+#avc: denied { getattr } for pid=835, comm="/system/bin/sa_main" ioctlcmd=0x0 scontext=u:r:netsysnative:s0 tcontext=u:r:download_server:s0 tclass=udp_socket permissive=0
+allow netsysnative download_server:udp_socket { getopt setopt getattr };
 allow netsysnative download_server:tcp_socket { getopt setopt };
 
+#avc: denied { use } for pid=835, comm="/system/bin/sa_main" scontext=u:r:netsysnative:s0 tcontext=u:r:download_server:s0 tclass=fd permissive=0
+allow netsysnative download_server:fd { use };
