@@ -241,6 +241,11 @@ allow distributeddata usb_service:binder { transfer };
 allow distributeddata concurrent_task_service:binder { call };
 allow distributeddata sa_concurrent_task_service:samgr_class { get };
 
+allow distributeddata system_basic_hap_data_file:dir {ioctl};
+allow distributeddata system_core_hap_data_file:dir {ioctl};
+allowxperm distributeddata system_basic_hap_data_file:dir ioctl { 0xf548 0xf549 };
+allowxperm distributeddata system_core_hap_data_file:dir ioctl { 0xf548 0xf549 };
+
 # avc: denied { call } for pid=1785, comm="/system/bin/sa_main"  scontext=u:r:distributeddata:s0 tcontext=u:r:storage_space_manager:s0 tclass=binder permissive=1
 allow distributeddata storage_space_manager:binder { call };
 
