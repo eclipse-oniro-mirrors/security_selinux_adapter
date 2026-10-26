@@ -12,6 +12,9 @@
 # limitations under the License.
 
 allow hap_domain cert_manager_service_file:file { open read getattr };
+
 allow hap_domain cert_manager_service_file:dir { open getattr search read };
+
 allow hap_domain cert_manager_for_all_app_file:file { open read getattr };
+
 allow hap_domain cert_manager_for_all_app_file:dir { open getattr search read };
