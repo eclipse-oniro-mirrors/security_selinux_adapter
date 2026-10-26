@@ -104,3 +104,9 @@ allow compiler_service data_app_el1_arkcache:dir { remove_name };
 
 # avc: denied { unlink } for pid=10383, comm="/system/bin/sa_main"  name="/app/el1/public/aot_compiler/ark_cache/com.gotokeep.hm.keep/arm64/foundation.an" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=42854 scontext=u:r:compiler_service:s0 tcontext=u:object_r:data_app_el1_arkcache:s0 tclass=file permissive=1
 allow compiler_service data_app_el1_arkcache:file { unlink };
+
+# avc:  denied  { get } for service=3524 sid=u:r:compiler_service:s0 scontext=u:r:compiler_service:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=1
+allow compiler_service sa_sg_collect_service:samgr_class { get };
+
+# avc: denied { call } for pid=9648, comm="/system/bin/sa_main"  scontext=u:r:compiler_service:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=1
+allow compiler_service security_guard:binder { call };
