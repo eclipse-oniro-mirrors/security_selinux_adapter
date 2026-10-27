@@ -15,6 +15,12 @@ allow init cert_manager_service_file:dir { add_name create getattr open read rel
 
 allow init cert_manager_service_file:file { relabelto };
 
-allow init cert_manager_for_all_app_file:dir { add_name create getattr open read relabelto search setattr write };
-
-allow init cert_manager_for_all_app_file:file { relabelto };
+# avc: denied { create } for pid=1, comm="/bin/init"  name="/service/el1/public/for-all-app/cert_manager_service/certificates" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57794 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+# avc: denied { getattr } for pid=1, comm="/bin/init"  path="/data/service/el1/public/for-all-app/cert_manager_service/certificates" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57794 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=1, comm="/bin/init"  path="/data/service/el1/public/for-all-app/cert_manager_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57792 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=1, comm="/bin/init"  path="/data/service/el1/public/for-all-app/cert_manager_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57792 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+# avc: denied { relabelto } for pid=1, comm="/bin/init"  name="/service/el1/public/for-all-app/cert_manager_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57792 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+# avc: denied { search } for pid=1, comm="/bin/init"  name="/service/el1/public/for-all-app/cert_manager_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57792 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+# avc: denied { setattr } for pid=1, comm="/bin/init"  name="/service/el1/public/for-all-app/cert_manager_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57792 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+# avc: denied { write add_name search } for pid=1, comm="/bin/init"  name="/service/el1/public/for-all-app/cert_manager_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=57792 scontext=u:r:init:s0 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+allow init cert_manager_for_all_app_file:dir { create getattr open read relabelto search setattr write add_name };
