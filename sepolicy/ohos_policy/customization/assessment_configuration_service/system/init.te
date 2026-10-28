@@ -16,6 +16,9 @@
 # avc: denied { transition } for pid=13767, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:assessment_service:s0 tclass=process permissive=1
 allow init assessment_service:process { rlimitinh siginh transition };
 
+# avc: denied { setsched } for pid=1, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:assessment_service:s0 tclass=process permissive=0
+allow init assessment_service:process { setsched };
+
 # TODO(exam-mode): the two rules the cfg param job needs are deferred with the
 # assessment_writable_param label, which needs a platform memory registration (one
 # page-sized shared memory file per label). init evaluates the job condition,

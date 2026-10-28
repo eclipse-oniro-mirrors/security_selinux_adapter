@@ -79,6 +79,9 @@ allow assessment_service dev_unix_socket:dir { search };
 # startup/init/public/parameter.te, which already grants that attribute
 # devinfo_type_param:file {open read map}. Needed by GetDeviceType().
 
+# avc: denied { call } for pid=11823, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:edm_sa:s0 tclass=binder permissive=1
+allow assessment_service edm_sa:binder { call };
+
 # avc: denied { call } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 # avc: denied { transfer } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 allow assessment_service foundation:binder { call transfer };
@@ -120,6 +123,9 @@ allow assessment_service sa_accessibleabilityms:samgr_class { get };
 
 # avc:  denied  { add } for service=8660 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_assessment_service:s0 tclass=samgr_class permissive=1
 allow assessment_service sa_assessment_service:samgr_class { add };
+
+# avc: denied { get } for service=1601 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_enterprise_device_manager_service:s0 tclass=samgr_class permissive=0
+allow assessment_service sa_enterprise_device_manager_service:samgr_class { get };
 
 # avc:  denied  { get } for service=180 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
 allow assessment_service sa_foundation_abilityms:samgr_class { get };
