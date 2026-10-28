@@ -195,3 +195,7 @@ allow media_service hiview:binder { call transfer };
 allow media_service sa_telecom_tel_call_manager:samgr_class { get };
 
 allow media_service telephony_sa:binder { transfer };
+
+# avc:  denied  { ioctl } for  pid=1068 comm="PlayerEngine" path=xxx dev="sda49" ino=29 ioctlcmd=0xf207 scontext=u:r:media_service:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=1
+allow media_service sys_prod_file:file { ioctl };
+allowxperm media_service sys_prod_file:file ioctl 0xf207;
