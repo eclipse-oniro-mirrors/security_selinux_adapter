@@ -107,3 +107,10 @@ allow pasteboard_service data_service_el2_hmdfs:lnk_file { create };
 
 #avc:  denied  { get } for service=3299 pid=2135 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow pasteboard_service sa_foundation_cesfwk_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3524 sid=u:r:pasteboard_service:s0 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow pasteboard_service sa_sg_collect_service:samgr_class { get };
+
+#avc:  denied  { call } for service=3524 sid=u:r:pasteboard_service:s0 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:security_guard:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for service=3524 sid=u:r:pasteboard_service:s0 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:security_guard:s0 tclass=binder permissive=0
+allow pasteboard_service security_guard:binder { call transfer };
