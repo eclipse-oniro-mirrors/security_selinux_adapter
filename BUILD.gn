@@ -894,8 +894,16 @@ action("selinux_check") {
   # actions (build_policy, build_contexts, etc.) write to the same directory,
   # updating its mtime after selinux_check.stamp is created.
   outputs = [
+    "$target_gen_dir/selinux_check.complete",
     "$target_out_dir/all.cil",
     "$target_out_dir/developer/all.cil",
+  ]
+  depfile = "$target_gen_dir/selinux_check.d"
+  args += [
+    "--stamp",
+    rebase_path(outputs[0], root_build_dir),
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
   ]
 
   deps = [

@@ -104,6 +104,8 @@ def parse_args():
     parser.add_argument('--developer-policy', help='the developer policy file', required=True)
     parser.add_argument('--tool-path', help='the policy tool bin path', required=True)
     parser.add_argument('--policy-dir-list', help='policy dirs need to be included', required=True)
+    parser.add_argument('--stamp')
+    parser.add_argument('--depfile')
     return parser.parse_args()
 
 
@@ -122,3 +124,18 @@ if __name__ == "__main__":
             cmd.extend(extra_args)
         cmd.extend(["--policy-dir-list", ":".join(policy_dir_list)])
         run_command(cmd)
+
+    if input_args.depfile:
+        import sys
+        sys.path.insert(0, os.path.join(input_args.source_root_dir, "build"))
+        from scripts.util.build_utils import write_depfile
+        dependencies = [os.path.join(input_args.source_root_dir, input_args.selinux_check_config)]
+        for directory, directories, files in os.walk(os.path.dirname(__file__)):
+            directories[:] = [name for name in directories if name != "__pycache__"]
+            dependencies.append(directory)
+            dependencies.extend(os.path.join(directory, name) for name in files if name.endswith(".py"))
+        write_depfile(input_args.depfile, input_args.stamp, dependencies, add_pydeps=False)
+    if input_args.stamp:
+        os.makedirs(os.path.dirname(os.path.abspath(input_args.stamp)), exist_ok=True)
+        with open(input_args.stamp, "w", encoding="utf-8"):
+            pass
