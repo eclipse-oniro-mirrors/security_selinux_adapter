@@ -61,6 +61,10 @@ allow security_guard sa_sg_collect_service:samgr_class { get add };
 binder_call(security_guard, hap_domain);
 allow security_guard sa_sys_event_service:samgr_class { get };
 
+#avc:  denied  { call } for service=3524 sid=u:r:security_guard:s0 scontext=u:r:security_guard:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for service=3524 sid=u:r:security_guard:s0 scontext=u:r:security_guard:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=0
+binder_call(security_guard, pasteboard_service);
+
 allow security_guard sa_security_collector_service:samgr_class { get add };
 
 binder_call(security_guard, security_collector);
