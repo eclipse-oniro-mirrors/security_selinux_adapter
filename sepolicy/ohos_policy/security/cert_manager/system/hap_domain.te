@@ -12,4 +12,13 @@
 # limitations under the License.
 
 allow hap_domain cert_manager_service_file:file { open read getattr };
+
 allow hap_domain cert_manager_service_file:dir { open getattr search read };
+
+# avc: denied { getattr } for pid=18042, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/cert_manager_service/certificates/revocation/ocsp/746573744b657900.cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=45308 scontext=o:r:debug_hap:s0:x241,x334,x512,x868,x1024 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=18042, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/cert_manager_service/certificates/revocation/ocsp/746573744b657900.cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=45308 scontext=o:r:debug_hap:s0:x241,x334,x512,x868,x1024 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=18042, comm="/system/bin/appspawn"  path="/data/service/el1/public/for-all-app/cert_manager_service/certificates/revocation/ocsp/746573744b657900.cache" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=45308 scontext=o:r:debug_hap:s0:x241,x334,x512,x868,x1024 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=file permissive=1
+allow hap_domain cert_manager_for_all_app_file:file { getattr open read };
+
+# avc: denied { search } for pid=18042, comm="/system/bin/appspawn"  name="/service/el1/public/for-all-app/cert_manager_service/certificates/revocation/ocsp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=46008 scontext=o:r:debug_hap:s0:x241,x334,x512,x868,x1024 tcontext=u:object_r:cert_manager_for_all_app_file:s0 tclass=dir permissive=1
+allow hap_domain cert_manager_for_all_app_file:dir { search };

@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type cert_manager_service_file, file_attr, data_file_attr;
+type cert_manager_for_all_app_file, file_attr, data_file_attr;
