@@ -280,4 +280,5 @@ allow msdp_sa hdf_allocator_service:hdf_devmgr_class { get };
 # avc: denied { transfer } for pid=1211, comm="/system/bin/sa_main"  scontext=u:r:msdp_sa:s0 tcontext=u:r:sceneboard_hap:s0 tclass=binder permissive=1
 allow msdp_sa hap_domain:binder { transfer };
 
+#avc: denied { get } for service=3203 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
 allow msdp_sa sa_foundation_ans:samgr_class { get };
