@@ -596,6 +596,7 @@ class hmcap
     deep_sleep_snap
     devmem_isolation
     prelink_bypass
+    keyfile_setflag
 }
 
 class dmaheap
