@@ -16,3 +16,12 @@ allow foundation edm_sa:dir { search };
 
 # avc: denied { getattr } for pid=854 comm="IPC_14_1986" path="/proc/2168/cmdline" dev="proc" ino=28981 scontext=u:r:foundation:s0 tcontext=u:r:edm_sa:s0 tclass=file permissive=1
 allow foundation edm_sa:file { open read getattr };
+
+# avc: denied { search } for pid=1562 comm="/system/bin/sa_main" name="/service/el1/public/edm" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" info=458 scontext=u:r:foundation:s0 tcontext=u:object_r:edm_base_file:s0 tclass=dir permissive=1
+allow foundation edm_base_file:dir { search };
+
+# avc: denied { getattr } for pid=1562 comm="/system/bin/sa_main" path="/data/service/el1/public/edm/stream_install/edm_1793414519252906_661_TestDemo.hap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" info=37407 scontext=u:r:foundation:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=1562 comm="/system/bin/sa_main" path="/data/service/el1/public/edm/stream_install/edm_1793414519252906_661_TestDemo.hap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" info=37407 scontext=u:r:foundation:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1562 comm="/system/bin/sa_main" path="/data/service/el1/public/edm/stream_install/edm_1793414519252906_661_TestDemo.hap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" info=37407 scontext=u:r:foundation:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=1562 comm="/system/bin/sa_main" path="/data/service/el1/public/edm/stream_install/edm_1793414519252906_661_TestDemo.hap" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" info=37407 scontext=u:r:foundation:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=1
+allow foundation edm_base_file:file { open read getattr map };
