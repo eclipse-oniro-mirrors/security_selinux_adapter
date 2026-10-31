@@ -98,3 +98,168 @@ allow subfoundation sa_foundation_agentmgr:samgr_class { add };
 # avc: denied { open } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=389 scontext=u:r:subfoundation:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
 # avc: denied { read } for pid=14561, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="" ino=389 scontext=u:r:subfoundation:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
 allow subfoundation persist_sys_param:file { map open read };
+
+# avc: denied { search } for pid=792 comm="OS_FFRT_2_3" name="/" dev="sda63" ino=3 scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow subfoundation data_file:dir { search };
+
+# avc: denied { search } for pid=4160 comm="subfoundation" name="etc" dev="sda49" ino=12 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
+allow subfoundation sys_prod_file:dir { search };
+
+# avc: denied { search } for pid=4160 comm="subfoundation" name="usr" dev="sda47" ino=5721 scontext=u:r:subfoundation:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=0
+allow subfoundation system_usr_file:dir { search };
+
+# avc: denied { getattr } for pid=1480, comm="/system/bin/sa_main"  path="/system/usr/icu/icudt74l.dat" dev="overlay" ino=2711 scontext=u:r:subfoundation:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow subfoundation system_usr_file:file { getattr map open read };
+
+# avc: denied { read } for pid=4160 comm="SaInit0" name="cpu" dev="sysfs" ino=8392 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
+allow subfoundation sysfs_devices_system_cpu:dir { open read };
+
+# avc: denied { read } for pid=1480, comm="/system/bin/sa_main"  path="/sys/devices/system/cpu/online" dev="" ino=113 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow subfoundation sysfs_devices_system_cpu:file { getattr open read };
+
+# avc: denied { call } for pid=747 comm="subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=747 comm="subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
+allow subfoundation time_service:binder { call transfer };
+
+# avc: denied { call } for pid=715 comm="OS_IPC_6_8495" scontext=u:r:subfoundation:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=715 comm="OS_IPC_6_8495" scontext=u:r:subfoundation:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
+allow subfoundation device_manager:binder { call transfer };
+
+# avc: denied { call } for pid=946 comm="OS_FFRT_2_1" scontext=u:r:subfoundation:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=747 comm="OS_FFRT_2_3" scontext=u:r:subfoundation:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
+allow subfoundation resource_schedule_service:binder { call transfer };
+
+# avc: denied { use } for pid=747 comm="subfoundation" path="/dev/ashmem" dev="tmpfs" ino=384 ioctlcmd=0x7704 scontext=u:r:subfoundation:s0 tcontext=u:r:usb_service:s0 tclass=fd permissive=1
+allow subfoundation usb_service:fd { use };
+
+# avc: denied { use } for pid=702 comm="OS_IPC_6_2078" path="/dev/ashmem" dev="tmpfs" ino=384 scontext=u:r:subfoundation:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
+allow subfoundation distributeddata:fd { use };
+
+# avc: denied { use } for pid=24246 comm="OS_FFRT_3_0" path="/dev/ashmem" dev="tmpfs" ino=384 scontext=u:r:subfoundation:s0 tcontext=u:r:normal_hap:s0 tclass=fd permissive=1
+allow subfoundation normal_hap_attr:fd { use };
+
+# avc: denied { call } for pid=946 comm="OS_FFRT_2_0" scontext=u:r:subfoundation:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
+allow subfoundation normal_hap_attr:binder { call };
+
+# avc: denied { use } for pid=20953 comm="OS_FFRT_3_0" path="/dev/ashmem" dev="tmpfs" ino=384 scontext=u:r:subfoundation:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=1
+allow subfoundation system_basic_hap_attr:fd { use };
+
+# avc: denied { call } for pid=639 comm="timer_loop" scontext=u:r:time_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow time_service subfoundation:binder { call };
+
+# avc: denied { call } for pid=1040 comm="usbDelayTimer" scontext=u:r:usb_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow usb_service subfoundation:binder { call };
+
+# avc: denied { getattr } for pid=661 comm="time_service" path="/proc/747/cmdline" dev="proc" ino=18608 scontext=u:r:time_service:s0 tcontext=u:r:subfoundation:s0 tclass=file permissive=1
+allow time_service subfoundation:file { getattr open read };
+
+# avc: denied { read } for pid=4217, comm="/system/bin/hidumper"  path="/proc/1480/smaps_rollup" dev="" ino=193825 scontext=u:r:hidumper:s0 tcontext=u:r:subfoundation:s0 tclass=file permissive=1
+allow hidumper subfoundation:file { read };
+
+# avc: denied { add } for service=3203 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_ans:samgr_class { add };
+
+# avc: denied { get } for service=3203 sid=u:r:foundation:s0 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=1
+allow foundation sa_foundation_ans:samgr_class { get };
+
+# avc: denied { get } for service=3299 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc: denied { get } for service=4802 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_devicemanager_service:samgr_class { get };
+
+# avc: denied { get } for service=3204 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_reminder_agent_service:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_reminder_agent_service:samgr_class { get };
+
+# avc: denied { get } for service=4606 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_wms:samgr_class { get };
+
+# avc: denied { get } for service=3704 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_screenlock_service:samgr_class { get };
+
+# avc: denied { get } for service=3702 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_time_service:samgr_class { get };
+
+# avc:  denied  { get } for service=3301 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_powermgr_powermgr_service:s0 tclass=samgr_class permissive=0
+allow subfoundation sa_powermgr_powermgr_service:samgr_class { get };
+
+# avc:  denied  { get } for service=1130 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=0
+allow subfoundation sa_bluetooth_server:samgr_class { get };
+
+# avc:  denied  { get } for service=1907 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_device_usage_statistics_service:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_device_usage_statistics_service:samgr_class { get };
+
+# avc: denied { call } for pid=1570, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1570, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:powermgr:s0 tclass=binder permissive=1
+allow subfoundation powermgr:binder { call transfer };
+
+# avc: denied { use } for pid=57825, comm="/system/bin/appspawn" path="anon_inode:dmabuf" dev="(null)" ino=0 scontext=u:r:subfoundation:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
+# avc: denied { use } for pid=63541, comm="/system/bin/appspawn" path="/dev/ashmem" dev="" ino=1 scontext=u:r:subfoundation:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
+allow subfoundation system_core_hap_attr:fd { use };
+
+# avc: denied { call } for pid=1558, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1558, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
+allow subfoundation bluetooth_service:binder { call transfer };
+
+# avc: denied { call } for pid=1558, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:download_server:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1558, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:download_server:s0 tclass=binder permissive=1
+allow subfoundation download_server:binder { call transfer };
+
+# avc: denied { call } for pid=1480, comm="/system/bin/sa_main"  scontext=u:r:subfoundation:s0 tcontext=u:r:av_session:s0 tclass=binder permissive=1
+allow subfoundation av_session:binder { call };
+
+# avc: denied { use } for pid=1594, comm="/system/bin/sa_main"  path="anon_inode:dmabuf" dev="(null)" ino=0 scontext=u:r:subfoundation:s0 tcontext=u:r:av_session:s0 tclass=fd permissive=1
+allow subfoundation av_session:fd { use };
+
+# avc: denied { use } for pid=1480, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 ioctlcmd=0xaaaa scontext=u:r:subfoundation:s0 tcontext=u:r:audio_server:s0 tclass=fd permissive=1
+allow subfoundation audio_server:fd { use };
+
+# avc:  denied  { get } for service=codec_image_service sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:hdf_codec_image_service:s0 tclass=hdf_devmgr_class permissive=1
+allow subfoundation hdf_codec_image_service:hdf_devmgr_class { get };
+
+# avc: denied { read } for pid=1558, comm="/system/bin/sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=395 scontext=u:r:subfoundation:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1558, comm="/system/bin/sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="" ino=395 scontext=u:r:subfoundation:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow subfoundation debug_param:file { map open read };
+
+# avc: denied { read } for pid=1558, comm="/system/bin/sa_main" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=408 scontext=u:r:subfoundation:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1558, comm="/system/bin/sa_main" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=408 scontext=u:r:subfoundation:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow subfoundation arkcompiler_param:file { map open read };
+
+# devinfo_type_param 读权限由 init/public/parameter.te 的
+# allow devinfo_type_allow_attr devinfo_type_param:file {open read map};
+# 统一放行（subfoundation 已加入 devinfo_type_allow_attr），此处不再重复定义
+
+# avc: denied { call } for pid=1522, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1522, comm="/system/bin/sa_main" scontext=u:r:bluetooth_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow bluetooth_service subfoundation:binder { call transfer };
+
+# avc: denied { call } for pid=10239, comm="/system/bin/sa_main" scontext=u:r:download_server:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=10239, comm="/system/bin/sa_main" scontext=u:r:download_server:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow download_server subfoundation:binder { call transfer };
+
+# avc: denied { call } for pid=1547, comm="/system/bin/sa_main" scontext=u:r:useriam:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1547, comm="/system/bin/sa_main" scontext=u:r:useriam:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow useriam subfoundation:binder { call transfer };
+
+# avc: denied { call } for pid=977, comm="/system/bin/sa_main"  scontext=u:r:resource_schedule_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=977, comm="/system/bin/sa_main"  scontext=u:r:resource_schedule_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow resource_schedule_service subfoundation:binder { call transfer };
+
+# avc: denied { call } for pid=1112, comm="/system/bin/sa_main" scontext=u:r:netmanager:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow netmanager subfoundation:binder { call };
+
+# avc: denied { use } for pid=38067, comm="/system/bin/sa_main" path="/dev/ashmem" dev="" ino=1 scontext=u:r:resource_schedule_service:s0 tcontext=u:r:subfoundation:s0 tclass=fd permissive=0
+allow resource_schedule_service subfoundation:fd { use };
+
+# avc: denied { call } for pid=1654, comm="/system/bin/sa_main" scontext=u:r:av_session:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+# avc: denied { transfer } for pid=1594, comm="/system/bin/sa_main"  scontext=u:r:av_session:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow av_session subfoundation:binder { call transfer };
+
+# avc: denied { use } for pid=1561, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:foundation:s0 tcontext=u:r:subfoundation:s0 tclass=fd permissive=1
+allow foundation subfoundation:fd { use };
+
+# avc: denied { read } for pid=1590, comm="/system/bin/sa_main" path="/proc/cpuinfo" dev="" ino=37 scontext=u:r:subfoundation:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=0
+allow subfoundation proc_cpuinfo_file:file { getattr open read };
+
+# avc: denied { use } for pid=1590, comm="/system/bin/sa_main" path="anon_inode:dmabuf" dev="(null)" ino=0 scontext=o:r:normal_hap:s0:x55,x335,x512,x868,x1024 tcontext=u:r:subfoundation:s0 tclass=fd permissive=0
+binder_call(hap_domain, subfoundation);
