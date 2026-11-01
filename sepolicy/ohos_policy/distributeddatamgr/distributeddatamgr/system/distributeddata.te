@@ -99,6 +99,9 @@ allow distributeddata system_core_hap_data_file_attr:file { getattr ioctl lock m
 allow distributeddata system_etc_file:dir { getattr open read };
 allow distributeddata system_profile_file:dir { search };
 allow distributeddata telephony_sa:binder { call transfer };
+# Allow UDMF to create the FUSE mount child under /mnt/data/<userId>/udmf_fuse.
+# The child must exist before storage_service validates the mount path.
+allow distributeddata tmpfs:dir { add_name create write };
 allow distributeddata tmpfs:lnk_file { read };
 allow distributeddata vendor_file:file { execute getattr map open read };
 allow distributeddata vendor_lib_file:dir { search };
@@ -240,6 +243,15 @@ allowxperm distributeddata data_service_el2_pasteboard_service:file ioctl { 0xf5
 allow distributeddata usb_service:binder { transfer };
 allow distributeddata concurrent_task_service:binder { call };
 allow distributeddata sa_concurrent_task_service:samgr_class { get };
+
+# Look up storage_manager for UDMF virtual file drag FUSE mount and unmount requests.
+allow distributeddata sa_storage_manager_service:samgr_class { get };
+# Request FUSE mount and unmount operations through storage_manager IPC.
+allow distributeddata storage_manager:binder { call };
+# Use the FUSE device descriptor opened by storage_daemon and returned through IPC.
+allow distributeddata storage_daemon:fd { use };
+# Read kernel FUSE requests and write replies through the device descriptor.
+allow distributeddata dev_fuse_file:chr_file { read write };
 
 # avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
 allow distributeddata system_basic_hap_data_file:dir {ioctl};
