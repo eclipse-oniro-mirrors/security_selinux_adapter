@@ -20,6 +20,9 @@ allow subfoundation sa_miscdevice_service:samgr_class { get };
 #avc: denied { add } for service=3204 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_reminder_agent_service:s0 tclass=samgr_class permissive=1
 allow subfoundation sa_foundation_reminder_agent_service:samgr_class { add get };
 
+#avc: denied { get } for service=3204 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_ans:samgr_class { get };
+
 #avc: denied { get } for service=3002 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_media_service:s0 tclass=samgr_class permissive=1
 allow subfoundation sa_media_service:samgr_class { get };
 
