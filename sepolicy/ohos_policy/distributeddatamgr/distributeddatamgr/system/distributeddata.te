@@ -99,9 +99,11 @@ allow distributeddata system_core_hap_data_file_attr:file { getattr ioctl lock m
 allow distributeddata system_etc_file:dir { getattr open read };
 allow distributeddata system_profile_file:dir { search };
 allow distributeddata telephony_sa:binder { call transfer };
+
 # avc: denied { create } for pid=1670, comm="/system/bin/sa_main"  name="/100/udmf_fuse/files" dev="tmpfs" ino=16 scontext=u:r:distributeddata:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 # avc: denied { write add_name } for pid=1670, comm="/system/bin/sa_main"  name="/100/udmf_fuse" dev="tmpfs" ino=7 scontext=u:r:distributeddata:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 allow distributeddata tmpfs:dir { create write add_name };
+
 allow distributeddata tmpfs:lnk_file { read };
 allow distributeddata vendor_file:file { execute getattr map open read };
 allow distributeddata vendor_lib_file:dir { search };
@@ -246,11 +248,14 @@ allow distributeddata sa_concurrent_task_service:samgr_class { get };
 
 # avc: denied { call } for pid=1670, comm="/system/bin/sa_main"  scontext=u:r:distributeddata:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=1
 allow distributeddata storage_manager:binder { call };
+
 # avc: denied { use } for pid=693, comm="/system/bin/sa_main"  path="/dev/fuse" dev="" ino=17 scontext=u:r:distributeddata:s0 tcontext=u:r:storage_daemon:s0 tclass=fd permissive=1
 allow distributeddata storage_daemon:fd { use };
+
 # avc: denied { read } for pid=1670, comm="/system/bin/sa_main"  path="/dev/fuse" dev="" ino=17 scontext=u:r:distributeddata:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
 # avc: denied { write } for pid=1670, comm="/system/bin/sa_main"  path="/dev/fuse" dev="" ino=17 scontext=u:r:distributeddata:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
 allow distributeddata dev_fuse_file:chr_file { read write };
+
 # avc:  denied  { get } for service=5003 sid=u:r:distributeddata:s0 scontext=u:r:distributeddata:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=1
 allow distributeddata sa_storage_manager_service:samgr_class { get };
 
