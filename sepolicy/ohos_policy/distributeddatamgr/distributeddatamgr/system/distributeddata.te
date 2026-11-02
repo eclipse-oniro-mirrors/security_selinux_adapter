@@ -148,6 +148,8 @@ allow distributeddata dhardware:binder { call transfer };
 allow distributeddata dhardware:dir { search };
 allow distributeddata dhardware:file { open read };
 allow distributeddata distributeddata:unix_dgram_socket { getopt setopt };
+# avc: denied { keyfile_setflag } for pid=1441, comm="/system/bin/sa_main"  scontext=u:r:distributeddata:s0 tcontext=u:r:distributeddata:s0 tclass=hmcap permissive=1
+allow distributeddata distributeddata:hmcap { keyfile_setflag };
 allow distributeddata distributedsche:dir { search };
 allow distributeddata distributedsche:file { open read };
 allow distributeddata distributedsche_param:file { map open read };
@@ -259,17 +261,21 @@ allow distributeddata dev_fuse_file:chr_file { read write };
 # avc:  denied  { get } for service=5003 sid=u:r:distributeddata:s0 scontext=u:r:distributeddata:s0 tcontext=u:object_r:sa_storage_manager_service:s0 tclass=samgr_class permissive=1
 allow distributeddata sa_storage_manager_service:samgr_class { get };
 
-# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
-allow distributeddata system_basic_hap_data_file:dir {ioctl};
-# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allow distributeddata system_core_hap_data_file:dir {ioctl};
-# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
-allowxperm distributeddata system_basic_hap_data_file:dir ioctl { 0xf548 0xf549 };
-# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allowxperm distributeddata system_core_hap_data_file:dir ioctl { 0xf548 0xf549 };
-
 # avc: denied { call } for pid=1785, comm="/system/bin/sa_main"  scontext=u:r:distributeddata:s0 tcontext=u:r:storage_space_manager:s0 tclass=binder permissive=1
 allow distributeddata storage_space_manager:binder { call };
 
 # avc:  denied  { get } for service=8650 sid=u:r:distributeddata:s0 scontext=u:r:distributeddata:s0 tcontext=u:object_r:sa_storage_space_manager_service:s0 tclass=samgr_class permissive=1
 allow distributeddata sa_storage_space_manager_service:samgr_class { get };
+
+# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
+allow distributeddata system_basic_hap_data_file:dir {ioctl};
+
+# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
+allow distributeddata system_core_hap_data_file:dir {ioctl};
+
+# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=1
+allowxperm distributeddata system_basic_hap_data_file:dir ioctl { 0xf548 0xf549 };
+
+# avc: denied { ioctl } for pid=1436, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
+allowxperm distributeddata system_core_hap_data_file:dir ioctl { 0xf548 0xf549 };
+
