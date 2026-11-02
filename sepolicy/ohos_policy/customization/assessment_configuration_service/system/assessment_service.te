@@ -96,6 +96,16 @@ allow assessment_service kernel:unix_stream_socket { connectto };
 # avc: denied { transfer } for pid=13767, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
 allow assessment_service media_service:binder { call transfer };
 
+# avc: denied { call } for pid=14664, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=14664, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+allow assessment_service multimodalinput:binder { call transfer };
+
+# avc: denied { use } for pid=14664, comm="/system/bin/sa_main"  ioctlcmd=0x0  scontext=u:r:assessment_service:s0 tcontext=u:r:multimodalinput:s0 tclass=fd permissive=1
+allow assessment_service multimodalinput:fd { use };
+
+# avc: denied { read } for pid=14664, comm="/system/bin/sa_main"  scontext=u:r:assessment_service:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+allow assessment_service multimodalinput:unix_stream_socket { read };
+
 # avc: denied { map } for pid=15366, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:assessment_service:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
 # avc: denied { open } for pid=15366, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:assessment_service:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
 # avc: denied { read } for pid=15366, comm="/system/bin/sa_main"  path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="" ino=224 scontext=u:r:assessment_service:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
@@ -157,6 +167,9 @@ allow assessment_service sa_telecom_tel_state_registry:samgr_class { get };
 
 # avc:  denied  { get } for service=3002 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_media_service:s0 tclass=samgr_class permissive=1
 allow assessment_service sa_media_service:samgr_class { get };
+
+# avc: denied { get } for service=3101 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=0
+allow assessment_service sa_multimodalinput_service:samgr_class { get };
 
 # avc:  denied  { get } for service=3901 sid=u:r:assessment_service:s0 scontext=u:r:assessment_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
 allow assessment_service sa_param_watcher:samgr_class { get };
