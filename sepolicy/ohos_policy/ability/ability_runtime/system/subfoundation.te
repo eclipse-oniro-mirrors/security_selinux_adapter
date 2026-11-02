@@ -18,7 +18,8 @@ allow subfoundation dev_unix_socket:dir { search };
 allow subfoundation data_service_el1_file:dir { add_name create getattr ioctl open read remove_name rmdir search setattr write };
 
 # avc: denied { getattr ioctl lock map open read write setattr } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allow subfoundation data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
+# avc: denied { append } for pid=1559, comm="/system/bin/sa_main"  path="/data/service/el1/public/database/notification_service/notificationdb.db-compare" dev="/dev/block/by-name/userdata" ino=6334 scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow subfoundation data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write append };
 
 # avc: denied { ioctl } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/subfoundation" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir ioctlcmd=0xf546 permissive=1
 allowxperm subfoundation data_service_el1_file:dir ioctl { 0xf546 0xf547 };
@@ -100,7 +101,11 @@ allow subfoundation sa_foundation_agentmgr:samgr_class { add };
 allow subfoundation persist_sys_param:file { map open read };
 
 # avc: denied { search } for pid=792 comm="OS_FFRT_2_3" name="/" dev="sda63" ino=3 scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
-allow subfoundation data_file:dir { search };
+# avc: denied { getattr } for pid=1558, comm="/system/bin/sa_main"  path="/data" dev="/dev/block/by-name/userdata" ino=3 scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow subfoundation data_file:dir { search getattr };
+
+# avc: denied { getattr } for pid=1558, comm="/system/bin/sa_main"  path="/data/service" dev="/dev/block/by-name/userdata" ino=9 scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow subfoundation data_service_file:dir { search getattr };
 
 # avc: denied { search } for pid=4160 comm="subfoundation" name="etc" dev="sda49" ino=12 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
 allow subfoundation sys_prod_file:dir { search };
@@ -148,7 +153,8 @@ allow subfoundation system_basic_hap_attr:fd { use };
 allow time_service subfoundation:binder { call };
 
 # avc: denied { call } for pid=1040 comm="usbDelayTimer" scontext=u:r:usb_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
-allow usb_service subfoundation:binder { call };
+# avc: denied { transfer } for pid=2422, comm="/system/bin/sa_main"  scontext=u:r:usb_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow usb_service subfoundation:binder { call transfer };
 
 # avc: denied { getattr } for pid=661 comm="time_service" path="/proc/747/cmdline" dev="proc" ino=18608 scontext=u:r:time_service:s0 tcontext=u:r:subfoundation:s0 tclass=file permissive=1
 allow time_service subfoundation:file { getattr open read };
