@@ -11,16 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Exam client apps call AssessmentService (SAID 8660). The permission is
-# system_basic level, so use the attrs rather than hap_domain, which would
-# over-grant to normal_hap and debug_hap.
-
 # avc: denied { call } for pid=15098, comm="/system/bin/appspawn"  scontext=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 tcontext=u:r:assessment_service:s0 tclass=binder permissive=1
 # avc: denied { transfer } for pid=15098, comm="/system/bin/appspawn"  scontext=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 tcontext=u:r:assessment_service:s0 tclass=binder permissive=1
-# AVC captured debug_hap in permissive mode; production grants only the two attrs.
-allow system_basic_hap_attr assessment_service:binder { call transfer };
-allow system_core_hap_attr assessment_service:binder { call transfer };
+allow hap_domain assessment_service:binder { call transfer };
 
 # avc: denied { get } for service=8660 sid=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 scontext=o:r:debug_hap:s0:x246,x334,x512,x868,x1024 tcontext=u:object_r:sa_assessment_service:s0 tclass=samgr_class permissive=0
-allow system_basic_hap_attr sa_assessment_service:samgr_class { get };
-allow system_core_hap_attr sa_assessment_service:samgr_class { get };
+allow hap_domain sa_assessment_service:samgr_class { get };
