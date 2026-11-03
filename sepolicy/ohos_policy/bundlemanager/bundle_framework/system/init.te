@@ -12,3 +12,6 @@
 # limitations under the License.
 
 allow init service_router:process { rlimitinh siginh transition };
+# avc: denied { getattr } for pid=2029, comm="/system/bin/chmod" path="/data/service/el1/public/bms/bundle_manager_service/bmsdb.db" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=4969 scontext=u:r:init:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file permissive=0
+# avc: denied { setattr } for pid=1839, comm="/system/bin/chmod" name="/service/el1/public/bms/bundle_manager_service/bmsdb.db" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=5096 scontext=u:r:init:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file permissive=0
+allow init bms_db_file:file { setattr getattr };
