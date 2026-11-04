@@ -48,6 +48,9 @@ allow subfoundation sa_multimodalinput_service:samgr_class { get };
 #avc: denied { transfer } for pid=1565, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
 allow subfoundation media_service:binder { call transfer };
 
+# avc: denied { use } for pid=1536, comm="/system/bin/sa_main"  path="anon_inode:dmabuf" dev="(null)" ino=0 scontext=u:r:subfoundation:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=0
+allow subfoundation media_service:fd { use };
+
 #avc: denied { call } for pid=1565, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
 #avc: denied { transfer } for pid=1565, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
 allow subfoundation time_service:binder { call transfer };
