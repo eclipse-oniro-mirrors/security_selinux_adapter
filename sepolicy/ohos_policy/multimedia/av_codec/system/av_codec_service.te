@@ -144,4 +144,3 @@ allow av_codec_service resource_schedule_service:binder { call };
 # avc:  denied  { get } for service=180 sid=u:r:av_codec_service:s0 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
 allow av_codec_service sa_foundation_abilityms:samgr_class { get };
 
-
