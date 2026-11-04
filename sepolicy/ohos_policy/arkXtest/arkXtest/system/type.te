@@ -95,5 +95,7 @@ developer_only(`
 
     allow uitest hiview:unix_dgram_socket { sendto };
     allow uitest system_file:file { getattr open read };
+    # avc: denied { use } for pid=2076, comm="systm/bin/sa_main" scontext=u:r:uitest:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=0
+    allow uitest foundation:fd { use }
 
 ')
