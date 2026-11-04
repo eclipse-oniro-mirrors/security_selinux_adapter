@@ -22,6 +22,16 @@ import os
 from check_common import read_json_file, run_command
 
 
+def _relative_depfile_inputs(paths):
+    result = []
+    for path in paths:
+        try:
+            result.append(os.path.relpath(path))
+        except ValueError:
+            result.append(path)  # Different Windows drives cannot be rebased.
+    return sorted(result)
+
+
 def append_file_contexts_args(args, request_args):
     request_args.append("--file_contexts")
     file_context_path = os.path.join(args.output_path, "all_file_contexts")
@@ -134,7 +144,8 @@ if __name__ == "__main__":
             directories[:] = [name for name in directories if name != "__pycache__"]
             dependencies.append(directory)
             dependencies.extend(os.path.join(directory, name) for name in files if name.endswith(".py"))
-        write_depfile(input_args.depfile, input_args.stamp, dependencies, add_pydeps=False)
+        write_depfile(input_args.depfile, input_args.stamp,
+                      _relative_depfile_inputs(dependencies), add_pydeps=False)
     if input_args.stamp:
         os.makedirs(os.path.dirname(os.path.abspath(input_args.stamp)), exist_ok=True)
         with open(input_args.stamp, "w", encoding="utf-8"):
