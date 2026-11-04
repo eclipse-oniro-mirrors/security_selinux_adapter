@@ -24,3 +24,7 @@ attribute hmcap_supervsable_platform_attr;
 attribute actv_binder_client_attr;
 # declare the actv binder server
 attribute actv_binder_server_attr;
+# declare the actv binder client for container
+attribute rgm_violator_actv_binder_client_attr;
+# declare the actv binder server for container
+attribute rgm_violator_actv_binder_server_attr;
