@@ -114,9 +114,17 @@ def parse_args():
     parser.add_argument('--developer-policy', help='the developer policy file', required=True)
     parser.add_argument('--tool-path', help='the policy tool bin path', required=True)
     parser.add_argument('--policy-dir-list', help='policy dirs need to be included', required=True)
-    parser.add_argument('--stamp')
+    parser.add_argument('--dep-target', help='first GN output, relative to the Ninja build directory')
+    # Keep previously generated Ninja commands usable until GN regenerates them.
+    parser.add_argument('--stamp', help=argparse.SUPPRESS)
     parser.add_argument('--depfile')
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.dep_target and args.stamp:
+        parser.error('--dep-target and legacy --stamp cannot be used together')
+    args.dep_target = args.dep_target or args.stamp
+    if args.depfile and not args.dep_target:
+        parser.error('--dep-target is required with --depfile')
+    return args
 
 
 if __name__ == "__main__":
@@ -144,9 +152,10 @@ if __name__ == "__main__":
             directories[:] = [name for name in directories if name != "__pycache__"]
             dependencies.append(directory)
             dependencies.extend(os.path.join(directory, name) for name in files if name.endswith(".py"))
-        write_depfile(input_args.depfile, input_args.stamp,
+        write_depfile(input_args.depfile, input_args.dep_target,
                       _relative_depfile_inputs(dependencies), add_pydeps=False)
+    # New GN actions use real CIL outputs and never request a completion marker.
     if input_args.stamp:
         os.makedirs(os.path.dirname(os.path.abspath(input_args.stamp)), exist_ok=True)
-        with open(input_args.stamp, "w", encoding="utf-8"):
+        with open(input_args.stamp, 'w', encoding='utf-8'):
             pass
