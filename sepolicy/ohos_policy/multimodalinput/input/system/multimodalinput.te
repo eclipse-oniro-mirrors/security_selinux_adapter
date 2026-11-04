@@ -145,3 +145,10 @@ allow multimodalinput dev_bus_usb_file:dir { search };
 # avc: denied { open } for pid=1028, comm="/system/bin/sa_main"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port0/ea100000.hiusbc/uevent" dev="" ino=78938 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=1028, comm="/system/bin/sa_main"  path="/sys/devices/platform/hiusb/hiusb_port/hiusb-port0/ea100000.hiusbc/uevent" dev="" ino=78938 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:dev_bus_usb_file:s0 tclass=file permissive=1
 allow multimodalinput dev_bus_usb_file:file { getattr open read };
+
+# avc: denied { get } for service=66532 sid=u:r:multimodalinput:s0 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:sa_secure_access_fence:s0 tclass=samgr_class permissive=0
+allow multimodalinput sa_secure_access_fence:samgr_class { get };
+
+# avc: denied { call } for pid=897, comm="/system/bin/sa_main" scontext=u:r:multimodalinput:s0 tcontext=u:object_r:secure_access_fence:s0 tclass=binder permissive=0
+allow multimodalinput secure_access_fence:binder { call };
+
