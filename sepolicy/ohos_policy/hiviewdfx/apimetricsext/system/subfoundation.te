@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc: denied { getattr } for pid=1772, comm="/system/bin/sa_main"  path="/data/service/el1/public/app_domain_verify_mgr_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=5670 scontext=u:r:foundation:s0 tcontext=u:object_r:adv_data_file:s0 tclass=dir permissive=1
-allow foundation histogram_service:samgr_class { add };
+# avc: denied { getattr } for pid=1772, comm="/system/bin/sa_main"  path="/data/service/el1/public/app_domain_verify_mgr_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=5670 scontext=u:r:subfoundation:s0 tcontext=u:object_r:adv_data_file:s0 tclass=dir permissive=1
+allow subfoundation histogram_service:samgr_class { add };
