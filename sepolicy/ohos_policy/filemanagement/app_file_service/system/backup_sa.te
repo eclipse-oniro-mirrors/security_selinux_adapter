@@ -21,6 +21,13 @@ allow backup_sa accesstoken_service:binder { call };
 allow backup_sa storage_manager:binder { call };
 allow backup_sa foundation:binder { call transfer };
 
+# avc: denied { call } for pid=43073, comm="/system/bin/sa_main"  scontext=u:r:backup_sa:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+# avc: denied { transfer } for pid=43073, comm="/system/bin/sa_main"  scontext=u:r:backup_sa:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow backup_sa subfoundation:binder { call transfer };
+
+# avc: denied { use } for pid=1561, comm="/system/bin/sa_main"  path="/data/service/el1/public/notification/backup_config.conf" dev="/dev/block/by-name/userdata" ino=56418 scontext=u:r:backup_sa:s0 tcontext=u:r:subfoundation:s0 tclass=fd permissive=1
+allow backup_sa subfoundation:fd { use };
+
 allow backup_sa hilog_param:file { map open read };
 allow backup_sa data_service_file:dir { search };
 allow backup_sa data_service_el2_file:dir { read open write search add_name create rmdir remove_name };
