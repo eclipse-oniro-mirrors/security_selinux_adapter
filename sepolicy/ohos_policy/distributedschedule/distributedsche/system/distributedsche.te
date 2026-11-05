@@ -56,6 +56,8 @@ allow distributedsche sa_foundation_wms:samgr_class { get };
 allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
 allow distributedsche devinfo_private_param:file { map open read};
 allow distributedsche sa_form_mgr_service:samgr_class { get };
+# avc: denied { call } for pid=6670, comm="/system/bin/sa_main" scontext=u:r:distributedsche:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow distributedsche subfoundation:binder { call };
 
 debug_only(`
     allow distributedsche sh:binder { call };

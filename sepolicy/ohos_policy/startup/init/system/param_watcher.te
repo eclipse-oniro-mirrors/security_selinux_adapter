@@ -50,6 +50,8 @@ allow param_watcher dscreen:binder { call };
 allow param_watcher dslm_service:binder { call };
 allow param_watcher edm_sa:binder { call };
 allow param_watcher foundation:binder { call };
+# avc: denied { call } for pid=611, comm="/system/bin/sa_main" scontext=u:r:param_watcher:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow param_watcher subfoundation:binder { call };
 allow param_watcher powermgr:binder { call };
 allow param_watcher hidumper_service:binder { call };
 allow param_watcher hilog_param:file { map open read };
