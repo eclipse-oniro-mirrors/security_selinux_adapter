@@ -92,6 +92,9 @@ allow accesstoken_service tracefs_trace_marker_file:file { open write };
 allow accesstoken_service tracefs:dir { search };
 allow accesstoken_service sa_bgtaskmgr:samgr_class { get };
 allow accesstoken_service sa_form_mgr_service:samgr_class { get };
+# avc: denied { call } for pid=1054, comm="/system/bin/sa_main" scontext=u:r:accesstoken_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
+allow accesstoken_service subfoundation:binder { call };
+
 binder_call(hap_domain, accesstoken_service);
 binder_call(accesstoken_service, hap_domain);
 allow accesstoken_service sa_foundation_abilityms:samgr_class { get };
