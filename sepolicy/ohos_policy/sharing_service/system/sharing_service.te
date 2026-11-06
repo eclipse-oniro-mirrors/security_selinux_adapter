@@ -98,3 +98,7 @@ allow sharing_service accountmgr:binder { call };
 #avc:  denied  { get } for service=1909 sid=u:r:sharing_service:s0 scontext=u:r:sharing_service:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
 allow sharing_service sa_memory_manager_service:samgr_class { get };
 allow sharing_service memmgrservice:binder { call };
+
+allow sharing_service sa_multimodalinput_service:samgr_class { get };
+allow sharing_service multimodalinput:binder { call transfer };
+allow sharing_service dev_uhid_file:chr_file { open read write };
