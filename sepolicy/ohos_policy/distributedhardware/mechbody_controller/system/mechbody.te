@@ -105,3 +105,7 @@ allow mechbody persist_param:parameter_service { set };
 # avc: denied { transfer } for pid=8589, comm="/system/bin/sa_main"  scontext=u:r:mechbody:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
 allow mechbody privacy_service:binder { call transfer };
 allow mechbody sa_privacy_service:samgr_class { get };
+
+# avc: denied { call } for pid=10255, comm="/system/bin/sa_main" scontext=u:r:mechbody:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=10255, comm="/system/bin/sa_main" scontext=u:r:mechbody:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow mechbody subfoundation:binder { call transfer };
