@@ -574,7 +574,8 @@ action("build_policy") {
   }
 
   if (selinux_adapter_components == "vendor") {
-    outputs += [ target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256" ]
+    outputs +=
+        [ target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256" ]
   }
 
   if (selinux_adapter_components != "default") {
@@ -1158,8 +1159,8 @@ if (selinux_adapter_components == "vendor") {
 if (selinux_adapter_components == "system") {
   ohos_prebuilt_etc("version_cil") {
     deps = [ ":build_policy" ]
-    source =
-        target_out_dir + "/compatible/$selinux_adapter_vendor_policy_version.cil"
+    source = target_out_dir +
+             "/compatible/$selinux_adapter_vendor_policy_version.cil"
     license_file = "LICENSE"
     part_name = "selinux_adapter"
     subsystem_name = "security"
@@ -1259,8 +1260,9 @@ if (selinux_adapter_support_developer_mode) {
   if (selinux_adapter_components == "system") {
     ohos_prebuilt_etc("version_developer_cil") {
       deps = [ ":build_policy" ]
-      source = target_out_dir +
-               "/developer/compatible/$selinux_adapter_vendor_policy_version.cil"
+      source =
+          target_out_dir +
+          "/developer/compatible/$selinux_adapter_vendor_policy_version.cil"
       license_file = "LICENSE"
       part_name = "selinux_adapter"
       subsystem_name = "security"
@@ -1597,7 +1599,7 @@ if (selinux_adapter_components != "default") {
     if (selinux_adapter_components == "system") {
       deps += [
         ":eng_system_system_cil_sha256",
-        ":eng_system_system_developer_cil_sha256"
+        ":eng_system_system_developer_cil_sha256",
       ]
     }
   }
