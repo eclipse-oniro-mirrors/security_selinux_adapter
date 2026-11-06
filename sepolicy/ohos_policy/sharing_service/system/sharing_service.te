@@ -99,6 +99,13 @@ allow sharing_service accountmgr:binder { call };
 allow sharing_service sa_memory_manager_service:samgr_class { get };
 allow sharing_service memmgrservice:binder { call };
 
+# avc:  denied  { get } for service=3101 sid=u:r:sharing_service:s0 scontext=u:r:sharing_service:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
 allow sharing_service sa_multimodalinput_service:samgr_class { get };
+
+# avc: denied { call } for pid=16021, comm="/system/bin/sa_main"  scontext=u:r:sharing_service:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=16021, comm="/system/bin/sa_main"  scontext=u:r:sharing_service:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
 allow sharing_service multimodalinput:binder { call transfer };
+
+# avc: denied { open } for pid=13299, comm="/system/bin/sa_main"  path="/dev/uhid" dev="" ino=581 scontext=u:r:sharing_service:s0 tcontext=u:object_r:dev_uhid_file:s0 tclass=chr_file permissive=1
+# avc: denied { read write } for pid=13299, comm="/system/bin/sa_main"  path="/dev/uhid" dev="" ino=581 scontext=u:r:sharing_service:s0 tcontext=u:object_r:dev_uhid_file:s0 tclass=chr_file permissive=1
 allow sharing_service dev_uhid_file:chr_file { open read write };
