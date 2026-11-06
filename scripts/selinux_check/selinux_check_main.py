@@ -32,6 +32,53 @@ def _relative_depfile_inputs(paths):
     return sorted(result)
 
 
+def checker_dependencies(args, checks, policy_directories):
+    """Track checker implementation/data without replacing its argument policy.
+
+    Checkers may declare additional source-root-relative dependency paths in
+    their optional ``inputs`` list. Existing configurations remain valid.
+    """
+    source_root = os.path.abspath(args.source_root_dir)
+    dependencies = {
+        os.path.join(source_root, args.selinux_check_config),
+        os.path.abspath(args.user_policy), os.path.abspath(args.developer_policy),
+        os.path.abspath(os.path.join(args.tool_path, "checkpolicy")),
+    }
+    roots = {os.path.dirname(os.path.abspath(__file__)), *policy_directories}
+    for check in checks:
+        script = os.path.join(source_root, check["script"])
+        roots.add(os.path.dirname(script))
+        dependencies.add(script)
+        declared = check.get("inputs", [])
+        if not isinstance(declared, list) or any(not isinstance(item, str) for item in declared):
+            raise ValueError("checker inputs must be a list of dependency paths")
+        for path in declared:
+            path = os.path.join(source_root, path)
+            if os.path.isdir(path):
+                roots.add(path)
+            else:
+                dependencies.add(path)
+
+    def fail(error):
+        raise error
+
+    for root in roots:
+        for directory, children, files in os.walk(root, onerror=fail):
+            children[:] = [name for name in children if name not in (".git", "__pycache__")]
+            dependencies.add(directory)
+            dependencies.update(os.path.join(directory, name) for name in files
+                                if not name.endswith((".pyc", ".pyo")))
+    # Context arguments are generated inputs, while all.cil is produced here.
+    for name in ("file_contexts", "service_contexts", "hdf_service_contexts",
+                 "parameter_contexts", "sehap_contexts"):
+        path = os.path.join(args.output_path, "all_" + name)
+        if not os.path.exists(path):
+            path = os.path.join(args.output_path, name)
+        if os.path.exists(path):
+            dependencies.add(os.path.abspath(path))
+    return dependencies
+
+
 def append_file_contexts_args(args, request_args):
     request_args.append("--file_contexts")
     file_context_path = os.path.join(args.output_path, "all_file_contexts")
@@ -147,11 +194,7 @@ if __name__ == "__main__":
         import sys
         sys.path.insert(0, os.path.join(input_args.source_root_dir, "build"))
         from scripts.util.build_utils import write_depfile
-        dependencies = [os.path.join(input_args.source_root_dir, input_args.selinux_check_config)]
-        for directory, directories, files in os.walk(os.path.dirname(__file__)):
-            directories[:] = [name for name in directories if name != "__pycache__"]
-            dependencies.append(directory)
-            dependencies.extend(os.path.join(directory, name) for name in files if name.endswith(".py"))
+        dependencies = checker_dependencies(input_args, check_list, policy_dir_list)
         write_depfile(input_args.depfile, input_args.dep_target,
                       _relative_depfile_inputs(dependencies), add_pydeps=False)
     # New GN actions use real CIL outputs and never request a completion marker.
