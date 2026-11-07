@@ -35,6 +35,17 @@ debug_only(`
     allow uinput data_local_tmp:dir { search };
     allow uinput data_local_tmp:file { open read write };
 
+    # for uinput motion_* subcommands
+    # avc: denied { create } for pid=9096, comm="/bin/uinput" name="/local/tmp/uinput_motion_state.lock" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=42905 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    # avc: denied { lock } for pid=9034, comm="/bin/uinput" path="/data/local/tmp/uinput_motion_state.lock" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=43664 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    # avc: denied { rename } for pid=8882, comm="/bin/uinput" name="/local/tmp/uinput_motion_state.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=45540 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    # avc: denied { unlink } for pid=9875, comm="/bin/uinput" name="/local/tmp/uinput_motion_state" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=62218 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    allow uinput data_local_tmp:file { create lock rename unlink };
+
+    # avc: denied { write add_name } for pid=10452, comm="/bin/uinput"  name="/local/tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2384 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+    # avc: denied { remove_name } for pid=9108, comm="/bin/uinput"  name="/local/tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2384 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+    allow uinput data_local_tmp:dir { write add_name remove_name };
+
     allow uinput hap_domain:fd { use };
     allow uinput multimodalinput:fd { use };
 ')
@@ -109,6 +120,17 @@ developer_only(`
     allow uinput data_local:dir { search };
     allow uinput data_local_tmp:dir { search };
     allow uinput data_local_tmp:file { open read write };
+
+    # for uinput motion_* subcommands
+    # avc: denied { create } for pid=9096, comm="/bin/uinput" name="/local/tmp/uinput_motion_state.lock" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=42905 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    # avc: denied { lock } for pid=9034, comm="/bin/uinput" path="/data/local/tmp/uinput_motion_state.lock" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=43664 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    # avc: denied { rename } for pid=8882, comm="/bin/uinput" name="/local/tmp/uinput_motion_state.tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=45540 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    # avc: denied { unlink } for pid=9875, comm="/bin/uinput" name="/local/tmp/uinput_motion_state" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=62218 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+    allow uinput data_local_tmp:file { create lock rename unlink };
+
+    # avc: denied { write add_name } for pid=10452, comm="/bin/uinput"  name="/local/tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2384 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+    # avc: denied { remove_name } for pid=9108, comm="/bin/uinput"  name="/local/tmp" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=2384 scontext=u:r:uinput:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=0
+    allow uinput data_local_tmp:dir { write add_name remove_name };
 
     allow uinput hap_domain:fd { use };
     allow uinput multimodalinput:fd { use };
