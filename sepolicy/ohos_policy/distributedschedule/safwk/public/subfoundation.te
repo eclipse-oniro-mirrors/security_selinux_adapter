@@ -13,3 +13,4 @@
 
 type subfoundation, sadomain, domain;
 
+neverallow subfoundation *:process ptrace;
