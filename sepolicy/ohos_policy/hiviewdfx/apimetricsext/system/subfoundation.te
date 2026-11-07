@@ -24,4 +24,3 @@ allow subfoundation hap_domain:file { getattr open read };
 
 # avc: denied { sys_ptrace } for pid=1505, comm="/system/bin/sa_main"  capability=19 scontext=u:r:subfoundation:s0 tcontext=u:r:subfoundation:s0 tclass=capability permissive=0
 allow subfoundation subfoundation:capability { sys_ptrace };
-neverallow subfoundation *:process ptrace;
