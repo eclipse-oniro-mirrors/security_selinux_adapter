@@ -15,6 +15,8 @@ allow clouddiskservice accountmgr:binder { call transfer };
 allow clouddiskservice clouddiskservice:capability { dac_read_search sys_admin };
 allow clouddiskservice clouddiskservice:unix_dgram_socket { getopt setopt };
 allow clouddiskservice data_service_el2_file:dir { open read search };
+allow clouddiskservice data_service_el2_clouddiskservice:dir { create open read search setattr write add_name remove_name };
+allow clouddiskservice data_service_el2_clouddiskservice:file { create getattr lock open read write unlink };
 allow clouddiskservice data_service_el2_hmdfs:dir { create open read rmdir setattr write add_name remove_name search };
 allow clouddiskservice data_service_el2_hmdfs:file { create getattr lock open read write unlink };
 allow clouddiskservice data_service_file:dir { open read search watch_sb };

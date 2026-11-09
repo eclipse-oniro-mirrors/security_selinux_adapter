@@ -12,6 +12,7 @@
 # limitations under the License.
 
 /data/service/el2/[0-9]+/hmdfs(/.*)?        u:object_r:data_service_el2_hmdfs:s0
+/data/service/el2/[0-9]+/clouddiskservice(/.*)?        u:object_r:data_service_el2_clouddiskservice:s0
 
 # Public directory for user data
 /data/service/el2/[0-9]+/hmdfs/account/files(/.*)?       u:object_r:data_user_file:s0

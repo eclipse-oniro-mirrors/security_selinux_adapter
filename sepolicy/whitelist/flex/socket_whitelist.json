@@ -26,6 +26,7 @@
             "data_service_el1_public_deviceauthService_file",
             "data_service_el1_public_huksService_file",
             "data_service_el1_public_print_service_file",
+            "data_service_el2_clouddiskservice",
             "data_service_el2_hmdfs",
             "data_service_el2_public_huksService_file",
             "data_service_el2_share",
