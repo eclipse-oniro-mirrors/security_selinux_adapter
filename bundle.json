@@ -18,6 +18,7 @@
       "selinux_adapter_components",
       "selinux_adapter_enforce",
       "selinux_adapter_vendor_policy_version",
+      "selinux_adapter_policy_version",
       "selinux_adapter_support_developer_mode",
       "selinux_adapter_special_build_policy_script",
       "selinux_adapter_extra_args",

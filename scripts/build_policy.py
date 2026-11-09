@@ -49,6 +49,9 @@ def parse_args():
                         help='system or vendor or default', required=True)
     parser.add_argument('--vendor-policy-version',
                         help='plat version of vendor policy', required=False)
+    parser.add_argument('--policy-version',
+                        help='selinux policy version passed to checkpolicy/secilc -c',
+                        required=False, default='31')
     parser.add_argument('--product-args',
                         help='extra product macros for m4', required=False, action='append')
     parser.add_argument('--depfile',

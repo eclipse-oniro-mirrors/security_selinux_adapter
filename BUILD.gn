@@ -64,6 +64,7 @@ ohos_shared_library("libload_policy") {
   if (selinux_adapter_support_developer_mode) {
     cflags += [ "-DWITH_DEVELOPER" ]
   }
+  cflags += [ "-DSELINUX_POLICY_VERSION_STR=\"$selinux_adapter_policy_version\"" ]
   install_enable = true
   install_images = [
     "system",
@@ -510,6 +511,8 @@ action("build_policy") {
     updater_version,
     "--components",
     selinux_adapter_components,
+    "--policy-version",
+    "$selinux_adapter_policy_version",
   ]
 
   if (selinux_adapter_components != "default") {
@@ -649,6 +652,8 @@ action("build_update_policy") {
     selinux_adapter_components,
     "--vendor-policy-version",
     "$selinux_adapter_vendor_policy_version",
+    "--policy-version",
+    "$selinux_adapter_policy_version",
   ]
 
   if (selinux_adapter_extra_args != "default") {

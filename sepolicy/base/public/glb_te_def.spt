@@ -194,3 +194,15 @@ define(`control_hilog', `
 define(`system_domain', `sadomain rgm_violator_sadomain hap_domain native_system_domain')
 
 define(`chipset_domain', `hdfdomain native_chipset_domain')
+
+define(`pad_mode', ifelse(build_with_pc, `enable', `
+if (!pc_mode_bool) {
+    $1
+}
+', $1))
+
+define(`pc_mode', ifelse(build_with_pc, `enable', `
+if (pc_mode_bool) {
+    $1
+}
+', $1))

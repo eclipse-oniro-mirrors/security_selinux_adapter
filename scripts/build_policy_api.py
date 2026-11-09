@@ -150,7 +150,7 @@ def build_conf(args, output_conf, file_list, with_developer=False):
 def build_cil(args, output_cil, input_conf):
     check_policy_cmd = [os.path.join(args.tool_path, "checkpolicy"),
                         input_conf,
-                        "-M -C -c 31",
+                        "-M -C -c " + args.policy_version,
                         "-o " + output_cil]
     run_command(check_policy_cmd)
 
@@ -223,6 +223,20 @@ def deal_with_type(version, cil_write, elem_list, file, line):
     cil_write.write(" ".join(['(typeattribute', add_version(version, sub_string), ')\n']))
 
 
+def write_booleanif_block(cil_read, cil_write, line, cil_file_input, index):
+    cil_write.write(line)
+    depth = line.count('(') - line.count(')')
+    while depth > 0:
+        block_line = next(cil_read, None)
+        if block_line is None:
+            print('Error: unbalanced booleanif/tunableif in %s:%d' % (cil_file_input, index))
+            raise Exception(1)
+        index += 1
+        cil_write.write(block_line)
+        depth += block_line.count('(') - block_line.count(')')
+    return index
+
+
 def build_version_cil(version, cil_file_input, cil_file_output, type_set):
     index = 0
     with open(cil_file_input, 'r') as cil_read, open(cil_file_output, 'w') as cil_write:
@@ -245,6 +259,8 @@ def build_version_cil(version, cil_file_input, cil_file_output, type_set):
                 deal_with_typeattributeset(version, cil_write, elem_list, type_set, cil_file_input, line)
             elif simplify_string(elem_list[0]) in POLICY_TYPE_LIST:
                 deal_with_policy(version, cil_write, elem_list, type_set, cil_file_input, line)
+            elif elem_list[0] == '(booleanif' or elem_list[0] == '(tunableif':
+                index = write_booleanif_block(cil_read, cil_write, line, cil_file_input, index)
             else:
                 cil_write.write(line)
 
@@ -288,10 +304,10 @@ def add_base_typeattr_prefix(cil_file, prefix):
             cil_write.write(data)
 
 
-def build_binary_policy(tool_path, output_policy, check_neverallow, cil_list):
+def build_binary_policy(tool_path, output_policy, check_neverallow, cil_list, policy_version):
     build_policy_cmd = [os.path.join(tool_path, "secilc"),
                         " ".join(cil_list),
-                        "-m -M true -G -c 31 -O",
+                        "-m -M true -G -c " + policy_version + " -O",
                         "-f /dev/null",
                         "-o " + output_policy]
     if not check_neverallow:
@@ -503,7 +519,7 @@ def compile_sepolicy(args):
 
     if args.updater_version == "enable":
         generate_default_policy(args, file_list_object, cil_list, False)
-        build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
+        build_binary_policy(args.tool_path, args.dst_file, True, cil_list, args.policy_version)
         return
 
     with ThreadPoolExecutor(max_workers=2) as executor:
@@ -523,10 +539,11 @@ def compile_sepolicy(args):
                 raise e
 
     with ThreadPoolExecutor(max_workers=2) as executor:
-        build_normal_thread = executor.submit(build_binary_policy, args.tool_path, args.dst_file, True, cil_list)
+        build_normal_thread = executor.submit(build_binary_policy, args.tool_path, args.dst_file, True, cil_list,
+                                                args.policy_version)
         developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
         build_developer_thread = executor.submit(build_binary_policy, args.tool_path, developer_policy_path,
-                                                    True, developer_cil_list)
+                                                    True, developer_cil_list, args.policy_version)
 
         for future in as_completed([build_normal_thread, build_developer_thread]):
             try:

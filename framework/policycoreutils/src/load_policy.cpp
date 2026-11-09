@@ -16,6 +16,7 @@
 #include <fcntl.h>
 #include <fstream>
 #include <string>
+#include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -27,8 +28,17 @@
 #include "selinux_error.h"
 #include "selinux_klog.h"
 
+#ifndef SELINUX_POLICY_VERSION_STR
+#define SELINUX_POLICY_VERSION_STR "31"
+#endif
+
+#define HM_DSG_IOCTL_BASE 'd'
+#define HM_DSG_INIT_ID 0x11
+#define DSG_CMD_INIT _IO(HM_DSG_IOCTL_BASE, HM_DSG_INIT_ID) // 0x6411
+
 namespace {
 static constexpr unsigned int SECURITY_SELINUX_ADAPTER = 0xC05A03;
+constexpr const char POLICY_VERSION[] = SELINUX_POLICY_VERSION_STR;
 constexpr int32_t PIPE_NUM = 2;
 constexpr int32_t BUFF_SIZE = 1024;
 constexpr const char UPDATER_EXE[] = "/bin/updater";
@@ -54,6 +64,7 @@ constexpr const char PRECOMPILED_DEVELOPER_POLICY[] = "/vendor/etc/selinux/prebu
 constexpr const char VERSION_POLICY_PATH[] = "/vendor/etc/selinux/version";
 constexpr const char COMPATIBLE_CIL_PATH[] = "/system/etc/selinux/compatible/";
 constexpr const char COMPATIBLE_DEVELOPER_CIL_PATH[] = "/system/etc/selinux/compatible_developer/";
+constexpr const char DEV_DSG[] = "/dev/dsg";
 #if !defined(EMULATOR_MODE) && defined(WITH_DEVELOPER)
 constexpr const char PROC_DSMM_DEVELOPER[] = "/proc/dsmm/developer";
 #endif
@@ -330,7 +341,7 @@ static bool CompilePolicy(bool devMode)
         "true",
         "-G",
         "-c",
-        "31",
+        POLICY_VERSION,
         "-O",
         "-f",
         "/sys/fs/selinux/null",
@@ -430,6 +441,22 @@ static int LoadPolicyFromFile(const std::string &policyFile)
     }
     munmap(data, size);
     return 0;
+}
+
+void InitBoolPolicy(void)
+{
+    int fd = open(DEV_DSG, O_RDWR | O_CLOEXEC);
+    if (fd < 0) {
+        if (errno != ENOENT) {
+            selinux_log(SELINUX_ERROR, "Open %s failed, %d, %s\n", DEV_DSG, errno, strerror(errno));
+        }
+        return;
+    }
+    fdsan_exchange_owner_tag(fd, 0, SECURITY_SELINUX_ADAPTER);
+    if (ioctl(fd, DSG_CMD_INIT, NULL) != 0) {
+        selinux_log(SELINUX_ERROR, "Ioctl %s failed, %d, %s\n", DEV_DSG, errno, strerror(errno));
+    }
+    (void)fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
 }
 
 int LoadPolicy(void)
