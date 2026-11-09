@@ -22,6 +22,63 @@ import os
 from check_common import read_json_file, run_command
 
 
+def _relative_depfile_inputs(paths):
+    result = []
+    for path in paths:
+        try:
+            result.append(os.path.relpath(path))
+        except ValueError:
+            result.append(path)  # Different Windows drives cannot be rebased.
+    return sorted(result)
+
+
+def checker_dependencies(args, checks, policy_directories):
+    """Track checker implementation/data without replacing its argument policy.
+
+    Checkers may declare additional source-root-relative dependency paths in
+    their optional ``inputs`` list. Existing configurations remain valid.
+    """
+    source_root = os.path.abspath(args.source_root_dir)
+    dependencies = {
+        os.path.join(source_root, args.selinux_check_config),
+        os.path.abspath(args.user_policy), os.path.abspath(args.developer_policy),
+        os.path.abspath(os.path.join(args.tool_path, "checkpolicy")),
+    }
+    roots = {os.path.dirname(os.path.abspath(__file__)), *policy_directories}
+    for check in checks:
+        script = os.path.join(source_root, check["script"])
+        roots.add(os.path.dirname(script))
+        dependencies.add(script)
+        declared = check.get("inputs", [])
+        if not isinstance(declared, list) or any(not isinstance(item, str) for item in declared):
+            raise ValueError("checker inputs must be a list of dependency paths")
+        for path in declared:
+            path = os.path.join(source_root, path)
+            if os.path.isdir(path):
+                roots.add(path)
+            else:
+                dependencies.add(path)
+
+    def fail(error):
+        raise error
+
+    for root in roots:
+        for directory, children, files in os.walk(root, onerror=fail):
+            children[:] = [name for name in children if name not in (".git", "__pycache__")]
+            dependencies.add(directory)
+            dependencies.update(os.path.join(directory, name) for name in files
+                                if not name.endswith((".pyc", ".pyo")))
+    # Context arguments are generated inputs, while all.cil is produced here.
+    for name in ("file_contexts", "service_contexts", "hdf_service_contexts",
+                 "parameter_contexts", "sehap_contexts"):
+        path = os.path.join(args.output_path, "all_" + name)
+        if not os.path.exists(path):
+            path = os.path.join(args.output_path, name)
+        if os.path.exists(path):
+            dependencies.add(os.path.abspath(path))
+    return dependencies
+
+
 def append_file_contexts_args(args, request_args):
     request_args.append("--file_contexts")
     file_context_path = os.path.join(args.output_path, "all_file_contexts")
@@ -104,7 +161,17 @@ def parse_args():
     parser.add_argument('--developer-policy', help='the developer policy file', required=True)
     parser.add_argument('--tool-path', help='the policy tool bin path', required=True)
     parser.add_argument('--policy-dir-list', help='policy dirs need to be included', required=True)
-    return parser.parse_args()
+    parser.add_argument('--dep-target', help='first GN output, relative to the Ninja build directory')
+    # Keep previously generated Ninja commands usable until GN regenerates them.
+    parser.add_argument('--stamp', help=argparse.SUPPRESS)
+    parser.add_argument('--depfile')
+    args = parser.parse_args()
+    if args.dep_target and args.stamp:
+        parser.error('--dep-target and legacy --stamp cannot be used together')
+    args.dep_target = args.dep_target or args.stamp
+    if args.depfile and not args.dep_target:
+        parser.error('--dep-target is required with --depfile')
+    return args
 
 
 if __name__ == "__main__":
@@ -122,3 +189,16 @@ if __name__ == "__main__":
             cmd.extend(extra_args)
         cmd.extend(["--policy-dir-list", ":".join(policy_dir_list)])
         run_command(cmd)
+
+    if input_args.depfile:
+        import sys
+        sys.path.insert(0, os.path.join(input_args.source_root_dir, "build"))
+        from scripts.util.build_utils import write_depfile
+        dependencies = checker_dependencies(input_args, check_list, policy_dir_list)
+        write_depfile(input_args.depfile, input_args.dep_target,
+                      _relative_depfile_inputs(dependencies), add_pydeps=False)
+    # New GN actions use real CIL outputs and never request a completion marker.
+    if input_args.stamp:
+        os.makedirs(os.path.dirname(os.path.abspath(input_args.stamp)), exist_ok=True)
+        with open(input_args.stamp, 'w', encoding='utf-8'):
+            pass
