@@ -22,3 +22,8 @@ attribute prerogative_app;
 attribute hap_domain_dev_file_link_violators;
 attribute hap_domain_dir_file_relabel_violators;
 attribute hap_domain_dumper_exec_violators;
+attribute violator_domain_lnk_file_getattr_read;
+attribute violator_system_core_hap_attr_file_read;
+attribute violator_normal_hap_proc_net_dir_read;
+attribute violator_normal_hap_filesystem_read;
+attribute violator_sqlite3_exec;
