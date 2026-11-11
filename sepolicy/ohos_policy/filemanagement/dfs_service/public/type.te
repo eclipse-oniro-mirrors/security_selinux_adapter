@@ -18,7 +18,6 @@ type ntfs, fs_attr, permissions_mount_file_attr;
 
 type distributedfiledaemon, sadomain, domain;
 type data_service_el2_hmdfs, file_attr, data_file_attr;
-type data_service_el2_clouddiskservice, file_attr, data_file_attr, data_service_file_attr;
 type cloudfiledaemon, sadomain, domain;
 type clouddiskservice, sadomain, domain;
 type fuse_file, fs_attr;
