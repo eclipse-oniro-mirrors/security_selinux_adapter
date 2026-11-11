@@ -359,3 +359,6 @@ allow device_manager time_service:binder { call };
 
 #avc: denied { transfer } for pid=1685, comm="/system/bin/sa_main" scontext=u:r:device_manager:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 allow device_manager accountmgr:binder { transfer };
+
+#avc: denied { call } for pid=1513, comm="/system/bin/sa_main" scontext=u:r:device_manager:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow device_manager subfoundation:binder { call };
