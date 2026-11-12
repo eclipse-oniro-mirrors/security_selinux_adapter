@@ -14,3 +14,5 @@
 allow storage_daemon cloudfiledaemon:fd { use };
 allow storage_daemon cloudfiledaemon:binder { call };
 allow storage_daemon hmdfs:lnk_file { read };
+# avc: denied { relabelto } for pid=714, comm="/system/bin/storage_daemon" name="/service/el2/100/clouddiskservice" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=69370 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_clouddiskservice:s0 tclass=dir permissive=1
+storage_daemon_relabel(data_service_el2_clouddiskservice);
