@@ -321,4 +321,4 @@ allow edm_sa sa_useriam_useridm_service:samgr_class { get };
 allow edm_sa updater_sa:fd { use };
 
 #avc: denied { call } for pid=1493, comm="/system/bin/sa_main" scontext=u:r:edm_sa:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
-allow edm_sa subfoundation:binder { call };
+allow edm_sa subfoundation:binder { call transfer };
