@@ -135,3 +135,9 @@ allow subfoundation softbus_server:tcp_socket { getopt read setopt shutdown writ
 #avc: denied { call } for pid=1634, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:mechbody:s0 tclass=binder permissive=0
 #avc: denied { transfer } for pid=1634, comm="/system/bin/sa_main" scontext=u:r:subfoundation:s0 tcontext=u:r:mechbody:s0 tclass=binder permissive=0
 allow subfoundation mechbody:binder { call transfer };
+
+# avc:  denied  { get } for service=4700 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_softbus_service:samgr_class { get };
+
+# avc:  denied  { get } for service=4607 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow subfoundation sa_foundation_dms:samgr_class { get };
