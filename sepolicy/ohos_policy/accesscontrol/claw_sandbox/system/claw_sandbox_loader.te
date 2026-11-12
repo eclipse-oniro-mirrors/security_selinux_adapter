@@ -126,7 +126,8 @@ allow claw_sandbox_loader proc_file:file { write };
 
 # avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/data/storage/el1/bundle" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir
 # avc: denied { search } for pid=23673, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir
-allow claw_sandbox_loader data_app_el1_file:dir { getattr search };
+# avc: denied { mounton } for pid=13996 ... path=".../data/storage/el1/bundle/xjx" ... tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=0
+allow claw_sandbox_loader data_app_el1_file:dir { getattr search mounton };
 
 # avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir
 allow claw_sandbox_loader system_bin_file:dir { getattr };
@@ -177,12 +178,34 @@ allow claw_sandbox_loader usb_service:fd { use };
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4102 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4104 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
 # avc: denied { ioctl } for pid=12151, comm="/system/bin/claw_sandbox"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x411a ... tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=37692, comm="/system/bin/claw_sandbox"  path="/dev/access_token_id" dev="" ino=4 ioctlcmd=0x410d ... tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=0
 allow claw_sandbox_loader dev_at_file:chr_file { ioctl };
-allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 0x4112 0x411a };
+allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 0x4104 0x4112 0x411a 0x410d };
  
 # avc: denied { read write } for pid=51681, comm="claw_sandbox" path="/storage/Users/currentUser/Download" ... tcontext=u:object_r:hmdfs:s0 tclass=dir
 # avc: denied { search } for pid=12743 ... name="/device_view/local/files/Docs" ... tcontext=u:object_r:hmdfs:s0 tclass=dir
-allow claw_sandbox_loader hmdfs:dir { search read write };
+# avc: denied { mounton } for pid=2697 ... path=".../claw/dab75c5281df5843/storage/Users/currentUser/Documents" ... tcontext=u:object_r:hmdfs:s0 tclass=dir permissive=1
+allow claw_sandbox_loader hmdfs:dir { search read write mounton };
+
+# avc: denied { mounton } for pid=43963 ... path=".../Documents/claw_mp/file.txt" ... tcontext=u:object_r:hmdfs:s0 tclass=file permissive=0
+allow claw_sandbox_loader hmdfs:file { mounton };
+
+# avc: denied { unmount } for pid=26628, comm="/system/bin/claw_sandbox"  scontext=u:r:claw_sandbox_loader:s0:x242,x334,x512,x868,x1024 tcontext=u:object_r:hmdfs:s0 tclass=filesystem permissive=0
+allow claw_sandbox_loader hmdfs:filesystem { unmount };
+
+# avc: denied { search } for pid=12074 ... name="/el2" dev="/mnt/user/100/nosharefs/appdata" ... tcontext=u:object_r:sharefs_appdata_file:s0 tclass=dir permissive=0
+# avc: denied { mounton } for pid=43977 ... path=".../appdata/el1/base" ... tcontext=u:object_r:sharefs_appdata_file:s0 tclass=dir permissive=0
+allow claw_sandbox_loader sharefs_appdata_file:dir { search mounton };
+
+# avc: denied { mounton } for pid=26628 ... tcontext=u:object_r:sharefs_appdata_bundle_file:s0 tclass=dir permissive=0
+# avc: denied { search } for pid=11238 ... name="/el2/base/com.example.sandbox" ... tcontext=u:object_r:sharefs_appdata_bundle_file:s0 tclass=dir permissive=0
+allow claw_sandbox_loader sharefs_appdata_bundle_file:dir { search mounton };
+
+# avc: denied { mounton } for pid=28865 ... path=".../currentUser/appdata" ... tcontext=u:object_r:sharefs:s0 tclass=dir permissive=0
+allow claw_sandbox_loader sharefs:dir { mounton };
+
+# avc: denied { unmount } for pid=29782, comm="/system/bin/claw_sandbox"  scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:sharefs:s0 tclass=filesystem permissive=0
+allow claw_sandbox_loader sharefs:filesystem { unmount };
 
 # avc: denied { write } for pid=12743 ... name="1" ... tcontext=u:object_r:tty_device:s0 tclass=chr_file
 # avc: denied { ioctl } for pid=8922 comm="claw_sandbox" name="2" dev="2" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file
@@ -258,7 +281,11 @@ allow claw_sandbox_loader aimgr:file { read write };
 # avc: denied { search } for pid=12978 ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir
 # avc: denied { getattr } for pid=11110, comm="/system/bin/claw_sandbox" ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir
 # avc: denied { read write } for pid=23477, comm="/system/bin/claw_sandbox" ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir
-allow claw_sandbox_loader data_user_file:dir { search getattr read write };
+# avc: denied { open } for pid=28344 ... path=".../hmdfs/account/files/Docs/Documents" ... tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=0
+allow claw_sandbox_loader data_user_file:dir { search getattr read write open };
+
+# avc: denied { search } for pid=29878 ... name="/service/el1/public/for-all-app" ... tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+allow claw_sandbox_loader data_service_el1_file:dir { search };
 
 # avc: denied { search } for pid=11110, comm="/system/bin/claw_sandbox"  name="/service/el2/100/hmdfs" ... scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir
 allow claw_sandbox_loader data_service_el2_hmdfs:dir { search };
@@ -275,8 +302,13 @@ allow claw_sandbox_loader data_app_el2_file:dir { search };
 # avc: denied { search } for pid=9339, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:appdat:s0 tclass=dir
 # avc: denied { getattr } for pid=9339, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:appdat:s0 tclass=dir
 # avc: denied { read write } for pid=11920, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:appdat:s0 tclass=dir
-allow claw_sandbox_loader appdat:dir { search getattr read write };
-allow claw_sandbox_loader normal_hap_data_file:dir { search getattr read write };
+# avc: denied { mounton } for pid=8867 ... path=".../files/claw_m3/mount_dir_test" ... tcontext=u:object_r:appdat:s0 tclass=dir permissive=0
+allow claw_sandbox_loader appdat:dir { search getattr read write mounton };
+allow claw_sandbox_loader normal_hap_data_file:dir { search getattr read write mounton };
+
+# avc: denied { mounton } for pid=8036 ... path=".../files/claw_m3/mount_file_test" ... tcontext=u:object_r:appdat:s0 tclass=file permissive=0
+allow claw_sandbox_loader appdat:file { mounton };
+allow claw_sandbox_loader normal_hap_data_file:file { mounton };
 
 # avc: denied { getattr } for pid=9960, comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:normal_hap:s0 tclass=process permissive=0
 allow claw_sandbox_loader normal_hap_attr:process { getattr };
