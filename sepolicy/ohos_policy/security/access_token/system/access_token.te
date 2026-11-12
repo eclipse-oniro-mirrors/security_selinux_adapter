@@ -140,6 +140,12 @@ allowxperm msdp_sa dev_at_file:chr_file ioctl { 0x4104 };
 allow accesstoken_service data_app_el1_file:file { getattr map read };
 allow accesstoken_service data_app_el1_file:dir { getattr search };
 allow accesstoken_service data_app_file:dir { search };
+# stat app sandbox dir (/data/app/el1/<uid>/base/<dataDir>) to resolve uid during hap restore.
+# [ResolveUidByFstat] stat sandbox path failed: /data/app/el1/100/base/com.example.kikakeyboard (appdat, getattr denied)
+# avc: denied { getattr } for pid=381 comm="SaInit0" path="/data/app/el1/0/base/com.ohos.systemui" scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
+# avc: denied { getattr } for pid=381 comm="SaInit0" path="/data/app/el1/100/base/ohos.samples.distributedcalc" scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=0
+allow accesstoken_service hap_file_attr:dir { getattr };
+
 allowxperm { appspawn cjappspawn nativespawn nwebspawn } dev_at_file:chr_file ioctl { 0x4112 0x4114 0x4116 0x4118 };
 # avc: denied { open read } for pid=1066, comm="/system/bin/sa_main" path="/proc/cmdline" dev="" ino=36 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:proc_cmdline_file:s0 tclass=file premissive=0
 allow accesstoken_service proc_cmdline_file:file { open read };
@@ -167,6 +173,13 @@ allow accesstoken_service module_update_file:file { getattr open read };
 
 # read from /data/bms_app_clone/dataclone
 allow accesstoken_service data_file:file { getattr map open read };
+
+# read BMS database for hap restore (QueryAtmBundleRecoveryInfo reads bmsdb.db in-process without IPC).
+# avc: denied  { open } for pid=403 comm="SaInit0"  path="/data/service/el1/public/bms/bundle_manager_service/bmsdb.db" scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file permissive=0
+# avc: denied  { read } for pid=403 comm="SaInit0"  path="/data/service/el1/public/bms/bundle_manager_service/bmsdb.db" scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file permissive=0
+# avc: denied  { getattr } for pid=403 comm="SaInit0"  path="/data/service/el1/public/bms/bundle_manager_service/bmsdb.db" scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file permissive=0
+# avc: denied  { lock } for pid=403 comm="SaInit0"  path="/data/service/el1/public/bms/bundle_manager_service/bmsdb.db" scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file permissive=0
+allow accesstoken_service bms_db_file:file { open read getattr lock };
 
 binder_call(accesstoken_service, resource_schedule_service);
 binder_call(accesstoken_service, distributeddata);
