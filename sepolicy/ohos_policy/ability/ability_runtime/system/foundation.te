@@ -157,3 +157,6 @@ allow foundation processdump:file { open read };
 # avc: denied { call } for pid=12707, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
 # avc: denied { transfer } for pid=12707, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=0
 allow foundation subfoundation:binder { call transfer };
+
+# avc: denied { get } for service=3524 sid=u:r:foundation:s0 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow foundation sa_sg_collect_service:samgr_class { get };
