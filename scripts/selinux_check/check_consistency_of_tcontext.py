@@ -208,13 +208,22 @@ class PolicyMap:
         return base_policy == candidate_policy
 
 
-    def get_effective_policy(self, effective_map, contexts, policy_resolver):
+    def get_effective_policy(self, effective_map, contexts, policy_resolver, other):
         peer_context, tclass = contexts
         candidate_policy = effective_map.get((peer_context, tclass))
         if self.check_type == CHECK_TYPE_TCONTEXT:
             for attr in policy_resolver.typeattributes_map.get(peer_context, set()):
                 attr_policy = effective_map.get((attr, tclass))
                 candidate_policy = self.merge_policy_value(candidate_policy, attr_policy)
+        elif self.check_type == CHECK_TYPE_SCONTEXT and \
+                (peer_context == 'self' or peer_context == self.name):
+            # scontext mode: 'self' and the domain's own type are aliases of
+            # the same self-reference rule, e.g. base 'allow A self:file read'
+            # is covered by extend 'allow B B:file read' and
+            # base 'allow A A:file read' is covered by extend 'allow B self:file read'
+            for alias_context in ('self', other.name):
+                alias_policy = effective_map.get((alias_context, tclass))
+                candidate_policy = self.merge_policy_value(candidate_policy, alias_policy)
         return candidate_policy is not None, candidate_policy
 
 
@@ -230,7 +239,8 @@ class PolicyMap:
                 self.allowx_map, other.allowx_map)
 
         for contexts, base_policy in missing_list:
-            has_extend_policy, extend_policy = self.get_effective_policy(effective_map, contexts, policy_resolver)
+            has_extend_policy, extend_policy = self.get_effective_policy(
+                effective_map, contexts, policy_resolver, other)
             if has_extend_policy:
                 if not self.is_policy_covered(base_policy, extend_policy):
                     basepolicy_str = format_allow(rulename, contexts, self.name, base_policy, self.check_type)
@@ -242,7 +252,8 @@ class PolicyMap:
             not_found.append(basepolicy_str)
 
         for contexts, base_policy, extend_policy in inconsistent_list:
-            has_combined_policy, combined_policy = self.get_effective_policy(effective_map, contexts, policy_resolver)
+            has_combined_policy, combined_policy = self.get_effective_policy(
+                effective_map, contexts, policy_resolver, other)
             if self.is_policy_covered(base_policy, combined_policy):
                 continue
             basepolicy_str = format_allow(rulename, contexts, self.name, base_policy, self.check_type)
