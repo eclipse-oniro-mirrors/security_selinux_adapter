@@ -186,3 +186,7 @@ allow camera_service system_core_hap:fd { use };
 
 # avc: denied { call } for pid=1603, comn="/system/bin/sa_main" scontext=u:r:camera_service:s0 tcontext=u:r:media_monitor:s0 tclass=binder permissive=0
 allow camera_service media_monitor:binder { call };
+
+# avc: denied { call } for pid=1843, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=1843, comm="/system/bin/sa_main"  scontext=u:r:camera_service:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow camera_service subfoundation:binder { call transfer };
