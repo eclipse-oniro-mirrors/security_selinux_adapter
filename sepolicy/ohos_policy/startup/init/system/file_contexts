@@ -19,6 +19,8 @@
 # for hyperhold
 /data/vendor/hyperhold(/.*)?          u:object_r:hyperhold_sys:s0
 /dev/block/by-name/dm_linear_reserved       u:object_r:slc_dm_device:s0
+/dev/block/by-name/dm_linear_reserved_dma   u:object_r:slc_dm_device:s0
+/dev/block/by-name/dm_linear_reserved_gpu   u:object_r:slc_dm_device:s0
 /dev/block/by-name/dm_hyperhold             u:object_r:slc_dm_device:s0
 /dev/block/by-name/dm_gpu                   u:object_r:slc_dm_device:s0
 /dev/block/by-name/dm_dmabuf                u:object_r:slc_dm_device:s0
