@@ -316,3 +316,13 @@ allow installs cloudfile_data_file:dir { search read write add_name create setat
 # avc: denied { setattr } for pid=48982, comm="/system/bin/sa_main" name="/service/el1/public/cloudfile/fake_decompress/fakeDecompressGains" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=50197 scontext=u:r:installs:s0 tcontext=u:object_r:cloudfile_data_file:s0 tclass=file permissive=1
 # avc: denied { lock } for pid=48982, comm="/system/bin/sa_main" path="/data/service/el1/public/cloudfile/fake_decompress/fakeDecompressGains" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=50197 scontext=u:r:installs:s0 tcontext=u:object_r:cloudfile_data_file:s0 tclass=file permissive=1
 allow installs cloudfile_data_file:file { create open read write lock setattr };
+
+# avc: denied { create } for pid=2351, comm="/system/bin/sa_main"  name="/app/el1/bundle/public/com.test.myapplication/libs/arm64/libc++_shared.so" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=41963 scontext=u:r:installs:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=lnk_file permissive=0
+# avc: denied { read } for pid=2727, comm="/system/bin/sa_main"  name="/app/el1/bundle/public/com.test.myapplication/libs/arm64/libc++_shared.so" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=44675 scontext=u:r:installs:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=lnk_file permissive=0
+allow installs data_app_el1_file:lnk_file { create read };
+
+# avc: denied { relabelto } for pid=2719, comm="/system/bin/sa_main"  name="/app/el1/bundle/public/com.test.myapplication/libs/arm64/libc++_shared.so" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=52472 scontext=u:r:installs:s0 tcontext=u:object_r:system_lib_file:s0 tclass=lnk_file permissive=0
+# avc: denied { unlink } for pid=2719, comm="/system/bin/sa_main"  name="/app/el1/bundle/public/com.test.myapplication/libs/arm64/libc++_shared.so" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=52472 scontext=u:r:installs:s0 tcontext=u:object_r:system_lib_file:s0 tclass=lnk_file permissive=0
+# avc: denied { rename } for pid=2719, comm="/system/bin/sa_main"  name="/app/el1/bundle/public/com.test.myapplication/libs/arm64/libc++_shared.so" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=52472 scontext=u:r:installs:s0 tcontext=u:object_r:system_lib_file:s0 tclass=lnk_file permissive=0
+# avc: denied { getattr } for pid=2719, comm="/system/bin/sa_main"  name="/app/el1/bundle/public/com.test.myapplication/libs/arm64/libc++_shared.so" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=52472 scontext=u:r:installs:s0 tcontext=u:object_r:system_lib_file:s0 tclass=lnk_file permissive=0
+allow installs system_lib_file:lnk_file { relabelto unlink rename getattr };
