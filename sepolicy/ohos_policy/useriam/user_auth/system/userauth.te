@@ -83,7 +83,8 @@ allow useriam softbus_server:tcp_socket { read write setopt shutdown };
 allow softbus_server useriam:binder { call };
 
 # avc: denied { getattr } for pid=1455, comm="system/bin/sa_main" path="/data/service/el1/100/useriam/pinauth" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=65106 scontext=u:r:useriam:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allow useriam data_service_el1_file:dir { search write add_name remove_name getattr setattr open read };
+# avc: denied { create } for pid=1455, comm="system/bin/sa_main" path="/data/service/el1/100/useriam/companion_device_auth/icons" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=65128 scontext=u:r:useriam:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow useriam data_service_el1_file:dir { search write add_name remove_name create rmdir getattr setattr open read };
 
 allow useriam data_service_el1_file:file { create getattr open read unlink write setattr rename };
 
