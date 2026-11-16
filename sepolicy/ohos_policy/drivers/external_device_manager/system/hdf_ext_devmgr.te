@@ -170,3 +170,7 @@ allow hdf_ext_devmgr sys_param:file { map read };
 # avc: denied { ioctl } for pid=11143, comm="/system/bin/sa_main"  path="/data/service/el1/public/pkg_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=32223 ioctlcmd=0xf546 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:hdf_ext_devmgr_file:s0 tclass=dir permissive=0
 allowxperm hdf_ext_devmgr hdf_ext_devmgr_file:dir ioctl { 0xf546 };
 allow hdf_ext_devmgr chip_prod_file:dir { search };
+
+# avc: denied { call } for pid=2000, comm="/system/bin/sa_main"  scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=2000, comm="/system/bin/sa_main"  scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:subfoundation:s0 tclass=binder permissive=1
+allow hdf_ext_devmgr subfoundation:binder { call transfer };
