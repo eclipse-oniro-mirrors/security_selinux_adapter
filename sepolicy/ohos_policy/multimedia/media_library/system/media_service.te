@@ -16,3 +16,12 @@
 allow media_service ntfs:file { read write getattr };
 allow media_service exfat:file { read write getattr };
 allow media_service vfat:file { read write getattr };
+
+# avc:  denied  { call transfer } for  pid=1542 comm="O8_IPC_2_2875" scontext=u:r:media_service:s0 tcontext=u:r:mediatool:s0 tclass=binder permissive=1
+allow media_service mediatool:binder { call transfer };
+
+# avc:  denied  { use } for  pid=25002 comm="/bin/mediatool" path="/data/local/tmp/test/test7/2.mp4" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36385 scontext=u:r:media_service:s0 tcontext=u:r:mediatool:s0 tclass=fd permissive=1
+allow media_service mediatool:fd { use };
+
+# avc:  denied  { getattr read } for  pid=1542 comm="AVMetadata" path="/data/local/tmp/test/test7/2.mp4" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36385 scontext=u:r:media_service:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+allow media_service data_local_tmp:file { getattr read };

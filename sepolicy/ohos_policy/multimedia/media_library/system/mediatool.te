@@ -17,6 +17,10 @@ allow mediatool sh:fifo_file { write };
 allow mediatool medialibrary_hap:fd { use };
 allow mediatool chip_prod_file:dir { search };
 allow mediatool debug_param:file { read open map };
+
+# avc:  denied  { read open map } for  pid=25002 comm="/bin/mediatool" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="" ino=284 scontext=u:r:mediatool:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow mediatool arkcompiler_param:file { read open map };
+
 allow mediatool dev_unix_socket:dir { search };
 allow mediatool hdcd:fd { use };
 allow mediatool persist_param:file { read open map };
@@ -30,6 +34,13 @@ allow mediatool devpts:chr_file { read write };
 allow mediatool system_usr_file:file { read getattr open map };
 allow mediatool sa_storage_manager_service:samgr_class { get };
 allow mediatool storage_manager:binder { call };
+
+# avc:  denied  { get } for service=3002 sid=u:r:mediatool:s0 scontext=u:r:mediatool:s0 tcontext=u:object_r:sa_media_service:s0 tclass=samgr_class permissive=0
+allow mediatool sa_media_service:samgr_class { get };
+
+# avc:  denied  { call transfer } for  pid=25002 comm="/bin/mediatool" scontext=u:r:mediatool:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow mediatool media_service:binder { call transfer };
+
 allow mediatool mediatool:unix_dgram_socket { getopt setopt };
 allow mediatool hiview:unix_dgram_socket { sendto };
 allow mediatool sa_foundation_abilityms:samgr_class { get };
@@ -40,12 +51,22 @@ allow mediatool devpts:chr_file { ioctl };
 allow mediatool hdcd:fifo_file { read write };
 allow mediatool data_file:dir { search };
 allow mediatool data_local:dir { search };
-allow mediatool data_local_tmp:dir { search getattr write add_name create };
-allow mediatool data_local_tmp:file { write create open };
-allow mediatool data_user_file:file { getattr read };
+
+# avc:  denied  { open read remove_name } for  pid=25002 comm="/bin/mediatool" path="/data/local/tmp/test/test7" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36384 scontext=u:r:mediatool:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+allow mediatool data_local_tmp:dir { search getattr open read write add_name create remove_name };
+
+# avc:  denied  { read getattr unlink } for  pid=25002 comm="/bin/mediatool" path="/data/local/tmp/test/test7/2.jpg" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=36386 scontext=u:r:mediatool:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+allow mediatool data_local_tmp:file { write create open read getattr unlink };
+
+# avc:  denied  { write } for  pid=2649 comm="mediatool" path="/data/service/el2/100/hmdfs/account/files/Photo/1/IMG_1502861070_001.jpg" dev="mmcblk0p15" ino=269 scontext=u:r:mediatool:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=0
+allow mediatool data_user_file:file { getattr read write };
+
 allow mediatool sys_param:file { read open };
 allow mediatool samgr:file { read open write };
-allow mediatool hmdfs:file { read getattr };
+
+# avc:  denied  { write } for  pid=25002 comm="/bin/mediatool" path="/storage/cloud/files/Photo/16/IMG_1794798647_000.jpg" dev="/data/service/el2/100/hmdfs/account" ino=11529215046068500170 scontext=u:r:mediatool:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
+allow mediatool hmdfs:file { read getattr write };
+
 allowxperm mediatool devpts:chr_file ioctl 0x5413;
 allow foundation mediatool:binder { call transfer };
 allow samgr mediatool:dir { search };
