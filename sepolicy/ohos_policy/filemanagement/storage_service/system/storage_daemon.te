@@ -636,3 +636,8 @@ allowxperm storage_daemon dev_mapper_control_file:chr_file ioctl { 0xfd03 0xfd06
 # avc: denied { ioctl } for pid=674, comm="/system/bin/storage_daemon"  path="/dev/block/sda" dev="" ino=871 ioctlcmd=0x1272 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_sda:s0 tclass=blk_file permissive=0
 allow storage_daemon dev_block_sda:blk_file { getattr ioctl };
 allowxperm storage_daemon dev_block_sda:blk_file ioctl { 0x1272 };
+
+# avc: denied  { get } for service=3524 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
+allow storage_daemon sa_sg_collect_service:samgr_class { get };
+# avc: denied  { call } for service=3524 sid=u:r:storage_daemon:s0 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:security_guard:s0 tclass=binder permissive=0
+allow storage_daemon security_guard:binder { call };
