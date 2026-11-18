@@ -168,7 +168,7 @@ allow distributeddata input_pointer_device_param:file { map open read };
 allow distributeddata net_param:file { map open read };
 allow distributeddata net_tcp_param:file { map open read };
 allow distributeddata normal_hap_attr:fd { use };
-allow distributeddata normal_hap_data_file_attr:dir { getattr setattr open read };
+allow distributeddata normal_hap_data_file_attr:dir { getattr setattr open read ioctl };
 allow distributeddata normal_hap_data_file_attr:file { ioctl map open read write setattr };
 allow distributeddata ohos_boot_param:file { map open read };
 allow distributeddata ohos_param:file { map open read };
@@ -288,8 +288,5 @@ allow distributeddata medialibrary_hap_data_file:dir {ioctl};
 allowxperm distributeddata medialibrary_hap_data_file:dir ioctl { 0xf548 0xf549 };
 
 # avc: denied { ioctl } for pid=1537, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
-allow distributeddata normal_hap_data_file:dir {ioctl};
-
-# avc: denied { ioctl } for pid=1537, comm="/system/bin/sa_main" scontext=u:r:distributeddata:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
-allowxperm distributeddata normal_hap_data_file:dir ioctl { 0xf548 0xf549 };
+allowxperm distributeddata normal_hap_data_file_attr:dir ioctl { 0xf548 0xf549 };
 
