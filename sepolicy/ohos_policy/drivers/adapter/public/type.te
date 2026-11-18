@@ -53,6 +53,8 @@ type vibrator_host, hdfdomain, domain;
 typeattribute vibrator_host violator_vendor_system_etc_read;
 type power_host, hdfdomain, domain;
 typeattribute power_host violator_vendor_system_etc_read;
+type pcie_host, hdfdomain, domain;
+typeattribute pcie_host violator_vendor_system_etc_read;
 type location_host, hdfdomain, domain;
 typeattribute location_host violator_vendor_system_etc_read;
 

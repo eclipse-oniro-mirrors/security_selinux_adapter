@@ -19,3 +19,6 @@ neverallow kernel hmdfs:file ioctl;
 allow kernel data_service_el2_hmdfs:dir { create_dir_perms };
 allow kernel data_service_el2_hmdfs:file { create_file_perms };
 allow kernel hdf_devhost_exec:file { getattr open read };
+
+# avc: denied { getattr } for pid=68, comm="/bin/devmgr.elf"  path="/data/service/el1/public/pcie_driver/abc_high.ko" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=34862 scontext=u:r:kernel:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow kernel pcie_driver_file:file { getattr };

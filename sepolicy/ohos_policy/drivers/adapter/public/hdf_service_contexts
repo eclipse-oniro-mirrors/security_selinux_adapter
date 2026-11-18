@@ -82,6 +82,8 @@ usb_device_interface_service            u:object_r:hdf_usb_device_interface_serv
 usb_port_interface_service              u:object_r:hdf_usb_port_interface_service:s0
 usbfn_mtp_interface_service             u:object_r:hdf_usbfn_mtp_interface_service:s0
 usb_ddk_service                         u:object_r:hdf_usb_ddk_service:s0
+pcie_interface_service                  u:object_r:hdf_pcie_ddk_service:s0
+pcie_driver_host_service                u:object_r:hdf_pcie_driver_host_service:s0
 usb_serial_ddk_service                  u:object_r:hdf_usb_serial_ddk_service:s0
 partition_slot_service                  u:object_r:hdf_partition_slot_service:s0
 wlan_interface_service                  u:object_r:hdf_wlan_interface_service:s0

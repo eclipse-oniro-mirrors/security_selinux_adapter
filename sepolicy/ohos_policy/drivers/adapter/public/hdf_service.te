@@ -84,6 +84,8 @@ type hdf_hostapd_interface_service, hdf_service_attr;
 type hdf_hid_ddk_service, hdf_service_attr;
 type hdf_scsi_peripheral_ddk_service, hdf_service_attr;
 type hdf_safe_location_interface_service, hdf_service_attr;
+type hdf_pcie_driver_host_service, hdf_service_attr;
+type hdf_pcie_ddk_service, hdf_service_attr;
 
 # for testcase start
 type hdf_sample_service, hdf_service_attr;
