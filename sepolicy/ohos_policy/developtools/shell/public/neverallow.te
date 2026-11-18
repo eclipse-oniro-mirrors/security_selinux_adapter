@@ -1,0 +1,7 @@
+neverallow { hap_domain -hap_domain_dev_file_link_violators } { tmpfs_data_file dev_file }:lnk_file *;
+neverallow { normal_hap_attr -hap_domain_socket_violators } *:{ alg_socket sctp_socket } *;
+neverallow { hap_domain -violator_domain_lnk_file_getattr_read } { domain -hap_domain develop_domain }:lnk_file *;
+neverallow violator_domain_lnk_file_getattr_read { domain -hap_domain develop_domain }:lnk_file ~{ getattr read };
+neverallow violator_system_core_hap_attr_file_read system_core_hap_attr:file ~{ read open getattr };
+neverallow violator_normal_hap_filesystem_read proc_filesystems_file:file ~{ read open getattr };
+neverallow violator_normal_hap_proc_net_dir_read proc_net:dir ~{ read open getattr search };

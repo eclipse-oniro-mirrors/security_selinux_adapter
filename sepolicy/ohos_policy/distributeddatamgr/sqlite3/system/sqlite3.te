@@ -111,7 +111,7 @@ allow sqlite3 hdcd:fifo_file { read write };
 ')
  
 # only shell allowed execute sqlite3_exec
-neverallow ~{ debug_only(`su') developer_only(`sh') sqlite3 } sqlite3_exec:file { execute };
+neverallow ~{ debug_only(`su') developer_only(`sh') sqlite3 violator_sqlite3_exec } sqlite3_exec:file { execute };
 neverallow sqlite3 { normal_hap_data_file_attr -debug_hap_data_file }:dir_file_class_set { create unlink };
 neverallow sqlite3 { normal_hap_data_file_attr -debug_hap_data_file }:dir *;
 neverallow sqlite3 { normal_hap_data_file_attr -debug_hap_data_file }:file_class_set open;
