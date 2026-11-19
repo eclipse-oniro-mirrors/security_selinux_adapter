@@ -42,6 +42,9 @@ allow subfoundation sa_resource_schedule:samgr_class { get };
 # avc: denied { get } for service=3901 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=0
 allow subfoundation sa_param_watcher:samgr_class { get };
 
+# avc:  denied  { get } for service=6105 sid=u:r:subfoundation:s0 scontext=u:r:subfoundation:s0 tcontext=u:object_r:sa_ecological_rule_mgr_service:s0 tclass=samgr_class permissive=0
+allow subfoundation sa_ecological_rule_mgr_service:samgr_class { get };
+
 # 3. File access (form_storage database)
 
 # avc: denied { append } for pid=48005, comm="/system/bin/sa_main" path="/data/service/el1/public/database/form_storage/formdb.db-compare" scontext=u:r:subfoundation:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
