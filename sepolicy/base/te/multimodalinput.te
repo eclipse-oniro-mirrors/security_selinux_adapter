@@ -58,6 +58,7 @@ allow multimodalinput sa_foundation_abilityms:samgr_class { get };
 allow multimodalinput sa_multimodalinput_service:samgr_class { add };
 allow multimodalinput sa_param_watcher:samgr_class { get };
 allow multimodalinput sa_resource_schedule:samgr_class { get };
+allow multimodalinput sceneboard_hap:fd { use };
 allow multimodalinput security_param:file { map open read };
 allow multimodalinput startup_param:file { map open read };
 allow multimodalinput sys_file:dir { open read };
