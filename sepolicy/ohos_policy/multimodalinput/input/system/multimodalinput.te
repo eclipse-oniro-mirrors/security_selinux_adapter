@@ -152,3 +152,6 @@ allow multimodalinput sa_secure_access_fence:samgr_class { get };
 # avc: denied { call } for pid=897, comm="/system/bin/sa_main" scontext=u:r:multimodalinput:s0 tcontext=u:object_r:secure_access_fence:s0 tclass=binder permissive=0
 allow multimodalinput secure_access_fence:binder { call };
 
+# avc: denied { use } for pid=xxx comm="multimodalinput" scontext=u:r:multimodalinput:s0 tcontext=u:r:sceneboard_hap:s0 tclass=fd permissive=0
+allow multimodalinput sceneboard_hap:fd { use };
+
