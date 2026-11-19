@@ -137,6 +137,7 @@ allow pcie_host hdf_ext_devmgr:binder { call };
 allow pcie_host pcie_host:system { module_load };
 
 # avc: denied { call } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
 allow pcie_host samgr:binder { call transfer };
 
 # avc: denied { ioctl } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/dev/binder" dev="" ino=13 ioctlcmd=0x62aa scontext=u:r:pcie_host:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=1
