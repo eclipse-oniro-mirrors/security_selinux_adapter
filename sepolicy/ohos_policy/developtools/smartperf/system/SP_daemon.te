@@ -189,3 +189,6 @@ allow SP_daemon hitrace_log_file:file { getattr read open };
 allow SP_daemon hitrace_log_file:dir { search };
 # avc: denied { read } for pid=10789, comm="/system/bin/SP_daemon" path="/log/hiview/unified_collection/trace/special/Other_trace_20260907112018@87-16464.sys" dev="/dev/block/platform/ee560000.ufs/by-name/userdata"ino=39007 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hiview:s0 tclass=lnk_file permissive=1
 allow SP_daemon hiview_file:lnk_file { read };
+
+# avc: denied { get } for service=200, sid=u:r:SP_daemon:s0 scontext=u:r:SP_daemon:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow SP_daemon sa_accountmgr:samgr_class { get };
