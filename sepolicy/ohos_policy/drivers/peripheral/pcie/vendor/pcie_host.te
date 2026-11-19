@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# PCIe Driver host scans PCIe sysfs, requests EDM SA load plans, and executes approved Driver loads.
-typeattribute pcie_host cap_violator_sysmodule;
-
 # avc: denied { get } scontext=u:r:pcie_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 allow pcie_host hdf_device_manager:hdf_devmgr_class { get };
 
