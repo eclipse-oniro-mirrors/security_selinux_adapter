@@ -125,8 +125,3 @@ allow chipset_init clearplay_host:process { rlimitinh siginh transition };
 allow chipset_init sysfs_gadget_usb:file { open };
 
 allow chipset_init samain_exec:file { execute getattr read read open };
-
-# avc: denied { rlimitinh } for pid=7161, comm="/vendor/bin/hdf_devhost"  scontext=u:r:chipset_init:s0 tcontext=u:r:pcie_host:s0 tclass=process permissive=1
-# avc: denied { siginh } for pid=7161, comm="/vendor/bin/hdf_devhost"  scontext=u:r:chipset_init:s0 tcontext=u:r:pcie_host:s0 tclass=process permissive=1
-# avc: denied { transition } for pid=7161, comm="/bin/init"  scontext=u:r:chipset_init:s0 tcontext=u:r:pcie_host:s0 tclass=process permissive=1
-allow chipset_init pcie_host:process { rlimitinh siginh transition };
