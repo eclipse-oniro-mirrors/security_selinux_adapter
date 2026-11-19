@@ -209,6 +209,7 @@
             "pid_ns_init",
             "tlogcat",
             "appspawn",
+            "subspawn",
             "bm",
             "SP_daemon",
             "hiprofiler_plugins",

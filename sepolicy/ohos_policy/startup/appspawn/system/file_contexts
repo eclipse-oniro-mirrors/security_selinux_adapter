@@ -36,3 +36,7 @@
 /data/service/el1/startup/cjappspawn(/.*)?      u:object_r:data_spawn_shm:s0
 
 /data/service/el1/startup/hybridspawn(/.*)?     u:object_r:data_spawn_shm:s0
+
+/system/bin/subspawn                    u:object_r:subspawn_exec:s0
+
+/data/service/el1/startup/subspawn_[0-9]+ u:object_r:subspawn_socket:s0

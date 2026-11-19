@@ -216,3 +216,13 @@ allow isolated_render sharefs_appdata_bundle_file:file { read write getattr appe
 
 # avc: denied { write } for pid=1, comm="/system/bin/nwebspawn"  path="/storage/External/xxx/02/xxx.mhtml" dev="mtpfs" ino=285 scontext=u:r:isolated_render:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=file permissive=0
 allow isolated_render mnt_external_file:file { read write getattr append };
+
+# avc:  denied  { use } for  pid=8800 comm="com.example.myapplication" path="socket:[32249]" dev="sockfs" ino=32249 scontext=u:r:isolated_render:s0 tcontext=u:r:subspawn:s0 tclass=fd permissive=1
+allow isolated_render subspawn:fd { use };
+
+# avc:  denied  { write } for  pid=8800 comm="com.example.myapplication" path="pipe:[28287]" dev="pipefs" ino=28287 scontext=u:r:isolated_render:s0 tcontext=u:r:subspawn:s0 tclass=fifo_file permissive=1
+allow isolated_render subspawn:fifo_file { write };
+
+# avc:  denied  { write } for  pid=8800 comm="com.example.myapplication" path="socket:[32249]" dev="sockfs" ino=32249 scontext=u:r:isolated_render:s0 tcontext=u:r:subspawn:s0 tclass=unix_dgram_socket permissive=1
+#avc: denied { connect } scontext=u:r:isolated_render:s0 tcontext=u:r:subspawn:s0 tclass=unix_dgram_socket
+allow isolated_render subspawn:unix_dgram_socket { write connect };
