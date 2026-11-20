@@ -23,6 +23,10 @@ allow init print_driver_read:dir { add_name create write getattr open read relab
 allow init print_driver_tmp:dir { add_name create write getattr open read relabelto search setattr };
 allow init cups_socket:dir { add_name create write getattr open read relabelto search setattr };
 allow init data_service_sane_service_config_file:dir { getattr setattr open read relabelto };
+
+# avc: denied { relabelto } for comm="init" scontext=u:r:init:s0 tcontext=u:object_r:sane_service_cert_file:s0 tclass=dir permissive=1
+allow init sane_service_cert_file:dir { search getattr setattr open read relabelto };
+
 allow init data_service_sane_service_tmp_file:dir { search setattr };
 allow init data_service_scan_service_driver_file:dir { getattr setattr open read };
 allow init sane_service:dir { getattr };
