@@ -14,6 +14,7 @@
 {
   global:
     LoadPolicy;
+    InitBoolPolicy;
     SelinuxKmsg;
     SetSelinuxKmsgLevel;
     _ZNSt3__h13basic_filebufIcNS_11char_traitsIcEEE4syncEv;

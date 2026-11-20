@@ -20,6 +20,7 @@ declare_args() {
   selinux_adapter_build_path_flex_overlay = "default"
   selinux_adapter_components = "default"
   selinux_adapter_vendor_policy_version = "40"
+  selinux_adapter_policy_version = "31"
   selinux_adapter_special_build_policy_script = "default"
   selinux_adapter_special_build_contexts_script = "default"
   special_build_ignore_cfg = "default"

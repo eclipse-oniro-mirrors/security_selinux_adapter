@@ -23,6 +23,7 @@ extern "C" {
 #endif
 
 int LoadPolicy(void);
+void InitBoolPolicy(void);
 int Restorecon(const char *path);
 int RestoreconRecurse(const char *path);
 int RestoreconRecurseParallel(const char *path, unsigned int nthreads);

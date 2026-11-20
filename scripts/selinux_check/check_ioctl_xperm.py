@@ -71,6 +71,7 @@ def split_typetransition(elem_list, typetransition_set):
 def deal_with_allow(cil_file, allow_set, allowx_set, typetransition_set):
     with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
+            line = line.strip()
             if line.startswith('(typetransition '):
                 # (typetransition A B process C)
                 sub_string = simplify_string(line)
