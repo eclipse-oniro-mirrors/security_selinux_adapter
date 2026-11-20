@@ -41,3 +41,17 @@ allowxperm pasteboard_service data_service_el2_pasteboard_service:file ioctl { 0
 allow storage_daemon data_service_el2_pasteboard_service:dir { relabelto lock rename remove_name rmdir read write create getattr setattr relabelfrom open add_name search };
 allow storage_daemon data_service_el2_pasteboard_service:file { relabelto read write create getattr setattr lock append map unlink rename open watch watch_reads relabelfrom };
 allow pasteboard_service foundation:fd { use };
+
+# avc: denied { create } for pid=1670, comm="/system/bin/sa_main"  name="/100/clipboard_fuse/files" dev="tmpfs" ino=16 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+# avc: denied { write add_name } for pid=1670, comm="/system/bin/sa_main"  name="/100/clipboard_fuse" dev="tmpfs" ino=7 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+allow pasteboard_service tmpfs:dir { create write add_name };
+
+# avc: denied { call } for pid=1670, comm="/system/bin/sa_main"  scontext=u:r:pasteboard_service:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=1
+allow pasteboard_service storage_manager:binder { call };
+
+# avc: denied { use } for pid=693, comm="/system/bin/sa_main"  path="/dev/fuse" dev="" ino=17 scontext=u:r:pasteboard_service:s0 tcontext=u:r:storage_daemon:s0 tclass=fd permissive=1
+allow pasteboard_service storage_daemon:fd { use };
+
+# avc: denied { read } for pid=1670, comm="/system/bin/sa_main"  path="/dev/fuse" dev="" ino=17 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+# avc: denied { write } for pid=1670, comm="/system/bin/sa_main"  path="/dev/fuse" dev="" ino=17 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+allow pasteboard_service dev_fuse_file:chr_file { read write };
