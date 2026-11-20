@@ -114,7 +114,7 @@ allow subspawn system_core_hap_attr:process { dyntransition sigkill signal };
 #avc:  denied  { sigkill } for  pid=6729 comm="subspawn_10013" scontext=u:r:subspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow subspawn isolated_render:process { dyntransition sigkill };
 
-#avc: denied { connect } scontext=u:r:debug_hap:s0 tcontext=u:r:subspawn:s0 tclass=unix_stream_socket
+#avc: denied { connect write } scontext=u:r:debug_hap:s0 tcontext=u:r:subspawn:s0 tclass=unix_dgram_socket
 allow hap_domain subspawn:unix_dgram_socket { connect write };
 
 #avc: denied { write getattr } scontext=u:r:debug_hap:s0 tcontext=u:r:subspawn:s0 tclass=fifo_file
