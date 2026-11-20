@@ -1,0 +1,141 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc: denied { get } scontext=u:r:pcie_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+allow pcie_host hdf_device_manager:hdf_devmgr_class { get };
+
+# avc: denied { add } scontext=u:r:pcie_host:s0 tcontext=u:object_r:hdf_pcie_driver_host_service:s0 tclass=hdf_devmgr_class permissive=1
+allow pcie_host hdf_pcie_driver_host_service:hdf_devmgr_class { add };
+
+# avc: denied { add } scontext=u:r:pcie_host:s0 tcontext=u:object_r:hdf_pcie_ddk_service:s0 tclass=hdf_devmgr_class permissive=1
+allow pcie_host hdf_pcie_ddk_service:hdf_devmgr_class { add };
+
+# avc: denied { get } scontext=u:r:pcie_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+allow pcie_host sa_device_service_manager:samgr_class { get };
+
+# avc: denied { get } scontext=u:r:pcie_host:s0 tcontext=u:object_r:sa_hdf_ext_devmgr:s0 tclass=samgr_class permissive=1
+allow pcie_host sa_hdf_ext_devmgr:samgr_class { get };
+
+# avc: denied { module_load } scontext=u:r:pcie_host:s0 tcontext=u:r:kernel:s0 tclass=system permissive=1
+allow pcie_host kernel:system { module_load };
+
+# avc: denied { module_request } scontext=u:r:pcie_host:s0 tcontext=u:r:kernel:s0 tclass=system permissive=1
+allow pcie_host kernel:system { module_request };
+
+# On this kernel hook, finit_module is checked against the Driver file label.
+# avc: denied { module_load } scontext=u:r:pcie_host:s0 tcontext=u:object_r:pcie_driver_file:s0 tclass=system permissive=1
+allow pcie_host pcie_driver_file:system { module_load };
+
+# Required by module signature verification when searching the kernel trusted keyring.
+# avc: denied { search } scontext=u:r:pcie_host:s0 tcontext=u:r:kernel:s0 tclass=key permissive=1
+allow pcie_host kernel:key { search };
+
+# avc: denied { open read search getattr } scontext=u:r:pcie_host:s0 tcontext=u:object_r:sys_file:s0 tclass=dir permissive=1
+allow pcie_host sys_file:dir { open read search getattr };
+
+# avc: denied { getattr open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow pcie_host sys_file:file { getattr open read };
+
+# avc: denied { read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:sys_file:s0 tclass=lnk_file permissive=1
+allow pcie_host sys_file:lnk_file { read };
+
+# avc: denied { search } scontext=u:r:pcie_host:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow pcie_host data_file:dir { search };
+
+# avc: denied { search } scontext=u:r:pcie_host:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow pcie_host data_service_file:dir { search };
+
+# avc: denied { search } scontext=u:r:pcie_host:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow pcie_host data_service_el1_file:dir { search };
+
+# avc: denied { open read search getattr } scontext=u:r:pcie_host:s0 tcontext=u:object_r:pcie_driver_file:s0 tclass=dir permissive=1
+allow pcie_host pcie_driver_file:dir { open read search getattr };
+
+# avc: denied { bind create read setopt } scontext=u:r:pcie_host:s0 tcontext=u:r:pcie_host:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow pcie_host self:netlink_kobject_uevent_socket { bind create read setopt };
+
+# avc: denied { search } scontext=u:r:pcie_host:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow pcie_host dev_unix_socket:dir { search };
+
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+allow pcie_host hilog_param:file { map open read };
+
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow pcie_host musl_param:file { map open read };
+
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow pcie_host debug_param:file { map open read };
+
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=1
+allow pcie_host const_param:file { map open read };
+
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=1
+allow pcie_host startup_param:file { map open read };
+
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:init_param:s0 tclass=file permissive=1
+allow pcie_host init_param:file { map open read };
+
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=1
+allow pcie_host security_param:file { map open read };
+
+# avc: denied { getattr open } scontext=u:r:pcie_host:s0 tcontext=u:object_r:hdf_devhost_exec:s0 tclass=file permissive=1
+allow pcie_host hdf_devhost_exec:file { getattr open };
+
+# avc: denied { getattr ioctl open read write } scontext=u:r:pcie_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
+allow pcie_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+
+# PCIe Driver: read persist parameters and vendor config at startup
+# avc: denied { map open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+allow pcie_host persist_param:file { map open read };
+
+# avc: denied { search } scontext=u:r:pcie_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow pcie_host vendor_etc_file:dir { search };
+
+# avc: denied { getattr open read } scontext=u:r:pcie_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+allow pcie_host vendor_etc_file:file { getattr open read };
+
+# avc: denied { ioctl } scontext=u:r:pcie_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1 ioctlcmd=0x6201 ioctlcmd=0x6202 ioctlcmd=0x6203
+allowxperm pcie_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+
+# avc: denied { getattr } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/chip_prod/etc/hdfconfig/hdf_default.hcb" dev="overlay" ino=7 scontext=u:r:pcie_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/chip_prod/etc/hdfconfig/hdf_default.hcb" dev="overlay" ino=7 scontext=u:r:pcie_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/chip_prod/etc/hdfconfig/hdf_default.hcb" dev="overlay" ino=7 scontext=u:r:pcie_host:s0 tcontext=u:object_r:chip_prod_file:s0 tclass=file permissive=1
+allow pcie_host chip_prod_file:file { getattr open read };
+
+# avc: denied { getattr } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/data/service/el1/public/pcie_driver/abc_high.ko" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=34862 scontext=u:r:pcie_host:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/data/service/el1/public/pcie_driver/abc_high.ko" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=34862 scontext=u:r:pcie_host:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/data/service/el1/public/pcie_driver/abc_high.ko" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=34862 scontext=u:r:pcie_host:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow pcie_host pcie_driver_file:file { getattr open read };
+
+# avc: denied { ioctl } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/dev/binder" dev="" ino=13 ioctlcmd=0x62aa scontext=u:r:pcie_host:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=1
+allow pcie_host dev_binder_file:chr_file { ioctl };
+
+# avc: denied { write } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/dev/kmsg" dev="" ino=30 scontext=u:r:pcie_host:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow pcie_host dev_kmsg_file:chr_file { write };
+
+# avc: denied { call } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+allow pcie_host hdf_devmgr:binder { call transfer };
+
+# avc: denied { call } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=binder permissive=1
+allow pcie_host hdf_ext_devmgr:binder { call };
+
+# avc: denied { module_load } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:pcie_host:s0 tclass=system permissive=1
+allow pcie_host pcie_host:system { module_load };
+
+# avc: denied { call } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=6904, comm="/vendor/bin/hdf_devhost"  scontext=u:r:pcie_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
+allow pcie_host samgr:binder { call transfer };
+
+# avc: denied { ioctl } for pid=6904, comm="/vendor/bin/hdf_devhost"  path="/dev/binder" dev="" ino=13 ioctlcmd=0x62aa scontext=u:r:pcie_host:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=1
+allowxperm pcie_host dev_binder_file:chr_file ioctl { 0x62aa };

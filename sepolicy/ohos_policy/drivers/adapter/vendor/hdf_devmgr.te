@@ -233,4 +233,8 @@ allow hdf_devmgr ethernet_host:file { read open };
 allow hdf_devmgr ethernet_host:process { getattr };
 allow hdf_devmgr ethernet_host:dir { search };
 
+# avc: denied { call } for pid=700, comm="/system/bin/hdf_devmgr"  scontext=u:r:hdf_devmgr:s0 tcontext=u:r:pcie_host:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=700, comm="/system/bin/hdf_devmgr"  scontext=u:r:hdf_devmgr:s0 tcontext=u:r:pcie_host:s0 tclass=binder permissive=1
+allow hdf_devmgr pcie_host:binder { call transfer };
+
 allow hdf_devmgr hdf_ctx_file:file { getattr map open read };
