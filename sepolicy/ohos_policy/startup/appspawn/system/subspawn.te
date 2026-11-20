@@ -180,3 +180,13 @@ allow subspawn dev_xpm:chr_file { ioctl read write open };
 #avc: denied { ioctl } scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file ioctlcmd=0x7801
 #avc: denied { ioctl } scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file ioctlcmd=0x7802
 allowxperm subspawn dev_xpm:chr_file ioctl { 0x7801 0x7802 };
+
+# avc:  denied  { read open write ioctl } for  pid=6728 comm="subspawn" path="/dev/encaps" dev="mmcblk0p7" ino=2480 scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=1
+allow subspawn dev_encaps:chr_file { read open write ioctl };
+
+# avc:  denied  { ioctl } for  pid=6728 comm="subspawn" path="/dev/encaps" dev="mmcblk0p7" ino=2480 ioctlcmd=0x4518 scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=6728 comm="subspawn" path="/dev/encaps" dev="mmcblk0p7" ino=2480 ioctlcmd=0x451a scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=6728 comm="subspawn" path="/dev/encaps" dev="mmcblk0p7" ino=2480 ioctlcmd=0x451d scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=6728 comm="subspawn" path="/dev/encaps" dev="mmcblk0p7" ino=2480 ioctlcmd=0x451e scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=6728 comm="subspawn" path="/dev/encaps" dev="mmcblk0p7" ino=2480 ioctlcmd=0x451f scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_encaps:s0 tclass=chr_file permissive=1
+allowxperm subspawn dev_encaps:chr_file ioctl { 0x4518 0x451a 0x451d 0x451e 0x451f };
