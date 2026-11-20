@@ -37,7 +37,10 @@ allow scan_service dev_bus_usb_file:dir { open read search };
 allow scan_service dev_bus_usb_file:chr_file { ioctl open read write };
 allow scan_service proc_cpuinfo_file:file { getattr open read };
 allow scan_service netsysnative:unix_stream_socket { connectto };
-allow scan_service normal_hap:binder { call };
+
+# avc: denied { transfer } for comm="/system/bin/sa_main" scontext=u:r:scan_service:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
+allow scan_service normal_hap_attr:binder { call transfer };
+
 allow scan_service normal_hap:fd { use };
 allow scan_service system_basic_hap:binder { call };
 allow scan_service system_basic_hap:fd { use };
@@ -74,9 +77,20 @@ allow debug_hap_attr scan_service:fd { use };
 allow scan_service data_service_sane_service_config_file:dir { write add_name search getattr };
 allow scan_service data_service_sane_service_config_file:file { create open read write setattr getattr ioctl };
 allowxperm scan_service data_service_sane_service_config_file:file ioctl 0x5413;
+
+# avc: denied { write add_name remove_name } for comm="/system/bin/sa_main" scontext=u:r:scan_service:s0 tcontext=u:object_r:sane_service_cert_file:s0 tclass=dir permissive=1
+allow scan_service sane_service_cert_file:dir { search write add_name remove_name };
+
+# avc: denied { rename unlink } for comm="/system/bin/sa_main" scontext=u:r:scan_service:s0 tcontext=u:object_r:sane_service_cert_file:s0 tclass=file permissive=1
+allow scan_service sane_service_cert_file:file { getattr open read rename unlink };
+
 allow scan_service data_service_scan_service_driver_file:dir { write add_name search };
 allow scan_service data_service_scan_service_driver_file:lnk_file { create getattr read };
 allow scan_service sa_foundation_appms:samgr_class { get };
+
+# avc: denied { get } for comm="/system/bin/sa_main" scontext=u:r:scan_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow scan_service sa_foundation_abilityms:samgr_class { get };
+
 # avc: denied { call } for pid=8238, comm="/system/bin/sa_main"  scontext=u:r:scan_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
 allow scan_service accountmgr:binder { call };
 # avc:  denied  { get } for service=200 sid=u:r:scan_service:s0 scontext=u:r:scan_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1

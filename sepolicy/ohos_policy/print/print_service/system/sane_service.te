@@ -17,6 +17,13 @@ allow sane_service data_service_el2_file:dir { search };
 allow sane_service data_service_file:dir { search };
 allow sane_service data_service_sane_service_config_file:dir { open read search };
 allow sane_service data_service_sane_service_config_file:file { getattr open read };
+
+# avc: denied { write add_name remove_name } for comm="sane_service" scontext=u:r:sane_service:s0 tcontext=u:object_r:sane_service_cert_file:s0 tclass=dir permissive=1
+allow sane_service sane_service_cert_file:dir { search write add_name remove_name };
+
+# avc: denied { create write rename } for comm="sane_service" scontext=u:r:sane_service:s0 tcontext=u:object_r:sane_service_cert_file:s0 tclass=file permissive=1
+allow sane_service sane_service_cert_file:file { create open read write getattr setattr unlink rename };
+
 allow sane_service data_service_sane_service_tmp_file:dir { search write add_name search write remove_name search create getattr open read rmdir };
 allow sane_service data_service_sane_service_tmp_file:file { create getattr ioctl open read write unlink append };
 allow sane_service data_service_scan_service_driver_file:dir { open read search };
