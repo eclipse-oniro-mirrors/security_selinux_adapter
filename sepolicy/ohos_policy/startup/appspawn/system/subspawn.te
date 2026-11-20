@@ -1,0 +1,182 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { transition } for  pid=8797 comm="subspawn_10013" path="/system/bin/subspawn" dev="mmcblk0p7" ino=5298 scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=process permissive=1
+# avc:  denied  { rlimitinh } for  pid=8797 comm="subspawn" scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=8797 comm="subspawn" scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=process permissive=1
+domain_auto_transition_pattern(appspawn, subspawn_exec, subspawn)
+
+# avc:  denied  { signal } for  pid=8685 comm="appspawn-mt" scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=process permissive=1
+#avc: denied { sigkill } scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=process
+allow appspawn subspawn:process { sigkill signal };
+
+# avc:  denied  { nnp_transition } for  pid=8797 comm="subspawn_10013" scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=process2 permissive=1
+allow appspawn subspawn:process2 { nnp_transition };
+
+#avc: denied { read getattr map } scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=file
+allow subspawn appspawn:file { read getattr map };
+
+#avc:  denied  { getattr } for  pid=6728 comm="subspawn" path=2F6D656D66643A737562737061776E2D6D657373616765202864656C6574656429 dev="tmpfs" ino=4017 scontext=u:r:subspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
+#avc: denied { read map } scontext=u:r:subspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=file
+allow subspawn tmpfs:file { getattr read map };
+
+#avc:  denied  { write } for  pid=6728 comm="subspawn" path="pipe:[32773]" dev="pipefs" ino=32773 scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=fifo_file permissive=1
+#avc:  denied  { getattr } for  pid=6728 comm="subspawn" path="pipe:[32773]" dev="pipefs" ino=32773 scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=fifo_file permissive=1
+#avc: denied { read } scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=fifo_file
+allow subspawn appspawn:fifo_file { read write getattr };
+
+#avc:  denied  { use } for  pid=6728 comm="subspawn" path="/dev/null" dev="tmpfs" ino=3 scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=fd permissive=1
+allow subspawn appspawn:fd { use };
+
+#avc: denied { read write getopt setopt } scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_stream_socket
+allow subspawn appspawn:unix_stream_socket { read write getopt setopt };
+
+#avc: denied { read write } scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket
+allow subspawn appspawn:unix_dgram_socket { read write };
+
+#avc: denied { read write } scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=unix_dgram_socket
+allow appspawn subspawn:unix_dgram_socket { read write };
+
+#avc:  denied  { setgid } for  pid=6731 comm="com.example.myapplication" capability=6  scontext=u:r:subspawn:s0 tcontext=u:r:subspawn:s0 tclass=capability permissive=1
+#avc: denied { setuid kill } scontext=u:r:subspawn:s0 tcontext=u:r:subspawn:s0 tclass=capability
+allow subspawn subspawn:capability { setuid setgid kill };
+
+#avc:  denied  { fork } for  pid=6729 comm="subspawn_10013" scontext=u:r:subspawn:s0 tcontext=u:r:subspawn:s0 tclass=process permissive=1
+#avc:  denied  { setcurrent } for  pid=6731 comm="com.example.myapplication" scontext=u:r:subspawn:s0 tcontext=u:r:subspawn:s0 tclass=process permissive=1
+#avc: denied { transition sigchld signal sigkill } scontext=u:r:subspawn:s0 tcontext=u:r:subspawn:s0 tclass=process
+allow subspawn self:process { setcurrent fork transition sigchld signal sigkill };
+
+#avc:  denied  { check_context } for  pid=6731 comm="com.example.myapplication" scontext=u:r:subspawn:s0 tcontext=u:object_r:security:s0 tclass=security permissive=1
+allow subspawn security:security { check_context };
+
+#avc:  denied  { search } for  pid=6731 comm="com.example.myapplication" name="/" dev="selinuxfs" ino=1 scontext=u:r:subspawn:s0 tcontext=u:object_r:selinuxfs:s0 tclass=dir permissive=1
+allow subspawn selinuxfs:dir { search };
+
+#avc:  denied  { read write } for  pid=6731 comm="com.example.myapplication" name="context" dev="selinuxfs" ino=5 scontext=u:r:subspawn:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=6731 comm="com.example.myapplication" path="/sys/fs/selinux/context" dev="selinuxfs" ino=5 scontext=u:r:subspawn:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+allow subspawn selinuxfs:file { open read write };
+
+#avc: denied { create bind listen getopt setopt } scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_stream_socket
+allow appspawn self:unix_stream_socket { create bind listen getopt setopt };
+
+# avc:  denied  { setsockcreate } for  pid=8797 comm="appspawn-mt" scontext=u:r:appspawn:s0 tcontext=u:r:appspawn:s0 tclass=process permissive=1
+allow appspawn self:process setsockcreate;
+
+# avc:  denied  { create } for  pid=8797 comm="appspawn-mt" scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=unix_stream_socket permissive=1
+# avc:  denied  { bind } for  pid=8797 comm="appspawn-mt" scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=unix_stream_socket permissive=1
+# avc:  denied  { listen } for  pid=8797 comm="appspawn-mt" path="/data/service/el1/startup/subspawn_20010013" scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=unix_stream_socket permissive=1
+#avc: denied { getopt setopt } scontext=u:r:appspawn:s0 tcontext=u:r:subspawn:s0 tclass=unix_stream_socket
+allow appspawn subspawn:unix_stream_socket { create bind listen getopt setopt };
+type_transition appspawn data_service_el1_file:sock_file subspawn_socket;
+
+# avc:  denied  { search } for  pid=8797 comm="appspawn-mt" name="el1" dev="mmcblk0p15" ino=15 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=8797 comm="appspawn-mt" name="startup" dev="mmcblk0p15" ino=16 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { add_name } for  pid=8797 comm="appspawn-mt" name="subspawn_20010013" scontext=u:r:appspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { remove_name } for  pid=8685 comm="appspawn-mt" name="subspawn_20010013" dev="mmcblk0p15" ino=4132 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+#avc: denied { getattr } scontext=u:r:appspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir
+allow appspawn data_service_el1_file:dir { search write add_name remove_name getattr };
+
+# avc:  denied  { create } for  pid=8797 comm="appspawn-mt" name="subspawn_20010013" scontext=u:r:appspawn:s0 tcontext=u:object_r:subspawn_socket:s0 tclass=sock_file permissive=1
+# avc:  denied  { setattr } for  pid=8797 comm="appspawn-mt" name="subspawn_20010013" dev="mmcblk0p15" ino=4132 scontext=u:r:appspawn:s0 tcontext=u:object_r:subspawn_socket:s0 tclass=sock_file permissive=1
+# avc:  denied  { unlink } for  pid=8685 comm="appspawn-mt" name="subspawn_20010013" dev="mmcblk0p15" ino=4132 scontext=u:r:appspawn:s0 tcontext=u:object_r:subspawn_socket:s0 tclass=sock_file permissive=1
+#avc: denied { write getattr } scontext=u:r:appspawn:s0 tcontext=u:object_r:subspawn_socket:s0 tclass=sock_file
+allow appspawn subspawn_socket:sock_file { create write setattr getattr unlink };
+
+#avc: denied { accept read write getopt setopt } scontext=u:r:subspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_stream_socket
+allow subspawn appspawn:unix_stream_socket { accept read write getopt setopt };
+
+#avc: denied { search getattr } scontext=u:r:subspawn:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir
+allow subspawn data_service_el1_file:dir { search getattr };
+
+#avc: denied { write getattr } scontext=u:r:subspawn:s0 tcontext=u:object_r:subspawn_socket:s0 tclass=sock_file
+allow subspawn subspawn_socket:sock_file { write getattr };
+
+#avc: denied { dyntransition sigkill signal } scontext=u:r:subspawn:s0 tcontext=u:r:normal_hap:s0 tclass=process
+allow subspawn normal_hap_attr:process { dyntransition sigkill signal };
+
+#avc: denied { dyntransition sigkill signal } scontext=u:r:subspawn:s0 tcontext=u:r:system_basic_hap:s0 tclass=process
+allow subspawn system_basic_hap_attr:process { dyntransition sigkill signal };
+
+#avc: denied { dyntransition sigkill signal } scontext=u:r:subspawn:s0 tcontext=u:r:system_core_hap:s0 tclass=process
+allow subspawn system_core_hap_attr:process { dyntransition sigkill signal };
+
+#avc:  denied  { dyntransition } for  pid=6731 comm="com.example.myapplication" scontext=u:r:subspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+#avc:  denied  { sigkill } for  pid=6729 comm="subspawn_10013" scontext=u:r:subspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+allow subspawn isolated_render:process { dyntransition sigkill };
+
+#avc: denied { connect write } scontext=u:r:debug_hap:s0 tcontext=u:r:subspawn:s0 tclass=unix_dgram_socket
+allow hap_domain subspawn:unix_dgram_socket { connect write };
+
+#avc: denied { write getattr } scontext=u:r:debug_hap:s0 tcontext=u:r:subspawn:s0 tclass=fifo_file
+allow hap_domain subspawn:fifo_file { write getattr };
+
+#avc: denied { use } scontext=u:r:debug_hap:s0 tcontext=u:r:subspawn:s0 tclass=fd
+allow hap_domain subspawn:fd { use };
+
+#avc:  denied  { search } for  pid=6728 comm="subspawn" name="/" dev="proc" ino=1 scontext=u:r:subspawn:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
+#avc: denied { getattr } scontext=u:r:subspawn:s0 tcontext=u:object_r:proc_file:s0 tclass=dir
+allow subspawn proc_file:dir { search getattr };
+
+#avc: denied { open read getattr } scontext=u:r:subspawn:s0 tcontext=u:object_r:proc_file:s0 tclass=file
+allow subspawn proc_file:file { open read getattr };
+
+#avc:  denied  { read } for  pid=6728 comm="subspawn" name="self" dev="proc" ino=4026531842 scontext=u:r:subspawn:s0 tcontext=u:object_r:proc_file:s0 tclass=lnk_file permissive=1
+allow subspawn proc_file:lnk_file read;
+
+#avc:  denied  { map } for  pid=6728 comm="subspawn" path="/system/bin/subspawn" dev="mmcblk0p7" ino=5324 scontext=u:r:subspawn:s0 tcontext=u:object_r:subspawn_exec:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=6728 comm="subspawn" path="/system/bin/subspawn" dev="mmcblk0p7" ino=5324 scontext=u:r:subspawn:s0 tcontext=u:object_r:subspawn_exec:s0 tclass=file permissive=1
+#avc:  denied  { execute } for  pid=6728 comm="subspawn" path="/system/bin/subspawn" dev="mmcblk0p7" ino=5324 scontext=u:r:subspawn:s0 tcontext=u:object_r:subspawn_exec:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=6728 comm="subspawn" path="/system/bin/subspawn" dev="mmcblk0p7" ino=5324 scontext=u:r:subspawn:s0 tcontext=u:object_r:subspawn_exec:s0 tclass=file permissive=1
+#avc:  denied  { execute_no_trans } for  pid=6728 comm="subspawn" path="/system/bin/subspawn" dev="mmcblk0p7" ino=5324 scontext=u:r:subspawn:s0 tcontext=u:object_r:subspawn_exec:s0 tclass=file permissive=1
+#avc: denied { getattr } scontext=u:r:subspawn:s0 tcontext=u:object_r:subspawn_exec:s0 tclass=file
+allow subspawn subspawn_exec:file { read open getattr map execute execute_no_trans };
+
+#avc:  denied  { search } for  pid=6728 comm="subspawn" name="socket" dev="tmpfs" ino=43 scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow subspawn dev_unix_socket:dir search;
+
+#avc:  denied  { read } for  pid=6728 comm="subspawn" name="common" dev="mmcblk0p7" ino=2370 scontext=u:r:subspawn:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
+#avc:  denied  { open } for  pid=6728 comm="subspawn" path="/system/lib/appspawn/common" dev="mmcblk0p7" ino=2370 scontext=u:r:subspawn:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
+allow subspawn system_lib_file:dir { open read };
+
+#avc: denied { ioctl } scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file
+allow subspawn dev_at_file:chr_file ioctl;
+
+#avc:  denied  { read } for  pid=6728 comm="subspawn" name="u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:subspawn:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=6728 comm="subspawn" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:subspawn:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=6728 comm="subspawn" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=72 scontext=u:r:subspawn:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow subspawn debug_param:file { read open map };
+
+#avc:  denied  { read } for  pid=6728 comm="subspawn" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=85 scontext=u:r:subspawn:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=6728 comm="subspawn" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=85 scontext=u:r:subspawn:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=6728 comm="subspawn" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=85 scontext=u:r:subspawn:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
+allow subspawn arkcompiler_param:file { read open map };
+
+#avc:  denied  { getopt } for  pid=6728 comm="subspawn" scontext=u:r:subspawn:s0 tcontext=u:r:subspawn:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { setopt } for  pid=6728 comm="subspawn" scontext=u:r:subspawn:s0 tcontext=u:r:subspawn:s0 tclass=unix_dgram_socket permissive=1
+allow subspawn subspawn:unix_dgram_socket { getopt setopt };
+
+#avc:  denied  { sendto } for  pid=6728 comm="subspawn" path="/dev/unix/socket/hisysevent" scontext=u:r:subspawn:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=1
+allow subspawn hiview:unix_dgram_socket { sendto };
+
+#avc: denied { search getattr } scontext=u:r:subspawn:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir
+allow subspawn data_app_el1_file:dir { search getattr };
+
+#avc: denied { execute read getattr map open } scontext=u:r:subspawn:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file
+allow subspawn data_app_el1_file:file { execute read getattr map open };
+
+#avc: denied { ioctl read write open } scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file
+allow subspawn dev_xpm:chr_file { ioctl read write open };
+
+#avc: denied { ioctl } scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file ioctlcmd=0x7801
+#avc: denied { ioctl } scontext=u:r:subspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file ioctlcmd=0x7802
+allowxperm subspawn dev_xpm:chr_file ioctl { 0x7801 0x7802 };

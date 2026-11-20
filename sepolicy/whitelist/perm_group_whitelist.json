@@ -4,6 +4,7 @@
             "name": "execute and execute_no_trans",
             "user": [
                 "appspawn appspawn_exec",
+                "subspawn subspawn_exec",
                 "cjappspawn cjappspawn_exec",
                 "nwebspawn appspawn_exec",
                 "nwebspawn nwebspawn_exec",

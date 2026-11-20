@@ -13,9 +13,9 @@
 
 type dev_encaps, dev_attr;
 
-neverallow { domain -appspawn -init -nativespawn -ueventd -violator_dev_encaps_chr_file_attr pc_only(`-claw_sandbox_loader') tablet_hybrid_only(`-claw_sandbox_loader') -accountmgr } dev_encaps:chr_file *;
-neverallowxperm { domain -appspawn -init -nativespawn } dev_encaps:chr_file ioctl { 0x4518 0x451a 0x451d 0x451e };
-neverallowxperm { domain -appspawn -init -nativespawn pc_only(`-claw_sandbox_loader') tablet_hybrid_only(`-claw_sandbox_loader') } dev_encaps:chr_file ioctl { 0x451f };
+neverallow { domain -appspawn -init -nativespawn -subspawn -ueventd -violator_dev_encaps_chr_file_attr pc_only(`-claw_sandbox_loader') tablet_hybrid_only(`-claw_sandbox_loader') -accountmgr } dev_encaps:chr_file *;
+neverallowxperm { domain -appspawn -init -nativespawn -subspawn } dev_encaps:chr_file ioctl { 0x4518 0x451a 0x451d 0x451e };
+neverallowxperm { domain -appspawn -init -nativespawn -subspawn pc_only(`-claw_sandbox_loader') tablet_hybrid_only(`-claw_sandbox_loader') } dev_encaps:chr_file ioctl { 0x451f };
 neverallowxperm { domain -violator_dev_encaps_chr_file_attr } dev_encaps:chr_file ioctl { 0x4515 0x4516 0x4524 };
 neverallowxperm { domain } dev_encaps:chr_file ioctl ~{ 0x4515 0x4516 0x4518 0x451a 0x451d 0x451e 0x451f 0x4521 0x4522 0x4524 };
 neverallowxperm { domain -accountmgr } dev_encaps:chr_file ioctl { 0x4521 0x4522 };
