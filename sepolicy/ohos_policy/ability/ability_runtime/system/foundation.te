@@ -24,6 +24,9 @@ allow foundation subspawn_socket:sock_file { write };
 #avc: denied { connectto } scontext=u:r:foundation:s0 tcontext=u:r:subspawn:s0 tclass=unix_stream_socket
 allow foundation subspawn:unix_stream_socket { connectto };
 
+#avc: denied { sigkill } for pid=1717, comm="/system/bin/sa_main"  scontext=u:r:foundation:s0 tcontext=u:r:subspawn:s0 tclass=process permissive=0
+allow foundation subspawn:process { sigkill };
+
 allow foundation bootevent_param:file { map open read };
 allow foundation bootevent_param:parameter_service { set };
 allow foundation configfs:dir { remove_name rmdir search write };
