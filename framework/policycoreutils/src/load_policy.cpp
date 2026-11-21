@@ -453,9 +453,8 @@ void InitBoolPolicy(void)
         return;
     }
     fdsan_exchange_owner_tag(fd, 0, SECURITY_SELINUX_ADAPTER);
-    if (ioctl(fd, DSG_CMD_INIT, NULL) != 0) {
-        selinux_log(SELINUX_ERROR, "Ioctl %s failed, %d, %s\n", DEV_DSG, errno, strerror(errno));
-    }
+    (void)ioctl(fd, DSG_CMD_INIT, NULL);
+    selinux_log(SELINUX_WARNING, "Init bool policy trigger finish\n");
     (void)fdsan_close_with_tag(fd, SECURITY_SELINUX_ADAPTER);
 }
 
