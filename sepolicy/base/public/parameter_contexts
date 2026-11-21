@@ -46,7 +46,7 @@ hilog.private.on                        u:object_r:hilog_private_param:s0
 hilog.debug.on                          u:object_r:hilog_private_param:s0
 persist.sys.hilog.debug.on              u:object_r:hilog_private_param:s0
 libc.hook_mode                          u:object_r:hook_param:s0
-libc.hook_mode.                         u:object_r:hook_param:s0
+libc.hook_mode.startup_mode             u:object_r:hook_param:s0
 persist.                                u:object_r:persist_param:s0
 persist.sys.                            u:object_r:persist_sys_param:s0
 persist.sys.hilog.                      u:object_r:hilog_param:s0
