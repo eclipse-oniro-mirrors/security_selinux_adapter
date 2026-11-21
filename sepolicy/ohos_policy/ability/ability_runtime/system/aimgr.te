@@ -68,6 +68,21 @@ allow aimgr aimgr:unix_dgram_socket { getopt setopt };
 # avc: denied { sigkill } for pid=10572, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0 tclass=process permissive=0
 allow aimgr claw_cli:process { getpgid signal sigkill };
 
+# avc: denied { search } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0:x243,x334,x512,x868,x1024 tclass=dir permissive=1
+allow aimgr claw_sandbox_loader:dir { search };
+# avc: denied { open } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_sandbox_loader:s0:x243,x334,x512,x868,x1024 tclass=file permissive=1
+# avc: denied { read } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_sandbox_loader:s0:x243,x334,x512,x868,x1024 tclass=file permissive=1
+# avc: denied { getattr } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_sandbox_loader:s0:x243,x334,x512,x868,x1024 tclass=file permissive=1
+allow aimgr claw_sandbox_loader:file { open read getattr };
+# avc: denied { setsched } for pid=15504, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:claw_sandbox_loader:s0:x243,x334,x512,x868,x1024 tclass=process permissive=1
+allow aimgr claw_sandbox_loader:process { setsched };
+# avc: denied { search } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0:x243,x334,x512,x868,x1024 tclass=dir permissive=1
+allow aimgr claw_cli:dir { search };
+# avc: denied { open } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0:x243,x334,x512,x868,x1024 tclass=file permissive=1
+# avc: denied { read } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0:x243,x334,x512,x868,x1024 tclass=file permissive=1
+# avc: denied { getattr } for pid=15504, comm="/system/bin/sa_main"  name="/18234" dev="" ino=41583 scontext=u:r:aimgr:s0 tcontext=u:r:claw_cli:s0:x243,x334,x512,x868,x1024 tclass=file permissive=1
+allow aimgr claw_cli:file { open read getattr };
+
 # avc: denied { getpgid } for pid=19669, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:ai_shell:s0 tclass=process permissive=1
 # avc: denied { signal } for pid=10041, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:ai_shell:s0 tclass=process permissive=0
 # avc: denied { sigkill } for pid=10572, comm="/system/bin/sa_main"  scontext=u:r:aimgr:s0 tcontext=u:r:ai_shell:s0 tclass=process permissive=0
