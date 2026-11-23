@@ -15,5 +15,9 @@ allow system_basic_hap_attr appspawn:unix_stream_socket { read write };
 allow system_basic_hap_attr data_app_el1_file:dir { getattr };
 allow system_basic_hap_attr sa_usb_service:samgr_class { get };
 allow system_basic_hap_attr usb_service:binder { call };
+
+# avc: denied { transfer } for pid=21830, comm="/system/bin/appspawn" scontext=u:r:system_basic_hap:s0 tcontext=u:r:usb_service:s0 tclass=binder permissive=0
+allow system_basic_hap_attr usb_service:binder { transfer };
+
 allow system_basic_hap_attr usb_setting_param:parameter_service {set};
 allow system_basic_hap_attr usb_service:fd { use };
