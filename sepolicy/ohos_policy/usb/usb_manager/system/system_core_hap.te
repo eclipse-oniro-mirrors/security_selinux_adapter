@@ -19,5 +19,4 @@ allow system_core_hap_attr usb_service:binder { call };
 # avc: denied { transfer } for pid=14410, comm="/system/bin/appspawn" scontext=u:r:system_core_hap:s0 tcontext=u:r:usb_service:s0 tclass=binder permissive=0
 allow system_core_hap_attr usb_service:binder { transfer };
 
-
 allow system_core_hap_attr usb_setting_param:parameter_service {set};
