@@ -33,8 +33,8 @@
 #endif
 
 #define HM_DSG_IOCTL_BASE 'd'
-#define HM_DSG_INIT_ID 0x11
-#define DSG_CMD_INIT _IO(HM_DSG_IOCTL_BASE, HM_DSG_INIT_ID) // 0x6411
+#define HM_DSG_INIT_ID 0xFF
+#define DSG_CMD_INIT _IO(HM_DSG_IOCTL_BASE, HM_DSG_INIT_ID) // 0x64FF
 
 namespace {
 static constexpr unsigned int SECURITY_SELINUX_ADAPTER = 0xC05A03;
