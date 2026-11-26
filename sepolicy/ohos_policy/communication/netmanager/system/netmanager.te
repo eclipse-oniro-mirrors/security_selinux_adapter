@@ -166,3 +166,18 @@ allow netmanager drm_service:binder { call };
 
 # avc:  denied { get } for service=3524 sid=u:r:netmanager:s0 scontext=u:r:netmanager:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=0
 allow netmanager sa_sg_collect_service:samgr_class { get };
+
+# avc: denied { search } for pid=1188, comm="/system/bin/sa_main" name="/service/el1/public/update/param_service" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=195 scontext=u:r:netmanager:s0 tcontext=u:object_r:update_param_file:s0 tclass=dir permissive=1
+allow netmanager update_param_file:dir { search };
+
+# avc: denied { search } for pid=1188, comm="/system/bin/sa_main" name="/service/el1/public/update/param_service/install" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=198 scontext=u:r:netmanager:s0 tcontext=u:object_r:update_param_install_file:s0 tclass=dir permissive=1
+allow netmanager update_param_install_file:dir { search };
+
+# avc: denied { search } for pid=1188, comm="/system/bin/sa_main" name="/service/el1/public/update/param_service/install/system/etc/RcpCellular/generic" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=106520 scontext=u:r:netmanager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=dir permissive=1
+allow netmanager update_param_install_file_system:dir { search };
+
+# avc: denied { getattr } for pid=1188, comm="/system/bin/sa_main" path="/data/service/el1/public/update/param_service/install/system/etc/RcpCellular/generic/prefer_cellular_regex_list.txt" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=106531 scontext=u:r:netmanager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
+# avc: denied { open } for pid=1188, comm="/system/bin/sa_main" path="/data/service/el1/public/update/param_service/install/system/etc/RcpCellular/generic/prefer_cellular_regex_list.txt" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=106531 scontext=u:r:netmanager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
+# avc: denied { read } for pid=1188, comm="/system/bin/sa_main" path="/data/service/el1/public/update/param_service/install/system/etc/RcpCellular/generic/prefer_cellular_regex_list.txt" dev="/dev/block/platform/ee560000.ufs/by-name/userdata" ino=106531 scontext=u:r:netmanager:s0 tcontext=u:object_r:update_param_install_file_system:s0 tclass=file permissive=1
+allow netmanager update_param_install_file_system:file { getattr open read };
+
