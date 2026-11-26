@@ -109,5 +109,5 @@ allow storage_manager dev_block_volfile:dir { search };
 allow storage_manager dev_block_file:dir { search };
 # avc: denied { read } for pid=647, comm="/system/bin/sa_main" name="/block/by-name/hyperhold_slc" dev="" ino=324 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
 allow storage_manager dev_block_file:lnk_file { read };
-# avc: denied { getattr } for pid=647, comm="/system/bin/sa_main" name="/sys/class/block/sdg/size" dev="" ino=68378 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=647, comm="/system/bin/sa_main" path="/sys/class/block/sdg/size" dev="" ino=68378 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 allow storage_manager sys_file:file { getattr };
