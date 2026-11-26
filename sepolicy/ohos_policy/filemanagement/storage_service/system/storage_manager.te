@@ -102,3 +102,12 @@ allow storage_manager security_guard:binder { call };
 allow storage_manager sa_storage_space_manager_service:samgr_class { get };
 # avc: denied { call } for pid=674, comm="/system/bin/sa_main" scontext=u:r:storage_manager:s0 tcontext=u:security_guard:s0 tclass=binder permissive=0
 allow storage_manager storage_space_manager:binder { call };
+
+# avc: denied { search } for pid=647, comm="/system/bin/sa_main" name="/block" dev="" ino=65 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=dir permissive=1
+allow storage_manager dev_block_volfile:dir { search };
+# avc: denied { search } for pid=647, comm="/system/bin/sa_main" name="/block/by-name" dev="" ino=86 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+allow storage_manager dev_block_file:dir { search };
+# avc: denied { read } for pid=647, comm="/system/bin/sa_main" name="/block/by-name/hyperhold_slc" dev="" ino=324 scontext=u:r:storage_manager:s0 tcontext=u:object_r:dev_block_file:s0 tclass=lnk_file permissive=1
+allow storage_manager dev_block_file:lnk_file { read };
+# avc: denied { getattr } for pid=647, comm="/system/bin/sa_main" name="/sys/class/block/sdg/size" dev="" ino=68378 scontext=u:r:storage_manager:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow storage_manager sys_file:file { getattr };
