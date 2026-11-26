@@ -87,3 +87,6 @@ allow av_session sa_foundation_cesfwk_service:samgr_class { get };
 allow av_session accountmgr:binder { transfer };
 
 allow av_session arkui_param:file { map open read };
+
+# avc:  denied  { get } for service=1901 sid=u:r:av_session:s0 scontext=u:r:av_session:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow av_session sa_resource_schedule:samgr_class { get };
